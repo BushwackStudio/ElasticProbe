@@ -10,5 +10,6 @@ test-coverage-html/
 .phpunit.result.cache
 screenshots
 .DS_Store
+*.code-workspace
 
 elasticpress.zip
