@@ -1,8 +1,8 @@
 {
-  "name": "bushwack/elasticpress",
+  "name": "bushwack/wpprobe",
   "description": "Supercharge WordPress with Elasticsearch.",
   "type": "wordpress-plugin",
-  "keywords": ["wordpress", "plugin", "elasticsearch", "elasticpress", "search"],
+  "keywords": ["wordpress", "plugin", "elasticsearch", "wpprobe", "search"],
   "license": ["GPL-2.0-only"],
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -69,9 +69,9 @@
     },
     "strauss": {
       "target_directory": "vendor-prefixed",
-      "namespace_prefix": "ElasticPress\\Vendor_Prefixed\\",
-      "classmap_prefix": "ElasticPress_Vendor_Prefixed_",
-      "constant_prefix": "EP_VENDOR_"
+      "namespace_prefix": "wpprobe\\Vendor_Prefixed\\",
+      "classmap_prefix": "WPProbe_Vendor_Prefixed_",
+      "constant_prefix": "WPP_VENDOR_"
     }
   },
   "config": {

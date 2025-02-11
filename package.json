@@ -1,6 +1,6 @@
 {
-  "name": "elasticpress",
-  "version": "5.1.4",
+  "name": "wpprobe",
+  "version": "0.1.0",
   "license": "GPL-2.0-or-later",
   "description": "A fast and flexible search and query engine for WordPress.",
   "dependencies": {
@@ -52,10 +52,10 @@
     "cypress:open": "cypress open --config-file tests/cypress/config.js",
     "cypress:run": "cypress run --config-file tests/cypress/config.js"
   },
-  "author": "10up",
+  "author": "BushwackStudio",
   "repository": {
     "type": "git",
-    "url": "https://github.com/10up/ElasticPress"
+    "url": "https://github.com/BushwackStudio/WpProbe"
   },
   "engineStrict": true,
   "engines": {

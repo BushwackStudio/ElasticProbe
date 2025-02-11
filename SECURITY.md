@@ -11,7 +11,7 @@ The following versions of this project are currently being supported with securi
 
 ## Reporting a Vulnerability
 
-You can report any security bugs found in the source code of ElasticPress through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/elasticpress). The Patchstack team will assist you with verification, CVE assignment and take care of notifying the developers of this plugin.
+You can report any security bugs found in the source code of WPProbe through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/elasticpress). The Patchstack team will assist you with verification, CVE assignment and take care of notifying the developers of this plugin.
 
 ## Responding to Vulnerability Reports
 
