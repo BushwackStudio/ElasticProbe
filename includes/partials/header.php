@@ -6,9 +6,9 @@
  * @package elasticpress
  */
 
-use ElasticPress\Elasticsearch;
-use ElasticPress\Screen;
-use ElasticPress\Utils;
+use WPProbe\Elasticsearch;
+use WPProbe\Screen;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.

@@ -5,9 +5,9 @@
  * @package  elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress;
+use WPProbe;
 
 /**
  * Unit test factory for the term.
@@ -30,7 +30,7 @@ class TermFactory extends \WP_UnitTest_Factory_For_Term {
 			return $term_id;
 		}
 
-		ElasticPress\Indexables::factory()->get( 'term' )->index( $term_id, true );
+		WPProbe\Indexables::factory()->get( 'term' )->index( $term_id, true );
 
 		return $term_id;
 	}

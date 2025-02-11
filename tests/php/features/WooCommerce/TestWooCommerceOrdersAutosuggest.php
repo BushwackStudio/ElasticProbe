@@ -6,9 +6,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress;
+use WPProbe;
 
 /**
  * WC Orders test class
@@ -17,14 +17,14 @@ class TestWooCommerceOrdersAutosuggest extends BaseTestCase {
 	/**
 	 * Instance of the feature
 	 *
-	 * @var ElasticPress\Feature\WooCommerce\WooCommerce
+	 * @var WPProbe\Feature\WooCommerce\WooCommerce
 	 */
 	public $woocommerce_feature;
 
 	/**
 	 * Orders instance
 	 *
-	 * @var \ElasticPress\Feature\WooCommerce\OrdersAutosuggest
+	 * @var \WPProbe\Feature\WooCommerce\OrdersAutosuggest
 	 */
 	public $orders_autosuggest;
 
@@ -36,15 +36,15 @@ class TestWooCommerceOrdersAutosuggest extends BaseTestCase {
 	 */
 	public function set_up() {
 		parent::set_up();
-		ElasticPress\Features::factory()->activate_feature( 'protected_content' );
-		ElasticPress\Features::factory()->activate_feature( 'woocommerce' );
+		WPProbe\Features::factory()->activate_feature( 'protected_content' );
+		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
 
-		$this->woocommerce_feature = ElasticPress\Features::factory()->get_registered_feature( 'woocommerce' );
+		$this->woocommerce_feature = WPProbe\Features::factory()->get_registered_feature( 'woocommerce' );
 		if ( empty( $this->woocommerce_feature->orders ) ) {
-			$this->woocommerce_feature->orders = new \ElasticPress\Feature\WooCommerce\Orders();
+			$this->woocommerce_feature->orders = new \WPProbe\Feature\WooCommerce\Orders();
 		}
 
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->setup_features();
 
 		$this->orders_autosuggest = $this->woocommerce_feature->orders_autosuggest;
 	}
@@ -117,7 +117,7 @@ class TestWooCommerceOrdersAutosuggest extends BaseTestCase {
 		$shop_order_1->save();
 		$shop_order_id_1 = (string) $shop_order_1->get_id();
 
-		$prepared_shop_order = ElasticPress\Indexables::factory()->get( 'post' )->prepare_document( $shop_order_id_1 );
+		$prepared_shop_order = WPProbe\Indexables::factory()->get( 'post' )->prepare_document( $shop_order_id_1 );
 		$order_with_suggest  = $this->orders_autosuggest->filter_term_suggest( $prepared_shop_order );
 
 		$this->assertSame(
@@ -303,7 +303,7 @@ class TestWooCommerceOrdersAutosuggest extends BaseTestCase {
 	 * @group woocommerce-orders-autosuggest
 	 */
 	public function test_is_available() {
-		$this->assertSame( $this->orders_autosuggest->is_available(), \ElasticPress\Utils\is_epio() );
+		$this->assertSame( $this->orders_autosuggest->is_available(), \WPProbe\Utils\is_epio() );
 
 		/**
 		 * Test the `ep_woocommerce_orders_autosuggest_available` filter

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "463df8aa30898a0a530fcd79778ba1a8",
+    "content-hash": "4fada30351c597efa73f50b9dd664fe7",
     "packages": [
         {
             "name": "composer/installers",
@@ -1734,6 +1734,46 @@
                 "source": "https://github.com/phar-io/version/tree/3.2.1"
             },
             "time": "2022-02-21T01:04:05+00:00"
+        },
+        {
+            "name": "php-stubs/wordpress-tests-stubs",
+            "version": "v6.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-stubs/wordpress-tests-stubs.git",
+                "reference": "37cc3f2136034cc239149151933e1c5be6ce6103"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-stubs/wordpress-tests-stubs/zipball/37cc3f2136034cc239149151933e1c5be6ce6103",
+                "reference": "37cc3f2136034cc239149151933e1c5be6ce6103",
+                "shasum": ""
+            },
+            "require-dev": {
+                "php": "^7.3 || ^8.0",
+                "php-stubs/generator": "^0.8.0"
+            },
+            "suggest": {
+                "symfony/polyfill-php73": "Symfony polyfill backporting some PHP 7.3+ features to lower PHP versions",
+                "szepeviktor/phpstan-wordpress": "WordPress extensions for PHPStan"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "WordPress Tests function and class declaration stubs for static analysis.",
+            "homepage": "https://github.com/php-stubs/wordpress-tests-stubs",
+            "keywords": [
+                "PHPStan",
+                "static analysis",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/php-stubs/wordpress-tests-stubs/issues",
+                "source": "https://github.com/php-stubs/wordpress-tests-stubs/tree/v6.7.1"
+            },
+            "time": "2024-11-23T22:07:27+00:00"
         },
         {
             "name": "phpcompatibility/php-compatibility",
@@ -5484,16 +5524,16 @@
         },
         {
             "name": "yoast/phpunit-polyfills",
-            "version": "3.1.1",
+            "version": "3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/PHPUnit-Polyfills.git",
-                "reference": "e6381c62c4df51677b657fbac79b79dfce7acdab"
+                "reference": "9cf2ccd990eadfc4a1e390592d4731e590b2c618"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/PHPUnit-Polyfills/zipball/e6381c62c4df51677b657fbac79b79dfce7acdab",
-                "reference": "e6381c62c4df51677b657fbac79b79dfce7acdab",
+                "url": "https://api.github.com/repos/Yoast/PHPUnit-Polyfills/zipball/9cf2ccd990eadfc4a1e390592d4731e590b2c618",
+                "reference": "9cf2ccd990eadfc4a1e390592d4731e590b2c618",
                 "shasum": ""
             },
             "require": {
@@ -5508,7 +5548,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "3.x-dev"
+                    "dev-main": "4.x-dev"
                 }
             },
             "autoload": {
@@ -5543,7 +5583,7 @@
                 "security": "https://github.com/Yoast/PHPUnit-Polyfills/security/policy",
                 "source": "https://github.com/Yoast/PHPUnit-Polyfills"
             },
-            "time": "2025-01-12T08:41:37+00:00"
+            "time": "2025-02-09T18:36:24+00:00"
         }
     ],
     "aliases": [],

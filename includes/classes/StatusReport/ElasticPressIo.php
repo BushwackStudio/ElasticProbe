@@ -6,11 +6,11 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\StatusReport;
+namespace WPProbe\StatusReport;
 
-use ElasticPress\Indexables;
-use ElasticPress\Feature\InstantResults;
-use ElasticPress\Utils;
+use WPProbe\Indexables;
+use WPProbe\Feature\InstantResults;
+use WPProbe\Utils;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -51,7 +51,7 @@ class ElasticPressIo extends Report {
 	 * @return array
 	 */
 	protected function get_autosuggest_group(): array {
-		$autosuggest_feature = \ElasticPress\Features::factory()->get_registered_feature( 'autosuggest' );
+		$autosuggest_feature = \WPProbe\Features::factory()->get_registered_feature( 'autosuggest' );
 
 		if ( ! $autosuggest_feature->is_active() ) {
 			return [];
@@ -110,7 +110,7 @@ class ElasticPressIo extends Report {
 	 * @return array
 	 */
 	protected function get_instant_results_group(): array {
-		$instant_results_feature = \ElasticPress\Features::factory()->get_registered_feature( 'instant-results' );
+		$instant_results_feature = \WPProbe\Features::factory()->get_registered_feature( 'instant-results' );
 
 		if ( ! $instant_results_feature->is_active() ) {
 			return [];
@@ -147,7 +147,7 @@ class ElasticPressIo extends Report {
 	 * @return array
 	 */
 	protected function get_orders_search_group(): array {
-		$woocommerce_feature = \ElasticPress\Features::factory()->get_registered_feature( 'woocommerce' );
+		$woocommerce_feature = \WPProbe\Features::factory()->get_registered_feature( 'woocommerce' );
 
 		if ( ! $woocommerce_feature->is_active() ) {
 			return [];
@@ -220,7 +220,7 @@ class ElasticPressIo extends Report {
 	 * @since 4.5.0
 	 */
 	public function get_messages(): array {
-		$messages = \ElasticPress\ElasticPressIo::factory()->get_endpoint_messages( true );
+		$messages = \WPProbe\ElasticPressIo::factory()->get_endpoint_messages( true );
 		$messages = array_values( $messages );
 
 		return $messages;
@@ -239,7 +239,7 @@ class ElasticPressIo extends Report {
 			return [];
 		}
 
-		$woocommerce_feature = \ElasticPress\Features::factory()->get_registered_feature( 'woocommerce' );
+		$woocommerce_feature = \WPProbe\Features::factory()->get_registered_feature( 'woocommerce' );
 		$template            = $woocommerce_feature->orders_autosuggest->get_search_template();
 
 		if ( is_wp_error( $template ) ) {

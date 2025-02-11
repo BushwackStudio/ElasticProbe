@@ -6,10 +6,10 @@
  * @package ElasticPress
  */
 
-namespace ElasticPress\Screen;
+namespace WPProbe\Screen;
 
-use ElasticPress\Screen;
-use ElasticPress\Utils;
+use WPProbe\Screen;
+use WPProbe\Utils;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -110,7 +110,7 @@ class Settings {
 			Utils\update_option( 'ep_bulk_setting', $this->sanitize_bulk_settings( $post['ep_bulk_setting'] ) );
 		}
 
-		$es_info = \ElasticPress\Elasticsearch::factory()->get_elasticsearch_info( true );
+		$es_info = \WPProbe\Elasticsearch::factory()->get_elasticsearch_info( true );
 		if ( empty( $es_info['version'] ) ) {
 			add_action( 'admin_notices', [ $this, 'add_validation_notice' ] );
 
@@ -171,6 +171,6 @@ class Settings {
 		Utils\update_option( 'ep_credentials', $this->prev_ep_credentials );
 		Utils\update_option( 'ep_bulk_setting', $this->prev_ep_bulk_setting );
 
-		\ElasticPress\Elasticsearch::factory()->get_elasticsearch_info( true );
+		\WPProbe\Elasticsearch::factory()->get_elasticsearch_info( true );
 	}
 }

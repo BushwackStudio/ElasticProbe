@@ -1,5 +1,5 @@
 {
-  "name": "10up/elasticpress",
+  "name": "bushwack/elasticpress",
   "description": "Supercharge WordPress with Elasticsearch.",
   "type": "wordpress-plugin",
   "keywords": ["wordpress", "plugin", "elasticsearch", "elasticpress", "search"],
@@ -19,6 +19,14 @@
       "name": "Aaron Holbrook",
       "email": "aaron@10up.com",
       "homepage": "https://aaronjholbrook.com"
+    },
+    {
+      "name": "Nima Shayanfar",
+      "email": "nshayanfar@wpprobe.com"
+    },
+    {
+      "name": "Bushwack Studio",
+      "homepage": "https://wpprobe.com"
     }
   ],
   "repositories": [
@@ -38,7 +46,8 @@
     "phpcompatibility/phpcompatibility-wp": "*",
     "brianhenryie/strauss": "^0.14.0",
     "yoast/phpunit-polyfills": "^1.0 || ^2.0 || ^3.0",
-    "phpunit/phpunit": "^9.0.0"
+    "phpunit/phpunit": "^9.0",
+    "php-stubs/wordpress-tests-stubs": "*"
   },
   "scripts": {
     "lint": "phpcs . -s --runtime-set testVersion 7.4-",

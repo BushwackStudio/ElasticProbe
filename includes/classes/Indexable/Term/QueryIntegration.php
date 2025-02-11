@@ -6,11 +6,11 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Indexable\Term;
+namespace WPProbe\Indexable\Term;
 
 use WP_Term_Query;
-use ElasticPress\Indexables;
-use ElasticPress\Utils;
+use WPProbe\Indexables;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -44,7 +44,7 @@ class QueryIntegration {
 
 		// Ensure that we are currently allowing ElasticPress to override the normal WP_Query
 		// Indexable->is_full_reindexing() is not available at this point yet, so using the IndexHelper version of it.
-		if ( \ElasticPress\IndexHelper::factory()->is_full_reindexing( $indexable_slug, get_current_blog_id() ) && ! $allow_query_integration_during_indexing ) {
+		if ( \WPProbe\IndexHelper::factory()->is_full_reindexing( $indexable_slug, get_current_blog_id() ) && ! $allow_query_integration_during_indexing ) {
 			return;
 		}
 

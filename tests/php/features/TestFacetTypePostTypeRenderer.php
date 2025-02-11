@@ -6,9 +6,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress\Feature\Facets\Types\PostType\Renderer;
+use WPProbe\Feature\Facets\Types\PostType\Renderer;
 /**
  * Facets\Types\PostType\FacetType test class
  */

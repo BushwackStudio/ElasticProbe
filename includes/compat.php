@@ -9,7 +9,7 @@
  */
 
 /**
- * This class was replaced with \ElasticPress\FeatureRequirementsStatus
+ * This class was replaced with \WPProbe\FeatureRequirementsStatus
  */
 class EP_Feature_Requirements_Status {
 	/**
@@ -20,7 +20,7 @@ class EP_Feature_Requirements_Status {
 	 * @since  2.2
 	 */
 	public function __construct( $code, $message = null ) {
-		_deprecated_function( __CLASS__, '3.0', '\ElasticPress\FeatureRequirementsStatus' );
+		_deprecated_function( __CLASS__, '3.0', '\WPProbe\FeatureRequirementsStatus' );
 
 		$this->code    = $code;
 		$this->message = $message;
@@ -56,9 +56,9 @@ class EP_Feature_Requirements_Status {
  * @return array|bool
  */
 function ep_find_related( $post_id, $post_return = 5 ) {
-	_deprecated_function( __FUNCTION__, '3.0', 'ElasticPress\Features::factory()->get_registered_feature' );
+	_deprecated_function( __FUNCTION__, '3.0', 'WPProbe\Features::factory()->get_registered_feature' );
 
-	$feature = \ElasticPress\Features::factory()->get_registered_feature( 'related_posts' );
+	$feature = \WPProbe\Features::factory()->get_registered_feature( 'related_posts' );
 
 	return ( ! empty( $feature ) ) ? $feature->find_related( $post_id, $post_return ) : false;
 }
@@ -70,9 +70,9 @@ function ep_find_related( $post_id, $post_return = 5 ) {
  * @return boolean|object
  */
 function ep_index_post( $post_id ) {
-	_deprecated_function( __FUNCTION__, '3.0', "ElasticPress\Indexables::factory()->get( 'post' )->index" );
+	_deprecated_function( __FUNCTION__, '3.0', "WPProbe\Indexables::factory()->get( 'post' )->index" );
 
-	return \ElasticPress\Indexables::factory()->get( 'post' )->index( $post_id, true );
+	return \WPProbe\Indexables::factory()->get( 'post' )->index( $post_id, true );
 }
 
 /**
@@ -83,19 +83,19 @@ function ep_index_post( $post_id ) {
  * @return string
  */
 function ep_get_index_name( $blog_id = null ) {
-	_deprecated_function( __FUNCTION__, '3.0', "ElasticPress\Indexables::factory()->get( 'post' )->get_index_name()" );
+	_deprecated_function( __FUNCTION__, '3.0', "WPProbe\Indexables::factory()->get( 'post' )->get_index_name()" );
 
-	return \ElasticPress\Indexables::factory()->get( 'post' )->get_index_name( $blog_id );
+	return \WPProbe\Indexables::factory()->get( 'post' )->get_index_name( $blog_id );
 }
 /**
- * Registers a feature for use in ElasticPress
+ * Registers a feature for use in WPProbe
  *
  * @param  string $slug Unique slug for feature
  * @param  array  $args Feature arguments
  * @since  2.1
  */
 function ep_register_feature( $slug, $args ) {
-	_deprecated_function( __FUNCTION__, '3.0', esc_html__( 'Feature registration API', 'elasticpress' ) );
+	_deprecated_function( __FUNCTION__, '3.0', esc_html__( 'Feature registration API', 'wpprobe' ) );
 
 	$callbacks = [
 		'feature_box_summary_cb',
@@ -148,7 +148,7 @@ function ep_register_feature( $slug, $args ) {
 
 	// phpcs:disable
 	$code = "
-class $class_name extends ElasticPress\Feature {
+class $class_name extends WPProbe\Feature {
 	/**
 	 * Initialize feature
 	 *
@@ -212,7 +212,7 @@ class $class_name extends ElasticPress\Feature {
 	public function requirements_status() {
 		' . ( ( ! empty( $resolved_callbacks['requirements_status_cb'] ) ) ?
 			"
-			\$status = new \ElasticPress\FeatureRequirementsStatus( 0 );
+			\$status = new \WPProbe\FeatureRequirementsStatus( 0 );
 			return call_user_func( " . $resolved_callbacks['requirements_status_cb'] . ", \$status );
 			"
 		:
@@ -225,7 +225,7 @@ class $class_name extends ElasticPress\Feature {
 	eval( $code );
 	// phpcs:enable
 
-	ElasticPress\Features::factory()->register_feature(
+	WPProbe\Features::factory()->register_feature(
 		new $class_name()
 	);
 }

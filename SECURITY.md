@@ -15,13 +15,13 @@ You can report any security bugs found in the source code of ElasticPress throug
 
 ## Responding to Vulnerability Reports
 
-10up takes security bugs seriously.  We appreciate your efforts to responsibly disclose your findings, and will make every effort to acknowledge your contributions.
+WPProbe takes security bugs seriously.  We appreciate your efforts to responsibly disclose your findings, and will make every effort to acknowledge your contributions.
 
-Your email will be acknowledged within ONE business day, and you will receive a more detailed response to your email within SEVEN days indicating the next steps in handling your report.  After the initial reply to your report, 10up will keep you informed of the progress being made towards a fix and announcement.  If your vulnerability report is accepted, then we will work with you on a fix and follow the process noted below on [disclosing vulnerabilities](#disclosing-a-vulnerability).  If your vulnerability report is declined, then we will provide you with a reasoning as to why we came to that conclusion.
+Your email will be acknowledged within ONE business day, and you will receive a more detailed response to your email within SEVEN days indicating the next steps in handling your report.  After the initial reply to your report, WPProbe will keep you informed of the progress being made towards a fix and announcement.  If your vulnerability report is accepted, then we will work with you on a fix and follow the process noted below on [disclosing vulnerabilities](#disclosing-a-vulnerability).  If your vulnerability report is declined, then we will provide you with a reasoning as to why we came to that conclusion.
 
 ## Disclosing a Vulnerability
 
-Once an issue is reported, 10up uses the following disclosure process:
+Once an issue is reported, WPProbe uses the following disclosure process:
 
 - When a report is received, we confirm the issue and determine its severity.
 - If we know of specific third-party services or software that require mitigation before publication, those projects will be notified.

@@ -6,7 +6,7 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\SearchAlgorithm;
+namespace WPProbe\SearchAlgorithm;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	// @codeCoverageIgnoreStart
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * EP version 3.5.0 search algorithm class.
  */
-class Version_350 extends \ElasticPress\SearchAlgorithm {
+class Version_350 extends \WPProbe\SearchAlgorithm {
 	/**
 	 * Search algorithm slug.
 	 *

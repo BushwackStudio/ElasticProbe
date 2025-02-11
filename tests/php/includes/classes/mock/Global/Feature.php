@@ -6,16 +6,16 @@
  * @package elasticpress
  */
 
-namespace ElasticPressTest\GlobalIndexable;
+namespace WPProbeTest\GlobalIndexable;
 
-use ElasticPress\Indexables;
+use WPProbe\Indexables;
 
 require_once __DIR__ . '/Indexable.php';
 
 /**
  * Global feature class
  */
-class GlobalFeature extends \ElasticPress\Feature {
+class GlobalFeature extends \WPProbe\Feature {
 	/**
 	 * Initialize feature setting it's config
 	 */
@@ -45,10 +45,10 @@ class GlobalFeature extends \ElasticPress\Feature {
 	 * Determine feature reqs status
 	 */
 	public function requirements_status() {
-		return new \ElasticPress\FeatureRequirementsStatus( 1 );
+		return new \WPProbe\FeatureRequirementsStatus( 1 );
 	}
 }
 
-\ElasticPress\Features::factory()->register_feature(
+\WPProbe\Features::factory()->register_feature(
 	new GlobalFeature()
 );

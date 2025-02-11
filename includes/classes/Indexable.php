@@ -8,10 +8,10 @@
  * @package elasticpress
  */
 
-namespace ElasticPress;
+namespace WPProbe;
 
-use ElasticPress\Elasticsearch;
-use ElasticPress\SyncManager;
+use WPProbe\Elasticsearch;
+use WPProbe\SyncManager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -411,7 +411,7 @@ abstract class Indexable {
 
 		if ( empty( $documents ) ) {
 			return [
-				new \WP_Error( 'ep_bulk_index_no_documents', esc_html__( 'It was not possible to create a body request with the document IDs provided.', 'elasticpress' ), $object_ids ),
+				new \WP_Error( 'ep_bulk_index_no_documents', esc_html__( 'It was not possible to create a body request with the document IDs provided.', 'wpprobe' ), $object_ids ),
 			];
 		}
 
@@ -1130,7 +1130,7 @@ abstract class Indexable {
 			$blog_id = get_current_blog_id();
 		}
 
-		return \ElasticPress\IndexHelper::factory()->is_full_reindexing( $this->slug, $blog_id );
+		return \WPProbe\IndexHelper::factory()->is_full_reindexing( $this->slug, $blog_id );
 	}
 
 	/**
@@ -1185,7 +1185,7 @@ abstract class Indexable {
 	 * @param array  $query_vars    Query vars
 	 * @return SearchAlgorithm Instance of search algorithm to be used
 	 */
-	public function get_search_algorithm( string $search_text, array $search_fields, array $query_vars ): \ElasticPress\SearchAlgorithm {
+	public function get_search_algorithm( string $search_text, array $search_fields, array $query_vars ): \WPProbe\SearchAlgorithm {
 		/**
 		 * Filter the search algorithm to be used
 		 *
@@ -1199,7 +1199,7 @@ abstract class Indexable {
 		 */
 		$search_algorithm = apply_filters( "ep_{$this->slug}_search_algorithm", 'basic', $search_text, $search_fields, $query_vars );
 
-		return \ElasticPress\SearchAlgorithms::factory()->get( $search_algorithm );
+		return \WPProbe\SearchAlgorithms::factory()->get( $search_algorithm );
 	}
 
 	/**

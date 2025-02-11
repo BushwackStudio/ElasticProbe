@@ -6,9 +6,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\REST;
+namespace WPProbe\REST;
 
-use ElasticPress\Elasticsearch;
+use WPProbe\Elasticsearch;
 
 /**
  * Token API controller class.

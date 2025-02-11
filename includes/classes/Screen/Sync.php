@@ -6,15 +6,15 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Screen;
+namespace WPProbe\Screen;
 
-use ElasticPress\Elasticsearch;
-use ElasticPress\Indexables;
-use ElasticPress\IndexHelper;
-use ElasticPress\REST;
-use ElasticPress\Screen;
-use ElasticPress\Stats;
-use ElasticPress\Utils;
+use WPProbe\Elasticsearch;
+use WPProbe\Indexables;
+use WPProbe\IndexHelper;
+use WPProbe\REST;
+use WPProbe\Screen;
+use WPProbe\Stats;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.

@@ -6,9 +6,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPress;
+namespace WPProbe;
 
-use ElasticPress\Utils;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -61,7 +61,7 @@ class Features {
 	}
 
 	/**
-	 * Registers a feature for use in ElasticPress
+	 * Registers a feature for use in WPProbe
 	 *
 	 * @param  Feature $feature An instance of the Feature class
 	 * @since  3.0

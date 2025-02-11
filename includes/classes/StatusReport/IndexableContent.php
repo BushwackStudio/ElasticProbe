@@ -6,9 +6,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\StatusReport;
+namespace WPProbe\StatusReport;
 
-use ElasticPress\Utils;
+use WPProbe\Utils;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -89,7 +89,7 @@ class IndexableContent extends Report {
 	 * @return array
 	 */
 	protected function get_post_count_group(): array {
-		$post_indexable = \ElasticPress\Indexables::factory()->get( 'post' );
+		$post_indexable = \WPProbe\Indexables::factory()->get( 'post' );
 		$post_types     = $post_indexable->get_indexable_post_types();
 
 		$post_stati = $post_indexable->get_indexable_post_status();
@@ -127,7 +127,7 @@ class IndexableContent extends Report {
 	 * @return array
 	 */
 	protected function get_post_meta_fields(): array {
-		$post_indexable = \ElasticPress\Indexables::factory()->get( 'post' );
+		$post_indexable = \WPProbe\Indexables::factory()->get( 'post' );
 		$post_types     = $post_indexable->get_indexable_post_types();
 
 		$force_refresh = ! empty( $_GET['force_refresh'] ); // phpcs:ignore WordPress.Security.NonceVerification

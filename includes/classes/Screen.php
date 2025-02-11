@@ -6,10 +6,10 @@
  * @package elasticpress
  */
 
-namespace ElasticPress;
+namespace WPProbe;
 
-use ElasticPress\Utils;
-use ElasticPress\Installer;
+use WPProbe\Utils;
+use WPProbe\Installer;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -95,12 +95,12 @@ class Screen {
 	 */
 	public function determine_screen() {
 		// phpcs:disable WordPress.Security.NonceVerification
-		if ( ! empty( $_GET['page'] ) && false !== strpos( sanitize_key( $_GET['page'] ), 'elasticpress' ) ) {
+		if ( ! empty( $_GET['page'] ) && false !== strpos( sanitize_key( $_GET['page'] ), 'wpprobe' ) ) {
 			$install_status = Installer::factory()->get_install_status();
 
 			$this->screen = 'install';
 
-			if ( 'elasticpress' === $_GET['page'] ) {
+			if ( 'wpprobe' === $_GET['page'] ) {
 				if ( ! isset( $_GET['install_complete'] ) && ( true === $install_status || Utils\isset_do_sync_parameter() ) ) {
 					if ( Utils\is_top_level_admin_context() ) {
 						$this->screen = 'dashboard';
@@ -108,27 +108,27 @@ class Screen {
 						$this->screen = 'weighting';
 					}
 				}
-			} elseif ( 'elasticpress-settings' === $_GET['page'] ) {
+			} elseif ( 'wpprobe-settings' === $_GET['page'] ) {
 				if ( true === $install_status || 2 === $install_status || Utils\isset_do_sync_parameter() ) {
 					$this->screen = 'settings';
 				}
-			} elseif ( 'elasticpress-health' === $_GET['page'] ) {
+			} elseif ( 'wpprobe-health' === $_GET['page'] ) {
 				if ( ! isset( $_GET['install_complete'] ) && ( true === $install_status || Utils\isset_do_sync_parameter() ) ) {
 					$this->screen = 'health';
 				}
-			} elseif ( 'elasticpress-weighting' === $_GET['page'] ) {
+			} elseif ( 'wpprobe-weighting' === $_GET['page'] ) {
 				if ( ! isset( $_GET['install_complete'] ) && ( true === $install_status || Utils\isset_do_sync_parameter() ) ) {
 					$this->screen = 'weighting';
 				}
-			} elseif ( 'elasticpress-synonyms' === $_GET['page'] ) {
+			} elseif ( 'wpprobe-synonyms' === $_GET['page'] ) {
 				if ( ! isset( $_GET['install_complete'] ) && ( true === $install_status || Utils\isset_do_sync_parameter() ) ) {
 					$this->screen = 'synonyms';
 				}
-			} elseif ( 'elasticpress-sync' === $_GET['page'] ) {
+			} elseif ( 'wpprobe-sync' === $_GET['page'] ) {
 				if ( ! isset( $_GET['install_complete'] ) && ( true === $install_status || Utils\isset_do_sync_parameter() ) ) {
 					$this->screen = 'sync';
 				}
-			} elseif ( 'elasticpress-status-report' === $_GET['page'] ) {
+			} elseif ( 'wpprobe-status-report' === $_GET['page'] ) {
 				if ( ! isset( $_GET['install_complete'] ) && ( true === $install_status || Utils\isset_do_sync_parameter() ) ) {
 					$this->screen = 'status-report';
 				}

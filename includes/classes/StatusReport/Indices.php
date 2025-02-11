@@ -6,7 +6,7 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\StatusReport;
+namespace WPProbe\StatusReport;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -32,7 +32,7 @@ class Indices extends Report {
 	 * @return array
 	 */
 	public function get_groups(): array {
-		$elasticsearch = \ElasticPress\Elasticsearch::factory();
+		$elasticsearch = \WPProbe\Elasticsearch::factory();
 
 		$should_have_indices   = $elasticsearch->get_index_names();
 		$indices_in_es         = $elasticsearch->get_cluster_indices();

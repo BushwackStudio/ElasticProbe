@@ -22,7 +22,7 @@
  * @package  elasticpress
  */
 
-namespace ElasticPress;
+namespace WPProbe;
 
 use WP_CLI;
 
@@ -48,7 +48,7 @@ if ( ! version_compare( phpversion(), EP_PHP_VERSION_MIN, '>=' ) ) {
 					echo wp_kses_post(
 						sprintf(
 							/* translators: %s: Minimum required PHP version */
-							__( 'ElasticPress requires PHP version %s or later. Please upgrade PHP or disable the plugin.', 'elasticpress' ),
+							__( 'WPProbe requires PHP version %s or later. Please upgrade PHP or disable the plugin.', 'wpprobe' ),
 							EP_PHP_VERSION_MIN
 						)
 					);
@@ -74,7 +74,7 @@ if ( file_exists( __DIR__ . '/vendor-prefixed/autoload.php' ) ) {
 spl_autoload_register(
 	function ( $class_name ) {
 			// project-specific namespace prefix.
-			$prefix = 'ElasticPress\\';
+			$prefix = 'WPProbe\\';
 
 			// base directory for the namespace prefix.
 			$base_dir = __DIR__ . '/includes/classes/';
@@ -213,10 +213,10 @@ function register_indexable_posts() {
 	 * @param {QueryLogger} $query_logger Default query logger
 	 * @return {QueryLogger} New query logger
 	 */
-	$query_logger = apply_filters( 'ep_query_logger', new \ElasticPress\QueryLogger() );
-	get_container()->set( '\ElasticPress\QueryLogger', $query_logger, true );
+	$query_logger = apply_filters( 'ep_query_logger', new \WPProbe\QueryLogger() );
+	get_container()->set( '\WPProbe\QueryLogger', $query_logger, true );
 
-	get_container()->set( '\ElasticPress\BlockTemplateUtils', new \ElasticPress\BlockTemplateUtils(), true );
+	get_container()->set( '\WPProbe\BlockTemplateUtils', new \WPProbe\BlockTemplateUtils(), true );
 }
 add_action( 'plugins_loaded', __NAMESPACE__ . '\register_indexable_posts' );
 
@@ -252,7 +252,7 @@ Dashboard\setup();
  * WP CLI Commands
  */
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
-	WP_CLI::add_command( 'elasticpress', __NAMESPACE__ . '\Command' );
+	WP_CLI::add_command( 'wpprobe', __NAMESPACE__ . '\Command' );
 }
 
 /**
@@ -262,12 +262,12 @@ Upgrades::factory();
 
 /**
  * Handle upgrades. Certain version require a re-sync on upgrade.
- * Deprecated in favor of `\ElasticPress\Upgrades::factory()`.
+ * Deprecated in favor of `\WPProbe\Upgrades::factory()`.
  *
  * @since  2.2
  */
 function handle_upgrades() {
-	_deprecated_function( __CLASS__, '3.5.2', '\ElasticPress\Upgrades::factory()' );
+	_deprecated_function( __CLASS__, '3.5.2', '\WPProbe\Upgrades::factory()' );
 }
 
 /**
@@ -289,7 +289,7 @@ add_action( 'plugins_loaded', __NAMESPACE__ . '\setup_misc' );
  * @since 5.1.4
  */
 function i18n() {
-	load_plugin_textdomain( 'elasticpress', false, basename( __DIR__ ) . '/lang' );
+	load_plugin_textdomain( 'wpprobe', false, basename( __DIR__ ) . '/lang' );
 }
 add_action( 'init', __NAMESPACE__ . '\i18n' );
 

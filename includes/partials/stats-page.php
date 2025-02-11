@@ -6,8 +6,8 @@
  * @package elasticpress
  */
 
-use ElasticPress\IndexHelper;
-use ElasticPress\Stats;
+use WPProbe\IndexHelper;
+use WPProbe\Stats;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.

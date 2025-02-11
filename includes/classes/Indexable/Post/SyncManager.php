@@ -6,12 +6,12 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Indexable\Post;
+namespace WPProbe\Indexable\Post;
 
-use ElasticPress\Elasticsearch;
-use ElasticPress\Indexables;
-use ElasticPress\IndexHelper;
-use ElasticPress\Utils;
+use WPProbe\Elasticsearch;
+use WPProbe\Indexables;
+use WPProbe\IndexHelper;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	// @codeCoverageIgnoreStart
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Sync manager class
  */
-class SyncManager extends \ElasticPress\SyncManager {
+class SyncManager extends \WPProbe\SyncManager {
 
 	/**
 	 * Indexable slug
@@ -750,7 +750,7 @@ class SyncManager extends \ElasticPress\SyncManager {
 	 * @since 4.4.0
 	 */
 	public function clear_total_fields_limit_cache() {
-		_deprecated_function( __METHOD__, '4.7.0', '\ElasticPress\Indexable\Post\SyncManager::clear_index_settings_cache()' );
+		_deprecated_function( __METHOD__, '4.7.0', '\WPProbe\Indexable\Post\SyncManager::clear_index_settings_cache()' );
 	}
 
 	/**

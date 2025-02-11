@@ -6,11 +6,11 @@
  * @package elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress\Screen;
-use ElasticPress\Screen\Settings;
-use ElasticPress\Utils;
+use WPProbe\Screen;
+use WPProbe\Screen\Settings;
+use WPProbe\Utils;
 
 /**
  * Test the Settings class

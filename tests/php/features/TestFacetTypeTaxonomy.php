@@ -5,9 +5,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress\Features;
+use WPProbe\Features;
 
 /**
  * Facets\Types\Taxonomy\FacetType test class

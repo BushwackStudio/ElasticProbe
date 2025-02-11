@@ -6,10 +6,10 @@
  * @package elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress\Screen\StatusReport;
-use ElasticPress\Utils;
+use WPProbe\Screen\StatusReport;
+use WPProbe\Utils;
 
 /**
  * Test the Status Report class
@@ -78,7 +78,7 @@ class TestStatusReport extends BaseTestCase {
 	public function testWordPressReport() {
 		global $wp_version;
 
-		$report = new \ElasticPress\StatusReport\WordPress();
+		$report = new \WPProbe\StatusReport\WordPress();
 
 		$expected_result = array(
 			array(
@@ -144,7 +144,7 @@ class TestStatusReport extends BaseTestCase {
 	 * @since 4.5.1
 	 */
 	public function testLastSyncReport() {
-		$report = new \ElasticPress\StatusReport\LastSync();
+		$report = new \WPProbe\StatusReport\LastSync();
 
 		// Test when no last sync information is available
 		$this->assertEmpty( $report->get_groups() );
@@ -203,9 +203,9 @@ class TestStatusReport extends BaseTestCase {
 	 */
 	public function testIndicesReport() {
 		// Make sure the index exists
-		\ElasticPress\Indexables::factory()->get( 'post' )->put_mapping();
+		\WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
 
-		$report = new \ElasticPress\StatusReport\Indices();
+		$report = new \WPProbe\StatusReport\Indices();
 
 		$group         = $report->get_groups();
 		$expected_keys = [ 'health', 'status', 'index', 'uuid', 'pri', 'rep', 'docs.count', 'docs.deleted', 'store.size', 'pri.store.size', 'total_fields_limit' ];
@@ -227,9 +227,9 @@ class TestStatusReport extends BaseTestCase {
 		// set screen to status report
 		add_filter( 'ep_install_status', '__return_true' );
 		$_GET['page'] = 'elasticpress-status-report';
-		\ElasticPress\Screen::factory()->determine_screen();
+		\WPProbe\Screen::factory()->determine_screen();
 
-		$post_indexable = \ElasticPress\Indexables::factory()->get( 'post' );
+		$post_indexable = \WPProbe\Indexables::factory()->get( 'post' );
 		$post_types     = $post_indexable->get_indexable_post_types();
 
 		$posts_fields       = array();
@@ -289,7 +289,7 @@ class TestStatusReport extends BaseTestCase {
 			),
 		);
 
-		$report = new \ElasticPress\StatusReport\IndexableContent();
+		$report = new \WPProbe\StatusReport\IndexableContent();
 
 		$this->assertSame( $expected_result, $report->get_groups() );
 		$this->assertEquals( 'Indexable Content', $report->get_title() );
@@ -306,9 +306,9 @@ class TestStatusReport extends BaseTestCase {
 		Utils\delete_option( 'ep_feature_settings' );
 
 		// activate search feature.
-		\ElasticPress\Features::factory()->activate_feature( 'search' );
+		\WPProbe\Features::factory()->activate_feature( 'search' );
 
-		$report = new \ElasticPress\StatusReport\Features();
+		$report = new \WPProbe\StatusReport\Features();
 		$groups = $report->get_groups();
 
 		$this->assertEquals( 1, count( $groups ) );
@@ -411,8 +411,8 @@ class TestStatusReport extends BaseTestCase {
 			),
 		);
 
-		$query_logger = new \ElasticPress\QueryLogger();
-		$report       = new \ElasticPress\StatusReport\FailedQueries( $query_logger );
+		$query_logger = new \WPProbe\QueryLogger();
+		$report       = new \WPProbe\StatusReport\FailedQueries( $query_logger );
 
 		$this->assertSame( $expected_result, $report->get_groups()[0]['fields'] );
 		$this->assertEquals( 'Failed Queries', $report->get_title() );
@@ -428,10 +428,10 @@ class TestStatusReport extends BaseTestCase {
 	 * @since 4.5.1
 	 */
 	public function testElasticPressIoReport() {
-		\ElasticPress\Features::factory()->activate_feature( 'autosuggest' );
-		\ElasticPress\Features::factory()->activate_feature( 'instant-results' );
+		\WPProbe\Features::factory()->activate_feature( 'autosuggest' );
+		\WPProbe\Features::factory()->activate_feature( 'instant-results' );
 
-		$report = new \ElasticPress\StatusReport\ElasticPressIo();
+		$report = new \WPProbe\StatusReport\ElasticPressIo();
 		$groups = $report->get_groups();
 
 		$this->assertEquals( 3, count( $groups ) );
@@ -448,7 +448,7 @@ class TestStatusReport extends BaseTestCase {
 	 * @since 4.5.1
 	 */
 	public function testElasticPressReport() {
-		$report = new \ElasticPress\StatusReport\ElasticPress();
+		$report = new \WPProbe\StatusReport\ElasticPress();
 		$groups = $report->get_groups();
 
 		$expected_result = array(
@@ -469,7 +469,7 @@ class TestStatusReport extends BaseTestCase {
 					),
 					'per_page'       => array(
 						'label' => 'Content Items per Index Cycle',
-						'value' => \ElasticPress\IndexHelper::factory()->get_index_default_per_page(),
+						'value' => \WPProbe\IndexHelper::factory()->get_index_default_per_page(),
 					),
 					'network_active' => array(
 						'label' => 'Network Active',

@@ -6,14 +6,14 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Feature\Facets\Types\Taxonomy;
+namespace WPProbe\Feature\Facets\Types\Taxonomy;
 
-use ElasticPress\Features;
+use WPProbe\Features;
 
 /**
  * Taxonomy facet type class
  */
-class FacetType extends \ElasticPress\Feature\Facets\FacetType {
+class FacetType extends \WPProbe\Feature\Facets\FacetType {
 
 	/**
 	 * Block instance.
@@ -134,7 +134,7 @@ class FacetType extends \ElasticPress\Feature\Facets\FacetType {
 	}
 
 	/**
-	 * DEPRECATED. We enable ElasticPress facet on all archive/search queries as well as non-static home pages. There is no way to know
+	 * DEPRECATED. We enable WPProbe facet on all archive/search queries as well as non-static home pages. There is no way to know
 	 * when a facet widget is used before the main query is executed so we enable EP
 	 * everywhere where a facet widget could be used.
 	 *

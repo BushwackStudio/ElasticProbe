@@ -6,9 +6,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress;
+use WPProbe;
 
 /**
  * Did you mean test class.
@@ -27,13 +27,13 @@ class TestDidYouMean extends BaseTestCase {
 
 		wp_set_current_user( $admin_id );
 
-		ElasticPress\Features::factory()->activate_feature( 'search' );
-		ElasticPress\Features::factory()->activate_feature( 'did-you-mean' );
+		WPProbe\Features::factory()->activate_feature( 'search' );
+		WPProbe\Features::factory()->activate_feature( 'did-you-mean' );
 
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->setup_features();
 
-		ElasticPress\Elasticsearch::factory()->delete_all_indices();
-		ElasticPress\Indexables::factory()->get( 'post' )->put_mapping();
+		WPProbe\Elasticsearch::factory()->delete_all_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
 
 		$this->setup_test_post_type();
 	}
@@ -42,7 +42,7 @@ class TestDidYouMean extends BaseTestCase {
 	 * Test Feature properties.
 	 */
 	public function testConstruct() {
-		$instance = new ElasticPress\Feature\DidYouMean\DidYouMean();
+		$instance = new WPProbe\Feature\DidYouMean\DidYouMean();
 		$instance->set_i18n_strings();
 
 		$this->assertEquals( 'did-you-mean', $instance->slug );
@@ -57,7 +57,7 @@ class TestDidYouMean extends BaseTestCase {
 	 * Test Requirements status.
 	 */
 	public function testRequirementsStatus() {
-		$instance = new ElasticPress\Feature\DidYouMean\DidYouMean();
+		$instance = new WPProbe\Feature\DidYouMean\DidYouMean();
 		$status   = $instance->requirements_status();
 
 		$this->assertEquals( 1, $status->code );
@@ -70,7 +70,7 @@ class TestDidYouMean extends BaseTestCase {
 	public function testEsSearchSuggestion() {
 		$this->ep_factory->post->create( [ 'post_content' => 'Test post' ] );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query(
 			[
@@ -88,7 +88,7 @@ class TestDidYouMean extends BaseTestCase {
 	public function testEsSearchSuggestionOnlyIntegrateWithSearchQuery() {
 		$this->ep_factory->post->create( [ 'post_content' => 'Test post' ] );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query(
 			[
@@ -106,7 +106,7 @@ class TestDidYouMean extends BaseTestCase {
 	public function testGetSearchSuggestionMethod() {
 		$this->ep_factory->post->create( [ 'post_content' => 'Test post' ] );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query(
 			[
@@ -117,7 +117,7 @@ class TestDidYouMean extends BaseTestCase {
 		$this->assertTrue( $query->elasticsearch_success );
 
 		$expected = sprintf( '<span class="ep-spell-suggestion">Did you mean: <a href="%s">test</a>?</span>', get_search_link( 'test' ) );
-		$this->assertEquals( $expected, ElasticPress\Features::factory()->get_registered_feature( 'did-you-mean' )->get_suggestion( $query ) );
+		$this->assertEquals( $expected, WPProbe\Features::factory()->get_registered_feature( 'did-you-mean' )->get_suggestion( $query ) );
 	}
 
 	/**
@@ -128,7 +128,7 @@ class TestDidYouMean extends BaseTestCase {
 
 		$this->ep_factory->post->create( [ 'post_content' => 'Test post' ] );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args  = [
 			's' => 'teet',
@@ -144,7 +144,7 @@ class TestDidYouMean extends BaseTestCase {
 		$query = $query->query( $args );
 
 		$expected = sprintf( '<span class="ep-spell-suggestion">Did you mean: <a href="%s">test</a>?</span>', get_search_link( 'test' ) );
-		$this->assertEquals( $expected, ElasticPress\Features::factory()->get_registered_feature( 'did-you-mean' )->get_suggestion() );
+		$this->assertEquals( $expected, WPProbe\Features::factory()->get_registered_feature( 'did-you-mean' )->get_suggestion() );
 	}
 
 	/**
@@ -152,7 +152,7 @@ class TestDidYouMean extends BaseTestCase {
 	 */
 	public function testGetSearchSuggestionMethodReturnsFalseIfOtherThanWpQueryIsPassed() {
 		$query = new \stdClass();
-		$this->assertFalse( ElasticPress\Features::factory()->get_registered_feature( 'did-you-mean' )->get_suggestion( $query ) );
+		$this->assertFalse( WPProbe\Features::factory()->get_registered_feature( 'did-you-mean' )->get_suggestion( $query ) );
 	}
 
 	/**
@@ -161,7 +161,7 @@ class TestDidYouMean extends BaseTestCase {
 	public function testGetSearchSuggestionMethodFilter() {
 		$this->ep_factory->post->create( [ 'post_content' => 'Test post' ] );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$expected_result = '<span class="ep-spell-suggestion">Did you mean: test filter is working ?</span>';
 		add_filter(
@@ -180,7 +180,7 @@ class TestDidYouMean extends BaseTestCase {
 				's' => 'teet',
 			]
 		);
-		$this->assertEquals( $expected_result, ElasticPress\Features::factory()->get_registered_feature( 'did-you-mean' )->get_suggestion( $query ) );
+		$this->assertEquals( $expected_result, WPProbe\Features::factory()->get_registered_feature( 'did-you-mean' )->get_suggestion( $query ) );
 	}
 
 	/**
@@ -194,7 +194,7 @@ class TestDidYouMean extends BaseTestCase {
 			}
 		);
 
-		$mapping = ElasticPress\Indexables::factory()->get( 'post' )->generate_mapping();
+		$mapping = WPProbe\Indexables::factory()->get( 'post' )->generate_mapping();
 
 		$expected_result = [
 			'shingle' =>
@@ -217,7 +217,7 @@ class TestDidYouMean extends BaseTestCase {
 			}
 		);
 
-		$mapping = ElasticPress\Indexables::factory()->get( 'post' )->generate_mapping();
+		$mapping = WPProbe\Indexables::factory()->get( 'post' )->generate_mapping();
 
 		$expected_result = [
 			'shingle' =>
@@ -235,7 +235,7 @@ class TestDidYouMean extends BaseTestCase {
 	public function testSearchAnalyzerFilter() {
 		$this->ep_factory->post->create( [ 'post_content' => 'Test post' ] );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$search_analyzer = [
 			'term' => [
@@ -278,9 +278,9 @@ class TestDidYouMean extends BaseTestCase {
 
 		$this->ep_factory->post->create( [ 'post_content' => 'Test post' ] );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
-		ElasticPress\Features::factory()->update_feature(
+		WPProbe\Features::factory()->update_feature(
 			'did-you-mean',
 			[
 				'active'          => true,
@@ -302,7 +302,7 @@ class TestDidYouMean extends BaseTestCase {
 
 		$this->assertTrue( $query->elasticsearch_success );
 
-		$html = ElasticPress\Features::factory()->get_registered_feature( 'did-you-mean' )->get_original_search_term();
+		$html = WPProbe\Features::factory()->get_registered_feature( 'did-you-mean' )->get_original_search_term();
 		$this->assertStringContainsString( '<div class="ep-original-search-term-message">', $html );
 		$this->assertStringContainsString( '<span class="result">Showing results for: </span><strong>teet</strong>', $html );
 		$this->assertStringContainsString( '<span class="no-result">No results for: </span><strong>Original Term</strong>', $html );
@@ -316,7 +316,7 @@ class TestDidYouMean extends BaseTestCase {
 
 		$this->ep_factory->post->create( [ 'post_content' => 'Test post' ] );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query(
 			[
@@ -324,7 +324,7 @@ class TestDidYouMean extends BaseTestCase {
 			]
 		);
 
-		ElasticPress\Features::factory()->update_feature(
+		WPProbe\Features::factory()->update_feature(
 			'did-you-mean',
 			[
 				'active'          => true,
@@ -353,7 +353,7 @@ class TestDidYouMean extends BaseTestCase {
 	public function testEPSuggestionsActionOtherThanMainQuery() {
 		$this->ep_factory->post->create( [ 'post_content' => 'Test post' ] );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query(
 			[
@@ -361,7 +361,7 @@ class TestDidYouMean extends BaseTestCase {
 			]
 		);
 
-		ElasticPress\Features::factory()->update_feature(
+		WPProbe\Features::factory()->update_feature(
 			'did-you-mean',
 			[
 				'active'          => true,
@@ -386,7 +386,7 @@ class TestDidYouMean extends BaseTestCase {
 	public function testSuggestionRemovedFromListIfScoreIsLowerThanThreshold() {
 		$this->ep_factory->post->create( [ 'post_content' => 'V Neck Tee Shirt' ] );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		// mock the score.
 		add_filter(
@@ -413,7 +413,7 @@ class TestDidYouMean extends BaseTestCase {
 	public function testEPSuggestionMinimumScoreFilter() {
 		$this->ep_factory->post->create( [ 'post_content' => 'V Neck Tee Shirt' ] );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query(
 			[
@@ -447,7 +447,7 @@ class TestDidYouMean extends BaseTestCase {
 	 * @group did-you-mean
 	 */
 	public function test_get_settings_schema() {
-		$instance        = new \ElasticPress\Feature\DidYouMean\DidYouMean();
+		$instance        = new \WPProbe\Feature\DidYouMean\DidYouMean();
 		$settings_schema = $instance->get_settings_schema();
 
 		$settings_keys = wp_list_pluck( $settings_schema, 'key' );

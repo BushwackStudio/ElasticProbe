@@ -18,7 +18,7 @@ if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
 	$dashboard_url = admin_url( 'admin.php?page=elasticpress' );
 }
 
-$sync_url = \ElasticPress\Utils\get_sync_url( 'install' );
+$sync_url = \WPProbe\Utils\get_sync_url( 'install' );
 
 $skip_install_url = add_query_arg(
 	[
@@ -83,7 +83,7 @@ $skip_index_url = remove_query_arg( 'ep-skip-features', $skip_install_url );
 						<?php if ( 3 === $install_status ) : ?>
 							<ul class="ep-feature-list">
 								<?php
-								$features = \ElasticPress\Features::factory()->registered_features;
+								$features = \WPProbe\Features::factory()->registered_features;
 								foreach ( $features as $feature ) {
 									$feature_status_code  = (int) $feature->requirements_status()->code;
 									$activation_available = $feature->available_during_installation;

@@ -7,11 +7,11 @@
  * @see https://github.com/php-fig/container
  */
 
-namespace ElasticPress;
+namespace WPProbe;
 
-use ElasticPress\Vendor_Prefixed\Psr\Container\ContainerInterface;
+use WPProbe\Vendor_Prefixed\Psr\Container\ContainerInterface;
 
-use ElasticPress\Exception\NotFoundException;
+use WPProbe\Exception\NotFoundException;
 
 /**
  * PSR11 compliant container class

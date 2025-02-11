@@ -6,9 +6,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress\Features;
+use WPProbe\Features;
 
 /**
  * Facets\Types\PostType\FacetType test class
@@ -17,7 +17,7 @@ class TestFacetTypePostType extends BaseTestCase {
 	/**
 	 * The facet type instance
 	 *
-	 * @var null|\ElasticPress\Feature\Facets\Types\PostType\FacetType
+	 * @var null|\WPProbe\Feature\Facets\Types\PostType\FacetType
 	 */
 	protected $facet_type = null;
 

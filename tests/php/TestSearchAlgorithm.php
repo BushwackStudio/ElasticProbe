@@ -6,9 +6,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress\SearchAlgorithm;
+use WPProbe\SearchAlgorithm;
 
 /**
  * Test abstract SearchAlgorithm class

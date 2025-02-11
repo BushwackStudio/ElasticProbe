@@ -5,10 +5,10 @@
  * @package elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress;
-use ElasticPress\Utils;
+use WPProbe;
+use WPProbe\Utils;
 
 /**
  * Weighting test class
@@ -74,13 +74,13 @@ class TestWeighting extends BaseTestCase {
 
 		wp_set_current_user( $admin_id );
 
-		ElasticPress\Elasticsearch::factory()->delete_all_indices();
-		ElasticPress\Indexables::factory()->get( 'post' )->put_mapping();
+		WPProbe\Elasticsearch::factory()->delete_all_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
 
-		ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
+		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
 
 		$this->setup_test_post_type();
-		ElasticPress\Features::factory()->activate_feature( 'search' );
+		WPProbe\Features::factory()->activate_feature( 'search' );
 	}
 
 	/**
@@ -101,7 +101,7 @@ class TestWeighting extends BaseTestCase {
 	 * @return Weighting
 	 */
 	public function get_weighting_feature() {
-		$search = ElasticPress\Features::factory()->get_registered_feature( 'search' );
+		$search = WPProbe\Features::factory()->get_registered_feature( 'search' );
 
 		return $search->weighting;
 	}
@@ -113,7 +113,7 @@ class TestWeighting extends BaseTestCase {
 	 * @since 5.0.0
 	 */
 	public function test_weightable_post_type_auto() {
-		$search = ElasticPress\Features::factory()->get_registered_feature( 'search' );
+		$search = WPProbe\Features::factory()->get_registered_feature( 'search' );
 
 		$searchable_post_types = $search->get_searchable_post_types();
 
@@ -138,7 +138,7 @@ class TestWeighting extends BaseTestCase {
 	 *
 	 * @since 5.0.0
 	 * @group weighting
-	 * @expectedIncorrectUsage ElasticPress\Feature\Search\Weighting::save_weighting_configuration
+	 * @expectedIncorrectUsage WPProbe\Feature\Search\Weighting::save_weighting_configuration
 	 */
 	public function test_weighting_configuration_deprecated() {
 		$this->get_weighting_feature()->save_weighting_configuration( [] );
@@ -261,7 +261,7 @@ class TestWeighting extends BaseTestCase {
 	 *
 	 * @since 5.0.0
 	 * @group weighting
-	 * @expectedIncorrectUsage ElasticPress\Feature\Search\Weighting::handle_save
+	 * @expectedIncorrectUsage WPProbe\Feature\Search\Weighting::handle_save
 	 */
 	public function test_handle_save() {
 		$this->get_weighting_feature()->handle_save();
@@ -434,7 +434,7 @@ class TestWeighting extends BaseTestCase {
 	 * Get formatted ES and query vars
 	 */
 	public function getArgs() {
-		$post = new \ElasticPress\Indexable\Post\Post();
+		$post = new \WPProbe\Indexable\Post\Post();
 
 		$query      = new \WP_Query( [ 's' => 'blog' ] );
 		$query_vars = $query->query_vars;

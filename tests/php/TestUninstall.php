@@ -6,7 +6,7 @@
  * @package elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
 /**
  * TestUninstall test class

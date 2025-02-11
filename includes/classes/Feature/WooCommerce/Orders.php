@@ -6,9 +6,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Feature\WooCommerce;
+namespace WPProbe\Feature\WooCommerce;
 
-use ElasticPress\Indexables;
+use WPProbe\Indexables;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -350,11 +350,11 @@ class Orders {
 			return $notices;
 		}
 
-		if ( \ElasticPress\Utils\get_option( 'ep_hide_wc_orders_incompatible_notice' ) ) {
+		if ( \WPProbe\Utils\get_option( 'ep_hide_wc_orders_incompatible_notice' ) ) {
 			return $notices;
 		}
 
-		$protected_content = \ElasticPress\Features::factory()->get_registered_feature( 'protected_content' );
+		$protected_content = \WPProbe\Features::factory()->get_registered_feature( 'protected_content' );
 		if ( ! $protected_content->is_active() ) {
 			return $notices;
 		}
@@ -515,9 +515,9 @@ class Orders {
 
 		if ( in_array( $method_name, $orders_autosuggest_methods, true ) ) {
 			_deprecated_function(
-				"\ElasticPress\Feature\WooCommerce\WooCommerce\Orders::{$method_name}", // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				"\WPProbe\Feature\WooCommerce\WooCommerce\Orders::{$method_name}", // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				'4.7.0',
-				"\ElasticPress\Features::factory()->get_registered_feature( 'woocommerce' )->orders_autosuggest->{$method_name}()" // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				"\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders_autosuggest->{$method_name}()" // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			);
 
 			if ( $this->woocommerce->orders_autosuggest->is_enabled() && method_exists( $this->woocommerce->orders_autosuggest, $method_name ) ) {

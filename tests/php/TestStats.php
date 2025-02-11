@@ -5,12 +5,12 @@
  * @package elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress;
-use ElasticPress\Elasticsearch;
-use ElasticPress\Indexables;
-use ElasticPress\Stats;
+use WPProbe;
+use WPProbe\Elasticsearch;
+use WPProbe\Indexables;
+use WPProbe\Stats;
 
 /**
  * Stats test class
@@ -59,7 +59,7 @@ class TestStats extends BaseTestCase {
 		// Update since we are deleting to test notifications
 		update_site_option( 'ep_host', $this->current_host );
 
-		ElasticPress\Screen::factory()->set_current_screen( null );
+		WPProbe\Screen::factory()->set_current_screen( null );
 	}
 
 	/**

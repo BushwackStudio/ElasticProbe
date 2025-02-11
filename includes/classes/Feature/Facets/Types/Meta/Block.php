@@ -6,10 +6,10 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Feature\Facets\Types\Meta;
+namespace WPProbe\Feature\Facets\Types\Meta;
 
-use ElasticPress\Features;
-use ElasticPress\Utils;
+use WPProbe\Features;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Facets block class
  */
-class Block extends \ElasticPress\Feature\Facets\Block {
+class Block extends \WPProbe\Feature\Facets\Block {
 	/**
 	 * Hook block functionality.
 	 */
@@ -56,7 +56,7 @@ class Block extends \ElasticPress\Feature\Facets\Block {
 			true
 		);
 
-		wp_set_script_translations( 'ep-facets-meta-block-script', 'elasticpress' );
+		wp_set_script_translations( 'ep-facets-meta-block-script', 'wpprobe' );
 	}
 
 	/**

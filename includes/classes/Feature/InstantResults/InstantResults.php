@@ -5,14 +5,14 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Feature\InstantResults;
+namespace WPProbe\Feature\InstantResults;
 
-use ElasticPress\Elasticsearch;
-use ElasticPress\Feature;
-use ElasticPress\FeatureRequirementsStatus;
-use ElasticPress\Features;
-use ElasticPress\Indexables;
-use ElasticPress\Utils;
+use WPProbe\Elasticsearch;
+use WPProbe\Feature;
+use WPProbe\FeatureRequirementsStatus;
+use WPProbe\Features;
+use WPProbe\Indexables;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -100,14 +100,14 @@ class InstantResults extends Feature {
 	 * @since 5.2.0
 	 */
 	public function set_i18n_strings(): void {
-		$this->title = esc_html__( 'Instant Results', 'elasticpress' );
+		$this->title = esc_html__( 'Instant Results', 'wpprobe' );
 
-		$this->short_title = esc_html__( 'Instant Results', 'elasticpress' );
+		$this->short_title = esc_html__( 'Instant Results', 'wpprobe' );
 
-		$this->summary = '<p>' . __( 'WordPress search forms will display results instantly. When the search query is submitted, a modal will open that populates results by querying ElasticPress directly, bypassing WordPress. As the user refines their search, results are refreshed.', 'elasticpress' ) . '</p>' .
-		'<p>' . __( 'Requires an <a href="https://www.elasticpress.io/" target="_blank">ElasticPress.io plan</a> or a custom proxy to function.', 'elasticpress' ) . '</p>';
+		$this->summary = '<p>' . __( 'WordPress search forms will display results instantly. When the search query is submitted, a modal will open that populates results by querying WPProbe directly, bypassing WordPress. As the user refines their search, results are refreshed.', 'wpprobe' ) . '</p>' .
+		'<p>' . __( 'Requires an <a href="https://www.wpprobe.com/" target="_blank">WPProbe.com plan</a> or a custom proxy to function.', 'wpprobe' ) . '</p>';
 
-		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#instant-results', 'elasticpress' );
+		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#instant-results', 'wpprobe' );
 	}
 
 	/**
@@ -120,12 +120,12 @@ class InstantResults extends Feature {
 		<p>
 			<?php
 			printf(
-				/* translators: %s: ElasticPress.io link. */
-				esc_html__( 'WordPress search forms will display results instantly. When the search query is submitted, a modal will open that populates results by querying ElasticPress directly, bypassing WordPress. As the user refines their search, results are refreshed. Requires an %s or a custom proxy to function.', 'elasticpress' ),
+				/* translators: %s: WPProbe.com link. */
+				esc_html__( 'WordPress search forms will display results instantly. When the search query is submitted, a modal will open that populates results by querying ElasticPress directly, bypassing WordPress. As the user refines their search, results are refreshed. Requires an %s or a custom proxy to function.', 'wpprobe' ),
 				sprintf(
 					'<a href="%1$s" target="_blank">%2$s</a>',
-					'https://www.elasticpress.io/',
-					esc_html__( 'ElasticPress.io plan', 'elasticpress' )
+					'https://www.wpprobe.com/',
+					esc_html__( 'WPProbe.com plan', 'wpprobe' )
 				)
 			);
 			?>
@@ -147,10 +147,10 @@ class InstantResults extends Feature {
 		?>
 
 		<div class="field">
-			<label for="instant-results-highlight-tag" class="field-name status"><?php echo esc_html_e( 'Highlight tag ', 'elasticpress' ); ?></label>
+			<label for="instant-results-highlight-tag" class="field-name status"><?php echo esc_html_e( 'Highlight tag ', 'wpprobe' ); ?></label>
 			<div class="input-wrap">
 				<select id="instant-results-highlight-tag" name="settings[highlight_tag]">
-					<option value=""><?php esc_html_e( 'None', 'elasticpress' ); ?></option>
+					<option value=""><?php esc_html_e( 'None', 'wpprobe' ); ?></option>
 					<?php
 					foreach ( $highlight_tags as $highlight_tag ) {
 						printf(
@@ -162,51 +162,51 @@ class InstantResults extends Feature {
 					}
 					?>
 				</select>
-				<p class="field-description"><?php esc_html_e( 'Highlight search terms in results with the selected HTML tag.', 'elasticpress' ); ?></p>
+				<p class="field-description"><?php esc_html_e( 'Highlight search terms in results with the selected HTML tag.', 'wpprobe' ); ?></p>
 			</div>
 		</div>
 		<div class="field">
-			<label for="feature_instant_results_facets" class="field-name status"><?php esc_html_e( 'Filters', 'elasticpress' ); ?></label>
+			<label for="feature_instant_results_facets" class="field-name status"><?php esc_html_e( 'Filters', 'wpprobe' ); ?></label>
 			<div class="input-wrap">
 				<input value="<?php echo esc_attr( $this->settings['facets'] ); ?>" type="text" name="settings[facets]" id="feature_instant_results_facets">
 			</div>
 		</div>
 		<div class="field">
-			<div class="field-name status"><?php esc_html_e( 'Match Type', 'elasticpress' ); ?></div>
+			<div class="field-name status"><?php esc_html_e( 'Match Type', 'wpprobe' ); ?></div>
 			<div class="input-wrap">
 				<label>
 					<input name="settings[match_type]" type="radio" <?php checked( $this->settings['match_type'], 'all' ); ?> value="all">
-					<?php echo wp_kses_post( __( 'Show any content tagged to <strong>all</strong> selected terms', 'elasticpress' ) ); ?>
+					<?php echo wp_kses_post( __( 'Show any content tagged to <strong>all</strong> selected terms', 'wpprobe' ) ); ?>
 				</label><br>
 				<label>
 					<input name="settings[match_type]" type="radio" <?php checked( $this->settings['match_type'], 'any' ); ?> value="any">
-					<?php echo wp_kses_post( __( 'Show all content tagged to <strong>any</strong> selected term', 'elasticpress' ) ); ?>
+					<?php echo wp_kses_post( __( 'Show all content tagged to <strong>any</strong> selected term', 'wpprobe' ) ); ?>
 				</label>
-				<p class="field-description"><?php esc_html_e( '"All" will only show content that matches all filters. "Any" will show content that matches any filter.', 'elasticpress' ); ?></p>
+				<p class="field-description"><?php esc_html_e( '"All" will only show content that matches all filters. "Any" will show content that matches any filter.', 'wpprobe' ); ?></p>
 			</div>
 		</div>
 		<div class="field">
-			<div class="field-name status"><?php esc_html_e( 'Term Count', 'elasticpress' ); ?></div>
+			<div class="field-name status"><?php esc_html_e( 'Term Count', 'wpprobe' ); ?></div>
 			<div class="input-wrap">
 				<label>
-					<input name="settings[term_count]" <?php checked( (bool) $this->settings['term_count'] ); ?> type="radio" value="1"><?php esc_html_e( 'Enabled', 'elasticpress' ); ?>
+					<input name="settings[term_count]" <?php checked( (bool) $this->settings['term_count'] ); ?> type="radio" value="1"><?php esc_html_e( 'Enabled', 'wpprobe' ); ?>
 				</label><br>
 				<label>
-					<input name="settings[term_count]" <?php checked( ! (bool) $this->settings['term_count'] ); ?> type="radio" value="0"><?php esc_html_e( 'Disabled', 'elasticpress' ); ?>
+					<input name="settings[term_count]" <?php checked( ! (bool) $this->settings['term_count'] ); ?> type="radio" value="0"><?php esc_html_e( 'Disabled', 'wpprobe' ); ?>
 				</label>
-				<p class="field-description"><?php esc_html_e( 'When enabled, it will show the term count in the instant results widget.', 'elasticpress' ); ?></p>
+				<p class="field-description"><?php esc_html_e( 'When enabled, it will show the term count in the instant results widget.', 'wpprobe' ); ?></p>
 			</div>
 		</div>
 		<?php
-		$show_suggestions = \ElasticPress\Features::factory()->get_registered_feature( 'did-you-mean' )->is_active();
+		$show_suggestions = \WPProbe\Features::factory()->get_registered_feature( 'did-you-mean' )->is_active();
 
 		if ( $show_suggestions ) :
 			?>
 			<div class="field">
-				<div class="field-name status"><?php esc_html_e( 'Search behavior when no result is found', 'elasticpress' ); ?></div>
+				<div class="field-name status"><?php esc_html_e( 'Search behavior when no result is found', 'wpprobe' ); ?></div>
 				<div class="input-wrap">
-					<label><input name="settings[search_behavior]" type="radio" <?php checked( $this->settings['search_behavior'], '0' ); ?> <?php disabled( $show_suggestions, false ); ?> value="0"><?php esc_html_e( 'Display the top suggestion', 'elasticpress' ); ?></label><br>
-					<label><input name="settings[search_behavior]" type="radio" <?php checked( $this->settings['search_behavior'], 'list' ); ?> <?php disabled( $show_suggestions, false ); ?> value="list"><?php esc_html_e( 'Display all the suggestions', 'elasticpress' ); ?></label><br>
+					<label><input name="settings[search_behavior]" type="radio" <?php checked( $this->settings['search_behavior'], '0' ); ?> <?php disabled( $show_suggestions, false ); ?> value="0"><?php esc_html_e( 'Display the top suggestion', 'wpprobe' ); ?></label><br>
+					<label><input name="settings[search_behavior]" type="radio" <?php checked( $this->settings['search_behavior'], 'list' ); ?> <?php disabled( $show_suggestions, false ); ?> value="list"><?php esc_html_e( 'Display all the suggestions', 'wpprobe' ); ?></label><br>
 				</div>
 			</div>
 			<?php
@@ -227,7 +227,7 @@ class InstantResults extends Feature {
 			$status->code = 1;
 
 			/**
-			 * Whether the feature is available for non ElasticPress.io customers.
+			 * Whether the feature is available for non WPProbe.com customers.
 			 *
 			 * Installations using self-hosted Elasticsearch will need to implement an API for
 			 * handling search requests before making the feature available.
@@ -238,21 +238,21 @@ class InstantResults extends Feature {
 			 */
 		} elseif ( apply_filters( 'ep_instant_results_available', false ) ) {
 			$status->code      = 1;
-			$status->message[] = esc_html__( 'You are using a custom proxy. Make sure you implement all security measures needed.', 'elasticpress' );
+			$status->message[] = esc_html__( 'You are using a custom proxy. Make sure you implement all security measures needed.', 'wpprobe' );
 		} else {
-			$status->message[] = wp_kses_post( __( "To use this feature you need to be an <a href='https://elasticpress.io'>ElasticPress.io</a> customer or implement a <a href='https://github.com/10up/elasticpress-proxy'>custom proxy</a>.", 'elasticpress' ) );
+			$status->message[] = wp_kses_post( __( "To use this feature you need to be an <a href='https://wpprobe.com'>WPProbe.com</a> customer or implement a <a href='https://github.com/10up/elasticpress-proxy'>custom proxy</a>.", 'wpprobe' ) );
 		}
 
 		/**
-		 * Display a warning if ElasticPress is network activated.
+		 * Display a warning if WPProbe is network activated.
 		 */
 		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
 			$status->message[] = wp_kses_post(
 				sprintf(
 					/* translators: Article URL */
 					__(
-						'ElasticPress is network activated. Additional steps are required to ensure Instant Results works for all sites on the network. See our article on <a href="%s" target="_blank">running ElasticPress in network mode</a> for more details.',
-						'elasticpress'
+						'WPProbe is network activated. Additional steps are required to ensure Instant Results works for all sites on the network. See our article on <a href="%s" target="_blank">running WPProbe in network mode</a> for more details.',
+						'wpprobe'
 					),
 					'https://www.elasticpress.io/documentation/article/running-elasticpress-in-a-wordpress-multisite-network-mode/'
 				)
@@ -311,7 +311,7 @@ class InstantResults extends Feature {
 			true
 		);
 
-		wp_set_script_translations( 'elasticpress-instant-results', 'elasticpress' );
+		wp_set_script_translations( 'elasticpress-instant-results', 'wpprobe' );
 
 		/**
 		 * The search API endpoint.
@@ -340,7 +340,7 @@ class InstantResults extends Feature {
 				'postTypeLabels'      => $this->get_post_type_labels(),
 				'termCount'           => $this->settings['term_count'],
 				'requestIdBase'       => Utils\get_request_id_base(),
-				'showSuggestions'     => \ElasticPress\Features::factory()->get_registered_feature( 'did-you-mean' )->is_active(),
+				'showSuggestions'     => \WPProbe\Features::factory()->get_registered_feature( 'did-you-mean' )->is_active(),
 				'suggestionsBehavior' => $this->settings['search_behavior'],
 			)
 		);
@@ -366,7 +366,7 @@ class InstantResults extends Feature {
 			true
 		);
 
-		wp_set_script_translations( 'elasticpress-instant-results-admin', 'elasticpress' );
+		wp_set_script_translations( 'elasticpress-instant-results-admin', 'wpprobe' );
 
 		wp_localize_script(
 			'elasticpress-instant-results-admin',
@@ -378,7 +378,7 @@ class InstantResults extends Feature {
 	}
 
 	/**
-	 * Save or delete the search template on ElasticPress.io based on whether
+	 * Save or delete the search template on WPProbe.com based on whether
 	 * the Instant Results feature is being activated or deactivated.
 	 *
 	 * @param string $feature  Feature slug
@@ -420,7 +420,7 @@ class InstantResults extends Feature {
 	}
 
 	/**
-	 * Save the search template to ElasticPress.io.
+	 * Save the search template to WPProbe.com.
 	 *
 	 * @return void
 	 */
@@ -449,7 +449,7 @@ class InstantResults extends Feature {
 	}
 
 	/**
-	 * Delete the search template from ElasticPress.io.
+	 * Delete the search template from WPProbe.com.
 	 *
 	 * @return void
 	 *
@@ -822,8 +822,8 @@ class InstantResults extends Feature {
 			'type'       => 'post_type',
 			'post_types' => [],
 			'labels'     => array(
-				'admin'    => __( 'Post type', 'elasticpress' ),
-				'frontend' => __( 'Type', 'elasticpress' ),
+				'admin'    => __( 'Post type', 'wpprobe' ),
+				'frontend' => __( 'Type', 'wpprobe' ),
 			),
 			'aggs'       => array(
 				'post_type' => array(
@@ -837,7 +837,7 @@ class InstantResults extends Feature {
 			 * the Post Type facet is present to be able to support setting the
 			 * post type from the search form.
 			 *
-			 * @see ElasticPress\Feature\InstantResults::get_args_schema()
+			 * @see WPProbe\Feature\InstantResults::get_args_schema()
 			 */
 			'args'       => array(),
 		);
@@ -894,8 +894,8 @@ class InstantResults extends Feature {
 				'type'       => 'price_range',
 				'post_types' => [ 'product' ],
 				'labels'     => array(
-					'admin'    => __( 'Price range', 'elasticpress' ),
-					'frontend' => __( 'Price', 'elasticpress' ),
+					'admin'    => __( 'Price range', 'wpprobe' ),
+					'frontend' => __( 'Price', 'wpprobe' ),
 				),
 				'aggs'       => array(
 					'max_price' => array(
@@ -1059,12 +1059,12 @@ class InstantResults extends Feature {
 		$this->settings_schema = [
 			[
 				'default' => 'mark',
-				'help'    => __( 'Select the HTML tag used to highlight search terms.', 'elasticpress' ),
+				'help'    => __( 'Select the HTML tag used to highlight search terms.', 'wpprobe' ),
 				'key'     => 'highlight_tag',
-				'label'   => __( 'Highlight tag', 'elasticpress' ),
+				'label'   => __( 'Highlight tag', 'wpprobe' ),
 				'options' => [
 					[
-						'label' => __( 'None', 'elasticpress' ),
+						'label' => __( 'None', 'wpprobe' ),
 						'value' => '',
 					],
 					[
@@ -1093,21 +1093,21 @@ class InstantResults extends Feature {
 			[
 				'default' => 'post_type,tax-category,tax-post_tag',
 				'key'     => 'facets',
-				'label'   => __( 'Filters', 'elasticpress' ),
+				'label'   => __( 'Filters', 'wpprobe' ),
 				'options' => array_values( $facets ),
 				'type'    => 'multiple',
 			],
 			[
 				'default' => 'all',
 				'key'     => 'match_type',
-				'label'   => __( 'Filter matching', 'elasticpress' ),
+				'label'   => __( 'Filter matching', 'wpprobe' ),
 				'options' => [
 					[
-						'label' => __( 'Show results that match <strong>all</strong> selected filters', 'elasticpress' ),
+						'label' => __( 'Show results that match <strong>all</strong> selected filters', 'wpprobe' ),
 						'value' => 'all',
 					],
 					[
-						'label' => __( 'Show results that match <strong>any</strong> selected filter', 'elasticpress' ),
+						'label' => __( 'Show results that match <strong>any</strong> selected filter', 'wpprobe' ),
 						'value' => 'any',
 					],
 				],
@@ -1115,9 +1115,9 @@ class InstantResults extends Feature {
 			],
 			[
 				'default' => '1',
-				'help'    => __( 'Enable to show the number of matching results next to filter options.', 'elasticpress' ),
+				'help'    => __( 'Enable to show the number of matching results next to filter options.', 'wpprobe' ),
 				'key'     => 'term_count',
-				'label'   => __( 'Show filter counts', 'elasticpress' ),
+				'label'   => __( 'Show filter counts', 'wpprobe' ),
 				'type'    => 'checkbox',
 			],
 			[
@@ -1128,14 +1128,14 @@ class InstantResults extends Feature {
 			[
 				'default'          => '0',
 				'key'              => 'search_behavior',
-				'label'            => __( 'Search behavior when no result is found', 'elasticpress' ),
+				'label'            => __( 'Search behavior when no result is found', 'wpprobe' ),
 				'options'          => [
 					[
-						'label' => __( 'Display the top suggestion', 'elasticpress' ),
+						'label' => __( 'Display the top suggestion', 'wpprobe' ),
 						'value' => '0',
 					],
 					[
-						'label' => __( 'Display all the suggestions', 'elasticpress' ),
+						'label' => __( 'Display all the suggestions', 'wpprobe' ),
 						'value' => 'list',
 					],
 				],

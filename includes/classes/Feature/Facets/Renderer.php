@@ -6,7 +6,7 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Feature\Facets;
+namespace WPProbe\Feature\Facets;
 
 /**
  * Abstract Facet Renderer class.

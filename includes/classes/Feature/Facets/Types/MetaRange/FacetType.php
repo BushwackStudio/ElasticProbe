@@ -6,9 +6,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Feature\Facets\Types\MetaRange;
+namespace WPProbe\Feature\Facets\Types\MetaRange;
 
-use ElasticPress\Features;
+use WPProbe\Features;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Meta facet type class
  */
-class FacetType extends \ElasticPress\Feature\Facets\FacetType {
+class FacetType extends \WPProbe\Feature\Facets\FacetType {
 
 	/**
 	 * Block instance.

@@ -6,12 +6,12 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Screen;
+namespace WPProbe\Screen;
 
-use ElasticPress\Features as FeaturesStore;
-use ElasticPress\REST;
-use ElasticPress\Screen;
-use ElasticPress\Utils;
+use WPProbe\Features as FeaturesStore;
+use WPProbe\REST;
+use WPProbe\Screen;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.

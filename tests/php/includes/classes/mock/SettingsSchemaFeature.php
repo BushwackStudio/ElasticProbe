@@ -6,14 +6,14 @@
  * @package elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress\Indexables;
+use WPProbe\Indexables;
 
 /**
  * SettingsSchemaFeature class
  */
-class SettingsSchemaFeature extends \ElasticPress\Feature {
+class SettingsSchemaFeature extends \WPProbe\Feature {
 	/**
 	 * Initialize feature setting it's config
 	 */

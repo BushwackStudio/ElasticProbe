@@ -5,14 +5,14 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Feature\Search;
+namespace WPProbe\Feature\Search;
 
-use ElasticPress\Elasticsearch;
-use ElasticPress\FeatureRequirementsStatus;
-use ElasticPress\Features;
-use ElasticPress\Indexables;
-use ElasticPress\REST;
-use ElasticPress\Utils;
+use WPProbe\Elasticsearch;
+use WPProbe\FeatureRequirementsStatus;
+use WPProbe\Features;
+use WPProbe\Indexables;
+use WPProbe\REST;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Synonyms Feature
  *
  * @since 3.4
- * @package ElasticPress\Feature\Synonyms
+ * @package WPProbe\Feature\Synonyms
  */
 class Synonyms {
 
@@ -209,7 +209,7 @@ class Synonyms {
 	 * @deprecated 5.1.0
 	 */
 	public function admin_notices() {
-		_deprecated_function( 'ElasticPress\Feature\Search\Synonyms::admin_notices', '5.1.0' );
+		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::admin_notices', '5.1.0' );
 
 		if ( ! $this->is_synonym_page() ) {
 			return;
@@ -417,7 +417,7 @@ class Synonyms {
 	 * @deprecated 5.1.0
 	 */
 	public function handle_update_synonyms() {
-		_deprecated_function( 'ElasticPress\Feature\Search\Synonyms::handle_update_synonyms', '5.1.0' );
+		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::handle_update_synonyms', '5.1.0' );
 
 		$nonce   = filter_input( INPUT_POST, $this->get_nonce_field(), FILTER_SANITIZE_SPECIAL_CHARS );
 		$referer = filter_input( INPUT_POST, '_wp_http_referer', FILTER_SANITIZE_URL );
@@ -586,7 +586,7 @@ class Synonyms {
 	 * @deprecated 5.1.0
 	 */
 	public function get_form_action() {
-		_deprecated_function( 'ElasticPress\Feature\Search\Synonyms::get_form_action', '5.1.0' );
+		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_form_action', '5.1.0' );
 
 		return esc_url_raw( admin_url( 'admin-post.php' ) );
 	}
@@ -598,7 +598,7 @@ class Synonyms {
 	 * @deprecated 5.1.0
 	 */
 	public function form_hidden_fields() {
-		_deprecated_function( 'ElasticPress\Feature\Search\Synonyms::get_form_action', '5.1.0', );
+		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_form_action', '5.1.0', );
 
 		wp_nonce_field( $this->get_nonce_action(), $this->get_nonce_field() );
 		?>
@@ -613,7 +613,7 @@ class Synonyms {
 	 * @deprecated 5.1.0
 	 */
 	public function get_nonce_action() {
-		_deprecated_function( 'ElasticPress\Feature\Search\Synonyms::get_form_action', '5.1.0', );
+		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_form_action', '5.1.0', );
 
 		return $this->get_action();
 	}
@@ -625,7 +625,7 @@ class Synonyms {
 	 * @deprecated 5.1.0
 	 */
 	public function get_nonce_field() {
-		_deprecated_function( 'ElasticPress\Feature\Search\Synonyms::get_nonce_field', '5.1.0', );
+		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_nonce_field', '5.1.0', );
 
 		return 'ep_synonyms_nonce';
 	}
@@ -637,7 +637,7 @@ class Synonyms {
 	 * @deprecated 5.1.0
 	 */
 	public function get_synonym_field() {
-		_deprecated_function( 'ElasticPress\Feature\Search\Synonyms::get_synonym_field', '5.1.0', );
+		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_synonym_field', '5.1.0', );
 
 		return 'ep_synonyms';
 	}
@@ -649,7 +649,7 @@ class Synonyms {
 	 * @deprecated 5.1.0
 	 */
 	public function get_action() {
-		_deprecated_function( 'ElasticPress\Feature\Search\Synonyms::get_action', '5.1.0', );
+		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_action', '5.1.0', );
 
 		return 'ep_synonyms_update';
 	}
@@ -698,7 +698,7 @@ class Synonyms {
 	 * @deprecated 5.1.0
 	 */
 	public function get_localized_strings() {
-		_deprecated_function( 'ElasticPress\Feature\Search\Synonyms::get_localized_strings', '5.1.0' );
+		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_localized_strings', '5.1.0' );
 
 		return array(
 			'pageHeading'                  => __( 'Manage Synonyms', 'elasticpress' ),
@@ -739,7 +739,7 @@ class Synonyms {
 	 * @deprecated 5.1.0
 	 */
 	public function get_localized_data() {
-		_deprecated_function( 'ElasticPress\Feature\Search\Synonyms::get_localized_strings', '5.1.0' );
+		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_localized_strings', '5.1.0' );
 
 		$data     = array(
 			'sets'         => array(),
@@ -826,7 +826,7 @@ class Synonyms {
 	 * @deprecated 5.1.0
 	 */
 	public static function prepare_localized_token( $token, $primary = false ) {
-		_deprecated_function( 'ElasticPress\Feature\Search\Synonyms::prepare_localized_token', '5.1.0' );
+		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::prepare_localized_token', '5.1.0' );
 
 		return array(
 			'label'   => trim( sanitize_text_field( $token ) ),

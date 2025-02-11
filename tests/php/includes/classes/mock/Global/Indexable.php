@@ -6,7 +6,7 @@
  * @package elasticpress
  */
 
-namespace ElasticPressTest\GlobalIndexable;
+namespace WPProbeTest\GlobalIndexable;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * User indexable class
  */
-class Indexable extends \ElasticPress\Indexable {
+class Indexable extends \WPProbe\Indexable {
 	/**
 	 * Set as global indexable
 	 *

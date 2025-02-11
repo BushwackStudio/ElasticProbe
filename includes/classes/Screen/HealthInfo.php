@@ -5,10 +5,10 @@
  * @package ElasticPress
  */
 
-namespace ElasticPress\Screen;
+namespace WPProbe\Screen;
 
-use ElasticPress\Features;
-use ElasticPress\Utils;
+use WPProbe\Features;
+use WPProbe\Utils;
 
 /**
  * Health info screen Class.
@@ -30,7 +30,7 @@ class HealthInfo {
 	 * @return array The debug info for site health screen.
 	 */
 	public function last_sync_health_info( $debug_info ) {
-		$last_sync_report = new \ElasticPress\StatusReport\LastSync();
+		$last_sync_report = new \WPProbe\StatusReport\LastSync();
 
 		$groups      = $last_sync_report->get_groups();
 		$first_group = reset( $groups );
@@ -61,7 +61,7 @@ class HealthInfo {
 			return $debug_info;
 		}
 
-		$epio_report = new \ElasticPress\StatusReport\ElasticPressIo();
+		$epio_report = new \WPProbe\StatusReport\ElasticPressIo();
 		$groups      = $epio_report->get_groups();
 		$first_group = reset( $groups );
 

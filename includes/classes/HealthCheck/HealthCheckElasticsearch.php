@@ -6,11 +6,11 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\HealthCheck;
+namespace WPProbe\HealthCheck;
 
-use ElasticPress\Elasticsearch;
-use ElasticPress\HealthCheck;
-use ElasticPress\Utils;
+use WPProbe\Elasticsearch;
+use WPProbe\HealthCheck;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	// @codeCoverageIgnoreStart

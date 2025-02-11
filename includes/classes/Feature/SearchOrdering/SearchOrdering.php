@@ -5,14 +5,14 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Feature\SearchOrdering;
+namespace WPProbe\Feature\SearchOrdering;
 
-use ElasticPress\Feature;
-use ElasticPress\FeatureRequirementsStatus;
-use ElasticPress\Features;
-use ElasticPress\Indexables;
-use ElasticPress\REST;
-use ElasticPress\Utils;
+use WPProbe\Feature;
+use WPProbe\FeatureRequirementsStatus;
+use WPProbe\Features;
+use WPProbe\Indexables;
+use WPProbe\REST;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Search Ordering Feature
  *
- * @package ElasticPress\Feature\SearchOrdering
+ * @package WPProbe\Feature\SearchOrdering
  */
 class SearchOrdering extends Feature {
 

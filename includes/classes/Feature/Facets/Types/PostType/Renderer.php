@@ -6,9 +6,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Feature\Facets\Types\PostType;
+namespace WPProbe\Feature\Facets\Types\PostType;
 
-use ElasticPress\Features;
+use WPProbe\Features;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Facets render class
  */
-class Renderer extends \ElasticPress\Feature\Facets\Renderer {
+class Renderer extends \WPProbe\Feature\Facets\Renderer {
 	/**
 	 * Whether the term count should be displayed or not.
 	 *
@@ -181,9 +181,9 @@ class Renderer extends \ElasticPress\Feature\Facets\Renderer {
 			'ep_facet_post_type_value_accessible_label',
 			$item['is_selected']
 				/* translators: %s: Filter term name. */
-				? sprintf( __( 'Remove filter: %s', 'elasticpress' ), $label )
+				? sprintf( __( 'Remove filter: %s', 'wpprobe' ), $label )
 				/* translators: %s: Filter term name. */
-				: sprintf( __( 'Apply filter: %s', 'elasticpress' ), $label ),
+				: sprintf( __( 'Apply filter: %s', 'wpprobe' ), $label ),
 			$item
 		);
 

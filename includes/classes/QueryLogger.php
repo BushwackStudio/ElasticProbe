@@ -8,7 +8,7 @@
  * @package elasticpress
  */
 
-namespace ElasticPress;
+namespace WPProbe;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -178,7 +178,7 @@ class QueryLogger {
 			}
 		}
 
-		\ElasticPress\Utils\delete_option( 'ep_hide_has_failed_queries_notice' );
+		\WPProbe\Utils\delete_option( 'ep_hide_has_failed_queries_notice' );
 
 		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
 			set_site_transient( self::CACHE_KEY, $logs_json_str, DAY_IN_SECONDS );
@@ -219,12 +219,12 @@ class QueryLogger {
 			return $notices;
 		}
 
-		$current_ep_screen = \ElasticPress\Screen::factory()->get_current_screen();
+		$current_ep_screen = \WPProbe\Screen::factory()->get_current_screen();
 		if ( 'status-report' === $current_ep_screen ) {
 			return $notices;
 		}
 
-		if ( \ElasticPress\Utils\get_option( 'ep_hide_has_failed_queries_notice' ) ) {
+		if ( \WPProbe\Utils\get_option( 'ep_hide_has_failed_queries_notice' ) ) {
 			return $notices;
 		}
 
@@ -239,12 +239,12 @@ class QueryLogger {
 		if ( 0 === $present_indices ) {
 			$message = sprintf(
 				/* translators: %s: Sync page link. */
-				esc_html__( 'Your site\'s content is not synced with your %1$s. Please %2$s.', 'elasticpress' ),
-				Utils\is_epio() ? __( 'ElasticPress.io account', 'elasticpress' ) : __( 'Elasticsearch server', 'elasticpress' ),
+				esc_html__( 'Your site\'s content is not synced with your %1$s. Please %2$s.', 'wpprobe' ),
+				Utils\is_epio() ? __( 'ElasticPress.io account', 'wpprobe' ) : __( 'Elasticsearch server', 'wpprobe' ),
 				sprintf(
 					'<a href="%1$s">%2$s</a>',
 					esc_url( Utils\get_sync_url( true ) ),
-					esc_html__( 'sync your content', 'elasticpress' )
+					esc_html__( 'sync your content', 'wpprobe' )
 				)
 			);
 		} else {
@@ -256,7 +256,7 @@ class QueryLogger {
 
 			$message = sprintf(
 				/* translators: Status Report URL */
-				__( 'Some ElasticPress queries failed in the last 24 hours. Please visit the <a href="%s">Status Report page</a> for more details.', 'elasticpress' ),
+				__( 'Some WPProbe queries failed in the last 24 hours. Please visit the <a href="%s">Status Report page</a> for more details.', 'wpprobe' ),
 				$status_report_url . '#failed-queries'
 			);
 		}

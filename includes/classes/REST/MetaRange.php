@@ -6,9 +6,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\REST;
+namespace WPProbe\REST;
 
-use ElasticPress\Features;
+use WPProbe\Features;
 
 /**
  * Meta Range API controller class.

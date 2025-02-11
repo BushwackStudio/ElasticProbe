@@ -6,9 +6,9 @@
  * @since  3.0
  */
 
-namespace ElasticPress;
+namespace WPProbe;
 
-use ElasticPress\Utils;
+use WPProbe\Utils;
 
 /**
  * Abstract sync manager class to be extended for each indexable

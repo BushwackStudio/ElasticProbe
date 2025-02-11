@@ -1,8 +1,8 @@
-# Copyright (C) 2024 10up
+# Copyright (C) 2025 BushwackStudio
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: ElasticPress 5.1.4\n"
+"Project-Id-Version: WPProbe 0.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/elasticpress\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,16 +12,16 @@ msgstr ""
 "POT-Creation-Date: 2024-12-12T13:55:07+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
-"X-Domain: elasticpress\n"
+"X-Domain: wpprobe\n"
 
 #. Plugin Name of the plugin
 #: includes/classes/HealthCheck/HealthCheckElasticsearch.php:44
 #: includes/classes/StatusReport/ElasticPress.php:28
-msgid "ElasticPress"
+msgid "WPProbe"
 msgstr ""
 
 #. Plugin URI of the plugin
-msgid "https://github.com/10up/ElasticPress"
+msgid "https://github.com/BushwackStudio/WpProbe"
 msgstr ""
 
 #. Description of the plugin
@@ -29,16 +29,16 @@ msgid "A fast and flexible search and query engine for WordPress."
 msgstr ""
 
 #. Author of the plugin
-msgid "10up"
+msgid "Bushwack studio"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "https://10up.com"
+msgid "https://WPProbe.com"
 msgstr ""
 
 #. translators: %s: Minimum required PHP version
 #: elasticpress.php:51
-msgid "ElasticPress requires PHP version %s or later. Please upgrade PHP or disable the plugin."
+msgid "WPProbe requires PHP version %s or later. Please upgrade PHP or disable the plugin."
 msgstr ""
 
 #: includes/classes/AdminNotices.php:120
@@ -47,49 +47,49 @@ msgstr ""
 
 #. translators: Feature name
 #: includes/classes/AdminNotices.php:185
-msgid "Dashboard sync is disabled. The ElasticPress %s feature has been auto-activated! You will need to reindex using WP-CLI for it to work."
+msgid "Dashboard sync is disabled. The WPProbe %s feature has been auto-activated! You will need to reindex using WP-CLI for it to work."
 msgstr ""
 
 #. translators: 1. Feature name; 2: Sync page URL
 #: includes/classes/AdminNotices.php:191
-msgid "The ElasticPress %1$s feature has been auto-activated! You will need to <a href=\"%2$s\">run a sync</a> for it to work."
+msgid "The WPProbe %1$s feature has been auto-activated! You will need to <a href=\"%2$s\">run a sync</a> for it to work."
 msgstr ""
 
 #: includes/classes/AdminNotices.php:252
-msgid "Dashboard sync is disabled. The new version of ElasticPress requires that you delete all data and start a fresh sync using WP-CLI."
+msgid "Dashboard sync is disabled. The new version of WPProbe requires that you delete all data and start a fresh sync using WP-CLI."
 msgstr ""
 
 #. translators: Sync Page URL
 #: includes/classes/AdminNotices.php:256
-msgid "The new version of ElasticPress requires that you <a href=\"%s\">delete all data and start a fresh sync</a>."
+msgid "The new version of WPProbe requires that you <a href=\"%s\">delete all data and start a fresh sync</a>."
 msgstr ""
 
 #: includes/classes/AdminNotices.php:261
-msgid "Please note that some ElasticPress functionality may be impaired and/or content may not be searchable until the full sync has been performed."
+msgid "Please note that some WPProbe functionality may be impaired and/or content may not be searchable until the full sync has been performed."
 msgstr ""
 
 #: includes/classes/AdminNotices.php:316
-msgid "Dashboard sync is disabled, but ElasticPress is almost ready to go. Trigger a sync from WP-CLI."
+msgid "Dashboard sync is disabled, but WPProbe is almost ready to go. Trigger a sync from WP-CLI."
 msgstr ""
 
 #. translators: Sync Page URL
 #: includes/classes/AdminNotices.php:320
-msgid "ElasticPress is almost ready to go. You just need to <a href=\"%s\">sync your content</a>."
+msgid "WPProbe is almost ready to go. You just need to <a href=\"%s\">sync your content</a>."
 msgstr ""
 
 #. translators: Sync Page URL
 #: includes/classes/AdminNotices.php:372
-msgid "ElasticPress is almost ready to go. You just need to <a href=\"%s\">enter your settings</a>."
+msgid "WPProbe is almost ready to go. You just need to <a href=\"%s\">enter your settings</a>."
 msgstr ""
 
 #. translators: 1. Current Elasticsearch version; 2. Minimum required ES version
 #: includes/classes/AdminNotices.php:429
-msgid "Your Elasticsearch version %1$s is below the minimum required Elasticsearch version %2$s. ElasticPress may or may not work properly."
+msgid "Your Elasticsearch version %1$s is below the minimum required Elasticsearch version %2$s. WPProbe may or may not work properly."
 msgstr ""
 
 #. translators: 1. Current Elasticsearch version; 2. Maximum supported ES version
 #: includes/classes/AdminNotices.php:481
-msgid "Your Elasticsearch version %1$s is above the maximum required Elasticsearch version %2$s. ElasticPress may or may not work properly."
+msgid "Your Elasticsearch version %1$s is above the maximum required Elasticsearch version %2$s. WPProbe may or may not work properly."
 msgstr ""
 
 #. translators: Document page URL
@@ -99,7 +99,7 @@ msgstr ""
 
 #. translators: 1. Current URL with retry parameter; 2. Settings Page URL
 #: includes/classes/AdminNotices.php:593
-msgid "There is a problem with connecting to your Elasticsearch host. ElasticPress can <a href=\"%1$s\">try your host again</a>, or you may need to <a href=\"%2$s\">change your settings</a>."
+msgid "There is a problem with connecting to your Elasticsearch host. WPProbe can <a href=\"%1$s\">try your host again</a>, or you may need to <a href=\"%2$s\">change your settings</a>."
 msgstr ""
 
 #. translators: Response Code Number
@@ -124,7 +124,7 @@ msgstr ""
 
 #. translators: Index Health URL
 #: includes/classes/AdminNotices.php:732
-msgid "It looks like one or more of your indices are running on a single node. While this won't prevent you from using ElasticPress, depending on your site's specific needs this can represent a performance issue. Please check the <a href=\"%s\">Index Health</a> page where you can check the health of all of your indices."
+msgid "It looks like one or more of your indices are running on a single node. While this won't prevent you from using WPProbe, depending on your site's specific needs this can represent a performance issue. Please check the <a href=\"%s\">Index Health</a> page where you can check the health of all of your indices."
 msgstr ""
 
 #. translators: Elasticsearch or ElasticPress.io; 2. Link to article; 3. Link to article
@@ -138,7 +138,7 @@ msgstr ""
 #: includes/classes/StatusReport/ElasticPressIo.php:30
 #: assets/js/sync/index.js:269
 #: dist/js/sync-script.js:1
-msgid "ElasticPress.io"
+msgid "WPProbe.com"
 msgstr ""
 
 #: includes/classes/AdminNotices.php:789
@@ -256,7 +256,7 @@ msgid "Deleting index for %s…"
 msgstr ""
 
 #: includes/classes/Command.php:581
-msgid "ElasticPress is not network activated."
+msgid "WPProbe is not network activated."
 msgstr ""
 
 #. translators: Index Label
@@ -347,7 +347,7 @@ msgid "Memory Usage: "
 msgstr ""
 
 #: includes/classes/Command.php:1440
-msgid "Are you sure you want to delete all ElasticPress settings?"
+msgid "Are you sure you want to delete all WPProbe settings?"
 msgstr ""
 
 #: includes/classes/Command.php:1445
@@ -459,7 +459,7 @@ msgstr ""
 
 #. translators: ElasticPress.io My Account URL
 #: includes/classes/ElasticsearchErrorInterpreter.php:122
-msgid "We did not recognize this error. Please open an ElasticPress.io <a href=\"%s\">support ticket</a> so we can troubleshoot further."
+msgid "We did not recognize this error. Please open a WPProbe.com <a href=\"%s\">support ticket</a> so we can troubleshoot further."
 msgstr ""
 
 #. translators: New GitHub issue URL
@@ -583,7 +583,7 @@ msgid "This address will be exposed to the public."
 msgstr ""
 
 #: includes/classes/Feature/Autosuggest/Autosuggest.php:598
-msgid "This is a fake request to build the ElasticPress Autosuggest query. It is not really sent."
+msgid "This is a fake request to build the WPProbe Autosuggest query. It is not really sent."
 msgstr ""
 
 #: includes/classes/Feature/Autosuggest/Autosuggest.php:623
@@ -591,7 +591,7 @@ msgid "This feature modifies the site’s default user experience by presenting 
 msgstr ""
 
 #: includes/classes/Feature/Autosuggest/Autosuggest.php:627
-msgid "You aren't using <a href='https://elasticpress.io'>ElasticPress.io</a> so we can't be sure your host is properly secured. Autosuggest requires a publicly accessible endpoint, which can expose private content and allow data modification if improperly configured."
+msgid "You aren't using <a href='https://wpprobe.com'>WPProbe.com</a> so we can't be sure your host is properly secured. Autosuggest requires a publicly accessible endpoint, which can expose private content and allow data modification if improperly configured."
 msgstr ""
 
 #: includes/classes/Feature/Autosuggest/Autosuggest.php:781
@@ -601,7 +601,7 @@ msgstr ""
 #. translators: 1: <a> tag (ElasticPress.io); 2. </a>; 3: <a> tag (KB article); 4. </a>; 5: <a> tag (Site Health Debug Section); 6. </a>;
 #: includes/classes/Feature/Autosuggest/Autosuggest.php:790
 #: includes/classes/Feature/Autosuggest/Autosuggest.php:865
-msgid "You are directly connected to %1$sElasticPress.io%2$s, ensuring the most performant Autosuggest experience. %3$sLearn more about what this means%4$s or %5$sclick here for debug information%6$s."
+msgid "You are directly connected to %1$sWPProbe.com%2$s, ensuring the most performant Autosuggest experience. %3$sLearn more about what this means%4$s or %5$sclick here for debug information%6$s."
 msgstr ""
 
 #: includes/classes/Feature/Autosuggest/Autosuggest.php:886
@@ -650,7 +650,7 @@ msgid "A search form for comments."
 msgstr ""
 
 #: includes/classes/Feature/Comments/Widget.php:31
-msgid "ElasticPress - Comments"
+msgid "WPProbe - Comments"
 msgstr ""
 
 #: includes/classes/Feature/Comments/Widget.php:105
@@ -672,7 +672,7 @@ msgid "\"Did You Mean\" search feature provides alternative suggestions for miss
 msgstr ""
 
 #: includes/classes/Feature/DidYouMean/DidYouMean.php:28
-msgid "https://www.elasticpress.io/documentation/article/did-you-mean/"
+msgid "https://www.WPProbe.com/documentation/article/did-you-mean/"
 msgstr ""
 
 #. translators: Tutorial URL
@@ -736,7 +736,7 @@ msgid "https://www.elasticpress.io/documentation/article/configuring-elasticpres
 msgstr ""
 
 #: includes/classes/Feature/Documents/Documents.php:310
-msgid "The <a href=\"https://www.elastic.co/guide/en/elasticsearch/plugins/master/ingest-attachment.html\">Ingest Attachment plugin</a> for Elasticsearch is not installed. To get the most out of ElasticPress, without the hassle of Elasticsearch management, check out <a href=\"https://elasticpress.io\">ElasticPress.io</a> hosting."
+msgid "The <a href=\"https://www.elastic.co/guide/en/elasticsearch/plugins/master/ingest-attachment.html\">Ingest Attachment plugin</a> for Elasticsearch is not installed. To get the most out of ElasticPress, without the hassle of Elasticsearch management, check out <a href=\"https://wpprobe.com\">WPProbe.com</a> hosting."
 msgstr ""
 
 #: includes/classes/Feature/Documents/Documents.php:313
@@ -900,7 +900,7 @@ msgid "Add a facet to an archive or search results page."
 msgstr ""
 
 #: includes/classes/Feature/Facets/Types/Taxonomy/Widget.php:36
-msgid "ElasticPress - Filter by Taxonomy"
+msgid "WPProbe - Filter by Taxonomy"
 msgstr ""
 
 #: includes/classes/Feature/Facets/Types/Taxonomy/Widget.php:100
@@ -945,7 +945,7 @@ msgstr ""
 
 #. translators: "all" or "any", depending on configuration values, 3: URL
 #: includes/classes/Feature/Facets/Types/Taxonomy/Widget.php:175
-msgid "Faceting will  filter out any content that is not tagged to all selected terms; change this to show <strong>%1$s</strong> content tagged to <strong>%2$s</strong> selected term in <a href=\"%3$s\">ElasticPress settings</a>."
+msgid "Faceting will  filter out any content that is not tagged to all selected terms; change this to show <strong>%1$s</strong> content tagged to <strong>%2$s</strong> selected term in <a href=\"%3$s\">WPProbe settings</a>."
 msgstr ""
 
 #: includes/classes/Feature/InstantResults/InstantResults.php:70
@@ -954,11 +954,11 @@ msgid "Instant Results"
 msgstr ""
 
 #: includes/classes/Feature/InstantResults/InstantResults.php:74
-msgid "WordPress search forms will display results instantly. When the search query is submitted, a modal will open that populates results by querying ElasticPress directly, bypassing WordPress. As the user refines their search, results are refreshed."
+msgid "WordPress search forms will display results instantly. When the search query is submitted, a modal will open that populates results by querying WPProbe directly, bypassing WordPress. As the user refines their search, results are refreshed."
 msgstr ""
 
 #: includes/classes/Feature/InstantResults/InstantResults.php:75
-msgid "Requires an <a href=\"https://www.elasticpress.io/\" target=\"_blank\">ElasticPress.io plan</a> or a custom proxy to function."
+msgid "Requires an <a href=\"https://www.wpprobe.com/\" target=\"_blank\">WPProbe.com plan</a> or a custom proxy to function."
 msgstr ""
 
 #: includes/classes/Feature/InstantResults/InstantResults.php:77
@@ -967,11 +967,11 @@ msgstr ""
 
 #. translators: %s: ElasticPress.io link.
 #: includes/classes/Feature/InstantResults/InstantResults.php:116
-msgid "WordPress search forms will display results instantly. When the search query is submitted, a modal will open that populates results by querying ElasticPress directly, bypassing WordPress. As the user refines their search, results are refreshed. Requires an %s or a custom proxy to function."
+msgid "WordPress search forms will display results instantly. When the search query is submitted, a modal will open that populates results by querying WPProbe directly, bypassing WordPress. As the user refines their search, results are refreshed. Requires an %s or a custom proxy to function."
 msgstr ""
 
 #: includes/classes/Feature/InstantResults/InstantResults.php:120
-msgid "ElasticPress.io plan"
+msgid "WPProbe.com plan"
 msgstr ""
 
 #: includes/classes/Feature/InstantResults/InstantResults.php:142
@@ -1001,12 +1001,12 @@ msgid "You are using a custom proxy. Make sure you implement all security measur
 msgstr ""
 
 #: includes/classes/Feature/InstantResults/InstantResults.php:235
-msgid "To use this feature you need to be an <a href='https://elasticpress.io'>ElasticPress.io</a> customer or implement a <a href='https://github.com/10up/elasticpress-proxy'>custom proxy</a>."
+msgid "To use this feature you need to be an <a href='https://wpprobe.com'>WPProbe.com</a> customer or implement a <a href='https://github.com/10up/elasticpress-proxy'>custom proxy</a>."
 msgstr ""
 
 #. translators: Article URL
 #: includes/classes/Feature/InstantResults/InstantResults.php:245
-msgid "ElasticPress is network activated. Additional steps are required to ensure Instant Results works for all sites on the network. See our article on <a href=\"%s\" target=\"_blank\">running ElasticPress in network mode</a> for more details."
+msgid "WPProbe is network activated. Additional steps are required to ensure Instant Results works for all sites on the network. See our article on <a href=\"%s\" target=\"_blank\">running WPProbe in network mode</a> for more details."
 msgstr ""
 
 #: includes/classes/Feature/InstantResults/InstantResults.php:817
@@ -1052,7 +1052,7 @@ msgid "Syncs unpublished content — including private, draft, and scheduled pos
 msgstr ""
 
 #: includes/classes/Feature/ProtectedContent/ProtectedContent.php:36
-msgid "We recommend using a secured Elasticsearch setup, such as ElasticPress.io, to prevent potential exposure of content not intended for the public."
+msgid "We recommend using a secured Elasticsearch setup, such as WPProbe.com, to prevent potential exposure of content not intended for the public."
 msgstr ""
 
 #: includes/classes/Feature/ProtectedContent/ProtectedContent.php:38
@@ -1060,11 +1060,11 @@ msgid "https://www.elasticpress.io/documentation/article/configuring-elasticpres
 msgstr ""
 
 #: includes/classes/Feature/ProtectedContent/ProtectedContent.php:369
-msgid "Securely indexes unpublished content—including private, draft, and scheduled posts —improving load times in places like the administrative dashboard where WordPress needs to include protected content in a query. <em>We recommend using a secured Elasticsearch setup, such as ElasticPress.io, to prevent potential exposure of content not intended for the public.</em>"
+msgid "Securely indexes unpublished content—including private, draft, and scheduled posts —improving load times in places like the administrative dashboard where WordPress needs to include protected content in a query. <em>We recommend using a secured Elasticsearch setup, such as WPProbe.com, to prevent potential exposure of content not intended for the public.</em>"
 msgstr ""
 
 #: includes/classes/Feature/ProtectedContent/ProtectedContent.php:409
-msgid "You aren't using <a href='https://elasticpress.io'>ElasticPress.io</a> so we can't be sure your Elasticsearch instance is secure."
+msgid "You aren't using <a href='https://wpprobe.com'>WPProbe.com</a> so we can't be sure your Elasticsearch instance is secure."
 msgstr ""
 
 #: includes/classes/Feature/ProtectedContent/ProtectedContent.php:468
@@ -1094,11 +1094,11 @@ msgid "Output related content using our Widget or directly in your theme using o
 msgstr ""
 
 #: includes/classes/Feature/RelatedPosts/Widget.php:29
-msgid "Show related posts using ElasticPress. This widget will only appear on single post, page, and custom type pages."
+msgid "Show related posts using WPProbe. This widget will only appear on single post, page, and custom type pages."
 msgstr ""
 
 #: includes/classes/Feature/RelatedPosts/Widget.php:33
-msgid "ElasticPress - Related Posts"
+msgid "WPProbe - Related Posts"
 msgstr ""
 
 #: includes/classes/Feature/RelatedPosts/Widget.php:111
@@ -1115,7 +1115,7 @@ msgstr ""
 
 #: includes/classes/Feature/Search/Search.php:58
 #: includes/classes/Feature/Search/Search.php:579
-msgid "Overcome higher-end performance and functional limits posed by the traditional WordPress structured (SQL) database to deliver superior keyword search, instantly. ElasticPress indexes custom fields, tags, and other metadata to improve search results. Fuzzy matching accounts for misspellings and verb tenses."
+msgid "Overcome higher-end performance and functional limits posed by the traditional WordPress structured (SQL) database to deliver superior keyword search, instantly. WPProbe indexes custom fields, tags, and other metadata to improve search results. Fuzzy matching accounts for misspellings and verb tenses."
 msgstr ""
 
 #: includes/classes/Feature/Search/Search.php:60
@@ -1156,13 +1156,13 @@ msgid "Exclude from search results"
 msgstr ""
 
 #: includes/classes/Feature/Search/Search.php:791
-msgid "Excludes this media from the results of your site's search form while ElasticPress is active."
+msgid "Excludes this media from the results of your site's search form while WPProbe is active."
 msgstr ""
 
 #: includes/classes/Feature/Search/Search.php:793
 #: assets/js/search/editor/plugins/exclude-from-search.js:30
 #: dist/js/search-editor-script.js:1
-msgid "Excludes this post from the results of your site's search form while ElasticPress is active."
+msgid "Excludes this post from the results of your site's search form while WPProbe is active."
 msgstr ""
 
 #: includes/classes/Feature/Search/Search.php:871
@@ -1190,7 +1190,7 @@ msgid "This feature requires the \"Post Search\" feature to be enabled"
 msgstr ""
 
 #: includes/classes/Feature/Search/Synonyms.php:182
-msgid "ElasticPress Synonyms"
+msgid "WPProbe Synonyms"
 msgstr ""
 
 #: includes/classes/Feature/Search/Synonyms.php:183
@@ -1339,7 +1339,7 @@ msgid "Taxonomies"
 msgstr ""
 
 #: includes/classes/Feature/Search/Weighting.php:329
-msgid "ElasticPress Search Fields & Weighting"
+msgid "WPProbe Search Fields & Weighting"
 msgstr ""
 
 #: includes/classes/Feature/Search/Weighting.php:330
@@ -1532,7 +1532,7 @@ msgid "Search Query"
 msgstr ""
 
 #: includes/classes/Feature/SearchOrdering/SearchOrdering.php:794
-msgid "ElasticPress Custom Search Results"
+msgid "WPProbe Custom Search Results"
 msgstr ""
 
 #: includes/classes/Feature/Terms/Terms.php:36
@@ -1553,7 +1553,7 @@ msgid "This feature will empower your website to overcome traditional WordPress 
 msgstr ""
 
 #: includes/classes/Feature/WooCommerce/Orders.php:373
-msgid "Although the WooCommerce and Protected Content features are enabled, ElasticPress will not integrate with the WooCommerce Orders list if WooCommerce's High-performance order storage is enabled."
+msgid "Although the WooCommerce and Protected Content features are enabled, WPProbe will not integrate with the WooCommerce Orders list if WooCommerce's High-performance order storage is enabled."
 msgstr ""
 
 #: includes/classes/Feature/WooCommerce/OrdersAutosuggest.php:638
@@ -1562,7 +1562,7 @@ msgstr ""
 
 #. translators: 1: <a> tag (ElasticPress.io); 2. </a>; 3: <a> tag (KB article); 4. </a>;
 #: includes/classes/Feature/WooCommerce/OrdersAutosuggest.php:659
-msgid "You are directly connected to %1$sElasticPress.io%2$s! Enable autosuggest for Orders to enhance Dashboard results and quickly find WooCommerce Orders. %3$sLearn More%4$s."
+msgid "You are directly connected to %1$sWPProbe.com%2$s! Enable autosuggest for Orders to enhance Dashboard results and quickly find WooCommerce Orders. %3$sLearn More%4$s."
 msgstr ""
 
 #: includes/classes/Feature/WooCommerce/OrdersAutosuggest.php:671
@@ -1571,7 +1571,7 @@ msgstr ""
 
 #. translators: 1: <a> tag (ElasticPress.io); 2. </a>; 3: <a> tag (KB article); 4. </a>;
 #: includes/classes/Feature/WooCommerce/OrdersAutosuggest.php:675
-msgid "Due to the sensitive nature of orders, this autosuggest feature is available only to %1$sElasticPress.io%2$s customers. %3$sLearn More%4$s."
+msgid "Due to the sensitive nature of orders, this autosuggest feature is available only to %1$sWPProbe.com%2$s customers. %3$sLearn More%4$s."
 msgstr ""
 
 #: includes/classes/Feature/WooCommerce/Products.php:326
@@ -1629,7 +1629,7 @@ msgid "Your site can connect to Elasticsearch."
 msgstr ""
 
 #: includes/classes/HealthCheck/HealthCheckElasticsearch.php:47
-msgid "You can have a fast and flexible search and query engine for WordPress using ElasticPress."
+msgid "You can have a fast and flexible search and query engine for WordPress using WPProbe."
 msgstr ""
 
 #: includes/classes/HealthCheck/HealthCheckElasticsearch.php:57
@@ -1650,7 +1650,7 @@ msgid "Update your settings"
 msgstr ""
 
 #: includes/classes/HealthCheck/HealthCheckElasticsearch.php:77
-msgid "Check if your credentials to ElasticPress.io host are correct."
+msgid "Check if your credentials to WPProbe.com host are correct."
 msgstr ""
 
 #: includes/classes/HealthCheck/HealthCheckElasticsearch.php:79
@@ -1777,7 +1777,7 @@ msgid "Index %s deleted"
 msgstr ""
 
 #: includes/classes/IndexHelper.php:1415
-msgid "Mapping has failed, which will cause ElasticPress search results to be incorrect. Please click `Delete all Data and Start a Fresh Sync` to retry mapping."
+msgid "Mapping has failed, which will cause WPProbe search results to be incorrect. Please click `Delete all Data and Start a Fresh Sync` to retry mapping."
 msgstr ""
 
 #. translators: Error message
@@ -1787,7 +1787,7 @@ msgstr ""
 
 #. translators: Site Name
 #: includes/classes/Installer.php:50
-msgid "ElasticPress Setup &lsaquo; %s &#8212; WordPress"
+msgid "WPProbe Setup &lsaquo; %s &#8212; WordPress"
 msgstr ""
 
 #. translators: %s: Sync page link.
@@ -1796,7 +1796,7 @@ msgid "Your site's content is not synced with your %1$s. Please %2$s."
 msgstr ""
 
 #: includes/classes/QueryLogger.php:243
-msgid "ElasticPress.io account"
+msgid "WPProbe.com account"
 msgstr ""
 
 #: includes/classes/QueryLogger.php:243
@@ -1810,7 +1810,7 @@ msgstr ""
 
 #. translators: Status Report URL
 #: includes/classes/QueryLogger.php:259
-msgid "Some ElasticPress queries failed in the last 24 hours. Please visit the <a href=\"%s\">Status Report page</a> for more details."
+msgid "Some WPProbe queries failed in the last 24 hours. Please visit the <a href=\"%s\">Status Report page</a> for more details."
 msgstr ""
 
 #: includes/classes/REST/Comments.php:51
@@ -1876,16 +1876,16 @@ msgid "Synonyms in Solr format."
 msgstr ""
 
 #: includes/classes/Screen/HealthInfo.php:39
-msgid "ElasticPress - Last Sync"
+msgid "WPProbe - Last Sync"
 msgstr ""
 
 #: includes/classes/Screen/HealthInfo.php:69
-msgid "ElasticPress.io - Autosuggest"
+msgid "WPProbe.com - Autosuggest"
 msgstr ""
 
 #: includes/classes/Screen/Settings.php:127
 msgctxt "Settings validation message"
-msgid "ElasticPress.io account"
+msgid "WPProbe.com account"
 msgstr ""
 
 #: includes/classes/Screen/Settings.php:128
@@ -1905,8 +1905,8 @@ msgstr ""
 
 #. translators: %d: Number of messages.
 #: includes/classes/Screen/StatusReport.php:223
-msgid "%s message from ElasticPress.io"
-msgid_plural "%s messages from ElasticPress.io"
+msgid "%s message from WPProbe.com"
+msgid_plural "%s messages from WPProbe.com"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -1938,7 +1938,7 @@ msgstr ""
 #: includes/partials/settings-page.php:64
 #: assets/js/settings.js:74
 #: dist/js/settings-script.js:1
-msgid "ElasticPress.io Host URL"
+msgid "WPProbe.com Host URL"
 msgstr ""
 
 #: includes/classes/StatusReport/ElasticPress.php:54
@@ -2219,7 +2219,7 @@ msgstr ""
 
 #. translators: 1: <a> tag (Support article about Instant Results); 2. </a>; 3: <a> tag (Support article about self hosted Elasticsearch setups); 4. </a>;
 #: includes/classes/Upgrades.php:333
-msgid "%1$sInstant Results%2$s is now available in ElasticPress, but requires a re-sync before activation. If you would like to use Instant Results, since you are not using ElasticPress.io, you will also need to %3$sinstall and configure a PHP proxy%4$s."
+msgid "%1$sInstant Results%2$s is now available in ElasticPress, but requires a re-sync before activation. If you would like to use Instant Results, since you are not using WPProbe.com, you will also need to %3$sinstall and configure a PHP proxy%4$s."
 msgstr ""
 
 #: includes/compat.php:98
@@ -2325,7 +2325,7 @@ msgid "Set up Elasticsearch hosting"
 msgstr ""
 
 #: includes/partials/install-page.php:67
-msgid "The next step is to make sure you have a working Elasticsearch server. We recommend creating an <a href=\"https://elasticpress.io\" target=\"_blank\">ElasticPress.io</a> account or if you want you can set up your own hosting."
+msgid "The next step is to make sure you have a working Elasticsearch server. We recommend creating an <a href=\"https://wpprobe.com\" target=\"_blank\">WPProbe.com</a> account or if you want you can set up your own hosting."
 msgstr ""
 
 #: includes/partials/install-page.php:71

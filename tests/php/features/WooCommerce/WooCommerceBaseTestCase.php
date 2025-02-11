@@ -6,7 +6,7 @@
  * @package elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
 /**
  * WooCommerceBaseTestCase class
@@ -26,10 +26,10 @@ class WooCommerceBaseTestCase extends BaseTestCase {
 
 		wp_set_current_user( $admin_id );
 
-		\ElasticPress\Elasticsearch::factory()->delete_all_indices();
-		\ElasticPress\Indexables::factory()->get( 'post' )->put_mapping();
+		\WPProbe\Elasticsearch::factory()->delete_all_indices();
+		\WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
 
-		\ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->sync_queue = [];
+		\WPProbe\Indexables::factory()->get( 'post' )->sync_manager->sync_queue = [];
 
 		$this->setup_test_post_type();
 	}

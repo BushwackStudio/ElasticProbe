@@ -11,9 +11,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPress;
+namespace WPProbe;
 
-use ElasticPress\Utils;
+use WPProbe\Utils;
 
 /**
  * Index Helper Class.
@@ -293,7 +293,7 @@ class IndexHelper {
 				$this->output_success(
 					sprintf(
 						/* translators: 1: Indexable name, 2: Site ID */
-						esc_html__( 'Indexing %1$s on site %2$d…', 'elasticpress' ),
+						esc_html__( 'Indexing %1$s on site %2$d…', 'wpprobe' ),
 						esc_html( strtolower( $indexable->labels['plural'] ) ),
 						$this->index_meta['current_sync_item']['blog_id']
 					)
@@ -301,9 +301,9 @@ class IndexHelper {
 			} else {
 				$message_string = ( $indexable->global ) ?
 					/* translators: 1: Indexable name */
-					esc_html__( 'Indexing %1$s (globally)…', 'elasticpress' ) :
+					esc_html__( 'Indexing %1$s (globally)…', 'wpprobe' ) :
 					/* translators: 1: Indexable name */
-					esc_html__( 'Indexing %1$s…', 'elasticpress' );
+					esc_html__( 'Indexing %1$s…', 'wpprobe' );
 
 				$this->output_success(
 					sprintf(
@@ -391,9 +391,9 @@ class IndexHelper {
 
 		$index_exists = in_array( $indexable->get_index_name(), $this->index_meta['starting_indices'], true );
 		if ( $index_exists ) {
-			$message = esc_html__( 'Mapping sent', 'elasticpress' );
+			$message = esc_html__( 'Mapping sent', 'wpprobe' );
 		} else {
-			$message = esc_html__( 'Index not present. Mapping sent', 'elasticpress' );
+			$message = esc_html__( 'Index not present. Mapping sent', 'wpprobe' );
 		}
 
 		$this->output_success( $message );
@@ -424,7 +424,7 @@ class IndexHelper {
 				$this->output(
 					sprintf(
 						/* translators: 1. Number of objects skipped 2. Indexable type */
-						esc_html__( 'Skipping %1$d %2$s…', 'elasticpress' ),
+						esc_html__( 'Skipping %1$d %2$s…', 'wpprobe' ),
 						$this->index_meta['from'],
 						esc_html( strtolower( $indexable->labels['plural'] ) )
 					),
@@ -726,7 +726,7 @@ class IndexHelper {
 
 		$summary = sprintf(
 			/* translators: 1. Indexable type 2. Offset start, 3. Offset end, 4. Found items 5. Last object ID */
-			esc_html__( 'Processed %1$s %2$d - %3$d of %4$d. Last Object ID: %5$d', 'elasticpress' ),
+			esc_html__( 'Processed %1$s %2$d - %3$d of %4$d. Last Object ID: %5$d', 'wpprobe' ),
 			esc_html( strtolower( $indexable->labels['plural'] ) ),
 			$this->index_meta['from'],
 			$this->index_meta['offset'],
@@ -749,7 +749,7 @@ class IndexHelper {
 	 * @param array $errors Array of errors.
 	 */
 	protected function maybe_process_error_limit( $count, $num, $errors ) {
-		$error_store_msg = __( 'Reached maximum number of errors to store', 'elasticpress' );
+		$error_store_msg = __( 'Reached maximum number of errors to store', 'wpprobe' );
 
 		/**
 		 * Filter the number of errors of a current sync that should be stored.
@@ -828,7 +828,7 @@ class IndexHelper {
 			if ( ! empty( $current_sync_item['blog_id'] ) && defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
 				$message = sprintf(
 					/* translators: 1: indexable (plural), 2: Blog ID, 3: number of failed objects */
-					esc_html__( 'Number of %1$s index errors on site %2$d: %3$d', 'elasticpress' ),
+					esc_html__( 'Number of %1$s index errors on site %2$d: %3$d', 'wpprobe' ),
 					esc_html( strtolower( $indexable->labels['plural'] ) ),
 					$current_sync_item['blog_id'],
 					$current_sync_item['failed']
@@ -836,7 +836,7 @@ class IndexHelper {
 			} else {
 				$message = sprintf(
 					/* translators: 1: indexable (plural), 2: number of failed objects */
-					esc_html__( 'Number of %1$s index errors: %2$d', 'elasticpress' ),
+					esc_html__( 'Number of %1$s index errors: %2$d', 'wpprobe' ),
 					esc_html( strtolower( $indexable->labels['plural'] ) ),
 					$current_sync_item['failed']
 				);
@@ -848,7 +848,7 @@ class IndexHelper {
 		if ( ! empty( $current_sync_item['blog_id'] ) && defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
 			$message = sprintf(
 				/* translators: 1: indexable (plural), 2: Blog ID, 3: number of synced objects */
-				esc_html__( 'Number of %1$s indexed on site %2$d: %3$d', 'elasticpress' ),
+				esc_html__( 'Number of %1$s indexed on site %2$d: %3$d', 'wpprobe' ),
 				esc_html( strtolower( $indexable->labels['plural'] ) ),
 				$current_sync_item['blog_id'],
 				$current_sync_item['synced']
@@ -856,7 +856,7 @@ class IndexHelper {
 		} else {
 			$message = sprintf(
 				/* translators: 1: indexable (plural), 2: number of synced objects */
-				esc_html__( 'Number of %1$s indexed: %2$d', 'elasticpress' ),
+				esc_html__( 'Number of %1$s indexed: %2$d', 'wpprobe' ),
 				esc_html( strtolower( $indexable->labels['plural'] ) ),
 				$current_sync_item['synced']
 			);
@@ -966,7 +966,7 @@ class IndexHelper {
 		 */
 		do_action( "ep_after_{$this->args['method']}_index" );
 
-		$this->output_success( esc_html__( 'Sync complete', 'elasticpress' ) );
+		$this->output_success( esc_html__( 'Sync complete', 'wpprobe' ) );
 	}
 
 	/**
@@ -1002,7 +1002,7 @@ class IndexHelper {
 			$this->output_success(
 				sprintf(
 					/* translators: 1: Indexable name */
-					esc_html__( 'Network alias created for %1$s', 'elasticpress' ),
+					esc_html__( 'Network alias created for %1$s', 'wpprobe' ),
 					esc_html( strtolower( $indexable->labels['plural'] ) )
 				)
 			);
@@ -1010,7 +1010,7 @@ class IndexHelper {
 			$this->output_error(
 				sprintf(
 					/* translators: 1: Indexable name */
-					esc_html__( 'Network alias creation failed for %1$s', 'elasticpress' ),
+					esc_html__( 'Network alias creation failed for %1$s', 'wpprobe' ),
 					esc_html( strtolower( $indexable->labels['plural'] ) )
 				)
 			);
@@ -1257,7 +1257,7 @@ class IndexHelper {
 		$this->output_success(
 			sprintf(
 				/* translators: Index name */
-				esc_html__( 'Index %s deleted', 'elasticpress' ),
+				esc_html__( 'Index %s deleted', 'wpprobe' ),
 				$indexable->get_index_name()
 			)
 		);
@@ -1407,17 +1407,17 @@ class IndexHelper {
 			case 'mapping':
 				$message = sprintf(
 					/* translators: Error message */
-					esc_html__( 'Mapping failed: %s', 'elasticpress' ),
+					esc_html__( 'Mapping failed: %s', 'wpprobe' ),
 					Utils\get_elasticsearch_error_reason( $error['message'] )
 				);
 				if ( $this->should_suggest_retry( $message ) ) {
 					$message .= "\n";
-					$message .= esc_html__( 'Mapping has failed, which will cause ElasticPress search results to be incorrect. Please click `Delete all Data and Start a Fresh Sync` to retry mapping.', 'elasticpress' );
+					$message .= esc_html__( 'Mapping has failed, which will cause WPProbe search results to be incorrect. Please click `Delete all Data and Start a Fresh Sync` to retry mapping.', 'wpprobe' );
 				}
 				break;
 			default:
 				/* translators: Error message */
-				$message = sprintf( esc_html__( 'Index failed: %s', 'elasticpress' ), $error['message'] );
+				$message = sprintf( esc_html__( 'Index failed: %s', 'wpprobe' ), $error['message'] );
 				break;
 		}
 
@@ -1492,7 +1492,7 @@ class IndexHelper {
 	 */
 	protected function build_message_errors_data( $messages ): array {
 		$messages          = (array) $messages;
-		$error_interpreter = new \ElasticPress\ElasticsearchErrorInterpreter();
+		$error_interpreter = new \WPProbe\ElasticsearchErrorInterpreter();
 
 		$errors_list = [];
 		foreach ( $messages as $message ) {
@@ -1558,7 +1558,7 @@ class IndexHelper {
 	 * @return array
 	 */
 	public function get_last_index() {
-		_deprecated_function( __METHOD__, '5.0.0', '\ElasticPress\IndexHelper::get_last_sync' );
+		_deprecated_function( __METHOD__, '5.0.0', '\WPProbe\IndexHelper::get_last_sync' );
 		return $this->get_last_sync();
 	}
 }

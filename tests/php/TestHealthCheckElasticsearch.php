@@ -6,9 +6,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress\Elasticsearch;
+use WPProbe\Elasticsearch;
 use WP_Site_Health;
 use WP_Ajax_UnitTestCase;
 use WPAjaxDieContinueException;

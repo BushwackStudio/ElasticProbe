@@ -6,9 +6,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Feature\Facets\Types\Date;
+namespace WPProbe\Feature\Facets\Types\Date;
 
-use ElasticPress\Utils;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Facets block class
  */
-class Block extends \ElasticPress\Feature\Facets\Block {
+class Block extends \WPProbe\Feature\Facets\Block {
 	/**
 	 * Hook block functionality.
 	 */

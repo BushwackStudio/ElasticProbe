@@ -1,12 +1,12 @@
 <?php
 /**
- * WP-CLI deprecated commands for ElasticPress
+ * WP-CLI deprecated commands for WPProbe
  *
  * @since  4.4.0
  * @package elasticpress
  */
 
-namespace ElasticPress;
+namespace WPProbe;
 
 use WP_CLI;
 
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Deprecated CLI Commands for ElasticPress
+ * Deprecated CLI Commands for WPProbe
  */
 trait DeprecatedCommand {
 
@@ -43,7 +43,7 @@ trait DeprecatedCommand {
 		WP_CLI::warning(
 			sprintf(
 				/* translators: New command name */
-				esc_html__( 'This command is deprecated. Please use %s instead.', 'elasticpress' ),
+				esc_html__( 'This command is deprecated. Please use %s instead.', 'wpprobe' ),
 				'get-indices'
 			)
 		);
@@ -72,7 +72,7 @@ trait DeprecatedCommand {
 		WP_CLI::warning(
 			sprintf(
 				/* translators: New command name */
-				esc_html__( 'This command is deprecated. Please use %s instead.', 'elasticpress' ),
+				esc_html__( 'This command is deprecated. Please use %s instead.', 'wpprobe' ),
 				'get-cluster-indices'
 			)
 		);
@@ -135,7 +135,7 @@ trait DeprecatedCommand {
 	 * : Custom Elasticsearch host
 	 *
 	 * [--ep-prefix=<prefix>]
-	 * : Custom ElasticPress prefix
+	 * : Custom WPProbe prefix
 	 *
 	 * [--yes]
 	 * : Skip confirmation needed by `--setup`
@@ -151,7 +151,7 @@ trait DeprecatedCommand {
 		WP_CLI::warning(
 			sprintf(
 				/* translators: New command name */
-				esc_html__( 'This command is deprecated. Please use %s instead.', 'elasticpress' ),
+				esc_html__( 'This command is deprecated. Please use %s instead.', 'wpprobe' ),
 				'sync'
 			)
 		);
@@ -177,7 +177,7 @@ trait DeprecatedCommand {
 		WP_CLI::warning(
 			sprintf(
 				/* translators: New command name */
-				esc_html__( 'This command is deprecated. Please use %s instead.', 'elasticpress' ),
+				esc_html__( 'This command is deprecated. Please use %s instead.', 'wpprobe' ),
 				'clear-sync'
 			)
 		);
@@ -212,7 +212,7 @@ trait DeprecatedCommand {
 		WP_CLI::warning(
 			sprintf(
 				/* translators: New command name */
-				esc_html__( 'This command is deprecated. Please use %s instead.', 'elasticpress' ),
+				esc_html__( 'This command is deprecated. Please use %s instead.', 'wpprobe' ),
 				'get-ongoing-sync-status'
 			)
 		);
@@ -244,7 +244,7 @@ trait DeprecatedCommand {
 		WP_CLI::warning(
 			sprintf(
 				/* translators: New command name */
-				esc_html__( 'This command is deprecated. Please use %s instead.', 'elasticpress' ),
+				esc_html__( 'This command is deprecated. Please use %s instead.', 'wpprobe' ),
 				'get-last-cli-sync'
 			)
 		);
@@ -268,7 +268,7 @@ trait DeprecatedCommand {
 		WP_CLI::warning(
 			sprintf(
 				/* translators: New command name */
-				esc_html__( 'This command is deprecated. Please use %s instead.', 'elasticpress' ),
+				esc_html__( 'This command is deprecated. Please use %s instead.', 'wpprobe' ),
 				'stop-sync'
 			)
 		);

@@ -6,11 +6,11 @@
  * @package  elasticpress
  */
 
-namespace ElasticPress\Indexable\Term;
+namespace WPProbe\Indexable\Term;
 
 use WP_Term_Query;
-use ElasticPress\Elasticsearch;
-use ElasticPress\Indexable;
+use WPProbe\Elasticsearch;
+use WPProbe\Indexable;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	// @codeCoverageIgnoreStart

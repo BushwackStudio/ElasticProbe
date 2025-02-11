@@ -6,13 +6,13 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Feature\WooCommerce;
+namespace WPProbe\Feature\WooCommerce;
 
-use ElasticPress\Elasticsearch;
-use ElasticPress\Features;
-use ElasticPress\Indexables;
-use ElasticPress\REST;
-use ElasticPress\Utils;
+use WPProbe\Elasticsearch;
+use WPProbe\Features;
+use WPProbe\Indexables;
+use WPProbe\REST;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.

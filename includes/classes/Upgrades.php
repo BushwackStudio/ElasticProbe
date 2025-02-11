@@ -6,10 +6,10 @@
  * @package elasticpress
  */
 
-namespace ElasticPress;
+namespace WPProbe;
 
-use ElasticPress\Features;
-use ElasticPress\Utils;
+use WPProbe\Features;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -145,7 +145,7 @@ class Upgrades {
 	public function upgrade_3_6_6() {
 		global $wpdb;
 
-		$synonyms = \ElasticPress\Features::factory()->get_registered_feature( 'search' )->synonyms;
+		$synonyms = \WPProbe\Features::factory()->get_registered_feature( 'search' )->synonyms;
 
 		if ( ! $synonyms ) {
 			return;
@@ -302,7 +302,7 @@ class Upgrades {
 			return $notices;
 		}
 
-		$instant_results = \ElasticPress\Features::factory()->get_registered_feature( 'instant-results' );
+		$instant_results = \WPProbe\Features::factory()->get_registered_feature( 'instant-results' );
 		if ( $instant_results->is_active() ) {
 			return $notices;
 		}
@@ -311,9 +311,9 @@ class Upgrades {
 		$appended_message = '';
 		if ( 1 >= $feature_status->code ) {
 			if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
-				$features_url = admin_url( 'network/admin.php?page=elasticpress' );
+				$features_url = admin_url( 'network/admin.php?page=wpprobe' );
 			} else {
-				$features_url = admin_url( 'admin.php?page=elasticpress' );
+				$features_url = admin_url( 'admin.php?page=wpprobe' );
 			}
 
 			$appended_message = wp_kses_post(

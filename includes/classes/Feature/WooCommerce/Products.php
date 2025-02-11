@@ -6,11 +6,11 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Feature\WooCommerce;
+namespace WPProbe\Feature\WooCommerce;
 
-use ElasticPress\Indexables;
-use ElasticPress\IndexHelper;
-use ElasticPress\Utils;
+use WPProbe\Indexables;
+use WPProbe\IndexHelper;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.

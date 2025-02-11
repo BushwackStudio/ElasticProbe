@@ -6,14 +6,14 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Indexable\Comment;
+namespace WPProbe\Indexable\Comment;
 
 use WP_Comment_Query;
-use ElasticPress\Elasticsearch;
-use ElasticPress\Features;
-use ElasticPress\Indexable;
-use ElasticPress\Indexable\Post\DateQuery;
-use ElasticPress\Indexables;
+use WPProbe\Elasticsearch;
+use WPProbe\Features;
+use WPProbe\Indexable;
+use WPProbe\Indexable\Post\DateQuery;
+use WPProbe\Indexables;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.

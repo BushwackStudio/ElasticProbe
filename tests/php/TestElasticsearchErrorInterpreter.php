@@ -6,10 +6,10 @@
  * @package elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress\ElasticsearchErrorInterpreter;
-use ElasticPress\Utils;
+use WPProbe\ElasticsearchErrorInterpreter;
+use WPProbe\Utils;
 
 /**
  * TestElasticsearchErrorInterpreter test class

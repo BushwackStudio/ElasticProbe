@@ -2,11 +2,11 @@
 
 > A fast and flexible search and query engine for WordPress.
 
-[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Tests Status](https://github.com/10up/ElasticPress/actions/workflows/test.yml/badge.svg?branch=develop)](https://github.com/10up/ElasticPress) [![Release Version](https://img.shields.io/github/release/10up/ElasticPress.svg)](https://github.com/10up/ElasticPress/releases/latest) ![WordPress tested up to version](https://img.shields.io/wordpress/plugin/tested/elasticpress?label=WordPress) [![MIT License](https://img.shields.io/github/license/10up/ElasticPress.svg)](https://github.com/10up/ElasticPress/blob/develop/LICENSE.md)
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Tests Status](https://github.com/BushwackStudio/WpProbe/actions/workflows/test.yml/badge.svg?branch=develop)](https://github.com/BushwackStudio/WpProbe/ElasticPress) [![Release Version](https://img.shields.io/github/release/bushwack/ElasticPress.svg)](https://github.com/BushwackStudio/WpProbe/releases/latest) ![WordPress tested up to version](https://img.shields.io/wordpress/plugin/tested/elasticpress?label=WordPress) [![MIT License](https://img.shields.io/github/license/bushwack/ElasticPress.svg)](https://github.com/BushwackStudio/WpProbe/blob/develop/LICENSE.md)
 
 * Check out the [ElasticPress Docs](https://www.elasticpress.io/documentation/)
 
-**Please note:** as of ElasticPress 4.0.0 `trunk` is the stable branch, built assets were removed from the `develop` branch, a ZIP with the plugin and its built assets are available on the [GitHub Releases page](https://github.com/10up/ElasticPress/releases), and will include a build script should you want to build assets from a branch.  As such, please ensure you have updated any references you have from `master` to `trunk` or to GitHub releases depending on whether you require built assets or not.
+**Please note:** as of ElasticPress 4.0.0 `trunk` is the stable branch, built assets were removed from the `develop` branch, a ZIP with the plugin and its built assets are available on the [GitHub Releases page](https://github.com/BushwackStudio/WpProbe/releases), and will include a build script should you want to build assets from a branch.  As such, please ensure you have updated any references you have from `master` to `trunk` or to GitHub releases depending on whether you require built assets or not.
 
 ## Overview
 
@@ -15,7 +15,7 @@ ElasticPress, a fast and flexible search and query engine for WordPress, enables
 ## Documentation
 
 * [Support site with FAQs, tutorials, and docs ☞](https://www.elasticpress.io/documentation/)
-* [Security Policy ☞](https://github.com/10up/ElasticPress/blob/develop/SECURITY.md)
+* [Security Policy ☞](https://github.com/BushwackStudio/WpProbe/blob/develop/SECURITY.md)
 
 ## Requirements and Compatibility
 
@@ -41,19 +41,19 @@ Simply downloading the repository files is not enough to have the plugin working
 
 ## React Components
 
-Interested in integrating ElasticPress in your headless WordPress website? Check out [ElasticPress React](https://github.com/10up/elasticpress-react).
+Interested in integrating ElasticPress in your headless WordPress website? Check out [ElasticPress React](https://github.com/BushwackStudio/WpProbe/elasticpress-react).
 
 ## Issues
 
-If you identify any errors or have an idea for improving the plugin, please [open an issue](https://github.com/10up/ElasticPress/issues?state=open). We're excited to see what the community thinks of this project, and we would love your input!
+If you identify any errors or have an idea for improving the plugin, please [open an issue](https://github.com/BushwackStudio/WpProbe/issues?state=open). We're excited to see what the community thinks of this project, and we would love your input!
 
 ## Support Level
 
-**Active:** 10up is actively working on this, and we expect to continue work for the foreseeable future including keeping tested up to the most recent version of WordPress.  Bug reports, feature requests, questions, and pull requests are welcome.
+**Active:** Bushwack is actively working on this, and we expect to continue work for the foreseeable future including keeping tested up to the most recent version of WordPress.  Bug reports, feature requests, questions, and pull requests are welcome.
 
 ## Changelog
 
-A complete listing of all notable changes to ElasticPress are documented in [CHANGELOG.md](https://github.com/10up/elasticpress/blob/develop/CHANGELOG.md).
+A complete listing of all notable changes to ElasticPress are documented in [CHANGELOG.md](https://github.com/BushwackStudio/WpProbe/blob/develop/CHANGELOG.md).
 
 ## Upgrade notices
 
@@ -63,14 +63,9 @@ A complete listing of all notable changes to ElasticPress are documented in [CHA
 
 ### 4.0.0
 
-**Note that ElasticPress 4.0.0 release removes built assets from the `develop` branch, replaced `master` with `trunk`, added a ZIP with the plugin and its built assets in the [GitHub Releases page](https://github.com/10up/ElasticPress/releases), and included a build script should you want to build assets from a branch.**  As such, please plan to update any references you have from `master` to `trunk` or to GitHub Releases depending on whether you require built assets or not.
+**Note that ElasticPress 4.0.0 release removes built assets from the `develop` branch, replaced `master` with `trunk`, added a ZIP with the plugin and its built assets in the [GitHub Releases page](https://github.com/BushwackStudio/WpProbe/releases), and included a build script should you want to build assets from a branch.**  As such, please plan to update any references you have from `master` to `trunk` or to GitHub Releases depending on whether you require built assets or not.
 
 ## Contributing
 
-Please read [CODE_OF_CONDUCT.md](https://github.com/10up/elasticpress/blob/develop/CODE_OF_CONDUCT.md) for details on our code of conduct, [CONTRIBUTING.md](https://github.com/10up/elasticpress/blob/develop/CONTRIBUTING.md) for details on the process for submitting pull requests to us, and [CREDITS.md](https://github.com/10up/elasticpress/blob/develop/CREDITS.md) for a listing of maintainers of, contributors to, and libraries used by ElasticPress.
+Please read [CODE_OF_CONDUCT.md](https://github.com/BushwackStudio/WpProbe/blob/develop/CODE_OF_CONDUCT.md) for details on our code of conduct, [CONTRIBUTING.md](https://github.com/BushwackStudio/WpProbe/blob/develop/CONTRIBUTING.md) for details on the process for submitting pull requests to us, and [CREDITS.md](https://github.com/BushwackStudio/WpProbe/blob/develop/CREDITS.md) for a listing of maintainers of, contributors to, and libraries used by ElasticPress.
 
-## Like what you see?
-
-<p align="center">
-<a href="https://10up.com/contact/"><img src="https://10up.com/uploads/2016/10/10up-Github-Banner.png" width="850"></a>
-</p>

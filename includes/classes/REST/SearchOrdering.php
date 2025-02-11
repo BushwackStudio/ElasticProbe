@@ -6,10 +6,10 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\REST;
+namespace WPProbe\REST;
 
-use ElasticPress\Features;
-use ElasticPress\Utils;
+use WPProbe\Features;
+use WPProbe\Utils;
 
 /**
  * Custom Results API controller class.

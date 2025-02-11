@@ -6,10 +6,10 @@
  * @package elasticpress
  */
 
-use ElasticPress\Dashboard;
-use ElasticPress\Elasticsearch;
-use ElasticPress\IndexHelper;
-use ElasticPress\Utils;
+use WPProbe\Dashboard;
+use WPProbe\Elasticsearch;
+use WPProbe\IndexHelper;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.

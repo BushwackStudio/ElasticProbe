@@ -6,14 +6,14 @@
  * @package elasticpress
  */
 
-namespace ElasticPressTest\REST;
+namespace WPProbeTest\REST;
 
-use ElasticPress\REST\Features;
+use WPProbe\REST\Features;
 
 /**
  * TestFeatures test class
  */
-class TestFeatures extends \ElasticPressTest\BaseTestCase {
+class TestFeatures extends \WPProbeTest\BaseTestCase {
 	/**
 	 * Test get_args.
 	 *
@@ -22,10 +22,10 @@ class TestFeatures extends \ElasticPressTest\BaseTestCase {
 	 */
 	public function test_get_args() {
 		$features_rest     = new Features();
-		$features_instance = \ElasticPress\Features::factory();
+		$features_instance = \WPProbe\Features::factory();
 
 		$features_instance->register_feature(
-			new \ElasticPressTest\SettingsSchemaFeature()
+			new \WPProbeTest\SettingsSchemaFeature()
 		);
 
 		$args = $features_rest->get_args();

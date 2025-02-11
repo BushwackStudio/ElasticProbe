@@ -5,7 +5,7 @@
  * @package  elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
 use WP_UnitTestCase;
 
@@ -48,7 +48,7 @@ class BaseTestCase extends WP_UnitTestCase {
 
 		$this->setup_factory();
 
-		\ElasticPress\setup_roles();
+		\WPProbe\setup_roles();
 
 		parent::set_up();
 	}

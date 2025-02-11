@@ -5,10 +5,10 @@
  * @package elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress;
-use ElasticPress\Features;
+use WPProbe;
+use WPProbe\Features;
 
 /**
  * Facets\Types\Date\FacetType test class
@@ -18,7 +18,7 @@ class TestFacetTypeDate extends BaseTestCase {
 	/**
 	 * The facet type instance
 	 *
-	 * @var null|\ElasticPress\Feature\Facets\Types\Date\FacetType
+	 * @var null|\WPProbe\Feature\Facets\Types\Date\FacetType
 	 */
 	protected $facet_type = null;
 
@@ -26,9 +26,9 @@ class TestFacetTypeDate extends BaseTestCase {
 	 * Setup each test.
 	 */
 	public function set_up() {
-		ElasticPress\Elasticsearch::factory()->delete_all_indices();
-		ElasticPress\Indexables::factory()->get( 'post' )->put_mapping();
-		ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
+		WPProbe\Elasticsearch::factory()->delete_all_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
+		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
 
 		$facet_feature    = Features::factory()->get_registered_feature( 'facets' );
 		$this->facet_type = $facet_feature->types['date'];
@@ -325,7 +325,7 @@ class TestFacetTypeDate extends BaseTestCase {
 		$this->ep_factory->post->create( [ 'post_date' => '2023-01-01 00:00:00' ] );
 		$this->ep_factory->post->create( [ 'post_date' => '2023-06-01 23:59:59' ] );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		add_filter( 'ep_is_facetable', '__return_true' );
 

@@ -6,9 +6,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPress;
+namespace WPProbe;
 
-use ElasticPress\Utils;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -46,7 +46,7 @@ class Installer {
 	public function filter_admin_title( $admin_title ) {
 		if ( 'install' === Screen::factory()->get_current_screen() ) {
 			// translators: Site Name
-			return sprintf( esc_html__( 'ElasticPress Setup &lsaquo; %s &#8212; WordPress', 'elasticpress' ), esc_html( get_bloginfo( 'name' ) ) );
+			return sprintf( esc_html__( 'WPProbe Setup &lsaquo; %s &#8212; WordPress', 'wpprobe' ), esc_html( get_bloginfo( 'name' ) ) );
 		}
 
 		return $admin_title;
@@ -120,14 +120,14 @@ class Installer {
 			return;
 		}
 
-		$registered_features = \ElasticPress\Features::factory()->registered_features;
+		$registered_features = \WPProbe\Features::factory()->registered_features;
 		$activation_features = wp_list_filter( $registered_features, array( 'available_during_installation' => true ) );
 
 		foreach ( $activation_features as $slug => $feature ) {
 			if ( in_array( $slug, $_POST['features'], true ) ) {
-				\ElasticPress\Features::factory()->activate_feature( $slug );
+				\WPProbe\Features::factory()->activate_feature( $slug );
 			} else {
-				\ElasticPress\Features::factory()->deactivate_feature( $slug );
+				\WPProbe\Features::factory()->deactivate_feature( $slug );
 			}
 		}
 

@@ -6,9 +6,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\StatusReport;
+namespace WPProbe\StatusReport;
 
-use ElasticPress\Utils;
+use WPProbe\Utils;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -67,7 +67,7 @@ class ElasticPress extends Report {
 
 		$fields['per_page'] = [
 			'label' => __( 'Content Items per Index Cycle', 'elasticpress' ),
-			'value' => \ElasticPress\IndexHelper::factory()->get_index_default_per_page(),
+			'value' => \WPProbe\IndexHelper::factory()->get_index_default_per_page(),
 		];
 
 		$fields['network_active'] = [

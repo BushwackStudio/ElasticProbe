@@ -6,11 +6,11 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Indexable\Comment;
+namespace WPProbe\Indexable\Comment;
 
 use WP_Comment_Query;
-use ElasticPress\Indexables;
-use ElasticPress\Utils;
+use WPProbe\Indexables;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.

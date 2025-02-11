@@ -6,12 +6,12 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Feature\ProtectedContent;
+namespace WPProbe\Feature\ProtectedContent;
 
-use ElasticPress\Feature;
-use ElasticPress\FeatureRequirementsStatus;
-use ElasticPress\Features;
-use ElasticPress\Utils;
+use WPProbe\Feature;
+use WPProbe\FeatureRequirementsStatus;
+use WPProbe\Features;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -44,12 +44,12 @@ class ProtectedContent extends Feature {
 	 * @since 5.2.0
 	 */
 	public function set_i18n_strings(): void {
-		$this->title = esc_html__( 'Protected Content', 'elasticpress' );
+		$this->title = esc_html__( 'Protected Content', 'wpprobe' );
 
-		$this->summary = '<p>' . __( 'Syncs unpublished content — including private, draft, and scheduled posts — improving load times in places like the administrative dashboard where WordPress needs to include protected content in a query.', 'elasticpress' ) . '</p>' .
-		'<p><em>' . __( 'We recommend using a secured Elasticsearch setup, such as ElasticPress.io, to prevent potential exposure of content not intended for the public.', 'elasticpress' ) . '</em></p>';
+		$this->summary = '<p>' . __( 'Syncs unpublished content — including private, draft, and scheduled posts — improving load times in places like the administrative dashboard where WordPress needs to include protected content in a query.', 'wpprobe' ) . '</p>' .
+		'<p><em>' . __( 'We recommend using a secured Elasticsearch setup, such as WPProbe.com, to prevent potential exposure of content not intended for the public.', 'wpprobe' ) . '</em></p>';
 
-		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#protected-content', 'elasticpress' );
+		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#protected-content', 'wpprobe' );
 	}
 
 	/**
@@ -374,7 +374,7 @@ class ProtectedContent extends Feature {
 	 */
 	public function output_feature_box_long() {
 		?>
-		<p><?php echo wp_kses_post( __( 'Securely indexes unpublished content—including private, draft, and scheduled posts —improving load times in places like the administrative dashboard where WordPress needs to include protected content in a query. <em>We recommend using a secured Elasticsearch setup, such as ElasticPress.io, to prevent potential exposure of content not intended for the public.</em>', 'elasticpress' ) ); ?></p>
+		<p><?php echo wp_kses_post( __( 'Securely indexes unpublished content—including private, draft, and scheduled posts —improving load times in places like the administrative dashboard where WordPress needs to include protected content in a query. <em>We recommend using a secured Elasticsearch setup, such as WPProbe.com, to prevent potential exposure of content not intended for the public.</em>', 'wpprobe' ) ); ?></p>
 		<?php
 	}
 
@@ -414,7 +414,7 @@ class ProtectedContent extends Feature {
 		$status = new FeatureRequirementsStatus( 1 );
 
 		if ( ! Utils\is_epio() ) {
-			$status->message = __( "You aren't using <a href='https://elasticpress.io'>ElasticPress.io</a> so we can't be sure your Elasticsearch instance is secure.", 'elasticpress' );
+			$status->message = __( "You aren't using <a href='https://wpprobe.com'>WPProbe.com</a> so we can't be sure your Elasticsearch instance is secure.", 'wpprobe' );
 		}
 
 		return $status;
@@ -473,8 +473,8 @@ class ProtectedContent extends Feature {
 			[
 				'default' => '0',
 				'key'     => 'use_default_wp_sort',
-				'help'    => __( 'Enable to use WordPress default sort for searches inside the WP Dashboard.', 'elasticpress' ),
-				'label'   => __( 'Use default WordPress sort on the WP Dashboard', 'elasticpress' ),
+				'help'    => __( 'Enable to use WordPress default sort for searches inside the WP Dashboard.', 'wpprobe' ),
+				'label'   => __( 'Use default WordPress sort on the WP Dashboard', 'wpprobe' ),
 				'type'    => 'checkbox',
 			],
 		];

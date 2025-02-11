@@ -6,15 +6,15 @@
  * @since   1.9
  */
 
-namespace ElasticPress\Dashboard;
+namespace WPProbe\Dashboard;
 
-use ElasticPress\AdminNotices;
-use ElasticPress\Elasticsearch;
-use ElasticPress\Features;
-use ElasticPress\Installer;
-use ElasticPress\Screen;
-use ElasticPress\Stats;
-use ElasticPress\Utils;
+use WPProbe\AdminNotices;
+use WPProbe\Elasticsearch;
+use WPProbe\Features;
+use WPProbe\Installer;
+use WPProbe\Screen;
+use WPProbe\Stats;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -53,7 +53,7 @@ function setup() {
 	}
 
 	/**
-	 * Filter whether to show 'ElasticPress Indexing' option on Multisite in admin UI or not.
+	 * Filter whether to show 'WPProbe Indexing' option on Multisite in admin UI or not.
 	 *
 	 * @since  3.6.0
 	 * @hook ep_show_indexing_option_on_multisite
@@ -192,17 +192,17 @@ function maybe_skip_install() {
 	}
 
 	if ( ! empty( $_GET['ep-skip-features'] ) ) {
-		$features = \ElasticPress\Features::factory()->registered_features;
+		$features = \WPProbe\Features::factory()->registered_features;
 
 		foreach ( $features as $slug => $feature ) {
-			\ElasticPress\Features::factory()->deactivate_feature( $slug );
+			\WPProbe\Features::factory()->deactivate_feature( $slug );
 		}
 	}
 
 	if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
-		$redirect_url = network_admin_url( 'admin.php?page=elasticpress' );
+		$redirect_url = network_admin_url( 'admin.php?page=wpprobe' );
 	} else {
-		$redirect_url = admin_url( 'admin.php?page=elasticpress' );
+		$redirect_url = admin_url( 'admin.php?page=wpprobe' );
 	}
 	Utils\update_option( 'ep_skip_install', true );
 
@@ -242,7 +242,7 @@ function maybe_clear_es_info_cache() {
 }
 
 /**
- * Show ElasticPress in network admin menu bar
+ * Show WPProbe in network admin menu bar
  *
  * @param  object $admin_bar WP_Admin Bar reference.
  * @since  2.2
@@ -252,8 +252,8 @@ function action_network_admin_bar_menu( $admin_bar ) {
 		array(
 			'id'     => 'network-admin-elasticpress',
 			'parent' => 'network-admin',
-			'title'  => 'ElasticPress',
-			'href'   => esc_url( network_admin_url( 'admin.php?page=elasticpress' ) ),
+			'title'  => 'WPProbe',
+			'href'   => esc_url( network_admin_url( 'admin.php?page=wpprobe' ) ),
 		)
 	);
 }
@@ -269,13 +269,13 @@ function action_network_admin_bar_menu( $admin_bar ) {
 function filter_plugin_action_links( $plugin_actions, $plugin_file ) {
 
 	if ( is_network_admin() ) {
-		$url = admin_url( 'network/admin.php?page=elasticpress' );
+		$url = admin_url( 'network/admin.php?page=wpprobe' );
 
 		if ( ! defined( 'EP_IS_NETWORK' ) || ! EP_IS_NETWORK ) {
 			return $plugin_actions;
 		}
 	} else {
-		$url = admin_url( 'admin.php?page=elasticpress' );
+		$url = admin_url( 'admin.php?page=wpprobe' );
 
 		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
 			return $plugin_actions;
@@ -285,7 +285,7 @@ function filter_plugin_action_links( $plugin_actions, $plugin_file ) {
 	$new_actions = [];
 
 	if ( basename( EP_PATH ) . '/elasticpress.php' === $plugin_file ) {
-		$new_actions['ep_dashboard'] = sprintf( '<a href="%s">%s</a>', esc_url( $url ), __( 'Dashboard', 'elasticpress' ) );
+		$new_actions['ep_dashboard'] = sprintf( '<a href="%s">%s</a>', esc_url( $url ), __( 'Dashboard', 'wpprobe' ) );
 	}
 
 	return array_merge( $new_actions, $plugin_actions );
@@ -370,7 +370,7 @@ function action_wp_ajax_ep_notice_dismiss() {
  * @since  2.1
  */
 function action_wp_ajax_ep_cli_index() {
-	_deprecated_function( __CLASS__, '3.6.0', '\ElasticPress\Screen::factory()->sync_screen->action_wp_ajax_ep_cli_index()' );
+	_deprecated_function( __CLASS__, '3.6.0', '\WPProbe\Screen::factory()->sync_screen->action_wp_ajax_ep_cli_index()' );
 }
 
 /**
@@ -379,7 +379,7 @@ function action_wp_ajax_ep_cli_index() {
  * @since  2.1
  */
 function action_wp_ajax_ep_index() {
-	_deprecated_function( __CLASS__, '3.6.0', '\ElasticPress\Screen::factory()->sync_screen->action_wp_ajax_ep_index()' );
+	_deprecated_function( __CLASS__, '3.6.0', '\WPProbe\Screen::factory()->sync_screen->action_wp_ajax_ep_index()' );
 }
 
 /**
@@ -388,7 +388,7 @@ function action_wp_ajax_ep_index() {
  * @since  2.1
  */
 function action_wp_ajax_ep_cancel_index() {
-	_deprecated_function( __CLASS__, '3.6.0', '\ElasticPress\Screen::factory()->sync_screen->action_wp_ajax_ep_cancel_index()' );
+	_deprecated_function( __CLASS__, '3.6.0', '\WPProbe\Screen::factory()->sync_screen->action_wp_ajax_ep_cancel_index()' );
 }
 
 /**
@@ -438,7 +438,7 @@ function action_admin_enqueue_dashboard_scripts() {
 			true
 		);
 
-		wp_set_script_translations( 'ep_admin_sites_scripts', 'elasticpress' );
+		wp_set_script_translations( 'ep_admin_sites_scripts', 'wpprobe' );
 
 		$data = [
 			'ajax_url' => admin_url( 'admin-ajax.php' ),
@@ -463,7 +463,7 @@ function action_admin_enqueue_dashboard_scripts() {
 			true
 		);
 
-		wp_set_script_translations( 'ep_admin_script', 'elasticpress' );
+		wp_set_script_translations( 'ep_admin_script', 'wpprobe' );
 	}
 
 	if ( 'weighting' === Screen::factory()->get_current_screen() ) {
@@ -514,7 +514,7 @@ function action_admin_enqueue_dashboard_scripts() {
 			$data
 		);
 
-		wp_set_script_translations( 'ep_weighting_script', 'elasticpress' );
+		wp_set_script_translations( 'ep_weighting_script', 'wpprobe' );
 	}
 
 	if ( in_array( Screen::factory()->get_current_screen(), [ 'dashboard', 'install' ], true ) ) {
@@ -526,13 +526,13 @@ function action_admin_enqueue_dashboard_scripts() {
 			true
 		);
 
-		wp_set_script_translations( 'ep_dashboard_scripts', 'elasticpress' );
+		wp_set_script_translations( 'ep_dashboard_scripts', 'wpprobe' );
 
 		$sync_url = Utils\get_sync_url( true );
 
 		$skip_url = ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) ?
-				network_admin_url( 'admin.php?page=elasticpress' ) :
-				admin_url( 'admin.php?page=elasticpress' );
+				network_admin_url( 'admin.php?page=wpprobe' ) :
+				admin_url( 'admin.php?page=wpprobe' );
 
 		$data = array(
 			'skipUrl' => add_query_arg(
@@ -562,7 +562,7 @@ function action_admin_enqueue_dashboard_scripts() {
 			true
 		);
 
-		wp_set_script_translations( 'ep_stats', 'elasticpress' );
+		wp_set_script_translations( 'ep_stats', 'wpprobe' );
 
 		wp_localize_script( 'ep_stats', 'epChartData', $data );
 	}
@@ -575,7 +575,7 @@ function action_admin_enqueue_dashboard_scripts() {
 		true
 	);
 
-	wp_set_script_translations( 'ep_notice_script', 'elasticpress' );
+	wp_set_script_translations( 'ep_notice_script', 'wpprobe' );
 
 	wp_localize_script(
 		'ep_notice_script',
@@ -587,7 +587,7 @@ function action_admin_enqueue_dashboard_scripts() {
 }
 
 /**
- * Output current ElasticPress dashboard screen
+ * Output current WPProbe dashboard screen
  *
  * @since 3.0
  */
@@ -616,10 +616,10 @@ function action_admin_menu() {
 	$capability = ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) ? Utils\get_network_capability() : Utils\get_capability();
 
 	add_menu_page(
-		'ElasticPress',
-		'ElasticPress',
+		'WPProbe',
+		'WPProbe',
 		$capability,
-		'elasticpress',
+		'wpprobe',
 		__NAMESPACE__ . '\resolve_screen',
 		'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgNzMgNzEuMyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNzMgNzEuMzsiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwYXRoIGQ9Ik0zNi41LDQuN0MxOS40LDQuNyw1LjYsMTguNiw1LjYsMzUuN2MwLDEwLDQuNywxOC45LDEyLjEsMjQuNWw0LjUtNC41YzAuMS0wLjEsMC4xLTAuMiwwLjItMC4zbDAuNy0wLjdsNi40LTYuNGMyLjEsMS4yLDQuNSwxLjksNy4xLDEuOWM4LDAsMTQuNS02LjUsMTQuNS0xNC41cy02LjUtMTQuNS0xNC41LTE0LjVTMjIsMjcuNiwyMiwzNS42YzAsMi44LDAuOCw1LjMsMi4xLDcuNWwtNi40LDYuNGMtMi45LTMuOS00LjYtOC43LTQuNi0xMy45YzAtMTIuOSwxMC41LTIzLjQsMjMuNC0yMy40czIzLjQsMTAuNSwyMy40LDIzLjRTNDkuNCw1OSwzNi41LDU5Yy0yLjEsMC00LjEtMC4zLTYtMC44bC0wLjYsMC42bC01LjIsNS40YzMuNiwxLjUsNy42LDIuMywxMS44LDIuM2MxNy4xLDAsMzAuOS0xMy45LDMwLjktMzAuOVM1My42LDQuNywzNi41LDQuN3oiLz48L3N2Zz4='
 	);
@@ -629,47 +629,47 @@ function action_admin_menu() {
 	}
 
 	add_submenu_page(
-		'elasticpress',
-		esc_html__( 'ElasticPress Features', 'elasticpress' ),
-		esc_html__( 'Features', 'elasticpress' ),
+		'wpprobe',
+		esc_html__( 'WPProbe Features', 'wpprobe' ),
+		esc_html__( 'Features', 'wpprobe' ),
 		$capability,
-		'elasticpress',
+		'wpprobe',
 		__NAMESPACE__ . '\resolve_screen'
 	);
 
 	add_submenu_page(
-		'elasticpress',
-		esc_html__( 'ElasticPress Settings', 'elasticpress' ),
-		esc_html__( 'Settings', 'elasticpress' ),
+		'wpprobe',
+		esc_html__( 'WPProbe Settings', 'wpprobe' ),
+		esc_html__( 'Settings', 'wpprobe' ),
 		$capability,
-		'elasticpress-settings',
+		'wpprobe-settings',
 		__NAMESPACE__ . '\resolve_screen'
 	);
 
 	add_submenu_page(
-		'elasticpress',
-		'ElasticPress ' . esc_html__( 'Sync', 'elasticpress' ),
-		esc_html__( 'Sync', 'elasticpress' ),
+		'wpprobe',
+		'WPProbe ' . esc_html__( 'Sync', 'wpprobe' ),
+		esc_html__( 'Sync', 'wpprobe' ),
 		$capability,
-		'elasticpress-sync',
+		'wpprobe-sync',
 		__NAMESPACE__ . '\resolve_screen'
 	);
 
 	add_submenu_page(
-		'elasticpress',
-		esc_html__( 'ElasticPress Index Health', 'elasticpress' ),
-		esc_html__( 'Index Health', 'elasticpress' ),
+		'wpprobe',
+		esc_html__( 'WPProbe Index Health', 'wpprobe' ),
+		esc_html__( 'Index Health', 'wpprobe' ),
 		$capability,
-		'elasticpress-health',
+		'wpprobe-health',
 		__NAMESPACE__ . '\resolve_screen'
 	);
 
 	add_submenu_page(
-		'elasticpress',
-		esc_html__( 'ElasticPress Status Report', 'elasticpress' ),
-		esc_html__( 'Status Report', 'elasticpress' ),
+		'wpprobe',
+		esc_html__( 'WPProbe Status Report', 'wpprobe' ),
+		esc_html__( 'Status Report', 'wpprobe' ),
 		$capability,
-		'elasticpress-status-report',
+		'wpprobe-status-report',
 		__NAMESPACE__ . '\resolve_screen'
 	);
 }
@@ -865,7 +865,7 @@ function use_language_in_setting( $language = 'english', $context = '' ) {
  * @return string[]
  */
 function filter_blogs_columns( $columns ) {
-	$columns['elasticpress'] = esc_html__( 'ElasticPress Indexing', 'elasticpress' );
+	$columns['wpprobe'] = esc_html__( 'WPProbe Indexing', 'wpprobe' );
 
 	return $columns;
 }
@@ -879,7 +879,7 @@ function filter_blogs_columns( $columns ) {
  * @return void | string
  */
 function add_blogs_column( $column_name, $blog_id ) {
-	if ( 'elasticpress' !== $column_name ) {
+	if ( 'wpprobe' !== $column_name ) {
 		return;
 	}
 
@@ -910,7 +910,7 @@ function action_wp_ajax_ep_site_admin() {
 	}
 
 	/**
-	 * NOTE: This will be removed in ElasticPress 5.0.0. Implementations should rely on site_meta since 4.7.0.
+	 * NOTE: This will be removed in WPProbe 5.0.0. Implementations should rely on site_meta since 4.7.0.
 	 */
 	$result = update_blog_option( $blog_id, 'ep_indexable', $checked );
 
@@ -927,7 +927,7 @@ function action_wp_ajax_ep_site_admin() {
  * Handle the fetch for indexing status
  */
 function handle_indexing_status() {
-	$indexing_status = \ElasticPress\Utils\get_indexing_status();
+	$indexing_status = \WPProbe\Utils\get_indexing_status();
 
 	$status = array(
 		'method'        => '',
@@ -954,15 +954,15 @@ function handle_indexing_status() {
 }
 
 /**
- * Add an ElasticPress block category.
+ * Add an WPProbe block category.
  *
  * @param array $block_categories Array of categories for block types.
  * @return array Array of categories for block types.
  */
 function block_categories( $block_categories ) {
 	$block_categories[] = [
-		'slug'  => 'elasticpress',
-		'title' => 'ElasticPress',
+		'slug'  => 'wpprobe',
+		'title' => 'WPProbe',
 	];
 
 	return $block_categories;
@@ -975,7 +975,7 @@ function block_categories( $block_categories ) {
  */
 function block_assets() {
 	wp_enqueue_script(
-		'elasticpress-blocks',
+		'wpprobe-blocks',
 		EP_URL . 'dist/js/blocks-script.js',
 		Utils\get_asset_info( 'blocks-script', 'dependencies' ),
 		Utils\get_asset_info( 'blocks-script', 'version' ),
@@ -983,7 +983,7 @@ function block_assets() {
 	);
 
 	wp_localize_script(
-		'elasticpress-blocks',
+		'wpprobe-blocks',
 		'epBlocks',
 		[
 			'syncUrl' => Utils\get_sync_url(),

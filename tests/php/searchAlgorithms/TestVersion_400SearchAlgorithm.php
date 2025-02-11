@@ -6,14 +6,14 @@
  * @package elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress\SearchAlgorithm\Version_400;
+use WPProbe\SearchAlgorithm\Version_400;
 
 /**
  * Test EP v4.0 search algorithm class
  */
-class TestVersion_400SearchAlgorithm extends \ElasticPressTest\BaseTestCase {
+class TestVersion_400SearchAlgorithm extends \WPProbeTest\BaseTestCase {
 	/**
 	 * Test get_slug
 	 *

@@ -6,7 +6,7 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\StatusReport;
+namespace WPProbe\StatusReport;
 
 defined( 'ABSPATH' ) || exit;
 

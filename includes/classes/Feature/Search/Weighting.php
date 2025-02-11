@@ -5,15 +5,15 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Feature\Search;
+namespace WPProbe\Feature\Search;
 
-use ElasticPress\Features;
-use ElasticPress\Utils;
+use WPProbe\Features;
+use WPProbe\Utils;
 
 /**
  * Controls search weighting and search fields dashboard
  *
- * @package ElasticPress\Feature\Search
+ * @package WPProbe\Feature\Search
  */
 class Weighting {
 

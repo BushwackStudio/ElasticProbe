@@ -6,9 +6,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\REST;
+namespace WPProbe\REST;
 
-use ElasticPress\Features;
+use WPProbe\Features;
 
 /**
  * Related Posts API controller class.

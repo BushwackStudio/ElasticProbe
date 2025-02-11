@@ -6,13 +6,13 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Feature\RelatedPosts;
+namespace WPProbe\Feature\RelatedPosts;
 
 use WP_Query;
-use ElasticPress\Elasticsearch;
-use ElasticPress\Feature;
-use ElasticPress\REST;
-use ElasticPress\Utils;
+use WPProbe\Elasticsearch;
+use WPProbe\Feature;
+use WPProbe\REST;
+use WPProbe\Utils;
 
 /**
  * Related posts feature class

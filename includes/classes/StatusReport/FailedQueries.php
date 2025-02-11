@@ -6,10 +6,10 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\StatusReport;
+namespace WPProbe\StatusReport;
 
-use ElasticPress\QueryLogger;
-use ElasticPress\Utils;
+use WPProbe\QueryLogger;
+use WPProbe\Utils;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -165,7 +165,7 @@ class FailedQueries extends Report {
 		$error = Utils\get_elasticsearch_error_reason( $log );
 
 		$solution = ( ! empty( $error ) ) ?
-			( new \ElasticPress\ElasticsearchErrorInterpreter() )->maybe_suggest_solution_for_es( $error )['solution'] :
+			( new \WPProbe\ElasticsearchErrorInterpreter() )->maybe_suggest_solution_for_es( $error )['solution'] :
 			'';
 
 		return [ $error, $solution ];
@@ -179,8 +179,8 @@ class FailedQueries extends Report {
 	 * @return string
 	 */
 	protected function maybe_suggest_solution_for_es( $error ) {
-		_deprecated_function( __METHOD__, '5.0.0', '\ElasticPress\ElasticsearchErrorInterpreter::maybe_suggest_solution_for_es()' );
+		_deprecated_function( __METHOD__, '5.0.0', '\WPProbe\ElasticsearchErrorInterpreter::maybe_suggest_solution_for_es()' );
 
-		return ( new \ElasticPress\ElasticsearchErrorInterpreter() )->maybe_suggest_solution_for_es( $error )['solution'];
+		return ( new \WPProbe\ElasticsearchErrorInterpreter() )->maybe_suggest_solution_for_es( $error )['solution'];
 	}
 }

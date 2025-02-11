@@ -5,9 +5,9 @@
  * @package  elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress;
+use WPProbe;
 
 /**
  * Unit test factory for the post.
@@ -31,7 +31,7 @@ class PostFactory extends \WP_UnitTest_Factory_For_Post {
 			return $post_id;
 		}
 
-		ElasticPress\Indexables::factory()->get( 'post' )->index( $post_id );
+		WPProbe\Indexables::factory()->get( 'post' )->index( $post_id );
 		return $post_id;
 	}
 }

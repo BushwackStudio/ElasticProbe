@@ -6,9 +6,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress\Dashboard;
+use WPProbe\Dashboard;
 
 /**
  * Dashboard test class

@@ -6,7 +6,7 @@
  * @since   1.3
  */
 
-namespace ElasticPress\Indexable\Post;
+namespace WPProbe\Indexable\Post;
 
 use WP_Date_Query;
 

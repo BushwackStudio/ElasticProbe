@@ -6,7 +6,7 @@
  * @since   3.6.0
  */
 
-namespace ElasticPress;
+namespace WPProbe;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.

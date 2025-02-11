@@ -6,9 +6,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Screen;
+namespace WPProbe\Screen;
 
-use ElasticPress\Utils;
+use WPProbe\Utils;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -40,7 +40,7 @@ class StatusReport {
 	 * @return void
 	 */
 	public function admin_enqueue_scripts() {
-		if ( 'status-report' !== \ElasticPress\Screen::factory()->get_current_screen() ) {
+		if ( 'status-report' !== \WPProbe\Screen::factory()->get_current_screen() ) {
 			return;
 		}
 
@@ -90,22 +90,22 @@ class StatusReport {
 	public function get_reports(): array {
 		$reports = [];
 
-		$query_logger = \ElasticPress\get_container()->get( '\ElasticPress\QueryLogger' );
+		$query_logger = \WPProbe\get_container()->get( '\WPProbe\QueryLogger' );
 
 		if ( $query_logger ) {
-			$reports['failed-queries'] = new \ElasticPress\StatusReport\FailedQueries( $query_logger );
+			$reports['failed-queries'] = new \WPProbe\StatusReport\FailedQueries( $query_logger );
 		}
 
 		if ( Utils\is_epio() ) {
-			$reports['autosuggest'] = new \ElasticPress\StatusReport\ElasticPressIo();
+			$reports['autosuggest'] = new \WPProbe\StatusReport\ElasticPressIo();
 		}
 
-		$reports['wordpress']    = new \ElasticPress\StatusReport\WordPress();
-		$reports['indexable']    = new \ElasticPress\StatusReport\IndexableContent();
-		$reports['elasticpress'] = new \ElasticPress\StatusReport\ElasticPress();
-		$reports['indices']      = new \ElasticPress\StatusReport\Indices();
-		$reports['last-sync']    = new \ElasticPress\StatusReport\LastSync();
-		$reports['features']     = new \ElasticPress\StatusReport\Features();
+		$reports['wordpress']    = new \WPProbe\StatusReport\WordPress();
+		$reports['indexable']    = new \WPProbe\StatusReport\IndexableContent();
+		$reports['elasticpress'] = new \WPProbe\StatusReport\ElasticPress();
+		$reports['indices']      = new \WPProbe\StatusReport\Indices();
+		$reports['last-sync']    = new \WPProbe\StatusReport\LastSync();
+		$reports['features']     = new \WPProbe\StatusReport\Features();
 
 		/**
 		 * Filter the reports executed in the Status Report page.
@@ -211,7 +211,7 @@ class StatusReport {
 	public function admin_menu_count() {
 		global $menu, $submenu;
 
-		$messages = \ElasticPress\ElasticPressIo::factory()->get_endpoint_messages();
+		$messages = \WPProbe\ElasticPressIo::factory()->get_endpoint_messages();
 
 		if ( empty( $messages ) ) {
 			return;

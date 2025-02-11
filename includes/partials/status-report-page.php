@@ -8,7 +8,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$status_report = \ElasticPress\Screen::factory()->status_report;
+$status_report = \WPProbe\Screen::factory()->status_report;
 
 require_once __DIR__ . '/header.php';
 ?>

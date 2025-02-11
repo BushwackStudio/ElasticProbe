@@ -6,10 +6,10 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\REST;
+namespace WPProbe\REST;
 
-use ElasticPress\IndexHelper;
-use ElasticPress\Utils;
+use WPProbe\IndexHelper;
+use WPProbe\Utils;
 
 /**
  * Sync API controller class.

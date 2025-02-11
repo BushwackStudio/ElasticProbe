@@ -8,10 +8,10 @@
  * @package elasticpress
  */
 
-namespace ElasticPress;
+namespace WPProbe;
 
-use ElasticPress\FeatureRequirementsStatus;
-use ElasticPress\Utils;
+use WPProbe\FeatureRequirementsStatus;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -135,7 +135,7 @@ abstract class Feature {
 	protected $requires_feature = false;
 
 	/**
-	 * Whether the feature is using ElasticPress.io.
+	 * Whether the feature is using WPProbe.com.
 	 *
 	 * @since 5.0.0
 	 * @var boolean
@@ -312,12 +312,12 @@ abstract class Feature {
 		do_action( 'ep_feature_box_summary', $this->slug, $this );
 		?>
 
-		<button aria-expanded="false" class="learn-more button button-secondary button-small" type="button"><?php esc_html_e( 'Learn more', 'elasticpress' ); ?></button>
+		<button aria-expanded="false" class="learn-more button button-secondary button-small" type="button"><?php esc_html_e( 'Learn more', 'wpprobe' ); ?></button>
 
 		<div class="long">
 			<?php $this->output_feature_box_long(); ?>
 
-			<p><button aria-expanded="true" class="collapse button button-secondary button-small" type="button"><?php esc_html_e( 'Collapse', 'elasticpress' ); ?></button></p>
+			<p><button aria-expanded="true" class="collapse button button-secondary button-small" type="button"><?php esc_html_e( 'Collapse', 'wpprobe' ); ?></button></p>
 
 			<?php
 			/**
@@ -374,7 +374,7 @@ abstract class Feature {
 
 			<?php if ( $this->requires_install_reindex || $this->setting_requires_install_reindex ) : ?>
 				<div class="requirements-status-notice requirements-status-notice--reindex" role="status">
-					<?php esc_html_e( 'Enabling this feature will require re-syncing your content.', 'elasticpress' ); ?>
+					<?php esc_html_e( 'Enabling this feature will require re-syncing your content.', 'wpprobe' ); ?>
 				</div>
 			<?php endif; ?>
 
@@ -382,18 +382,18 @@ abstract class Feature {
 				<?php
 				printf(
 					'%1$s <a href="%2$s">%3$s</a>',
-					esc_html__( 'Settings not saved. Cannot save settings while a sync is in progress.', 'elasticpress' ),
+					esc_html__( 'Settings not saved. Cannot save settings while a sync is in progress.', 'wpprobe' ),
 					esc_url( $sync_url ),
-					esc_html__( 'View sync status.', 'elasticpress' )
+					esc_html__( 'View sync status.', 'wpprobe' )
 				);
 				?>
 			</div>
 
-			<h3><?php esc_html_e( 'Settings', 'elasticpress' ); ?></h3>
+			<h3><?php esc_html_e( 'Settings', 'wpprobe' ); ?></h3>
 
 			<div class="feature-fields">
 				<div class="field js-toggle-feature">
-					<div class="field-name status"><?php esc_html_e( 'Status', 'elasticpress' ); ?></div>
+					<div class="field-name status"><?php esc_html_e( 'Status', 'wpprobe' ); ?></div>
 					<div class="input-wrap <?php if ( 2 === $requirements_status->code ) : ?>disabled<?php endif; ?>">
 						<label><input name="settings[active]" <?php disabled( 2 === $requirements_status->code ); ?> type="radio" <?php checked( $this->is_active() ); ?> value="1"><?php esc_html_e( 'Enabled', 'elasticpress' ); ?></label><br>
 						<label><input name="settings[active]" <?php disabled( 2 === $requirements_status->code ); ?> type="radio" <?php checked( ! $this->is_active() ); ?> value="0"><?php esc_html_e( 'Disabled', 'elasticpress' ); ?></label>
@@ -407,7 +407,7 @@ abstract class Feature {
 
 			<div class="action-wrap">
 				<span class="no-dash-sync">
-					<?php esc_html_e( 'Setting adjustments to this feature require a re-sync. Use WP-CLI.', 'elasticpress' ); ?>
+					<?php esc_html_e( 'Setting adjustments to this feature require a re-sync. Use WP-CLI.', 'wpprobe' ); ?>
 				</span>
 
 				<input type="hidden" name="action" value="ep_save_feature">
@@ -419,7 +419,7 @@ abstract class Feature {
 				<?php wp_nonce_field( 'ep_dashboard_nonce', 'nonce' ); ?>
 
 				<button name="submit" <?php disabled( 2 === $requirements_status->code || ( $this->requires_install_reindex && defined( 'EP_DASHBOARD_SYNC' ) && ! EP_DASHBOARD_SYNC ) ); ?> class="button button-primary" type="submit">
-					<?php esc_html_e( 'Save', 'elasticpress' ); ?>
+					<?php esc_html_e( 'Save', 'wpprobe' ); ?>
 				</button>
 			</div>
 		</form>
@@ -434,7 +434,7 @@ abstract class Feature {
 	 * @return string
 	 */
 	public function get_epio_logo(): string {
-		return sprintf( '<img class="feature-epio-logo" alt="ElasticPress.io logo" src="%s" width="110" height="20">', esc_url( plugins_url( '/images/logo-elasticpress-io.svg', EP_FILE ) ) );
+		return sprintf( '<img class="feature-epio-logo" alt="WPProbe.com logo" src="%s" width="110" height="20">', esc_url( plugins_url( '/images/logo-elasticpress-io.svg', EP_FILE ) ) );
 	}
 
 	/**
@@ -571,7 +571,7 @@ abstract class Feature {
 		$active = [
 			'default'          => false,
 			'key'              => 'active',
-			'label'            => __( 'Enable', 'elasticpress' ),
+			'label'            => __( 'Enable', 'wpprobe' ),
 			'requires_feature' => $this->requires_feature,
 			'requires_sync'    => $this->requires_install_reindex,
 			'type'             => 'toggle',

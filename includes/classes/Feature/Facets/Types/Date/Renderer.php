@@ -6,9 +6,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Feature\Facets\Types\Date;
+namespace WPProbe\Feature\Facets\Types\Date;
 
-use ElasticPress\Features;
+use WPProbe\Features;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Facets render class
  */
-class Renderer extends \ElasticPress\Feature\Facets\Renderer {
+class Renderer extends \WPProbe\Feature\Facets\Renderer {
 
 	/**
 	 * Whether to display the custom date filter.
@@ -132,13 +132,13 @@ class Renderer extends \ElasticPress\Feature\Facets\Renderer {
 	public function get_facet_action_item( $applied_dates ) {
 		$filter_button = sprintf(
 			'<button type="submit" class="wp-element-button ep-facet-date-form__action-submit">%s</button>',
-			esc_html__( 'Filter', 'elasticpress' ),
+			esc_html__( 'Filter', 'wpprobe' ),
 		);
 
 		$clear_filter_link = sprintf(
 			'<a aria-label="Clear" href="%s" rel="nofollow" class="ep-facet-date-form__action-clear">%s</a>',
 			esc_url( $this->get_clear_filter_url() ),
-			esc_html__( 'Clear', 'elasticpress' ),
+			esc_html__( 'Clear', 'wpprobe' ),
 		);
 
 		$html = sprintf(
@@ -176,16 +176,16 @@ class Renderer extends \ElasticPress\Feature\Facets\Renderer {
 			'<div class="ep-facet-date-option"><label><input class="ep-radio ep-date-range-custom-radio" type="radio" name="%1$s" value="custom" class="ep-date-range-custom-radio" %2$s />%3$s</label></div>',
 			esc_attr( $this->get_filter_name() ),
 			$is_custom_date ? 'checked' : '',
-			esc_html__( 'Custom', 'elasticpress' )
+			esc_html__( 'Custom', 'wpprobe' )
 		);
 
 		$date_picker = sprintf(
 			'<div class="ep-date-range-picker %1$s"><div class="ep-date-range-picker__from"><label>%2$s</label><input type="date" name="%3$s_from" value="%4$s"></div><div class="ep-date-range-picker__to"><label>%5$s</label><input type="date" name="%3$s_to" value="%6$s"></div></div>',
 			! $is_custom_date ? 'is-hidden' : '',
-			esc_html__( 'From:', 'elasticpress' ),
+			esc_html__( 'From:', 'wpprobe' ),
 			esc_attr( $this->get_filter_name() ),
 			esc_attr( $applied_dates[0] ?? '' ),
-			esc_html__( 'To:', 'elasticpress' ),
+			esc_html__( 'To:', 'wpprobe' ),
 			esc_attr( $applied_dates[1] ?? '' )
 		);
 

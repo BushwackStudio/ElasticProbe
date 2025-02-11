@@ -6,9 +6,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress\BlockTemplateUtils;
+use WPProbe\BlockTemplateUtils;
 
 /**
  * TestBlockTemplateUtils test class

@@ -6,7 +6,7 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\StatusReport;
+namespace WPProbe\StatusReport;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -34,7 +34,7 @@ class LastSync extends Report {
 	public function get_groups(): array {
 		$fields = [];
 
-		$sync_info = \ElasticPress\IndexHelper::factory()->get_last_sync();
+		$sync_info = \WPProbe\IndexHelper::factory()->get_last_sync();
 
 		if ( empty( $sync_info ) ) {
 			return [];
@@ -112,11 +112,11 @@ class LastSync extends Report {
 			];
 		}
 		$title = $sync_info['start_date_time'] ?? '';
-		if ( false !== \ElasticPress\Utils\get_indexing_status() ) {
+		if ( false !== \WPProbe\Utils\get_indexing_status() ) {
 			/* translators: last sync title */
 			$title = sprintf( __( '%s (In Progress)', 'elasticpress' ), $title );
 		}
-		if ( 'status-report' === \ElasticPress\Screen::factory()->get_current_screen() ) {
+		if ( 'status-report' === \WPProbe\Screen::factory()->get_current_screen() ) {
 			unset( $fields['start_date_time'] );
 		}
 

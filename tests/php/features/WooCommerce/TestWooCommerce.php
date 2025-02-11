@@ -5,9 +5,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress;
+use WPProbe;
 
 require_once __DIR__ . '/WooCommerceBaseTestCase.php';
 
@@ -22,10 +22,10 @@ class TestWooCommerce extends WooCommerceBaseTestCase {
 	 * @group woocommerce
 	 */
 	public function testSearchOnAllFrontEnd() {
-		ElasticPress\Features::factory()->activate_feature( 'woocommerce' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
+		WPProbe\Features::factory()->setup_features();
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'         => 'findme',
@@ -45,8 +45,8 @@ class TestWooCommerce extends WooCommerceBaseTestCase {
 	 */
 	public function testSearchQueryForCoupon() {
 
-		ElasticPress\Features::factory()->activate_feature( 'woocommerce' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
+		WPProbe\Features::factory()->setup_features();
 
 		// ensures that the search query doesn't use Elasticsearch.
 		$query = new \WP_Query(
@@ -89,9 +89,9 @@ class TestWooCommerce extends WooCommerceBaseTestCase {
 		set_current_screen( 'dashboard' );
 		$this->assertTrue( is_admin() );
 
-		ElasticPress\Features::factory()->activate_feature( 'protected_content' );
-		ElasticPress\Features::factory()->activate_feature( 'woocommerce' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'protected_content' );
+		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
+		WPProbe\Features::factory()->setup_features();
 
 		$this->ep_factory->post->create(
 			array(
@@ -100,7 +100,7 @@ class TestWooCommerce extends WooCommerceBaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query(
 			[
@@ -124,8 +124,8 @@ class TestWooCommerce extends WooCommerceBaseTestCase {
 		set_current_screen( 'dashboard' );
 		$this->assertTrue( is_admin() );
 
-		ElasticPress\Features::factory()->activate_feature( 'woocommerce' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
+		WPProbe\Features::factory()->setup_features();
 
 		$this->ep_factory->post->create(
 			array(
@@ -134,7 +134,7 @@ class TestWooCommerce extends WooCommerceBaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query(
 			[
@@ -153,12 +153,12 @@ class TestWooCommerce extends WooCommerceBaseTestCase {
 	 *
 	 * @since 4.5.0
 	 * @group woocommerce
-	 * @expectedDeprecated ElasticPress\Feature\WooCommerce\WooCommerce::is_orders_autosuggest_available
+	 * @expectedDeprecated WPProbe\Feature\WooCommerce\WooCommerce::is_orders_autosuggest_available
 	 */
 	public function testIsOrdersAutosuggestAvailable() {
-		$woocommerce_feature = ElasticPress\Features::factory()->get_registered_feature( 'woocommerce' );
+		$woocommerce_feature = WPProbe\Features::factory()->get_registered_feature( 'woocommerce' );
 
-		$this->assertSame( $woocommerce_feature->is_orders_autosuggest_available(), \ElasticPress\Utils\is_epio() );
+		$this->assertSame( $woocommerce_feature->is_orders_autosuggest_available(), \WPProbe\Utils\is_epio() );
 
 		/**
 		 * Test the `ep_woocommerce_orders_autosuggest_available` filter
@@ -175,10 +175,10 @@ class TestWooCommerce extends WooCommerceBaseTestCase {
 	 *
 	 * @since 4.5.0
 	 * @group woocommerce
-	 * @expectedDeprecated ElasticPress\Feature\WooCommerce\WooCommerce::is_orders_autosuggest_enabled
+	 * @expectedDeprecated WPProbe\Feature\WooCommerce\WooCommerce::is_orders_autosuggest_enabled
 	 */
 	public function testIsOrdersAutosuggestEnabled() {
-		$woocommerce_feature = ElasticPress\Features::factory()->get_registered_feature( 'woocommerce' );
+		$woocommerce_feature = WPProbe\Features::factory()->get_registered_feature( 'woocommerce' );
 
 		$this->assertFalse( $woocommerce_feature->is_orders_autosuggest_enabled() );
 
@@ -216,7 +216,7 @@ class TestWooCommerce extends WooCommerceBaseTestCase {
 	 * @group woocommerce
 	 */
 	public function test_get_settings_schema() {
-		$woocommerce_feature = ElasticPress\Features::factory()->get_registered_feature( 'woocommerce' );
+		$woocommerce_feature = WPProbe\Features::factory()->get_registered_feature( 'woocommerce' );
 		$settings_schema     = $woocommerce_feature->get_settings_schema();
 
 		$settings_keys = wp_list_pluck( $settings_schema, 'key' );
@@ -232,11 +232,11 @@ class TestWooCommerce extends WooCommerceBaseTestCase {
 	 *
 	 * @since 4.2.0
 	 * @group woocommerce
-	 * @expectedDeprecated ElasticPress\Feature\WooCommerce\WooCommerce::add_variations_skus_meta
+	 * @expectedDeprecated WPProbe\Feature\WooCommerce\WooCommerce::add_variations_skus_meta
 	 */
 	public function testAddVariationsSkusMeta() {
-		ElasticPress\Features::factory()->activate_feature( 'woocommerce' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
+		WPProbe\Features::factory()->setup_features();
 
 		$this->assertTrue( class_exists( '\WC_Product_Variable' ) );
 		$this->assertTrue( class_exists( '\WC_Product_Variation' ) );
@@ -256,7 +256,7 @@ class TestWooCommerce extends WooCommerceBaseTestCase {
 		$variation_2->save();
 
 		$main_product_as_post  = get_post( $main_product_id );
-		$product_meta_to_index = ElasticPress\Features::factory()
+		$product_meta_to_index = WPProbe\Features::factory()
 			->get_registered_feature( 'woocommerce' )
 			->add_variations_skus_meta( [], $main_product_as_post );
 
@@ -270,12 +270,12 @@ class TestWooCommerce extends WooCommerceBaseTestCase {
 	 *
 	 * @since 4.2.0
 	 * @group woocommerce
-	 * @expectedDeprecated ElasticPress\Feature\WooCommerce\WooCommerce::translate_args_admin_products_list
+	 * @expectedDeprecated WPProbe\Feature\WooCommerce\WooCommerce::translate_args_admin_products_list
 	 */
 	public function testTranslateArgsAdminProductsList() {
-		ElasticPress\Features::factory()->activate_feature( 'protected_content' );
-		ElasticPress\Features::factory()->activate_feature( 'woocommerce' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'protected_content' );
+		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
+		WPProbe\Features::factory()->setup_features();
 
 		parse_str( 'post_type=product&s=product&product_type=downloadable&stock_status=instock', $_GET );
 
@@ -283,7 +283,7 @@ class TestWooCommerce extends WooCommerceBaseTestCase {
 			'ep_integrate' => true,
 		];
 
-		$woocommerce_feature = ElasticPress\Features::factory()->get_registered_feature( 'woocommerce' );
+		$woocommerce_feature = WPProbe\Features::factory()->get_registered_feature( 'woocommerce' );
 		add_action( 'pre_get_posts', [ $woocommerce_feature, 'translate_args_admin_products_list' ] );
 
 		$query = new \WP_Query( $query_args );
@@ -313,12 +313,12 @@ class TestWooCommerce extends WooCommerceBaseTestCase {
 	 *
 	 * @since 4.2.0
 	 * @group woocommerce
-	 * @expectedDeprecated ElasticPress\Feature\WooCommerce\WooCommerce::translate_args_admin_products_list
+	 * @expectedDeprecated WPProbe\Feature\WooCommerce\WooCommerce::translate_args_admin_products_list
 	 */
 	public function testEPWoocommerceAdminProductsListSearchFields() {
-		ElasticPress\Features::factory()->activate_feature( 'protected_content' );
-		ElasticPress\Features::factory()->activate_feature( 'woocommerce' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'protected_content' );
+		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
+		WPProbe\Features::factory()->setup_features();
 
 		parse_str( 'post_type=product&s=product&product_type=downloadable', $_GET );
 
@@ -326,7 +326,7 @@ class TestWooCommerce extends WooCommerceBaseTestCase {
 			'ep_integrate' => true,
 		];
 
-		$woocommerce_feature = ElasticPress\Features::factory()->get_registered_feature( 'woocommerce' );
+		$woocommerce_feature = WPProbe\Features::factory()->get_registered_feature( 'woocommerce' );
 		add_action( 'pre_get_posts', [ $woocommerce_feature, 'translate_args_admin_products_list' ] );
 
 		$search_fields_function = function () {

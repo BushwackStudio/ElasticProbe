@@ -8,7 +8,7 @@
  * @since   1.7
  */
 
-use ElasticPress\Utils;
+use WPProbe\Utils;
 
 defined( 'ABSPATH' ) || exit;
 

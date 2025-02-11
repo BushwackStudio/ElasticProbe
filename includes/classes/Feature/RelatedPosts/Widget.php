@@ -6,9 +6,9 @@
  * @package  elasticpress
  */
 
-namespace ElasticPress\Feature\RelatedPosts;
+namespace WPProbe\Feature\RelatedPosts;
 
-use ElasticPress\Features;
+use WPProbe\Features;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.

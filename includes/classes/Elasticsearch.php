@@ -6,11 +6,11 @@
  * @package elasticpress
  */
 
-namespace ElasticPress;
+namespace WPProbe;
 
 use WP_Error;
-use ElasticPress\Indexables;
-use ElasticPress\Utils;
+use WPProbe\Indexables;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -622,7 +622,7 @@ class Elasticsearch {
 			'Content-Type' => 'application/json',
 		);
 
-		// Check for ElasticPress API key and add to header if needed.
+		// Check for WPProbe API key and add to header if needed.
 		if ( defined( 'EP_API_KEY' ) && EP_API_KEY ) {
 			$headers['X-ElasticPress-API-Key'] = EP_API_KEY;
 		}
@@ -996,7 +996,7 @@ class Elasticsearch {
 			Utils\set_transient( $transient_key, $request, MINUTE_IN_SECONDS );
 			return new \WP_Error(
 				'ep_get_index_settings_failed',
-				esc_html__( 'Error while getting the index settings.', 'elasticpress' ),
+				esc_html__( 'Error while getting the index settings.', 'wpprobe' ),
 				$request
 			);
 		}
@@ -1386,7 +1386,7 @@ class Elasticsearch {
 
 			return array(
 				'status' => false,
-				'msg'    => esc_html__( 'Invalid response from ElasticPress server. Please contact your administrator.' ),
+				'msg'    => esc_html__( 'Invalid response from WPProbe server. Please contact your administrator.' ),
 			);
 
 		} elseif (
@@ -1588,7 +1588,7 @@ class Elasticsearch {
 
 			return array(
 				'status' => false,
-				'msg'    => esc_html__( 'Elasticsearch Host is not available.', 'elasticpress' ),
+				'msg'    => esc_html__( 'Elasticsearch Host is not available.', 'wpprobe' ),
 			);
 
 		} else {
@@ -1698,7 +1698,7 @@ class Elasticsearch {
 	}
 
 	/**
-	 * Conditionally add the ElasticPress version to the User Agent string.
+	 * Conditionally add the WPProbe version to the User Agent string.
 	 *
 	 * @since 3.6.1
 	 * @param string $user_agent Original User Agent.
@@ -1709,7 +1709,7 @@ class Elasticsearch {
 		 * Filter the User Agent header when submitting requests to Elasticsearch.
 		 *
 		 * @hook ep_remote_request_add_ep_user_agent
-		 * @param  {bool} $should_add_ep_version Whether the ElasticPress version should be added to the User Agent string.
+		 * @param  {bool} $should_add_ep_version Whether the WPProbe version should be added to the User Agent string.
 		 * @return {bool} New value
 		 * @since  3.6.1
 		 */
@@ -1717,7 +1717,7 @@ class Elasticsearch {
 			$end_part   = '; ' . get_bloginfo( 'url' );
 			$user_agent = str_replace(
 				$end_part,
-				' (ElasticPress/' . EP_VERSION . ')' . $end_part,
+				' (WPProbe/' . EP_VERSION . ')' . $end_part,
 				$user_agent
 			);
 		}
@@ -1727,7 +1727,7 @@ class Elasticsearch {
 	/**
 	 * Query logging. Don't log anything to the queries property when
 	 * WP_DEBUG is not enabled. Calls action 'ep_add_query_log' if you
-	 * want to access the query outside of the ElasticPress plugin. This
+	 * want to access the query outside of the WPProbe plugin. This
 	 * runs regardless of debug settings.
 	 *
 	 * @param array $query Query to log.

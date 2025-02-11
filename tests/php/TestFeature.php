@@ -6,7 +6,7 @@
  * @package elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
 /**
  * Feature test class
@@ -18,7 +18,7 @@ class TestFeature extends BaseTestCase {
 	 * @group feature
 	 */
 	public function test_get_json() {
-		$stub                   = $this->getMockForAbstractClass( '\ElasticPress\Feature' );
+		$stub                   = $this->getMockForAbstractClass( '\WPProbe\Feature' );
 		$stub->slug             = 'slug';
 		$stub->title            = 'title';
 		$stub->short_title      = 'short_title';
@@ -30,7 +30,7 @@ class TestFeature extends BaseTestCase {
 		add_filter(
 			'ep_feature_requirements_status',
 			function () {
-				return new \ElasticPress\FeatureRequirementsStatus( 2, 'Testing' );
+				return new \WPProbe\FeatureRequirementsStatus( 2, 'Testing' );
 			}
 		);
 
@@ -68,7 +68,7 @@ class TestFeature extends BaseTestCase {
 	 * @group feature
 	 */
 	public function test_get_settings_schema() {
-		$stub = $this->getMockForAbstractClass( '\ElasticPress\Feature' );
+		$stub = $this->getMockForAbstractClass( '\WPProbe\Feature' );
 
 		$reflection          = new \ReflectionClass( $stub );
 		$reflection_property = $reflection->getProperty( 'settings_schema' );
@@ -102,7 +102,7 @@ class TestFeature extends BaseTestCase {
 	 * @group feature
 	 */
 	public function test_ep_feature_settings_schema_filter() {
-		$stub       = $this->getMockForAbstractClass( '\ElasticPress\Feature' );
+		$stub       = $this->getMockForAbstractClass( '\WPProbe\Feature' );
 		$stub->slug = 'slug';
 
 		$change_settings_schema = function ( $settings_schema, $feature_slug, $feature ) use ( $stub ) {
@@ -136,7 +136,7 @@ class TestFeature extends BaseTestCase {
 	 * @group feature
 	 */
 	public function test_set_settings_schema() {
-		$stub                   = $this->getMockForAbstractClass( '\ElasticPress\Feature' );
+		$stub                   = $this->getMockForAbstractClass( '\WPProbe\Feature' );
 		$stub->slug             = 'slug';
 		$stub->default_settings = [
 			'field_1' => '0',

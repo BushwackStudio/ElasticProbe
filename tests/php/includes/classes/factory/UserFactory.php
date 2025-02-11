@@ -5,9 +5,9 @@
  * @package  elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress;
+use WPProbe;
 
 /**
  * Unit test factory for the user.
@@ -32,7 +32,7 @@ class UserFactory extends \WP_UnitTest_Factory_For_User {
 			return $user_id;
 		}
 
-		ElasticPress\Indexables::factory()->get( 'user' )->index( $user_id, true );
+		WPProbe\Indexables::factory()->get( 'user' )->index( $user_id, true );
 		return $user_id;
 	}
 }

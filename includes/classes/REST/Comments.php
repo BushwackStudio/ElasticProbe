@@ -6,10 +6,10 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\REST;
+namespace WPProbe\REST;
 
-use ElasticPress\Features;
-use ElasticPress\Indexables;
+use WPProbe\Features;
+use WPProbe\Indexables;
 
 /**
  * Comments API controller class.

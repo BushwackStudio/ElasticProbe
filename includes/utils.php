@@ -6,9 +6,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Utils;
+namespace WPProbe\Utils;
 
-use ElasticPress\IndexHelper;
+use WPProbe\IndexHelper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.

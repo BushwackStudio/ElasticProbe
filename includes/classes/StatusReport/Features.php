@@ -6,10 +6,10 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\StatusReport;
+namespace WPProbe\StatusReport;
 
-use ElasticPress\Features as EP_Features;
-use ElasticPress\Feature\Search\Search;
+use WPProbe\Features as EP_Features;
+use WPProbe\Feature\Search\Search;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -35,7 +35,7 @@ class Features extends Report {
 	 * @return array
 	 */
 	public function get_groups(): array {
-		$features_settings = \ElasticPress\Utils\get_option( 'ep_feature_settings', [] );
+		$features_settings = \WPProbe\Utils\get_option( 'ep_feature_settings', [] );
 
 		$features = array_filter(
 			EP_Features::factory()->registered_features,

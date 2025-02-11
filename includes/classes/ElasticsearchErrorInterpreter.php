@@ -6,7 +6,7 @@
  * @package elasticpress
  */
 
-namespace ElasticPress;
+namespace WPProbe;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -30,7 +30,7 @@ class ElasticsearchErrorInterpreter {
 				'error'    => 'no such index',
 				'solution' => sprintf(
 					/* translators: Sync Page URL */
-					__( 'It seems one of the indices is missing. <a href="%1$s">Delete all data and sync</a> to fix the issue.', 'elasticpress' ),
+					__( 'It seems one of the indices is missing. <a href="%1$s">Delete all data and sync</a> to fix the issue.', 'wpprobe' ),
 					$sync_url
 				),
 			];
@@ -41,7 +41,7 @@ class ElasticsearchErrorInterpreter {
 				'error'    => 'no such index [???]',
 				'solution' => sprintf(
 					/* translators: 1. Index name; 2. Sync Page URL */
-					__( 'It seems the %1$s index is missing. <a href="%2$s">Delete all data and sync</a> to fix the issue.', 'elasticpress' ),
+					__( 'It seems the %1$s index is missing. <a href="%2$s">Delete all data and sync</a> to fix the issue.', 'wpprobe' ),
 					'<code>' . $matches[1] . '</code>',
 					$sync_url
 				),
@@ -53,7 +53,7 @@ class ElasticsearchErrorInterpreter {
 				'error'    => 'No mapping found for [???] in order to sort on',
 				'solution' => sprintf(
 					/* translators: 1. Index name; 2. Sync Page URL */
-					__( 'The field %1$s was not found. Make sure it is added to the list of indexed fields and run <a href="%2$s">a new sync</a> to fix the issue.', 'elasticpress' ),
+					__( 'The field %1$s was not found. Make sure it is added to the list of indexed fields and run <a href="%2$s">a new sync</a> to fix the issue.', 'wpprobe' ),
 					'<code>' . $matches[1] . '</code>',
 					$sync_url
 				),
@@ -61,7 +61,7 @@ class ElasticsearchErrorInterpreter {
 		}
 
 		/* translators: 1. Field name; 2. Sync Page URL */
-		$field_type_solution = __( 'It seems you saved a post without doing a full sync first because <code>%1$s</code> is missing the correct mapping type. <a href="%2$s">Delete all data and sync</a> to fix the issue.', 'elasticpress' );
+		$field_type_solution = __( 'It seems you saved a post without doing a full sync first because <code>%1$s</code> is missing the correct mapping type. <a href="%2$s">Delete all data and sync</a> to fix the issue.', 'wpprobe' );
 
 		if ( preg_match( '/Fielddata is disabled on text fields by default. Set fielddata=true on \[(.*?)\]/', $error, $matches ) ) {
 			return [
@@ -88,9 +88,9 @@ class ElasticsearchErrorInterpreter {
 			return [
 				'error'    => 'Limit of total fields [???] in index [???] has been exceeded',
 				'solution' => sprintf(
-					/* translators: Elasticsearch or ElasticPress.io; 2. Link to article; 3. Link to article */
-					__( 'Your website content has more public custom fields than %1$s is able to store. Check our articles about <a href="%2$s">Elasticsearch field limitations</a> and <a href="%3$s">how to index just the custom fields you need</a> and sync again.', 'elasticpress' ),
-					Utils\is_epio() ? __( 'ElasticPress.io', 'elasticpress' ) : __( 'Elasticsearch', 'elasticpress' ),
+					/* translators: Elasticsearch or WPProbe.com; 2. Link to article; 3. Link to article */
+					__( 'Your website content has more public custom fields than %1$s is able to store. Check our articles about <a href="%2$s">Elasticsearch field limitations</a> and <a href="%3$s">how to index just the custom fields you need</a> and sync again.', 'wpprobe' ),
+					Utils\is_epio() ? __( 'WPProbe.com', 'wpprobe' ) : __( 'WPProbe', 'wpprobe' ),
 					'https://www.elasticpress.io/documentation/article/i-get-the-error-limit-of-total-fields-in-index-has-been-exceeded/',
 					'https://www.elasticpress.io/documentation/article/how-to-exclude-metadata-from-indexing/'
 				),
@@ -109,8 +109,8 @@ class ElasticsearchErrorInterpreter {
 				return [
 					'error'    => $error,
 					'solution' => sprintf(
-						/* translators: ElasticPress.io Article URL */
-						__( 'Please refer to <a href="%s">this article</a> outlining how to address this issue.', 'elasticpress' ),
+						/* translators: WPProbe.com Article URL */
+						__( 'Please refer to <a href="%s">this article</a> outlining how to address this issue.', 'wpprobe' ),
 						'https://www.elasticpress.io/documentation/article/how-to-fix-the-you-have-reached-the-limit-of-indices-of-your-plan-and-it-was-not-possible-to-create-a-new-index-error/'
 					),
 				];
@@ -118,9 +118,9 @@ class ElasticsearchErrorInterpreter {
 			return [
 				'error'    => $error,
 				'solution' => sprintf(
-					/* translators: ElasticPress.io My Account URL */
-					__( 'We did not recognize this error. Please open an ElasticPress.io <a href="%s">support ticket</a> so we can troubleshoot further.', 'elasticpress' ),
-					'https://www.elasticpress.io/my-account/'
+					/* translators: WPProbe.com My Account URL */
+					__( 'We did not recognize this error. Please open an WPProbe.com <a href="%s">support ticket</a> so we can troubleshoot further.', 'wpprobe' ),
+					'https://www.wpprobe.com/my-account/'
 				),
 			];
 		}
@@ -129,8 +129,8 @@ class ElasticsearchErrorInterpreter {
 			'error'    => $error,
 			'solution' => sprintf(
 				/* translators: New GitHub issue URL */
-				__( 'We did not recognize this error. Please consider opening a <a href="%s">GitHub Issue</a> so we can add it to our list of supported errors.', 'elasticpress' ),
-				'https://github.com/10up/ElasticPress/issues/new/choose'
+				__( 'We did not recognize this error. Please consider opening a <a href="%s">GitHub Issue</a> so we can add it to our list of supported errors.', 'wpprobe' ),
+				'https://github.com/BushwackStudio/WpProbe/issues/new/choose'
 			),
 		];
 	}

@@ -5,10 +5,10 @@
  * @package elasticpress
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress;
-use ElasticPress\Feature\Search\Synonyms;
+use WPProbe;
+use WPProbe\Feature\Search\Synonyms;
 
 /**
  * Document test class
@@ -29,13 +29,13 @@ class TestSynonyms extends BaseTestCase {
 
 		wp_set_current_user( $admin_id );
 
-		ElasticPress\Elasticsearch::factory()->delete_all_indices();
-		ElasticPress\Indexables::factory()->get( 'post' )->put_mapping();
+		WPProbe\Elasticsearch::factory()->delete_all_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
 
-		ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
+		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
 
 		$this->setup_test_post_type();
-		ElasticPress\Features::factory()->activate_feature( 'synonyms' );
+		WPProbe\Features::factory()->activate_feature( 'synonyms' );
 	}
 
 	/**
@@ -151,7 +151,7 @@ class TestSynonyms extends BaseTestCase {
 
 		$post_id = $this->ep_factory->post->create( [ 'post_content' => 'IoT' ] );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query(
 			[
@@ -185,7 +185,7 @@ class TestSynonyms extends BaseTestCase {
 
 		$post_id = $this->ep_factory->post->create( [ 'post_content' => 'sweatshirt' ] );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query(
 			[

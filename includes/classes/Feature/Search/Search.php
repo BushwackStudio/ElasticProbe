@@ -6,12 +6,12 @@
  * @package  elasticpress
  */
 
-namespace ElasticPress\Feature\Search;
+namespace WPProbe\Feature\Search;
 
-use ElasticPress\Feature;
-use ElasticPress\Features;
-use ElasticPress\Indexables;
-use ElasticPress\Utils;
+use WPProbe\Feature;
+use WPProbe\Features;
+use WPProbe\Indexables;
+use WPProbe\Utils;
 
 /**
  * Search feature class

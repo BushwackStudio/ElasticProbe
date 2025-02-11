@@ -6,12 +6,12 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Feature\Terms;
+namespace WPProbe\Feature\Terms;
 
-use ElasticPress\Feature;
-use ElasticPress\FeatureRequirementsStatus;
-use ElasticPress\Indexable;
-use ElasticPress\Indexables;
+use WPProbe\Feature;
+use WPProbe\FeatureRequirementsStatus;
+use WPProbe\Indexable;
+use WPProbe\Indexables;
 
 /**
  * Terms feature class

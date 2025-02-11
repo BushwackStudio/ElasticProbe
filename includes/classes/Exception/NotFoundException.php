@@ -6,9 +6,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Exception;
+namespace WPProbe\Exception;
 
-use ElasticPress\Vendor_Prefixed\Psr\Container\NotFoundExceptionInterface;
+use WPProbe\Vendor_Prefixed\Psr\Container\NotFoundExceptionInterface;
 
 /**
  * NotFoundException class

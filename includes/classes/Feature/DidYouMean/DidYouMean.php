@@ -6,9 +6,9 @@
  * @package elasticpress
  */
 
-namespace ElasticPress\Feature\DidYouMean;
+namespace WPProbe\Feature\DidYouMean;
 
-use ElasticPress\{Elasticsearch, Feature, FeatureRequirementsStatus, Features };
+use WPProbe\{Elasticsearch, Feature, FeatureRequirementsStatus, Features };
 
 /**
  * Did You Mean feature class.
@@ -41,11 +41,11 @@ class DidYouMean extends Feature {
 	 * @since 5.2.0
 	 */
 	public function set_i18n_strings(): void {
-		$this->title = esc_html__( 'Did You Mean', 'elasticpress' );
+		$this->title = esc_html__( 'Did You Mean', 'wpprobe' );
 
-		$this->summary = '<p>' . __( '"Did You Mean" search feature provides alternative suggestions for misspelled or ambiguous search queries, enhancing search accuracy and user experience. To display suggestions in your theme, please follow <a href="https://www.elasticpress.io/documentation/article/did-you-mean/">this tutorial</a>.', 'elasticpress' ) . '</p>';
+		$this->summary = '<p>' . __( '"Did You Mean" search feature provides alternative suggestions for misspelled or ambiguous search queries, enhancing search accuracy and user experience. To display suggestions in your theme, please follow <a href="https://www.elasticpress.io/documentation/article/did-you-mean/">this tutorial</a>.', 'wpprobe' ) . '</p>';
 
-		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/did-you-mean/', 'elasticpress' );
+		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/did-you-mean/', 'wpprobe' );
 	}
 
 	/**
@@ -73,7 +73,7 @@ class DidYouMean extends Feature {
 			echo wp_kses_post(
 				sprintf(
 					/* translators: Tutorial URL */
-					__( '"Did You Mean" search feature provides alternative suggestions for misspelled or ambiguous search queries, enhancing search accuracy and user experience. To display suggestions in your theme, please follow <a href="%s">this tutorial</a>.', 'elasticpress' ),
+					__( '"Did You Mean" search feature provides alternative suggestions for misspelled or ambiguous search queries, enhancing search accuracy and user experience. To display suggestions in your theme, please follow <a href="%s">this tutorial</a>.', 'wpprobe' ),
 					'https://www.elasticpress.io/documentation/article/did-you-mean/'
 				)
 			);
@@ -151,7 +151,7 @@ class DidYouMean extends Feature {
 			return false;
 		}
 
-		$html = sprintf( '<span class="ep-spell-suggestion">%s: <a href="%s">%s</a>?</span>', esc_html__( 'Did you mean', 'elasticpress' ), get_search_link( $term ), $term );
+		$html = sprintf( '<span class="ep-spell-suggestion">%s: <a href="%s">%s</a>?</span>', esc_html__( 'Did you mean', 'wpprobe' ), get_search_link( $term ), $term );
 
 		$html .= $this->get_alternatives_terms( $query );
 		$terms = $query->suggested_terms['options'] ?? [];
@@ -244,7 +244,7 @@ class DidYouMean extends Feature {
 		$settings = $this->get_settings();
 		?>
 		<div class="field">
-			<div class="field-name status"><?php esc_html_e( 'Search behavior when no result is found', 'elasticpress' ); ?></div>
+			<div class="field-name status"><?php esc_html_e( 'Search behavior when no result is found', 'wpprobe' ); ?></div>
 			<div class="input-wrap">
 				<label><input name="settings[search_behavior]" type="radio" <?php checked( ! (bool) $settings['search_behavior'] ); ?> value="0"><?php esc_html_e( 'Display the top suggestion', 'elasticpress' ); ?></label><br>
 				<label><input name="settings[search_behavior]" type="radio" <?php checked( $settings['search_behavior'], 'list' ); ?> value="list"><?php esc_html_e( 'Display all the suggestions', 'elasticpress' ); ?></label><br>
@@ -286,7 +286,7 @@ class DidYouMean extends Feature {
 		}
 
 		$html  = '<div class="ep-spell-suggestions">';
-		$html .= esc_html__( 'Other suggestions:', 'elasticpress' );
+		$html .= esc_html__( 'Other suggestions:', 'wpprobe' );
 		$html .= '<ul class="ep-suggestions-list">';
 		foreach ( $options as $option ) {
 			$html .= sprintf( '<li><a href="%s">%s</a></li>', get_search_link( $option['text'] ), $option['text'] );
@@ -386,9 +386,9 @@ class DidYouMean extends Feature {
 			<br/>
 			<span class="no-result">%s</span><strong>%s</strong>
 			</div>',
-			esc_html__( 'Showing results for: ', 'elasticpress' ),
+			esc_html__( 'Showing results for: ', 'wpprobe' ),
 			esc_html( $query->query_vars['s'] ),
-			esc_html__( 'No results for: ', 'elasticpress' ),
+			esc_html__( 'No results for: ', 'wpprobe' ),
 			esc_html( $original_term )
 		);
 
@@ -429,18 +429,18 @@ class DidYouMean extends Feature {
 			[
 				'default' => '0',
 				'key'     => 'search_behavior',
-				'label'   => __( 'Search behavior when no result is found', 'elasticpress' ),
+				'label'   => __( 'Search behavior when no result is found', 'wpprobe' ),
 				'options' => [
 					[
-						'label' => __( 'Display the top suggestion', 'elasticpress' ),
+						'label' => __( 'Display the top suggestion', 'wpprobe' ),
 						'value' => '0',
 					],
 					[
-						'label' => __( 'Display all the suggestions', 'elasticpress' ),
+						'label' => __( 'Display all the suggestions', 'wpprobe' ),
 						'value' => 'list',
 					],
 					[
-						'label' => __( 'Automatically redirect the user to the top suggestion', 'elasticpress' ),
+						'label' => __( 'Automatically redirect the user to the top suggestion', 'wpprobe' ),
 						'value' => 'redirect',
 					],
 				],
