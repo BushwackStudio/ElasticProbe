@@ -48,12 +48,12 @@ class Comments {
 		return [
 			'post_type' => [
 				'default'     => '',
-				'description' => __( 'Post type of the posts whose comments to search.', 'elasticpress' ),
+				'description' => __( 'Post type of the posts whose comments to search.', 'wpprobe' ),
 				'enum'        => $post_types,
 				'required'    => false,
 			],
 			's'         => [
-				'description'       => __( 'Search query.', 'elasticpress' ),
+				'description'       => __( 'Search query.', 'wpprobe' ),
 				'required'          => true,
 				'type'              => 'string',
 				'validate_callback' => fn( $param ) => ! empty( $param ),

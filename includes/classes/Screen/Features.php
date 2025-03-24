@@ -51,7 +51,7 @@ class Features {
 			true
 		);
 
-		wp_set_script_translations( 'ep_features_script', 'elasticpress' );
+		wp_set_script_translations( 'ep_features_script', 'wpprobe' );
 
 		wp_enqueue_style(
 			'ep_features_script',

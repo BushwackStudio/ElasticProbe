@@ -29,18 +29,18 @@ const {
  */
 const sortOptions = {
 	relevance_desc: {
-		name: __('Most relevant', 'elasticpress'),
+		name: __('Most relevant', 'wpprobe'),
 		orderby: 'relevance',
 		order: 'desc',
 		currencyCode,
 	},
 	date_desc: {
-		name: __('Date, newest to oldest', 'elasticpress'),
+		name: __('Date, newest to oldest', 'wpprobe'),
 		orderby: 'date',
 		order: 'desc',
 	},
 	date_asc: {
-		name: __('Date, oldest to newest', 'elasticpress'),
+		name: __('Date, oldest to newest', 'wpprobe'),
 		orderby: 'date',
 		order: 'asc',
 	},
@@ -51,13 +51,13 @@ const sortOptions = {
  */
 if (isWooCommerce) {
 	sortOptions.price_desc = {
-		name: __('Price, highest to lowest', 'elasticpress'),
+		name: __('Price, highest to lowest', 'wpprobe'),
 		orderby: 'price',
 		order: 'desc',
 	};
 
 	sortOptions.price_asc = {
-		name: __('Price, lowest to highest', 'elasticpress'),
+		name: __('Price, lowest to highest', 'wpprobe'),
 		orderby: 'price',
 		order: 'asc',
 	};

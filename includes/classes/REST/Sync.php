@@ -65,14 +65,14 @@ class Sync {
 	public function get_args() {
 		return [
 			'include'               => [
-				'description' => __( 'IDs of objects to sync.', 'elasticpress' ),
+				'description' => __( 'IDs of objects to sync.', 'wpprobe' ),
 				'items'       => [
 					'type' => 'integer',
 				],
 				'type'        => 'array',
 			],
 			'indexables'            => [
-				'description' => __( 'Indexables to sync', 'elasticpress' ),
+				'description' => __( 'Indexables to sync', 'wpprobe' ),
 				'items'       => [
 					'type' => 'string',
 				],
@@ -80,17 +80,17 @@ class Sync {
 				'type'        => 'array',
 			],
 			'lower_limit_object_id' => [
-				'description' => __( 'Start of object ID range to sync,', 'elasticpress' ),
+				'description' => __( 'Start of object ID range to sync,', 'wpprobe' ),
 				'type'        => 'integer',
 				'required'    => false,
 			],
 			'offset'                => [
-				'description' => __( 'Number of objects to skip.', 'elasticpress' ),
+				'description' => __( 'Number of objects to skip.', 'wpprobe' ),
 				'required'    => false,
 				'type'        => 'integer',
 			],
 			'post_type'             => [
-				'description' => __( 'Post type to sync.', 'elasticpress' ),
+				'description' => __( 'Post type to sync.', 'wpprobe' ),
 				'items'       => [
 					'type' => 'string',
 				],
@@ -98,7 +98,7 @@ class Sync {
 			],
 			'put_mapping'           => [
 				'default'     => false,
-				'description' => __( 'Whether to clear the index and send mapping before syncing.', 'elasticpress' ),
+				'description' => __( 'Whether to clear the index and send mapping before syncing.', 'wpprobe' ),
 				'type'        => 'boolean',
 				'required'    => false,
 			],
@@ -107,7 +107,7 @@ class Sync {
 				'required' => false,
 			],
 			'upper_limit_object_id' => [
-				'description' => __( 'End of object ID range to sync.', 'elasticpress' ),
+				'description' => __( 'End of object ID range to sync.', 'wpprobe' ),
 				'type'        => 'integer',
 				'required'    => false,
 			],
@@ -189,7 +189,7 @@ class Sync {
 				[
 					'message'    => sprintf(
 						/* translators: 1. Number of objects indexed, 2. Total number of objects, 3. Last object ID. */
-						esc_html__( 'Processed %1$d/%2$d. Last Object ID: %3$d', 'elasticpress' ),
+						esc_html__( 'Processed %1$d/%2$d. Last Object ID: %3$d', 'wpprobe' ),
 						$index_meta['offset'],
 						$index_meta['found_items'],
 						$index_meta['current_sync_item']['last_processed_object_id']

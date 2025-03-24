@@ -25,7 +25,7 @@ class IndexableContent extends Report {
 	 * @return string
 	 */
 	public function get_title(): string {
-		return __( 'Indexable Content', 'elasticpress' );
+		return __( 'Indexable Content', 'wpprobe' );
 	}
 
 	/**
@@ -159,7 +159,7 @@ class IndexableContent extends Report {
 						'For performance reasons the reported count is based on the first %1$s %2$s only. The actual number may be higher.',
 						'For performance reasons the reported count is based on the first %1$s %2$s only. The actual number may be higher.',
 						$post_count_limit,
-						'elasticpress'
+						'wpprobe'
 					),
 					number_format_i18n( $post_count_limit ),
 					// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralSingle,WordPress.WP.I18n.NonSingularStringLiteralPlural
@@ -180,12 +180,12 @@ class IndexableContent extends Report {
 		}
 
 		$fields['total-all-post-types'] = [
-			'label' => __( 'Total Distinct Meta Keys', 'elasticpress' ),
+			'label' => __( 'Total Distinct Meta Keys', 'wpprobe' ),
 			'value' => count( $all_keys ),
 		];
 
 		$fields['distinct-meta-keys'] = [
-			'label' => __( 'Distinct Meta Keys', 'elasticpress' ),
+			'label' => __( 'Distinct Meta Keys', 'wpprobe' ),
 			'value' => wp_sprintf( '%l', $all_keys ),
 		];
 

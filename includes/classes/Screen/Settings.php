@@ -69,7 +69,7 @@ class Settings {
 			true
 		);
 
-		wp_set_script_translations( 'ep_settings_scripts', 'elasticpress' );
+		wp_set_script_translations( 'ep_settings_scripts', 'wpprobe' );
 	}
 
 	/**
@@ -100,7 +100,7 @@ class Settings {
 		if ( isset( $post['ep_credentials'] ) ) {
 			$credentials = ( isset( $post['ep_credentials'] ) ) ? Utils\sanitize_credentials( $post['ep_credentials'] ) : [
 				'username' => '',
-				'token'    => '',
+				// 'token'    => '',
 			];
 
 			Utils\update_option( 'ep_credentials', $credentials );
@@ -124,20 +124,20 @@ class Settings {
 	 */
 	public function add_validation_notice() {
 		$target = ( Utils\is_epio() ) ?
-			_x( 'ElasticPress.io account', 'Settings validation message', 'elasticpress' ) :
-			_x( 'Elasticsearch server', 'Settings validation message', 'elasticpress' );
+			_x( 'WPProbe.com account', 'Settings validation message', 'wpprobe' ) :
+			_x( 'Elasticsearch server', 'Settings validation message', 'wpprobe' );
 
 		if ( empty( $this->prev_ep_host ) ) {
 			// Setting it for the first time -- probably during the install process.
 			$message = sprintf(
 				/* translators: EP.io account or ES server. */
-				__( 'It was not possible to connect to your %s. Please check your settings and try again.', 'elasticpress' ),
+				__( 'It was not possible to connect to your %s. Please check your settings and try again.', 'wpprobe' ),
 				$target
 			);
 		} else {
 			$message = sprintf(
 				/* translators: EP.io account or ES server. */
-				__( 'It was not possible to connect to your %s. Your settings were reverted.', 'elasticpress' ),
+				__( 'It was not possible to connect to your %s. Your settings were reverted.', 'wpprobe' ),
 				$target
 			);
 		}

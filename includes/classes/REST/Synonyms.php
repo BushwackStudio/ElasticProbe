@@ -48,11 +48,11 @@ class Synonyms {
 		$args = [
 			'mode' => [
 				'default'     => 'simple',
-				'description' => __( 'Synonyms editor mode.', 'elasticpress' ),
+				'description' => __( 'Synonyms editor mode.', 'wpprobe' ),
 				'enum'        => [ 'advanced', 'simple' ],
 			],
 			'solr' => [
-				'description'       => __( 'Synonyms in Solr format.', 'elasticpress' ),
+				'description'       => __( 'Synonyms in Solr format.', 'wpprobe' ),
 				'type'              => 'string',
 				'sanitize_callback' => [ $this, 'sanitize_solr' ],
 			],

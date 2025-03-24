@@ -43,7 +43,7 @@ export default ({ children, id, isBusy, onSelect, ...props }) => {
 						'%d suggestion available, use the up and down keys to browse and the enter key to open',
 						'%d suggestions available, use the up and down keys to browse and the enter key to open',
 						children.length,
-						'elasticpress',
+						'wpprobe',
 					),
 					children.length,
 				)

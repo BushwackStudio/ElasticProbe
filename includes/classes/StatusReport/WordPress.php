@@ -23,7 +23,7 @@ class WordPress extends Report {
 	 * @return string
 	 */
 	public function get_title(): string {
-		return __( 'WordPress', 'elasticpress' );
+		return __( 'WordPress', 'wpprobe' );
 	}
 
 	/**
@@ -49,22 +49,22 @@ class WordPress extends Report {
 		$fields = [];
 
 		$fields['wp_version'] = [
-			'label' => __( 'WordPress Version', 'elasticpress' ),
+			'label' => __( 'WordPress Version', 'wpprobe' ),
 			'value' => $wp_version,
 		];
 
 		$fields['home_url'] = [
-			'label' => __( 'Home URL', 'elasticpress' ),
+			'label' => __( 'Home URL', 'wpprobe' ),
 			'value' => get_home_url(),
 		];
 
 		$fields['site_url'] = [
-			'label' => __( 'Site URL', 'elasticpress' ),
+			'label' => __( 'Site URL', 'wpprobe' ),
 			'value' => get_site_url(),
 		];
 
 		$fields['is_multisite'] = [
-			'label' => __( 'Multisite', 'elasticpress' ),
+			'label' => __( 'Multisite', 'wpprobe' ),
 			'value' => is_multisite(),
 		];
 
@@ -73,7 +73,7 @@ class WordPress extends Report {
 		$theme_version = wp_strip_all_tags( $active_theme->get( 'Version' ) );
 
 		$fields['theme'] = [
-			'label' => __( 'Theme', 'elasticpress' ),
+			'label' => __( 'Theme', 'wpprobe' ),
 			'value' => sprintf( '%s (%s)', $theme_name, $theme_version ),
 		];
 
@@ -83,7 +83,7 @@ class WordPress extends Report {
 			$parent_version = wp_strip_all_tags( $parent_theme->get( 'Version' ) );
 
 			$fields['parent_theme'] = [
-				'label' => __( 'Parent Theme', 'elasticpress' ),
+				'label' => __( 'Parent Theme', 'wpprobe' ),
 				'value' => sprintf( '%s (%s)', $parent_name, $parent_version ),
 			];
 		}
@@ -98,17 +98,17 @@ class WordPress extends Report {
 			$plugins[] = sprintf( '%s (%s)', $plugin['Name'], $plugin['Version'] );
 		}
 		$fields['plugins'] = [
-			'label' => __( 'Active Plugins', 'elasticpress' ),
+			'label' => __( 'Active Plugins', 'wpprobe' ),
 			'value' => wp_sprintf( '%l', $plugins ),
 		];
 
 		$fields['revisions'] = [
-			'label' => __( 'Revisions allowed', 'elasticpress' ),
+			'label' => __( 'Revisions allowed', 'wpprobe' ),
 			'value' => WP_POST_REVISIONS === true ? 'all' : (int) WP_POST_REVISIONS,
 		];
 
 		return [
-			'title'  => __( 'WordPress Environment', 'elasticpress' ),
+			'title'  => __( 'WordPress Environment', 'wpprobe' ),
 			'fields' => $fields,
 		];
 	}
@@ -122,22 +122,22 @@ class WordPress extends Report {
 		$fields = [];
 
 		$fields['php_version'] = [
-			'label' => __( 'PHP Version', 'elasticpress' ),
+			'label' => __( 'PHP Version', 'wpprobe' ),
 			'value' => phpversion(),
 		];
 
 		$fields['memory_limit'] = [
-			'label' => __( 'Memory Limit', 'elasticpress' ),
+			'label' => __( 'Memory Limit', 'wpprobe' ),
 			'value' => WP_MEMORY_LIMIT,
 		];
 
 		$fields['timeout'] = [
-			'label' => __( 'Maximum Execution Time', 'elasticpress' ),
+			'label' => __( 'Maximum Execution Time', 'wpprobe' ),
 			'value' => (int) ini_get( 'max_execution_time' ),
 		];
 
 		return [
-			'title'  => __( 'Server Environment', 'elasticpress' ),
+			'title'  => __( 'Server Environment', 'wpprobe' ),
 			'fields' => $fields,
 		];
 	}

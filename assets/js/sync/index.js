@@ -42,7 +42,7 @@ const Context = createContext();
  * @param {Array} props.defaultSyncHistory Sync history.
  * @param {Array} props.defaultSyncTrigger Sync trigger.
  * @param {object|null} props.indexMeta Details of a sync in progress.
- * @param {boolean} props.isEpio Whether ElasticPress.io is in use.
+ * @param {boolean} props.isEpio Whether WPProbe.com is in use.
  * @param {string} props.nonce WordPress nonce.
  * @returns {WPElement} App component.
  */
@@ -235,7 +235,7 @@ export const SyncProvider = ({
 			/**
 			 * Log a final message and update the sync state.
 			 */
-			logMessage(__('Sync failed', 'elasticpress'), 'error');
+			logMessage(__('Sync failed', 'wpprobe'), 'error');
 
 			updateState({
 				isFailed: true,
@@ -260,16 +260,14 @@ export const SyncProvider = ({
 
 			const message = isDeleting
 				? sprintf(
-						/* translators: %s: Index type. ElasticPress.io or Elasticsearch. */
+						/* translators: %s: Index type. WPProbe.com or Elasticsearch. */
 						__(
 							'Your indexing process has been stopped by WP-CLI and your %s index could be missing content. To restart indexing, please click the Start button or use WP-CLI commands to perform the reindex. Please note that search results could be incorrect or incomplete until the reindex finishes.',
-							'elasticpress',
+							'wpprobe',
 						),
-						isEpio
-							? __('ElasticPress.io', 'elasticpress')
-							: __('Elasticsearch', 'elasticpress'),
+						isEpio ? __('WPProbe.com', 'wpprobe') : __('Elasticsearch', 'wpprobe'),
 					)
-				: __('Sync interrupted by WP-CLI command.', 'elasticpress');
+				: __('Sync interrupted by WP-CLI command.', 'wpprobe');
 
 			logMessage(message, 'info');
 			updateState({ isSyncing: false });
@@ -381,7 +379,7 @@ export const SyncProvider = ({
 				 * Don't continue if syncing has been paused.
 				 */
 				if (isPaused) {
-					logMessage(__('Sync paused', 'elasticpress'), 'info');
+					logMessage(__('Sync paused', 'wpprobe'), 'info');
 					return;
 				}
 
@@ -554,10 +552,10 @@ export const SyncProvider = ({
 			 */
 			if (indexMeta.method === 'cli') {
 				doIndexStatus();
-				logMessage(__('WP CLI sync in progress', 'elasticpress'), 'info');
+				logMessage(__('WP CLI sync in progress', 'wpprobe'), 'info');
 			} else {
 				pauseSync();
-				logMessage(__('Sync paused', 'elasticpress'), 'info');
+				logMessage(__('Sync paused', 'wpprobe'), 'info');
 			}
 		}
 	};

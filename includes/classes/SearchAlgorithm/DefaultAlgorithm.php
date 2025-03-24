@@ -33,7 +33,7 @@ class DefaultAlgorithm extends \WPProbe\SearchAlgorithm {
 	 * @return string
 	 */
 	public function get_name(): string {
-		return esc_html__( 'Default', 'elasticpress' );
+		return esc_html__( 'Default', 'wpprobe' );
 	}
 
 	/**
@@ -42,7 +42,7 @@ class DefaultAlgorithm extends \WPProbe\SearchAlgorithm {
 	 * @return string
 	 */
 	public function get_description(): string {
-		return esc_html__( 'Use a fuzzy match approach which includes results that have misspellings, and also includes matches on only some of the words in the search.', 'elasticpress' );
+		return esc_html__( 'Use a fuzzy match approach which includes results that have misspellings, and also includes matches on only some of the words in the search.', 'wpprobe' );
 	}
 
 	/**

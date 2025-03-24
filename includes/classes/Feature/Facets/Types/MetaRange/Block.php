@@ -56,7 +56,7 @@ class Block extends \WPProbe\Feature\Facets\Block {
 			true
 		);
 
-		wp_set_script_translations( 'ep-facets-meta-range-block-script', 'elasticpress' );
+		wp_set_script_translations( 'ep-facets-meta-range-block-script', 'wpprobe' );
 	}
 
 	/**

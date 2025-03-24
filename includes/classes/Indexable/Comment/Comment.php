@@ -40,8 +40,8 @@ class Comment extends Indexable {
 	 */
 	public function setup() {
 		$this->labels = [
-			'plural'   => esc_html__( 'Comments', 'elasticpress' ),
-			'singular' => esc_html__( 'Comment', 'elasticpress' ),
+			'plural'   => esc_html__( 'Comments', 'wpprobe' ),
+			'singular' => esc_html__( 'Comment', 'wpprobe' ),
 		];
 
 		$this->sync_manager      = new SyncManager( $this->slug );

@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function get_epio_credentials() {
 	if ( defined( 'EP_CREDENTIALS' ) && EP_CREDENTIALS ) {
 		$raw_credentials = explode( ':', EP_CREDENTIALS );
-		if ( is_array( $raw_credentials ) && 2 === count( $raw_credentials ) ) {
+		if ( is_array( $raw_credentials ) && 1 === count( $raw_credentials ) ) {
 			$credentials = array(
 				'username' => $raw_credentials[0],
 				'token'    => $raw_credentials[1],
@@ -185,7 +185,7 @@ function get_index_prefix() {
  * @return bool
  */
 function is_epio() {
-	return filter_var( preg_match( '#elasticpress\.io#i', get_host() ), FILTER_VALIDATE_BOOLEAN );
+	return filter_var( preg_match( '#wpprobe\.com#i', get_host() ), FILTER_VALIDATE_BOOLEAN );
 }
 
 /**

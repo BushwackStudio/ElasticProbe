@@ -95,7 +95,7 @@ const EditPanel = (
 								type="submit"
 								variant="secondary"
 							>
-								{isNew ? labels.add : __('Save changes', 'elasticpress')}
+								{isNew ? labels.add : __('Save changes', 'wpprobe')}
 							</Button>
 						</FlexItem>
 						{!isNew ? (
@@ -106,7 +106,7 @@ const EditPanel = (
 									type="button"
 									variant="tertiary"
 								>
-									{__('Cancel', 'elasticpress')}
+									{__('Cancel', 'wpprobe')}
 								</Button>
 							</FlexItem>
 						) : null}

@@ -370,7 +370,7 @@ class Orders {
 		}
 
 		$notices['wc_orders_incompatible'] = [
-			'html'    => esc_html__( "Although the WooCommerce and Protected Content features are enabled, ElasticPress will not integrate with the WooCommerce Orders list if WooCommerce's High-performance order storage is enabled.", 'elasticpress' ),
+			'html'    => esc_html__( "Although the WooCommerce and Protected Content features are enabled, ElasticPress will not integrate with the WooCommerce Orders list if WooCommerce's High-performance order storage is enabled.", 'wpprobe' ),
 			'type'    => 'warning',
 			'dismiss' => true,
 		];

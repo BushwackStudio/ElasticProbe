@@ -35,8 +35,8 @@ class Indexable extends \WPProbe\Indexable {
 	 */
 	public function __construct() {
 		$this->labels = [
-			'plural'   => esc_html__( 'Global', 'elasticpress' ),
-			'singular' => esc_html__( 'Global', 'elasticpress' ),
+			'plural'   => esc_html__( 'Global', 'wpprobe' ),
+			'singular' => esc_html__( 'Global', 'wpprobe' ),
 		];
 	}
 

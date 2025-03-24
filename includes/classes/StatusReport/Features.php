@@ -26,7 +26,7 @@ class Features extends Report {
 	 * @return string
 	 */
 	public function get_title(): string {
-		return __( 'Feature Settings', 'elasticpress' );
+		return __( 'Feature Settings', 'wpprobe' );
 	}
 
 	/**
@@ -88,11 +88,11 @@ class Features extends Report {
 			$fields,
 			[
 				'synonyms'  => [
-					'label' => __( 'Synonyms', 'elasticpress' ),
+					'label' => __( 'Synonyms', 'wpprobe' ),
 					'value' => '<pre>' . $feature->synonyms->get_synonyms_raw() . '</pre>',
 				],
 				'weighting' => [
-					'label' => __( 'Search Fields & Weighting', 'elasticpress' ),
+					'label' => __( 'Search Fields & Weighting', 'wpprobe' ),
 					'value' => $feature->weighting->get_weighting_configuration(),
 				],
 			]

@@ -23,7 +23,7 @@ import './style.css';
  * @returns {WPElement}
  */
 const App = () => (
-	<SettingsScreenProvider title={__('Manage Synonyms', 'elasticpress')}>
+	<SettingsScreenProvider title={__('Manage Synonyms', 'wpprobe')}>
 		<SynonymsSettingsProvider
 			apiUrl={apiUrl}
 			defaultIsSolr={defaultIsSolr}

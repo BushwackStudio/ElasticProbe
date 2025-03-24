@@ -23,7 +23,7 @@ class Indices extends Report {
 	 * @return string
 	 */
 	public function get_title(): string {
-		return __( 'Elasticsearch Indices', 'elasticpress' );
+		return __( 'Elasticsearch Indices', 'wpprobe' );
 	}
 
 	/**

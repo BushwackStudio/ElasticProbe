@@ -49,8 +49,8 @@ class Post extends Indexable {
 	 */
 	public function setup() {
 		$this->labels = [
-			'plural'   => esc_html__( 'Posts', 'elasticpress' ),
-			'singular' => esc_html__( 'Post', 'elasticpress' ),
+			'plural'   => esc_html__( 'Posts', 'wpprobe' ),
+			'singular' => esc_html__( 'Post', 'wpprobe' ),
 		];
 
 		$this->sync_manager      = new SyncManager( $this->slug );
@@ -373,7 +373,7 @@ class Post extends Indexable {
 			$mapping = Elasticsearch::factory()->get_mapping( $index );
 
 			if ( empty( $mapping ) ) {
-				return new \WP_Error( 'ep_failed_mapping_version', esc_html__( 'Error while fetching the mapping version.', 'elasticpress' ) );
+				return new \WP_Error( 'ep_failed_mapping_version', esc_html__( 'Error while fetching the mapping version.', 'wpprobe' ) );
 			}
 
 			if ( ! isset( $mapping[ $index ] ) ) {

@@ -56,7 +56,7 @@ const FacetBlockEdit = (props) => {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={__('Settings', 'elasticpress')}>
+				<PanelBody title={__('Settings', 'wpprobe')}>
 					<FacetSearchPlaceholderControl
 						onChange={onChangeSearchPlaceholder}
 						value={searchPlaceholder}

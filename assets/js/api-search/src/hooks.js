@@ -65,7 +65,7 @@ export const useFetchResults = (
 					}
 
 					/* translators: Response status code */
-					throw new Error(sprintf(__('HTTP %d.', 'elasticpress'), response.status));
+					throw new Error(sprintf(__('HTTP %d.', 'wpprobe'), response.status));
 				}
 
 				return response.json();

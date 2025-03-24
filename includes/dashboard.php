@@ -327,7 +327,9 @@ function maybe_notice( $force = false ) {
 
 	foreach ( $notices as $notice_key => $notice ) {
 		?>
-		<div data-ep-notice="<?php echo esc_attr( $notice_key ); ?>" class="notice notice-<?php echo esc_attr( $notice['type'] ); ?> <?php
+		<div data-ep-notice="<?php echo esc_attr( $notice_key ); ?>" class="notice notice-
+		<?php echo esc_attr( $notice['type'] ); ?> 
+		<?php
 		if ( $notice['dismiss'] ) :
 			?>
 			is-dismissible<?php endif; ?>">

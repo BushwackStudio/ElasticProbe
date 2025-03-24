@@ -30,7 +30,7 @@ export default (props) => {
 						{createInterpolateElement(
 							sprintf(
 								/* translators: Search term */
-								__('Did you mean: <a>%s</a>', 'elasticpress'),
+								__('Did you mean: <a>%s</a>', 'wpprobe'),
 								suggestedTerms?.[0]?.text,
 							),
 							{
@@ -52,7 +52,7 @@ export default (props) => {
 				totalResults === 0 &&
 				otherTerms.length > 0 && (
 					<div>
-						<p>{__('Other suggestions', 'elasticpress')}</p>
+						<p>{__('Other suggestions', 'wpprobe')}</p>
 						<ul>
 							{otherTerms.map((term) => (
 								<li key={term.text}>

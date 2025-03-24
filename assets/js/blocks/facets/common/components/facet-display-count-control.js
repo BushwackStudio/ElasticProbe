@@ -17,7 +17,7 @@ export default ({ onChange, checked }) => {
 	return (
 		<ToggleControl
 			checked={checked}
-			label={__('Display count', 'elasticpress')}
+			label={__('Display count', 'wpprobe')}
 			onChange={onChange}
 			__nextHasNoMarginBottom
 		/>

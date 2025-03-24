@@ -54,7 +54,7 @@ class Sync {
 			true
 		);
 
-		wp_set_script_translations( 'ep_sync_scripts', 'elasticpress' );
+		wp_set_script_translations( 'ep_sync_scripts', 'wpprobe' );
 
 		wp_enqueue_style(
 			'ep_sync_style',

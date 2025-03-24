@@ -636,7 +636,7 @@ class Elasticsearch {
 
 		if ( ! empty( $shield ) ) {
 			// phpcs:disable
-			$headers['Authorization'] = 'Basic ' . base64_encode( $shield );
+			$headers['Authorization'] = 'ApiKey ' . base64_encode( $shield );
 			// phpcs:enable
 		}
 
@@ -1399,11 +1399,11 @@ class Elasticsearch {
 
 			if ( is_multisite() ) {
 
-				$error = __( 'Site not indexed. <p>Please run: <code>wp elasticpress index --setup --network-wide</code> using WP-CLI. Or use the index button on the left of this screen.</p>', 'elasticpress' );
+				$error = __( 'Site not indexed. <p>Please run: <code>wp elasticpress index --setup --network-wide</code> using WP-CLI. Or use the index button on the left of this screen.</p>', 'wpprobe' );
 
 			} else {
 
-				$error = __( 'Site not indexed. <p>Please run: <code>wp elasticpress index --setup</code> using WP-CLI. Or use the index button on the left of this screen.</p>', 'elasticpress' );
+				$error = __( 'Site not indexed. <p>Please run: <code>wp elasticpress index --setup</code> using WP-CLI. Or use the index button on the left of this screen.</p>', 'wpprobe' );
 
 			}
 

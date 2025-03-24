@@ -71,8 +71,8 @@ const init = () => {
 		 * Update field label.
 		 */
 		hostLabel.innerText = isEpio()
-			? __('ElasticPress.io Host URL', 'elasticpress')
-			: __('Elasticsearch Host URL', 'elasticpress');
+			? __('WPProbe.com Host URL', 'wpprobe')
+			: __('Elasticsearch Host URL', 'wpprobe');
 
 		/**
 		 * If the host field is disabled, we're done.
@@ -90,8 +90,8 @@ const init = () => {
 		 * Update host field description.
 		 */
 		hostDescription.innerText = isEpio()
-			? __('Plug in your ElasticPress.io server here!', 'elasticpress')
-			: __('Plug in your Elasticsearch server here!', 'elasticpress');
+			? __('Plug in your WPProbe.com server here!', 'wpprobe')
+			: __('Plug in your Elasticsearch server here!', 'wpprobe');
 	};
 
 	/**

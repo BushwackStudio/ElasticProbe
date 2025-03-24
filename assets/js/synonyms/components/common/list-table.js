@@ -146,7 +146,7 @@ export default ({ children, Colgroup, Head, onDelete, ...props }) => {
 			<Button
 				disabled={checked.length < 1}
 				icon={trash}
-				label={__('Delete selected', 'elasticpress')}
+				label={__('Delete selected', 'wpprobe')}
 				onClick={onDeleteChecked}
 			/>
 		),

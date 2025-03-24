@@ -36,7 +36,7 @@ class HealthInfo {
 		$first_group = reset( $groups );
 
 		$debug_info['ep-last-sync'] = [
-			'label'  => esc_html__( 'ElasticPress - Last Sync', 'elasticpress' ),
+			'label'  => esc_html__( 'WPProbe - Last Sync', 'wpprobe' ),
 			'fields' => $first_group['fields'] ?? [],
 		];
 
@@ -66,7 +66,7 @@ class HealthInfo {
 		$first_group = reset( $groups );
 
 		$debug_info['epio-autosuggest'] = [
-			'label'  => esc_html__( 'ElasticPress.io - Autosuggest', 'elasticpress' ),
+			'label'  => esc_html__( 'WPProbe.com - Autosuggest', 'wpprobe' ),
 			'fields' => $first_group['fields'],
 		];
 

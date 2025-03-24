@@ -40,7 +40,7 @@ export default ({ failures, method, stateDatetime, status, trigger }) => {
 	const how = useMemo(() => {
 		switch (status) {
 			case 'failed':
-				return __('Failed.', 'elasticpress');
+				return __('Failed.', 'wpprobe');
 			case 'with_errors':
 				return failures
 					? sprintf(
@@ -49,17 +49,17 @@ export default ({ failures, method, stateDatetime, status, trigger }) => {
 								'Completed with %d error.',
 								'Completed with %d errors.',
 								failures,
-								'elasticpress',
+								'wpprobe',
 							),
 							failures,
 						)
-					: __('Completed with errors.', 'elasticpress');
+					: __('Completed with errors.', 'wpprobe');
 			case 'aborted':
-				return __('Stopped.', 'elasticpress');
+				return __('Stopped.', 'wpprobe');
 			case 'success':
-				return __('Completed successfully.', 'elasticpress');
+				return __('Completed successfully.', 'wpprobe');
 			default:
-				return __('Completed.', 'elasticpress');
+				return __('Completed.', 'wpprobe');
 		}
 	}, [failures, status]);
 
@@ -68,20 +68,20 @@ export default ({ failures, method, stateDatetime, status, trigger }) => {
 	 */
 	const why = useMemo(() => {
 		if (method === 'cli') {
-			return __('Manual sync from WP CLI.', 'elasticpress');
+			return __('Manual sync from WP CLI.', 'wpprobe');
 		}
 
 		switch (trigger) {
 			case 'features':
-				return __('Automatic sync after settings change.', 'elasticpress');
+				return __('Automatic sync after settings change.', 'wpprobe');
 			case 'install':
-				return __('Automatic sync after installation.', 'elasticpress');
+				return __('Automatic sync after installation.', 'wpprobe');
 			case 'synonyms-error':
-				return __('Manual sync following an error in synonyms settings.', 'elasticpress');
+				return __('Manual sync following an error in synonyms settings.', 'wpprobe');
 			case 'manual':
-				return __('Manual sync from Sync Settings.', 'elasticpress');
+				return __('Manual sync from Sync Settings.', 'wpprobe');
 			case 'upgrade':
-				return __('Automatic sync after plugin update.', 'elasticpress');
+				return __('Automatic sync after plugin update.', 'wpprobe');
 			default:
 				return null;
 		}
@@ -115,7 +115,7 @@ export default ({ failures, method, stateDatetime, status, trigger }) => {
 							/* translators: %1$s Sync date and time. %2%s sync trigger. */ _x(
 								'%1$s — %2$s',
 								'Sync info',
-								'elasticpress',
+								'wpprobe',
 							),
 							when,
 							why,

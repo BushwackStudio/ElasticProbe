@@ -45,22 +45,22 @@ export default () => {
 		 */
 		() => {
 			if (isFailed) {
-				return __('Sync failed', 'elasticpress');
+				return __('Sync failed', 'wpprobe');
 			}
 
 			if (isComplete) {
-				return __('Sync complete', 'elasticpress');
+				return __('Sync complete', 'wpprobe');
 			}
 
 			if (isPaused) {
-				return __('Sync paused', 'elasticpress');
+				return __('Sync paused', 'wpprobe');
 			}
 
 			if (isCli) {
-				return __('WP CLI sync in progress', 'elasticpress');
+				return __('WP CLI sync in progress', 'wpprobe');
 			}
 
-			return __('Sync in progress', 'elasticpress');
+			return __('Sync in progress', 'wpprobe');
 		},
 		[isCli, isComplete, isFailed, isPaused],
 	);
@@ -70,7 +70,7 @@ export default () => {
 	const why = useMemo(() => {
 		if (isCli) {
 			/* translators: %1$s Sync start date and time. */
-			return __('Started manually from WP CLI at <time>%s</time>.', 'elasticpress');
+			return __('Started manually from WP CLI at <time>%s</time>.', 'wpprobe');
 		}
 
 		switch (syncTrigger) {
@@ -78,35 +78,32 @@ export default () => {
 				/* translators: %1$s Sync start date and time. */
 				return __(
 					'Started automatically after a change to feature settings at <time>%s</time>.',
-					'elasticpress',
+					'wpprobe',
 				);
 			case 'install':
 				/* translators: %1$s Sync start date and time. */
 				return __(
-					'Started automatically after installing the ElasticPress plugin at <time>%s</time>.',
-					'elasticpress',
+					'Started automatically after installing the WPProbe plugin at <time>%s</time>.',
+					'wpprobe',
 				);
 			case 'manual':
 				/* translators: %1$s Sync start date and time. */
-				return __(
-					'Started manually from the Sync page at <time>%s</time>.',
-					'elasticpress',
-				);
+				return __('Started manually from the Sync page at <time>%s</time>.', 'wpprobe');
 			case 'synonyms-error':
 				/* translators: %1$s Sync start date and time. */
 				return __(
 					'Started manually from an error on the Synonyms Settings page at <time>%s</time>.',
-					'elasticpress',
+					'wpprobe',
 				);
 			case 'upgrade':
 				/* translators: %1$s Sync start date and time. */
 				return __(
-					'Started automatically after updating the ElasticPress plugin at <time>%s</time>.',
-					'elasticpress',
+					'Started automatically after updating the WPProbe plugin at <time>%s</time>.',
+					'wpprobe',
 				);
 			default:
 				/* translators: %1$s Sync start date and time. */
-				return __('Started on <time>%s</time>.', 'elasticpress');
+				return __('Started on <time>%s</time>.', 'wpprobe');
 		}
 	}, [isCli, syncTrigger]);
 

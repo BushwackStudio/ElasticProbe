@@ -590,7 +590,7 @@ class AdminNotices {
 
 		$html = sprintf(
 			/* translators: 1. Current URL with retry parameter; 2. Settings Page URL */
-			__( 'There is a problem with connecting to your Elasticsearch host. WPProbe can <a href="%1$s">try your host again</a>, or you may need to <a href="%2$s">change your settings</a>.', 'elasticpress' ),
+			__( 'There is a problem with connecting to your Elasticsearch host. WPProbe can <a href="%1$s">try your host again</a>, or you may need to <a href="%2$s">change your settings</a>.', 'wpprobe' ),
 			esc_url( $retry_url ),
 			esc_url( $url )
 		);
@@ -785,7 +785,7 @@ class AdminNotices {
 		if ( $has_error ) {
 			$message = sprintf(
 				/* translators: Elasticsearch or WPProbe.com; 2. Link to article; 3. Link to article */
-				__( 'Your website content has more public custom fields than %1$s is able to store. Check our articles about <a href="%2$s">Elasticsearch field limitations</a> and <a href="%3$s">how to index just the custom fields you need</a> before trying to sync.', 'elasticpress' ),
+				__( 'Your website content has more public custom fields than %1$s is able to store. Check our articles about <a href="%2$s">Elasticsearch field limitations</a> and <a href="%3$s">how to index just the custom fields you need</a> before trying to sync.', 'wpprobe' ),
 				Utils\is_epio() ? __( 'WPProbe.com', 'wpprobe' ) : __( 'Elasticsearch', 'wpprobe' ),
 				'https://www.elasticpress.io/documentation/article/i-get-the-error-limit-of-total-fields-in-index-has-been-exceeded/',
 				'https://www.elasticpress.io/documentation/article/how-to-exclude-metadata-from-indexing/'
@@ -801,7 +801,7 @@ class AdminNotices {
 		if ( $has_warning ) {
 			$message = sprintf(
 				/* translators: Elasticsearch or WPProbe.com; 2. Link to article; 3. Link to article */
-				__( 'Your website content seems to have more public custom fields than %1$s is able to store. Check our articles about <a href="%2$s">Elasticsearch field limitations</a> and <a href="%3$s">how to index just the custom fields you need</a> if you receive any errors while syncing.', 'elasticpress' ),
+				__( 'Your website content seems to have more public custom fields than %1$s is able to store. Check our articles about <a href="%2$s">Elasticsearch field limitations</a> and <a href="%3$s">how to index just the custom fields you need</a> if you receive any errors while syncing.', 'wpprobe' ),
 				Utils\is_epio() ? __( 'WPProbe.com', 'wpprobe' ) : __( 'Elasticsearch', 'wpprobe' ),
 				'https://www.elasticpress.io/documentation/article/i-get-the-error-limit-of-total-fields-in-index-has-been-exceeded/',
 				'https://www.elasticpress.io/documentation/article/how-to-exclude-metadata-from-indexing/'

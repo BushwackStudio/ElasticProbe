@@ -25,28 +25,28 @@ export default () => {
 				{safeHTML(
 					__(
 						'<p><strong>Synonyms</strong> are terms with similar meanings. For example, <em>sneaker</em>, <em>tennis shoe</em>, <em>trainer</em>, and <em>running shoe</em> could all refer to a particular type of shoe.</p>',
-						'elasticpress',
+						'wpprobe',
 					),
 				)}
 				{safeHTML(
 					__(
 						'<p>Use synonyms when you want queries for a specific term to also return results relevant to any of its synonyms. This can be useful for supporting products and services whose names have changed over time or regional variations in terminology. For example, when a search for "sneaker" should return sneakers, tennis shoes, trainers and running shoes.</p>',
-						'elasticpress',
+						'wpprobe',
 					),
 				)}
 			</RawHTML>
 			<VisualEditor
 				labels={{
-					add: __('Add synonyms', 'elasticpress'),
-					edit: __('Edit Synonyms', 'elasticpress'),
-					new: __('Add Synonyms', 'elasticpress'),
-					synonyms: __('Synonyms', 'elasticpress'),
+					add: __('Add synonyms', 'wpprobe'),
+					edit: __('Edit Synonyms', 'wpprobe'),
+					new: __('Add Synonyms', 'wpprobe'),
+					synonyms: __('Synonyms', 'wpprobe'),
 				}}
 				messages={{
-					added: __('Added synonyms.', 'elasticpress'),
-					deleted: __('Deleted synonyms.', 'elasticpress'),
-					invalid: __('Synonym sets require at least two synonyms.', 'elasticpress'),
-					updated: __('Updated synonyms.', 'elasticpress'),
+					added: __('Added synonyms.', 'wpprobe'),
+					deleted: __('Deleted synonyms.', 'wpprobe'),
+					invalid: __('Synonym sets require at least two synonyms.', 'wpprobe'),
+					updated: __('Updated synonyms.', 'wpprobe'),
 				}}
 				mode="synonyms"
 				rules={synonyms}

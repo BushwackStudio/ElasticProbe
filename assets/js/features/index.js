@@ -31,7 +31,7 @@ import './style.css';
  * @returns {WPElement} App component.
  */
 const App = () => (
-	<SettingsScreenProvider title={__('Features', 'elasticpress')}>
+	<SettingsScreenProvider title={__('Features', 'wpprobe')}>
 		<FeatureSettingsProvider
 			apiUrl={apiUrl}
 			defaultSettings={settingsDraft || settings}
@@ -45,7 +45,7 @@ const App = () => (
 				{createInterpolateElement(
 					__(
 						'ElasticPress Features add functionality to enhance search and queries on your site. You may choose to activate some or all of these Features depending on your needs. You can learn more about each Feature <a>here</a>.',
-						'elasticpress',
+						'wpprobe',
 					),
 					{
 						a: (

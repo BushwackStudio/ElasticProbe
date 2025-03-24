@@ -42,7 +42,7 @@ class FailedQueries extends Report {
 	 * @return string
 	 */
 	public function get_title(): string {
-		return __( 'Failed Queries', 'elasticpress' );
+		return __( 'Failed Queries', 'wpprobe' );
 	}
 
 	/**
@@ -56,15 +56,15 @@ class FailedQueries extends Report {
 		$logs = $this->query_logger->get_logs( false );
 
 		$labels = [
-			'wp_url'      => esc_html__( 'Page URL', 'elasticpress' ),
-			'es_req'      => esc_html__( 'Elasticsearch Request', 'elasticpress' ),
-			'request_id'  => esc_html__( 'Request ID', 'elasticpress' ),
-			'timestamp'   => esc_html__( 'Time', 'elasticpress' ),
-			'query_time'  => esc_html__( 'Time Spent (ms)', 'elasticpress' ),
-			'wp_args'     => esc_html__( 'WP Query Args', 'elasticpress' ),
-			'status_code' => esc_html__( 'HTTP Status Code', 'elasticpress' ),
-			'body'        => esc_html__( 'Query Body', 'elasticpress' ),
-			'result'      => esc_html__( 'Query Result', 'elasticpress' ),
+			'wp_url'      => esc_html__( 'Page URL', 'wpprobe' ),
+			'es_req'      => esc_html__( 'Elasticsearch Request', 'wpprobe' ),
+			'request_id'  => esc_html__( 'Request ID', 'wpprobe' ),
+			'timestamp'   => esc_html__( 'Time', 'wpprobe' ),
+			'query_time'  => esc_html__( 'Time Spent (ms)', 'wpprobe' ),
+			'wp_args'     => esc_html__( 'WP Query Args', 'wpprobe' ),
+			'status_code' => esc_html__( 'HTTP Status Code', 'wpprobe' ),
+			'body'        => esc_html__( 'Query Body', 'wpprobe' ),
+			'result'      => esc_html__( 'Query Result', 'wpprobe' ),
 		];
 
 		$groups = [];
@@ -73,11 +73,11 @@ class FailedQueries extends Report {
 
 			$fields = [
 				'error'                => [
-					'label' => __( 'Error', 'elasticpress' ),
+					'label' => __( 'Error', 'wpprobe' ),
 					'value' => $error,
 				],
 				'recommended_solution' => [
-					'label' => __( 'Recommended Solution', 'elasticpress' ),
+					'label' => __( 'Recommended Solution', 'wpprobe' ),
 					'value' => $solution,
 				],
 			];
@@ -117,7 +117,7 @@ class FailedQueries extends Report {
 			return [];
 		}
 
-		$label = __( 'Clear query log', 'elasticpress' );
+		$label = __( 'Clear query log', 'wpprobe' );
 		$href  = wp_nonce_url( add_query_arg( [ $_GET ], $wp->request ), 'ep-clear-logged-queries', '_wpnonce' ); // phpcs:ignore WordPress.Security.NonceVerification
 
 		return [
@@ -158,7 +158,7 @@ class FailedQueries extends Report {
 		if ( is_array( $log['result'] ) && ! empty( $log['result']['is_wp_error'] ) ) {
 			return [
 				$log['result']['message'],
-				__( 'It seems WordPress was not able to complete the request. Review the error message and your configuration.', 'elasticpress' ),
+				__( 'It seems WordPress was not able to complete the request. Review the error message and your configuration.', 'wpprobe' ),
 			];
 		}
 

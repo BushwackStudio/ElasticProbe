@@ -77,16 +77,16 @@ export default ({ attributes, setAttributes }) => {
 				/>
 			</div>
 			<InspectorControls>
-				<PanelBody title={__('Search settings', 'elasticpress')}>
+				<PanelBody title={__('Search settings', 'wpprobe')}>
 					<CheckboxControl
 						checked={allSelected}
-						label={__('Search all comments', 'elasticpress')}
+						label={__('Search all comments', 'wpprobe')}
 						onChange={onSelectAll}
 					/>
 					{Object.entries(searchablePostTypes).map(([postType, postTypeLabel]) => {
 						const label = sprintf(
 							/* translators: %s: Post type label, plural. */
-							__('Search comments on %s', 'elasticpress'),
+							__('Search comments on %s', 'wpprobe'),
 							postTypeLabel,
 						);
 

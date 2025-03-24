@@ -628,7 +628,7 @@ class Autosuggest extends Feature {
 
 		$status->message = [];
 
-		$status->message[] = esc_html__( 'This feature modifies the site’s default user experience by presenting a list of suggestions below detected search fields as text is entered into the field.', 'elasticpress' );
+		$status->message[] = esc_html__( 'This feature modifies the site’s default user experience by presenting a list of suggestions below detected search fields as text is entered into the field.', 'wpprobe' );
 
 		if ( ! Utils\is_epio() ) {
 			$status->code      = 1;
@@ -891,7 +891,7 @@ class Autosuggest extends Feature {
 		$this->settings_schema = [
 			[
 				'default' => '.ep-autosuggest',
-				'help'    => __( 'Input additional selectors where you would like to include autosuggest, separated by a comma. Example: <code>.custom-selector, #custom-id, input[type="text"]</code>', 'elasticpress' ),
+				'help'    => __( 'Input additional selectors where you would like to include autosuggest, separated by a comma. Example: <code>.custom-selector, #custom-id, input[type="text"]</code>', 'wpprobe' ),
 				'key'     => 'autosuggest_selector',
 				'label'   => __( 'Additional selectors', 'wpprobe' ),
 				'type'    => 'text',
@@ -912,7 +912,7 @@ class Autosuggest extends Feature {
 
 			$this->settings_schema[] = [
 				'disabled' => $set_in_wp_config,
-				'help'     => ! $set_in_wp_config ? __( 'A valid URL starting with <code>http://</code> or <code>https://</code>. This address will be exposed to the public.', 'elasticpress' ) : '',
+				'help'     => ! $set_in_wp_config ? __( 'A valid URL starting with <code>http://</code> or <code>https://</code>. This address will be exposed to the public.', 'wpprobe' ) : '',
 				'key'      => 'endpoint_url',
 				'label'    => __( 'Endpoint URL', 'wpprobe' ),
 				'type'     => 'url',

@@ -39,7 +39,7 @@ export default ({ disabled, errorMessage, isSelected, onSelect, onDelete }) => {
 					disabled={disabled}
 					icon={edit}
 					isPressed={isSelected}
-					label={__('Edit', 'elasticpress')}
+					label={__('Edit', 'wpprobe')}
 					onClick={onSelect}
 				/>
 			</FlexItem>
@@ -47,7 +47,7 @@ export default ({ disabled, errorMessage, isSelected, onSelect, onDelete }) => {
 				<Button
 					disabled={disabled}
 					icon={trash}
-					label={__('Delete', 'elasticpress')}
+					label={__('Delete', 'wpprobe')}
 					onClick={onDelete}
 				/>
 			</FlexItem>

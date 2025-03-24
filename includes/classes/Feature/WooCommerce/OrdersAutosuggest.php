@@ -179,7 +179,7 @@ class OrdersAutosuggest {
 			true
 		);
 
-		wp_set_script_translations( 'elasticpress-woocommerce-order-search', 'elasticpress' );
+		wp_set_script_translations( 'elasticpress-woocommerce-order-search', 'wpprobe' );
 
 		$api_endpoint = $this->get_search_endpoint();
 		$api_host     = Utils\get_host();
@@ -634,7 +634,7 @@ class OrdersAutosuggest {
 			'disabled'      => ! $available,
 			'help'          => $this->get_setting_help_message(),
 			'key'           => 'orders',
-			'label'         => __( 'Show suggestions when searching for Orders', 'elasticpress' ),
+			'label'         => __( 'Show suggestions when searching for Orders', 'wpprobe' ),
 			'requires_sync' => true,
 			'type'          => 'checkbox',
 		];
@@ -655,7 +655,7 @@ class OrdersAutosuggest {
 
 		if ( $available ) {
 			/* translators: 1: <a> tag (ElasticPress.io); 2. </a>; 3: <a> tag (KB article); 4. </a>; */
-			$message = __( 'You are directly connected to %1$sElasticPress.io%2$s! Enable autosuggest for Orders to enhance Dashboard results and quickly find WooCommerce Orders. %3$sLearn More%4$s.', 'elasticpress' );
+			$message = __( 'You are directly connected to %1$sElasticPress.io%2$s! Enable autosuggest for Orders to enhance Dashboard results and quickly find WooCommerce Orders. %3$sLearn More%4$s.', 'wpprobe' );
 
 			return sprintf(
 				wp_kses( $message, 'ep-html' ),
@@ -667,11 +667,11 @@ class OrdersAutosuggest {
 		}
 
 		if ( ! $this->is_hpos_compatible() ) {
-			return esc_html__( 'Currently, autosuggest for orders is only available if WooCommerce order data storage is set in legacy or compatibility mode.', 'elasticpress' );
+			return esc_html__( 'Currently, autosuggest for orders is only available if WooCommerce order data storage is set in legacy or compatibility mode.', 'wpprobe' );
 		}
 
 		/* translators: 1: <a> tag (ElasticPress.io); 2. </a>; 3: <a> tag (KB article); 4. </a>; */
-		$message = __( 'Due to the sensitive nature of orders, this autosuggest feature is available only to %1$sElasticPress.io%2$s customers. %3$sLearn More%4$s.', 'elasticpress' );
+		$message = __( 'Due to the sensitive nature of orders, this autosuggest feature is available only to %1$sElasticPress.io%2$s customers. %3$sLearn More%4$s.', 'wpprobe' );
 
 		$message = sprintf(
 			wp_kses( $message, 'ep-html' ),

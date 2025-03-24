@@ -86,7 +86,7 @@ class Synonyms {
 		$search = $this->get_search_feature();
 
 		if ( ! $search->is_active() ) {
-			return new FeatureRequirementsStatus( 2, esc_html__( 'This feature requires the "Post Search" feature to be enabled', 'elasticpress' ) );
+			return new FeatureRequirementsStatus( 2, esc_html__( 'This feature requires the "Post Search" feature to be enabled', 'wpprobe' ) );
 		}
 
 		return new FeatureRequirementsStatus( 0 );
@@ -136,7 +136,7 @@ class Synonyms {
 			true
 		);
 
-		wp_set_script_translations( 'ep_synonyms_scripts', 'elasticpress' );
+		wp_set_script_translations( 'ep_synonyms_scripts', 'wpprobe' );
 
 		wp_enqueue_style( 'wp-edit-post' );
 
@@ -179,8 +179,8 @@ class Synonyms {
 	public function admin_menu() {
 		add_submenu_page(
 			'elasticpress',
-			esc_html__( 'ElasticPress Synonyms', 'elasticpress' ),
-			esc_html__( 'Synonyms', 'elasticpress' ),
+			esc_html__( 'ElasticPress Synonyms', 'wpprobe' ),
+			esc_html__( 'Synonyms', 'wpprobe' ),
 			Utils\get_capability( 'synonyms' ),
 			'elasticpress-synonyms',
 			[ $this, 'admin_page' ]
@@ -226,16 +226,16 @@ class Synonyms {
 
 		switch ( $update ) {
 			case 'success':
-				$message = __( 'Successfully updated synonym filter.', 'elasticpress' );
+				$message = __( 'Successfully updated synonym filter.', 'wpprobe' );
 				break;
 			case 'error-update-post':
-				$message = __( 'There was an error storing your synonyms.', 'elasticpress' );
+				$message = __( 'There was an error storing your synonyms.', 'wpprobe' );
 				break;
 			case 'error-update-index':
-				$message = __( 'There was a problem updating the index with your synonyms. If you have not indexed your data, please run an index.', 'elasticpress' );
+				$message = __( 'There was a problem updating the index with your synonyms. If you have not indexed your data, please run an index.', 'wpprobe' );
 				break;
 			default:
-				$message = __( 'There was an error updating the synonym list.', 'elasticpress' );
+				$message = __( 'There was an error updating the synonym list.', 'wpprobe' );
 		}
 
 		printf(
@@ -252,7 +252,7 @@ class Synonyms {
 	 */
 	public function register_post_type() {
 		$args = [
-			'description'        => esc_html__( 'Elasticsearch Synonyms', 'elasticpress' ),
+			'description'        => esc_html__( 'Elasticsearch Synonyms', 'wpprobe' ),
 			'public'             => false,
 			'publicly_queryable' => false,
 			'show_ui'            => false,
@@ -676,13 +676,13 @@ class Synonyms {
 	 */
 	public function example_synonym_list( $as_array = false ) {
 		$lines = [
-			__( '# Defined synonyms.', 'elasticpress' ),
+			__( '# Defined synonyms.', 'wpprobe' ),
 			'runner, running shoe, sneaker, tennis shoe, trainer',
 			'',
-			__( '# Defined hyponyms.', 'elasticpress' ),
+			__( '# Defined hyponyms.', 'wpprobe' ),
 			'blue => blue, aqua, azure, cerulean, cyan, ultramarine',
 			'',
-			__( '# Defined replacements.', 'elasticpress' ),
+			__( '# Defined replacements.', 'wpprobe' ),
 			'supposably => supposedly',
 			'flustrated => flustered, frustrated',
 			'intensive purposes => intents and purposes',
@@ -701,32 +701,32 @@ class Synonyms {
 		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_localized_strings', '5.1.0' );
 
 		return array(
-			'pageHeading'                  => __( 'Manage Synonyms', 'elasticpress' ),
-			'pageDescription'              => __( 'Synonyms enable more flexible search results that show relevant results even without an exact match. Synonyms can be defined as a sets where all words are synonyms for each other, or as alternatives where searches for the primary word will also match the rest, but no vice versa.', 'elasticpress' ),
-			'pageToggleAdvanceText'        => __( 'Switch to Advanced Text Editor', 'elasticpress' ),
-			'pageToggleSimpleText'         => __( 'Switch to Visual Editor', 'elasticpress' ),
+			'pageHeading'                  => __( 'Manage Synonyms', 'wpprobe' ),
+			'pageDescription'              => __( 'Synonyms enable more flexible search results that show relevant results even without an exact match. Synonyms can be defined as a sets where all words are synonyms for each other, or as alternatives where searches for the primary word will also match the rest, but no vice versa.', 'wpprobe' ),
+			'pageToggleAdvanceText'        => __( 'Switch to Advanced Text Editor', 'wpprobe' ),
+			'pageToggleSimpleText'         => __( 'Switch to Visual Editor', 'wpprobe' ),
 
-			'setsTitle'                    => __( 'Sets', 'elasticpress' ),
-			'setsDescription'              => __( 'Sets are terms that will all match each other for search results. This is useful where all words are considered equivalent, such as product renaming or regional variations like sneakers, tennis shoes, trainers, and runners.', 'elasticpress' ),
-			'setsInputHeading'             => __( 'Comma separated list of terms', 'elasticpress' ),
-			'setsAddButtonText'            => __( 'Add Set', 'elasticpress' ),
-			'setsErrorMessage'             => __( 'This set must contain at least 2 terms.', 'elasticpress' ),
+			'setsTitle'                    => __( 'Sets', 'wpprobe' ),
+			'setsDescription'              => __( 'Sets are terms that will all match each other for search results. This is useful where all words are considered equivalent, such as product renaming or regional variations like sneakers, tennis shoes, trainers, and runners.', 'wpprobe' ),
+			'setsInputHeading'             => __( 'Comma separated list of terms', 'wpprobe' ),
+			'setsAddButtonText'            => __( 'Add Set', 'wpprobe' ),
+			'setsErrorMessage'             => __( 'This set must contain at least 2 terms.', 'wpprobe' ),
 
-			'alternativesTitle'            => __( 'Alternatives', 'elasticpress' ),
-			'alternativesDescription'      => __( 'Alternatives are terms that will also be matched when you search for the primary term. For instance, a search for shoes can also include results for sneaker, sandals, boots, and high heels.', 'elasticpress' ),
-			'alternativesPrimaryHeading'   => __( 'Primary term', 'elasticpress' ),
-			'alternativesInputHeading'     => __( 'Comma separated list of alternatives', 'elasticpress' ),
-			'alternativesAddButtonText'    => __( 'Add Alternative', 'elasticpress' ),
-			'alternativesErrorMessage'     => __( 'You must enter both a primary term and at least one alternative term.', 'elasticpress' ),
+			'alternativesTitle'            => __( 'Alternatives', 'wpprobe' ),
+			'alternativesDescription'      => __( 'Alternatives are terms that will also be matched when you search for the primary term. For instance, a search for shoes can also include results for sneaker, sandals, boots, and high heels.', 'wpprobe' ),
+			'alternativesPrimaryHeading'   => __( 'Primary term', 'wpprobe' ),
+			'alternativesInputHeading'     => __( 'Comma separated list of alternatives', 'wpprobe' ),
+			'alternativesAddButtonText'    => __( 'Add Alternative', 'wpprobe' ),
+			'alternativesErrorMessage'     => __( 'You must enter both a primary term and at least one alternative term.', 'wpprobe' ),
 
-			'solrTitle'                    => __( 'Advanced Synonym Editor', 'elasticpress' ),
-			'solrDescription'              => __( 'When you add Sets and Alternatives above, we reduce them to SolrSynonyms which Elasticsearch can understand. If you are an advanced user, you can edit synonyms directly using Solr synonym formatting. This is beneficial if you want to import a large dictionary of synonyms, or want to export this site\'s synonyms for use on another site.', 'elasticpress' ),
-			'solrInputHeading'             => __( 'SolrSynonym Text', 'elasticpress' ),
-			'solrAlternativesErrorMessage' => __( 'Alternatives must have both a primary term and at least one alternative term.', 'elasticpress' ),
-			'solrSetsErrorMessage'         => __( 'Sets must contain at least 2 terms.', 'elasticpress' ),
+			'solrTitle'                    => __( 'Advanced Synonym Editor', 'wpprobe' ),
+			'solrDescription'              => __( 'When you add Sets and Alternatives above, we reduce them to SolrSynonyms which Elasticsearch can understand. If you are an advanced user, you can edit synonyms directly using Solr synonym formatting. This is beneficial if you want to import a large dictionary of synonyms, or want to export this site\'s synonyms for use on another site.', 'wpprobe' ),
+			'solrInputHeading'             => __( 'SolrSynonym Text', 'wpprobe' ),
+			'solrAlternativesErrorMessage' => __( 'Alternatives must have both a primary term and at least one alternative term.', 'wpprobe' ),
+			'solrSetsErrorMessage'         => __( 'Sets must contain at least 2 terms.', 'wpprobe' ),
 
-			'removeItemText'               => __( 'Remove', 'elasticpress' ),
-			'submitText'                   => __( 'Update Synonyms', 'elasticpress' ),
+			'removeItemText'               => __( 'Remove', 'wpprobe' ),
+			'submitText'                   => __( 'Update Synonyms', 'wpprobe' ),
 
 			'synonymsTextareaInputName'    => $this->get_synonym_field(),
 		);

@@ -47,11 +47,11 @@ class Terms extends Feature {
 	 * @since 5.2.0
 	 */
 	public function set_i18n_strings(): void {
-		$this->title = esc_html__( 'Terms', 'elasticpress' );
+		$this->title = esc_html__( 'Terms', 'wpprobe' );
 
-		$this->summary = '<p>' . __( 'This feature will empower your website to overcome traditional WordPress term search and query limitations that can present themselves at scale. This feature is only needed if you are using <code>WP_Term_Query</code> directly.', 'elasticpress' ) . '</p>';
+		$this->summary = '<p>' . __( 'This feature will empower your website to overcome traditional WordPress term search and query limitations that can present themselves at scale. This feature is only needed if you are using <code>WP_Term_Query</code> directly.', 'wpprobe' ) . '</p>';
 
-		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#terms', 'elasticpress' );
+		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#terms', 'wpprobe' );
 	}
 
 	/**
@@ -82,7 +82,7 @@ class Terms extends Feature {
 	 */
 	public function output_feature_box_long() {
 		?>
-		<p><?php esc_html_e( 'This feature will empower your website to overcome traditional WordPress term search and query limitations that can present themselves at scale.', 'elasticpress' ); ?></p>
+		<p><?php esc_html_e( 'This feature will empower your website to overcome traditional WordPress term search and query limitations that can present themselves at scale.', 'wpprobe' ); ?></p>
 		<?php
 	}
 

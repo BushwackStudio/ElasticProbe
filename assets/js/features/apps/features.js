@@ -52,7 +52,7 @@ export default () => {
 	/**
 	 * Generic error notice.
 	 */
-	const errorNotice = __('Could not save feature settings. Please try again.', 'elasticpress');
+	const errorNotice = __('Could not save feature settings. Please try again.', 'wpprobe');
 
 	/**
 	 * Action when a sync is in progress
@@ -60,19 +60,19 @@ export default () => {
 	const isSyncingActions = [
 		{
 			url: syncUrl,
-			label: __('View sync status', 'elasticpress'),
+			label: __('View sync status', 'wpprobe'),
 		},
 	];
 
 	/**
 	 * Notice when a sync is in progress.
 	 */
-	const isSyncingNotice = __('Cannot save settings while a sync is in progress.', 'elasticpress');
+	const isSyncingNotice = __('Cannot save settings while a sync is in progress.', 'wpprobe');
 
 	/**
 	 * Reset notice.
 	 */
-	const resetNotice = __('Changes to feature settings discarded.', 'elasticpress');
+	const resetNotice = __('Changes to feature settings discarded.', 'wpprobe');
 
 	/**
 	 * Action when syncing later.
@@ -80,7 +80,7 @@ export default () => {
 	const syncLaterActions = [
 		{
 			url: syncNowUrl,
-			label: __('Sync', 'elasticpress'),
+			label: __('Sync', 'wpprobe'),
 		},
 	];
 
@@ -89,7 +89,7 @@ export default () => {
 	 */
 	const syncLaterConfirm = __(
 		'If you choose to sync later some settings changes may not take effect until the sync is performed. Save and sync later?',
-		'elasticpress',
+		'wpprobe',
 	);
 
 	/**
@@ -97,18 +97,18 @@ export default () => {
 	 */
 	const syncNowConfirm = __(
 		'Saving these settings will begin re-syncing your content. Save and sync now?',
-		'elasticpress',
+		'wpprobe',
 	);
 
 	/**
 	 * Notice when syncing now.
 	 */
-	const syncNowNotice = __('Feature settings saved. Starting sync…', 'elasticpress');
+	const syncNowNotice = __('Feature settings saved. Starting sync…', 'wpprobe');
 
 	/**
 	 * Success notice.
 	 */
-	const successNotice = __('Feature settings saved.', 'elasticpress');
+	const successNotice = __('Feature settings saved.', 'wpprobe');
 
 	/**
 	 * Whether the user has chosen to sync later when saving. Used to show the
@@ -142,7 +142,7 @@ export default () => {
 
 		const errorMessage = `${__(
 			'ElasticPress: Could not save feature settings.',
-			'elasticpress',
+			'wpprobe',
 		)}\n${e.message}`;
 
 		console.error(errorMessage); // eslint-disable-line no-console
@@ -242,8 +242,8 @@ export default () => {
 						variant="primary"
 					>
 						{isSyncRequired
-							? __('Save and sync now', 'elasticpress')
-							: __('Save changes', 'elasticpress')}
+							? __('Save and sync now', 'wpprobe')
+							: __('Save changes', 'wpprobe')}
 					</Button>
 				</FlexItem>
 				{isSyncRequired ? (
@@ -255,14 +255,14 @@ export default () => {
 							type="button"
 							variant="secondary"
 						>
-							{__('Save and sync later', 'elasticpress')}
+							{__('Save and sync later', 'wpprobe')}
 						</Button>
 					</FlexItem>
 				) : null}
 				{isModified ? (
 					<FlexItem>
 						<Button disabled={isBusy} type="reset" variant="tertiary">
-							{__('Discard changes', 'elasticpress')}
+							{__('Discard changes', 'wpprobe')}
 						</Button>
 					</FlexItem>
 				) : null}

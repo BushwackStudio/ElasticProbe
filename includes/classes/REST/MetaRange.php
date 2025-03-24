@@ -55,7 +55,7 @@ class MetaRange {
 	public function get_args() {
 		return [
 			'facet' => [
-				'description' => __( 'Filter to get a value range for.', 'elasticpress' ),
+				'description' => __( 'Filter to get a value range for.', 'wpprobe' ),
 				'required'    => true,
 				'type'        => 'string',
 			],

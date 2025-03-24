@@ -28,7 +28,7 @@ export default () => {
 	 */
 	const onPause = () => {
 		pauseSync();
-		logMessage(__('Pausing sync…', 'elasticpress'), 'info');
+		logMessage(__('Pausing sync…', 'wpprobe'), 'info');
 	};
 
 	/**
@@ -38,7 +38,7 @@ export default () => {
 	 */
 	const onResume = () => {
 		resumeSync(args);
-		logMessage(__('Resuming sync…', 'elasticpress'), 'info');
+		logMessage(__('Resuming sync…', 'wpprobe'), 'info');
 	};
 
 	/**
@@ -48,7 +48,7 @@ export default () => {
 	 */
 	const onStop = () => {
 		stopSync();
-		logMessage(__('Sync stopped', 'elasticpress'), 'info');
+		logMessage(__('Sync stopped', 'wpprobe'), 'info');
 	};
 
 	/**
@@ -59,21 +59,21 @@ export default () => {
 			{isSyncing ? (
 				<>
 					<Button onClick={onStop} variant="primary">
-						{__('Stop sync', 'elasticpress')}
+						{__('Stop sync', 'wpprobe')}
 					</Button>
 					{isPaused ? (
 						<Button onClick={onResume} variant="secondary">
-							{__('Resume sync', 'elasticpress')}
+							{__('Resume sync', 'wpprobe')}
 						</Button>
 					) : (
 						<Button onClick={onPause} variant="secondary">
-							{__('Pause sync', 'elasticpress')}
+							{__('Pause sync', 'wpprobe')}
 						</Button>
 					)}
 				</>
 			) : (
 				<Button variant="primary" type="submit">
-					{__('Start sync', 'elasticpress')}
+					{__('Start sync', 'wpprobe')}
 				</Button>
 			)}
 			<Button
@@ -81,7 +81,7 @@ export default () => {
 				target="_blank"
 				variant="link"
 			>
-				{__('Learn more about Sync', 'elasticpress')}
+				{__('Learn more about Sync', 'wpprobe')}
 			</Button>
 		</div>
 	);

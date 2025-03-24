@@ -51,7 +51,7 @@ class TestFeature extends BaseTestCase {
 				[
 					'default'          => false,
 					'key'              => 'active',
-					'label'            => __( 'Enable', 'elasticpress' ),
+					'label'            => __( 'Enable', 'wpprobe' ),
 					'requires_feature' => false,
 					'requires_sync'    => false,
 					'type'             => 'toggle',
@@ -84,7 +84,7 @@ class TestFeature extends BaseTestCase {
 				[
 					'default'          => false,
 					'key'              => 'active',
-					'label'            => __( 'Enable', 'elasticpress' ),
+					'label'            => __( 'Enable', 'wpprobe' ),
 					'requires_feature' => false,
 					'requires_sync'    => false,
 					'type'             => 'toggle',
@@ -119,7 +119,7 @@ class TestFeature extends BaseTestCase {
 				[
 					'default'          => false,
 					'key'              => 'active',
-					'label'            => __( 'Enable', 'elasticpress' ),
+					'label'            => __( 'Enable', 'wpprobe' ),
 					'requires_feature' => false,
 					'requires_sync'    => false,
 					'type'             => 'toggle',

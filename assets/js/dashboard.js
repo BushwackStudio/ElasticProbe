@@ -59,7 +59,7 @@ const onSubmit = async (event) => {
 		const isConfirmed = window.confirm(
 			__(
 				'Enabling this feature will begin re-syncing your content. Do you wish to proceed?',
-				'elasticpress',
+				'wpprobe',
 			),
 		);
 
@@ -179,7 +179,7 @@ const onSubmitSetup = (event) => {
 	const confirm = window.confirm(
 		__(
 			'It looks like you’re trying to use ElasticPress’s advanced features only. If you’d like to activate basic search, please select Cancel and activate the Post Search Feature. Otherwise, please click Ok to configure advanced features.',
-			'elasticpress',
+			'wpprobe',
 		),
 	);
 

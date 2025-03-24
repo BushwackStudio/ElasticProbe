@@ -58,7 +58,7 @@ export default ({ label, onChange, onDelete, value, showTooltip }) => {
 				<div className="ep-weighting-field__searchable">
 					<CheckboxControl
 						checked={enabled}
-						label={__('Searchable', 'elasticpress')}
+						label={__('Searchable', 'wpprobe')}
 						onChange={onChangeSearchable}
 						__nextHasNoMarginBottom
 					/>
@@ -66,7 +66,7 @@ export default ({ label, onChange, onDelete, value, showTooltip }) => {
 				<div className="ep-weighting-field__weighting">
 					<RangeControl
 						disabled={!enabled}
-						label={__('Weight', 'elasticpress')}
+						label={__('Weight', 'wpprobe')}
 						max={100}
 						min={1}
 						onChange={onChangeWeight}
@@ -79,7 +79,7 @@ export default ({ label, onChange, onDelete, value, showTooltip }) => {
 						className="ep-weighting-action ep-weighting-action--delete"
 						disabled={!onDelete}
 						icon={trash}
-						label={__('Remove', 'elasticpress')}
+						label={__('Remove', 'wpprobe')}
 						onClick={onDelete}
 					/>
 				</div>

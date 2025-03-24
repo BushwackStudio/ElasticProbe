@@ -49,7 +49,7 @@ class Weighting {
 	public function get_weightable_fields_for_post_type( $post_type ) {
 		$fields = array(
 			'attributes' => array(
-				'label'    => __( 'Attributes', 'elasticpress' ),
+				'label'    => __( 'Attributes', 'wpprobe' ),
 				'children' => array(
 					'post_title'   => array(
 						'key'   => 'post_title',
@@ -83,7 +83,7 @@ class Weighting {
 
 		if ( ! empty( $taxonomies ) ) {
 			$fields['taxonomies'] = [
-				'label'    => __( 'Taxonomies', 'elasticpress' ),
+				'label'    => __( 'Taxonomies', 'wpprobe' ),
 				'children' => [],
 			];
 
@@ -326,8 +326,8 @@ class Weighting {
 
 		add_submenu_page(
 			'elasticpress',
-			esc_html__( 'ElasticPress Search Fields & Weighting', 'elasticpress' ),
-			esc_html__( 'Search Fields & Weighting', 'elasticpress' ),
+			esc_html__( 'ElasticPress Search Fields & Weighting', 'wpprobe' ),
+			esc_html__( 'Search Fields & Weighting', 'wpprobe' ),
 			Utils\get_capability(),
 			$menu_slug,
 			[ $this, 'render_settings_page' ]

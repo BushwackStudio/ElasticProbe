@@ -24,8 +24,8 @@ export default () => {
 				<table className="ep-sync-errors__table">
 					<thead>
 						<tr>
-							<th>{__('Count', 'elasticpress')}</th>
-							<th>{__('Error type', 'elasticpress')}</th>
+							<th>{__('Count', 'wpprobe')}</th>
+							<th>{__('Error type', 'wpprobe')}</th>
 						</tr>
 					</thead>
 					{errorCounts.map((e) => (
@@ -41,7 +41,7 @@ export default () => {
 					))}
 				</table>
 			) : (
-				<p>{__('No errors found in the log.', 'elasticpress')}</p>
+				<p>{__('No errors found in the log.', 'wpprobe')}</p>
 			)}
 		</div>
 	);

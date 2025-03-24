@@ -57,7 +57,7 @@ class SearchOrdering {
 	public function get_args() {
 		return [
 			's' => [
-				'description'       => __( 'Search query.', 'elasticpress' ),
+				'description'       => __( 'Search query.', 'wpprobe' ),
 				'required'          => true,
 				'type'              => 'string',
 				'validate_callback' => fn( $param ) => ! empty( $param ),

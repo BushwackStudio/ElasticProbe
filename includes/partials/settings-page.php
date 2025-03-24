@@ -31,7 +31,7 @@ $bulk_setting = Utils\get_option( 'ep_bulk_setting', 350 );
 
 <div class="error-overlay <?php if ( ! empty( $index_meta ) ) : ?>syncing<?php endif; ?>"></div>
 <div class="wrap">
-	<h1><?php esc_html_e( 'Settings', 'elasticpress' ); ?></h1>
+	<h1><?php esc_html_e( 'Settings', 'wpprobe' ); ?></h1>
 
 	<form action="" method="post" class="ep-settings">
 		<?php wp_nonce_field( 'elasticpress_settings', 'ep_settings_nonce' ); ?>
@@ -40,8 +40,8 @@ $bulk_setting = Utils\get_option( 'ep_bulk_setting', 350 );
 			<?php if ( ! $wpconfig ) : ?>
 				<h2 class="nav-tab-wrapper ep-credentials-tabs">
 					<button class="nav-tab ep-credentials-tab <?php if ( ! $host || $is_epio ) { ?>nav-tab-active initial<?php } ?>" data-epio type="button">
-						<img src="<?php echo esc_url( plugins_url( '/images/logo-icon.svg', dirname( __DIR__ ) ) ); ?>" width="16" height="16" alt="ElasticPress.io" />
-						<span>ElasticPress.io</span>
+						<img src="<?php echo esc_url( plugins_url( '/images/logo-icon.svg', dirname( __DIR__ ) ) ); ?>" width="16" height="16" alt="WPProbe.com" />
+						<span>WPProbe.com</span>
 					</button>
 					<button class="nav-tab ep-credentials-tab <?php if ( $host && ! $is_epio ) { ?>nav-tab-active initial<?php } ?>" type="button">
 						<span>Third-Party/Self-Hosted</span>
@@ -52,7 +52,7 @@ $bulk_setting = Utils\get_option( 'ep_bulk_setting', 350 );
 			<fieldset class="<?php if ( $wpconfig ) { ?>predefined<?php } ?>">
 				<?php if ( $is_epio || ! $wpconfig ) : ?>
 					<p class="ep-legend ep-additional-fields <?php if ( $host && ! $is_epio ) { ?>hidden<?php } ?>" aria-hidden="<?php if ( $host && ! $is_epio ) { ?>true<?php } else { ?>false<?php } ?>">
-						<a href="https://elasticpress.io/" target="_blank" rel="noreferrer noopener">ElasticPress.io</a> is a hosted Elasticsearch service built for ElasticPress, powered by <a href="https://10up.com/" target="_blank" rel="noreferrer noopener">10up</a>.
+						<a href="https://wpprobe.com/" target="_blank" rel="noreferrer noopener">WPProbe.com</a> is a hosted Elasticsearch service built for WPProbe.
 					</p>
 				<?php endif; ?>
 				<table class="form-table">
@@ -61,9 +61,9 @@ $bulk_setting = Utils\get_option( 'ep_bulk_setting', 350 );
 							<th scope="row">
 								<label for="ep_host">
 									<?php if ( $is_epio ) : ?>
-										<?php esc_html_e( 'ElasticPress.io Host URL', 'elasticpress' ); ?>
+										<?php esc_html_e( 'ElasticPress.io Host URL', 'wpprobe' ); ?>
 									<?php else : ?>
-										<?php esc_html_e( 'Elasticsearch Host URL', 'elasticpress' ); ?>
+										<?php esc_html_e( 'Elasticsearch Host URL', 'wpprobe' ); ?>
 									<?php endif; ?>
 								</label>
 							</th>
@@ -78,16 +78,16 @@ $bulk_setting = Utils\get_option( 'ep_bulk_setting', 350 );
 								 */
 								$show_host = apply_filters( 'ep_admin_show_host', true );
 								$disabled  = $wpconfig || ! $show_host;
-								$value     = $show_host ? esc_url( $host ) : __( '••••••••••••••••', 'elasticpress' );
+								$value     = $show_host ? esc_url( $host ) : __( '••••••••••••••••', 'wpprobe' );
 								?>
 								<input <?php disabled( $disabled, true, true ); ?> placeholder="https://" type="text" value="<?php echo esc_attr( $value ); ?>" name="ep_host" id="ep_host">
 								<?php if ( $show_host ) : ?>
 									<?php if ( $wpconfig ) : ?>
-										<p class="description ep-host-legend"><?php esc_html_e( 'Host already defined in wp-config.php.', 'elasticpress' ); ?></p>
+										<p class="description ep-host-legend"><?php esc_html_e( 'Host already defined in wp-config.php.', 'wpprobe' ); ?></p>
 									<?php elseif ( $is_epio ) : ?>
-										<p class="description ep-host-legend"><?php esc_html_e( 'Plug in your ElasticPress.io server here.', 'elasticpress' ); ?></p>
+										<p class="description ep-host-legend"><?php esc_html_e( 'Plug in your WPProbe.com server here.', 'wpprobe' ); ?></p>
 									<?php else : ?>
-										<p class="description ep-host-legend"><?php esc_html_e( 'Plug in your Elasticsearch server here.', 'elasticpress' ); ?></p>
+										<p class="description ep-host-legend"><?php esc_html_e( 'Plug in your Elasticsearch server here.', 'wpprobe' ); ?></p>
 									<?php endif; ?>
 								<?php endif; ?>
 							</td>
@@ -96,7 +96,7 @@ $bulk_setting = Utils\get_option( 'ep_bulk_setting', 350 );
 
 							<tr class="ep-additional-fields <?php if ( $host && ! $is_epio ) { ?>hidden<?php } ?>" aria-hidden="<?php if ( $host && ! $is_epio ) { ?>true<?php } else { ?>false<?php } ?>">
 								<th scope="row">
-									<label for="ep_username"><?php esc_html_e( 'Subscription ID', 'elasticpress' ); ?></label>
+									<label for="ep_username"><?php esc_html_e( 'Subscription ID', 'wpprobe' ); ?></label>
 								</th>
 								<td>
 									<?php
@@ -112,16 +112,16 @@ $bulk_setting = Utils\get_option( 'ep_bulk_setting', 350 );
 										<input <?php if ( defined( 'EP_CREDENTIALS' ) && EP_CREDENTIALS ) : ?>disabled<?php endif; ?> type="text" value="<?php echo esc_attr( $credentials['username'] ); ?>" name="ep_credentials[username]" id="ep_username">
 									<?php endif ?>
 									<?php if ( defined( 'EP_CREDENTIALS' ) && EP_CREDENTIALS ) : ?>
-										<p class="description"><?php esc_html_e( 'Your Subscription ID is set in wp-config.php', 'elasticpress' ); ?></p>
+										<p class="description"><?php esc_html_e( 'Your Subscription ID is set in wp-config.php', 'wpprobe' ); ?></p>
 									<?php else : ?>
-										<p class="description"><?php esc_html_e( 'Plug in your subscription ID (or subscription name) here.', 'elasticpress' ); ?></p>
+										<p class="description"><?php esc_html_e( 'Plug in your subscription ID (or subscription name) here.', 'wpprobe' ); ?></p>
 									<?php endif; ?>
 								</td>
 							</tr>
 
 							<tr class="ep-additional-fields <?php if ( $host && ! $is_epio ) { ?>hidden<?php } ?>" aria-hidden="<?php if ( $host && ! $is_epio ) { ?>true<?php } else { ?>false<?php } ?>">
 								<th scope="row">
-									<label for="ep_token"><?php esc_html_e( 'Subscription Token', 'elasticpress' ); ?></label>
+									<label for="ep_token"><?php esc_html_e( 'Subscription Token', 'wpprobe' ); ?></label>
 								</th>
 								<td>
 									<?php
@@ -137,9 +137,9 @@ $bulk_setting = Utils\get_option( 'ep_bulk_setting', 350 );
 										<input <?php if ( defined( 'EP_CREDENTIALS' ) && EP_CREDENTIALS ) : ?>disabled<?php endif; ?> type="text" value="<?php echo esc_attr( $credentials['token'] ); ?>" name="ep_credentials[token]" id="ep_token">
 									<?php endif ?>
 									<?php if ( defined( 'EP_CREDENTIALS' ) && EP_CREDENTIALS ) : ?>
-										<p class="description"><?php esc_html_e( 'Your Subscription Token is set in wp-config.php', 'elasticpress' ); ?></p>
+										<p class="description"><?php esc_html_e( 'Your Subscription Token is set in wp-config.php', 'wpprobe' ); ?></p>
 									<?php else : ?>
-										<p class="description"><?php esc_html_e( 'Plug in your subscription token here.', 'elasticpress' ); ?></p>
+										<p class="description"><?php esc_html_e( 'Plug in your subscription token here.', 'wpprobe' ); ?></p>
 									<?php endif; ?>
 								</td>
 							</tr>
@@ -154,7 +154,7 @@ $bulk_setting = Utils\get_option( 'ep_bulk_setting', 350 );
 				<tbody>
 				<tr>
 					<th scope="row">
-						<label for="ep_language"><?php esc_html_e( 'Elasticsearch Language', 'elasticpress' ); ?></label>
+						<label for="ep_language"><?php esc_html_e( 'Elasticsearch Language', 'wpprobe' ); ?></label>
 					</th>
 					<td>
 						<?php
@@ -172,15 +172,15 @@ $bulk_setting = Utils\get_option( 'ep_bulk_setting', 350 );
 							]
 						);
 						?>
-						<p class="description"><?php esc_html_e( 'Default language for your Elasticsearch mapping.', 'elasticpress' ); ?></p>
+						<p class="description"><?php esc_html_e( 'Default language for your Elasticsearch mapping.', 'wpprobe' ); ?></p>
 					</td>
 				</tr>
 				<tr>
 					<th scope="row">
-						<label><?php esc_html_e( 'Elasticsearch Version', 'elasticpress' ); ?></label></th>
+						<label><?php esc_html_e( 'Elasticsearch Version', 'wpprobe' ); ?></label></th>
 					<td>
 						<?php if ( $is_epio ) : ?>
-							<?php esc_html_e( 'ElasticPress.io Managed Platform' ); ?>
+							<?php esc_html_e( 'WPProbe.com Managed Platform' ); ?>
 						<?php else : ?>
 							<?php if ( ! empty( $version ) ) : ?>
 								<?php echo esc_html( $version ); ?>
@@ -193,7 +193,7 @@ $bulk_setting = Utils\get_option( 'ep_bulk_setting', 350 );
 				<?php if ( ! empty( $host ) && ! has_filter( 'ep_index_posts_per_page' ) ) : ?>
 					<tr>
 						<th scope="row">
-							<label for="ep_bulk_setting"><?php esc_html_e( 'Content Items per Index Cycle ', 'elasticpress' ); ?></label>
+							<label for="ep_bulk_setting"><?php esc_html_e( 'Content Items per Index Cycle ', 'wpprobe' ); ?></label>
 						</th>
 						<td>
 							<input type="text" name="ep_bulk_setting" id="ep_bulk_setting" value="<?php echo absint( $bulk_setting ); ?>">
@@ -213,6 +213,6 @@ $bulk_setting = Utils\get_option( 'ep_bulk_setting', 350 );
 		do_action( 'ep_settings_custom' );
 		?>
 
-		<input type="submit" <?php if ( ! empty( $index_meta ) ) : ?>disabled<?php endif; ?> name="submit" id="submit" class="button button-primary" value="<?php esc_attr_e( 'Save Changes', 'elasticpress' ); ?>">
+		<input type="submit" <?php if ( ! empty( $index_meta ) ) : ?>disabled<?php endif; ?> name="submit" id="submit" class="button button-primary" value="<?php esc_attr_e( 'Save Changes', 'wpprobe' ); ?>">
 	</form>
 </div>

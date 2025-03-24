@@ -43,7 +43,7 @@ class Block extends \WPProbe\Feature\Facets\Block {
 			true
 		);
 
-		wp_set_script_translations( 'ep-facets-date-block-script', 'elasticpress' );
+		wp_set_script_translations( 'ep-facets-date-block-script', 'wpprobe' );
 
 		register_block_type_from_metadata(
 			EP_PATH . 'assets/js/blocks/facets/date',

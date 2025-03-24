@@ -38,11 +38,11 @@ class RelatedPosts extends Feature {
 	 * @since 5.2.0
 	 */
 	public function set_i18n_strings(): void {
-		$this->title = esc_html__( 'Related Posts', 'elasticpress' );
+		$this->title = esc_html__( 'Related Posts', 'wpprobe' );
 
-		$this->summary = '<p>' . __( 'Instantly deliver engaging and precise related content with no impact on site performance. Output related content using our block or directly in your theme using our <a href="https://www.elasticpress.io/documentation/article/related-posts-api/">API functions</a>.', 'elasticpress' ) . '</p>';
+		$this->summary = '<p>' . __( 'Instantly deliver engaging and precise related content with no impact on site performance. Output related content using our block or directly in your theme using our <a href="https://www.elasticpress.io/documentation/article/related-posts-api/">API functions</a>.', 'wpprobe' ) . '</p>';
 
-		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#related-posts', 'elasticpress' );
+		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#related-posts', 'wpprobe' );
 	}
 
 	/**
@@ -207,7 +207,7 @@ class RelatedPosts extends Feature {
 			true
 		);
 
-		wp_set_script_translations( 'ep-related-posts-block-script', 'elasticpress' );
+		wp_set_script_translations( 'ep-related-posts-block-script', 'wpprobe' );
 
 		register_block_type_from_metadata(
 			EP_PATH . 'assets/js/blocks/related-posts',
@@ -291,7 +291,7 @@ class RelatedPosts extends Feature {
 	 */
 	public function output_feature_box_long() {
 		?>
-		<p><?php echo wp_kses_post( __( 'Output related content using our Widget or directly in your theme using our <a href="https://www.elasticpress.io/documentation/article/related-posts-api/">API functions.</a>', 'elasticpress' ) ); ?></p>
+		<p><?php echo wp_kses_post( __( 'Output related content using our Widget or directly in your theme using our <a href="https://www.elasticpress.io/documentation/article/related-posts-api/">API functions.</a>', 'wpprobe' ) ); ?></p>
 		<?php
 	}
 }

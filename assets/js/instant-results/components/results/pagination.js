@@ -45,7 +45,7 @@ export default ({ offset, onNext, onPrevious, perPage, total }) => {
 					onClick={onPrevious}
 					type="button"
 				>
-					{__('Previous', 'elasticpress')}
+					{__('Previous', 'wpprobe')}
 				</button>
 			</div>
 
@@ -53,7 +53,7 @@ export default ({ offset, onNext, onPrevious, perPage, total }) => {
 				{total > 0 &&
 					sprintf(
 						/* translators: %1$d: current page. %2$d: total pages. */
-						__('Page %1$d of %2$d', 'elasticpress'),
+						__('Page %1$d of %2$d', 'wpprobe'),
 						currentPage,
 						totalPages,
 					)}
@@ -66,7 +66,7 @@ export default ({ offset, onNext, onPrevious, perPage, total }) => {
 					onClick={onNext}
 					type="button"
 				>
-					{__('Next', 'elasticpress')}
+					{__('Next', 'wpprobe')}
 				</button>
 			</div>
 		</nav>

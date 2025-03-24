@@ -52,8 +52,6 @@ export default () => {
 	};
 
 	return (
-		hasFilters && (
-			<SmallButton onClick={onClick}>{__('Clear filters', 'elasticpress')}</SmallButton>
-		)
+		hasFilters && <SmallButton onClick={onClick}>{__('Clear filters', 'wpprobe')}</SmallButton>
 	);
 };

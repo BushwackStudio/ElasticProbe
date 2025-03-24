@@ -323,7 +323,7 @@ class Products {
 
 		$fields['attributes']['children'][ $sku_key ] = array(
 			'key'   => $sku_key,
-			'label' => __( 'SKU', 'elasticpress' ),
+			'label' => __( 'SKU', 'wpprobe' ),
 		);
 
 		$variations_skus_key = 'meta._variations_skus.value';
@@ -332,7 +332,7 @@ class Products {
 
 		$fields['attributes']['children'][ $variations_skus_key ] = array(
 			'key'   => $variations_skus_key,
-			'label' => __( 'Variations SKUs', 'elasticpress' ),
+			'label' => __( 'Variations SKUs', 'wpprobe' ),
 		);
 
 		return $fields;
@@ -553,7 +553,7 @@ class Products {
 		$notices['woocommerce_custom_sort'] = [
 			'html'    => sprintf(
 				/* translators: Sync Page URL */
-				__( 'Due to the number of products in the site, you will need to <a href="%s">resync</a> after applying a custom sort order.', 'elasticpress' ),
+				__( 'Due to the number of products in the site, you will need to <a href="%s">resync</a> after applying a custom sort order.', 'wpprobe' ),
 				Utils\get_sync_url()
 			),
 			'type'    => 'warning',
@@ -588,8 +588,8 @@ class Products {
 	 */
 	public function add_weight_settings_search( $settings ) {
 		?>
-		<label><input name="settings[decaying_enabled]" type="radio" <?php checked( $settings['decaying_enabled'], 'disabled_only_products' ); ?> value="disabled_only_products"><?php esc_html_e( 'Disabled for product only queries', 'elasticpress' ); ?></label><br>
-		<label><input name="settings[decaying_enabled]" type="radio" <?php checked( $settings['decaying_enabled'], 'disabled_includes_products' ); ?> value="disabled_includes_products"><?php esc_html_e( 'Disabled for any query that includes products', 'elasticpress' ); ?></label>
+		<label><input name="settings[decaying_enabled]" type="radio" <?php checked( $settings['decaying_enabled'], 'disabled_only_products' ); ?> value="disabled_only_products"><?php esc_html_e( 'Disabled for product only queries', 'wpprobe' ); ?></label><br>
+		<label><input name="settings[decaying_enabled]" type="radio" <?php checked( $settings['decaying_enabled'], 'disabled_includes_products' ); ?> value="disabled_includes_products"><?php esc_html_e( 'Disabled for any query that includes products', 'wpprobe' ); ?></label>
 		<?php
 	}
 
@@ -1101,11 +1101,11 @@ class Products {
 				$setting_schema['options'],
 				[
 					[
-						'label' => __( 'Weight results by date, except for product-only queries', 'elasticpress' ),
+						'label' => __( 'Weight results by date, except for product-only queries', 'wpprobe' ),
 						'value' => 'disabled_only_products',
 					],
 					[
-						'label' => __( 'Weight results by date, except for any query that includes products', 'elasticpress' ),
+						'label' => __( 'Weight results by date, except for any query that includes products', 'wpprobe' ),
 						'value' => 'disabled_includes_products',
 					],
 				]

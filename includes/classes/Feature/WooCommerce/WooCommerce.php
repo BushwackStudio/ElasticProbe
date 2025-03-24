@@ -78,11 +78,11 @@ class WooCommerce extends Feature {
 	 * @since 5.2.0
 	 */
 	public function set_i18n_strings(): void {
-		$this->title = esc_html__( 'WooCommerce', 'elasticpress' );
+		$this->title = esc_html__( 'WooCommerce', 'wpprobe' );
 
-		$this->summary = '<p>' . __( 'Most caching and performance tools can’t keep up with the nearly infinite ways your visitors might filter or navigate your products. No matter how many products, filters, or customers you have, ElasticPress will keep your online store performing quickly. If used in combination with the Protected Content feature, ElasticPress will also accelerate order searches and back end product management.', 'elasticpress' ) . '</p>';
+		$this->summary = '<p>' . __( 'Most caching and performance tools can’t keep up with the nearly infinite ways your visitors might filter or navigate your products. No matter how many products, filters, or customers you have, WPProbe will keep your online store performing quickly. If used in combination with the Protected Content feature, WPProbe will also accelerate order searches and back end product management.', 'wpprobe' ) . '</p>';
 
-		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#woocommerce', 'elasticpress' );
+		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#woocommerce', 'wpprobe' );
 	}
 
 	/**
@@ -176,7 +176,7 @@ class WooCommerce extends Feature {
 	 */
 	public function output_feature_box_long() {
 		?>
-		<p><?php esc_html_e( 'Most caching and performance tools can’t keep up with the nearly infinite ways your visitors might filter or navigate your products. No matter how many products, filters, or customers you have, ElasticPress will keep your online store performing quickly. If used in combination with the Protected Content feature, ElasticPress will also accelerate order searches and back end product management.', 'elasticpress' ); ?></p>
+		<p><?php esc_html_e( 'Most caching and performance tools can’t keep up with the nearly infinite ways your visitors might filter or navigate your products. No matter how many products, filters, or customers you have, ElasticPress will keep your online store performing quickly. If used in combination with the Protected Content feature, ElasticPress will also accelerate order searches and back end product management.', 'wpprobe' ); ?></p>
 		<?php
 	}
 
@@ -191,7 +191,7 @@ class WooCommerce extends Feature {
 
 		if ( ! class_exists( 'WooCommerce' ) ) {
 			$status->code    = 2;
-			$status->message = esc_html__( 'WooCommerce not installed.', 'elasticpress' );
+			$status->message = esc_html__( 'WooCommerce not installed.', 'wpprobe' );
 		}
 
 		return $status;
@@ -286,7 +286,7 @@ class WooCommerce extends Feature {
 	public function output_feature_box_settings() {
 		_doing_it_wrong(
 			__METHOD__,
-			esc_html__( 'Settings are now generated via the set_settings_schema() method.', 'elasticpress' ),
+			esc_html__( 'Settings are now generated via the set_settings_schema() method.', 'wpprobe' ),
 			'5.0.0'
 		);
 	}

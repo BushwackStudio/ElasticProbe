@@ -27,7 +27,7 @@ class ElasticPressIo extends Report {
 	 * @return string
 	 */
 	public function get_title(): string {
-		return __( 'ElasticPress.io', 'elasticpress' );
+		return __( 'WPProbe.com', 'wpprobe' );
 	}
 
 	/**
@@ -57,13 +57,13 @@ class ElasticPressIo extends Report {
 			return [];
 		}
 
-		$title          = __( 'Allowed Autosuggest Parameters', 'elasticpress' );
+		$title          = __( 'Allowed Autosuggest Parameters', 'wpprobe' );
 		$allowed_params = $autosuggest_feature->epio_autosuggest_set_and_get();
 
 		if ( empty( $allowed_params ) ) {
 			$fields['not_available'] = [
-				'label' => __( 'Allowed Autosuggest Parameters', 'elasticpress' ),
-				'value' => __( 'Allowed autosuggest parameters info not available.', 'elasticpress' ),
+				'label' => __( 'Allowed Autosuggest Parameters', 'wpprobe' ),
+				'value' => __( 'Allowed autosuggest parameters info not available.', 'wpprobe' ),
 			];
 
 			return [
@@ -83,9 +83,9 @@ class ElasticPressIo extends Report {
 		);
 
 		$fields = [
-			'Post Types'      => wp_sprintf( esc_html__( '%l', 'elasticpress' ), $allowed_params['postTypes'] ),
-			'Post Status'     => wp_sprintf( esc_html__( '%l', 'elasticpress' ), $allowed_params['postStatus'] ),
-			'Search Fields'   => wp_sprintf( esc_html__( '%l', 'elasticpress' ), $allowed_params['searchFields'] ),
+			'Post Types'      => wp_sprintf( esc_html__( '%l', 'wpprobe' ), $allowed_params['postTypes'] ),
+			'Post Status'     => wp_sprintf( esc_html__( '%l', 'wpprobe' ), $allowed_params['postStatus'] ),
+			'Search Fields'   => wp_sprintf( esc_html__( '%l', 'wpprobe' ), $allowed_params['searchFields'] ),
 			'Returned Fields' => wp_sprintf( esc_html( var_export( $allowed_params['returnFields'], true ) ) ), // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export
 		];
 
@@ -116,7 +116,7 @@ class ElasticPressIo extends Report {
 			return [];
 		}
 
-		$title  = __( 'Instant Results Template', 'elasticpress' );
+		$title  = __( 'Instant Results Template', 'wpprobe' );
 		$fields = [];
 
 		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
@@ -157,7 +157,7 @@ class ElasticPressIo extends Report {
 			return [];
 		}
 
-		$title  = __( 'Orders Search Template', 'elasticpress' );
+		$title  = __( 'Orders Search Template', 'wpprobe' );
 		$fields = [];
 
 		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {

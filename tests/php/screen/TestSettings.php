@@ -125,7 +125,7 @@ class TestSettings extends BaseTestCase {
 
 		if ( Utils\is_epio() ) {
 			$this->assertStringContainsString(
-				'It was not possible to connect to your ElasticPress.io account.',
+				'It was not possible to connect to your WPProbe.com account.',
 				$output
 			);
 		} else {

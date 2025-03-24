@@ -140,7 +140,7 @@ export default ({ defaultIsOpen, label }) => {
 							<ActiveConstraint
 								label={sprintf(
 									/* translators: %1$s: Minimum price. %2$s: Maximum price. */
-									_x('%1$s — %2$s', 'Price range', 'elasticpress'),
+									_x('%1$s — %2$s', 'Price range', 'wpprobe'),
 									minPrice,
 									maxPrice,
 								)}

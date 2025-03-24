@@ -220,7 +220,7 @@ class StatusReport {
 		$count = count( $messages );
 		$title = sprintf(
 			/* translators: %d: Number of messages. */
-			_n( '%s message from ElasticPress.io', '%s messages from ElasticPress.io', $count, 'elasticpress' ),
+			_n( '%s message from WPProbe.com', '%s messages from WPProbe.com', $count, 'wpprobe' ),
 			$count
 		);
 

@@ -55,7 +55,7 @@ const ElasticPressToggleControl = ({ blogId, isDefaultChecked }) => {
 			checked={isChecked}
 			className="index-toggle"
 			disabled={isLoading}
-			label={isChecked ? __('On', 'elasticpress') : __('Off', 'elasticpress')}
+			label={isChecked ? __('On', 'wpprobe') : __('Off', 'wpprobe')}
 			onChange={onChange}
 			__nextHasNoMarginBottom
 		/>

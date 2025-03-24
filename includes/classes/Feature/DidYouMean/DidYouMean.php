@@ -246,9 +246,9 @@ class DidYouMean extends Feature {
 		<div class="field">
 			<div class="field-name status"><?php esc_html_e( 'Search behavior when no result is found', 'wpprobe' ); ?></div>
 			<div class="input-wrap">
-				<label><input name="settings[search_behavior]" type="radio" <?php checked( ! (bool) $settings['search_behavior'] ); ?> value="0"><?php esc_html_e( 'Display the top suggestion', 'elasticpress' ); ?></label><br>
-				<label><input name="settings[search_behavior]" type="radio" <?php checked( $settings['search_behavior'], 'list' ); ?> value="list"><?php esc_html_e( 'Display all the suggestions', 'elasticpress' ); ?></label><br>
-				<label><input name="settings[search_behavior]" type="radio" <?php checked( $settings['search_behavior'], 'redirect' ); ?> value="redirect"><?php esc_html_e( 'Automatically redirect the user to the top suggestion', 'elasticpress' ); ?></label><br>
+				<label><input name="settings[search_behavior]" type="radio" <?php checked( ! (bool) $settings['search_behavior'] ); ?> value="0"><?php esc_html_e( 'Display the top suggestion', 'wpprobe' ); ?></label><br>
+				<label><input name="settings[search_behavior]" type="radio" <?php checked( $settings['search_behavior'], 'list' ); ?> value="list"><?php esc_html_e( 'Display all the suggestions', 'wpprobe' ); ?></label><br>
+				<label><input name="settings[search_behavior]" type="radio" <?php checked( $settings['search_behavior'], 'redirect' ); ?> value="redirect"><?php esc_html_e( 'Automatically redirect the user to the top suggestion', 'wpprobe' ); ?></label><br>
 			</div>
 		</div>
 		<?php

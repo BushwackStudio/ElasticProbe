@@ -416,7 +416,7 @@ class SyncManager extends \WPProbe\SyncManager {
 					$notices['edited_single_parent_term'] = [
 						'html'    => sprintf(
 							/* translators: Sync Page URL */
-							__( 'Due to the number of posts associated with its child terms, you will need to <a href="%s">resync</a> after editing or deleting it.', 'elasticpress' ),
+							__( 'Due to the number of posts associated with its child terms, you will need to <a href="%s">resync</a> after editing or deleting it.', 'wpprobe' ),
 							Utils\get_sync_url()
 						),
 						'type'    => 'warning',
@@ -432,7 +432,7 @@ class SyncManager extends \WPProbe\SyncManager {
 		$notices['edited_single_term'] = [
 			'html'    => sprintf(
 				/* translators: Sync Page URL */
-				__( 'Due to the number of posts associated with this term, you will need to <a href="%s">resync</a> after editing or deleting it.', 'elasticpress' ),
+				__( 'Due to the number of posts associated with this term, you will need to <a href="%s">resync</a> after editing or deleting it.', 'wpprobe' ),
 				Utils\get_sync_url()
 			),
 			'type'    => 'warning',
@@ -467,7 +467,7 @@ class SyncManager extends \WPProbe\SyncManager {
 		$notices['too_many_posts_on_term'] = [
 			'html'    => sprintf(
 				/* translators: Sync Page URL */
-				__( 'Depending on the number of posts associated with a term, you may need to <a href="%s">resync</a> after editing or deleting it.', 'elasticpress' ),
+				__( 'Depending on the number of posts associated with a term, you may need to <a href="%s">resync</a> after editing or deleting it.', 'wpprobe' ),
 				Utils\get_sync_url()
 			),
 			'type'    => 'warning',

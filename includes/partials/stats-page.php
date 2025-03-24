@@ -32,11 +32,11 @@ $failed_queries = Stats::factory()->get_failed_queries();
 
 <div class="error-overlay <?php if ( ! empty( $index_meta ) ) : ?>syncing<?php endif; ?>"></div>
 <div class="wrap metabox-holder">
-	<h1><?php esc_html_e( 'Index Health', 'elasticpress' ); ?></h1>
+	<h1><?php esc_html_e( 'Index Health', 'wpprobe' ); ?></h1>
 
 	<?php if ( ! empty( $failed_queries ) ) : ?>
 		<p>
-			<?php esc_html_e( 'It seems some requests to Elasticsearch failed and it was not possible to build your stats properly:', 'elasticpress' ); ?>
+			<?php esc_html_e( 'It seems some requests to Elasticsearch failed and it was not possible to build your stats properly:', 'wpprobe' ); ?>
 		</p>
 		<ul>
 			<?php foreach ( $failed_queries as $failed_query ) : ?>
@@ -54,7 +54,7 @@ $failed_queries = Stats::factory()->get_failed_queries();
 	<?php elseif ( ! empty( $index_health ) ) : ?>
 		<div class="ep-flex-container">
 			<div class="stats-list postbox">
-				<h2 class="hndle stats-list-th"><span><?php esc_html_e( 'Index list', 'elasticpress' ); ?></span><span><?php esc_html_e( 'Health', 'elasticpress' ); ?></span></h2>
+				<h2 class="hndle stats-list-th"><span><?php esc_html_e( 'Index list', 'wpprobe' ); ?></span><span><?php esc_html_e( 'Health', 'wpprobe' ); ?></span></h2>
 				<?php
 				foreach ( $index_health as $index_stat ) :
 					?>
@@ -66,7 +66,7 @@ $failed_queries = Stats::factory()->get_failed_queries();
 				<?php endforeach; ?>
 			</div>
 			<div class="stats-queries postbox">
-				<h2 class="hndle"><?php esc_html_e( 'Queries & Indexing total', 'elasticpress' ); ?></h2>
+				<h2 class="hndle"><?php esc_html_e( 'Queries & Indexing total', 'wpprobe' ); ?></h2>
 				<div class="ep-qchart-container">
 					<div class="inside">
 						<canvas id="queriesTotalChart" width="400" height="400"></canvas>
@@ -74,7 +74,7 @@ $failed_queries = Stats::factory()->get_failed_queries();
 				</div>
 			</div>
 			<div class="postbox doc-chart">
-				<h2 class="hndle"><?php esc_html_e( 'Documents', 'elasticpress' ); ?></h2>
+				<h2 class="hndle"><?php esc_html_e( 'Documents', 'wpprobe' ); ?></h2>
 				<div class="inside">
 					<canvas id="documentChart" width="800" height="450"></canvas>
 				</div>
@@ -83,15 +83,15 @@ $failed_queries = Stats::factory()->get_failed_queries();
 				<h2 class="hndle">Totals</h2>
 				<div class="ep-flex-container">
 					<div class="ep-totals-column inside">
-						<p class="ep-totals-title"><?php esc_html_e( 'Total Documents', 'elasticpress' ); ?></p>
+						<p class="ep-totals-title"><?php esc_html_e( 'Total Documents', 'wpprobe' ); ?></p>
 						<p class="ep-totals-data"><?php echo esc_html( number_format_i18n( $totals['docs'] ) ); ?></p>
 					</div>
 					<div class="ep-totals-column inside">
-						<p class="ep-totals-title"><?php esc_html_e( 'Total Size', 'elasticpress' ); ?></p>
+						<p class="ep-totals-title"><?php esc_html_e( 'Total Size', 'wpprobe' ); ?></p>
 						<p class="ep-totals-data"><?php echo esc_html( Stats::factory()->convert_to_readable_size( $totals['size'] ) ); ?></p>
 					</div>
 					<div class="ep-totals-column inside">
-						<p class="ep-totals-title"><?php esc_html_e( 'Total Memory', 'elasticpress' ); ?></p>
+						<p class="ep-totals-title"><?php esc_html_e( 'Total Memory', 'wpprobe' ); ?></p>
 						<p class="ep-totals-data"><?php echo esc_html( Stats::factory()->convert_to_readable_size( $totals['memory'] ) ); ?></p>
 					</div>
 				</div>
@@ -102,11 +102,11 @@ $failed_queries = Stats::factory()->get_failed_queries();
 			<?php
 			printf(
 				/* translators: %s: Sync page link. */
-				esc_html__( 'We could not find any data for your Elasticsearch indices. Maybe you need to %s?', 'elasticpress' ),
+				esc_html__( 'We could not find any data for your Elasticsearch indices. Maybe you need to %s?', 'wpprobe' ),
 				sprintf(
 					'<a href="%1$s">%2$s</a>',
 					esc_url( $sync_url ),
-					esc_html__( 'sync your content', 'elasticpress' )
+					esc_html__( 'sync your content', 'wpprobe' )
 				)
 			);
 			?>

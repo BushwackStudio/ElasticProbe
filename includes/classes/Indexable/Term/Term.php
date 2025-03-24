@@ -39,8 +39,8 @@ class Term extends Indexable {
 	 */
 	public function setup() {
 		$this->labels = [
-			'plural'   => esc_html__( 'Terms', 'elasticpress' ),
-			'singular' => esc_html__( 'Term', 'elasticpress' ),
+			'plural'   => esc_html__( 'Terms', 'wpprobe' ),
+			'singular' => esc_html__( 'Term', 'wpprobe' ),
 		];
 
 		$this->sync_manager      = new SyncManager( $this->slug );

@@ -47,13 +47,13 @@ class RelatedPosts {
 	public function get_args() {
 		return [
 			'id'     => [
-				'description' => __( 'ID of the post to get related posts for.', 'elasticpress' ),
+				'description' => __( 'ID of the post to get related posts for.', 'wpprobe' ),
 				'required'    => true,
 				'type'        => 'integer',
 			],
 			'number' => [
 				'default'     => 5,
-				'description' => __( 'Number of related posts to return.', 'elasticpress' ),
+				'description' => __( 'Number of related posts to return.', 'wpprobe' ),
 				'required'    => false,
 				'type'        => 'integer',
 			],

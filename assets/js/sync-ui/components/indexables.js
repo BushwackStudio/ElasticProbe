@@ -47,7 +47,7 @@ export default () => {
 	return indexables.length > 1 ? (
 		<fieldset className="ep-sync-advanced-control">
 			<legend className="ep-sync-advanced-control__label">
-				{__('Content to sync', 'elasticpress')}
+				{__('Content to sync', 'wpprobe')}
 			</legend>
 			{indexables.map(([indexable, label]) => (
 				<CheckboxControl

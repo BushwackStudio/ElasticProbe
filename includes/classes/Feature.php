@@ -395,8 +395,8 @@ abstract class Feature {
 				<div class="field js-toggle-feature">
 					<div class="field-name status"><?php esc_html_e( 'Status', 'wpprobe' ); ?></div>
 					<div class="input-wrap <?php if ( 2 === $requirements_status->code ) : ?>disabled<?php endif; ?>">
-						<label><input name="settings[active]" <?php disabled( 2 === $requirements_status->code ); ?> type="radio" <?php checked( $this->is_active() ); ?> value="1"><?php esc_html_e( 'Enabled', 'elasticpress' ); ?></label><br>
-						<label><input name="settings[active]" <?php disabled( 2 === $requirements_status->code ); ?> type="radio" <?php checked( ! $this->is_active() ); ?> value="0"><?php esc_html_e( 'Disabled', 'elasticpress' ); ?></label>
+						<label><input name="settings[active]" <?php disabled( 2 === $requirements_status->code ); ?> type="radio" <?php checked( $this->is_active() ); ?> value="1"><?php esc_html_e( 'Enabled', 'wpprobe' ); ?></label><br>
+						<label><input name="settings[active]" <?php disabled( 2 === $requirements_status->code ); ?> type="radio" <?php checked( ! $this->is_active() ); ?> value="0"><?php esc_html_e( 'Disabled', 'wpprobe' ); ?></label>
 					</div>
 				</div>
 

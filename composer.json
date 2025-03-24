@@ -69,7 +69,7 @@
     },
     "strauss": {
       "target_directory": "vendor-prefixed",
-      "namespace_prefix": "wpprobe\\Vendor_Prefixed\\",
+      "namespace_prefix": "WPProbe\\Vendor_Prefixed\\",
       "classmap_prefix": "WPProbe_Vendor_Prefixed_",
       "constant_prefix": "WPP_VENDOR_"
     }
