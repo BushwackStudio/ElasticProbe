@@ -356,8 +356,8 @@ abstract class Feature {
 	public function output_settings_box() {
 		$requirements_status = $this->requirements_status();
 		$sync_url            = ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK )
-			? network_admin_url( 'admin.php?page=elasticpress-sync' )
-			: admin_url( 'admin.php?page=elasticpress-sync' );
+			? network_admin_url( 'admin.php?page=wpprobe-sync' )
+			: admin_url( 'admin.php?page=wpprobe-sync' );
 		?>
 
 		<form>

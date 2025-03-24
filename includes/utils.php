@@ -768,7 +768,7 @@ function get_asset_info( $slug, $attribute = null ) {
  * @return string
  */
 function get_sync_url( $do_sync = false ): string {
-	$page = 'admin.php?page=elasticpress-sync';
+	$page = 'admin.php?page=wpprobe-sync';
 	if ( $do_sync ) {
 		$page .= '&do_sync';
 		if ( is_string( $do_sync ) ) {

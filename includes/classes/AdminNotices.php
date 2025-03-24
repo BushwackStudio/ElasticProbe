@@ -307,9 +307,9 @@ class AdminNotices {
 		}
 
 		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
-			$url = admin_url( 'network/admin.php?page=elasticpress-sync' );
+			$url = admin_url( 'network/admin.php?page=wpprobe-sync' );
 		} else {
-			$url = admin_url( 'admin.php?page=elasticpress-sync' );
+			$url = admin_url( 'admin.php?page=wpprobe-sync' );
 		}
 
 		if ( defined( 'EP_DASHBOARD_SYNC' ) && ! EP_DASHBOARD_SYNC ) {
@@ -359,9 +359,9 @@ class AdminNotices {
 		}
 
 		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
-			$url = admin_url( 'network/admin.php?page=elasticpress-settings' );
+			$url = admin_url( 'network/admin.php?page=wpprobe-settings' );
 		} else {
-			$url = admin_url( 'admin.php?page=elasticpress-settings' );
+			$url = admin_url( 'admin.php?page=wpprobe-settings' );
 		}
 
 		return [
@@ -572,11 +572,11 @@ class AdminNotices {
 		}
 
 		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
-			$url            = admin_url( 'network/admin.php?page=elasticpress-settings' );
+			$url            = admin_url( 'network/admin.php?page=wpprobe-settings' );
 			$response_code  = get_site_transient( 'ep_es_info_response_code' );
 			$response_error = get_site_transient( 'ep_es_info_response_error' );
 		} else {
-			$url            = admin_url( 'admin.php?page=elasticpress-settings' );
+			$url            = admin_url( 'admin.php?page=wpprobe-settings' );
 			$response_code  = get_transient( 'ep_es_info_response_code' );
 			$response_error = get_transient( 'ep_es_info_response_error' );
 		}
@@ -719,9 +719,9 @@ class AdminNotices {
 
 		if ( false !== $nodes && $nodes < 2 && $nodes > 0 ) {
 			if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
-				$url = network_admin_url( 'admin.php?page=elasticpress-health' );
+				$url = network_admin_url( 'admin.php?page=wpprobe-health' );
 			} else {
-				$url = admin_url( 'admin.php?page=elasticpress-health' );
+				$url = admin_url( 'admin.php?page=wpprobe-health' );
 			}
 
 			return [

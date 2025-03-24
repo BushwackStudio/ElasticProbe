@@ -34,10 +34,10 @@ $is_sync_page = 'sync' === Screen::factory()->get_current_screen();
 					class="dashicons start-sync dashicons-update"
 					title="<?php esc_attr_e( 'Sync Page', 'wpprobe' ); ?>"
 					aria-label="<?php esc_attr_e( 'Sync Page', 'wpprobe' ); ?>"
-					<?php echo ( $is_sync_page ) ? '' : 'href="' . esc_url( $base_url . 'elasticpress-sync' ) . '"'; ?>
+					<?php echo ( $is_sync_page ) ? '' : 'href="' . esc_url( $base_url . 'wpprobe-sync' ) . '"'; ?>
 				></a>
 			<?php endif; ?>
-			<a href="<?php echo esc_url( $base_url . 'elasticpress-settings' ); ?>" class="dashicons dashicons-admin-generic" title="<?php esc_attr_e( 'Settings Page', 'wpprobe' ); ?>" aria-label="<?php esc_attr_e( 'Settings Page', 'wpprobe' ); ?>"></a>
+			<a href="<?php echo esc_url( $base_url . 'wpprobe-settings' ); ?>" class="dashicons dashicons-admin-generic" title="<?php esc_attr_e( 'Settings Page', 'wpprobe' ); ?>" aria-label="<?php esc_attr_e( 'Settings Page', 'wpprobe' ); ?>"></a>
 		</div>
 
 		<div class="progress-bar"></div>

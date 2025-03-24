@@ -11,11 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
-	$setup_url     = admin_url( 'network/admin.php?page=elasticpress-settings' );
-	$dashboard_url = admin_url( 'network/admin.php?page=elasticpress' );
+	$setup_url     = admin_url( 'network/admin.php?page=wpprobe-settings' );
+	$dashboard_url = admin_url( 'network/admin.php?page=wpprobe' );
 } else {
-	$setup_url     = admin_url( 'admin.php?page=elasticpress-settings' );
-	$dashboard_url = admin_url( 'admin.php?page=elasticpress' );
+	$setup_url     = admin_url( 'admin.php?page=wpprobe-settings' );
+	$dashboard_url = admin_url( 'admin.php?page=wpprobe' );
 }
 
 $sync_url = \WPProbe\Utils\get_sync_url( 'install' );

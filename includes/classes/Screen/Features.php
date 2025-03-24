@@ -67,8 +67,8 @@ class Features {
 		$features = array_values( $features );
 
 		$sync_url = ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) ?
-				network_admin_url( 'admin.php?page=elasticpress-sync' ) :
-				admin_url( 'admin.php?page=elasticpress-sync' );
+				network_admin_url( 'admin.php?page=wpprobe-sync' ) :
+				admin_url( 'admin.php?page=wpprobe-sync' );
 
 		$data = [
 			'apiUrl'        => rest_url( 'elasticpress/v1/features' ),

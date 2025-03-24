@@ -239,7 +239,7 @@ class StatusReport {
 		}
 
 		foreach ( $submenu['elasticpress'] as $key => $value ) {
-			if ( 'elasticpress-status-report' === $value[2] ) {
+			if ( 'wpprobe-status-report' === $value[2] ) {
 				$submenu['elasticpress'][ $key ][0] .= sprintf(
 					' <span class="menu-counter"><span aria-hidden="true">%1$s</span><span class="screen-reader-text">%2$s</span></span>',
 					esc_html( $count ),

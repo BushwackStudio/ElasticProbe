@@ -226,7 +226,7 @@ class TestStatusReport extends BaseTestCase {
 	public function testIndexableContentReport() {
 		// set screen to status report
 		add_filter( 'ep_install_status', '__return_true' );
-		$_GET['page'] = 'elasticpress-status-report';
+		$_GET['page'] = 'wpprobe-status-report';
 		\WPProbe\Screen::factory()->determine_screen();
 
 		$post_indexable = \WPProbe\Indexables::factory()->get( 'post' );

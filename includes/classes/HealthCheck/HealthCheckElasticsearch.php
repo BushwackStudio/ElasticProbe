@@ -51,7 +51,7 @@ class HealthCheckElasticsearch extends HealthCheck {
 
 		$host = Utils\get_host();
 
-		$elasticpress_settings_url = defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ? admin_url( 'network/admin.php?page=elasticpress-settings' ) : admin_url( 'admin.php?page=elasticpress-settings' );
+		$elasticpress_settings_url = defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ? admin_url( 'network/admin.php?page=wpprobe-settings' ) : admin_url( 'admin.php?page=wpprobe-settings' );
 
 		if ( empty( $host ) ) {
 			$result['label']          = esc_html__( 'Your site could not connect to Elasticsearch', 'wpprobe' );

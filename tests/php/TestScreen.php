@@ -110,7 +110,7 @@ class TestScreen extends BaseTestCase {
 
 		add_filter( 'ep_install_status', $set_install_status );
 
-		$_GET['page'] = 'elasticpress-settings';
+		$_GET['page'] = 'wpprobe-settings';
 
 		WPProbe\Installer::factory()->calculate_install_status();
 		WPProbe\Screen::factory()->determine_screen();
@@ -131,7 +131,7 @@ class TestScreen extends BaseTestCase {
 
 		add_filter( 'ep_install_status', $set_install_status );
 
-		$_GET['page'] = 'elasticpress-settings';
+		$_GET['page'] = 'wpprobe-settings';
 
 		WPProbe\Installer::factory()->calculate_install_status();
 		WPProbe\Screen::factory()->determine_screen();
@@ -152,7 +152,7 @@ class TestScreen extends BaseTestCase {
 
 		add_filter( 'ep_install_status', $set_install_status );
 
-		$_GET['page'] = 'elasticpress-settings';
+		$_GET['page'] = 'wpprobe-settings';
 
 		WPProbe\Installer::factory()->calculate_install_status();
 		WPProbe\Screen::factory()->determine_screen();

@@ -2,7 +2,7 @@
 
 describe('Dashboard Sync', () => {
 	function canSeeIndexesNames() {
-		cy.visitAdminPage('admin.php?page=elasticpress-health');
+		cy.visitAdminPage('admin.php?page=wpprobe-health');
 		cy.get('.metabox-holder')
 			.invoke('text')
 			.then((text) => {
@@ -44,7 +44,7 @@ describe('Dashboard Sync', () => {
 		 * If a sync has not been performed the "Delete all data and start
 		 * fresh sync" checkbox should not appear.
 		 */
-		cy.visitAdminPage('admin.php?page=elasticpress-sync');
+		cy.visitAdminPage('admin.php?page=wpprobe-sync');
 		cy.contains('.components-checkbox-control', 'Delete all data').should('not.exist');
 
 		/**
@@ -71,19 +71,19 @@ describe('Dashboard Sync', () => {
 	it('Can sync via Dashboard when activated in single site', () => {
 		cy.wpCli('wp elasticpress delete-index --yes');
 
-		cy.visitAdminPage('admin.php?page=elasticpress-health');
+		cy.visitAdminPage('admin.php?page=wpprobe-health');
 		cy.get('.wrap').should(
 			'contain.text',
 			'We could not find any data for your Elasticsearch indices.',
 		);
 
-		cy.visitAdminPage('admin.php?page=elasticpress-sync');
+		cy.visitAdminPage('admin.php?page=wpprobe-sync');
 		cy.contains('.components-button', 'Start sync').click();
 		cy.get('.ep-sync-progress strong', {
 			timeout: Cypress.config('elasticPressIndexTimeout'),
 		}).should('contain.text', 'Sync complete');
 
-		cy.visitAdminPage('admin.php?page=elasticpress-health');
+		cy.visitAdminPage('admin.php?page=wpprobe-health');
 		cy.get('.wrap').should(
 			'not.contain.text',
 			'We could not find any data for your Elasticsearch indices.',
@@ -99,19 +99,19 @@ describe('Dashboard Sync', () => {
 		cy.wpCli('wp elasticpress sync --setup --yes');
 		cy.wpCli('wp elasticpress delete-index --yes --network-wide');
 
-		cy.visitAdminPage('network/admin.php?page=elasticpress-health');
+		cy.visitAdminPage('network/admin.php?page=wpprobe-health');
 		cy.get('.wrap').should(
 			'contain.text',
 			'We could not find any data for your Elasticsearch indices.',
 		);
 
-		cy.visitAdminPage('network/admin.php?page=elasticpress-sync');
+		cy.visitAdminPage('network/admin.php?page=wpprobe-sync');
 		cy.contains('.components-button', 'Start sync').click();
 		cy.get('.ep-sync-progress strong', {
 			timeout: Cypress.config('elasticPressIndexTimeout'),
 		}).should('contain.text', 'Sync complete');
 
-		cy.visitAdminPage('network/admin.php?page=elasticpress-health');
+		cy.visitAdminPage('network/admin.php?page=wpprobe-health');
 		cy.get('.wrap').should(
 			'not.contain.text',
 			'We could not find any data for your Elasticsearch indices.',
@@ -119,7 +119,7 @@ describe('Dashboard Sync', () => {
 
 		cy.wpCli('elasticpress get-indices').then((wpCliResponse) => {
 			const indexes = JSON.parse(wpCliResponse.stdout);
-			cy.visitAdminPage('network/admin.php?page=elasticpress-health');
+			cy.visitAdminPage('network/admin.php?page=wpprobe-health');
 			cy.get('.metabox-holder')
 				.invoke('text')
 				.then((text) => {
@@ -136,7 +136,7 @@ describe('Dashboard Sync', () => {
 	it('Can pause the dashboard sync, can not activate a feature during sync nor perform a sync via WP-CLI', () => {
 		cy.setPerIndexCycle(20);
 
-		cy.visitAdminPage('admin.php?page=elasticpress-sync');
+		cy.visitAdminPage('admin.php?page=wpprobe-sync');
 
 		// Start sync via dashboard and pause it
 		cy.intercept('POST', '/wp-json/elasticpress/v1/sync*').as('apiRequest');
@@ -154,7 +154,7 @@ describe('Dashboard Sync', () => {
 			.should('contain', 'An index is already occurring');
 
 		// Check if it is paused
-		cy.visitAdminPage('admin.php?page=elasticpress-sync');
+		cy.visitAdminPage('admin.php?page=wpprobe-sync');
 		cy.contains('.components-button', 'Resume sync').should('be.visible');
 		cy.get('.ep-sync-progress strong').should('contain.text', 'Sync paused');
 
@@ -175,7 +175,7 @@ describe('Dashboard Sync', () => {
 		 * If an index is missing the "Delete all data and start fresh sync"
 		 * checkbox should not appear.
 		 */
-		cy.visitAdminPage('admin.php?page=elasticpress-sync');
+		cy.visitAdminPage('admin.php?page=wpprobe-sync');
 		cy.contains('.components-checkbox-control', 'Delete all data').should('not.exist');
 
 		// Send mapping
@@ -194,7 +194,7 @@ describe('Dashboard Sync', () => {
 		 * With the error plugin active, an error should appear in the errors tab.
 		 */
 		cy.activatePlugin('sync-error', 'wpCli');
-		cy.visitAdminPage('admin.php?page=elasticpress-sync');
+		cy.visitAdminPage('admin.php?page=wpprobe-sync');
 
 		cy.contains('button', 'Log').click();
 		cy.contains('button', 'Errors').click();
@@ -203,7 +203,7 @@ describe('Dashboard Sync', () => {
 		/**
 		 * Reload the page, so we can check if the Error Log tab is opened by default when an error occurs.
 		 */
-		cy.visitAdminPage('admin.php?page=elasticpress-sync');
+		cy.visitAdminPage('admin.php?page=wpprobe-sync');
 		cy.contains('button', 'Start sync').click();
 		cy.get('.ep-sync-errors__table', {
 			timeout: Cypress.config('elasticPressIndexTimeout'),
@@ -219,7 +219,7 @@ describe('Dashboard Sync', () => {
 		 * With the error plugin inactive, no errors should appear in the errors tab.
 		 */
 		cy.deactivatePlugin('sync-error', 'wpCli');
-		cy.visitAdminPage('admin.php?page=elasticpress-sync');
+		cy.visitAdminPage('admin.php?page=wpprobe-sync');
 
 		cy.contains('button', 'Start sync').click();
 		cy.get('.ep-sync-progress strong', {

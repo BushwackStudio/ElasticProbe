@@ -791,7 +791,7 @@ class Autosuggest extends Feature {
 			<?php
 			$epio_link                = 'https://wpprobe.com';
 			$epio_autosuggest_kb_link = 'https://www.elasticpress.io/documentation/article/elasticpress-io-autosuggest/';
-			$status_report_link       = defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ? network_admin_url( 'admin.php?page=elasticpress-status-report' ) : admin_url( 'admin.php?page=elasticpress-status-report' );
+			$status_report_link       = defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ? network_admin_url( 'admin.php?page=wpprobe-status-report' ) : admin_url( 'admin.php?page=wpprobe-status-report' );
 
 			printf(
 				/* translators: 1: <a> tag (WPProbe.com); 2. </a>; 3: <a> tag (KB article); 4. </a>; 5: <a> tag (Site Health Debug Section); 6. </a>; */
@@ -864,7 +864,7 @@ class Autosuggest extends Feature {
 
 		$epio_link                = 'https://wpprobe.com';
 		$epio_autosuggest_kb_link = 'https://www.elasticpress.io/documentation/article/elasticpress-io-autosuggest/';
-		$status_report_link       = defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ? network_admin_url( 'admin.php?page=elasticpress-status-report' ) : admin_url( 'admin.php?page=elasticpress-status-report' );
+		$status_report_link       = defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ? network_admin_url( 'admin.php?page=wpprobe-status-report' ) : admin_url( 'admin.php?page=wpprobe-status-report' );
 
 		$this->settings_schema[] = [
 			'key'   => 'epio',

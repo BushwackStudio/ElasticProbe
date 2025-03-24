@@ -9,8 +9,8 @@ describe('WP-CLI Commands', { tags: '@slow' }, () => {
 
 		const healthUrl =
 			mode === 'network'
-				? 'network/admin.php?page=elasticpress-health'
-				: 'admin.php?page=elasticpress-health';
+				? 'network/admin.php?page=wpprobe-health'
+				: 'admin.php?page=wpprobe-health';
 		cy.visitAdminPage(healthUrl);
 		cy.get('.wrap')
 			.invoke('text')
@@ -151,7 +151,7 @@ describe('WP-CLI Commands', { tags: '@slow' }, () => {
 
 		cy.login();
 
-		cy.visitAdminPage('admin.php?page=elasticpress-health');
+		cy.visitAdminPage('admin.php?page=wpprobe-health');
 		cy.get('.wrap').should(
 			'contain.text',
 			'We could not find any data for your Elasticsearch indices.',
@@ -304,7 +304,7 @@ describe('WP-CLI Commands', { tags: '@slow' }, () => {
 				.should('contain', 'Deleting post index for site')
 				.should('contain', 'Index deleted');
 
-			cy.visitAdminPage('network/admin.php?page=elasticpress-health');
+			cy.visitAdminPage('network/admin.php?page=wpprobe-health');
 			cy.get('.wrap').should(
 				'contain.text',
 				'We could not find any data for your Elasticsearch indices.',

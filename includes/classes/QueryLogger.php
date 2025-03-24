@@ -248,7 +248,7 @@ class QueryLogger {
 				)
 			);
 		} else {
-			$page = 'admin.php?page=elasticpress-status-report';
+			$page = 'admin.php?page=wpprobe-status-report';
 
 			$status_report_url = ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) ?
 				network_admin_url( $page ) :

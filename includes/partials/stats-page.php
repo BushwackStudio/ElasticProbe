@@ -18,9 +18,9 @@ require_once __DIR__ . '/header.php';
 $index_meta = IndexHelper::factory()->get_index_meta();
 
 if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
-	$sync_url = network_admin_url( 'admin.php?page=elasticpress-sync' );
+	$sync_url = network_admin_url( 'admin.php?page=wpprobe-sync' );
 } else {
-	$sync_url = admin_url( 'admin.php?page=elasticpress-sync' );
+	$sync_url = admin_url( 'admin.php?page=wpprobe-sync' );
 }
 
 Stats::factory()->build_stats();
