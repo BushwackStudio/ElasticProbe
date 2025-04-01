@@ -428,7 +428,7 @@ abstract class Feature {
 	}
 
 	/**
-	 * Returns the ElasticPress.io logo.
+	 * Returns the WPProbe.com logo.
 	 *
 	 * @since 4.4.1
 	 * @return string

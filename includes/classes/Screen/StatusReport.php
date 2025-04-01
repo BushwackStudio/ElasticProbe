@@ -204,7 +204,7 @@ class StatusReport {
 
 	/**
 	 * Display a badge in the admin menu if there's admin notices from
-	 * ElasticPress.io.
+	 * WPProbe.com.
 	 *
 	 * @return void
 	 */

@@ -19,9 +19,9 @@ const init = () => {
 	let activeTab = document.querySelector('.nav-tab-active');
 
 	/**
-	 * Is the current tab the ElasticPress.io tab?
+	 * Is the current tab the WPProbe.com tab?
 	 *
-	 * @returns {boolean} Whether the current tab is for ElasticPress.io.
+	 * @returns {boolean} Whether the current tab is for WPProbe.com.
 	 */
 	const isEpio = () => {
 		return activeTab && 'epio' in activeTab.dataset;

@@ -178,7 +178,7 @@ const onSubmitSetup = (event) => {
 
 	const confirm = window.confirm(
 		__(
-			'It looks like you’re trying to use ElasticPress’s advanced features only. If you’d like to activate basic search, please select Cancel and activate the Post Search Feature. Otherwise, please click Ok to configure advanced features.',
+			'It looks like you’re trying to use WPProbe’s advanced features only. If you’d like to activate basic search, please select Cancel and activate the Post Search Feature. Otherwise, please click Ok to configure advanced features.',
 			'wpprobe',
 		),
 	);

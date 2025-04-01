@@ -141,7 +141,7 @@ export default () => {
 		}
 
 		const errorMessage = `${__(
-			'ElasticPress: Could not save feature settings.',
+			'WPProbe: Could not save feature settings.',
 			'wpprobe',
 		)}\n${e.message}`;
 

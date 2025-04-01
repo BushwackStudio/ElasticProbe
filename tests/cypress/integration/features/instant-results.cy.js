@@ -54,9 +54,9 @@ describe('Instant Results Feature', { tags: '@slow' }, () => {
 	});
 
 	/**
-	 * Test that the feature cannot be activated when not in ElasticPress.io nor using a custom PHP proxy.
+	 * Test that the feature cannot be activated when not in WPProbe.com nor using a custom PHP proxy.
 	 */
-	it("Can't activate the feature if not in ElasticPress.io nor using a custom PHP proxy", () => {
+	it("Can't activate the feature if not in WPProbe.com nor using a custom PHP proxy", () => {
 		if (isEpIo) {
 			return;
 		}

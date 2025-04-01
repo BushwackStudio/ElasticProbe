@@ -61,7 +61,7 @@ $bulk_setting = Utils\get_option( 'ep_bulk_setting', 350 );
 							<th scope="row">
 								<label for="ep_host">
 									<?php if ( $is_epio ) : ?>
-										<?php esc_html_e( 'ElasticPress.io Host URL', 'wpprobe' ); ?>
+										<?php esc_html_e( 'WPProbe.com Host URL', 'wpprobe' ); ?>
 									<?php else : ?>
 										<?php esc_html_e( 'Elasticsearch Host URL', 'wpprobe' ); ?>
 									<?php endif; ?>

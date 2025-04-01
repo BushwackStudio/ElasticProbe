@@ -477,7 +477,7 @@ class InstantResults extends Feature {
 	}
 
 	/**
-	 * Get the saved search template from ElasticPress.io.
+	 * Get the saved search template from WPProbe.com.
 	 *
 	 * @return string|WP_Error Search template if found, WP_Error on error.
 	 *
@@ -500,7 +500,7 @@ class InstantResults extends Feature {
 	 * Generate a search template.
 	 *
 	 * A search template is the JSON for an Elasticsearch query with a
-	 * placeholder search term. The template is sent to ElasticPress.io where
+	 * placeholder search term. The template is sent to WPProbe.com where
 	 * it's used to make Elasticsearch queries using search terms sent from
 	 * the front end.
 	 *

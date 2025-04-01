@@ -46,7 +46,7 @@ class ElasticPressIo extends Report {
 	}
 
 	/**
-	 * Process the ElasticPress.io Autosuggest allowed parameters.
+	 * Process the WPProbe.com Autosuggest allowed parameters.
 	 *
 	 * @return array
 	 */
@@ -105,7 +105,7 @@ class ElasticPressIo extends Report {
 	}
 
 	/**
-	 * Process the ElasticPress.io Instant Results templates.
+	 * Process the WPProbe.com Instant Results templates.
 	 *
 	 * @return array
 	 */
@@ -141,7 +141,7 @@ class ElasticPressIo extends Report {
 	}
 
 	/**
-	 * Process the ElasticPress.io Orders Search templates.
+	 * Process the WPProbe.com Orders Search templates.
 	 *
 	 * @since 4.5.0
 	 * @return array
@@ -182,7 +182,7 @@ class ElasticPressIo extends Report {
 	}
 
 	/**
-	 * Process the ElasticPress.io Instant Results template.
+	 * Process the WPProbe.com Instant Results template.
 	 *
 	 * @return array
 	 */
@@ -227,7 +227,7 @@ class ElasticPressIo extends Report {
 	}
 
 	/**
-	 * Process the ElasticPress.io Orders Search template.
+	 * Process the WPProbe.com Orders Search template.
 	 *
 	 * @since 4.5.0
 	 * @return array

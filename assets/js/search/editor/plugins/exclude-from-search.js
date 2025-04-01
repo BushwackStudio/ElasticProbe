@@ -28,7 +28,7 @@ export default () => {
 			<CheckboxControl
 				label={__('Exclude from search results', 'wpprobe')}
 				help={__(
-					"Excludes this post from the results of your site's search form while ElasticPress is active.",
+					"Excludes this post from the results of your site's search form while WPProbe is active.",
 					'wpprobe',
 				)}
 				checked={ep_exclude_from_search}

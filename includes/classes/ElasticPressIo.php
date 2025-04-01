@@ -39,10 +39,10 @@ class ElasticPressIo {
 	}
 
 	/**
-	 * Get messages from ElasticPress.io.
+	 * Get messages from WPProbe.com.
 	 *
 	 * @param bool $skip_cache Whether to fetch the API or use the cached messages. Defaults to false, i.e., use cache.
-	 * @return array ElasticPress.io messages.
+	 * @return array WPProbe.com messages.
 	 */
 	public function get_endpoint_messages( $skip_cache = false ): array {
 		if ( ! Utils\is_epio() ) {

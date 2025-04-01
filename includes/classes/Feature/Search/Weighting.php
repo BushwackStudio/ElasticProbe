@@ -358,13 +358,13 @@ class Weighting {
 		_doing_it_wrong(
 			__METHOD__,
 			esc_html( 'Weighting sections display are now handled via React components.' ),
-			'ElasticPress 5.0.0'
+			'WPProbe 5.0.0'
 		);
 	}
 
 	/**
 	 * Handles processing the new weighting values and saving them
-	 * to the elasticpress.io service.
+	 * to the WPProbe.com service.
 	 *
 	 * @deprecated
 	 */
@@ -372,7 +372,7 @@ class Weighting {
 		_doing_it_wrong(
 			__METHOD__,
 			esc_html( 'Weighting settings are now updated using the REST API.' ),
-			'ElasticPress 5.0.0'
+			'WPProbe 5.0.0'
 		);
 	}
 
