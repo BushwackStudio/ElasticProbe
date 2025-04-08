@@ -97,6 +97,11 @@ class Settings {
 			Utils\update_option( 'ep_host', $host );
 		}
 
+		if ( isset( $post['sid'] ) ) {
+			$sid = sanitize_text_field( trim( $post['sid'] ) );
+			Utils\update_option( 'wpprobe_subscription_id', $sid );
+		}
+
 		if ( isset( $post['ep_credentials'] ) ) {
 			$credentials = ( isset( $post['ep_credentials'] ) ) ? Utils\sanitize_credentials( $post['ep_credentials'] ) : [
 				'username' => '',

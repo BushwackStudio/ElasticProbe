@@ -155,11 +155,10 @@ function get_index_prefix() {
 	if ( defined( 'EP_INDEX_PREFIX' ) && \EP_INDEX_PREFIX ) {
 		$prefix = \EP_INDEX_PREFIX;
 	} elseif ( is_epio() ) {
-		$credentials = get_epio_credentials();
-		$prefix      = $credentials['username'];
+		$prefix = get_subscription_id();
 		if (
 			( ! defined( 'EP_IS_NETWORK' ) || ! EP_IS_NETWORK ) &&
-			( '-' !== substr( $prefix, - 1 ) )
+			( '-' !== substr( $prefix, -1 ) )
 		) {
 			$prefix .= '-';
 		}
@@ -277,7 +276,7 @@ function get_host() {
 	if ( defined( 'EP_HOST' ) && EP_HOST ) {
 		$host = EP_HOST;
 	} else {
-		$host = get_option( 'ep_host', false );
+		$host = 'https://gateway.wpprobe.com';
 	}
 
 	/**
@@ -289,6 +288,16 @@ function get_host() {
 	 * @return  {string} Host to use
 	 */
 	return apply_filters( 'ep_host', $host );
+}
+
+/**
+ * Get WPProbe subscription id.
+ *
+ * @return string
+ */
+function get_subscription_id() {
+	$id = get_option( 'wpprobe_subscription_id', '' );
+	return apply_filters( 'wpprobe_subscription_id', $id );
 }
 
 /**
@@ -474,12 +483,12 @@ function get_term_tree( $all_terms, $orderby = 'count', $order = 'desc', $flat =
 					$terms_map[ $term->parent ]->children[ $term->name ] = $term;
 				}
 
-					$parent_level = ( $terms_map[ $term->parent ]->level ) ? $terms_map[ $term->parent ]->level : 0;
+				$parent_level = ( $terms_map[ $term->parent ]->level ) ? $terms_map[ $term->parent ]->level : 0;
 
-					$term->level       = $parent_level + 1;
-					$term->parent_term = $terms_map[ $term->parent ];
+				$term->level       = $parent_level + 1;
+				$term->parent_term = $terms_map[ $term->parent ];
 
-					unset( $all_terms[ $key ] );
+				unset( $all_terms[ $key ] );
 			}
 		}
 	}

@@ -193,6 +193,7 @@ class Elasticsearch {
 	 */
 	public function refresh_indices() {
 
+		// TODO: Add support for selective indices
 		$request_args = array( 'method' => 'POST' );
 
 		$request = $this->remote_request( '_refresh', $request_args, [], 'refresh_indices' );
@@ -667,6 +668,7 @@ class Elasticsearch {
 	 * @return boolean|array
 	 */
 	public function get_document( $index, $type, $document_id ) {
+		// TODO: Change for WPProbe
 		if ( version_compare( (string) $this->get_elasticsearch_version(), '7.0', '<' ) ) {
 			$path = $index . '/' . $type . '/' . $document_id;
 		} else {
@@ -1662,6 +1664,7 @@ class Elasticsearch {
 	 * @return WP_Error|bool
 	 */
 	public function create_pipeline( $id, $args ) {
+		// TODO: pipelines should be created by the backend
 		$path = '_ingest/pipeline/' . $id;
 
 		$request_args = array(
