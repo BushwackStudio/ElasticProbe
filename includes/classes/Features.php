@@ -3,7 +3,7 @@
  * Handles registering and storing feature instances
  *
  * @since  2.1
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe;

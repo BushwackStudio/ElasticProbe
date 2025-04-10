@@ -3,7 +3,7 @@
  * Integrate with WP_Comment_Query
  *
  * @since   3.6.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Indexable\Comment;

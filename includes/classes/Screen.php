@@ -1,9 +1,9 @@
 <?php
 /**
- * Determine which ElasticPress screen we are viewing
+ * Determine which WPProbe screen we are viewing
  *
  * @since  3.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe;

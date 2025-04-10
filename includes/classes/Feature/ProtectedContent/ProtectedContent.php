@@ -1,9 +1,9 @@
 <?php
 /**
- * ElasticPress Protected Content feature
+ * WPProbe Protected Content feature
  *
  * @since  2.2
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Feature\ProtectedContent;

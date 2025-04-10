@@ -1,9 +1,9 @@
 <?php
 /**
- * ElasticPress index health stats page handler
+ * WPProbe index health stats page handler
  *
  * @since  3.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe;
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class Stats
  *
- * @package ElasticPress
+ * @package WPProbe
  */
 class Stats {
 	/**

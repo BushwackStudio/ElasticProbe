@@ -3,7 +3,7 @@
  * Related posts widget
  *
  * @since  2.2
- * @package  elasticpress
+ * @package  wpprobe
  */
 
 namespace WPProbe\Feature\RelatedPosts;
@@ -26,11 +26,11 @@ class Widget extends \WP_Widget {
 	 */
 	public function __construct() {
 		$options = array(
-			'description'           => esc_html__( 'Show related posts using ElasticPress. This widget will only appear on single post, page, and custom type pages.', 'wpprobe' ),
+			'description'           => esc_html__( 'Show related posts using WPProbe. This widget will only appear on single post, page, and custom type pages.', 'wpprobe' ),
 			'show_instance_in_rest' => true,
 		);
 
-		parent::__construct( 'ep-related-posts', esc_html__( 'ElasticPress - Related Posts', 'wpprobe' ), $options );
+		parent::__construct( 'ep-related-posts', esc_html__( 'WPProbe - Related Posts', 'wpprobe' ), $options );
 	}
 
 	/**

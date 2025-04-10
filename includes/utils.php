@@ -1,9 +1,9 @@
 <?php
 /**
- * ElasticPress utility functions
+ * WPProbe utility functions
  *
  * @since  3.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Utils;
@@ -52,7 +52,7 @@ function get_epio_credentials() {
 }
 
 /**
- * Get WP capability needed for a user to interact with ElasticPress in the admin
+ * Get WP capability needed for a user to interact with WPProbe in the admin
  *
  * @since 4.5.0, 5.1.0 added $context
  * @param string $context Context for the capability. Defaults to empty string.
@@ -60,7 +60,7 @@ function get_epio_credentials() {
  */
 function get_capability( string $context = '' ): string {
 	/**
-	 * Filter the WP capability needed to interact with ElasticPress in the admin
+	 * Filter the WP capability needed to interact with WPProbe in the admin
 	 *
 	 * Example:
 	 * ```
@@ -86,7 +86,7 @@ function get_capability( string $context = '' ): string {
 }
 
 /**
- * Get WP capability needed for a user to interact with ElasticPress in the network admin
+ * Get WP capability needed for a user to interact with WPProbe in the network admin
  *
  * @since 4.5.0, 5.1.0 added $context
  * @param string $context Context for the capability. Defaults to empty string.
@@ -94,7 +94,7 @@ function get_capability( string $context = '' ): string {
  */
 function get_network_capability( string $context = '' ): string {
 	/**
-	 * Filter the WP capability needed to interact with ElasticPress in the network admin
+	 * Filter the WP capability needed to interact with WPProbe in the network admin
 	 *
 	 * @since 4.5.0, 5.1.0 added $context
 	 * @hook ep_network_capability
@@ -178,7 +178,7 @@ function get_index_prefix() {
 }
 
 /**
- * Check if the host is ElasticPress.io.
+ * Check if the host is wpprobe.com.
  *
  * @since  2.6
  * @return bool
@@ -228,7 +228,7 @@ function sanitize_credentials( $credentials ) {
 }
 
 /**
- * Determine if ElasticPress is in the middle of an index
+ * Determine if WPProbe is in the middle of an index
  *
  * @since  3.0
  * @return boolean
@@ -280,7 +280,7 @@ function get_host() {
 	}
 
 	/**
-	 * Filter ElasticPress host to use
+	 * Filter WPProbe host to use
 	 *
 	 * @since  2.1
 	 * @hook ep_host
@@ -652,7 +652,7 @@ function delete_option( $option ) {
 
 /**
  * Check if queries for the current request are going to be integrated with
- * ElasticPress.
+ * WPProbe.
  *
  * Public requests and REST API requests are integrated by default, but admin
  * requests will only be integrated in if the `ep_admin_wp_query_integration`
@@ -670,7 +670,7 @@ function delete_option( $option ) {
  * @param string[] $types   Which types of request to check. Any of 'admin',
  *                          'ajax', 'public', and 'rest'. Defaults to all
  *                          types.
- * @return bool Whether the current request supports ElasticPress integration
+ * @return bool Whether the current request supports WPProbe integration
  *              and is of a given type.
  *
  * @since 3.6.0

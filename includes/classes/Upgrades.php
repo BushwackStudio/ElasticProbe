@@ -3,7 +3,7 @@
  * Handle upgrades.
  *
  * @since  3.x
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe;
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class Upgrades
  *
- * @package ElasticPress
+ * @package WPProbe
  */
 class Upgrades {
 

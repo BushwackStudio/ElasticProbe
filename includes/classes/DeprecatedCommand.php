@@ -3,7 +3,7 @@
  * WP-CLI deprecated commands for WPProbe
  *
  * @since  4.4.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe;

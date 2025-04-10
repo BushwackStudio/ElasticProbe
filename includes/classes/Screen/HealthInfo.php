@@ -2,7 +2,7 @@
 /**
  * Health info screen.
  *
- * @package ElasticPress
+ * @package WPProbe
  */
 
 namespace WPProbe\Screen;

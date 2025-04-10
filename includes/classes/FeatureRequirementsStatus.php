@@ -3,7 +3,7 @@
  * Simple class for tracking a features requirement status
  *
  * @since  2.1
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe;

@@ -5,7 +5,7 @@
  * All health checkers extend this class.
  *
  * @since  3.6.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe;

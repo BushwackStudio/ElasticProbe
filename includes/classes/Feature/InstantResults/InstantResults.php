@@ -2,7 +2,7 @@
 /**
  * Instant Search feature
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Feature\InstantResults;

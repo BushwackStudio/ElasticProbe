@@ -2,7 +2,7 @@
 /**
  * Synonyms Feature
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Feature\Search;

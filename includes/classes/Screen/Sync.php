@@ -3,7 +3,7 @@
  * Sync (Dashboard Index) functionality
  *
  * @since  3.6.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Screen;
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class Sync
  *
  * @since  3.6.0
- * @package ElasticPress
+ * @package WPProbe
  */
 class Sync {
 	/**

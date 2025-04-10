@@ -3,7 +3,7 @@
  * Dashboard screen class.
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Screen;
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Dashboard screen.
  *
  * @since 5.0.0
- * @package ElasticPress
+ * @package WPProbe
  */
 class Features {
 	/**

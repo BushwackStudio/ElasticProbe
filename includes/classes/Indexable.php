@@ -5,7 +5,7 @@
  * An indexable is a type of "data" in WP e.g. post type, term, user, etc.
  *
  * @since  3.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe;

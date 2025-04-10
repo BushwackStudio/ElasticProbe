@@ -3,7 +3,7 @@
  * Report abstract class
  *
  * @since 4.4.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\StatusReport;
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Report class
  *
- * @package ElasticPress
+ * @package WPProbe
  */
 abstract class Report {
 

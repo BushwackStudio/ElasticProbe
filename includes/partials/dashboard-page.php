@@ -1,9 +1,9 @@
 <?php
 /**
- * Template for ElasticPress dashboard page
+ * Template for WPProbe dashboard page
  *
  * @since  2.1
- * @package elasticpress
+ * @package wpprobe
  */
 
 use WPProbe\Elasticsearch;

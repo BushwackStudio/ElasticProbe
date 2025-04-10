@@ -3,7 +3,7 @@
  * Search comments widget
  *
  * @since  3.6.0
- * @package  elasticpress
+ * @package  wpprobe
  */
 
 namespace WPProbe\Feature\Comments;

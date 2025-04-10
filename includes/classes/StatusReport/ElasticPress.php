@@ -1,9 +1,9 @@
 <?php
 /**
- * ElasticPress report class
+ * WPProbe report class
  *
  * @since 4.4.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\StatusReport;
@@ -13,9 +13,9 @@ use WPProbe\Utils;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * ElasticPress report class
+ * WPProbe report class
  *
- * @package ElasticPress
+ * @package WPProbe
  */
 class ElasticPress extends Report {
 
@@ -41,7 +41,7 @@ class ElasticPress extends Report {
 	}
 
 	/**
-	 * Process ElasticPress's basic settings.
+	 * Process WPProbe's basic settings.
 	 *
 	 * @return array
 	 */

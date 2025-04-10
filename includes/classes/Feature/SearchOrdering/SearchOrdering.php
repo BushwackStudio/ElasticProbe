@@ -2,7 +2,7 @@
 /**
  * Search Ordering Feature
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Feature\SearchOrdering;

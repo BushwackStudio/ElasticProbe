@@ -1,8 +1,8 @@
 <?php
 /**
- * Create an ElasticPress dashboard page.
+ * Create an WPProbe dashboard page.
  *
- * @package elasticpress
+ * @package wpprobe
  * @since   1.9
  */
 

@@ -5,7 +5,7 @@
  * All features extend this class.
  *
  * @since  2.1
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe;

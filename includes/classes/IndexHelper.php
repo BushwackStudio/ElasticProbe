@@ -8,7 +8,7 @@
  *
  * @since 4.0.0
  * @see https://www.elasticpress.io/documentation/article/sync-process/
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe;

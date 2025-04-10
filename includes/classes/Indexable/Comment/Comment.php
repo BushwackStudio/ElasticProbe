@@ -3,7 +3,7 @@
  * Comment indexable
  *
  * @since   3.6.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Indexable\Comment;

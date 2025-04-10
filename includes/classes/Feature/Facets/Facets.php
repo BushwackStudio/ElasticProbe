@@ -3,7 +3,7 @@
  * Facets feature
  *
  * @since  2.5
- * @package  elasticpress
+ * @package  wpprobe
  */
 
 namespace WPProbe\Feature\Facets;

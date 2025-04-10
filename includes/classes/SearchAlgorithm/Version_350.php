@@ -3,7 +3,7 @@
  * EP version 3.5.0 search algorithm
  *
  * @since  4.3.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\SearchAlgorithm;

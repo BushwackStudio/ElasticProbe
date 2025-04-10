@@ -1,9 +1,9 @@
 <?php
 /**
- * Template for ElasticPress Status Report
+ * Template for WPProbe Status Report
  *
  * @since 4.4.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 defined( 'ABSPATH' ) || exit;

@@ -1,9 +1,9 @@
 <?php
 /**
- * ElasticPress Status Report class
+ * WPProbe Status Report class
  *
  * @since 4.4.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Screen;
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Status Report class
  *
- * @package ElasticPress
+ * @package WPProbe
  */
 class StatusReport {
 	/**

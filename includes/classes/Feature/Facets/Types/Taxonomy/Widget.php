@@ -2,7 +2,7 @@
 /**
  * Facets widget
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Feature\Facets\Types\Taxonomy;

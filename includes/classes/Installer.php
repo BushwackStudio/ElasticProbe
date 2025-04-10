@@ -1,9 +1,9 @@
 <?php
 /**
- * ElasticPress installer handler
+ * WPProbe installer handler
  *
  * @since  3.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe;

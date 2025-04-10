@@ -3,7 +3,7 @@
  * Search feature
  *
  * @since  1.9
- * @package  elasticpress
+ * @package  wpprobe
  */
 
 namespace WPProbe\Feature\Search;

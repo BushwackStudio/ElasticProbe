@@ -2,7 +2,7 @@
 /**
  * Documents feature
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Feature\Documents;

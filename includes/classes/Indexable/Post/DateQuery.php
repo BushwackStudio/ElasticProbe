@@ -2,7 +2,7 @@
 /**
  * Support date query integration
  *
- * @package elasticpress
+ * @package wpprobe
  * @since   1.3
  */
 

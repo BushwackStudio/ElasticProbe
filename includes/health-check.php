@@ -2,7 +2,7 @@
 /**
  * Health check
  *
- * @package elasticpress
+ * @package wpprobe
  * @since   3.6.0
  */
 

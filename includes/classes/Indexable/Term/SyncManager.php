@@ -3,7 +3,7 @@
  * Manage syncing of content between WP and Elasticsearch for Terms
  *
  * @since   3.1
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Indexable\Term;

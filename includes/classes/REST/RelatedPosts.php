@@ -3,7 +3,7 @@
  * Related Posts REST API Controller
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\REST;
@@ -14,7 +14,7 @@ use WPProbe\Features;
  * Related Posts API controller class.
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 class RelatedPosts {
 
@@ -33,7 +33,7 @@ class RelatedPosts {
 			'methods'             => 'GET',
 			'permission_callback' => '__return_true',
 		];
-
+		// TODO: Change REST route
 		register_rest_route( 'elasticpress/v1', 'related-posts/(?P<id>[0-9]+)', $args );
 		register_rest_route( 'wp/v2', 'posts/(?P<id>[0-9]+)/related', $args );
 	}

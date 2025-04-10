@@ -5,7 +5,7 @@
  * phpcs:disable WordPress.DateTime.CurrentTimeTimestamp.Requested
  *
  * @since 4.4.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe;
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Query Logger class
  *
- * @package ElasticPress
+ * @package WPProbe
  */
 class QueryLogger {
 	/**

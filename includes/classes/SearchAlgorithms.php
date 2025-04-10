@@ -3,7 +3,7 @@
  * Handles search algorithms registration and storage
  *
  * @since   4.3.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe;

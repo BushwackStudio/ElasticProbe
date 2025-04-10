@@ -3,7 +3,7 @@
  * EP version 4.0.0 search algorithm
  *
  * @since  4.3.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\SearchAlgorithm;
@@ -46,7 +46,7 @@ class Version_400 extends \WPProbe\SearchAlgorithm {
 	}
 
 	/**
-	 * Return the Elasticsearch `query` clause.
+	 * Return the WPProbe `query` clause.
 	 *
 	 * @param string $indexable_slug Indexable slug
 	 * @param string $search_term    Search term(s)

@@ -3,7 +3,7 @@
  * Sync REST API Controller
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\REST;
@@ -15,7 +15,7 @@ use WPProbe\Utils;
  * Sync API controller class.
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 class Sync {
 
@@ -25,6 +25,7 @@ class Sync {
 	 * @return void
 	 */
 	public function register_routes() {
+		// TODO: Change REST route
 		register_rest_route(
 			'elasticpress/v1',
 			'sync',

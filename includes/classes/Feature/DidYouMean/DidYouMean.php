@@ -3,7 +3,7 @@
  * Did You Mean feature.
  *
  * @since   4.6.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Feature\DidYouMean;

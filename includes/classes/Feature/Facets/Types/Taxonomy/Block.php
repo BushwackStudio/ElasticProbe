@@ -3,7 +3,7 @@
  * Facets block
  *
  * @since 4.2.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Feature\Facets\Types\Taxonomy;

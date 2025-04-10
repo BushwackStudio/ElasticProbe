@@ -1,9 +1,9 @@
 <?php
 /**
- * ElasticPress CLI Utility
+ * WPProbe CLI Utility
  *
  * @since 4.5.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Command;

@@ -3,7 +3,7 @@
  * Integrate with WP_Term_Query
  *
  * @since   3.1
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Indexable\Term;

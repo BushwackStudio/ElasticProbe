@@ -3,7 +3,7 @@
  * Class responsible for rendering the post type filters.
  *
  * @since 4.6.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Feature\Facets\Types\PostType;

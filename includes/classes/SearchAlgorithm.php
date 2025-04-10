@@ -5,7 +5,7 @@
  * All search algorithms extend this class.
  *
  * @since  4.3.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe;

@@ -1,9 +1,9 @@
 <?php
 /**
- * ElasticPress WooCommerce feature
+ * WPProbe WooCommerce feature
  *
  * @since  2.1
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Feature\WooCommerce;

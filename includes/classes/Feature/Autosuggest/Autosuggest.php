@@ -4,7 +4,7 @@
  *
  * phpcs:disable WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Feature\Autosuggest;

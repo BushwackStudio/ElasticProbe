@@ -1,9 +1,9 @@
 <?php
 /**
- * Template for ElasticPress settings page
+ * Template for WPProbe settings page
  *
  * @since  2.1
- * @package elasticpress
+ * @package wpprobe
  */
 
 use WPProbe\Dashboard;

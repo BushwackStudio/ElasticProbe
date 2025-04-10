@@ -3,7 +3,7 @@
  * Failed Queries report class
  *
  * @since 4.4.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\StatusReport;
@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * FailedQueries report class
  *
- * @package ElasticPress
+ * @package WPProbe
  */
 class FailedQueries extends Report {
 

@@ -3,7 +3,7 @@
  * Meta range facet type
  *
  * @since 4.5.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Feature\Facets\Types\MetaRange;

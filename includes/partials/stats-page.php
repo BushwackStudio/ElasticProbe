@@ -1,9 +1,9 @@
 <?php
 /**
- * Template for ElasticPress Index health page
+ * Template for WPProbe Index health page
  *
  * @since  3.1
- * @package elasticpress
+ * @package wpprobe
  */
 
 use WPProbe\IndexHelper;

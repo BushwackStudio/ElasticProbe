@@ -3,7 +3,7 @@
  * Elasticsearch mapping for comments
  *
  * @since   3.6.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

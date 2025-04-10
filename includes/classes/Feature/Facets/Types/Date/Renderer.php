@@ -3,7 +3,7 @@
  * Class responsible for rendering the filters.
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Feature\Facets\Types\Date;

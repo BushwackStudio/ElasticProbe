@@ -3,7 +3,7 @@
  * Taxonomies REST API Controller
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\REST;
@@ -14,7 +14,7 @@ use WPProbe\Features;
  * Taxonomies API controller class.
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 class Taxonomies {
 
@@ -32,7 +32,7 @@ class Taxonomies {
 			'methods'             => 'GET',
 			'permission_callback' => [ $this, 'check_permission' ],
 		];
-
+		// TODO: Change REST route
 		register_rest_route( 'elasticpress/v1', 'taxonomies', $args );
 		register_rest_route( 'elasticpress/v1', 'facets/taxonomies', $args );
 	}

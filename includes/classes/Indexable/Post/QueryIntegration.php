@@ -3,7 +3,7 @@
  * Integrate with WP_Query
  *
  * @since  1.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Indexable\Post;

@@ -1,9 +1,9 @@
 <?php
 /**
- * Class for interacting with ElasticPress.io
+ * Class for interacting with WPProbe.com
  *
  * @since 4.5.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe;
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * ElasticPressIo class
  *
- * @package ElasticPress
+ * @package wpprobe
  */
 class ElasticPressIo {
 	/**

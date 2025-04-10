@@ -3,7 +3,7 @@
  * Meta Keys REST API Controller
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\REST;
@@ -15,7 +15,7 @@ use WPProbe\Indexables;
  * Meta Keys API controller class.
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 class MetaKeys {
 
@@ -33,7 +33,7 @@ class MetaKeys {
 			'methods'             => 'GET',
 			'permission_callback' => [ $this, 'check_permission' ],
 		];
-
+		// TODO: Change rest route
 		register_rest_route( 'elasticpress/v1', 'meta-keys', $args );
 		register_rest_route( 'elasticpress/v1', 'facets/meta/keys', $args );
 	}

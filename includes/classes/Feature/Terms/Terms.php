@@ -3,7 +3,7 @@
  * Terms feature
  *
  * @since   3.1
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Feature\Terms;

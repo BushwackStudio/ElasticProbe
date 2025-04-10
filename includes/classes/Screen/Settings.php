@@ -3,7 +3,7 @@
  * Settings screen.
  *
  * @since 5.0.0
- * @package ElasticPress
+ * @package WPProbe
  */
 
 namespace WPProbe\Screen;

@@ -5,7 +5,7 @@
  * phpcs:disable WordPress.WP.I18n.MissingTranslatorsComment
  *
  * @since  3.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe;

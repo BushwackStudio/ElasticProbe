@@ -1,8 +1,8 @@
 <?php
 /**
- * Weighting dashboard for ElasticPress
+ * Weighting dashboard for WPProbe
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Feature\Search;

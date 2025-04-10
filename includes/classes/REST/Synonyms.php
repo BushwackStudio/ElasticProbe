@@ -3,7 +3,7 @@
  * Synonyms REST API Controller.
  *
  * @since 5.1.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\REST;
@@ -15,7 +15,7 @@ use WPProbe\Utils;
  * Synonyms API controller class.
  *
  * @since 5.1.0
- * @package elasticpress
+ * @package wpprobe
  */
 class Synonyms {
 
@@ -25,6 +25,7 @@ class Synonyms {
 	 * @return void
 	 */
 	public function register_routes() {
+		// Change REST route
 		register_rest_route(
 			'elasticpress/v1',
 			'synonyms',

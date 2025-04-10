@@ -3,7 +3,7 @@
  * Error Interpreter Class File
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe;
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * ElasticsearchErrorInterpreter class
  *
- * @package ElasticPress
+ * @package wpprobe
  */
 class ElasticsearchErrorInterpreter {
 	/**

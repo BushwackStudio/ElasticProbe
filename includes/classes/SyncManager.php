@@ -2,7 +2,7 @@
 /**
  * SyncManager common functionality
  *
- * @package  elasticpress
+ * @package  wpprobe
  * @since  3.0
  */
 

@@ -3,7 +3,7 @@
  * Last sync report class
  *
  * @since 4.4.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\StatusReport;
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Last sync report class
  *
- * @package ElasticPress
+ * @package WPProbe
  */
 class LastSync extends Report {
 

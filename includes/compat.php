@@ -1,9 +1,9 @@
 <?php
 /**
- * ElasticPress backward compat functions
+ * WPProbe backward compat functions
  *
  * @since  3.0
- * @package elasticpress
+ * @package wpprobe
  *
  * phpcs:disable Universal.Files.SeparateFunctionsFromOO.Mixed
  */

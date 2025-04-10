@@ -3,7 +3,7 @@
  * Term indexable
  *
  * @since  3.1
- * @package  elasticpress
+ * @package  wpprobe
  */
 
 namespace WPProbe\Indexable\Term;

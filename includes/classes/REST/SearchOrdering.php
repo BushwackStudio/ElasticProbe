@@ -3,7 +3,7 @@
  * Custom Results REST API Controller
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\REST;
@@ -15,7 +15,7 @@ use WPProbe\Utils;
  * Custom Results API controller class.
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 class SearchOrdering {
 
@@ -25,6 +25,7 @@ class SearchOrdering {
 	 * @return void
 	 */
 	public function register_routes() {
+		// TODO: Change REST route
 		register_rest_route(
 			'elasticpress/v1',
 			'pointer_search',

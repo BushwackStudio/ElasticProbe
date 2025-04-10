@@ -3,7 +3,7 @@
  * Post Type facet type
  *
  * @since 4.6.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Feature\Facets\Types\PostType;

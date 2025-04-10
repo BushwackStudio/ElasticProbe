@@ -3,7 +3,7 @@
  * Indexable Content report class
  *
  * @since 4.4.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\StatusReport;
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * IndexableContent report class
  *
- * @package ElasticPress
+ * @package WPProbe
  */
 class IndexableContent extends Report {
 

@@ -1,9 +1,9 @@
 <?php
 /**
- * ElasticPress related posts feature
+ * WPProbe related posts feature
  *
  * @since  2.1
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\Feature\RelatedPosts;

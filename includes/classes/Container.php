@@ -3,7 +3,7 @@
  * Container class
  *
  * @since 4.7.0
- * @package elasticpress
+ * @package wpprobe
  * @see https://github.com/php-fig/container
  */
 

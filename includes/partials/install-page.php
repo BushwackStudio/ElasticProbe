@@ -1,9 +1,9 @@
 <?php
 /**
- * Template for ElasticPress install page
+ * Template for WPProbe install page
  *
  * @since  2.1
- * @package elasticpress
+ * @package wpprobe
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

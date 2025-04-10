@@ -3,7 +3,7 @@
  * Post indexable
  *
  * @since  3.0
- * @package  elasticpress
+ * @package  wpprobe
  */
 
 namespace WPProbe\Indexable\Post;

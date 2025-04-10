@@ -1,9 +1,9 @@
 <?php
 /**
- * Header template for ElasticPress settings page
+ * Header template for WPProbe settings page
  *
  * @since  2.1
- * @package elasticpress
+ * @package wpprobe
  */
 
 use WPProbe\Elasticsearch;

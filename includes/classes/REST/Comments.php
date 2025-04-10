@@ -3,7 +3,7 @@
  * Comments REST API Controller
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbe\REST;
@@ -15,7 +15,7 @@ use WPProbe\Indexables;
  * Comments API controller class.
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 class Comments {
 
@@ -25,6 +25,7 @@ class Comments {
 	 * @return void
 	 */
 	public function register_routes() {
+		// TODO: Change rest route
 		register_rest_route(
 			'elasticpress/v1',
 			'comments',
