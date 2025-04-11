@@ -631,7 +631,7 @@ abstract class Indexable {
 	}
 
 	/**
-	 * Check to see if we should allow elasticpress to override this query
+	 * Check to see if we should allow wpprobe to override this query
 	 *
 	 * @param \WP_Query|\WP_User_Query|\WP_Term_Query $query WP_Query or WP_User_Query or WP_Term_Query instance
 	 * @return bool
@@ -645,7 +645,7 @@ abstract class Indexable {
 		}
 
 		/**
-		 * Determine if ElasticPress should integrate with a query
+		 * Determine if WPProbe should integrate with a query
 		 *
 		 * @hook ep_elasticpress_enabled
 		 * @param  {bool} $enabled Whether to integrate with Elasticsearch or not
@@ -1171,7 +1171,7 @@ abstract class Indexable {
 	 * @return array
 	 */
 	public function generate_mapping() {
-		_doing_it_wrong( __METHOD__, 'The Indexable class should not call generate_mapping() directly.', 'ElasticPress 4.0' );
+		_doing_it_wrong( __METHOD__, 'The Indexable class should not call generate_mapping() directly.', 'WPProbe 0.1.0' );
 
 		return [];
 	}

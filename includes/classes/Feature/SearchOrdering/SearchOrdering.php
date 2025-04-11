@@ -38,7 +38,7 @@ class SearchOrdering extends Feature {
 	/**
 	 * Capability required to manage.
 	 *
-	 * This will be removed in future versions of ElasticPress. Please use `Utils\get_capability()` instead.
+	 * This will be removed in future versions of WPProbe. Please use `Utils\get_capability()` instead.
 	 *
 	 * @deprecated 4.5.0
 	 */

@@ -176,7 +176,7 @@ class WooCommerce extends Feature {
 	 */
 	public function output_feature_box_long() {
 		?>
-		<p><?php esc_html_e( 'Most caching and performance tools can’t keep up with the nearly infinite ways your visitors might filter or navigate your products. No matter how many products, filters, or customers you have, ElasticPress will keep your online store performing quickly. If used in combination with the Protected Content feature, ElasticPress will also accelerate order searches and back end product management.', 'wpprobe' ); ?></p>
+		<p><?php esc_html_e( 'Most caching and performance tools can’t keep up with the nearly infinite ways your visitors might filter or navigate your products. No matter how many products, filters, or customers you have, WPProbe will keep your online store performing quickly. If used in combination with the Protected Content feature, WPProbe will also accelerate order searches and back end product management.', 'wpprobe' ); ?></p>
 		<?php
 	}
 
@@ -243,7 +243,7 @@ class WooCommerce extends Feature {
 		}
 
 		/**
-		 * ElasticPress does not yet support post_parent queries
+		 * WPProbe does not yet support post_parent queries
 		 */
 		$post_parent = $query->get( 'post_parent', false );
 		if ( ! empty( $post_parent ) ) {
@@ -316,7 +316,7 @@ class WooCommerce extends Feature {
 	}
 
 	/**
-	 * DEPRECATED. Translate args to ElasticPress compat format. This is the meat of what the feature does
+	 * DEPRECATED. Translate args to WPProbe compat format. This is the meat of what the feature does
 	 *
 	 * @param  \WP_Query $query WP Query
 	 * @since  2.1
@@ -580,13 +580,13 @@ class WooCommerce extends Feature {
 	}
 
 	/**
-	 * DEPRECATED. Integrate ElasticPress with the WooCommerce Admin Product List.
+	 * DEPRECATED. Integrate WPProbe with the WooCommerce Admin Product List.
 	 *
 	 * WooCommerce uses its `WC_Admin_List_Table_Products` class to control that screen. This
-	 * function adds all necessary hooks to bypass the default behavior and integrate with ElasticPress.
+	 * function adds all necessary hooks to bypass the default behavior and integrate with WPProbe.
 	 * By default, WC runs a SQL query to get the Product IDs that match the list criteria and passes
 	 * that list of IDs to the main WP_Query. This integration changes that process to a single query, run
-	 * by ElasticPress.
+	 * by WPProbe.
 	 *
 	 * @since 4.2.0
 	 * @deprecated 4.7.0
@@ -614,7 +614,7 @@ class WooCommerce extends Feature {
 	 *
 	 * @since 4.4.0
 	 * @deprecated 4.7.0
-	 * @param array $notices Current ElasticPress admin notices
+	 * @param array $notices Current WPProbe admin notices
 	 * @return array
 	 */
 	public function maybe_display_notice_about_product_ordering( $notices ) {

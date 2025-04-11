@@ -20,14 +20,14 @@ const Context = createContext();
 /**
  * Feature settings provider.
  *
- * Provides data and methods for interacting with ElasticPress feature
+ * Provides data and methods for interacting with WPProbe feature
  * settings.
  *
  * @param {object} props Component props.
  * @param {string} props.apiUrl API URL.
  * @param {Function} props.children Component children
  * @param {object} props.defaultSettings Default settings values.
- * @param {string} props.epioLogoUrl ElasticPress.io logo URL.
+ * @param {string} props.epioLogoUrl WPProbe.com logo URL.
  * @param {object} props.features Features data.
  * @param {object} props.indexMeta Index meta.
  * @param {object} props.syncedSettings Settings at last sync.

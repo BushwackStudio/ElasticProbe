@@ -200,7 +200,7 @@ class Upgrades {
 	/**
 	 * Upgrade routine of v4.5.0.
 	 *
-	 * Add the ElasticPress capability to admins
+	 * Add the WPProbe capability to admins
 	 *
 	 * @see https://github.com/10up/ElasticPress/pull/3313
 	 */

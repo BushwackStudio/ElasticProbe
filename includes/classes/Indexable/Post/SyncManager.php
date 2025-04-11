@@ -391,7 +391,7 @@ class SyncManager extends \WPProbe\SyncManager {
 	 * Depending on the number of posts associated with the term display an admin notice
 	 *
 	 * @since 4.4.0
-	 * @param array $notices Current ElasticPress admin notices
+	 * @param array $notices Current WPProbe admin notices
 	 * @return array
 	 */
 	public function maybe_display_notice_edit_single_term( $notices ) {
@@ -447,7 +447,7 @@ class SyncManager extends \WPProbe\SyncManager {
 	 * Depending on the number of posts display an admin notice in the Dashboard Terms List Screen
 	 *
 	 * @since 4.4.0
-	 * @param array $notices Current ElasticPress admin notices
+	 * @param array $notices Current WPProbe admin notices
 	 * @return array
 	 */
 	public function maybe_display_notice_term_list_screen( $notices ) {

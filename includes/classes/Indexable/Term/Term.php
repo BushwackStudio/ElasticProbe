@@ -325,7 +325,7 @@ class Term extends Indexable {
 		/**
 		 * Filter non-indexed public meta
 		 *
-		 * Allows for specifying public meta keys that should be excluded from the ElasticPress index.
+		 * Allows for specifying public meta keys that should be excluded from the WPProbe index.
 		 *
 		 * @since 3.4
 		 * @hook ep_prepare_term_meta_excluded_public_keys

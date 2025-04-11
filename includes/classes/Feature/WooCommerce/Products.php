@@ -407,13 +407,13 @@ class Products {
 	}
 
 	/**
-	 * Integrate ElasticPress with the WooCommerce Admin Product List.
+	 * Integrate WPProbe with the WooCommerce Admin Product List.
 	 *
 	 * WooCommerce uses its `WC_Admin_List_Table_Products` class to control that screen. This
-	 * function adds all necessary hooks to bypass the default behavior and integrate with ElasticPress.
+	 * function adds all necessary hooks to bypass the default behavior and integrate with WPProbe.
 	 * By default, WC runs a SQL query to get the Product IDs that match the list criteria and passes
 	 * that list of IDs to the main WP_Query. This integration changes that process to a single query, run
-	 * by ElasticPress.
+	 * by WPProbe.
 	 *
 	 * @param array $query_vars Query vars.
 	 * @return array
@@ -532,7 +532,7 @@ class Products {
 	/**
 	 * Depending on the number of products display an admin notice in the custom sort screen for WooCommerce Products
 	 *
-	 * @param array $notices Current ElasticPress admin notices
+	 * @param array $notices Current WPProbe admin notices
 	 * @return array
 	 */
 	public function maybe_display_notice_about_product_ordering( $notices ) {
@@ -623,7 +623,7 @@ class Products {
 	}
 
 	/**
-	 * Translate args to ElasticPress compat format. This is the meat of what the feature does
+	 * Translate args to WPProbe compat format. This is the meat of what the feature does
 	 *
 	 * @param \WP_Query $query WP Query
 	 */

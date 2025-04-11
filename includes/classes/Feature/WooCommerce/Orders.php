@@ -337,9 +337,9 @@ class Orders {
 	}
 
 	/**
-	 * Display a notice if WooCommerce Orders are not compatible with ElasticPress
+	 * Display a notice if WooCommerce Orders are not compatible with WPProbe
 	 *
-	 * If the user has WooCommerce, Protected Content, and HPOS enabled, orders will not go through ElasticPress.
+	 * If the user has WooCommerce, Protected Content, and HPOS enabled, orders will not go through WPProbe.
 	 *
 	 * @param array $notices Current EP notices
 	 * @return array
@@ -370,7 +370,7 @@ class Orders {
 		}
 
 		$notices['wc_orders_incompatible'] = [
-			'html'    => esc_html__( "Although the WooCommerce and Protected Content features are enabled, ElasticPress will not integrate with the WooCommerce Orders list if WooCommerce's High-performance order storage is enabled.", 'wpprobe' ),
+			'html'    => esc_html__( "Although the WooCommerce and Protected Content features are enabled, WPProbe will not integrate with the WooCommerce Orders list if WooCommerce's High-performance order storage is enabled.", 'wpprobe' ),
 			'type'    => 'warning',
 			'dismiss' => true,
 		];
@@ -456,7 +456,7 @@ class Orders {
 	}
 
 	/**
-	 * Translate args to ElasticPress compat format. This is the meat of what the feature does
+	 * Translate args to WPProbe compat format. This is the meat of what the feature does
 	 *
 	 * @param  \WP_Query $query WP Query
 	 */

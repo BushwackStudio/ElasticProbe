@@ -89,7 +89,7 @@ class Screen {
 	}
 
 	/**
-	 * Determine current ElasticPress screen. null means not EP screen.
+	 * Determine current WPProbe screen. null means not EP screen.
 	 *
 	 * @since 3.0
 	 */

@@ -43,7 +43,7 @@ export default ({ plainTextReport, reports }) => {
 		<>
 			<p>
 				{__(
-					'This screen provides a list of information related to ElasticPress and synced content that can be helpful during troubleshooting. This list can also be copy/pasted and shared as needed.',
+					'This screen provides a list of information related to WPProbe and synced content that can be helpful during troubleshooting. This list can also be copy/pasted and shared as needed.',
 					'wpprobe',
 				)}
 			</p>

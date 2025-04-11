@@ -16,7 +16,7 @@ import { __ } from '@wordpress/i18n';
  */
 export default ({ onChange, value }) => {
 	/**
-	 * Filterable meta keys from ElasticPress data store.
+	 * Filterable meta keys from WPProbe data store.
 	 */
 	const metaKeys = useSelect((select) => select('elasticpress').getMetaKeys());
 

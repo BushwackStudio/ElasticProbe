@@ -51,7 +51,7 @@ class QueryIntegration {
 		 */
 		$allow_query_integration_during_indexing = apply_filters( 'ep_enable_query_integration_during_indexing', false, $indexable_slug );
 
-		// Ensure that we are currently allowing ElasticPress to override the normal WP_Query
+		// Ensure that we are currently allowing WPProbe to override the normal WP_Query
 		// Indexable->is_full_reindexing() is not available at this point yet, so using the IndexHelper version of it.
 		if ( \WPProbe\IndexHelper::factory()->is_full_reindexing( $indexable_slug, get_current_blog_id() ) && ! $allow_query_integration_during_indexing ) {
 			return;

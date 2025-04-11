@@ -1,25 +1,26 @@
 <?php
 /**
- * Plugin Name:       ElasticPress
- * Plugin URI:        https://github.com/10up/ElasticPress
+ * Plugin Name:       WPProbe
+ * Plugin URI:        https://github.com/BushwackStudio/WpProbe
  * Description:       A fast and flexible search and query engine for WordPress.
- * Version:           5.1.4
+ * Version:           0.1.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
- * Author:            10up
- * Author URI:        https://10up.com
+ * Author:            BushwackStudio
+ * Author URI:        https://github.com/orgs/BushwackStudio
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       elasticpress
+ * Text Domain:       wpprobe
  * Domain Path:       /lang
  *
- * This program derives work from Alley Interactive's SearchPress
+ * This program derives work from 10up's Elasticpress, Alley Interactive's SearchPress
  * and Automattic's VIP search plugin:
  *
  * Copyright (C) 2012-2013 Automattic
  * Copyright (C) 2013 SearchPress
+ * Copyright (C) 2025 10up
  *
- * @package  elasticpress
+ * @package  wpprobe
  */
 
 namespace WPProbe;
@@ -33,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'EP_URL', plugin_dir_url( __FILE__ ) );
 define( 'EP_PATH', plugin_dir_path( __FILE__ ) );
 define( 'EP_FILE', plugin_basename( __FILE__ ) );
-define( 'EP_VERSION', '5.1.4' );
+define( 'EP_VERSION', '0.1.0' );
 
 define( 'EP_PHP_VERSION_MIN', '7.4' );
 
@@ -121,7 +122,7 @@ if ( $network_activated ) {
 }
 
 /**
- * Return the ElasticPress container
+ * Return the WPProbe container
  *
  * @since 4.7.0
  * @return Container

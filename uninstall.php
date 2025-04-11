@@ -1,10 +1,10 @@
 <?php
 /**
- * ElasticPress uninstaller
+ * WPProbe uninstaller
  *
  * Used when clicking "Delete" from inside of WordPress's plugins page.
  *
- * @package elasticpress
+ * @package wpprobe
  * @since   1.7
  */
 

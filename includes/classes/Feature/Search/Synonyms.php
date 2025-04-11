@@ -179,7 +179,7 @@ class Synonyms {
 	public function admin_menu() {
 		add_submenu_page(
 			'elasticpress',
-			esc_html__( 'ElasticPress Synonyms', 'wpprobe' ),
+			esc_html__( 'WPProbe Synonyms', 'wpprobe' ),
 			esc_html__( 'Synonyms', 'wpprobe' ),
 			Utils\get_capability( 'synonyms' ),
 			'elasticpress-synonyms',

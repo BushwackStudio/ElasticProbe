@@ -44,7 +44,7 @@ class FacetType extends \WPProbe\Feature\Facets\FacetType {
 		_doing_it_wrong(
 			__METHOD__,
 			esc_html( 'Aggregation filters related to facet types are now managed by the main Facets class.' ),
-			'ElasticPress 4.4.0'
+			'WPProbe 0.1.0'
 		);
 
 		return $query_args;
@@ -144,7 +144,7 @@ class FacetType extends \WPProbe\Feature\Facets\FacetType {
 		_doing_it_wrong(
 			__METHOD__,
 			esc_html( 'Facet selections are now applied directly to the ES Query.' ),
-			'ElasticPress 4.4.0'
+			'WPProbe 0.1.0'
 		);
 
 		$feature = Features::factory()->get_registered_feature( 'facets' );

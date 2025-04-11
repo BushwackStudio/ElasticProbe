@@ -2546,7 +2546,7 @@ class Post extends Indexable {
 	 * Filter a list of meta keys down to public keys or protected keys
 	 * allowed via a hook.
 	 *
-	 * This function is used to filter meta keys when ElasticPress is in
+	 * This function is used to filter meta keys when WPProbe is in
 	 * network mode or when the meta mode is set to `auto` via the
 	 * `ep_meta_mode` hook. This was the default behaviour prior to 5.0.0.
 	 *
@@ -2720,7 +2720,7 @@ class Post extends Indexable {
 			_doing_it_wrong(
 				__METHOD__,
 				esc_html__( 'This method should not be called outside specific pages. Use the `ep_post_meta_keys_db_per_post_type_allowed_screen` filter if you need to use it in your custom screen.' ),
-				'ElasticPress 4.4.0'
+				'WPProbe 0.1.0'
 			);
 			return [];
 		}

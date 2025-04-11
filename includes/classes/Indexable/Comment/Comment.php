@@ -958,7 +958,7 @@ class Comment extends Indexable {
 		/**
 		 * Filter non-indexed public meta
 		 *
-		 * Allows for specifying public meta keys that should be excluded from the ElasticPress index.
+		 * Allows for specifying public meta keys that should be excluded from the WPProbe index.
 		 *
 		 * @since 3.6.0
 		 *

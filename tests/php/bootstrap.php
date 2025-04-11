@@ -1,6 +1,6 @@
 <?php
 /**
- * ElasticPress test bootstrap
+ * WPProbe test bootstrap
  *
  * @package elasticpress
  */

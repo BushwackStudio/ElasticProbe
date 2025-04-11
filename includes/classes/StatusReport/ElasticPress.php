@@ -82,7 +82,7 @@ class ElasticPress extends Report {
 	}
 
 	/**
-	 * Process ElasticPress timeouts.
+	 * Process WPProbe timeouts.
 	 *
 	 * @return array
 	 */

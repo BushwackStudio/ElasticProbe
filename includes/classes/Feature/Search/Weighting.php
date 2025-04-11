@@ -326,7 +326,7 @@ class Weighting {
 
 		add_submenu_page(
 			'elasticpress',
-			esc_html__( 'ElasticPress Search Fields & Weighting', 'wpprobe' ),
+			esc_html__( 'WPProbe Search Fields & Weighting', 'wpprobe' ),
 			esc_html__( 'Search Fields & Weighting', 'wpprobe' ),
 			Utils\get_capability(),
 			$menu_slug,
@@ -386,7 +386,7 @@ class Weighting {
 		_doing_it_wrong(
 			__METHOD__,
 			esc_html( 'Weighting settings are now updated using the REST API, and do not redirect server-side.' ),
-			'ElasticPress 5.0.0'
+			'WPProbe 0.1.0'
 		);
 	}
 
@@ -402,7 +402,7 @@ class Weighting {
 		_doing_it_wrong(
 			__METHOD__,
 			esc_html( 'Weighting sections display are now handled via React components.' ),
-			'ElasticPress 5.0.0'
+			'WPProbe 0.1.0'
 		);
 	}
 

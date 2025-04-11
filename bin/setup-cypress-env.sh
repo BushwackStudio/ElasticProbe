@@ -57,7 +57,7 @@ fi
 # Set twentytwentyone as the active theme here, as 2025 won't work with WP 6.0
 ./bin/wp-env-cli tests-wordpress "wp --allow-root theme activate twentytwentyone"
 
-# Fix the debug-bar-elasticpress dependency of ElasticPress
+# Fix the debug-bar-elasticpress dependency of WPProbe
 ./bin/wp-env-cli tests-wordpress "wp --allow-root plugin install debug-bar-elasticpress"
 ./bin/wp-env-cli tests-wordpress "sed -i \"s/Requires Plugins:  elasticpress/Requires Plugins:  $PLUGIN_NAME/\" /var/www/html/wp-content/plugins/debug-bar-elasticpress/debug-bar-elasticpress.php"
 ./bin/wp-env-cli tests-wordpress "wp --allow-root plugin activate debug-bar-elasticpress"
