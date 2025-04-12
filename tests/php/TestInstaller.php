@@ -2,7 +2,7 @@
 /**
  * Test installer class.
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;

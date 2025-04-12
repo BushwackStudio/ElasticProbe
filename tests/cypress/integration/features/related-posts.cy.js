@@ -195,7 +195,7 @@ describe('Related Posts Feature', () => {
 		 * Widget block.
 		 */
 		cy.get(`.wp-block-legacy-widget`).first().as('widget');
-		cy.get('@widget').should('contain.text', 'ElasticPress - Related Posts');
+		cy.get('@widget').should('contain.text', 'WPProbe - Related Posts');
 
 		/**
 		 * Transform the legacywidget into the block.

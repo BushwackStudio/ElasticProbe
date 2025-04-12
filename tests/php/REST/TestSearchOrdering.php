@@ -3,7 +3,7 @@
  * Test search ordering REST controller
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest\REST;

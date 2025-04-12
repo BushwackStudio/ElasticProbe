@@ -2,7 +2,7 @@
 /**
  * Class for comment factory.
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;

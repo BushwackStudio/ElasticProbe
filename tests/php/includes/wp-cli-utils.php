@@ -2,7 +2,7 @@
 /**
  * Utilities that do NOT depend on WordPress code.
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WP_CLI\Utils;

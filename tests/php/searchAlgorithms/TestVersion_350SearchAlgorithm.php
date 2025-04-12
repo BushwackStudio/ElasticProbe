@@ -3,7 +3,7 @@
  * Test EP v3.5 search algorithm
  *
  * @since 4.3.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;

@@ -2,7 +2,7 @@
 /**
  * Test term indexable functionality
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;
@@ -235,7 +235,7 @@ class TestTerm extends BaseTestCase {
 	}
 
 	/**
-	 * Test a basic term query with and without ElasticPress
+	 * Test a basic term query with and without WPProbe
 	 *
 	 * @since 3.3
 	 * @group term

@@ -5,7 +5,7 @@
  * @phpcs:disable WordPress.DateTime.CurrentTimeTimestamp.Requested
  *
  * @since 4.4.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;
@@ -238,7 +238,7 @@ class TestQueryLogger extends BaseTestCase {
 		$this->assertArrayHasKey( 'has_failed_queries', $notices );
 		$this->assertStringStartsWith( 'Your site&#039;s content is not synced with your', $notices['has_failed_queries']['html'] );
 		if ( \WPProbe\Utils\is_epio() ) {
-			$this->assertStringContainsString( 'ElasticPress account', $notices['has_failed_queries']['html'] );
+			$this->assertStringContainsString( 'WPProbe account', $notices['has_failed_queries']['html'] );
 		} else {
 			$this->assertStringContainsString( 'Elasticsearch server', $notices['has_failed_queries']['html'] );
 		}
@@ -249,7 +249,7 @@ class TestQueryLogger extends BaseTestCase {
 		\WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
 		$notices = $query_logger->maybe_add_notice( [] );
 		$this->assertArrayHasKey( 'has_failed_queries', $notices );
-		$this->assertStringStartsWith( 'Some ElasticPress queries failed in the last 24 hours.', $notices['has_failed_queries']['html'] );
+		$this->assertStringStartsWith( 'Some WPProbe queries failed in the last 24 hours.', $notices['has_failed_queries']['html'] );
 
 		/**
 		 * No message when no failed queries

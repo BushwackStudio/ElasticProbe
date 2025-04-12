@@ -2,7 +2,7 @@
 /**
  * Test comment indexable functionality
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;

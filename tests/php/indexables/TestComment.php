@@ -2,7 +2,7 @@
 /**
  * Test comment indexable functionality
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;
@@ -246,7 +246,7 @@ class TestComment extends BaseTestCase {
 	}
 
 	/**
-	 * Test a basic comment query with and without ElasticPress
+	 * Test a basic comment query with and without WPProbe
 	 *
 	 * @since 3.6.0
 	 * @group comment

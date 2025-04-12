@@ -2,7 +2,7 @@
 /**
  * Test post indexable in multisite context
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;

@@ -8,7 +8,7 @@ describe('Post Indexable', () => {
 		 */
 
 		// Make sure post categories are searchable.
-		cy.visitAdminPage('admin.php?page=elasticpress-weighting');
+		cy.visitAdminPage('admin.php?page=wpprobe-weighting');
 		cy.intercept('/wp-json/elasticpress/v1/weighting*').as('apiRequest');
 
 		cy.contains('h2', 'Posts').closest('.components-panel').as('postsPanel');

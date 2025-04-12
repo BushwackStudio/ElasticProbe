@@ -25,7 +25,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 
 		cy.activatePlugin('woocommerce');
 
-		cy.visitAdminPage('admin.php?page=elasticpress');
+		cy.visitAdminPage('admin.php?page=wpprobe');
 		cy.get('#tab-panel-0-woocommerce').click();
 		cy.get('.components-form-toggle__input').should('be.checked');
 	});
@@ -35,7 +35,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 
 		cy.maybeDisableFeature('woocommerce');
 
-		cy.visitAdminPage('admin.php?page=elasticpress');
+		cy.visitAdminPage('admin.php?page=wpprobe');
 		cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
 
 		cy.contains('button', 'WooCommerce').click();
@@ -51,7 +51,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 			.should('contain.text', 'Mapping sent')
 			.should('contain.text', 'Sync complete');
 
-		cy.wpCli('elasticpress list-features').its('stdout').should('contain', 'woocommerce');
+		cy.wpCli('wpprobe list-features').its('stdout').should('contain', 'woocommerce');
 	});
 
 	it('Can fetch products from Elasticsearch in product rivers and category archives', () => {
@@ -93,7 +93,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 					},
 				},
 			}).then(() => {
-				cy.wpCli('elasticpress sync --setup --yes').then(() => {
+				cy.wpCli('wpprobe sync --setup --yes').then(() => {
 					/**
 					 * Give Elasticsearch some time. Apparently, if the visit happens right after the index, it won't find anything.
 					 *
@@ -123,7 +123,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 			 * Orders
 			 */
 			// this is required to sync the orders to Elasticsearch.
-			cy.wpCli('elasticpress sync --setup --yes');
+			cy.wpCli('wpprobe sync --setup --yes');
 
 			cy.visitAdminPage('edit.php?post_type=shop_order');
 			cy.get('#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-query-debug').should(
@@ -230,7 +230,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 				.should('contain.text', 'Query Response Code: HTTP 200');
 		});
 
-		it('Can search orders from ElasticPress in WP Dashboard', () => {
+		it('Can search orders from WPProbe in WP Dashboard', () => {
 			cy.visitAdminPage('edit.php?post_type=shop_order');
 
 			// search order by user's name.
@@ -348,7 +348,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 		});
 
 		it('Will require a sync when enabling Orders Autosuggest', () => {
-			cy.visitAdminPage('admin.php?page=elasticpress');
+			cy.visitAdminPage('admin.php?page=wpprobe');
 			cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
 
 			cy.contains('button', 'WooCommerce').click();

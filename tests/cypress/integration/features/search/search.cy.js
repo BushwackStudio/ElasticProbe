@@ -1,7 +1,7 @@
 // eslint-disable-next-line jest/valid-describe-callback
 describe('Post Search Feature', { tags: '@slow' }, () => {
 	before(() => {
-		cy.wpCli('elasticpress sync --setup --yes');
+		cy.wpCli('wpprobe sync --setup --yes');
 	});
 
 	it('Can use Elasticsearch for the default WP search', () => {
@@ -25,11 +25,11 @@ describe('Post Search Feature', { tags: '@slow' }, () => {
 		const postsData = [
 			{
 				title: 'Higher',
-				content: '10up loves elasticpress',
+				content: 'Bushwack loves wpprobe',
 			},
 			{
 				title: 'Lower',
-				content: 'elasticpress loves 10up',
+				content: 'wpprobe loves Bushwack',
 			},
 		];
 
@@ -37,7 +37,7 @@ describe('Post Search Feature', { tags: '@slow' }, () => {
 			cy.publishPost(postData);
 		});
 
-		cy.visit('/?s=10up+loves+elasticpress');
+		cy.visit('/?s=bushwack+loves+wpprobe');
 		cy.contains('.site-content article:nth-of-type(1) h2', 'Higher').should('exist');
 		cy.contains('.site-content article h2', 'Lower').should('exist');
 	});
@@ -108,7 +108,7 @@ describe('Post Search Feature', { tags: '@slow' }, () => {
 	it('Can see highlighted text', () => {
 		cy.login();
 
-		cy.visitAdminPage('admin.php?page=elasticpress');
+		cy.visitAdminPage('admin.php?page=wpprobe');
 		cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
 
 		cy.contains('button', 'Post Search').click();

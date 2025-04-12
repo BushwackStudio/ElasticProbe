@@ -2,7 +2,7 @@
 /**
  * Test date facet type
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;

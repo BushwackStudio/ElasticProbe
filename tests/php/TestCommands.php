@@ -3,7 +3,7 @@
  * Test WP-CLI commands.
  *
  * @since 4.4.1
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;
@@ -374,7 +374,7 @@ class TestCommands extends BaseTestCase {
 	 */
 	public function testReCreateNetworkAliasOnSingleSite() {
 
-		$this->expectExceptionMessage( 'ElasticPress is not network activated.' );
+		$this->expectExceptionMessage( 'WPProbe is not network activated.' );
 
 		$this->command->recreate_network_alias( [], [] );
 	}
@@ -1012,7 +1012,7 @@ class TestCommands extends BaseTestCase {
 	 */
 	public function testSettingsResetAskForConfirmation() {
 
-		$this->expectExceptionMessage( 'Are you sure you want to delete all ElasticPress settings?' );
+		$this->expectExceptionMessage( 'Are you sure you want to delete all WPProbe settings?' );
 
 		$this->command->settings_reset( [], [] );
 	}

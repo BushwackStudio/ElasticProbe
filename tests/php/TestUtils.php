@@ -2,7 +2,7 @@
 /**
  * Test utils functionality
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;

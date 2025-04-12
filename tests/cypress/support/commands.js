@@ -265,11 +265,11 @@ Cypress.Commands.add('updateWeighting', (newWeightingValues = null) => {
 });
 
 Cypress.Commands.add('maybeEnableFeature', (featureName) => {
-	cy.wpCli(`elasticpress activate-feature ${featureName}`, true);
+	cy.wpCli(`wpprobe activate-feature ${featureName}`, true);
 });
 
 Cypress.Commands.add('maybeDisableFeature', (featureName) => {
-	cy.wpCli(`elasticpress deactivate-feature ${featureName}`, true);
+	cy.wpCli(`wpprobe deactivate-feature ${featureName}`, true);
 });
 
 Cypress.Commands.add('getTotal', (totalNumber) => {
@@ -505,7 +505,7 @@ Cypress.Commands.add('setPerIndexCycle', (number = 350) => {
 Cypress.Commands.add('refreshIndex', (indexable) => {
 	cy.wpCliEval(
 		`
-		$index = \\ElasticPress\\Indexables::factory()->get( "${indexable}" )->get_index_name();
-		WP_CLI::runcommand("elasticpress request {$index}/_refresh --method=POST");`,
+		$index = \\WPProbe\\Indexables::factory()->get( "${indexable}" )->get_index_name();
+		WP_CLI::runcommand("wpprobe request {$index}/_refresh --method=POST");`,
 	);
 });

@@ -2,7 +2,7 @@
 /**
  * WPProbe test bootstrap
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;
@@ -71,7 +71,7 @@ function load_plugin() {
 	} while ( --$tries );
 
 	if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
-		exit( 'Could not connect to ElasticPress server.' );
+		exit( 'Could not connect to WPProbe server.' );
 	}
 
 	require_once __DIR__ . '/includes/functions.php';

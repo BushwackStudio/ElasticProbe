@@ -3,7 +3,7 @@
  * Test the Status Report
  *
  * @since 4.4.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;
@@ -422,7 +422,7 @@ class TestStatusReport extends BaseTestCase {
 	}
 
 	/**
-	 * Tests ElasticPress.io report.
+	 * Tests WPProbe.com report.
 	 *
 	 * @group statusReport
 	 * @since 4.5.1
@@ -438,11 +438,11 @@ class TestStatusReport extends BaseTestCase {
 		$this->assertEquals( 'Allowed Autosuggest Parameters', $groups[0]['title'] );
 		$this->assertEquals( 'Instant Results Template', $groups[1]['title'] );
 		$this->assertEquals( 'Orders Search Template', $groups[2]['title'] );
-		$this->assertEquals( 'ElasticPress.io', $report->get_title() );
+		$this->assertEquals( 'WPProbe.com', $report->get_title() );
 	}
 
 	/**
-	 * Tests ElasticPress report.
+	 * Tests WPProbe report.
 	 *
 	 * @group statusReport
 	 * @since 4.5.1

@@ -1,8 +1,8 @@
 <?php
 /**
- * ElasticPress test functions
+ * WPProbe test functions
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest\Functions;

@@ -3,7 +3,7 @@
  * GlobalFeature feature
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest\GlobalIndexable;

@@ -3,7 +3,7 @@
  * Test meta range facet type feature
  *
  * @since 4.5.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;

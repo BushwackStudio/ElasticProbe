@@ -3,7 +3,7 @@
  * Test InderHelper class.
  *
  * @since 4.4.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;

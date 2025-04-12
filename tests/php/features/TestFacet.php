@@ -2,7 +2,7 @@
 /**
  * Test facet feature
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;

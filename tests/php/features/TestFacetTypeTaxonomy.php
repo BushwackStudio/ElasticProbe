@@ -2,7 +2,7 @@
 /**
  * Test taxonomy facet type feature
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;

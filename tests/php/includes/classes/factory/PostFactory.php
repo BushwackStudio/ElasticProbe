@@ -2,7 +2,7 @@
 /**
  * Class for Post factory.
  *
- * @package  elasticpress
+ * @package  wpprobe
  */
 
 namespace WPProbeTest;

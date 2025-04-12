@@ -3,7 +3,7 @@
  * Test Feature methods
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;
@@ -23,7 +23,7 @@ class TestFeature extends BaseTestCase {
 		$stub->title            = 'title';
 		$stub->short_title      = 'short_title';
 		$stub->summary          = 'summary';
-		$stub->docs_url         = 'https://elasticpress.io/';
+		$stub->docs_url         = 'https://wpprobe.com/';
 		$stub->default_settings = [];
 		$stub->order            = 1;
 
@@ -39,7 +39,7 @@ class TestFeature extends BaseTestCase {
 			'title'             => 'title',
 			'shortTitle'        => 'short_title',
 			'summary'           => 'summary',
-			'docsUrl'           => 'https://elasticpress.io/',
+			'docsUrl'           => 'https://wpprobe.com/',
 			'defaultSettings'   => [],
 			'order'             => 1,
 			'isAvailable'       => false, // Set by status code 2

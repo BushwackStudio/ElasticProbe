@@ -22,7 +22,7 @@ describe('Terms Feature', { tags: '@slow' }, () => {
 
 		cy.maybeDisableFeature('terms');
 
-		cy.visitAdminPage('admin.php?page=elasticpress');
+		cy.visitAdminPage('admin.php?page=wpprobe');
 		cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
 
 		cy.contains('button', 'Terms').click();
@@ -38,7 +38,7 @@ describe('Terms Feature', { tags: '@slow' }, () => {
 			.should('contain.text', 'Mapping sent')
 			.should('contain.text', 'Sync complete');
 
-		cy.wpCli('wp elasticpress list-features').its('stdout').should('contain', 'terms');
+		cy.wpCli('wp wpprobe list-features').its('stdout').should('contain', 'terms');
 	});
 
 	it('Can search a term in the admin dashboard using Elasticsearch', () => {

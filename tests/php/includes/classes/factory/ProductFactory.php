@@ -4,7 +4,7 @@
  *
  * phpcs:disable WordPress.WP.AlternativeFunctions.rand_rand
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;

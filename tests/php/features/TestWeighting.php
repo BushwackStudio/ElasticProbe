@@ -2,7 +2,7 @@
 /**
  * Test weighting sub-feature
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;
@@ -242,7 +242,7 @@ class TestWeighting extends BaseTestCase {
 
 		$this->get_weighting_feature()->add_weighting_submenu_page();
 
-		$this->assertEquals( $site_url . 'wp-admin/admin.php?page=elasticpress-weighting', menu_page_url( 'elasticpress-weighting', false ) );
+		$this->assertEquals( $site_url . 'wp-admin/admin.php?page=wpprobe-weighting', menu_page_url( 'wpprobe-weighting', false ) );
 	}
 
 	/**

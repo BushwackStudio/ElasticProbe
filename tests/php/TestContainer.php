@@ -3,7 +3,7 @@
  * Test the Container class methods
  *
  * @since 4.7.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;

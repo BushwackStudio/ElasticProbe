@@ -127,9 +127,9 @@ class TestHealthCheckElasticsearch extends WP_Ajax_UnitTestCase {
 		$this->assertTrue( $response['success'] );
 		$this->assertEquals( 'Your site could not connect to Elasticsearch', $response['data']['label'] );
 		$this->assertEquals( 'critical', $response['data']['status'] );
-		$this->assertEquals( 'ElasticPress', $response['data']['badge']['label'] );
+		$this->assertEquals( 'WPProbe', $response['data']['badge']['label'] );
 		$this->assertEquals( 'red', $response['data']['badge']['color'] );
-		$this->assertEquals( 'Check if your credentials to ElasticPress.io host are correct.', $response['data']['description'] );
+		$this->assertEquals( 'Check if your credentials to WPProbe host are correct.', $response['data']['description'] );
 
 		remove_filter( 'ep_host', $ep_host );
 		remove_filter( 'ep_elasticsearch_version', '__return_false' );

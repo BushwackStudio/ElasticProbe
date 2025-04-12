@@ -2,7 +2,7 @@
 /**
  * Feature test class
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;

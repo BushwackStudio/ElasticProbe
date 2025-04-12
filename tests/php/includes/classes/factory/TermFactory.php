@@ -2,7 +2,7 @@
 /**
  * Class for Term factory.
  *
- * @package  elasticpress
+ * @package  wpprobe
  */
 
 namespace WPProbeTest;

@@ -2,7 +2,7 @@
 /**
  * Test dashboard admin notices. Logic here is very complex.
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;
@@ -420,7 +420,7 @@ class TestAdminNotices extends BaseTestCase {
 
 		// Instant Results available.
 		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
-			$features_url = admin_url( 'network/admin.php?page=elasticpress' );
+			$features_url = admin_url( 'network/admin.php?page=wpprobe' );
 		} else {
 			$features_url = admin_url( 'admin.php?page=elasticpress' );
 		}

@@ -3,7 +3,7 @@
  * Test the ElasticsearchErrorInterpreter class methods
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;

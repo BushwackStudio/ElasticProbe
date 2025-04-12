@@ -44,7 +44,7 @@ describe('Post Search Feature - Weighting Functionality', () => {
 		/**
 		 * Sync.
 		 */
-		cy.wpCli('wp elasticpress sync --yes').its('stdout').should('contain', 'Success: Done!');
+		cy.wpCli('wp wpprobe sync --yes').its('stdout').should('contain', 'Success: Done!');
 		cy.wait(500); // eslint-disable-line cypress/no-unnecessary-waiting
 
 		/**
@@ -56,7 +56,7 @@ describe('Post Search Feature - Weighting Functionality', () => {
 		/**
 		 * Make the title non-searchable for Posts.
 		 */
-		cy.visitAdminPage('admin.php?page=elasticpress-weighting');
+		cy.visitAdminPage('admin.php?page=wpprobe-weighting');
 		cy.get('.components-panel__header')
 			.contains('Posts')
 			.closest('.components-panel')
@@ -76,7 +76,7 @@ describe('Post Search Feature - Weighting Functionality', () => {
 		/**
 		 * Sync.
 		 */
-		cy.wpCli('wp elasticpress sync --yes').its('stdout').should('contain', 'Success: Done!');
+		cy.wpCli('wp wpprobe sync --yes').its('stdout').should('contain', 'Success: Done!');
 		cy.wait(500); // eslint-disable-line cypress/no-unnecessary-waiting
 
 		/**
@@ -119,7 +119,7 @@ describe('Post Search Feature - Weighting Functionality', () => {
 		/**
 		 * Sync.
 		 */
-		cy.wpCli('wp elasticpress sync --yes').its('stdout').should('contain', 'Success: Done!');
+		cy.wpCli('wp wpprobe sync --yes').its('stdout').should('contain', 'Success: Done!');
 		cy.wait(500); // eslint-disable-line cypress/no-unnecessary-waiting
 
 		/**
@@ -132,7 +132,7 @@ describe('Post Search Feature - Weighting Functionality', () => {
 		/**
 		 * Adjust the weighting of the title.
 		 */
-		cy.visitAdminPage('admin.php?page=elasticpress-weighting');
+		cy.visitAdminPage('admin.php?page=wpprobe-weighting');
 		cy.get('.components-panel__header')
 			.contains('Posts')
 			.closest('.components-panel')
@@ -152,7 +152,7 @@ describe('Post Search Feature - Weighting Functionality', () => {
 		/**
 		 * Sync.
 		 */
-		cy.wpCli('wp elasticpress sync --yes').its('stdout').should('contain', 'Success: Done!');
+		cy.wpCli('wp wpprobe sync --yes').its('stdout').should('contain', 'Success: Done!');
 		cy.wait(500); // eslint-disable-line cypress/no-unnecessary-waiting
 
 		/**
@@ -202,7 +202,7 @@ describe('Post Search Feature - Weighting Functionality', () => {
 		/**
 		 * Sync.
 		 */
-		cy.wpCli('wp elasticpress sync --yes').its('stdout').should('contain', 'Success: Done!');
+		cy.wpCli('wp wpprobe sync --yes').its('stdout').should('contain', 'Success: Done!');
 		cy.wait(500); // eslint-disable-line cypress/no-unnecessary-waiting
 
 		/**
@@ -215,7 +215,7 @@ describe('Post Search Feature - Weighting Functionality', () => {
 		/**
 		 * Add the custom field to the posts index.
 		 */
-		cy.visitAdminPage('admin.php?page=elasticpress-weighting');
+		cy.visitAdminPage('admin.php?page=wpprobe-weighting');
 		cy.get('.components-panel__header')
 			.contains('Posts')
 			.closest('.components-panel')
@@ -245,7 +245,7 @@ describe('Post Search Feature - Weighting Functionality', () => {
 		/**
 		 * Sync.
 		 */
-		cy.wpCli('wp elasticpress sync --yes').its('stdout').should('contain', 'Success: Done!');
+		cy.wpCli('wp wpprobe sync --yes').its('stdout').should('contain', 'Success: Done!');
 		cy.wait(1000); // eslint-disable-line cypress/no-unnecessary-waiting
 
 		/**
@@ -259,7 +259,7 @@ describe('Post Search Feature - Weighting Functionality', () => {
 		/**
 		 * Update the weighting so the meta field is weighted higher.
 		 */
-		cy.visitAdminPage('admin.php?page=elasticpress-weighting');
+		cy.visitAdminPage('admin.php?page=wpprobe-weighting');
 		cy.get('.components-panel__header')
 			.contains('Posts')
 			.closest('.components-panel')
@@ -296,14 +296,14 @@ describe('Post Search Feature - Weighting Functionality', () => {
 		 * Enable automatic indexing of meta management and sync.
 		 */
 		cy.activatePlugin('auto-meta-mode', 'wpCli');
-		cy.wpCli('wp elasticpress sync --yes').its('stdout').should('contain', 'Success: Done!');
+		cy.wpCli('wp wpprobe sync --yes').its('stdout').should('contain', 'Success: Done!');
 		cy.wait(500); // eslint-disable-line cypress/no-unnecessary-waiting
 
 		/**
 		 * Weighting settings for custom fields should not be available when
 		 * using automatic management.
 		 */
-		cy.visitAdminPage('admin.php?page=elasticpress-weighting');
+		cy.visitAdminPage('admin.php?page=wpprobe-weighting');
 		cy.get('.components-panel__body-title').contains('Metadata').should('not.exist');
 
 		/**

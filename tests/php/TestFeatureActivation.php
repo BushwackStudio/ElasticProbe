@@ -2,7 +2,7 @@
 /**
  * Test feature activation, registration, and deactivation.
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;

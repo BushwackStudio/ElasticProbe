@@ -2,7 +2,7 @@
 /**
  * Test synonym feature
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;

@@ -28,7 +28,7 @@ describe('Dashboard Sync', () => {
 		if (cy.state('test').state === 'failed') {
 			cy.deactivatePlugin('elasticpress', 'wpCli', 'network');
 			cy.activatePlugin('elasticpress', 'wpCli');
-			cy.wpCli('wp elasticpress clear-sync', true);
+			cy.wpCli('wp wpprobe clear-sync', true);
 		}
 	});
 
@@ -36,8 +36,8 @@ describe('Dashboard Sync', () => {
 		/**
 		 * Reset settings and skip install.
 		 */
-		cy.wpCli('elasticpress settings-reset --yes');
-		cy.visitAdminPage('admin.php?page=elasticpress');
+		cy.wpCli('wpprobe settings-reset --yes');
+		cy.visitAdminPage('admin.php?page=wpprobe');
 		cy.get('.setup-message a').contains('Skip Install').click();
 
 		/**
@@ -69,7 +69,7 @@ describe('Dashboard Sync', () => {
 	});
 
 	it('Can sync via Dashboard when activated in single site', () => {
-		cy.wpCli('wp elasticpress delete-index --yes');
+		cy.wpCli('wp wpprobe delete-index --yes');
 
 		cy.visitAdminPage('admin.php?page=wpprobe-health');
 		cy.get('.wrap').should(
@@ -96,8 +96,8 @@ describe('Dashboard Sync', () => {
 		cy.activatePlugin('elasticpress', 'wpCli', 'network');
 
 		// Sync and remove, so EP doesn't think it is a fresh install.
-		cy.wpCli('wp elasticpress sync --setup --yes');
-		cy.wpCli('wp elasticpress delete-index --yes --network-wide');
+		cy.wpCli('wp wpprobe sync --setup --yes');
+		cy.wpCli('wp wpprobe delete-index --yes --network-wide');
 
 		cy.visitAdminPage('network/admin.php?page=wpprobe-health');
 		cy.get('.wrap').should(
@@ -117,7 +117,7 @@ describe('Dashboard Sync', () => {
 			'We could not find any data for your Elasticsearch indices.',
 		);
 
-		cy.wpCli('elasticpress get-indices').then((wpCliResponse) => {
+		cy.wpCli('wpprobe get-indices').then((wpCliResponse) => {
 			const indexes = JSON.parse(wpCliResponse.stdout);
 			cy.visitAdminPage('network/admin.php?page=wpprobe-health');
 			cy.get('.metabox-holder')
@@ -145,11 +145,11 @@ describe('Dashboard Sync', () => {
 		cy.contains('.components-button', 'Pause sync').click();
 
 		// Can not activate a feature.
-		cy.visitAdminPage('admin.php?page=elasticpress');
+		cy.visitAdminPage('admin.php?page=wpprobe');
 		cy.contains('button', 'Save changes').should('be.disabled');
 
 		// Can not start a sync via WP-CLI
-		cy.wpCli('wp elasticpress sync', true)
+		cy.wpCli('wp wpprobe sync', true)
 			.its('stderr')
 			.should('contain', 'An index is already occurring');
 
@@ -162,14 +162,14 @@ describe('Dashboard Sync', () => {
 		canSeeIndexesNames();
 
 		// Features should be accessible again
-		cy.visitAdminPage('admin.php?page=elasticpress');
+		cy.visitAdminPage('admin.php?page=wpprobe');
 		cy.contains('button', 'Save changes').should('not.be.disabled');
 
 		cy.setPerIndexCycle();
 	});
 
 	it('Should only display a single sync option if index is deleted', () => {
-		cy.wpCli('wp elasticpress delete-index --yes', true);
+		cy.wpCli('wp wpprobe delete-index --yes', true);
 
 		/**
 		 * If an index is missing the "Delete all data and start fresh sync"
@@ -179,7 +179,7 @@ describe('Dashboard Sync', () => {
 		cy.contains('.components-checkbox-control', 'Delete all data').should('not.exist');
 
 		// Send mapping
-		cy.wpCli('wp elasticpress put-mapping');
+		cy.wpCli('wp wpprobe put-mapping');
 
 		/**
 		 * After the mapping is sent the "Delete all data and start fresh

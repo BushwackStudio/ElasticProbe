@@ -2,7 +2,7 @@
 /**
  * Test Elasticsearch methods
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;
@@ -277,6 +277,7 @@ class TestElasticsearch extends BaseTestCase {
 		/**
 		 * Test the default behavior
 		 */
+		// TODO: Change the api key header
 		$default_headers = WPProbe\Elasticsearch::factory()->format_request_headers();
 
 		$this->assertCount( 2, $default_headers );

@@ -1,5 +1,5 @@
 // eslint-disable-next-line jest/valid-describe-callback
-describe('WordPress can perform standard ElasticPress actions', { tags: '@slow' }, () => {
+describe('WordPress can perform standard WPProbe actions', { tags: '@slow' }, () => {
 	it('Can see the settings page link in WordPress Dashboard', () => {
 		cy.login();
 
@@ -26,7 +26,7 @@ describe('WordPress can perform standard ElasticPress actions', { tags: '@slow' 
 		cy.deactivatePlugin('elasticpress', 'wpCli');
 		cy.activatePlugin('fake-new-activation elasticpress', 'wpCli');
 
-		cy.visitAdminPage('admin.php?page=elasticpress');
+		cy.visitAdminPage('admin.php?page=wpprobe');
 
 		cy.get('.setup-button').should('contain.text', 'Save Features');
 
@@ -70,9 +70,9 @@ describe('WordPress can perform standard ElasticPress actions', { tags: '@slow' 
 	it('Can see a warning in the dashboard if using other software than Elasticsearch.', () => {
 		cy.login();
 
-		cy.wpCli('eval "echo ElasticPress\\Utils\\get_host();"').then((epHost) => {
-			// Nothing needs to be done if EP.io.
-			if (epHost.stdout.match(/elasticpress\.io/)) {
+		cy.wpCli('eval "echo WPProbe\\Utils\\get_host();"').then((epHost) => {
+			// Nothing needs to be done if WPProbe.com.
+			if (epHost.stdout.match(/wpprobe\.com/)) {
 				return;
 			}
 
@@ -98,7 +98,7 @@ describe('WordPress can perform standard ElasticPress actions', { tags: '@slow' 
 
 	it('Cannot save settings while a sync is in progress', () => {
 		cy.login();
-		cy.visitAdminPage('admin.php?page=elasticpress');
+		cy.visitAdminPage('admin.php?page=wpprobe');
 		cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
 
 		cy.wpCliEval(`update_option( 'ep_index_meta', [ 'indexing' => true ] );`).then(() => {
@@ -109,7 +109,7 @@ describe('WordPress can perform standard ElasticPress actions', { tags: '@slow' 
 		});
 	});
 
-	it('Can see ElasticPress Last Sync Accordion', () => {
+	it('Can see WPProbe Last Sync Accordion', () => {
 		cy.login();
 		cy.visitAdminPage('site-health.php?tab=debug');
 		cy.get('[aria-controls="health-check-accordion-block-ep-last-sync"]').click();

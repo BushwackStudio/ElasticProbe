@@ -2,7 +2,7 @@
 /**
  * Test protected content feature
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;

@@ -1,6 +1,6 @@
 describe('Autosuggest Feature', () => {
 	before(() => {
-		cy.wpCli('elasticpress sync --setup --yes');
+		cy.wpCli('wpprobe sync --setup --yes');
 	});
 
 	beforeEach(() => {

@@ -2,7 +2,7 @@
 /**
  * Test post indexable functionality
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;
@@ -7931,7 +7931,7 @@ class TestPost extends BaseTestCase {
 		$this->assertEquals( $expected_result, $query->post_count );
 		$this->assertNull( $query->elasticsearch_success );
 
-		// Make sure ElasticPress returns only 2 posts when meta query is set
+		// Make sure WPProbe returns only 2 posts when meta query is set
 		$args  = array(
 			'ep_integrate' => true,
 			'meta_query'   => array(
@@ -7945,7 +7945,7 @@ class TestPost extends BaseTestCase {
 		$this->assertTrue( $query->elasticsearch_success );
 		$this->assertEquals( $expected_result, $query->post_count );
 
-		// Make sure ElasticPress returns only 2 posts when meta key is set
+		// Make sure WPProbe returns only 2 posts when meta key is set
 		$args  = array(
 			'ep_integrate' => true,
 			'meta_key'     => 'test_key',

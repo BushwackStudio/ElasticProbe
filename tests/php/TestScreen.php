@@ -2,7 +2,7 @@
 /**
  * Test screen class.
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;

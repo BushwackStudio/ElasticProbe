@@ -64,7 +64,7 @@ describe('Instant Results Feature', { tags: '@slow' }, () => {
 		// Make sure the proxy is deactivated.
 		cy.deactivatePlugin('elasticpress-proxy');
 
-		cy.visitAdminPage('admin.php?page=elasticpress');
+		cy.visitAdminPage('admin.php?page=wpprobe');
 
 		cy.contains('button', 'Instant Results').click();
 		cy.contains('.components-notice', 'To use this feature you need').should('exist');
@@ -86,7 +86,7 @@ describe('Instant Results Feature', { tags: '@slow' }, () => {
 		 */
 		it('Can activate the feature and sync automatically', () => {
 			// Can see the warning if using custom proxy
-			cy.visitAdminPage('admin.php?page=elasticpress');
+			cy.visitAdminPage('admin.php?page=wpprobe');
 			cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
 
 			cy.contains('button', 'Instant Results').click();
@@ -107,14 +107,12 @@ describe('Instant Results Feature', { tags: '@slow' }, () => {
 				timeout: Cypress.config('elasticPressIndexTimeout'),
 			}).should('contain.text', 'Sync complete');
 
-			cy.wpCli('elasticpress list-features')
-				.its('stdout')
-				.should('contain', 'instant-results');
+			cy.wpCli('wpprobe list-features').its('stdout').should('contain', 'instant-results');
 		});
 
 		describe('Instant Results activated', () => {
 			before(() => {
-				cy.wpCli('wp elasticpress put-search-template', true);
+				cy.wpCli('wp wpprobe put-search-template', true);
 			});
 
 			/**
@@ -138,7 +136,7 @@ describe('Instant Results Feature', { tags: '@slow' }, () => {
 				 * Add product category facet to test the labelling of facets
 				 * with the same name.
 				 */
-				cy.visitAdminPage('admin.php?page=elasticpress');
+				cy.visitAdminPage('admin.php?page=wpprobe');
 				cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
 
 				cy.contains('button', 'Instant Results').click();
@@ -238,7 +236,7 @@ describe('Instant Results Feature', { tags: '@slow' }, () => {
 				 */
 				cy.maybeEnableFeature('instant-results');
 
-				cy.visitAdminPage('admin.php?page=elasticpress');
+				cy.visitAdminPage('admin.php?page=wpprobe');
 				cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
 
 				cy.contains('button', 'Instant Results').click();
@@ -369,7 +367,7 @@ describe('Instant Results Feature', { tags: '@slow' }, () => {
 				cy.maybeEnableFeature('instant-results');
 				cy.maybeEnableFeature('did-you-mean');
 
-				cy.wpCli('wp elasticpress sync --setup --yes');
+				cy.wpCli('wp wpprobe sync --setup --yes');
 
 				/**
 				 * Perform a search.
@@ -393,7 +391,7 @@ describe('Instant Results Feature', { tags: '@slow' }, () => {
 				 * If the Post Type filter is in use, entering a new search
 				 * term should reset post type the filter.
 				 */
-				cy.visitAdminPage('admin.php?page=elasticpress');
+				cy.visitAdminPage('admin.php?page=wpprobe');
 				cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
 				cy.contains('button', 'Instant Results').click();
 				cy.get('.components-form-token-field__input').type(
@@ -418,7 +416,7 @@ describe('Instant Results Feature', { tags: '@slow' }, () => {
 				 * If the Post Type filter is not in use, entering a new search
 				 * term should not reset the post type filter.
 				 */
-				cy.visitAdminPage('admin.php?page=elasticpress');
+				cy.visitAdminPage('admin.php?page=wpprobe');
 				cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
 				cy.contains('button', 'Instant Results').click();
 				cy.contains('.components-form-token-field__token', 'Post type')
@@ -447,7 +445,7 @@ describe('Instant Results Feature', { tags: '@slow' }, () => {
 				cy.maybeEnableFeature('instant-results');
 				cy.activatePlugin('filter-instant-results-category-terms', 'wpCli');
 
-				cy.visitAdminPage('admin.php?page=elasticpress');
+				cy.visitAdminPage('admin.php?page=wpprobe');
 				cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
 
 				cy.contains('button', 'Instant Results').click();

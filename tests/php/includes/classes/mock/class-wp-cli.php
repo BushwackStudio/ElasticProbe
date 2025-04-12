@@ -5,7 +5,7 @@
  * phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
  * phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 /**

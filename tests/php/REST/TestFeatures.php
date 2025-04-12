@@ -3,7 +3,7 @@
  * Test the Features REST controller
  *
  * @since 5.3.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest\REST;

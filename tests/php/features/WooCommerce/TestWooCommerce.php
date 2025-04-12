@@ -2,7 +2,7 @@
 /**
  * Test woocommerce feature
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
 namespace WPProbeTest;

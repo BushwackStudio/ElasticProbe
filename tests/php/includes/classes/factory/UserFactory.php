@@ -2,7 +2,7 @@
 /**
  * Class for User factory.
  *
- * @package  elasticpress
+ * @package  wpprobe
  */
 
 namespace WPProbeTest;
