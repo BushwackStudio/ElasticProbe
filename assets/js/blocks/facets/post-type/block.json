@@ -3,7 +3,7 @@
 	"apiVersion": 3,
 	"title": "Filter by Post Type",
 	"description": "Let visitors filter your content by post type.",
-	"textdomain": "elasticpress",
+	"textdomain": "wpprobe",
 	"keywords": ["post type", "facets"],
 	"name": "elasticpress/facet-post-type",
 	"icon": "feedback",

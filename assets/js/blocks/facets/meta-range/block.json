@@ -6,7 +6,7 @@
 	"category": "elasticpress",
 	"description": "Let visitors filter your content by a range of metadata values.",
 	"keywords": ["custom fields", "facets", "price"],
-	"textdomain": "elasticpress",
+	"textdomain": "wpprobe",
 	"attributes": {
 		"facet": {
 			"type": "string",

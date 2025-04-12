@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-04-11T06:18:57+00:00\n"
+"POT-Creation-Date: 2025-04-12T08:11:33+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: wpprobe\n"
@@ -1166,6 +1166,7 @@ msgstr ""
 
 #: includes/classes/Feature/Search/Search.php:803
 #: assets/js/search/editor/plugins/exclude-from-search.js:30
+#: dist/js/search-editor-script.js:1
 msgid "Excludes this post from the results of your site's search form while WPProbe is active."
 msgstr ""
 
@@ -2482,6 +2483,8 @@ msgstr ""
 
 #. translators: Error message
 #: assets/js/api-search/index.js:313
+#: dist/js/instant-results-script.js:1
+#: dist/js/woocommerce-order-search-script.js:1
 msgid "WPProbe: Unable to fetch results. %s"
 msgstr ""
 
@@ -2626,6 +2629,7 @@ msgid "Enabling this feature will begin re-syncing your content. Do you wish to 
 msgstr ""
 
 #: assets/js/dashboard.js:180
+#: dist/js/dashboard-script.js:1
 msgid "It looks like you’re trying to use WPProbe’s advanced features only. If you’d like to activate basic search, please select Cancel and activate the Post Search Feature. Otherwise, please click Ok to configure advanced features."
 msgstr ""
 
@@ -2670,6 +2674,7 @@ msgid "Feature settings saved."
 msgstr ""
 
 #: assets/js/features/apps/features.js:143
+#: dist/js/features-script.js:1
 msgid "WPProbe: Could not save feature settings."
 msgstr ""
 
@@ -2731,6 +2736,7 @@ msgid "Sync required"
 msgstr ""
 
 #: assets/js/features/index.js:46
+#: dist/js/features-script.js:1
 msgid "WPProbe Features add functionality to enhance search and queries on your site. You may choose to activate some or all of these Features depending on your needs. You can learn more about each Feature <a>here</a>."
 msgstr ""
 
@@ -2982,6 +2988,7 @@ msgid "Copied status report to clipboard."
 msgstr ""
 
 #: assets/js/status-report/components/reports.js:45
+#: dist/js/status-report-script.js:1
 msgid "This screen provides a list of information related to WPProbe and synced content that can be helpful during troubleshooting. This list can also be copy/pasted and shared as needed."
 msgstr ""
 
@@ -3022,6 +3029,7 @@ msgid "Run a sync to index your existing content %s. Once syncing finishes, your
 msgstr ""
 
 #: assets/js/sync-ui/apps/sync.js:122
+#: dist/js/sync-script.js:1
 msgid "on WPProbe.com"
 msgstr ""
 
@@ -3675,31 +3683,107 @@ msgid_plural "%1$d items @ %2$s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: dist/js/dashboard-script.js:1
-msgid "It looks like you’re trying to use ElasticPress’s advanced features only. If you’d like to activate basic search, please select Cancel and activate the Post Search Feature. Otherwise, please click Ok to configure advanced features."
+#: assets/js/blocks/comments/block.json
+msgctxt "block title"
+msgid "Search Comments"
 msgstr ""
 
-#: dist/js/features-script.js:1
-msgid "ElasticPress: Could not save feature settings."
+#: assets/js/blocks/comments/block.json
+msgctxt "block description"
+msgid "Let visitors search your site's comments."
 msgstr ""
 
-#: dist/js/features-script.js:1
-msgid "ElasticPress Features add functionality to enhance search and queries on your site. You may choose to activate some or all of these Features depending on your needs. You can learn more about each Feature <a>here</a>."
+#: assets/js/blocks/facets/date/block.json
+msgctxt "block title"
+msgid "Filter by Post Date"
 msgstr ""
 
-#: dist/js/instant-results-script.js:1
-#: dist/js/woocommerce-order-search-script.js:1
-msgid "ElasticPress: Unable to fetch results. %s"
+#: assets/js/blocks/facets/date/block.json
+msgctxt "block description"
+msgid "Let visitors filter your content by post date."
 msgstr ""
 
-#: dist/js/search-editor-script.js:1
-msgid "Excludes this post from the results of your site's search form while ElasticPress is active."
+#: assets/js/blocks/facets/date/block.json
+msgctxt "block keyword"
+msgid "custom date"
 msgstr ""
 
-#: dist/js/status-report-script.js:1
-msgid "This screen provides a list of information related to ElasticPress and synced content that can be helpful during troubleshooting. This list can also be copy/pasted and shared as needed."
+#: assets/js/blocks/facets/date/block.json
+#: assets/js/blocks/facets/meta-range/block.json
+#: assets/js/blocks/facets/meta/block.json
+#: assets/js/blocks/facets/post-type/block.json
+#: assets/js/blocks/facets/taxonomy/block.json
+msgctxt "block keyword"
+msgid "facets"
 msgstr ""
 
-#: dist/js/sync-script.js:1
-msgid "on ElasticPress.io"
+#: assets/js/blocks/facets/meta-range/block.json
+msgctxt "block title"
+msgid "Filter by Metadata Range - Beta"
+msgstr ""
+
+#: assets/js/blocks/facets/meta-range/block.json
+msgctxt "block description"
+msgid "Let visitors filter your content by a range of metadata values."
+msgstr ""
+
+#: assets/js/blocks/facets/meta-range/block.json
+#: assets/js/blocks/facets/meta/block.json
+msgctxt "block keyword"
+msgid "custom fields"
+msgstr ""
+
+#: assets/js/blocks/facets/meta-range/block.json
+msgctxt "block keyword"
+msgid "price"
+msgstr ""
+
+#: assets/js/blocks/facets/meta/block.json
+msgctxt "block title"
+msgid "Filter by Metadata"
+msgstr ""
+
+#: assets/js/blocks/facets/meta/block.json
+msgctxt "block description"
+msgid "Let visitors filter your content by metadata values."
+msgstr ""
+
+#: assets/js/blocks/facets/post-type/block.json
+msgctxt "block title"
+msgid "Filter by Post Type"
+msgstr ""
+
+#: assets/js/blocks/facets/post-type/block.json
+msgctxt "block description"
+msgid "Let visitors filter your content by post type."
+msgstr ""
+
+#: assets/js/blocks/facets/post-type/block.json
+msgctxt "block keyword"
+msgid "post type"
+msgstr ""
+
+#: assets/js/blocks/facets/taxonomy/block.json
+msgctxt "block title"
+msgid "Filter by Taxonomy"
+msgstr ""
+
+#: assets/js/blocks/facets/taxonomy/block.json
+msgctxt "block description"
+msgid "Let visitors filter your content by taxonomy terms, such as categories or tags."
+msgstr ""
+
+#: assets/js/blocks/facets/taxonomy/block.json
+msgctxt "block keyword"
+msgid "attributes"
+msgstr ""
+
+#: assets/js/blocks/related-posts/block.json
+msgctxt "block title"
+msgid "Related Posts"
+msgstr ""
+
+#: assets/js/blocks/related-posts/block.json
+msgctxt "block description"
+msgid "Display a continuously updated list of related posts."
 msgstr ""

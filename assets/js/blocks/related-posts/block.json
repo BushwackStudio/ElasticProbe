@@ -5,7 +5,7 @@
 	"title": "Related Posts",
 	"category": "elasticpress",
 	"description": "Display a continuously updated list of related posts.",
-	"textdomain": "elasticpress",
+	"textdomain": "wpprobe",
 	"attributes": {
 		"alignment": {
 			"type": "string",

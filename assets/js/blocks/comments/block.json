@@ -5,7 +5,7 @@
 	"title": "Search Comments",
 	"category": "elasticpress",
 	"description": "Let visitors search your site's comments.",
-	"textdomain": "elasticpress",
+	"textdomain": "wpprobe",
 	"attributes": {
 		"label": {
 			"default": "Search comments",
