@@ -178,11 +178,11 @@ class Synonyms {
 	 */
 	public function admin_menu() {
 		add_submenu_page(
-			'elasticpress',
+			'wpprobe',
 			esc_html__( 'WPProbe Synonyms', 'wpprobe' ),
 			esc_html__( 'Synonyms', 'wpprobe' ),
 			Utils\get_capability( 'synonyms' ),
-			'elasticpress-synonyms',
+			'wpprobe-synonyms',
 			[ $this, 'admin_page' ]
 		);
 	}
@@ -665,7 +665,7 @@ class Synonyms {
 		}
 
 		$screen = get_current_screen();
-		return ( 'elasticpress_page_elasticpress-synonyms' === $screen->base );
+		return ( 'wpprobe_page_wpprobe-synonyms' === $screen->base );
 	}
 
 	/**

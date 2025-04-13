@@ -294,7 +294,7 @@ class Elasticsearch {
 		if ( version_compare( (string) $this->get_elasticsearch_version(), '7.0', '<' ) ) {
 			$path = $index . '/' . $type . '/_search';
 		} else {
-			$path = $index . '/_search';
+			$path = 'v1/' . $index . '/search';
 		}
 
 		// For backwards compat

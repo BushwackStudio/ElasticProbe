@@ -321,11 +321,11 @@ class Weighting {
 	 */
 	public function add_weighting_submenu_page() {
 		$menu_slug = ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK && ! Utils\is_top_level_admin_context() ) ?
-			'elasticpress' :
-			'elasticpress-weighting';
+			'wpprobe' :
+			'wpprobe-weighting';
 
 		add_submenu_page(
-			'elasticpress',
+			'wpprobe',
 			esc_html__( 'WPProbe Search Fields & Weighting', 'wpprobe' ),
 			esc_html__( 'Search Fields & Weighting', 'wpprobe' ),
 			Utils\get_capability(),

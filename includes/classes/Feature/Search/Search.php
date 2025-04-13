@@ -685,8 +685,8 @@ class Search extends Feature {
 
 		<?php if ( ! defined( 'EP_IS_NETWORK' ) || ! EP_IS_NETWORK ) : ?>
 			<br class="clear">
-			<p><a href="<?php echo esc_url( admin_url( 'admin.php?page=elasticpress-weighting' ) ); ?>"><?php esc_html_e( 'Advanced fields and weighting settings', 'wpprobe' ); ?></a></p>
-			<p><a href="<?php echo esc_url( admin_url( 'admin.php?page=elasticpress-synonyms' ) ); ?>"><?php esc_html_e( 'Add synonyms to your post searches', 'wpprobe' ); ?></a></p>
+			<p><a href="<?php echo esc_url( admin_url( 'admin.php?page=wpprobe-weighting' ) ); ?>"><?php esc_html_e( 'Advanced fields and weighting settings', 'wpprobe' ); ?></a></p>
+			<p><a href="<?php echo esc_url( admin_url( 'admin.php?page=wpprobe-synonyms' ) ); ?>"><?php esc_html_e( 'Add synonyms to your post searches', 'wpprobe' ); ?></a></p>
 		<?php endif; ?>
 
 		<?php
@@ -942,8 +942,8 @@ class Search extends Feature {
 		];
 
 		if ( ! defined( 'EP_IS_NETWORK' ) || ! EP_IS_NETWORK ) {
-			$weighting_url = esc_url( admin_url( 'admin.php?page=elasticpress-weighting' ) );
-			$synonyms_url  = esc_url( admin_url( 'admin.php?page=elasticpress-synonyms' ) );
+			$weighting_url = esc_url( admin_url( 'admin.php?page=wpprobe-weighting' ) );
+			$synonyms_url  = esc_url( admin_url( 'admin.php?page=wpprobe-synonyms' ) );
 
 			$text = sprintf(
 				'<p><a href="%1$s">%2$s</a></p><p><a href="%3$s">%4$s</a></p>',
