@@ -1139,10 +1139,12 @@ class Elasticsearch {
 	public function index_exists( $index ) {
 
 		$request_args = [
-			'method' => 'HEAD',
+			'method' => 'GET',
 		];
 
-		$request = $this->remote_request( $index, $request_args, [], 'index_exists' );
+		$path = 'v1/' . trailingslashit( $index ) . 'exists';
+
+		$request = $this->remote_request( $path, $request_args, [], 'index_exists' );
 
 		// 200 means the index exists.
 		// 404 means the index was non-existent.
