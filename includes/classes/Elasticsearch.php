@@ -198,11 +198,11 @@ class Elasticsearch {
 	 * @return bool
 	 */
 	public function refresh_indices() {
-
-		// TODO: Add support for selective indices
 		$request_args = array( 'method' => 'POST' );
 
-		$request = $this->remote_request( '_refresh', $request_args, [], 'refresh_indices' );
+		$path = Utils\get_index_prefix() . '*/_refresh';
+
+		$request = $this->remote_request( $path, $request_args, [], 'refresh_indices' );
 
 		if ( ! is_wp_error( $request ) ) {
 			if ( isset( $request['response']['code'] ) && 200 === $request['response']['code'] ) {
@@ -708,6 +708,7 @@ class Elasticsearch {
 	 * @return array|boolean
 	 */
 	public function delete_network_alias( $alias ) {
+		// TODO: Krakend
 		$path = '*/_alias/' . $alias;
 
 		$request_args = [ 'method' => 'DELETE' ];
