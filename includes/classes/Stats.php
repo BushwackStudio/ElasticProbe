@@ -131,7 +131,7 @@ class Stats {
 		}
 
 		$stats_built = true;
-		$prefix = Utils\get_index_prefix();
+		$prefix      = Utils\get_index_prefix();
 
 		$this->stats = $this->remote_request_helper( $prefix . '*/_stats?format=json' );
 

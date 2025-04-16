@@ -54,7 +54,7 @@
     "lint-fix": "phpcbf .",
     "test": "phpunit",
     "test-single-site": "phpunit -c single-site.xml.dist",
-    "setup-local-tests": "bash bin/install-wp-tests.sh ep_wp_test root password 127.0.0.1 latest true",
+    "setup-local-tests": "bash bin/install-wp-tests.sh wordpress wordpress 1234 127.0.0.1 latest true",
     "strauss": [ "vendor/bin/strauss" ],
     "post-install-cmd": [
       "@strauss"

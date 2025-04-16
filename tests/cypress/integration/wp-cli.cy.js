@@ -363,7 +363,7 @@ describe('WP-CLI Commands', { tags: '@slow' }, () => {
 		cy.wpCli('wp wpprobe clear-sync').its('stdout').should('contain', 'Sync cleared');
 	});
 
-	it('can send an HTTP request to Elasticsearch', () => {
+	it('Can send an HTTP request to Elasticsearch', () => {
 		cy.wpCli('wp wpprobe  request _cat/indices').its('code').should('equal', 0);
 
 		// check if it throw an error if non supported method is used?
