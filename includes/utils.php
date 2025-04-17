@@ -296,8 +296,12 @@ function get_host() {
  * @return string
  */
 function get_subscription_id() {
-	$id = get_option( 'wpprobe_subscription_id', '' );
-	return apply_filters( 'wpprobe_subscription_id', $id );
+	if ( defined( 'PROBE_SID' ) && \PROBE_SID ) {
+		$sid = \PROBE_SID;
+	} else {
+		$sid = get_option( 'wpprobe_subscription_id', '' );
+	}
+	return apply_filters( 'wpprobe_subscription_id', $sid );
 }
 
 /**

@@ -1127,7 +1127,7 @@ class Elasticsearch {
 	 * @return boolean
 	 */
 	public function delete_all_indices() {
-		return $this->delete_index( '*' );
+		return $this->delete_index( Utils\get_index_prefix() . '*' );
 	}
 
 	/**
