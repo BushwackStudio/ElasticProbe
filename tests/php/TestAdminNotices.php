@@ -394,7 +394,7 @@ class TestAdminNotices extends BaseTestCase {
 	 *
 	 * - In admin
 	 * - Host set
-	 * - Old version of ElasticPress
+	 * - Old version of WPProbe
 	 * - Upgrade sync is needed
 	 * - Elasticsearch version within bounds
 	 *

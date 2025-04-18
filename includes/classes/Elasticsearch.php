@@ -708,8 +708,7 @@ class Elasticsearch {
 	 * @return array|boolean
 	 */
 	public function delete_network_alias( $alias ) {
-		// TODO: Krakend
-		$path = '*/_alias/' . $alias;
+		$path = Utils\get_index_prefix() . '*/_alias/' . $alias;
 
 		$request_args = [ 'method' => 'DELETE' ];
 
