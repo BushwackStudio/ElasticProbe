@@ -234,10 +234,10 @@ class TestWeighting extends BaseTestCase {
 		$site_url = trailingslashit( get_option( 'siteurl' ) );
 
 		add_menu_page(
-			'ElasticPress',
-			'ElasticPress',
+			'WPProbe',
+			'WPProbe',
 			Utils\get_capability(),
-			'elasticpress'
+			'wpprobe'
 		);
 
 		$this->get_weighting_feature()->add_weighting_submenu_page();
