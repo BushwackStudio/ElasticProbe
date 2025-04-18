@@ -101,7 +101,7 @@ class Elasticsearch {
 		} elseif ( ! is_epio() ) {
 				$path = apply_filters( 'ep_index_' . $type . '_request_path', $index . '/_doc/' . $document['ID'], $document, $type );
 		} else {
-			$path = apply_filters( 'ep_index_' . $type . '_request_path', $index . '/' . $document['ID'], $document, $type );
+			$path = apply_filters( 'ep_index_' . $type . '_request_path', 'v1/' . $index . '/' . $document['ID'], $document, $type );
 		}
 
 		$path = apply_filters( 'ep_index_request_path', $path, $document, $type );
