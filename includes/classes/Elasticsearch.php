@@ -1184,7 +1184,7 @@ class Elasticsearch {
 		if ( version_compare( (string) $this->get_elasticsearch_version(), '7.0', '<' ) ) {
 			$path = apply_filters( 'ep_bulk_index_request_path', $index . '/' . $type . '/_bulk', $body, $type );
 		} else {
-			$path = apply_filters( 'ep_bulk_index_request_path', $index . '/_bulk', $body, $type );
+			$path = apply_filters( 'ep_bulk_index_request_path', 'v1/' . $index . '/_bulk', $body, $type );
 		}
 
 		$request_args = array(
