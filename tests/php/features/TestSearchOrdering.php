@@ -126,18 +126,18 @@ class TestSearchOrdering extends BaseTestCase {
 	 */
 	public function testAdminMenu() {
 		add_menu_page(
-			'ElasticPress',
-			'ElasticPress',
+			'WPProbe',
+			'WPProbe',
 			\WPProbe\Utils\get_capability(),
-			'elasticpress'
+			'wpprobe'
 		);
 
 		$this->get_feature()->admin_menu();
 
 		$menu = $GLOBALS['submenu'];
 
-		$this->assertEquals( 2, count( $menu['elasticpress'] ) );
-		$this->assertEquals( 'Custom Results', $menu['elasticpress'][1][0] );
+		$this->assertEquals( 2, count( $menu['wpprobe'] ) );
+		$this->assertEquals( 'Custom Results', $menu['wpprobe'][1][0] );
 	}
 
 	/**

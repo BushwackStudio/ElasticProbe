@@ -220,7 +220,7 @@ class SearchOrdering extends Feature {
 	 */
 	public function admin_menu() {
 		add_submenu_page(
-			'elasticpress',
+			'wpprobe',
 			esc_html__( 'Custom Results', 'wpprobe' ),
 			esc_html__( 'Custom Results', 'wpprobe' ),
 			Utils\get_capability( 'search-ordering' ),

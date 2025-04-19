@@ -84,7 +84,7 @@ class TestScreen extends BaseTestCase {
 
 		$this->assertEquals( null, WPProbe\Screen::factory()->get_current_screen() );
 
-		$_GET['page'] = 'elasticpress';
+		$_GET['page'] = 'wpprobe';
 
 		set_current_screen( 'front' );
 
@@ -173,7 +173,7 @@ class TestScreen extends BaseTestCase {
 
 		add_filter( 'ep_install_status', $set_install_status );
 
-		$_GET['page'] = 'elasticpress';
+		$_GET['page'] = 'wpprobe';
 
 		WPProbe\Installer::factory()->calculate_install_status();
 		WPProbe\Screen::factory()->determine_screen();
@@ -194,7 +194,7 @@ class TestScreen extends BaseTestCase {
 
 		add_filter( 'ep_install_status', $set_install_status );
 
-		$_GET['page'] = 'elasticpress';
+		$_GET['page'] = 'wpprobe';
 
 		WPProbe\Installer::factory()->calculate_install_status();
 		WPProbe\Screen::factory()->determine_screen();
@@ -215,7 +215,7 @@ class TestScreen extends BaseTestCase {
 
 		add_filter( 'ep_install_status', $set_install_status );
 
-		$_GET['page'] = 'elasticpress';
+		$_GET['page'] = 'wpprobe';
 
 		WPProbe\Installer::factory()->calculate_install_status();
 		WPProbe\Screen::factory()->determine_screen();
@@ -236,7 +236,7 @@ class TestScreen extends BaseTestCase {
 
 		add_filter( 'ep_install_status', $set_install_status );
 
-		$_GET['page']             = 'elasticpress';
+		$_GET['page']             = 'wpprobe';
 		$_GET['install_complete'] = 1;
 
 		WPProbe\Installer::factory()->calculate_install_status();
@@ -258,7 +258,7 @@ class TestScreen extends BaseTestCase {
 
 		add_filter( 'ep_install_status', $set_install_status );
 
-		$_GET['page']          = 'elasticpress';
+		$_GET['page']          = 'wpprobe';
 		$_GET['do_sync']       = 1;
 		$_GET['ep_sync_nonce'] = wp_create_nonce( 'ep_sync_nonce' );
 
