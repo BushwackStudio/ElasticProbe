@@ -31,7 +31,7 @@ describe('Post Search Feature - Synonyms Functionality', () => {
 				'Plugin',
 				'Extension',
 				'Module',
-				'ElasticPress',
+				'WPProbe',
 				'Safe Redirect Manager',
 				'Bandeirole',
 				'Flag',

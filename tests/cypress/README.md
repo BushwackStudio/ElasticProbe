@@ -1,6 +1,6 @@
-# ElasticPress End to End Tests
+# WPProbe End to End Tests
 
-ElasticPress e2e tests use [Cypress](https://www.cypress.io/), [wp-env](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/), and an Elasticsearch Docker container.
+WPProbe e2e tests use [Cypress](https://www.cypress.io/), [wp-env](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/), and an Elasticsearch Docker container.
 
 ## Requirements
 

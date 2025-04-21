@@ -5,7 +5,7 @@ describe('WordPress can perform standard WPProbe actions', { tags: '@slow' }, ()
 
 		cy.activatePlugin('elasticpress', 'dashboard');
 
-		cy.get('.toplevel_page_elasticpress .wp-menu-name').should('contain.text', 'ElasticPress');
+		cy.get('.toplevel_page_elasticpress .wp-menu-name').should('contain.text', 'WPProbe');
 	});
 
 	it('Can see quick setup message after enabling the plugin for the first time', () => {
@@ -15,7 +15,7 @@ describe('WordPress can perform standard WPProbe actions', { tags: '@slow' }, ()
 		cy.activatePlugin('fake-new-activation elasticpress', 'wpCli');
 
 		cy.visitAdminPage('/');
-		cy.get('.wrap').should('contain.text', 'ElasticPress is almost ready to go.');
+		cy.get('.wrap').should('contain.text', 'WPProbe is almost ready to go.');
 
 		cy.deactivatePlugin('fake-new-activation', 'wpCli');
 	});
@@ -37,19 +37,19 @@ describe('WordPress can perform standard WPProbe actions', { tags: '@slow' }, ()
 		cy.login();
 
 		cy.publishPost({
-			title: 'Test ElasticPress 1',
+			title: 'Test WPProbe 1',
 		});
 
-		cy.visit('/?s=Test+ElasticPress+1');
-		cy.contains('.site-content article h2', 'Test ElasticPress 1').should('exist');
+		cy.visit('/?s=Test+WPProbe+1');
+		cy.contains('.site-content article h2', 'Test WPProbe 1').should('exist');
 	});
 
 	it('Can see a warning in the dashboard if user activates plugin with an Elasticsearch version before or after min/max requirements.', () => {
 		cy.login();
 
-		cy.wpCli('eval "echo ElasticPress\\Utils\\get_host();"').then((epHost) => {
+		cy.wpCli('eval "echo WPProbe\\Utils\\get_host();"').then((epHost) => {
 			// Nothing needs to be done if EP.io.
-			if (epHost.stdout.match(/elasticpress\.io/)) {
+			if (epHost.stdout.match(/wpprobe\.com/)) {
 				return;
 			}
 
@@ -60,7 +60,7 @@ describe('WordPress can perform standard WPProbe actions', { tags: '@slow' }, ()
 			cy.get('.notice')
 				.invoke('text')
 				.then((text) => {
-					expect(text).to.contains('ElasticPress may or may not work properly.');
+					expect(text).to.contains('WPProbe may or may not work properly.');
 				});
 
 			cy.deactivatePlugin('unsupported-elasticsearch-version', 'wpCli');
