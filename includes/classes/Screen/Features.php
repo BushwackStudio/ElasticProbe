@@ -72,7 +72,7 @@ class Features {
 
 		$data = [
 			'apiUrl'        => rest_url( 'elasticpress/v1/features' ),
-			'epioLogoUrl'   => esc_url( plugins_url( '/images/logo-elasticpress-io.svg', EP_FILE ) ),
+			'epioLogoUrl'   => esc_url( plugins_url( '/images/logo-wpprobe-com.svg', EP_FILE ) ),
 			'features'      => $features,
 			'indexMeta'     => Utils\get_indexing_status(),
 			'settings'      => $store->get_feature_settings(),

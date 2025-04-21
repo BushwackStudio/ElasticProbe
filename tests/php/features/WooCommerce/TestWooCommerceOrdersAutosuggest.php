@@ -316,7 +316,7 @@ class TestWooCommerceOrdersAutosuggest extends BaseTestCase {
 	}
 
 	/**
-	 * Test the `is_enabled` method
+	 * Test the `is_enabled` method.
 	 *
 	 * @since 5.1.0
 	 * @group woocommerce
