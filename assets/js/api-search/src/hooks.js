@@ -50,7 +50,7 @@ export const useFetchResults = (
 		const requestId = generateRequestId(requestIdBase);
 
 		if (requestId) {
-			headers['X-ElasticPress-Request-ID'] = requestId;
+			headers['X-WPProbe-Request-ID'] = requestId;
 		}
 
 		request.current = fetch(url, {

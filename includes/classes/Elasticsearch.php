@@ -649,7 +649,7 @@ class Elasticsearch {
 
 		$request_id = Utils\generate_request_id();
 		if ( ! empty( $request_id ) ) {
-			$headers['X-ElasticPress-Request-ID'] = $request_id;
+			$headers['X-WPProbe-Request-ID'] = $request_id;
 		}
 
 		/**

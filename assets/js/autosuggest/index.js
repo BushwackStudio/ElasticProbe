@@ -234,7 +234,7 @@ async function esSearch(query, searchTerm) {
 	// only add a request ID if using ep.io endpoint
 	const requestId = generateRequestId(epas?.requestIdBase || '');
 	if (requestId) {
-		fetchOptions.headers['X-ElasticPress-Request-ID'] = requestId;
+		fetchOptions.headers['X-WPProbe-Request-ID'] = requestId;
 	}
 
 	try {

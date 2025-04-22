@@ -128,7 +128,7 @@ describe('Instant Results Feature', { tags: '@slow' }, () => {
 				cy.intercept({
 					url: '*search=blog*',
 					headers: {
-						'X-ElasticPress-Request-ID': /[0-9a-f]{32}$/,
+						'X-WPProbe-Request-ID': /[0-9a-f]{32}$/,
 					},
 				}).as('apiRequest');
 

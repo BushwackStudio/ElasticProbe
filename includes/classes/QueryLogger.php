@@ -296,8 +296,8 @@ class QueryLogger {
 			}
 		}
 
-		$request_id = ( ! empty( $query['args']['headers'] ) && ! empty( $query['args']['headers']['X-ElasticPress-Request-ID'] ) ) ?
-			$query['args']['headers']['X-ElasticPress-Request-ID'] :
+		$request_id = ( ! empty( $query['args']['headers'] ) && ! empty( $query['args']['headers']['X-WPProbe-Request-ID'] ) ) ?
+			$query['args']['headers']['X-WPProbe-Request-ID'] :
 			null;
 
 		$status = wp_remote_retrieve_response_code( $query['request'] );

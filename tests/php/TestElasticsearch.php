@@ -282,7 +282,7 @@ class TestElasticsearch extends BaseTestCase {
 
 		$this->assertCount( 2, $default_headers );
 		$this->assertSame( 'application/json', $default_headers['Content-Type'] );
-		$this->assertNotEmpty( $default_headers['X-ElasticPress-Request-ID'] );
+		$this->assertNotEmpty( $default_headers['X-WPProbe-Request-ID'] );
 
 		/**
 		 * Test the addition of `X-ElasticPress-API-Key` if `EP_API_KEY` is defined
@@ -303,11 +303,11 @@ class TestElasticsearch extends BaseTestCase {
 		$this->assertSame( 'Basic ' . base64_encode( 'custom_shield' ), $new_headers['Authorization'] ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 
 		/**
-		 * Test if an empty request ID removes `X-ElasticPress-Request-ID`
+		 * Test if an empty request ID removes `X-WPProbe-Request-ID`
 		 */
 		add_filter( 'ep_request_id', '__return_empty_string' );
 		$new_headers = WPProbe\Elasticsearch::factory()->format_request_headers();
-		$this->assertArrayNotHasKey( 'X-ElasticPress-Request-ID', $new_headers );
+		$this->assertArrayNotHasKey( 'X-WPProbe-Request-ID', $new_headers );
 
 		/**
 		 * Test the `ep_format_request_headers` filter
