@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       WPProbe
  * Plugin URI:        https://github.com/BushwackStudio/WpProbe
- * Description:       A fast and flexible search and query engine for WordPress.
+ * Description:       Supercharge your wordPress search with ElasticSearch® precision.
  * Version:           0.1.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
@@ -108,7 +108,7 @@ spl_autoload_register(
  * @since  2.2
  */
 define( 'EP_ES_VERSION_MAX', '8.99' );
-define( 'EP_ES_VERSION_MIN', '5.2' );
+define( 'EP_ES_VERSION_MIN', '7.0' );
 
 require_once __DIR__ . '/includes/compat.php';
 require_once __DIR__ . '/includes/utils.php';
@@ -308,7 +308,7 @@ function setup_roles() {
 register_activation_hook( __FILE__, __NAMESPACE__ . '\setup_roles' );
 
 /**
- * Fires after Elasticpress plugin is loaded
+ * Fires after WPProbe plugin is loaded
  *
  * @since  2.0
  * @hook elasticpress_loaded

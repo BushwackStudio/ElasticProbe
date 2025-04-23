@@ -2,7 +2,7 @@
   "name": "wpprobe",
   "version": "0.1.0",
   "license": "GPL-2.0-or-later",
-  "description": "A fast and flexible search and query engine for WordPress.",
+  "description": "Supercharge your wordPress search with ElasticSearch® precision.",
   "dependencies": {
     "@10up/component-tooltip": "^2.0.0",
     "@hello-pangea/dnd": "^18.0.1",

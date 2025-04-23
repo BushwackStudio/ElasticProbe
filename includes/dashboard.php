@@ -284,7 +284,7 @@ function filter_plugin_action_links( $plugin_actions, $plugin_file ) {
 
 	$new_actions = [];
 
-	if ( basename( EP_PATH ) . '/elasticpress.php' === $plugin_file ) {
+	if ( basename( EP_PATH ) . '/wpprobe.php' === $plugin_file ) {
 		$new_actions['ep_dashboard'] = sprintf( '<a href="%s">%s</a>', esc_url( $url ), __( 'Dashboard', 'wpprobe' ) );
 	}
 
