@@ -9,13 +9,13 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-04-12T08:11:33+00:00\n"
+"POT-Creation-Date: 2025-04-23T08:36:59+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: wpprobe\n"
 
 #. Plugin Name of the plugin
-#: elasticpress.php
+#: wpprobe.php
 #: includes/classes/ElasticsearchErrorInterpreter.php:93
 #: includes/classes/HealthCheck/HealthCheckElasticsearch.php:44
 #: includes/classes/StatusReport/ElasticPress.php:28
@@ -23,28 +23,23 @@ msgid "WPProbe"
 msgstr ""
 
 #. Plugin URI of the plugin
-#: elasticpress.php
+#: wpprobe.php
 msgid "https://github.com/BushwackStudio/WpProbe"
 msgstr ""
 
 #. Description of the plugin
-#: elasticpress.php
-msgid "A fast and flexible search and query engine for WordPress."
+#: wpprobe.php
+msgid "Supercharge your wordPress search with ElasticSearch® precision."
 msgstr ""
 
 #. Author of the plugin
-#: elasticpress.php
+#: wpprobe.php
 msgid "BushwackStudio"
 msgstr ""
 
 #. Author URI of the plugin
-#: elasticpress.php
+#: wpprobe.php
 msgid "https://github.com/orgs/BushwackStudio"
-msgstr ""
-
-#. translators: %s: Minimum required PHP version
-#: elasticpress.php:52
-msgid "WPProbe requires PHP version %s or later. Please upgrade PHP or disable the plugin."
 msgstr ""
 
 #: includes/classes/AdminNotices.php:120
@@ -420,15 +415,15 @@ msgstr ""
 msgid "Error while getting the index settings."
 msgstr ""
 
-#: includes/classes/Elasticsearch.php:1409
+#: includes/classes/Elasticsearch.php:1411
 msgid "Site not indexed. <p>Please run: <code>wp elasticpress index --setup --network-wide</code> using WP-CLI. Or use the index button on the left of this screen.</p>"
 msgstr ""
 
-#: includes/classes/Elasticsearch.php:1412
+#: includes/classes/Elasticsearch.php:1414
 msgid "Site not indexed. <p>Please run: <code>wp elasticpress index --setup</code> using WP-CLI. Or use the index button on the left of this screen.</p>"
 msgstr ""
 
-#: includes/classes/Elasticsearch.php:1595
+#: includes/classes/Elasticsearch.php:1597
 msgid "Elasticsearch Host is not available."
 msgstr ""
 
@@ -1567,7 +1562,7 @@ msgstr ""
 
 #. translators: 1: <a> tag (WPProbe.com); 2. </a>; 3: <a> tag (KB article); 4. </a>;
 #: includes/classes/Feature/WooCommerce/OrdersAutosuggest.php:658
-msgid "You are directly connected to %1$WPProbe.com%2$s! Enable autosuggest for Orders to enhance Dashboard results and quickly find WooCommerce Orders. %3$sLearn More%4$s."
+msgid "You are directly connected to %1$sWPProbe.com%2$s! Enable autosuggest for Orders to enhance Dashboard results and quickly find WooCommerce Orders. %3$sLearn More%4$s."
 msgstr ""
 
 #: includes/classes/Feature/WooCommerce/OrdersAutosuggest.php:670
@@ -2479,6 +2474,11 @@ msgstr ""
 #. translators: %s: Sync page link.
 #: includes/partials/stats-page.php:105
 msgid "We could not find any data for your Elasticsearch indices. Maybe you need to %s?"
+msgstr ""
+
+#. translators: %s: Minimum required PHP version
+#: wpprobe.php:52
+msgid "WPProbe requires PHP version %s or later. Please upgrade PHP or disable the plugin."
 msgstr ""
 
 #. translators: Error message

@@ -2,11 +2,11 @@ name: "WordPress version checker"
 on:
   push:
     branches:
-      - develop
+      - dev
       - trunk
   pull_request:
     branches:
-      - develop
+      - dev
   schedule:
     - cron: '0 0 * * 1'
 

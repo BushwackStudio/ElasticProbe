@@ -6,7 +6,7 @@ env:
 on:
   pull_request:
     branches:
-      - develop
+      - dev
       - '[0-9].[0-9x]*' # Version branches: 4.x.x, 4.1.x, 5.x
 
 jobs:
