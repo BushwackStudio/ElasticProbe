@@ -9,11 +9,11 @@ on:
     - cron:  '0 0 * * *'
   push:
     branches:
-      - develop
+      - dev
       - trunk
   pull_request:
     branches:
-      - develop
+      - dev
       - '[0-9].[0-9x]*' # Version branches: 4.x.x, 4.1.x, 5.x
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        esVersion: ['7.10.1', '8.12.2']
+        esVersion: ['7.10.1', '8.17.5']
         type:
          - {name: 'Single Site', command: 'test-single-site'}
          - {name: 'Multisite', command: 'test'}

@@ -46,7 +46,7 @@ Open a [new blank issue](https://github.com/BushwackStudio/WpProbe/issues/new) w
   * **Release title**: `Version X.Y.Z`
   * **Description**: Release changelog from `CHANGELOG.md` + `See: https://github.com/BushwackStudio/WpProbe/milestone/#?closed=1`
 - [ ] 15. SVN: Wait for the [GitHub Action](https://github.com/BushwackStudio/WpProbe/actions/workflows/push-deploy.yml) to finish deploying to the WordPress.org repository. If all goes well, users with SVN commit access for that plugin will receive an emailed diff of changes.
-- [ ] 16. Check WordPress.org: Ensure that the changes are live on https://wordpress.org/plugins/elasticpress/. This may take a few minutes.
+- [ ] 16. Check WordPress.org: Ensure that the changes are live on https://wordpress.org/plugins/wpprobe/. This may take a few minutes.
 - [ ] 17. Close milestone: Edit the [milestone](https://github.com/BushwackStudio/WpProbe/milestone/#) with release date (in the `Due date (optional)` field) and link to GitHub release (in the `Description` field), then close the milestone.
 - [ ] 18. Punt incomplete items: If any open issues or PRs which were milestoned for `X.Y.Z` do not make it into the release, update their milestone to `X.Y.Z+1`, `X.Y+1.0`, `X+1.0.0` or `Future Release`
 
