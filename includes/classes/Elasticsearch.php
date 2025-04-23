@@ -1408,10 +1408,10 @@ class Elasticsearch {
 
 			if ( is_multisite() ) {
 
-				$error = __( 'Site not indexed. <p>Please run: <code>wp elasticpress index --setup --network-wide</code> using WP-CLI. Or use the index button on the left of this screen.</p>', 'wpprobe' );
+				$error = __( 'Site not indexed. <p>Please run: <code>wp wpprobe index --setup --network-wide</code> using WP-CLI. Or use the index button on the left of this screen.</p>', 'wpprobe' );
 			} else {
 
-				$error = __( 'Site not indexed. <p>Please run: <code>wp elasticpress index --setup</code> using WP-CLI. Or use the index button on the left of this screen.</p>', 'wpprobe' );
+				$error = __( 'Site not indexed. <p>Please run: <code>wp wpprobe index --setup</code> using WP-CLI. Or use the index button on the left of this screen.</p>', 'wpprobe' );
 			}
 
 			return array(
