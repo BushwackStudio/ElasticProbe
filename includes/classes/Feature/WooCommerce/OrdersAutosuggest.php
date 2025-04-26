@@ -671,7 +671,7 @@ class OrdersAutosuggest {
 		}
 
 		/* translators: 1: <a> tag (WPProbe.com); 2. </a>; 3: <a> tag (KB article); 4. </a>; */
-		$message = __( 'Due to the sensitive nature of orders, this autosuggest feature is available only to %1$WPProbe.com%2$s customers. %3$sLearn More%4$s.', 'wpprobe' );
+		$message = __( 'Due to the sensitive nature of orders, this autosuggest feature is available only to %1$sWPProbe.com%2$s customers. %3$sLearn More%4$s.', 'wpprobe' );
 
 		$message = sprintf(
 			wp_kses( $message, 'ep-html' ),
