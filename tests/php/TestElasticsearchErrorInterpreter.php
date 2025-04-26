@@ -24,7 +24,7 @@ class TestElasticsearchErrorInterpreter extends BaseTestCase {
 		$error_interpreter = new ElasticsearchErrorInterpreter();
 
 		$error     = 'Not set';
-		$solution  = 'We did not recognize this error. Please consider opening a <a href="https://github.com/10up/ElasticPress/issues/new/choose">GitHub Issue</a> so we can add it to our list of supported errors.';
+		$solution  = 'We did not recognize this error. Please consider opening a <a href="https://github.com/BushwackStudio/WpProbe/issues/new/choose">GitHub Issue</a> so we can add it to our list of supported errors.';
 		$suggested = $error_interpreter->maybe_suggest_solution_for_es( $error );
 
 		$this->assertSame( $error, $suggested['error'] );

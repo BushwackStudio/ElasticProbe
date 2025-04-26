@@ -119,10 +119,11 @@ class TestStats extends BaseTestCase {
 
 		Stats::factory()->build_stats( true );
 		$failed_queries = Stats::factory()->get_failed_queries();
+		$prefix = WPProbe\Utils\get_index_prefix();
 		$this->assertSame(
 			[
 				[
-					'path'  => '_stats?format=json',
+					'path'  => $prefix . '*/_stats?format=json',
 					'error' => 'Message',
 				],
 			],
@@ -148,10 +149,11 @@ class TestStats extends BaseTestCase {
 
 		Stats::factory()->build_stats( true );
 		$failed_queries = Stats::factory()->get_failed_queries();
+		$prefix = WPProbe\Utils\get_index_prefix();
 		$this->assertSame(
 			[
 				[
-					'path'  => '_stats?format=json',
+					'path'  => $prefix . '*/_stats?format=json',
 					'error' => '["some error data"]',
 				],
 			],
