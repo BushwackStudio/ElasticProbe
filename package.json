@@ -1,6 +1,6 @@
 {
   "name": "wpprobe",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "GPL-2.0-or-later",
   "description": "Supercharge your wordPress search with ElasticSearch® precision.",
   "dependencies": {
