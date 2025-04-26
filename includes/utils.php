@@ -276,7 +276,7 @@ function get_host() {
 	if ( defined( 'EP_HOST' ) && EP_HOST ) {
 		$host = EP_HOST;
 	} else {
-		$host = 'https://gateway.wpprobe.com';
+		$host = get_option( 'ep_host', false );
 	}
 
 	/**
