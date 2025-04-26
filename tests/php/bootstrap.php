@@ -52,7 +52,7 @@ function load_plugin() {
 	}
 
 	include_once __DIR__ . '/../../vendor/woocommerce/woocommerce.php';
-	require_once __DIR__ . '/../../elasticpress.php';
+	require_once __DIR__ . '/../../wpprobe.php';
 
 	add_filter( 'ep_default_index_number_of_shards', __NAMESPACE__ . '\test_shard_number' );
 
