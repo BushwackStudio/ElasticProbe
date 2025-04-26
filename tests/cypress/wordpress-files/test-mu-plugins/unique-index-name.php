@@ -80,4 +80,4 @@ function ep_tests_delete_all_indices() {
 		\WPProbe\Elasticsearch::factory()->delete_index( $index['index'] );
 	}
 }
-WP_CLI::add_command( 'elasticpress-tests delete-all-indices', 'ep_tests_delete_all_indices' );
+WP_CLI::add_command( 'wpprobe-tests delete-all-indices', 'ep_tests_delete_all_indices' );
