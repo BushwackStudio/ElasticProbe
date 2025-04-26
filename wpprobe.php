@@ -3,7 +3,7 @@
  * Plugin Name:       WPProbe
  * Plugin URI:        https://github.com/BushwackStudio/WpProbe
  * Description:       Supercharge your WordPress search with ElasticSearch® precision.
- * Version:           0.1.0
+ * Version:           0.1.1
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            BushwackStudio
