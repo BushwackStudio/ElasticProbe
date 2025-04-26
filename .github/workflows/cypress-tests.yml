@@ -166,7 +166,7 @@ jobs:
       run: npm run build
 
     - name: Set up database
-      run: npm run cypress:setup -- --ep-host=${{ secrets.WPPROBE_HOST }} --es-shield='${{ secrets.WPPROBE_SHIELD }}' --ep-index-prefix=${{ secrets.WPPROBE_INDEX_PREFIX }} --wp-version=${{ matrix.core.version }} --wc-version=${{ matrix.core.wcVersion }}
+      run: npm run cypress:setup -- --ep-host=${{ secrets.WPPROBE_HOST }} --es-shield='${{ secrets.WPPROBE_SHIELD }}' --ep-index-prefix=${{ secrets.WPPROBE_INDEX_PREFIX }} --probe-sid=${{ secrets.WPPROBE_SID }} --wp-version=${{ matrix.core.version }} --wc-version=${{ matrix.core.wcVersion }}
 
     - name: Test
       run: npm run cypress:run -- --env grepTags=${{ matrix.testGroup }}

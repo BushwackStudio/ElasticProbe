@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       WPProbe
  * Plugin URI:        https://github.com/BushwackStudio/WpProbe
- * Description:       Supercharge your wordPress search with ElasticSearch® precision.
+ * Description:       Supercharge your WordPress search with ElasticSearch® precision.
  * Version:           0.1.0
  * Requires at least: 6.0
  * Requires PHP:      7.4

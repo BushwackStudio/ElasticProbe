@@ -20,6 +20,9 @@ for opt in "$@"; do
     -u=*|--ep-index-prefix=*)
       EP_INDEX_PREFIX="${opt#*=}"
       ;;
+    -i=*|--probe-sid=*)
+      WPP_SID="${opt#*=}"
+      ;;
     -wp=*|--wp-version=*)
       WP_VERSION="${opt#*=}"
       ;;
@@ -42,6 +45,7 @@ if [ $DISPLAY_HELP -eq 1 ]; then
 	echo "-h=*, --ep-host=*             The remote Elasticsearch Host URL."
 	echo "-s=*, --es-shield=*           The Elasticsearch credentials, used in the ES_SHIELD constant."
 	echo "-u=*, --ep-index-prefix=*     The Elasticsearch credentials, used in the EP_INDEX_PREFIX constant."
+	echo "-i=*, --probe-sid=*           The WPProbe subscription id, used in the PROBE_SID constant."
 	echo "-W=*, --wp-version=*          WordPress Core version."
 	echo "-w=*, --wc-version=*          WooCommerce version."
 	echo "-h|--help                     Display this help screen"
@@ -88,6 +92,10 @@ fi
 
 if [ ! -z $EP_INDEX_PREFIX ]; then
 	./bin/wp-env-cli tests-wordpress "wp --allow-root config set EP_INDEX_PREFIX ${EP_INDEX_PREFIX}"
+fi
+
+if [ ! -z $WPP_SID ]; then
+	./bin/wp-env-cli tests-wordpress "wp --allow-root config set PROBE_SID ${WPP_SID}"
 fi
 
 ./bin/wp-env-cli tests-wordpress "wp --allow-root core multisite-convert"
