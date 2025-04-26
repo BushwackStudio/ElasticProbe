@@ -3,10 +3,10 @@
  * Search comments widget
  *
  * @since  3.6.0
- * @package  elasticpress
+ * @package  wpprobe
  */
 
-namespace ElasticPress\Feature\Comments;
+namespace WPProbe\Feature\Comments;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -24,11 +24,11 @@ class Widget extends \WP_Widget {
 	 */
 	public function __construct() {
 		$options = array(
-			'description'           => esc_html__( 'A search form for comments.', 'elasticpress' ),
+			'description'           => esc_html__( 'A search form for comments.', 'wpprobe' ),
 			'show_instance_in_rest' => true,
 		);
 
-		parent::__construct( 'ep-comments', esc_html__( 'ElasticPress - Comments', 'elasticpress' ), $options );
+		parent::__construct( 'ep-comments', esc_html__( 'WPProbe - Comments', 'wpprobe' ), $options );
 	}
 
 	/**
@@ -102,14 +102,14 @@ class Widget extends \WP_Widget {
 		?>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
-				<?php esc_html_e( 'Title:', 'elasticpress' ); ?>
+				<?php esc_html_e( 'Title:', 'wpprobe' ); ?>
 			</label>
 
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'post_type' ) ); ?>">
-				<?php esc_html_e( 'Search for comments on:', 'elasticpress' ); ?>
+				<?php esc_html_e( 'Search for comments on:', 'wpprobe' ); ?>
 			</label>
 
 			<?php foreach ( $post_types_options as $indexable_post_type => $label ) : ?>

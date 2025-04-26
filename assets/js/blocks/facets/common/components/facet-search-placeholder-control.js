@@ -16,7 +16,7 @@ import { __ } from '@wordpress/i18n';
 export default ({ onChange, value }) => {
 	return (
 		<TextControl
-			label={__('Search field placeholder', 'elasticpress')}
+			label={__('Search field placeholder', 'wpprobe')}
 			value={value}
 			onChange={onChange}
 			__nextHasNoMarginBottom

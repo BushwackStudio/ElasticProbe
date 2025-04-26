@@ -2,12 +2,12 @@
 /**
  * Test meta facet type feature
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress\Features;
+use WPProbe\Features;
 
 /**
  * Facets\Types\Taxonomy\FacetType test class
@@ -24,8 +24,8 @@ class TestFacetTypeMeta extends BaseTestCase {
 		 * NOTE: This can be removed after the meta facet type is made available.
 		 */
 		$facet_feature = Features::factory()->get_registered_feature( 'facets' );
-		if ( ! isset( $facet_feature->types['meta'] ) && class_exists( '\ElasticPress\Feature\Facets\Types\Meta\FacetType' ) ) {
-			$facet_feature->types['meta'] = new \ElasticPress\Feature\Facets\Types\Meta\FacetType();
+		if ( ! isset( $facet_feature->types['meta'] ) && class_exists( '\WPProbe\Feature\Facets\Types\Meta\FacetType' ) ) {
+			$facet_feature->types['meta'] = new \WPProbe\Feature\Facets\Types\Meta\FacetType();
 			$facet_feature->types['meta']->setup();
 		}
 
@@ -163,7 +163,7 @@ class TestFacetTypeMeta extends BaseTestCase {
 		$this->ep_factory->post->create( array( 'meta_input' => array( 'new_meta_key_2' => 'lorem' ) ) );
 		$this->ep_factory->post->create( array( 'meta_input' => array( 'new_meta_key_2' => 'ipsum' ) ) );
 
-		\ElasticPress\Elasticsearch::factory()->refresh_indices();
+		\WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		/**
 		 * Test default behavior
@@ -365,9 +365,9 @@ class TestFacetTypeMeta extends BaseTestCase {
 		$expected_result = sanitize_text_field( $test_meta );
 		$this->assertArrayHasKey( $expected_result, $selected['meta']['new_meta_key_1']['terms'] );
 
-		$sanitize_function = function ( $function ) {
+		$sanitize_function = function ( $callback ) {
 
-			$this->assertSame( 'sanitize_text_field', $function );
+			$this->assertSame( 'sanitize_text_field', $callback );
 
 			return 'sanitize_title';
 		};

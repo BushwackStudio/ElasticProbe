@@ -1,22 +1,22 @@
 <?php
 /**
- * WP-CLI command for ElasticPress
+ * WP-CLI command for WPProbe
  *
  * phpcs:disable WordPress.WP.I18n.MissingTranslatorsComment
  *
  * @since  3.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress;
+namespace WPProbe;
 
 use WP_CLI_Command;
 use WP_CLI;
-use ElasticPress\Features;
-use ElasticPress\Utils;
-use ElasticPress\Elasticsearch;
-use ElasticPress\Indexables;
-use ElasticPress\Command\Utility;
+use WPProbe\Features;
+use WPProbe\Utils;
+use WPProbe\Elasticsearch;
+use WPProbe\Indexables;
+use WPProbe\Command\Utility;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	// @codeCoverageIgnoreStart
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * CLI Commands for ElasticPress
+ * CLI Commands for WPProbe
  */
 class Command extends WP_CLI_Command {
 
@@ -96,30 +96,30 @@ class Command extends WP_CLI_Command {
 		$feature = Features::factory()->get_registered_feature( $args[0] );
 
 		if ( empty( $feature ) ) {
-			WP_CLI::error( esc_html__( 'No feature with that slug is registered', 'elasticpress' ) );
+			WP_CLI::error( esc_html__( 'No feature with that slug is registered', 'wpprobe' ) );
 		}
 
 		if ( $feature->is_active() ) {
-			WP_CLI::error( esc_html__( 'This feature is already active', 'elasticpress' ) );
+			WP_CLI::error( esc_html__( 'This feature is already active', 'wpprobe' ) );
 		}
 
 		$status = $feature->requirements_status();
 
 		if ( 2 === $status->code ) {
 			/* translators: Error message */
-			WP_CLI::error( sprintf( esc_html__( 'Feature requirements are not met: %s', 'elasticpress' ), implode( "\n\n", (array) $status->message ) ) );
+			WP_CLI::error( sprintf( esc_html__( 'Feature requirements are not met: %s', 'wpprobe' ), implode( "\n\n", (array) $status->message ) ) );
 		} elseif ( 1 === $status->code ) {
 			/* translators: Warning message */
-			WP_CLI::warning( sprintf( esc_html__( 'Feature is usable but there are warnings: %s', 'elasticpress' ), implode( "\n\n", (array) $status->message ) ) );
+			WP_CLI::warning( sprintf( esc_html__( 'Feature is usable but there are warnings: %s', 'wpprobe' ), implode( "\n\n", (array) $status->message ) ) );
 		}
 
 		Features::factory()->activate_feature( $feature->slug );
 
 		if ( $feature->requires_install_reindex ) {
-			WP_CLI::warning( esc_html__( 'This feature requires a re-index. You may want to run the index command next.', 'elasticpress' ) );
+			WP_CLI::warning( esc_html__( 'This feature requires a re-index. You may want to run the index command next.', 'wpprobe' ) );
 		}
 
-		WP_CLI::success( esc_html__( 'Feature activated', 'elasticpress' ) );
+		WP_CLI::success( esc_html__( 'Feature activated', 'wpprobe' ) );
 	}
 
 	/**
@@ -141,7 +141,7 @@ class Command extends WP_CLI_Command {
 		$feature = Features::factory()->get_registered_feature( $args[0] );
 
 		if ( empty( $feature ) ) {
-			WP_CLI::error( esc_html__( 'No feature with that slug is registered', 'elasticpress' ) );
+			WP_CLI::error( esc_html__( 'No feature with that slug is registered', 'wpprobe' ) );
 		}
 
 		$active_features       = (array) Features::factory()->get_feature_settings();
@@ -154,12 +154,12 @@ class Command extends WP_CLI_Command {
 		$in_draft   = false !== $key_draft && ! empty( $active_features_draft[ $feature->slug ]['active'] );
 
 		if ( ! $in_current && ! $in_draft ) {
-			WP_CLI::error( esc_html__( 'Feature is not active', 'elasticpress' ) );
+			WP_CLI::error( esc_html__( 'Feature is not active', 'wpprobe' ) );
 		}
 
 		Features::factory()->deactivate_feature( $feature->slug );
 
-		WP_CLI::success( esc_html__( 'Feature deactivated', 'elasticpress' ) );
+		WP_CLI::success( esc_html__( 'Feature deactivated', 'wpprobe' ) );
 	}
 
 	/**
@@ -181,7 +181,7 @@ class Command extends WP_CLI_Command {
 		if ( empty( $list_all ) ) {
 			$features = Features::factory()->get_feature_settings();
 
-			WP_CLI::line( esc_html__( 'Active features:', 'elasticpress' ) );
+			WP_CLI::line( esc_html__( 'Active features:', 'wpprobe' ) );
 
 			foreach ( array_keys( $features ) as $feature_slug ) {
 				$feature = Features::factory()->get_registered_feature( $feature_slug );
@@ -191,7 +191,7 @@ class Command extends WP_CLI_Command {
 				}
 			}
 		} else {
-			WP_CLI::line( esc_html__( 'Registered features:', 'elasticpress' ) );
+			WP_CLI::line( esc_html__( 'Registered features:', 'wpprobe' ) );
 			$features = wp_list_pluck( Features::factory()->registered_features, 'slug' );
 
 			foreach ( $features as $feature ) {
@@ -217,7 +217,7 @@ class Command extends WP_CLI_Command {
 	 * : Custom Elasticsearch host
 	 *
 	 * [--ep-prefix=<prefix>]
-	 * : Custom ElasticPress prefix
+	 * : Custom WPProbe prefix
 	 *
 	 * @subcommand put-mapping
 	 * @since      0.9
@@ -269,7 +269,7 @@ class Command extends WP_CLI_Command {
 					}
 
 					/* translators: 1. Indexable; 2. Site ID */
-					WP_CLI::line( sprintf( esc_html__( 'Adding %1$s mapping for site %2$d…', 'elasticpress' ), esc_html( strtolower( $indexable->labels['singular'] ) ), (int) $site['blog_id'] ) );
+					WP_CLI::line( sprintf( esc_html__( 'Adding %1$s mapping for site %2$d…', 'wpprobe' ), esc_html( strtolower( $indexable->labels['singular'] ) ), (int) $site['blog_id'] ) );
 
 					$indexable->delete_index();
 					$result = $indexable->put_mapping( 'raw' );
@@ -285,12 +285,12 @@ class Command extends WP_CLI_Command {
 					do_action( 'ep_cli_put_mapping', $indexable, $args, $assoc_args );
 
 					if ( ! is_wp_error( $result ) ) {
-						WP_CLI::success( esc_html__( 'Mapping sent', 'elasticpress' ) );
+						WP_CLI::success( esc_html__( 'Mapping sent', 'wpprobe' ) );
 					} else {
 						WP_CLI::error(
 							sprintf(
 								/* translators: Error message */
-								esc_html__( 'Mapping failed: %s', 'elasticpress' ),
+								esc_html__( 'Mapping failed: %s', 'wpprobe' ),
 								Utils\get_elasticsearch_error_reason( $result->get_error_message() )
 							)
 						);
@@ -309,7 +309,7 @@ class Command extends WP_CLI_Command {
 				}
 
 				/* translators: Indexable label */
-				WP_CLI::line( sprintf( esc_html__( 'Adding %s mapping…', 'elasticpress' ), esc_html( strtolower( $indexable->labels['singular'] ) ) ) );
+				WP_CLI::line( sprintf( esc_html__( 'Adding %s mapping…', 'wpprobe' ), esc_html( strtolower( $indexable->labels['singular'] ) ) ) );
 
 				$indexable->delete_index();
 				$result = $indexable->put_mapping( 'raw' );
@@ -325,12 +325,12 @@ class Command extends WP_CLI_Command {
 				do_action( 'ep_cli_put_mapping', $indexable, $args, $assoc_args );
 
 				if ( ! is_wp_error( $result ) ) {
-					WP_CLI::success( esc_html__( 'Mapping sent', 'elasticpress' ) );
+					WP_CLI::success( esc_html__( 'Mapping sent', 'wpprobe' ) );
 				} else {
 					WP_CLI::error(
 						sprintf(
 							/* translators: Error message */
-							esc_html__( 'Mapping failed: %s', 'elasticpress' ),
+							esc_html__( 'Mapping failed: %s', 'wpprobe' ),
 							Utils\get_elasticsearch_error_reason( $result->get_error_message() )
 						)
 					);
@@ -350,7 +350,7 @@ class Command extends WP_CLI_Command {
 			}
 
 			/* translators: Indexable label */
-			WP_CLI::line( sprintf( esc_html__( 'Adding %s mapping…', 'elasticpress' ), esc_html( strtolower( $indexable->labels['singular'] ) ) ) );
+			WP_CLI::line( sprintf( esc_html__( 'Adding %s mapping…', 'wpprobe' ), esc_html( strtolower( $indexable->labels['singular'] ) ) ) );
 
 			$indexable->delete_index();
 			$result = $indexable->put_mapping( 'raw' );
@@ -366,12 +366,12 @@ class Command extends WP_CLI_Command {
 			do_action( 'ep_cli_put_mapping', $indexable, $args, $assoc_args );
 
 			if ( ! is_wp_error( $result ) ) {
-				WP_CLI::success( esc_html__( 'Mapping sent', 'elasticpress' ) );
+				WP_CLI::success( esc_html__( 'Mapping sent', 'wpprobe' ) );
 			} else {
 				WP_CLI::error(
 					sprintf(
 						/* translators: Error message */
-						esc_html__( 'Mapping failed: %s', 'elasticpress' ),
+						esc_html__( 'Mapping failed: %s', 'wpprobe' ),
 						Utils\get_elasticsearch_error_reason( $result->get_error_message() )
 					)
 				);
@@ -492,16 +492,16 @@ class Command extends WP_CLI_Command {
 		$this->connect_check();
 		$this->index_occurring();
 
-		WP_CLI::confirm( esc_html__( 'Are you sure you want to delete your Elasticsearch index?', 'elasticpress' ), $assoc_args );
+		WP_CLI::confirm( esc_html__( 'Are you sure you want to delete your Elasticsearch index?', 'wpprobe' ), $assoc_args );
 
 		// If index name is specified, just delete it and end the command.
 		if ( ! empty( $assoc_args['index-name'] ) ) {
 			$result = Elasticsearch::factory()->delete_index( $assoc_args['index-name'] );
 
 			if ( $result ) {
-				WP_CLI::success( esc_html__( 'Index deleted', 'elasticpress' ) );
+				WP_CLI::success( esc_html__( 'Index deleted', 'wpprobe' ) );
 			} else {
-				WP_CLI::error( esc_html__( 'Index delete failed', 'elasticpress' ) );
+				WP_CLI::error( esc_html__( 'Index delete failed', 'wpprobe' ) );
 			}
 
 			return;
@@ -521,14 +521,14 @@ class Command extends WP_CLI_Command {
 
 				foreach ( $non_global_indexable_objects as $indexable ) {
 					/* translators: 1. Indexable label; 2. Site ID */
-					WP_CLI::line( sprintf( esc_html__( 'Deleting %1$s index for site %2$d…', 'elasticpress' ), esc_html( strtolower( $indexable->labels['singular'] ) ), (int) $site['blog_id'] ) );
+					WP_CLI::line( sprintf( esc_html__( 'Deleting %1$s index for site %2$d…', 'wpprobe' ), esc_html( strtolower( $indexable->labels['singular'] ) ), (int) $site['blog_id'] ) );
 
 					$result = $indexable->delete_index();
 
 					if ( $result ) {
-						WP_CLI::success( esc_html__( 'Index deleted', 'elasticpress' ) );
+						WP_CLI::success( esc_html__( 'Index deleted', 'wpprobe' ) );
 					} else {
-						WP_CLI::error( esc_html__( 'Delete index failed', 'elasticpress' ) );
+						WP_CLI::error( esc_html__( 'Delete index failed', 'wpprobe' ) );
 					}
 				}
 
@@ -537,28 +537,28 @@ class Command extends WP_CLI_Command {
 		} else {
 			foreach ( $non_global_indexable_objects as $indexable ) {
 				/* translators: Index Label (plural) */
-				WP_CLI::line( sprintf( esc_html__( 'Deleting index for %s…', 'elasticpress' ), esc_html( strtolower( $indexable->labels['plural'] ) ) ) );
+				WP_CLI::line( sprintf( esc_html__( 'Deleting index for %s…', 'wpprobe' ), esc_html( strtolower( $indexable->labels['plural'] ) ) ) );
 
 				$result = $indexable->delete_index();
 
 				if ( $result ) {
-					WP_CLI::success( esc_html__( 'Index deleted', 'elasticpress' ) );
+					WP_CLI::success( esc_html__( 'Index deleted', 'wpprobe' ) );
 				} else {
-					WP_CLI::error( esc_html__( 'Index delete failed', 'elasticpress' ) );
+					WP_CLI::error( esc_html__( 'Index delete failed', 'wpprobe' ) );
 				}
 			}
 		}
 
 		foreach ( $global_indexable_objects as $indexable ) {
 			/* translators: Index Label (plural) */
-			WP_CLI::line( sprintf( esc_html__( 'Deleting index for %s…', 'elasticpress' ), esc_html( strtolower( $indexable->labels['plural'] ) ) ) );
+			WP_CLI::line( sprintf( esc_html__( 'Deleting index for %s…', 'wpprobe' ), esc_html( strtolower( $indexable->labels['plural'] ) ) ) );
 
 			$result = $indexable->delete_index();
 
 			if ( $result ) {
-				WP_CLI::success( esc_html__( 'Index deleted', 'elasticpress' ) );
+				WP_CLI::success( esc_html__( 'Index deleted', 'wpprobe' ) );
 			} else {
-				WP_CLI::error( esc_html__( 'Index delete failed', 'elasticpress' ) );
+				WP_CLI::error( esc_html__( 'Index delete failed', 'wpprobe' ) );
 			}
 		}
 	}
@@ -578,23 +578,23 @@ class Command extends WP_CLI_Command {
 		$this->index_occurring();
 
 		if ( ! defined( 'EP_IS_NETWORK' ) || ! EP_IS_NETWORK ) {
-			WP_CLI::error( esc_html__( 'ElasticPress is not network activated.', 'elasticpress' ) );
+			WP_CLI::error( esc_html__( 'WPProbe is not network activated.', 'wpprobe' ) );
 		}
 
 		$indexables = Indexables::factory()->get_all( false );
 
 		foreach ( $indexables as $indexable ) {
 			/* translators: Index Label */
-			WP_CLI::line( sprintf( esc_html__( 'Recreating %s network alias…', 'elasticpress' ), esc_html( strtolower( $indexable->labels['singular'] ) ) ) );
+			WP_CLI::line( sprintf( esc_html__( 'Recreating %s network alias…', 'wpprobe' ), esc_html( strtolower( $indexable->labels['singular'] ) ) ) );
 
 			$indexable->delete_network_alias();
 
 			$create_result = $this->create_network_alias_helper( $indexable );
 
 			if ( $create_result ) {
-				WP_CLI::success( esc_html__( 'Done.', 'elasticpress' ) );
+				WP_CLI::success( esc_html__( 'Done.', 'wpprobe' ) );
 			} else {
-				WP_CLI::error( esc_html__( 'An error occurred', 'elasticpress' ) );
+				WP_CLI::error( esc_html__( 'An error occurred', 'wpprobe' ) );
 			}
 		}
 	}
@@ -611,14 +611,14 @@ class Command extends WP_CLI_Command {
 		$autosuggest_feature = Features::factory()->get_registered_feature( 'autosuggest' );
 
 		if ( empty( $autosuggest_feature ) || ! $autosuggest_feature->is_active() ) {
-			WP_CLI::error( esc_html__( 'Autosuggest is not enabled.', 'elasticpress' ) );
+			WP_CLI::error( esc_html__( 'Autosuggest is not enabled.', 'wpprobe' ) );
 		}
 
 		add_action( 'ep_epio_wp_cli_set_autosuggest', [ $autosuggest_feature, 'epio_send_autosuggest_public_request' ] );
 
 		do_action( 'ep_epio_wp_cli_set_autosuggest', $args, $assoc_args );
 
-		WP_CLI::success( esc_html__( 'Done.', 'elasticpress' ) );
+		WP_CLI::success( esc_html__( 'Done.', 'wpprobe' ) );
 	}
 
 	/**
@@ -650,7 +650,7 @@ class Command extends WP_CLI_Command {
 	 * @since  3.3
 	 */
 	public function delete_transient_on_int( $signal_no ) {
-		_deprecated_function( __METHOD__, '4.5.0', '\ElasticPress\Command\Utility::delete_transient_on_int' );
+		_deprecated_function( __METHOD__, '4.5.0', '\WPProbe\Command\Utility::delete_transient_on_int' );
 		Utility::delete_transient_on_int( $signal_no );
 	}
 
@@ -714,7 +714,7 @@ class Command extends WP_CLI_Command {
 	 * : Custom Elasticsearch host
 	 *
 	 * [--ep-prefix=<prefix>]
-	 * : Custom ElasticPress prefix
+	 * : Custom WPProbe prefix
 	 *
 	 * [--yes]
 	 * : Skip confirmation needed by `--setup`
@@ -729,19 +729,19 @@ class Command extends WP_CLI_Command {
 
 		if ( $setup_option ) {
 			$message = sprintf(
-				/* translators: ElasticPress.io or Elasticsearch */
-				esc_html__( 'Syncing with the --setup option will delete your existing index in %s. Are you sure you want to delete your Elasticsearch index', 'elasticpress' ),
-				Utils\is_epio() ? 'ElasticPress.io' : 'Elasticsearch'
+				/* translators: WPProbe.com or Elasticsearch */
+				esc_html__( 'Syncing with the --setup option will delete your existing index in %s. Are you sure you want to delete your Elasticsearch index', 'wpprobe' ),
+				Utils\is_epio() ? 'WPProbe.com' : 'Elasticsearch'
 			);
 			WP_CLI::confirm( $message, $assoc_args );
 		}
 
 		if ( $force_option ) {
-			WP_CLI::confirm( esc_html__( 'Are you sure you want to stop any other ongoing sync?', 'elasticpress' ), $assoc_args );
+			WP_CLI::confirm( esc_html__( 'Are you sure you want to stop any other ongoing sync?', 'wpprobe' ), $assoc_args );
 		}
 
 		if ( ! function_exists( 'pcntl_signal' ) ) {
-			WP_CLI::warning( esc_html__( 'Function pcntl_signal not available. Make sure to run `wp elasticpress clear-sync` in case the process is killed.', 'elasticpress' ) );
+			WP_CLI::warning( esc_html__( 'Function pcntl_signal not available. Make sure to run `wp wpprobe clear-sync` in case the process is killed.', 'wpprobe' ) );
 		} else {
 			declare( ticks = 1 );
 			pcntl_signal( SIGINT, [ Utility::class, 'delete_transient_on_int' ] );
@@ -840,7 +840,7 @@ class Command extends WP_CLI_Command {
 			$index_args['lower_limit_object_id'] = absint( $assoc_args['lower-limit-object-id'] );
 		}
 
-		\ElasticPress\IndexHelper::factory()->full_index( $index_args );
+		\WPProbe\IndexHelper::factory()->full_index( $index_args );
 
 		remove_action( 'ep_sync_put_mapping', [ Utility::class, 'stop_on_failed_mapping' ] );
 		remove_action( 'ep_sync_put_mapping', [ Utility::class, 'call_ep_cli_put_mapping' ], 10, 2 );
@@ -859,11 +859,11 @@ class Command extends WP_CLI_Command {
 		 */
 		do_action( 'ep_wp_cli_after_index', $args, $assoc_args );
 
-		WP_CLI::log( WP_CLI::colorize( '%Y' . esc_html__( 'Total time elapsed: ', 'elasticpress' ) . '%N' . Utility::timer_format( $sync_time_in_ms ) ) );
+		WP_CLI::log( WP_CLI::colorize( '%Y' . esc_html__( 'Total time elapsed: ', 'wpprobe' ) . '%N' . Utility::timer_format( $sync_time_in_ms ) ) );
 
 		Utility::delete_transient();
 
-		WP_CLI::success( esc_html__( 'Done!', 'elasticpress' ) );
+		WP_CLI::success( esc_html__( 'Done!', 'wpprobe' ) );
 	}
 
 	/**
@@ -889,7 +889,7 @@ class Command extends WP_CLI_Command {
 
 			$index_names = array_intersect( $registered_index_names, $indexes_from_cat_indices_api );
 		} else {
-			WP_CLI::error( esc_html__( 'Failed to return status.', 'elasticpress' ) );
+			WP_CLI::error( esc_html__( 'Failed to return status.', 'wpprobe' ) );
 		}
 
 		$index_names_imploded = implode( ',', $index_names );
@@ -932,7 +932,7 @@ class Command extends WP_CLI_Command {
 
 			$index_names = array_intersect( $registered_index_names, $indexes_from_cat_indices_api );
 		} else {
-			WP_CLI::error( esc_html__( 'Failed to return stats.', 'elasticpress' ) );
+			WP_CLI::error( esc_html__( 'Failed to return stats.', 'wpprobe' ) );
 		}
 
 		$index_names_imploded = implode( ',', $index_names );
@@ -959,9 +959,9 @@ class Command extends WP_CLI_Command {
 		$host = Utils\get_host();
 
 		if ( empty( $host ) ) {
-			WP_CLI::error( esc_html__( 'Elasticsearch host is not set.', 'elasticpress' ) );
+			WP_CLI::error( esc_html__( 'Elasticsearch host is not set.', 'wpprobe' ) );
 		} elseif ( ! Elasticsearch::factory()->get_elasticsearch_version( true ) ) {
-			WP_CLI::error( esc_html__( 'Could not connect to Elasticsearch.', 'elasticpress' ) );
+			WP_CLI::error( esc_html__( 'Could not connect to Elasticsearch.', 'wpprobe' ) );
 		}
 	}
 
@@ -972,7 +972,7 @@ class Command extends WP_CLI_Command {
 	 */
 	private function index_occurring() {
 		if ( Utils\is_indexing() ) {
-			WP_CLI::error( esc_html__( 'An index is already occurring. Try again later.', 'elasticpress' ) );
+			WP_CLI::error( esc_html__( 'An index is already occurring. Try again later.', 'wpprobe' ) );
 		}
 	}
 
@@ -982,7 +982,7 @@ class Command extends WP_CLI_Command {
 	 * @since 3.1
 	 */
 	private function delete_transient() {
-		_deprecated_function( __METHOD__, '4.5.0', '\ElasticPress\Command\Utility::delete_transient()' );
+		_deprecated_function( __METHOD__, '4.5.0', '\WPProbe\Command\Utility::delete_transient()' );
 		Utility::delete_transient();
 	}
 
@@ -1016,7 +1016,7 @@ class Command extends WP_CLI_Command {
 		 */
 		do_action( 'ep_cli_after_clear_index' );
 
-		WP_CLI::log( esc_html__( 'Sync cleared.', 'elasticpress' ) );
+		WP_CLI::log( esc_html__( 'Sync cleared.', 'wpprobe' ) );
 	}
 
 	/**
@@ -1070,7 +1070,7 @@ class Command extends WP_CLI_Command {
 	 */
 	public function get_last_sync( $args, $assoc_args ) {
 		$pretty    = \WP_CLI\Utils\get_flag_value( $assoc_args, 'pretty' );
-		$last_sync = \ElasticPress\IndexHelper::factory()->get_last_sync();
+		$last_sync = \WPProbe\IndexHelper::factory()->get_last_sync();
 
 		$this->pretty_json_encode( $last_sync, $pretty );
 	}
@@ -1114,13 +1114,12 @@ class Command extends WP_CLI_Command {
 		if ( isset( $assoc_args['ep-host'] ) ) {
 			add_filter(
 				'ep_host',
-				function ( $host ) use ( $assoc_args ) {
+				function () use ( $assoc_args ) {
 					return $assoc_args['ep-host'];
 				}
 			);
 		}
 	}
-
 
 	/**
 	 * maybe change index prefix on the fly
@@ -1133,7 +1132,7 @@ class Command extends WP_CLI_Command {
 		if ( isset( $assoc_args['ep-prefix'] ) ) {
 			add_filter(
 				'ep_index_prefix',
-				function ( $prefix ) use ( $assoc_args ) {
+				function ( $prefix ) use ( $assoc_args ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 					return $assoc_args['ep-prefix'];
 				}
 			);
@@ -1146,7 +1145,7 @@ class Command extends WP_CLI_Command {
 	 * @since 3.5.2
 	 */
 	public function should_interrupt_sync() {
-		_deprecated_function( __METHOD__, '4.5.0', '\ElasticPress\Command\Utility::should_interrupt_sync' );
+		_deprecated_function( __METHOD__, '4.5.0', '\WPProbe\Command\Utility::should_interrupt_sync' );
 		Utility::should_interrupt_sync();
 	}
 
@@ -1159,12 +1158,12 @@ class Command extends WP_CLI_Command {
 	 * @param array $assoc_args Associative CLI args.
 	 */
 	public function stop_sync( $args, $assoc_args ) {
-		$indexing_status = \ElasticPress\Utils\get_indexing_status();
+		$indexing_status = \WPProbe\Utils\get_indexing_status();
 
-		if ( empty( \ElasticPress\Utils\get_indexing_status() ) ) {
-			WP_CLI::warning( esc_html__( 'There is no indexing operation running.', 'elasticpress' ) );
+		if ( empty( \WPProbe\Utils\get_indexing_status() ) ) {
+			WP_CLI::warning( esc_html__( 'There is no indexing operation running.', 'wpprobe' ) );
 		} else {
-			WP_CLI::line( esc_html__( 'Stopping indexing…', 'elasticpress' ) );
+			WP_CLI::line( esc_html__( 'Stopping indexing…', 'wpprobe' ) );
 
 			if ( isset( $indexing_status['method'] ) && 'cli' === $indexing_status['method'] ) {
 				set_transient( 'ep_wpcli_sync_interrupted', true, MINUTE_IN_SECONDS );
@@ -1172,7 +1171,7 @@ class Command extends WP_CLI_Command {
 				set_transient( 'ep_sync_interrupted', true, MINUTE_IN_SECONDS );
 			}
 
-			WP_CLI::success( esc_html__( 'Done.', 'elasticpress' ) );
+			WP_CLI::success( esc_html__( 'Done.', 'wpprobe' ) );
 		}
 	}
 
@@ -1210,7 +1209,7 @@ class Command extends WP_CLI_Command {
 		do_action( 'ep_cli_before_set_search_algorithm_version', $args, $assoc_args );
 
 		if ( empty( $assoc_args['version'] ) && ! isset( $assoc_args['default'] ) ) {
-			WP_CLI::error( esc_html__( 'This command expects a version number or the --default flag.', 'elasticpress' ) );
+			WP_CLI::error( esc_html__( 'This command expects a version number or the --default flag.', 'wpprobe' ) );
 		}
 
 		if ( ! empty( $assoc_args['default'] ) ) {
@@ -1230,7 +1229,7 @@ class Command extends WP_CLI_Command {
 		 */
 		do_action( 'ep_cli_after_set_search_algorithm_version', $args, $assoc_args );
 
-		WP_CLI::success( esc_html__( 'Done.', 'elasticpress' ) );
+		WP_CLI::success( esc_html__( 'Done.', 'wpprobe' ) );
 	}
 
 	/**
@@ -1270,7 +1269,7 @@ class Command extends WP_CLI_Command {
 	 * @return true|null
 	 */
 	public function custom_get_transient( $pre_transient, $transient ) {
-		_deprecated_function( __METHOD__, '4.5.0', '\ElasticPress\Command\Utility::custom_get_transient' );
+		_deprecated_function( __METHOD__, '4.5.0', '\WPProbe\Command\Utility::custom_get_transient' );
 		return Utility::custom_get_transient( $pre_transient, $transient );
 	}
 
@@ -1333,13 +1332,13 @@ class Command extends WP_CLI_Command {
 			if ( ( $counter % 10 ) === 0 ) {
 				$time_elapsed_diff = $time_elapsed > 0 ? ' (+' . (string) ( Utility::timer_stop() - $time_elapsed ) . ')' : '';
 				$time_elapsed      = Utility::timer_stop( 2 );
-				WP_CLI::log( WP_CLI::colorize( '%Y' . esc_html__( 'Time elapsed: ', 'elasticpress' ) . '%N' . Utility::timer_format( $time_elapsed ) . $time_elapsed_diff ) );
+				WP_CLI::log( WP_CLI::colorize( '%Y' . esc_html__( 'Time elapsed: ', 'wpprobe' ) . '%N' . Utility::timer_format( $time_elapsed ) . $time_elapsed_diff ) );
 
 				$current_memory = memory_get_usage() / 1024 / 1024;
 				$current_memory = ( $current_memory > 1000 ) ? round( $current_memory / 1024, 2 ) . 'gb' : round( $current_memory, 2 ) . 'mb';
 				$peak_memory    = memory_get_peak_usage() / 1024 / 1024;
 				$peak_memory    = ( $peak_memory > 1000 ) ? round( $peak_memory / 1024, 2 ) . 'gb' : round( $peak_memory, 2 ) . 'mb';
-				WP_CLI::log( WP_CLI::colorize( '%Y' . esc_html__( 'Memory Usage: ', 'elasticpress' ) . '%N' . $current_memory . ' (Peak: ' . $peak_memory . ')' ) );
+				WP_CLI::log( WP_CLI::colorize( '%Y' . esc_html__( 'Memory Usage: ', 'wpprobe' ) . '%N' . $current_memory . ' (Peak: ' . $peak_memory . ')' ) );
 			}
 		}
 	}
@@ -1352,7 +1351,7 @@ class Command extends WP_CLI_Command {
 	 * @param bool      $result     Whether the request was successful or not
 	 */
 	public function stop_on_failed_mapping( $index_meta, $indexable, $result ) {
-		_deprecated_function( __METHOD__, '4.5.0', '\ElasticPress\Command\Utility::stop_on_failed_mapping' );
+		_deprecated_function( __METHOD__, '4.5.0', '\WPProbe\Command\Utility::stop_on_failed_mapping' );
 		Utility::stop_on_failed_mapping( $index_meta, $indexable, $result );
 	}
 
@@ -1366,7 +1365,7 @@ class Command extends WP_CLI_Command {
 	 * @return void
 	 */
 	public function call_ep_cli_put_mapping( $index_meta, $indexable ) {
-		_deprecated_function( __METHOD__, '4.5.0', '\ElasticPress\Command\Utility::call_ep_cli_put_mapping' );
+		_deprecated_function( __METHOD__, '4.5.0', '\WPProbe\Command\Utility::call_ep_cli_put_mapping' );
 		Utility::call_ep_cli_put_mapping( $index_meta, $indexable );
 	}
 
@@ -1420,7 +1419,7 @@ class Command extends WP_CLI_Command {
 	}
 
 	/**
-	 * Reset all ElasticPress settings stored in WP options and transients.
+	 * Reset all WPProbe settings stored in WP options and transients.
 	 *
 	 * This command will not delete any index or content stored in Elasticsearch but will force users to go through the installation process again.
 	 *
@@ -1437,12 +1436,12 @@ class Command extends WP_CLI_Command {
 	 * @param array $assoc_args Associative CLI args.
 	 */
 	public function settings_reset( $args, $assoc_args ) {
-		WP_CLI::confirm( esc_html__( 'Are you sure you want to delete all ElasticPress settings?', 'elasticpress' ), $assoc_args );
+		WP_CLI::confirm( esc_html__( 'Are you sure you want to delete all WPProbe settings?', 'wpprobe' ), $assoc_args );
 
 		define( 'EP_MANUAL_SETTINGS_RESET', true );
 		include EP_PATH . '/uninstall.php';
 
-		WP_CLI::line( esc_html__( 'Settings deleted.', 'elasticpress' ) );
+		WP_CLI::line( esc_html__( 'Settings deleted.', 'wpprobe' ) );
 	}
 
 
@@ -1512,7 +1511,7 @@ class Command extends WP_CLI_Command {
 	public function put_search_template() {
 		$instant_results = Features::factory()->get_registered_feature( 'instant-results' );
 		$instant_results->epio_save_search_template();
-		WP_CLI::success( esc_html__( 'Done.', 'elasticpress' ) );
+		WP_CLI::success( esc_html__( 'Done.', 'wpprobe' ) );
 	}
 
 	/**
@@ -1524,7 +1523,7 @@ class Command extends WP_CLI_Command {
 	public function delete_search_template() {
 		$instant_results = Features::factory()->get_registered_feature( 'instant-results' );
 		$instant_results->epio_delete_search_template();
-		WP_CLI::success( esc_html__( 'Done.', 'elasticpress' ) );
+		WP_CLI::success( esc_html__( 'Done.', 'wpprobe' ) );
 	}
 
 	/**
@@ -1581,7 +1580,7 @@ class Command extends WP_CLI_Command {
 		if ( ! $indexable || ! $indexables->is_active( $args[0] ) ) {
 			$message = wp_sprintf(
 				/* translators: list of active indexables slugs */
-				esc_html__( 'Indexable not found or inactive. Active indexables are: %l', 'elasticpress' ),
+				esc_html__( 'Indexable not found or inactive. Active indexables are: %l', 'wpprobe' ),
 				$indexables->get_all( null, true )
 			);
 			WP_CLI::error( $message );
@@ -1591,7 +1590,7 @@ class Command extends WP_CLI_Command {
 
 		$object = $indexable->get( $args[1] );
 		if ( ! $object ) {
-			WP_CLI::error( esc_html__( 'Not found', 'elasticpress' ) );
+			WP_CLI::error( esc_html__( 'Not found', 'wpprobe' ) );
 		}
 
 		$pretty = \WP_CLI\Utils\get_flag_value( $assoc_args, 'pretty' );
@@ -1616,35 +1615,35 @@ class Command extends WP_CLI_Command {
 					WP_CLI::line(
 						sprintf(
 							/* translators: URL of the request */
-							esc_html__( 'URL: %s', 'elasticpress' ),
+							esc_html__( 'URL: %s', 'wpprobe' ),
 							$url
 						)
 					);
 					WP_CLI::line(
 						sprintf(
 							/* translators: Request arguments (outputted with print_r()) */
-							esc_html__( 'Request Args: %s', 'elasticpress' ),
+							esc_html__( 'Request Args: %s', 'wpprobe' ),
 							print_r( $request_args, true )
 						)
 					);
 					WP_CLI::line(
 						sprintf(
 							/* translators: HTTP transport used */
-							esc_html__( 'Transport: %s', 'elasticpress' ),
+							esc_html__( 'Transport: %s', 'wpprobe' ),
 							$transport
 						)
 					);
 					WP_CLI::line(
 						sprintf(
 							/* translators: Context under which the http_api_debug hook is fired */
-							esc_html__( 'Context: %s', 'elasticpress' ),
+							esc_html__( 'Context: %s', 'wpprobe' ),
 							$context
 						)
 					);
 					WP_CLI::line(
 						sprintf(
 							/* translators: HTTP response (outputted with print_r()) */
-							esc_html__( 'Response: %s', 'elasticpress' ),
+							esc_html__( 'Response: %s', 'wpprobe' ),
 							print_r( $response, true )
 						)
 					);

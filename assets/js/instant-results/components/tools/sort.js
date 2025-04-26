@@ -43,7 +43,7 @@ export default () => {
 
 	return (
 		<label className="ep-search-sort" htmlFor="ep-sort">
-			<span className="ep-search-sort__label">{__('Sort by', 'elasticpress')}</span>{' '}
+			<span className="ep-search-sort__label">{__('Sort by', 'wpprobe')}</span>{' '}
 			<select
 				className="ep-search-sort__options"
 				id="ep-sort"

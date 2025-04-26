@@ -1,19 +1,19 @@
 <?php
 /**
- * Weighting dashboard for ElasticPress
+ * Weighting dashboard for WPProbe
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\Feature\Search;
+namespace WPProbe\Feature\Search;
 
-use ElasticPress\Features;
-use ElasticPress\Utils;
+use WPProbe\Features;
+use WPProbe\Utils;
 
 /**
  * Controls search weighting and search fields dashboard
  *
- * @package ElasticPress\Feature\Search
+ * @package WPProbe\Feature\Search
  */
 class Weighting {
 
@@ -49,7 +49,7 @@ class Weighting {
 	public function get_weightable_fields_for_post_type( $post_type ) {
 		$fields = array(
 			'attributes' => array(
-				'label'    => __( 'Attributes', 'elasticpress' ),
+				'label'    => __( 'Attributes', 'wpprobe' ),
 				'children' => array(
 					'post_title'   => array(
 						'key'   => 'post_title',
@@ -83,7 +83,7 @@ class Weighting {
 
 		if ( ! empty( $taxonomies ) ) {
 			$fields['taxonomies'] = [
-				'label'    => __( 'Taxonomies', 'elasticpress' ),
+				'label'    => __( 'Taxonomies', 'wpprobe' ),
 				'children' => [],
 			];
 
@@ -321,13 +321,13 @@ class Weighting {
 	 */
 	public function add_weighting_submenu_page() {
 		$menu_slug = ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK && ! Utils\is_top_level_admin_context() ) ?
-			'elasticpress' :
-			'elasticpress-weighting';
+			'wpprobe' :
+			'wpprobe-weighting';
 
 		add_submenu_page(
-			'elasticpress',
-			esc_html__( 'ElasticPress Search Fields & Weighting', 'elasticpress' ),
-			esc_html__( 'Search Fields & Weighting', 'elasticpress' ),
+			'wpprobe',
+			esc_html__( 'WPProbe Search Fields & Weighting', 'wpprobe' ),
+			esc_html__( 'Search Fields & Weighting', 'wpprobe' ),
 			Utils\get_capability(),
 			$menu_slug,
 			[ $this, 'render_settings_page' ]
@@ -351,19 +351,20 @@ class Weighting {
 	 * @param string $post_type      Current post type we're rendering
 	 * @param array  $field          Current field to render
 	 * @param array  $current_values Current stored weighting values
+	 *
 	 * @deprecated
 	 */
-	public function render_settings_section( $post_type, $field, $current_values ) {
+	public function render_settings_section( $post_type, $field, $current_values ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		_doing_it_wrong(
 			__METHOD__,
 			esc_html( 'Weighting sections display are now handled via React components.' ),
-			'ElasticPress 5.0.0'
+			'WPProbe 5.0.0'
 		);
 	}
 
 	/**
 	 * Handles processing the new weighting values and saving them
-	 * to the elasticpress.io service.
+	 * to the WPProbe.com service.
 	 *
 	 * @deprecated
 	 */
@@ -371,7 +372,7 @@ class Weighting {
 		_doing_it_wrong(
 			__METHOD__,
 			esc_html( 'Weighting settings are now updated using the REST API.' ),
-			'ElasticPress 5.0.0'
+			'WPProbe 5.0.0'
 		);
 	}
 
@@ -381,11 +382,11 @@ class Weighting {
 	 * @param string $redirect_url Redirect URL.
 	 * @deprecated
 	 */
-	protected function redirect( $redirect_url ) {
+	protected function redirect( $redirect_url ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed,Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		_doing_it_wrong(
 			__METHOD__,
 			esc_html( 'Weighting settings are now updated using the REST API, and do not redirect server-side.' ),
-			'ElasticPress 5.0.0'
+			'WPProbe 0.1.0'
 		);
 	}
 
@@ -397,11 +398,11 @@ class Weighting {
 	 * @since 3.4.1
 	 * @deprecated
 	 */
-	public function save_weighting_configuration( $settings ) {
+	public function save_weighting_configuration( $settings ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed,Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		_doing_it_wrong(
 			__METHOD__,
 			esc_html( 'Weighting sections display are now handled via React components.' ),
-			'ElasticPress 5.0.0'
+			'WPProbe 0.1.0'
 		);
 	}
 

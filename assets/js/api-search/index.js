@@ -310,7 +310,7 @@ export const ApiSearchProvider = ({
 			} catch (e) {
 				const errorMessage = sprintf(
 					/* translators: Error message */
-					__('ElasticPress: Unable to fetch results. %s', 'elasticpress'),
+					__('WPProbe: Unable to fetch results. %s', 'wpprobe'),
 					e.message,
 				);
 

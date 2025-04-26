@@ -3,14 +3,14 @@
  * Test the Settings screen
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress\Screen;
-use ElasticPress\Screen\Settings;
-use ElasticPress\Utils;
+use WPProbe\Screen;
+use WPProbe\Screen\Settings;
+use WPProbe\Utils;
 
 /**
  * Test the Settings class
@@ -125,7 +125,7 @@ class TestSettings extends BaseTestCase {
 
 		if ( Utils\is_epio() ) {
 			$this->assertStringContainsString(
-				'It was not possible to connect to your ElasticPress.io account.',
+				'It was not possible to connect to your WPProbe.com account.',
 				$output
 			);
 		} else {

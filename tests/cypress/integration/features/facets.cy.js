@@ -6,8 +6,8 @@ describe('Facets Feature', { tags: '@slow' }, () => {
 	 */
 	before(() => {
 		cy.wpCliEval(`
-			\\ElasticPress\\Features::factory()->activate_feature('facets' );
-			WP_CLI::runcommand( 'elasticpress sync --setup --yes' );
+			\\WPProbe\\Features::factory()->activate_feature('facets' );
+			WP_CLI::runcommand( 'wpprobe sync --setup --yes' );
 			$posts = new \\WP_Query(
 				[
 					's'            => 'A new',
@@ -22,7 +22,7 @@ describe('Facets Feature', { tags: '@slow' }, () => {
 
 		cy.updateWeighting();
 
-		cy.visitAdminPage('admin.php?page=elasticpress-weighting');
+		cy.visitAdminPage('admin.php?page=wpprobe-weighting');
 
 		cy.intercept('/wp-json/elasticpress/v1/weighting*').as('apiRequest');
 		cy.contains('h2', 'Posts').closest('.components-panel').as('postsPanel');
@@ -274,7 +274,7 @@ describe('Facets Feature', { tags: '@slow' }, () => {
 		 * Widget block.
 		 */
 		cy.get('.wp-block-legacy-widget')
-			.should('contain.text', 'ElasticPress - Filter by Taxonomy')
+			.should('contain.text', 'WPProbe - Filter by Taxonomy')
 			.first()
 			.click();
 
@@ -580,7 +580,7 @@ describe('Facets Feature', { tags: '@slow' }, () => {
 			/**
 			 * When Match Type is "any", all options need to be clickable
 			 */
-			cy.visitAdminPage('admin.php?page=elasticpress');
+			cy.visitAdminPage('admin.php?page=wpprobe');
 			cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
 
 			cy.contains('button', 'Filters').click();

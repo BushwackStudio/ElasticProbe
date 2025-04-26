@@ -1,16 +1,18 @@
 <?php
 /**
- * ElasticPress-Elasticsearch API functions
+ * WPProbe-Elasticsearch API functions
  *
  * @since  3.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress;
+namespace WPProbe;
 
 use WP_Error;
-use ElasticPress\Indexables;
-use ElasticPress\Utils;
+use WPProbe\Indexables;
+use WPProbe\Utils;
+
+use function WPProbe\Utils\is_epio;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -20,6 +22,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Elasticsearch API class
  */
 class Elasticsearch {
+
+
 
 	/**
 	 * Logged queries for debugging
@@ -94,8 +98,10 @@ class Elasticsearch {
 		 */
 		if ( version_compare( (string) $this->get_elasticsearch_version(), '7.0', '<' ) ) {
 			$path = apply_filters( 'ep_index_' . $type . '_request_path', $index . '/' . $type . '/' . $document['ID'], $document, $type );
+		} elseif ( ! is_epio() ) {
+				$path = apply_filters( 'ep_index_' . $type . '_request_path', $index . '/_doc/' . $document['ID'], $document, $type );
 		} else {
-			$path = apply_filters( 'ep_index_' . $type . '_request_path', $index . '/_doc/' . $document['ID'], $document, $type );
+			$path = apply_filters( 'ep_index_' . $type . '_request_path', 'v1/' . $index . '/' . $document['ID'], $document, $type );
 		}
 
 		$path = apply_filters( 'ep_index_request_path', $path, $document, $type );
@@ -104,7 +110,7 @@ class Elasticsearch {
 			$encoded_document = wp_json_encode( $document );
 		} else {
 			// phpcs:disable
-			$encoded_document = json_encode( $document );
+			$encoded_document = json_encode($document);
 			// phpcs:enable
 		}
 
@@ -192,10 +198,11 @@ class Elasticsearch {
 	 * @return bool
 	 */
 	public function refresh_indices() {
-
 		$request_args = array( 'method' => 'POST' );
 
-		$request = $this->remote_request( '_refresh', $request_args, [], 'refresh_indices' );
+		$path = Utils\get_index_prefix() . '*/_refresh';
+
+		$request = $this->remote_request( $path, $request_args, [], 'refresh_indices' );
 
 		if ( ! is_wp_error( $request ) ) {
 			if ( isset( $request['response']['code'] ) && 200 === $request['response']['code'] ) {
@@ -287,7 +294,7 @@ class Elasticsearch {
 		if ( version_compare( (string) $this->get_elasticsearch_version(), '7.0', '<' ) ) {
 			$path = $index . '/' . $type . '/_search';
 		} else {
-			$path = $index . '/_search';
+			$path = 'v1/' . $index . '/search';
 		}
 
 		// For backwards compat
@@ -622,7 +629,7 @@ class Elasticsearch {
 			'Content-Type' => 'application/json',
 		);
 
-		// Check for ElasticPress API key and add to header if needed.
+		// Check for WPProbe API key and add to header if needed.
 		if ( defined( 'EP_API_KEY' ) && EP_API_KEY ) {
 			$headers['X-ElasticPress-API-Key'] = EP_API_KEY;
 		}
@@ -636,13 +643,13 @@ class Elasticsearch {
 
 		if ( ! empty( $shield ) ) {
 			// phpcs:disable
-			$headers['Authorization'] = 'Basic ' . base64_encode( $shield );
+			$headers['Authorization'] = 'ApiKey ' . base64_encode($shield);
 			// phpcs:enable
 		}
 
 		$request_id = Utils\generate_request_id();
 		if ( ! empty( $request_id ) ) {
-			$headers['X-ElasticPress-Request-ID'] = $request_id;
+			$headers['X-WPProbe-Request-ID'] = $request_id;
 		}
 
 		/**
@@ -667,6 +674,7 @@ class Elasticsearch {
 	 * @return boolean|array
 	 */
 	public function get_document( $index, $type, $document_id ) {
+		// TODO: Change for WPProbe
 		if ( version_compare( (string) $this->get_elasticsearch_version(), '7.0', '<' ) ) {
 			$path = $index . '/' . $type . '/' . $document_id;
 		} else {
@@ -700,7 +708,7 @@ class Elasticsearch {
 	 * @return array|boolean
 	 */
 	public function delete_network_alias( $alias ) {
-		$path = '*/_alias/' . $alias;
+		$path = Utils\get_index_prefix() . '*/_alias/' . $alias;
 
 		$request_args = [ 'method' => 'DELETE' ];
 
@@ -996,7 +1004,7 @@ class Elasticsearch {
 			Utils\set_transient( $transient_key, $request, MINUTE_IN_SECONDS );
 			return new \WP_Error(
 				'ep_get_index_settings_failed',
-				esc_html__( 'Error while getting the index settings.', 'elasticpress' ),
+				esc_html__( 'Error while getting the index settings.', 'wpprobe' ),
 				$request
 			);
 		}
@@ -1118,7 +1126,7 @@ class Elasticsearch {
 	 * @return boolean
 	 */
 	public function delete_all_indices() {
-		return $this->delete_index( '*' );
+		return $this->delete_index( Utils\get_index_prefix() . '*' );
 	}
 
 	/**
@@ -1131,10 +1139,12 @@ class Elasticsearch {
 	public function index_exists( $index ) {
 
 		$request_args = [
-			'method' => 'HEAD',
+			'method' => 'GET',
 		];
 
-		$request = $this->remote_request( $index, $request_args, [], 'index_exists' );
+		$path = 'v1/' . trailingslashit( $index ) . 'exists';
+
+		$request = $this->remote_request( $path, $request_args, [], 'index_exists' );
 
 		// 200 means the index exists.
 		// 404 means the index was non-existent.
@@ -1174,7 +1184,7 @@ class Elasticsearch {
 		if ( version_compare( (string) $this->get_elasticsearch_version(), '7.0', '<' ) ) {
 			$path = apply_filters( 'ep_bulk_index_request_path', $index . '/' . $type . '/_bulk', $body, $type );
 		} else {
-			$path = apply_filters( 'ep_bulk_index_request_path', $index . '/_bulk', $body, $type );
+			$path = apply_filters( 'ep_bulk_index_request_path', 'v1/' . $index . '/_bulk', $body, $type );
 		}
 
 		$request_args = array(
@@ -1386,9 +1396,8 @@ class Elasticsearch {
 
 			return array(
 				'status' => false,
-				'msg'    => esc_html__( 'Invalid response from ElasticPress server. Please contact your administrator.' ),
+				'msg'    => esc_html__( 'Invalid response from WPProbe server. Please contact your administrator.' ),
 			);
-
 		} elseif (
 			isset( $response->error ) &&
 			(
@@ -1399,19 +1408,16 @@ class Elasticsearch {
 
 			if ( is_multisite() ) {
 
-				$error = __( 'Site not indexed. <p>Please run: <code>wp elasticpress index --setup --network-wide</code> using WP-CLI. Or use the index button on the left of this screen.</p>', 'elasticpress' );
-
+				$error = __( 'Site not indexed. <p>Please run: <code>wp wpprobe index --setup --network-wide</code> using WP-CLI. Or use the index button on the left of this screen.</p>', 'wpprobe' );
 			} else {
 
-				$error = __( 'Site not indexed. <p>Please run: <code>wp elasticpress index --setup</code> using WP-CLI. Or use the index button on the left of this screen.</p>', 'elasticpress' );
-
+				$error = __( 'Site not indexed. <p>Please run: <code>wp wpprobe index --setup</code> using WP-CLI. Or use the index button on the left of this screen.</p>', 'wpprobe' );
 			}
 
 			return array(
 				'status' => false,
 				'msg'    => $error,
 			);
-
 		}
 
 		return array(
@@ -1588,9 +1594,8 @@ class Elasticsearch {
 
 			return array(
 				'status' => false,
-				'msg'    => esc_html__( 'Elasticsearch Host is not available.', 'elasticpress' ),
+				'msg'    => esc_html__( 'Elasticsearch Host is not available.', 'wpprobe' ),
 			);
-
 		} else {
 
 			$request = $this->remote_request( '_cluster/stats', array( 'method' => 'GET' ) );
@@ -1600,14 +1605,12 @@ class Elasticsearch {
 				$response = json_decode( wp_remote_retrieve_body( $request ) );
 
 				return $response;
-
 			}
 
 			return array(
 				'status' => false,
 				'msg'    => $request->get_error_message(),
 			);
-
 		}
 	}
 
@@ -1662,6 +1665,7 @@ class Elasticsearch {
 	 * @return WP_Error|bool
 	 */
 	public function create_pipeline( $id, $args ) {
+		// TODO: pipelines should be created by the backend
 		$path = '_ingest/pipeline/' . $id;
 
 		$request_args = array(
@@ -1698,7 +1702,7 @@ class Elasticsearch {
 	}
 
 	/**
-	 * Conditionally add the ElasticPress version to the User Agent string.
+	 * Conditionally add the WPProbe version to the User Agent string.
 	 *
 	 * @since 3.6.1
 	 * @param string $user_agent Original User Agent.
@@ -1709,7 +1713,7 @@ class Elasticsearch {
 		 * Filter the User Agent header when submitting requests to Elasticsearch.
 		 *
 		 * @hook ep_remote_request_add_ep_user_agent
-		 * @param  {bool} $should_add_ep_version Whether the ElasticPress version should be added to the User Agent string.
+		 * @param  {bool} $should_add_ep_version Whether the WPProbe version should be added to the User Agent string.
 		 * @return {bool} New value
 		 * @since  3.6.1
 		 */
@@ -1717,7 +1721,7 @@ class Elasticsearch {
 			$end_part   = '; ' . get_bloginfo( 'url' );
 			$user_agent = str_replace(
 				$end_part,
-				' (ElasticPress/' . EP_VERSION . ')' . $end_part,
+				' (WPProbe/' . EP_VERSION . ')' . $end_part,
 				$user_agent
 			);
 		}
@@ -1727,7 +1731,7 @@ class Elasticsearch {
 	/**
 	 * Query logging. Don't log anything to the queries property when
 	 * WP_DEBUG is not enabled. Calls action 'ep_add_query_log' if you
-	 * want to access the query outside of the ElasticPress plugin. This
+	 * want to access the query outside of the WPProbe plugin. This
 	 * runs regardless of debug settings.
 	 *
 	 * @param array $query Query to log.

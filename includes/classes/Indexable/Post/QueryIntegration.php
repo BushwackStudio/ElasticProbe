@@ -3,14 +3,14 @@
  * Integrate with WP_Query
  *
  * @since  1.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\Indexable\Post;
+namespace WPProbe\Indexable\Post;
 
 use WP_Query;
-use ElasticPress\Indexables;
-use ElasticPress\Utils;
+use WPProbe\Indexables;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	// @codeCoverageIgnoreStart
@@ -51,9 +51,9 @@ class QueryIntegration {
 		 */
 		$allow_query_integration_during_indexing = apply_filters( 'ep_enable_query_integration_during_indexing', false, $indexable_slug );
 
-		// Ensure that we are currently allowing ElasticPress to override the normal WP_Query
+		// Ensure that we are currently allowing WPProbe to override the normal WP_Query
 		// Indexable->is_full_reindexing() is not available at this point yet, so using the IndexHelper version of it.
-		if ( \ElasticPress\IndexHelper::factory()->is_full_reindexing( $indexable_slug, get_current_blog_id() ) && ! $allow_query_integration_during_indexing ) {
+		if ( \WPProbe\IndexHelper::factory()->is_full_reindexing( $indexable_slug, get_current_blog_id() ) && ! $allow_query_integration_during_indexing ) {
 			return;
 		}
 
@@ -64,7 +64,7 @@ class QueryIntegration {
 		add_filter( 'posts_pre_query', array( $this, 'get_es_posts' ), 10, 2 );
 
 		// Properly restore blog if necessary
-		add_action( 'loop_end', array( $this, 'maybe_restore_blog' ), 10, 1 );
+		add_action( 'loop_end', array( $this, 'maybe_restore_blog' ), 10 );
 
 		// Properly switch to blog if necessary
 		add_action( 'the_post', array( $this, 'maybe_switch_to_blog' ), 10, 2 );
@@ -194,10 +194,11 @@ class QueryIntegration {
 	/**
 	 * Make sure the correct blog is restored
 	 *
-	 * @param  WP_Query $query WP_Query instance
+	 * @param WP_Query $query WP_Query instance
+	 *
 	 * @since 0.9
 	 */
-	public function maybe_restore_blog( $query ) {
+	public function maybe_restore_blog( $query ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		if ( ! is_multisite() ) {
 			// @codeCoverageIgnoreStart
 			return;
@@ -291,7 +292,7 @@ class QueryIntegration {
 			$site__not_in = '';
 
 			if ( ! empty( $query_vars['sites'] ) ) {
-				_deprecated_argument( __FUNCTION__, '4.4.0', esc_html__( 'sites is deprecated. Use site__in instead.', 'elasticpress' ) );
+				_deprecated_argument( __FUNCTION__, '4.4.0', esc_html__( 'sites is deprecated. Use site__in instead.', 'wpprobe' ) );
 			}
 
 			if ( ! empty( $query_vars['site__in'] ) || ! empty( $query_vars['sites'] ) ) {

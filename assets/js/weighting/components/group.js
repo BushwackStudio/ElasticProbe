@@ -108,7 +108,7 @@ export default ({ group, postType }) => {
 
 		if (isDefaultField || isCustomField) {
 			/* translators: Field name */
-			createNotice('info', sprintf(__('%s is already being synced.', 'elasticpress'), toAdd));
+			createNotice('info', sprintf(__('%s is already being synced.', 'wpprobe'), toAdd));
 			return;
 		}
 
@@ -177,17 +177,17 @@ export default ({ group, postType }) => {
 					<TextControl
 						help={__(
 							'Make sure to Sync after adding new fields to ensure that the fields are synced for any existing content that uses them.',
-							'elasticpress',
+							'wpprobe',
 						)}
-						label={__('Add field', 'elasticpress')}
+						label={__('Add field', 'wpprobe')}
 						onChange={(toAdd) => setToAdd(toAdd)}
 						onKeyDown={onKeyDown}
-						placeholder={__('Metadata key', 'elasticpress')}
+						placeholder={__('Metadata key', 'wpprobe')}
 						value={toAdd}
 						__nextHasNoMarginBottom
 					/>
 					<Button disabled={!toAdd} isSecondary onClick={onClick} variant="secondary">
-						{__('Add', 'elasticpress')}
+						{__('Add', 'wpprobe')}
 					</Button>
 				</PanelRow>
 			) : null}

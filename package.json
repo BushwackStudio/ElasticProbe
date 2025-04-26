@@ -1,30 +1,30 @@
 {
-  "name": "elasticpress",
-  "version": "5.1.4",
+  "name": "wpprobe",
+  "version": "0.1.0",
   "license": "GPL-2.0-or-later",
-  "description": "A fast and flexible search and query engine for WordPress.",
+  "description": "Supercharge your wordPress search with ElasticSearch® precision.",
   "dependencies": {
     "@10up/component-tooltip": "^2.0.0",
-    "@hello-pangea/dnd": "^16.6.0",
+    "@hello-pangea/dnd": "^18.0.1",
     "@wordpress/icons": "^10.13.0",
-    "chart.js": "^2.9.4",
-    "focus-trap-react": "^9.0.2",
+    "chart.js": "^4.4.8",
+    "focus-trap-react": "^11.0.3",
     "react-slider": "^2.0.6",
-    "uuid": "^9.0.0"
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
-    "@4tw/cypress-drag-drop": "^2.2.3",
+    "@4tw/cypress-drag-drop": "^2.3.0",
     "@cypress/grep": "^4.0.1",
     "@wordpress/env": "^10.4.0",
-    "10up-toolkit": "^6.3.0",
-    "classnames": "^2.3.1",
+    "10up-toolkit": "^6.4.0",
+    "classnames": "^2.5.1",
     "cypress": "^13.3.1",
     "cypress-file-upload": "^5.0.8",
     "eslint-plugin-cypress": "^2.12.1",
-    "husky": "^9.0.0",
-    "jsdoc": "^3.6.10",
-    "lint-staged": "^15.0.1",
-    "postcss-preset-env": "^9.2.0",
+    "husky": "^9.1.0",
+    "jsdoc": "^4.0.4",
+    "lint-staged": "^15.5.0",
+    "postcss-preset-env": "^10.1.5",
     "terser-webpack-plugin": "^5.3.0",
     "wp-hookdoc": "^0.2.0"
   },
@@ -43,19 +43,19 @@
     "lint-style": "10up-toolkit lint-style",
     "env": "wp-env",
     "env:install-tests-cli": "./bin/install-wp-cli.sh tests-wordpress",
-    "env:start": "wp-env start && npm run env:install-tests-cli && npm run es:start",
+    "env:start": "wp-env start && npm run env:install-tests-cli",
     "env:stop": "wp-env stop && npm run es:stop",
-    "env:reset": "wp-env clean all && npm run env:start && npm run cypress:setup",
+    "env:reset": "wp-env clean all && npm run env:start",
     "es:start": "cd bin/es-docker/ && docker compose build --build-arg ES_VERSION=${ES_VERSION-8.16.1} && docker compose up -d",
     "es:stop": "cd bin/es-docker/ && docker compose down",
     "cypress:setup": "./bin/setup-cypress-env.sh",
     "cypress:open": "cypress open --config-file tests/cypress/config.js",
     "cypress:run": "cypress run --config-file tests/cypress/config.js"
   },
-  "author": "10up",
+  "author": "BushwackStudio",
   "repository": {
     "type": "git",
-    "url": "https://github.com/10up/ElasticPress"
+    "url": "https://github.com/BushwackStudio/WpProbe"
   },
   "engineStrict": true,
   "engines": {

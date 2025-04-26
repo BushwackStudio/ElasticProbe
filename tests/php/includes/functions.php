@@ -1,13 +1,13 @@
 <?php
 /**
- * ElasticPress test functions
+ * WPProbe test functions
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPressTest\Functions;
+namespace WPProbeTest\Functions;
 
-use ElasticPress;
+use WPProbe;
 
 /**
  * Get all sites, count indexes
@@ -15,13 +15,13 @@ use ElasticPress;
  * @return array total index count with last blog id to manipulate blog with an index
  */
 function count_indexes() {
-	$sites = ElasticPress\Utils\get_sites();
+	$sites = WPProbe\Utils\get_sites();
 
 	$last_blog_id_with_index = 0;
 
 	$count_indexes = 0;
 	foreach ( $sites as $site ) {
-		if ( ElasticPress\Indexables::factory()->get( 'post' )->index_exists( $site['blog_id'] ) ) {
+		if ( WPProbe\Indexables::factory()->get( 'post' )->index_exists( $site['blog_id'] ) ) {
 			++$count_indexes;
 			$last_blog_id_with_index = $site['blog_id'];
 		}

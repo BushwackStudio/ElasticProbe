@@ -2,12 +2,12 @@
 /**
  * Test search feature
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress;
+use WPProbe;
 
 /**
  * Search test class
@@ -28,10 +28,10 @@ class TestSearch extends BaseTestCase {
 
 		wp_set_current_user( $admin_id );
 
-		ElasticPress\Elasticsearch::factory()->delete_all_indices();
-		ElasticPress\Indexables::factory()->get( 'post' )->put_mapping();
+		WPProbe\Elasticsearch::factory()->delete_all_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
 
-		ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
+		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
 
 		$this->setup_test_post_type();
 	}
@@ -54,17 +54,17 @@ class TestSearch extends BaseTestCase {
 	 * @group search
 	 */
 	public function testSearchOn() {
-		ElasticPress\Features::factory()->activate_feature( 'search' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'search' );
+		WPProbe\Features::factory()->setup_features();
 
 		// Need to call this since it's hooked to init
-		ElasticPress\Features::factory()->get_registered_feature( 'search' )->search_setup();
+		WPProbe\Features::factory()->get_registered_feature( 'search' )->search_setup();
 
 		$this->ep_factory->post->create();
 		$this->ep_factory->post->create();
 		$this->ep_factory->post->create( array( 'post_content' => 'findme' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's' => 'findme',
@@ -83,11 +83,11 @@ class TestSearch extends BaseTestCase {
 	public function testSearchIndexDeleted() {
 		global $wpdb;
 
-		ElasticPress\Features::factory()->activate_feature( 'search' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'search' );
+		WPProbe\Features::factory()->setup_features();
 
 		// Need to call this since it's hooked to init
-		ElasticPress\Features::factory()->get_registered_feature( 'search' )->search_setup();
+		WPProbe\Features::factory()->get_registered_feature( 'search' )->search_setup();
 
 		$post_ids = array();
 
@@ -95,9 +95,9 @@ class TestSearch extends BaseTestCase {
 		$this->ep_factory->post->create();
 		$this->ep_factory->post->create( array( 'post_content' => 'findme' ) );
 
-		ElasticPress\Elasticsearch::factory()->delete_all_indices();
+		WPProbe\Elasticsearch::factory()->delete_all_indices();
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's' => 'findme',
@@ -116,13 +116,13 @@ class TestSearch extends BaseTestCase {
 	 * @group search
 	 */
 	public function testDecayingEnabled() {
-		ElasticPress\Features::factory()->activate_feature( 'search' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'search' );
+		WPProbe\Features::factory()->setup_features();
 
 		// Need to call this since it's hooked to init
-		ElasticPress\Features::factory()->get_registered_feature( 'search' )->search_setup();
+		WPProbe\Features::factory()->get_registered_feature( 'search' )->search_setup();
 
-		ElasticPress\Features::factory()->update_feature(
+		WPProbe\Features::factory()->update_feature(
 			'search',
 			array(
 				'active'           => true,
@@ -139,9 +139,9 @@ class TestSearch extends BaseTestCase {
 				),
 			)
 		);
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
-		$this->assertTrue( ElasticPress\Features::factory()->get_registered_feature( 'search' )->is_decaying_enabled() );
+		$this->assertTrue( WPProbe\Features::factory()->get_registered_feature( 'search' )->is_decaying_enabled() );
 
 		add_filter( 'ep_formatted_args', array( $this, 'catch_ep_formatted_args' ), 20 );
 		$query = new \WP_Query(
@@ -157,9 +157,9 @@ class TestSearch extends BaseTestCase {
 		 * Test the `ep_is_decaying_enabled` filter
 		 */
 		add_filter( 'ep_is_decaying_enabled', '__return_true' );
-		$this->assertTrue( ElasticPress\Features::factory()->get_registered_feature( 'search' )->is_decaying_enabled() );
+		$this->assertTrue( WPProbe\Features::factory()->get_registered_feature( 'search' )->is_decaying_enabled() );
 		add_filter( 'ep_is_decaying_enabled', '__return_false' );
-		$this->assertFalse( ElasticPress\Features::factory()->get_registered_feature( 'search' )->is_decaying_enabled() );
+		$this->assertFalse( WPProbe\Features::factory()->get_registered_feature( 'search' )->is_decaying_enabled() );
 	}
 
 	/**
@@ -169,13 +169,13 @@ class TestSearch extends BaseTestCase {
 	 * @group search
 	 */
 	public function testDecayingDisabled() {
-		ElasticPress\Features::factory()->activate_feature( 'search' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'search' );
+		WPProbe\Features::factory()->setup_features();
 
 		// Need to call this since it's hooked to init
-		ElasticPress\Features::factory()->get_registered_feature( 'search' )->search_setup();
+		WPProbe\Features::factory()->get_registered_feature( 'search' )->search_setup();
 
-		ElasticPress\Features::factory()->update_feature(
+		WPProbe\Features::factory()->update_feature(
 			'search',
 			array(
 				'active'           => true,
@@ -192,7 +192,7 @@ class TestSearch extends BaseTestCase {
 				),
 			)
 		);
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		add_filter( 'ep_formatted_args', array( $this, 'catch_ep_formatted_args' ) );
 
@@ -218,15 +218,15 @@ class TestSearch extends BaseTestCase {
 	 * @group search
 	 */
 	public function testAllowedTags() {
-		ElasticPress\Features::factory()->activate_feature( 'search' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'search' );
+		WPProbe\Features::factory()->setup_features();
 
 		// Need to call this since it's hooked to init
-		ElasticPress\Features::factory()->get_registered_feature( 'search' )->search_setup();
+		WPProbe\Features::factory()->get_registered_feature( 'search' )->search_setup();
 
 		// a tag that is in the array of allowed tags
 		$allowed_tag    = 'span';
-		$search_feature = ElasticPress\Features::factory()->get_registered_feature( 'search' );
+		$search_feature = WPProbe\Features::factory()->get_registered_feature( 'search' );
 
 		$this->assertTrue( 'span' === $search_feature->get_highlighting_tag( $allowed_tag ) );
 	}
@@ -237,15 +237,15 @@ class TestSearch extends BaseTestCase {
 	 * @group search
 	 */
 	public function testNotAllowedTags() {
-		ElasticPress\Features::factory()->activate_feature( 'search' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'search' );
+		WPProbe\Features::factory()->setup_features();
 
 		// Need to call this since it's hooked to init
-		ElasticPress\Features::factory()->get_registered_feature( 'search' )->search_setup();
+		WPProbe\Features::factory()->get_registered_feature( 'search' )->search_setup();
 
 		// a tag that is not in the array of allowed tags
 		$not_allowed_tag = 'div';
-		$search_feature  = ElasticPress\Features::factory()->get_registered_feature( 'search' );
+		$search_feature  = WPProbe\Features::factory()->get_registered_feature( 'search' );
 
 		$this->assertTrue( 'mark' === $search_feature->get_highlighting_tag( $not_allowed_tag ) );
 	}
@@ -257,13 +257,13 @@ class TestSearch extends BaseTestCase {
 	 */
 	public function testHighlightSetting() {
 
-		ElasticPress\Features::factory()->activate_feature( 'search' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'search' );
+		WPProbe\Features::factory()->setup_features();
 
 		// Need to call this since it's hooked to init
-		ElasticPress\Features::factory()->get_registered_feature( 'search' )->search_setup();
+		WPProbe\Features::factory()->get_registered_feature( 'search' )->search_setup();
 
-		ElasticPress\Features::factory()->update_feature(
+		WPProbe\Features::factory()->update_feature(
 			'search',
 			array(
 				'active'            => true,
@@ -272,7 +272,7 @@ class TestSearch extends BaseTestCase {
 			)
 		);
 
-		$settings = ElasticPress\Features::factory()->get_registered_feature( 'search' )->get_settings();
+		$settings = WPProbe\Features::factory()->get_registered_feature( 'search' )->get_settings();
 
 		$this->assertTrue( 'span' === $settings['highlight_tag'] );
 	}
@@ -287,13 +287,13 @@ class TestSearch extends BaseTestCase {
 	 */
 	public function testBadTagSetting() {
 
-		ElasticPress\Features::factory()->activate_feature( 'search' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'search' );
+		WPProbe\Features::factory()->setup_features();
 
 		// Need to call this since it's hooked to init
-		ElasticPress\Features::factory()->get_registered_feature( 'search' )->search_setup();
+		WPProbe\Features::factory()->get_registered_feature( 'search' )->search_setup();
 
-		ElasticPress\Features::factory()->update_feature(
+		WPProbe\Features::factory()->update_feature(
 			'search',
 			array(
 				'active'            => true,
@@ -302,7 +302,7 @@ class TestSearch extends BaseTestCase {
 			)
 		);
 
-		$settings = ElasticPress\Features::factory()->get_registered_feature( 'search' )->get_settings();
+		$settings = WPProbe\Features::factory()->get_registered_feature( 'search' )->get_settings();
 		$tag      = apply_filters( 'ep_highlighting_tag', $settings['highlight_tag'] );
 
 		$this->assertTrue( 'mark' === $tag );
@@ -315,13 +315,13 @@ class TestSearch extends BaseTestCase {
 	 */
 	public function testExcerptSetting() {
 
-		ElasticPress\Features::factory()->activate_feature( 'search' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'search' );
+		WPProbe\Features::factory()->setup_features();
 
 		// Need to call this since it's hooked to init
-		ElasticPress\Features::factory()->get_registered_feature( 'search' )->search_setup();
+		WPProbe\Features::factory()->get_registered_feature( 'search' )->search_setup();
 
-		ElasticPress\Features::factory()->update_feature(
+		WPProbe\Features::factory()->update_feature(
 			'search',
 			array(
 				'active'            => true,
@@ -330,7 +330,7 @@ class TestSearch extends BaseTestCase {
 			)
 		);
 
-		$settings = ElasticPress\Features::factory()->get_registered_feature( 'search' )->get_settings();
+		$settings = WPProbe\Features::factory()->get_registered_feature( 'search' )->get_settings();
 
 		$this->assertSame( $settings['highlight_excerpt'], '1' );
 	}
@@ -342,7 +342,7 @@ class TestSearch extends BaseTestCase {
 	 * @group search
 	 */
 	public function test_get_settings_schema() {
-		$settings_schema = \ElasticPress\Features::factory()->get_registered_feature( 'search' )->get_settings_schema();
+		$settings_schema = \WPProbe\Features::factory()->get_registered_feature( 'search' )->get_settings_schema();
 
 		$settings_keys = wp_list_pluck( $settings_schema, 'key' );
 

@@ -3,12 +3,12 @@
  * Facets block
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\Feature\Facets\Types\Date;
+namespace WPProbe\Feature\Facets\Types\Date;
 
-use ElasticPress\Utils;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Facets block class
  */
-class Block extends \ElasticPress\Feature\Facets\Block {
+class Block extends \WPProbe\Feature\Facets\Block {
 	/**
 	 * Hook block functionality.
 	 */
@@ -43,7 +43,7 @@ class Block extends \ElasticPress\Feature\Facets\Block {
 			true
 		);
 
-		wp_set_script_translations( 'ep-facets-date-block-script', 'elasticpress' );
+		wp_set_script_translations( 'ep-facets-date-block-script', 'wpprobe' );
 
 		register_block_type_from_metadata(
 			EP_PATH . 'assets/js/blocks/facets/date',

@@ -60,7 +60,7 @@ export default () => {
 			<RadioControl
 				className="ep-sync-advanced-control"
 				disabled={isSyncing}
-				label={__('Objects to sync', 'elasticpress')}
+				label={__('Objects to sync', 'wpprobe')}
 				onChange={onChange}
 				options={[
 					{
@@ -68,11 +68,11 @@ export default () => {
 						value: 'all',
 					},
 					{
-						label: __('Specific IDs', 'elasticpress'),
+						label: __('Specific IDs', 'wpprobe'),
 						value: 'include',
 					},
 					{
-						label: __('A range of IDs', 'elasticpress'),
+						label: __('A range of IDs', 'wpprobe'),
 						value: 'limits',
 					},
 				]}

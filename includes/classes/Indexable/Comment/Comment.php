@@ -3,17 +3,17 @@
  * Comment indexable
  *
  * @since   3.6.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\Indexable\Comment;
+namespace WPProbe\Indexable\Comment;
 
 use WP_Comment_Query;
-use ElasticPress\Elasticsearch;
-use ElasticPress\Features;
-use ElasticPress\Indexable;
-use ElasticPress\Indexable\Post\DateQuery;
-use ElasticPress\Indexables;
+use WPProbe\Elasticsearch;
+use WPProbe\Features;
+use WPProbe\Indexable;
+use WPProbe\Indexable\Post\DateQuery;
+use WPProbe\Indexables;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -33,24 +33,17 @@ class Comment extends Indexable {
 	public $slug = 'comment';
 
 	/**
-	 * Create indexable and initialize dependencies
-	 *
-	 * @since 3.6.0
-	 */
-	public function __construct() {
-		$this->labels = [
-			'plural'   => esc_html__( 'Comments', 'elasticpress' ),
-			'singular' => esc_html__( 'Comment', 'elasticpress' ),
-		];
-	}
-
-	/**
 	 * Instantiate the indexable SyncManager and QueryIntegration, the main responsibles for the WP integration.
 	 *
 	 * @since 4.5.0
 	 * @return void
 	 */
 	public function setup() {
+		$this->labels = [
+			'plural'   => esc_html__( 'Comments', 'wpprobe' ),
+			'singular' => esc_html__( 'Comment', 'wpprobe' ),
+		];
+
 		$this->sync_manager      = new SyncManager( $this->slug );
 		$this->query_integration = new QueryIntegration();
 	}
@@ -965,7 +958,7 @@ class Comment extends Indexable {
 		/**
 		 * Filter non-indexed public meta
 		 *
-		 * Allows for specifying public meta keys that should be excluded from the ElasticPress index.
+		 * Allows for specifying public meta keys that should be excluded from the WPProbe index.
 		 *
 		 * @since 3.6.0
 		 *

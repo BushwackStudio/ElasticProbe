@@ -3,17 +3,17 @@
  * Test EP v3.5 search algorithm
  *
  * @since 4.3.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress\SearchAlgorithm\Version_350;
+use WPProbe\SearchAlgorithm\Version_350;
 
 /**
  * Test EP v3.5 search algorithm class
  */
-class TestVersion_350SearchAlgorithm extends \ElasticPressTest\BaseTestCase {
+class TestVersion_350SearchAlgorithm extends \WPProbeTest\BaseTestCase {
 	/**
 	 * Test get_slug
 	 *

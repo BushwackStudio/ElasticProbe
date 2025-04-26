@@ -1,24 +1,19 @@
 {
-  "name": "10up/elasticpress",
-  "description": "Supercharge WordPress with Elasticsearch.",
+  "name": "bushwack/wpprobe",
+  "description": "Supercharge your wordPress search with ElasticSearch® precision.",
   "type": "wordpress-plugin",
-  "keywords": ["wordpress", "plugin", "elasticsearch", "elasticpress", "search"],
+  "keywords": ["wordpress", "plugin", "elasticsearch", "wpprobe", "search"],
   "license": ["GPL-2.0-only"],
   "minimum-stability": "dev",
   "prefer-stable": true,
   "authors": [
     {
-      "name": "Taylor Lovett",
-      "email": "taylorl@get10up.com"
+      "name": "Nima Shayanfar",
+      "email": "nshayanfar@wpprobe.com"
     },
     {
-      "name": "10up",
-      "homepage": "https://10up.com"
-    },
-    {
-      "name": "Aaron Holbrook",
-      "email": "aaron@10up.com",
-      "homepage": "https://aaronjholbrook.com"
+      "name": "Bushwack Studio",
+      "homepage": "https://wpprobe.com"
     }
   ],
   "repositories": [
@@ -38,14 +33,15 @@
     "phpcompatibility/phpcompatibility-wp": "*",
     "brianhenryie/strauss": "^0.14.0",
     "yoast/phpunit-polyfills": "^1.0 || ^2.0 || ^3.0",
-    "phpunit/phpunit": "^9.0.0"
+    "phpunit/phpunit": "^9.0",
+    "php-stubs/wordpress-tests-stubs": "*"
   },
   "scripts": {
     "lint": "phpcs . -s --runtime-set testVersion 7.4-",
     "lint-fix": "phpcbf .",
     "test": "phpunit",
     "test-single-site": "phpunit -c single-site.xml.dist",
-    "setup-local-tests": "bash bin/install-wp-tests.sh ep_wp_test root password 127.0.0.1 latest true",
+    "setup-local-tests": "bash bin/install-wp-tests.sh wordpress wordpress 1234 127.0.0.1 latest true",
     "strauss": [ "vendor/bin/strauss" ],
     "post-install-cmd": [
       "@strauss"
@@ -60,9 +56,9 @@
     },
     "strauss": {
       "target_directory": "vendor-prefixed",
-      "namespace_prefix": "ElasticPress\\Vendor_Prefixed\\",
-      "classmap_prefix": "ElasticPress_Vendor_Prefixed_",
-      "constant_prefix": "EP_VENDOR_"
+      "namespace_prefix": "WPProbe\\Vendor_Prefixed\\",
+      "classmap_prefix": "WPProbe_Vendor_Prefixed_",
+      "constant_prefix": "WPP_VENDOR_"
     }
   },
   "config": {

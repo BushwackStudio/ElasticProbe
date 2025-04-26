@@ -3,10 +3,10 @@
  * Test Feature methods
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
 /**
  * Feature test class
@@ -18,19 +18,19 @@ class TestFeature extends BaseTestCase {
 	 * @group feature
 	 */
 	public function test_get_json() {
-		$stub                   = $this->getMockForAbstractClass( '\ElasticPress\Feature' );
+		$stub                   = $this->getMockForAbstractClass( '\WPProbe\Feature' );
 		$stub->slug             = 'slug';
 		$stub->title            = 'title';
 		$stub->short_title      = 'short_title';
 		$stub->summary          = 'summary';
-		$stub->docs_url         = 'https://elasticpress.io/';
+		$stub->docs_url         = 'https://wpprobe.com/';
 		$stub->default_settings = [];
 		$stub->order            = 1;
 
 		add_filter(
 			'ep_feature_requirements_status',
 			function () {
-				return new \ElasticPress\FeatureRequirementsStatus( 2, 'Testing' );
+				return new \WPProbe\FeatureRequirementsStatus( 2, 'Testing' );
 			}
 		);
 
@@ -39,7 +39,7 @@ class TestFeature extends BaseTestCase {
 			'title'             => 'title',
 			'shortTitle'        => 'short_title',
 			'summary'           => 'summary',
-			'docsUrl'           => 'https://elasticpress.io/',
+			'docsUrl'           => 'https://wpprobe.com/',
 			'defaultSettings'   => [],
 			'order'             => 1,
 			'isAvailable'       => false, // Set by status code 2
@@ -51,7 +51,7 @@ class TestFeature extends BaseTestCase {
 				[
 					'default'          => false,
 					'key'              => 'active',
-					'label'            => __( 'Enable', 'elasticpress' ),
+					'label'            => __( 'Enable', 'wpprobe' ),
 					'requires_feature' => false,
 					'requires_sync'    => false,
 					'type'             => 'toggle',
@@ -68,7 +68,7 @@ class TestFeature extends BaseTestCase {
 	 * @group feature
 	 */
 	public function test_get_settings_schema() {
-		$stub = $this->getMockForAbstractClass( '\ElasticPress\Feature' );
+		$stub = $this->getMockForAbstractClass( '\WPProbe\Feature' );
 
 		$reflection          = new \ReflectionClass( $stub );
 		$reflection_property = $reflection->getProperty( 'settings_schema' );
@@ -84,7 +84,7 @@ class TestFeature extends BaseTestCase {
 				[
 					'default'          => false,
 					'key'              => 'active',
-					'label'            => __( 'Enable', 'elasticpress' ),
+					'label'            => __( 'Enable', 'wpprobe' ),
 					'requires_feature' => false,
 					'requires_sync'    => false,
 					'type'             => 'toggle',
@@ -102,7 +102,7 @@ class TestFeature extends BaseTestCase {
 	 * @group feature
 	 */
 	public function test_ep_feature_settings_schema_filter() {
-		$stub       = $this->getMockForAbstractClass( '\ElasticPress\Feature' );
+		$stub       = $this->getMockForAbstractClass( '\WPProbe\Feature' );
 		$stub->slug = 'slug';
 
 		$change_settings_schema = function ( $settings_schema, $feature_slug, $feature ) use ( $stub ) {
@@ -119,7 +119,7 @@ class TestFeature extends BaseTestCase {
 				[
 					'default'          => false,
 					'key'              => 'active',
-					'label'            => __( 'Enable', 'elasticpress' ),
+					'label'            => __( 'Enable', 'wpprobe' ),
 					'requires_feature' => false,
 					'requires_sync'    => false,
 					'type'             => 'toggle',
@@ -136,7 +136,7 @@ class TestFeature extends BaseTestCase {
 	 * @group feature
 	 */
 	public function test_set_settings_schema() {
-		$stub                   = $this->getMockForAbstractClass( '\ElasticPress\Feature' );
+		$stub                   = $this->getMockForAbstractClass( '\WPProbe\Feature' );
 		$stub->slug             = 'slug';
 		$stub->default_settings = [
 			'field_1' => '0',

@@ -57,7 +57,7 @@ export default () => {
 	 * @type {object}
 	 */
 	const ref = useCopyToClipboard(plainTextLog, () => {
-		createNotice('info', __('Copied log to clipboard.', 'elasticpress'));
+		createNotice('info', __('Copied log to clipboard.', 'wpprobe'));
 	});
 
 	/**
@@ -68,13 +68,13 @@ export default () => {
 	const tabs = [
 		{
 			name: 'full',
-			title: __('Log', 'elasticpress'),
+			title: __('Log', 'wpprobe'),
 		},
 		{
 			name: 'error',
 			title: sprintf(
 				/* translators: %d: Error message count. */
-				__('Errors (%d)', 'elasticpress'),
+				__('Errors (%d)', 'wpprobe'),
 				errorCount,
 			),
 		},
@@ -101,12 +101,12 @@ export default () => {
 			<Flex justify="start">
 				<FlexItem>
 					<Button disabled={!log.length} onClick={onClear} variant="secondary">
-						{__('Clear log', 'elasticpress')}
+						{__('Clear log', 'wpprobe')}
 					</Button>
 				</FlexItem>
 				<FlexItem>
 					<Button disabled={!log.length} ref={ref} variant="secondary">
-						{__('Copy log to clipboard', 'elasticpress')}
+						{__('Copy log to clipboard', 'wpprobe')}
 					</Button>
 				</FlexItem>
 			</Flex>

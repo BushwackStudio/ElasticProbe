@@ -3,14 +3,14 @@
  * Integrate with WP_Comment_Query
  *
  * @since   3.6.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\Indexable\Comment;
+namespace WPProbe\Indexable\Comment;
 
 use WP_Comment_Query;
-use ElasticPress\Indexables;
-use ElasticPress\Utils;
+use WPProbe\Indexables;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -137,7 +137,7 @@ class QueryIntegration {
 		$site__not_in = [];
 
 		if ( ! empty( $query->query_vars['sites'] ) ) {
-			_deprecated_argument( __FUNCTION__, '4.4.0', esc_html__( 'sites is deprecated. Use site__in instead.', 'elasticpress' ) );
+			_deprecated_argument( __FUNCTION__, '4.4.0', esc_html__( 'sites is deprecated. Use site__in instead.', 'wpprobe' ) );
 		}
 
 		if ( ! empty( $query->query_vars['site__in'] ) || ! empty( $query->query_vars['sites'] ) ) {

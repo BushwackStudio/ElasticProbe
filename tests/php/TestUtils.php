@@ -2,13 +2,13 @@
 /**
  * Test utils functionality
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress;
-use ElasticPress\Utils;
+use WPProbe;
+use WPProbe\Utils;
 
 /**
  * Dashboard test class
@@ -30,10 +30,10 @@ class TestUtils extends BaseTestCase {
 
 		wp_set_current_user( $admin_id );
 
-		ElasticPress\Elasticsearch::factory()->delete_all_indices();
-		ElasticPress\Indexables::factory()->get( 'post' )->put_mapping();
+		WPProbe\Elasticsearch::factory()->delete_all_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
 
-		ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
+		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
 
 		$this->setup_test_post_type();
 
@@ -55,7 +55,7 @@ class TestUtils extends BaseTestCase {
 		// Update since we are deleting to test notifications
 		update_site_option( 'ep_host', $this->current_host );
 
-		ElasticPress\Screen::factory()->set_current_screen( null );
+		WPProbe\Screen::factory()->set_current_screen( null );
 	}
 
 	/**
@@ -68,7 +68,7 @@ class TestUtils extends BaseTestCase {
 	public function testIsSiteIndexableByDefault() {
 		delete_site_meta( get_current_blog_id(), 'ep_indexable' );
 
-		$this->assertTrue( ElasticPress\Utils\is_site_indexable() );
+		$this->assertTrue( WPProbe\Utils\is_site_indexable() );
 	}
 
 	/**
@@ -83,7 +83,7 @@ class TestUtils extends BaseTestCase {
 
 		update_blog_status( get_current_blog_id(), 'spam', 1 );
 
-		$this->assertFalse( ElasticPress\Utils\is_site_indexable() );
+		$this->assertFalse( WPProbe\Utils\is_site_indexable() );
 
 		update_blog_status( get_current_blog_id(), 'spam', 0 );
 	}
@@ -97,7 +97,7 @@ class TestUtils extends BaseTestCase {
 	 */
 	public function testIsSiteIndexableDisabled() {
 		update_site_meta( get_current_blog_id(), 'ep_indexable', 'no' );
-		$this->assertFalse( ElasticPress\Utils\is_site_indexable() );
+		$this->assertFalse( WPProbe\Utils\is_site_indexable() );
 	}
 
 	/**
@@ -108,7 +108,7 @@ class TestUtils extends BaseTestCase {
 	public function testSanitizeCredentials() {
 
 		// First test anything that is not an array.
-		$creds = \ElasticPress\Utils\sanitize_credentials( false );
+		$creds = \WPProbe\Utils\sanitize_credentials( false );
 		$this->assertTrue( is_array( $creds ) );
 
 		$this->assertArrayHasKey( 'username', $creds );
@@ -118,7 +118,7 @@ class TestUtils extends BaseTestCase {
 		$this->assertSame( '', $creds['token'] );
 
 		// Then test arrays with invalid data.
-		$creds = \ElasticPress\Utils\sanitize_credentials( [] );
+		$creds = \WPProbe\Utils\sanitize_credentials( [] );
 
 		$this->assertTrue( is_array( $creds ) );
 
@@ -128,7 +128,7 @@ class TestUtils extends BaseTestCase {
 		$this->assertSame( '', $creds['username'] );
 		$this->assertSame( '', $creds['token'] );
 
-		$creds = \ElasticPress\Utils\sanitize_credentials(
+		$creds = \WPProbe\Utils\sanitize_credentials(
 			[
 				'username' => '<strong>hello</strong> world',
 				'token'    => 'able <script>alert("baker");</script>',
@@ -144,7 +144,7 @@ class TestUtils extends BaseTestCase {
 		$this->assertSame( 'able', $creds['token'] );
 
 		// Finally, test with valid data.
-		$creds = \ElasticPress\Utils\sanitize_credentials(
+		$creds = \WPProbe\Utils\sanitize_credentials(
 			[
 				'username' => 'my-user-name',
 				'token'    => 'my-token',
@@ -173,7 +173,7 @@ class TestUtils extends BaseTestCase {
 			update_option( 'ep_index_meta', [ 'method' => 'test' ] );
 		}
 
-		$this->assertTrue( ElasticPress\Utils\is_indexing() );
+		$this->assertTrue( WPProbe\Utils\is_indexing() );
 
 		if ( is_multisite() ) {
 			delete_site_option( 'ep_index_meta' );
@@ -181,7 +181,7 @@ class TestUtils extends BaseTestCase {
 			delete_option( 'ep_index_meta' );
 		}
 
-		$this->assertFalse( ElasticPress\Utils\is_indexing() );
+		$this->assertFalse( WPProbe\Utils\is_indexing() );
 	}
 
 	/**
@@ -193,22 +193,22 @@ class TestUtils extends BaseTestCase {
 		/**
 		 * Test without the $do_sync parameter
 		 */
-		$sync_url = ElasticPress\Utils\get_sync_url();
+		$sync_url = WPProbe\Utils\get_sync_url();
 		$this->assertStringNotContainsString( '&do_sync', $sync_url );
 		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
-			$this->assertStringContainsString( 'wp-admin/network/admin.php?page=elasticpress-sync', $sync_url );
+			$this->assertStringContainsString( 'wp-admin/network/admin.php?page=wpprobe-sync', $sync_url );
 		} else {
-			$this->assertStringContainsString( 'wp-admin/admin.php?page=elasticpress-sync', $sync_url );
+			$this->assertStringContainsString( 'wp-admin/admin.php?page=wpprobe-sync', $sync_url );
 		}
 
 		/**
 		 * Test with the $do_sync parameter
 		 */
-		$sync_url = ElasticPress\Utils\get_sync_url( true );
+		$sync_url = WPProbe\Utils\get_sync_url( true );
 		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
-			$this->assertStringContainsString( 'wp-admin/network/admin.php?page=elasticpress-sync&do_sync&ep_sync_nonce=', $sync_url );
+			$this->assertStringContainsString( 'wp-admin/network/admin.php?page=wpprobe-sync&do_sync&ep_sync_nonce=', $sync_url );
 		} else {
-			$this->assertStringContainsString( 'wp-admin/admin.php?page=elasticpress-sync&do_sync&ep_sync_nonce=', $sync_url );
+			$this->assertStringContainsString( 'wp-admin/admin.php?page=wpprobe-sync&do_sync&ep_sync_nonce=', $sync_url );
 		}
 	}
 

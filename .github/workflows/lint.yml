@@ -9,11 +9,11 @@ env:
 on:
   push:
     branches:
-      - develop
+      - dev
       - trunk
   pull_request:
     branches:
-      - develop
+      - dev
       - '[0-9].[0-9x]*' # Version branches: 4.x.x, 4.1.x, 5.x
 
 jobs:
@@ -24,7 +24,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set standard 10up cache directories
+    - name: Set standard WPProbe cache directories
       run: |
         sudo npm config set cache "${{ env.NODE_CACHE }}" --global
 
@@ -58,7 +58,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Set standard 10up cache directories
+    - name: Set standard WPProbe cache directories
       run: |
         composer config -g cache-dir "${{ env.COMPOSER_CACHE }}"
 
@@ -82,4 +82,4 @@ jobs:
       run: composer install
 
     - name: PHPCS check
-      run: './vendor/bin/phpcs . -q --report=checkstyle --warning-severity=6 --runtime-set testVersion 7.4- | cs2pr'
+      run: './vendor/bin/phpcs . -q --report=checkstyle --runtime-set testVersion 7.4- | cs2pr'

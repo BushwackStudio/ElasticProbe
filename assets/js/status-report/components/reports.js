@@ -36,15 +36,15 @@ export default ({ plainTextReport, reports }) => {
 	 * @type {object}
 	 */
 	const ref = useCopyToClipboard(plainTextReport, () => {
-		createNotice('info', __('Copied status report to clipboard.', 'elasticpress'));
+		createNotice('info', __('Copied status report to clipboard.', 'wpprobe'));
 	});
 
 	return (
 		<>
 			<p>
 				{__(
-					'This screen provides a list of information related to ElasticPress and synced content that can be helpful during troubleshooting. This list can also be copy/pasted and shared as needed.',
-					'elasticpress',
+					'This screen provides a list of information related to WPProbe and synced content that can be helpful during troubleshooting. This list can also be copy/pasted and shared as needed.',
+					'wpprobe',
 				)}
 			</p>
 			<p>
@@ -55,12 +55,12 @@ export default ({ plainTextReport, reports }) => {
 							href={downloadUrl}
 							variant="primary"
 						>
-							{__('Download status report', 'elasticpress')}
+							{__('Download status report', 'wpprobe')}
 						</Button>
 					</FlexItem>
 					<FlexItem>
 						<Button ref={ref} variant="secondary">
-							{__('Copy status report to clipboard', 'elasticpress')}
+							{__('Copy status report to clipboard', 'wpprobe')}
 						</Button>
 					</FlexItem>
 				</Flex>

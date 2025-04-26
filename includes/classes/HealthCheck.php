@@ -5,10 +5,10 @@
  * All health checkers extend this class.
  *
  * @since  3.6.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress;
+namespace WPProbe;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.

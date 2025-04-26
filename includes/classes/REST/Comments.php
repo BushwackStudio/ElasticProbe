@@ -3,19 +3,19 @@
  * Comments REST API Controller
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\REST;
+namespace WPProbe\REST;
 
-use ElasticPress\Features;
-use ElasticPress\Indexables;
+use WPProbe\Features;
+use WPProbe\Indexables;
 
 /**
  * Comments API controller class.
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 class Comments {
 
@@ -25,6 +25,7 @@ class Comments {
 	 * @return void
 	 */
 	public function register_routes() {
+		// TODO: Change rest route
 		register_rest_route(
 			'elasticpress/v1',
 			'comments',
@@ -48,12 +49,12 @@ class Comments {
 		return [
 			'post_type' => [
 				'default'     => '',
-				'description' => __( 'Post type of the posts whose comments to search.', 'elasticpress' ),
+				'description' => __( 'Post type of the posts whose comments to search.', 'wpprobe' ),
 				'enum'        => $post_types,
 				'required'    => false,
 			],
 			's'         => [
-				'description'       => __( 'Search query.', 'elasticpress' ),
+				'description'       => __( 'Search query.', 'wpprobe' ),
 				'required'          => true,
 				'type'              => 'string',
 				'validate_callback' => fn( $param ) => ! empty( $param ),

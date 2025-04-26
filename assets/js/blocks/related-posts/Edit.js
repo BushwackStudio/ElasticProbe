@@ -73,7 +73,7 @@ const RelatedPostsEdit = ({ attributes, context, setAttributes }) => {
 				/>
 			</BlockControls>
 			<InspectorControls>
-				<PanelBody title={__('Settings', 'elasticpress')}>
+				<PanelBody title={__('Settings', 'wpprobe')}>
 					<QueryControls
 						numberOfItems={number}
 						onNumberOfItemsChange={(value) => setAttributes({ number: value })}
@@ -83,12 +83,8 @@ const RelatedPostsEdit = ({ attributes, context, setAttributes }) => {
 
 			<div {...blockProps}>
 				{displayPosts === false || displayPosts.length === 0 ? (
-					<Placeholder icon={icon} label={__('Related Posts', 'elasticpress')}>
-						{posts === false ? (
-							<Spinner />
-						) : (
-							__('No related posts yet.', 'elasticpress')
-						)}
+					<Placeholder icon={icon} label={__('Related Posts', 'wpprobe')}>
+						{posts === false ? <Spinner /> : __('No related posts yet.', 'wpprobe')}
 					</Placeholder>
 				) : (
 					<Disabled>
@@ -101,7 +97,7 @@ const RelatedPostsEdit = ({ attributes, context, setAttributes }) => {
 											{titleTrimmed ? (
 												<RawHTML>{titleTrimmed}</RawHTML>
 											) : (
-												__('(Untitled)', 'elasticpress')
+												__('(Untitled)', 'wpprobe')
 											)}
 										</a>
 									</li>

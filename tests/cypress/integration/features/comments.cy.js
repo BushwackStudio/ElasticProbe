@@ -218,7 +218,7 @@ describe('Comments Feature', { tags: '@slow' }, () => {
 		 * Widget block.
 		 */
 		cy.get(`.wp-block-legacy-widget`).first().as('widget');
-		cy.get('@widget').should('contain.text', 'ElasticPress - Comments');
+		cy.get('@widget').should('contain.text', 'WPProbe - Comments');
 
 		/**
 		 * Transform the legacywidget into the block.
@@ -249,7 +249,7 @@ describe('Comments Feature', { tags: '@slow' }, () => {
 
 		cy.maybeDisableFeature('comments');
 
-		cy.visitAdminPage('admin.php?page=elasticpress');
+		cy.visitAdminPage('admin.php?page=wpprobe');
 		cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
 
 		cy.contains('button', 'Comments').click();
@@ -278,7 +278,7 @@ describe('Comments Feature', { tags: '@slow' }, () => {
 			`Number of comments indexed: ${defaultApprovedComments}`,
 		);
 
-		cy.wpCli('elasticpress list-features').its('stdout').should('contain', 'comments');
+		cy.wpCli('wpprobe list-features').its('stdout').should('contain', 'comments');
 	});
 
 	it('Can not sync anonymous comments until it is approved manually', () => {
@@ -301,7 +301,7 @@ describe('Comments Feature', { tags: '@slow' }, () => {
 		cy.contains('#main .entry-title a', 'Test Comment').first().click();
 		cy.get('#comment').type('This is a anonymous comment');
 		cy.get('#submit').click();
-		cy.wpCli('wp elasticpress sync')
+		cy.wpCli('wp wpprobe sync')
 			.its('stdout')
 			.should('contain', `Number of comments indexed: ${defaultApprovedComments}`);
 
@@ -310,7 +310,7 @@ describe('Comments Feature', { tags: '@slow' }, () => {
 		cy.intercept('POST', '/wp-admin/admin-ajax.php*').as('ajaxRequest');
 		cy.get('.approve a').first().click({ force: true });
 		cy.wait('@ajaxRequest').its('response.statusCode').should('eq', 200);
-		cy.wpCli('wp elasticpress stats')
+		cy.wpCli('wp wpprobe stats')
 			.its('stdout')
 			.should('contain', `Documents:  ${defaultApprovedComments + 1}`);
 
@@ -319,7 +319,7 @@ describe('Comments Feature', { tags: '@slow' }, () => {
 		cy.intercept('POST', '/wp-admin/admin-ajax.php*').as('ajaxRequest');
 		cy.get('.column-comment .trash a').first().click({ force: true });
 		cy.wait('@ajaxRequest').its('response.statusCode').should('eq', 200);
-		cy.wpCli('wp elasticpress stats')
+		cy.wpCli('wp wpprobe stats')
 			.its('stdout')
 			.should('contain', `Documents:  ${defaultApprovedComments}`);
 	});
@@ -346,7 +346,7 @@ describe('Comments Feature', { tags: '@slow' }, () => {
 
 		// Check if the new comment was indexed
 		cy.refreshIndex('comment').then(() => {
-			cy.wpCli('wp elasticpress stats')
+			cy.wpCli('wp wpprobe stats')
 				.its('stdout')
 				.should('contain', `Documents:  ${defaultApprovedComments + 1}`);
 		});
@@ -387,7 +387,7 @@ describe('Comments Feature', { tags: '@slow' }, () => {
 		cy.get('#comment').type('This is a anonymous comment');
 		cy.get('#submit').click();
 
-		cy.wpCli('wp elasticpress stats')
+		cy.wpCli('wp wpprobe stats')
 			.its('stdout')
 			.should('contain', `Documents:  ${defaultApprovedComments + 1}`);
 

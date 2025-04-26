@@ -3,16 +3,16 @@
  * WooCommerce Orders Feature
  *
  * @since 4.5.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\Feature\WooCommerce;
+namespace WPProbe\Feature\WooCommerce;
 
-use ElasticPress\Elasticsearch;
-use ElasticPress\Features;
-use ElasticPress\Indexables;
-use ElasticPress\REST;
-use ElasticPress\Utils;
+use WPProbe\Elasticsearch;
+use WPProbe\Features;
+use WPProbe\Indexables;
+use WPProbe\REST;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -179,7 +179,7 @@ class OrdersAutosuggest {
 			true
 		);
 
-		wp_set_script_translations( 'elasticpress-woocommerce-order-search', 'elasticpress' );
+		wp_set_script_translations( 'elasticpress-woocommerce-order-search', 'wpprobe' );
 
 		$api_endpoint = $this->get_search_endpoint();
 		$api_host     = Utils\get_host();
@@ -203,7 +203,7 @@ class OrdersAutosuggest {
 	}
 
 	/**
-	 * Save or delete the search template on ElasticPress.io based on whether
+	 * Save or delete the search template on WPProbe.com based on whether
 	 * the WooCommerce feature is being activated or deactivated.
 	 *
 	 * @param string $feature  Feature slug
@@ -225,7 +225,7 @@ class OrdersAutosuggest {
 	}
 
 	/**
-	 * Save the search template to ElasticPress.io.
+	 * Save the search template to WPProbe.com.
 	 *
 	 * @return void
 	 */
@@ -254,7 +254,7 @@ class OrdersAutosuggest {
 	}
 
 	/**
-	 * Delete the search template from ElasticPress.io.
+	 * Delete the search template from WPProbe.com.
 	 *
 	 * @return void
 	 */
@@ -280,7 +280,7 @@ class OrdersAutosuggest {
 	}
 
 	/**
-	 * Get the saved search template from ElasticPress.io.
+	 * Get the saved search template from WPProbe.com.
 	 *
 	 * @return string|WP_Error Search template if found, WP_Error on error.
 	 */
@@ -301,7 +301,7 @@ class OrdersAutosuggest {
 	 * Generate a search template.
 	 *
 	 * A search template is the JSON for an Elasticsearch query with a
-	 * placeholder search term. The template is sent to ElasticPress.io where
+	 * placeholder search term. The template is sent to WPProbe.com where
 	 * it's used to make Elasticsearch queries using search terms sent from
 	 * the front end.
 	 *
@@ -312,7 +312,7 @@ class OrdersAutosuggest {
 
 		add_filter( 'ep_bypass_exclusion_from_search', '__return_true', 10 );
 		add_filter( 'ep_intercept_remote_request', '__return_true' );
-		add_filter( 'ep_do_intercept_request', [ $this, 'intercept_search_request' ], 10, 4 );
+		add_filter( 'ep_do_intercept_request', [ $this, 'intercept_search_request' ], 10, 3 );
 		add_filter( 'ep_is_integrated_request', [ $this, 'is_integrated_request' ], 10, 2 );
 
 		$query = new \WP_Query(
@@ -363,10 +363,9 @@ class OrdersAutosuggest {
 	 * @param object $response Response
 	 * @param array  $query Query
 	 * @param array  $args WP_Query argument array
-	 * @param int    $failures Count of failures in request loop
 	 * @return object $response Response
 	 */
-	public function intercept_search_request( $response, $query = [], $args = [], $failures = 0 ) {
+	public function intercept_search_request( $response, $query = [], $args = [] ) {
 		$this->search_template = $query['args']['body'];
 
 		return wp_remote_request( $query['url'], $args );
@@ -577,7 +576,7 @@ class OrdersAutosuggest {
 	public function is_available(): bool {
 		/**
 		 * Whether the autosuggest feature is available for non
-		 * ElasticPress.io customers.
+		 * WPProbe.com customers.
 		 *
 		 * @since 4.5.0
 		 * @hook ep_woocommerce_orders_autosuggest_available
@@ -635,7 +634,7 @@ class OrdersAutosuggest {
 			'disabled'      => ! $available,
 			'help'          => $this->get_setting_help_message(),
 			'key'           => 'orders',
-			'label'         => __( 'Show suggestions when searching for Orders', 'elasticpress' ),
+			'label'         => __( 'Show suggestions when searching for Orders', 'wpprobe' ),
 			'requires_sync' => true,
 			'type'          => 'checkbox',
 		];
@@ -655,12 +654,12 @@ class OrdersAutosuggest {
 		$epio_autosuggest_kb_link = 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-io-order-autosuggest/';
 
 		if ( $available ) {
-			/* translators: 1: <a> tag (ElasticPress.io); 2. </a>; 3: <a> tag (KB article); 4. </a>; */
-			$message = __( 'You are directly connected to %1$sElasticPress.io%2$s! Enable autosuggest for Orders to enhance Dashboard results and quickly find WooCommerce Orders. %3$sLearn More%4$s.', 'elasticpress' );
+			/* translators: 1: <a> tag (WPProbe.com); 2. </a>; 3: <a> tag (KB article); 4. </a>; */
+			$message = __( 'You are directly connected to %1$sWPProbe.com%2$s! Enable autosuggest for Orders to enhance Dashboard results and quickly find WooCommerce Orders. %3$sLearn More%4$s.', 'wpprobe' );
 
 			return sprintf(
 				wp_kses( $message, 'ep-html' ),
-				'<a href="https://elasticpress.io/" target="_blank">',
+				'<a href="https://wpprobe.com/" target="_blank">',
 				'</a>',
 				'<a href="' . esc_url( $epio_autosuggest_kb_link ) . '" target="_blank">',
 				'</a>'
@@ -668,15 +667,15 @@ class OrdersAutosuggest {
 		}
 
 		if ( ! $this->is_hpos_compatible() ) {
-			return esc_html__( 'Currently, autosuggest for orders is only available if WooCommerce order data storage is set in legacy or compatibility mode.', 'elasticpress' );
+			return esc_html__( 'Currently, autosuggest for orders is only available if WooCommerce order data storage is set in legacy or compatibility mode.', 'wpprobe' );
 		}
 
-		/* translators: 1: <a> tag (ElasticPress.io); 2. </a>; 3: <a> tag (KB article); 4. </a>; */
-		$message = __( 'Due to the sensitive nature of orders, this autosuggest feature is available only to %1$sElasticPress.io%2$s customers. %3$sLearn More%4$s.', 'elasticpress' );
+		/* translators: 1: <a> tag (WPProbe.com); 2. </a>; 3: <a> tag (KB article); 4. </a>; */
+		$message = __( 'Due to the sensitive nature of orders, this autosuggest feature is available only to %1$sWPProbe.com%2$s customers. %3$sLearn More%4$s.', 'wpprobe' );
 
 		$message = sprintf(
 			wp_kses( $message, 'ep-html' ),
-			'<a href="https://elasticpress.io/" target="_blank">',
+			'<a href="https://wpprobe.com/" target="_blank">',
 			'</a>',
 			'<a href="' . esc_url( $epio_autosuggest_kb_link ) . '" target="_blank">',
 			'</a>'

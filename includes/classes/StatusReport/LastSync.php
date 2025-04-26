@@ -3,17 +3,17 @@
  * Last sync report class
  *
  * @since 4.4.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\StatusReport;
+namespace WPProbe\StatusReport;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Last sync report class
  *
- * @package ElasticPress
+ * @package WPProbe
  */
 class LastSync extends Report {
 
@@ -23,7 +23,7 @@ class LastSync extends Report {
 	 * @return string
 	 */
 	public function get_title(): string {
-		return __( 'Last Sync', 'elasticpress' );
+		return __( 'Last Sync', 'wpprobe' );
 	}
 
 	/**
@@ -34,7 +34,7 @@ class LastSync extends Report {
 	public function get_groups(): array {
 		$fields = [];
 
-		$sync_info = \ElasticPress\IndexHelper::factory()->get_last_sync();
+		$sync_info = \WPProbe\IndexHelper::factory()->get_last_sync();
 
 		if ( empty( $sync_info ) ) {
 			return [];
@@ -64,28 +64,28 @@ class LastSync extends Report {
 
 		if ( ! empty( $sync_info['method'] ) ) {
 			$methods = [
-				'web' => esc_html__( 'WP Dashboard', 'elasticpress' ),
-				'cli' => esc_html__( 'WP-CLI', 'elasticpress' ),
+				'web' => esc_html__( 'WP Dashboard', 'wpprobe' ),
+				'cli' => esc_html__( 'WP-CLI', 'wpprobe' ),
 			];
 
 			$sync_info['method'] = $methods[ $sync_info['method'] ] ?? $sync_info['method'];
 		}
 
 		if ( isset( $sync_info['is_full_sync'] ) ) {
-			$sync_info['is_full_sync'] = $sync_info['is_full_sync'] ? esc_html__( 'Yes', 'elasticpress' ) : esc_html__( 'No', 'elasticpress' );
+			$sync_info['is_full_sync'] = $sync_info['is_full_sync'] ? esc_html__( 'Yes', 'wpprobe' ) : esc_html__( 'No', 'wpprobe' );
 		}
 
 		$labels = [
-			'total'           => esc_html__( 'Total', 'elasticpress' ),
-			'synced'          => esc_html__( 'Synced', 'elasticpress' ),
-			'skipped'         => esc_html__( 'Skipped', 'elasticpress' ),
-			'failed'          => esc_html__( 'Failed', 'elasticpress' ),
-			'errors'          => esc_html__( 'Errors', 'elasticpress' ),
-			'method'          => esc_html__( 'Method', 'elasticpress' ),
-			'is_full_sync'    => esc_html__( 'Full Sync', 'elasticpress' ),
-			'end_date_time'   => esc_html__( 'End Date Time', 'elasticpress' ),
-			'start_date_time' => esc_html__( 'Start Date Time', 'elasticpress' ),
-			'total_time'      => esc_html__( 'Total Time', 'elasticpress' ),
+			'total'           => esc_html__( 'Total', 'wpprobe' ),
+			'synced'          => esc_html__( 'Synced', 'wpprobe' ),
+			'skipped'         => esc_html__( 'Skipped', 'wpprobe' ),
+			'failed'          => esc_html__( 'Failed', 'wpprobe' ),
+			'errors'          => esc_html__( 'Errors', 'wpprobe' ),
+			'method'          => esc_html__( 'Method', 'wpprobe' ),
+			'is_full_sync'    => esc_html__( 'Full Sync', 'wpprobe' ),
+			'end_date_time'   => esc_html__( 'End Date Time', 'wpprobe' ),
+			'start_date_time' => esc_html__( 'Start Date Time', 'wpprobe' ),
+			'total_time'      => esc_html__( 'Total Time', 'wpprobe' ),
 		];
 
 		/**
@@ -99,7 +99,7 @@ class LastSync extends Report {
 		$ordered_sync_info = [];
 		foreach ( $preferred_order as $field ) {
 			if ( array_key_exists( $field, $sync_info ) ) {
-				$ordered_sync_info[ $field ] = $sync_info[ $field ] ?? esc_html_x( 'N/A', 'Sync info not available', 'elasticpress' );
+				$ordered_sync_info[ $field ] = $sync_info[ $field ] ?? esc_html_x( 'N/A', 'Sync info not available', 'wpprobe' );
 				unset( $sync_info[ $field ] );
 			}
 		}
@@ -112,11 +112,11 @@ class LastSync extends Report {
 			];
 		}
 		$title = $sync_info['start_date_time'] ?? '';
-		if ( false !== \ElasticPress\Utils\get_indexing_status() ) {
+		if ( false !== \WPProbe\Utils\get_indexing_status() ) {
 			/* translators: last sync title */
-			$title = sprintf( __( '%s (In Progress)', 'elasticpress' ), $title );
+			$title = sprintf( __( '%s (In Progress)', 'wpprobe' ), $title );
 		}
-		if ( 'status-report' === \ElasticPress\Screen::factory()->get_current_screen() ) {
+		if ( 'status-report' === \WPProbe\Screen::factory()->get_current_screen() ) {
 			unset( $fields['start_date_time'] );
 		}
 

@@ -1,23 +1,23 @@
 <?php
 /**
- * ElasticPress.io report class
+ * WPProbe.com report class
  *
  * @since 4.4.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\StatusReport;
+namespace WPProbe\StatusReport;
 
-use ElasticPress\Indexables;
-use ElasticPress\Feature\InstantResults;
-use ElasticPress\Utils;
+use WPProbe\Indexables;
+use WPProbe\Feature\InstantResults;
+use WPProbe\Utils;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * ElasticPressIo report class
  *
- * @package ElasticPress
+ * @package WPProbe
  */
 class ElasticPressIo extends Report {
 
@@ -27,7 +27,7 @@ class ElasticPressIo extends Report {
 	 * @return string
 	 */
 	public function get_title(): string {
-		return __( 'ElasticPress.io', 'elasticpress' );
+		return __( 'WPProbe.com', 'wpprobe' );
 	}
 
 	/**
@@ -46,24 +46,24 @@ class ElasticPressIo extends Report {
 	}
 
 	/**
-	 * Process the ElasticPress.io Autosuggest allowed parameters.
+	 * Process the WPProbe.com Autosuggest allowed parameters.
 	 *
 	 * @return array
 	 */
 	protected function get_autosuggest_group(): array {
-		$autosuggest_feature = \ElasticPress\Features::factory()->get_registered_feature( 'autosuggest' );
+		$autosuggest_feature = \WPProbe\Features::factory()->get_registered_feature( 'autosuggest' );
 
 		if ( ! $autosuggest_feature->is_active() ) {
 			return [];
 		}
 
-		$title          = __( 'Allowed Autosuggest Parameters', 'elasticpress' );
+		$title          = __( 'Allowed Autosuggest Parameters', 'wpprobe' );
 		$allowed_params = $autosuggest_feature->epio_autosuggest_set_and_get();
 
 		if ( empty( $allowed_params ) ) {
 			$fields['not_available'] = [
-				'label' => __( 'Allowed Autosuggest Parameters', 'elasticpress' ),
-				'value' => __( 'Allowed autosuggest parameters info not available.', 'elasticpress' ),
+				'label' => __( 'Allowed Autosuggest Parameters', 'wpprobe' ),
+				'value' => __( 'Allowed autosuggest parameters info not available.', 'wpprobe' ),
 			];
 
 			return [
@@ -83,9 +83,9 @@ class ElasticPressIo extends Report {
 		);
 
 		$fields = [
-			'Post Types'      => wp_sprintf( esc_html__( '%l', 'elasticpress' ), $allowed_params['postTypes'] ),
-			'Post Status'     => wp_sprintf( esc_html__( '%l', 'elasticpress' ), $allowed_params['postStatus'] ),
-			'Search Fields'   => wp_sprintf( esc_html__( '%l', 'elasticpress' ), $allowed_params['searchFields'] ),
+			'Post Types'      => wp_sprintf( esc_html__( '%l', 'wpprobe' ), $allowed_params['postTypes'] ),
+			'Post Status'     => wp_sprintf( esc_html__( '%l', 'wpprobe' ), $allowed_params['postStatus'] ),
+			'Search Fields'   => wp_sprintf( esc_html__( '%l', 'wpprobe' ), $allowed_params['searchFields'] ),
 			'Returned Fields' => wp_sprintf( esc_html( var_export( $allowed_params['returnFields'], true ) ) ), // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export
 		];
 
@@ -105,18 +105,18 @@ class ElasticPressIo extends Report {
 	}
 
 	/**
-	 * Process the ElasticPress.io Instant Results templates.
+	 * Process the WPProbe.com Instant Results templates.
 	 *
 	 * @return array
 	 */
 	protected function get_instant_results_group(): array {
-		$instant_results_feature = \ElasticPress\Features::factory()->get_registered_feature( 'instant-results' );
+		$instant_results_feature = \WPProbe\Features::factory()->get_registered_feature( 'instant-results' );
 
 		if ( ! $instant_results_feature->is_active() ) {
 			return [];
 		}
 
-		$title  = __( 'Instant Results Template', 'elasticpress' );
+		$title  = __( 'Instant Results Template', 'wpprobe' );
 		$fields = [];
 
 		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
@@ -141,13 +141,13 @@ class ElasticPressIo extends Report {
 	}
 
 	/**
-	 * Process the ElasticPress.io Orders Search templates.
+	 * Process the WPProbe.com Orders Search templates.
 	 *
 	 * @since 4.5.0
 	 * @return array
 	 */
 	protected function get_orders_search_group(): array {
-		$woocommerce_feature = \ElasticPress\Features::factory()->get_registered_feature( 'woocommerce' );
+		$woocommerce_feature = \WPProbe\Features::factory()->get_registered_feature( 'woocommerce' );
 
 		if ( ! $woocommerce_feature->is_active() ) {
 			return [];
@@ -157,7 +157,7 @@ class ElasticPressIo extends Report {
 			return [];
 		}
 
-		$title  = __( 'Orders Search Template', 'elasticpress' );
+		$title  = __( 'Orders Search Template', 'wpprobe' );
 		$fields = [];
 
 		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
@@ -182,7 +182,7 @@ class ElasticPressIo extends Report {
 	}
 
 	/**
-	 * Process the ElasticPress.io Instant Results template.
+	 * Process the WPProbe.com Instant Results template.
 	 *
 	 * @return array
 	 */
@@ -220,14 +220,14 @@ class ElasticPressIo extends Report {
 	 * @since 4.5.0
 	 */
 	public function get_messages(): array {
-		$messages = \ElasticPress\ElasticPressIo::factory()->get_endpoint_messages( true );
+		$messages = \WPProbe\ElasticPressIo::factory()->get_endpoint_messages( true );
 		$messages = array_values( $messages );
 
 		return $messages;
 	}
 
 	/**
-	 * Process the ElasticPress.io Orders Search template.
+	 * Process the WPProbe.com Orders Search template.
 	 *
 	 * @since 4.5.0
 	 * @return array
@@ -239,7 +239,7 @@ class ElasticPressIo extends Report {
 			return [];
 		}
 
-		$woocommerce_feature = \ElasticPress\Features::factory()->get_registered_feature( 'woocommerce' );
+		$woocommerce_feature = \WPProbe\Features::factory()->get_registered_feature( 'woocommerce' );
 		$template            = $woocommerce_feature->orders_autosuggest->get_search_template();
 
 		if ( is_wp_error( $template ) ) {

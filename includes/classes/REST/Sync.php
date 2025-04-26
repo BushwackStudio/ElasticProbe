@@ -3,19 +3,19 @@
  * Sync REST API Controller
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\REST;
+namespace WPProbe\REST;
 
-use ElasticPress\IndexHelper;
-use ElasticPress\Utils;
+use WPProbe\IndexHelper;
+use WPProbe\Utils;
 
 /**
  * Sync API controller class.
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 class Sync {
 
@@ -25,6 +25,7 @@ class Sync {
 	 * @return void
 	 */
 	public function register_routes() {
+		// TODO: Change REST route
 		register_rest_route(
 			'elasticpress/v1',
 			'sync',
@@ -65,14 +66,14 @@ class Sync {
 	public function get_args() {
 		return [
 			'include'               => [
-				'description' => __( 'IDs of objects to sync.', 'elasticpress' ),
+				'description' => __( 'IDs of objects to sync.', 'wpprobe' ),
 				'items'       => [
 					'type' => 'integer',
 				],
 				'type'        => 'array',
 			],
 			'indexables'            => [
-				'description' => __( 'Indexables to sync', 'elasticpress' ),
+				'description' => __( 'Indexables to sync', 'wpprobe' ),
 				'items'       => [
 					'type' => 'string',
 				],
@@ -80,17 +81,17 @@ class Sync {
 				'type'        => 'array',
 			],
 			'lower_limit_object_id' => [
-				'description' => __( 'Start of object ID range to sync,', 'elasticpress' ),
+				'description' => __( 'Start of object ID range to sync,', 'wpprobe' ),
 				'type'        => 'integer',
 				'required'    => false,
 			],
 			'offset'                => [
-				'description' => __( 'Number of objects to skip.', 'elasticpress' ),
+				'description' => __( 'Number of objects to skip.', 'wpprobe' ),
 				'required'    => false,
 				'type'        => 'integer',
 			],
 			'post_type'             => [
-				'description' => __( 'Post type to sync.', 'elasticpress' ),
+				'description' => __( 'Post type to sync.', 'wpprobe' ),
 				'items'       => [
 					'type' => 'string',
 				],
@@ -98,7 +99,7 @@ class Sync {
 			],
 			'put_mapping'           => [
 				'default'     => false,
-				'description' => __( 'Whether to clear the index and send mapping before syncing.', 'elasticpress' ),
+				'description' => __( 'Whether to clear the index and send mapping before syncing.', 'wpprobe' ),
 				'type'        => 'boolean',
 				'required'    => false,
 			],
@@ -107,7 +108,7 @@ class Sync {
 				'required' => false,
 			],
 			'upper_limit_object_id' => [
-				'description' => __( 'End of object ID range to sync.', 'elasticpress' ),
+				'description' => __( 'End of object ID range to sync.', 'wpprobe' ),
 				'type'        => 'integer',
 				'required'    => false,
 			],
@@ -177,10 +178,9 @@ class Sync {
 	/**
 	 * Get the status of a sync in progress.
 	 *
-	 * @param \WP_REST_Request $request Full details about the request.
 	 * @return void
 	 */
-	public function get_sync_status( \WP_REST_Request $request ) {
+	public function get_sync_status() {
 		nocache_headers();
 
 		$index_meta = Utils\get_indexing_status();
@@ -190,7 +190,7 @@ class Sync {
 				[
 					'message'    => sprintf(
 						/* translators: 1. Number of objects indexed, 2. Total number of objects, 3. Last object ID. */
-						esc_html__( 'Processed %1$d/%2$d. Last Object ID: %3$d', 'elasticpress' ),
+						esc_html__( 'Processed %1$d/%2$d. Last Object ID: %3$d', 'wpprobe' ),
 						$index_meta['offset'],
 						$index_meta['found_items'],
 						$index_meta['current_sync_item']['last_processed_object_id']
@@ -211,10 +211,9 @@ class Sync {
 	/**
 	 * Cancel a sync in progress.
 	 *
-	 * @param \WP_REST_Request $request Full details about the request.
 	 * @return void
 	 */
-	public function cancel_sync( \WP_REST_Request $request ) {
+	public function cancel_sync() {
 		nocache_headers();
 
 		$index_meta = Utils\get_indexing_status();

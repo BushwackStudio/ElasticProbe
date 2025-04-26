@@ -2,12 +2,12 @@
 /**
  * Test term indexable functionality
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress;
+use WPProbe;
 
 /**
  * Test multisite term indexable class
@@ -31,32 +31,32 @@ class TestTermMultisite extends BaseTestCase {
 		$admin_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
 		grant_super_admin( $admin_id );
 
-		ElasticPress\Features::factory()->activate_feature( 'terms' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'terms' );
+		WPProbe\Features::factory()->setup_features();
 
-		ElasticPress\Elasticsearch::factory()->delete_all_indices();
+		WPProbe\Elasticsearch::factory()->delete_all_indices();
 
-		ElasticPress\Indexables::factory()->get( 'term' )->put_mapping();
+		WPProbe\Indexables::factory()->get( 'term' )->put_mapping();
 
 		// Need to call this since it's hooked to init.
-		ElasticPress\Features::factory()->get_registered_feature( 'terms' )->search_setup();
+		WPProbe\Features::factory()->get_registered_feature( 'terms' )->search_setup();
 
 		$this->factory->blog->create_many( 2, array( 'user_id' => $admin_id ) );
 
-		$sites   = ElasticPress\Utils\get_sites();
+		$sites   = WPProbe\Utils\get_sites();
 		$indexes = array();
 
 		foreach ( $sites as $site ) {
 			switch_to_blog( $site['blog_id'] );
 
-			ElasticPress\Indexables::factory()->get( 'term' )->put_mapping();
-			$indexes[] = ElasticPress\Indexables::factory()->get( 'term' )->get_index_name();
+			WPProbe\Indexables::factory()->get( 'term' )->put_mapping();
+			$indexes[] = WPProbe\Indexables::factory()->get( 'term' )->get_index_name();
 
 			restore_current_blog();
 		}
 
-		ElasticPress\Indexables::factory()->get( 'term' )->delete_network_alias();
-		ElasticPress\Indexables::factory()->get( 'term' )->create_network_alias( $indexes );
+		WPProbe\Indexables::factory()->get( 'term' )->delete_network_alias();
+		WPProbe\Indexables::factory()->get( 'term' )->create_network_alias( $indexes );
 
 		wp_set_current_user( $admin_id );
 	}
@@ -73,7 +73,7 @@ class TestTermMultisite extends BaseTestCase {
 
 		parent::tear_down();
 
-		ElasticPress\Indexables::factory()->get( 'term' )->delete_network_alias();
+		WPProbe\Indexables::factory()->get( 'term' )->delete_network_alias();
 	}
 
 	/**
@@ -83,7 +83,7 @@ class TestTermMultisite extends BaseTestCase {
 	 */
 	public function testTermQueryForAllSites() {
 
-		$sites = ElasticPress\Utils\get_sites();
+		$sites = WPProbe\Utils\get_sites();
 		if ( ! is_multisite() ) {
 			$this->assertEmpty( $sites );
 			return;
@@ -97,7 +97,7 @@ class TestTermMultisite extends BaseTestCase {
 			$this->ep_factory->category->create();
 			$this->ep_factory->category->create();
 
-			ElasticPress\Elasticsearch::factory()->refresh_indices();
+			WPProbe\Elasticsearch::factory()->refresh_indices();
 			restore_current_blog();
 		}
 
@@ -120,7 +120,7 @@ class TestTermMultisite extends BaseTestCase {
 	 */
 	public function testTermQueryForSitesSubset() {
 
-		$sites = ElasticPress\Utils\get_sites();
+		$sites = WPProbe\Utils\get_sites();
 		if ( ! is_multisite() ) {
 			$this->assertEmpty( $sites );
 			return;
@@ -134,7 +134,7 @@ class TestTermMultisite extends BaseTestCase {
 			$this->ep_factory->category->create();
 			$this->ep_factory->category->create();
 
-			ElasticPress\Elasticsearch::factory()->refresh_indices();
+			WPProbe\Elasticsearch::factory()->refresh_indices();
 			restore_current_blog();
 		}
 
@@ -157,7 +157,7 @@ class TestTermMultisite extends BaseTestCase {
 	 */
 	public function testTermQuerySearchForAllSites() {
 
-		$sites = ElasticPress\Utils\get_sites();
+		$sites = WPProbe\Utils\get_sites();
 
 		if ( ! is_multisite() ) {
 			$this->assertEmpty( $sites );
@@ -178,7 +178,7 @@ class TestTermMultisite extends BaseTestCase {
 			$this->ep_factory->category->create();
 			$this->ep_factory->category->create();
 
-			ElasticPress\Elasticsearch::factory()->refresh_indices();
+			WPProbe\Elasticsearch::factory()->refresh_indices();
 			restore_current_blog();
 		}
 
@@ -201,7 +201,7 @@ class TestTermMultisite extends BaseTestCase {
 	 */
 	public function testTermQuerySearchForSitesSubset() {
 
-		$sites = ElasticPress\Utils\get_sites();
+		$sites = WPProbe\Utils\get_sites();
 
 		if ( ! is_multisite() ) {
 			$this->assertEmpty( $sites );
@@ -222,7 +222,7 @@ class TestTermMultisite extends BaseTestCase {
 			$this->ep_factory->category->create();
 			$this->ep_factory->category->create();
 
-			ElasticPress\Elasticsearch::factory()->refresh_indices();
+			WPProbe\Elasticsearch::factory()->refresh_indices();
 			restore_current_blog();
 		}
 
@@ -245,7 +245,7 @@ class TestTermMultisite extends BaseTestCase {
 	 */
 	public function testTermQueryForAllSitesExceptOne() {
 
-		$sites = ElasticPress\Utils\get_sites();
+		$sites = WPProbe\Utils\get_sites();
 
 		if ( ! is_multisite() ) {
 			$this->assertEmpty( $sites );
@@ -260,7 +260,7 @@ class TestTermMultisite extends BaseTestCase {
 			$this->ep_factory->category->create();
 			$this->ep_factory->category->create();
 
-			ElasticPress\Elasticsearch::factory()->refresh_indices();
+			WPProbe\Elasticsearch::factory()->refresh_indices();
 			restore_current_blog();
 		}
 
@@ -283,7 +283,7 @@ class TestTermMultisite extends BaseTestCase {
 	 */
 	public function testTermQuerySearchForAllSitesExceptOne() {
 
-		$sites = ElasticPress\Utils\get_sites();
+		$sites = WPProbe\Utils\get_sites();
 
 		if ( ! is_multisite() ) {
 			$this->assertEmpty( $sites );
@@ -304,7 +304,7 @@ class TestTermMultisite extends BaseTestCase {
 			$this->ep_factory->category->create();
 			$this->ep_factory->category->create();
 
-			ElasticPress\Elasticsearch::factory()->refresh_indices();
+			WPProbe\Elasticsearch::factory()->refresh_indices();
 			restore_current_blog();
 		}
 
@@ -328,7 +328,7 @@ class TestTermMultisite extends BaseTestCase {
 	 */
 	public function testTermQuerySearchWithDeprecatedSitesParam() {
 
-		$sites = ElasticPress\Utils\get_sites();
+		$sites = WPProbe\Utils\get_sites();
 
 		if ( ! is_multisite() ) {
 			$this->assertEmpty( $sites );
@@ -343,7 +343,7 @@ class TestTermMultisite extends BaseTestCase {
 			$this->ep_factory->category->create();
 			$this->ep_factory->category->create();
 
-			ElasticPress\Elasticsearch::factory()->refresh_indices();
+			WPProbe\Elasticsearch::factory()->refresh_indices();
 			restore_current_blog();
 		}
 
@@ -379,7 +379,7 @@ class TestTermMultisite extends BaseTestCase {
 	 */
 	public function testTermQuerySearchWithDeprecatedSitesParamAndValueCurrent() {
 
-		$sites = ElasticPress\Utils\get_sites();
+		$sites = WPProbe\Utils\get_sites();
 
 		if ( ! is_multisite() ) {
 			$this->assertEmpty( $sites );
@@ -391,7 +391,7 @@ class TestTermMultisite extends BaseTestCase {
 
 			$this->ep_factory->category->create_many( 4 );
 
-			ElasticPress\Elasticsearch::factory()->refresh_indices();
+			WPProbe\Elasticsearch::factory()->refresh_indices();
 			restore_current_blog();
 		}
 
@@ -422,7 +422,7 @@ class TestTermMultisite extends BaseTestCase {
 	 */
 	public function testTermQuerySearchWithSiteInParamAndValueCurrent() {
 
-		$sites = ElasticPress\Utils\get_sites();
+		$sites = WPProbe\Utils\get_sites();
 
 		if ( ! is_multisite() ) {
 			$this->assertEmpty( $sites );
@@ -434,7 +434,7 @@ class TestTermMultisite extends BaseTestCase {
 
 			$this->ep_factory->category->create_many( 4 );
 
-			ElasticPress\Elasticsearch::factory()->refresh_indices();
+			WPProbe\Elasticsearch::factory()->refresh_indices();
 			restore_current_blog();
 		}
 

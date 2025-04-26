@@ -3,7 +3,7 @@
  * Elasticsearch mapping for ES 5.2
  *
  * @since  2.4
- * @package elasticpress
+ * @package wpprobe
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -3,17 +3,17 @@
  * Test default search algorithm
  *
  * @since 4.3.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress\SearchAlgorithm\DefaultAlgorithm;
+use WPProbe\SearchAlgorithm\DefaultAlgorithm;
 
 /**
  * Test default search algorithm class
  */
-class TestDefaultSearchAlgorithm extends \ElasticPressTest\BaseTestCase {
+class TestDefaultSearchAlgorithm extends \WPProbeTest\BaseTestCase {
 	/**
 	 * Test get_slug
 	 *

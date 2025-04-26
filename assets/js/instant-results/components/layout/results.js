@@ -63,19 +63,14 @@ export default () => {
 		if (searchTerm) {
 			return sprintf(
 				/* translators: %1$d: results count. %2$s: Search term. */
-				_n(
-					'%1$d result for “%2$s“',
-					'%1$d results for “%2$s“',
-					totalResults,
-					'elasticpress',
-				),
+				_n('%1$d result for “%2$s“', '%1$d results for “%2$s“', totalResults, 'wpprobe'),
 				totalResults,
 				searchTerm,
 			);
 		}
 		return sprintf(
 			/* translators: %d: results count. */
-			_n('%d result', '%d results', totalResults, 'elasticpress'),
+			_n('%d result', '%d results', totalResults, 'wpprobe'),
 			totalResults,
 		);
 	};
@@ -84,9 +79,7 @@ export default () => {
 		<div className="ep-search-results">
 			<header className="ep-search-results__header">
 				<h1 className="ep-search-results__title" ref={headingRef} role="status">
-					{!isFirstSearch
-						? displayResults()
-						: sprintf(__('Loading results', 'elasticpress'))}
+					{!isFirstSearch ? displayResults() : sprintf(__('Loading results', 'wpprobe'))}
 				</h1>
 
 				<Sort />

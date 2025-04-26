@@ -3,18 +3,18 @@
  * Comments feature
  *
  * @since   3.6.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\Feature\Comments;
+namespace WPProbe\Feature\Comments;
 
-use ElasticPress\Feature;
-use ElasticPress\FeatureRequirementsStatus;
-use ElasticPress\Features;
-use ElasticPress\Indexable;
-use ElasticPress\Indexables;
-use ElasticPress\Utils;
-use ElasticPress\REST;
+use WPProbe\Feature;
+use WPProbe\FeatureRequirementsStatus;
+use WPProbe\Features;
+use WPProbe\Indexable;
+use WPProbe\Indexables;
+use WPProbe\Utils;
+use WPProbe\REST;
 
 /**
  * Comments feature class
@@ -36,17 +36,25 @@ class Comments extends Feature {
 	public function __construct() {
 		$this->slug = 'comments';
 
-		$this->title = esc_html__( 'Comments', 'elasticpress' );
-
-		$this->summary = '<p>' . __( 'This feature will empower your website to overcome traditional WordPress comment search and query limitations that can present themselves at scale. This feature is only needed if you are using <code>WP_Comment_Query</code> directly.', 'elasticpress' ) . '</p>';
-
-		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#comments', 'elasticpress' );
-
 		$this->requires_install_reindex = true;
 
 		Indexables::factory()->register( new Indexable\Comment\Comment(), false );
 
 		parent::__construct();
+	}
+
+	/**
+	 * Sets i18n strings.
+	 *
+	 * @return void
+	 * @since 5.2.0
+	 */
+	public function set_i18n_strings(): void {
+		$this->title = esc_html__( 'Comments', 'wpprobe' );
+
+		$this->summary = '<p>' . __( 'This feature will empower your website to overcome traditional WordPress comment search and query limitations that can present themselves at scale. This feature is only needed if you are using <code>WP_Comment_Query</code> directly.', 'wpprobe' ) . '</p>';
+
+		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#comments', 'wpprobe' );
 	}
 
 	/**
@@ -102,7 +110,7 @@ class Comments extends Feature {
 	 */
 	public function output_feature_box_long() {
 		?>
-		<p><?php esc_html_e( 'This feature will empower your website to overcome traditional WordPress comment search and query limitations that can present themselves at scale.', 'elasticpress' ); ?></p>
+		<p><?php esc_html_e( 'This feature will empower your website to overcome traditional WordPress comment search and query limitations that can present themselves at scale.', 'wpprobe' ); ?></p>
 		<?php
 	}
 
@@ -200,7 +208,7 @@ class Comments extends Feature {
 			true
 		);
 
-		wp_set_script_translations( 'elasticpress-comments', 'elasticpress' );
+		wp_set_script_translations( 'elasticpress-comments', 'wpprobe' );
 
 		wp_register_style(
 			'elasticpress-comments',
@@ -210,7 +218,7 @@ class Comments extends Feature {
 		);
 
 		$default_script_data = [
-			'noResultsFoundText'    => esc_html__( 'We could not find any results', 'elasticpress' ),
+			'noResultsFoundText'    => esc_html__( 'We could not find any results', 'wpprobe' ),
 			'minimumLengthToSearch' => 2,
 			'restApiEndpoint'       => get_rest_url( null, 'elasticpress/v1/comments' ),
 		];
@@ -251,7 +259,7 @@ class Comments extends Feature {
 			true
 		);
 
-		wp_set_script_translations( 'elasticpress-comments-editor-script', 'elasticpress' );
+		wp_set_script_translations( 'elasticpress-comments-editor-script', 'wpprobe' );
 
 		wp_localize_script(
 			'elasticpress-comments-editor-script',

@@ -1,9 +1,9 @@
 <?php
 /**
- * Template for ElasticPress sync page
+ * Template for WPProbe sync page
  *
  * @since  4.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

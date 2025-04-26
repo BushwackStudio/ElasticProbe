@@ -2,12 +2,12 @@
 /**
  * Class for comment factory.
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress;
+use WPProbe;
 
 /**
  * Unit test factory for the comment.
@@ -26,7 +26,7 @@ class CommentFactory extends \WP_UnitTest_Factory_For_Comment {
 	public function create_object( $args ) {
 		$id = wp_insert_comment( $this->addslashes_deep( $args ) );
 
-		ElasticPress\Indexables::factory()->get( 'comment' )->index( $id );
+		WPProbe\Indexables::factory()->get( 'comment' )->index( $id );
 
 		return $id;
 	}

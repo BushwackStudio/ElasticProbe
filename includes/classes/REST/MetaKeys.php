@@ -3,19 +3,19 @@
  * Meta Keys REST API Controller
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\REST;
+namespace WPProbe\REST;
 
-use ElasticPress\Features;
-use ElasticPress\Indexables;
+use WPProbe\Features;
+use WPProbe\Indexables;
 
 /**
  * Meta Keys API controller class.
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 class MetaKeys {
 
@@ -33,7 +33,7 @@ class MetaKeys {
 			'methods'             => 'GET',
 			'permission_callback' => [ $this, 'check_permission' ],
 		];
-
+		// TODO: Change rest route
 		register_rest_route( 'elasticpress/v1', 'meta-keys', $args );
 		register_rest_route( 'elasticpress/v1', 'facets/meta/keys', $args );
 	}
@@ -50,10 +50,9 @@ class MetaKeys {
 	/**
 	 * Get indexed meta keys.
 	 *
-	 * @param \WP_REST_Request $request Full details about the request.
 	 * @return array
 	 */
-	public function get_meta_keys( \WP_REST_Request $request ) {
+	public function get_meta_keys() {
 		$post_indexable = Indexables::factory()->get( 'post' );
 
 		try {

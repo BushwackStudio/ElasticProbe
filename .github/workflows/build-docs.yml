@@ -1,5 +1,8 @@
 name: Build Docs
 
+env:
+  NODE_VERSION: "20"
+
 on:
   push:
     branches:
@@ -12,7 +15,7 @@ jobs:
 
     - uses: actions/checkout@v4
       with:
-        path: 'wp-content/plugins/elasticpress'
+        path: 'wp-content/plugins/wpprobe'
 
     - name: Set PHP version
       uses: shivammathur/setup-php@v2
@@ -24,7 +27,7 @@ jobs:
 
     - name: composer install
       run: |
-        cd wp-content/plugins/elasticpress
+        cd wp-content/plugins/wpprobe
         composer install
 
     - name: Start MySQL
@@ -47,21 +50,21 @@ jobs:
         wp config create --dbname=wpclidocs --dbuser=root --dbpass=root --dbhost=127.0.0.1
         wp db create
         wp core install --url=example.com --title=Example --admin_user=supervisor --admin_password=strongpassword --admin_email=info@example.com
-        wp plugin activate elasticpress
+        wp plugin activate wpprobe
 
     - name: Generate WP-CLI Docs
       run: |
         wp package install felipeelia/cli-command-docs:dev-trunk
-        wp cli-command-docs elasticpress --custom-order=sync,activate-feature,deactivate-feature,list-features,get-algorithm-version,set-algorithm-version --remove=delete_transient_on_int,custom_get_transient,stop_on_failed_mapping,call_ep_cli_put_mapping,should_interrupt_sync,index_output,get-indexes,get-cluster-indexes,index,clear-index,get-indexing-status,get-last-cli-index,stop-indexing --custom-intro='The following WP-CLI commands are supported by ElasticPress:' > wp-content/plugins/elasticpress/docs/wp-cli.md
+        wp cli-command-docs wpprobe --custom-order=sync,activate-feature,deactivate-feature,list-features,get-algorithm-version,set-algorithm-version --remove=delete_transient_on_int,custom_get_transient,stop_on_failed_mapping,call_ep_cli_put_mapping,should_interrupt_sync,index_output,get-indexes,get-cluster-indexes,index,clear-index,get-indexing-status,get-last-cli-index,stop-indexing --custom-intro='The following WP-CLI commands are supported by WPProbe:' > wp-content/plugins/wpprobe/docs/wp-cli.md
 
-    - name: Use Node.js 20
+    - name: "install node v${{ env.NODE_VERSION }}"
       uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version: ${{ env.NODE_VERSION }}
 
     - name: npm ci, and build docs
       run: |
-        cd wp-content/plugins/elasticpress
+        cd wp-content/plugins/wpprobe
         npm ci
         npm -g install gulp-cli
         npm run build:docs
@@ -72,4 +75,4 @@ jobs:
       uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: './wp-content/plugins/elasticpress/docs-built'
+        publish_dir: './wp-content/plugins/wpprobe/docs-built'

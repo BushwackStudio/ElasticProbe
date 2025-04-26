@@ -4,6 +4,7 @@
 import { useCallback, useMemo, WPElement } from '@wordpress/element';
 import { decodeEntities } from '@wordpress/html-entities';
 import { __, sprintf } from '@wordpress/i18n';
+import { applyFilters } from '@wordpress/hooks';
 
 /**
  * Internal dependencies.
@@ -39,12 +40,12 @@ export default ({ defaultIsOpen, label, postTypes, name }) => {
 	const uniqueLabel = useMemo(() => {
 		const isNotUnique = facets.some((facet) => facet.label === label && facet.name !== name);
 		const typeLabels = postTypes.map((postType) => postTypeLabels[postType].plural);
-		const typeSeparator = __(', ', 'elasticpress');
+		const typeSeparator = __(', ', 'wpprobe');
 
 		return isNotUnique
 			? sprintf(
 					/* translators: %1$s: Facet label. $2$s: Facet post types. */
-					__('%1$s (%2$s)', 'elasticpress'),
+					__('%1$s (%2$s)', 'wpprobe'),
 					label,
 					typeLabels.join(typeSeparator),
 				)
@@ -81,7 +82,25 @@ export default ({ defaultIsOpen, label, postTypes, name }) => {
 	/**
 	 * Reduce buckets to options.
 	 */
-	const options = useMemo(() => buckets.reduce(reduceOptions, []), [buckets, reduceOptions]);
+	const options = useMemo(() => {
+		/**
+		 * Filter the taxonomy filter terms.
+		 *
+		 * @filter ep.InstantResults.filter.taxonomy.terms
+		 * @since 5.2.0
+		 *
+		 * @param {object[]} terms Taxonomy terms.
+		 * @param {string} name Taxonomy name.
+		 * @param {Array} postTypes Post types label.
+		 * @returns {object[]} Filtered taxonomy terms.
+		 */
+		return applyFilters(
+			'ep.InstantResults.filter.taxonomy.terms',
+			buckets.reduce(reduceOptions, []),
+			name,
+			postTypes,
+		);
+	}, [buckets, reduceOptions, name, postTypes]);
 
 	/**
 	 * Reduce options to labels.
@@ -134,7 +153,7 @@ export default ({ defaultIsOpen, label, postTypes, name }) => {
 								disabled={isLoading}
 								label={sprintf(
 									/* translators: %s: Taxonomy name. */
-									__('Select %s', 'elasticpress'),
+									__('Select %s', 'wpprobe'),
 									label,
 								)}
 								options={options}

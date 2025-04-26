@@ -2,12 +2,12 @@
 /**
  * Test document feature
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress;
+use WPProbe;
 
 /**
  * Document test class
@@ -28,10 +28,10 @@ class TestAutosuggest extends BaseTestCase {
 
 		wp_set_current_user( $admin_id );
 
-		ElasticPress\Elasticsearch::factory()->delete_all_indices();
-		ElasticPress\Indexables::factory()->get( 'post' )->put_mapping();
+		WPProbe\Elasticsearch::factory()->delete_all_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
 
-		ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
+		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
 
 		$this->setup_test_post_type();
 
@@ -60,14 +60,15 @@ class TestAutosuggest extends BaseTestCase {
 	 * Get the feature instance
 	 */
 	protected function get_feature() {
-		return ElasticPress\Features::factory()->get_registered_feature( 'autosuggest' );
+		return WPProbe\Features::factory()->get_registered_feature( 'autosuggest' );
 	}
 
 	/**
 	 * Test the class constructor
 	 */
 	public function testConstruct() {
-		$instance = new ElasticPress\Feature\Autosuggest\Autosuggest();
+		$instance = new WPProbe\Feature\Autosuggest\Autosuggest();
+		$instance->set_i18n_strings();
 
 		$this->assertEquals( 'autosuggest', $instance->slug );
 		$this->assertEquals( 'Autosuggest', $instance->title );
@@ -342,11 +343,11 @@ class TestAutosuggest extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		add_filter(
 			'ep_query_request_path',
-			function ( $path, $index, $type, $query, $query_args, $query_object ) {
+			function ( $path, $index, $type, $query ) {
 				$fields = $query['query']['function_score']['query']['bool']['should'][0]['bool']['must'][0]['bool']['should'][1]['multi_match']['fields'];
 
 				$this->assertContains( 'term_suggest^1', $fields );
@@ -354,7 +355,7 @@ class TestAutosuggest extends BaseTestCase {
 				return $path;
 			},
 			10,
-			6
+			4
 		);
 
 		$query = new \WP_Query(
@@ -394,11 +395,11 @@ class TestAutosuggest extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		add_filter(
 			'ep_query_request_path',
-			function ( $path, $index, $type, $query, $query_args, $query_object ) {
+			function ( $path, $index, $type, $query ) {
 				$fields = $query['query']['function_score']['query']['bool']['should'][0]['bool']['must'][0]['bool']['should'][1]['multi_match']['fields'];
 
 				$this->assertNotContains( 'term_suggest^1', $fields );
@@ -406,7 +407,7 @@ class TestAutosuggest extends BaseTestCase {
 				return $path;
 			},
 			10,
-			6
+			4
 		);
 
 		$query = new \WP_Query(
@@ -444,16 +445,16 @@ class TestAutosuggest extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		add_filter(
 			'ep_query_request_path',
-			function ( $path, $index, $type, $query, $query_args, $query_object ) {
+			function ( $path, $index, $type, $query ) {
 				$this->assertEquals( 'auto', $query['query']['function_score']['query']['bool']['should'][2]['multi_match']['fuzziness'] );
 				return $path;
 			},
 			10,
-			6
+			4
 		);
 
 		$query = new \WP_Query(
@@ -495,16 +496,16 @@ class TestAutosuggest extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		add_filter(
 			'ep_query_request_path',
-			function ( $path, $index, $type, $query, $query_args, $query_object ) {
+			function ( $path, $index, $type, $query ) {
 				$this->assertNotEquals( 'auto', $query['query']['function_score']['query']['bool']['should'][2]['multi_match']['fuzziness'] );
 				return $path;
 			},
 			10,
-			6
+			4
 		);
 
 		$query = new \WP_Query(

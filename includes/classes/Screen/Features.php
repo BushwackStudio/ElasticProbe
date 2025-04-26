@@ -3,15 +3,15 @@
  * Dashboard screen class.
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\Screen;
+namespace WPProbe\Screen;
 
-use ElasticPress\Features as FeaturesStore;
-use ElasticPress\REST;
-use ElasticPress\Screen;
-use ElasticPress\Utils;
+use WPProbe\Features as FeaturesStore;
+use WPProbe\REST;
+use WPProbe\Screen;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Dashboard screen.
  *
  * @since 5.0.0
- * @package ElasticPress
+ * @package WPProbe
  */
 class Features {
 	/**
@@ -51,7 +51,7 @@ class Features {
 			true
 		);
 
-		wp_set_script_translations( 'ep_features_script', 'elasticpress' );
+		wp_set_script_translations( 'ep_features_script', 'wpprobe' );
 
 		wp_enqueue_style(
 			'ep_features_script',
@@ -67,12 +67,12 @@ class Features {
 		$features = array_values( $features );
 
 		$sync_url = ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) ?
-				network_admin_url( 'admin.php?page=elasticpress-sync' ) :
-				admin_url( 'admin.php?page=elasticpress-sync' );
+				network_admin_url( 'admin.php?page=wpprobe-sync' ) :
+				admin_url( 'admin.php?page=wpprobe-sync' );
 
 		$data = [
 			'apiUrl'        => rest_url( 'elasticpress/v1/features' ),
-			'epioLogoUrl'   => esc_url( plugins_url( '/images/logo-elasticpress-io.svg', EP_FILE ) ),
+			'epioLogoUrl'   => esc_url( plugins_url( '/images/logo-wpprobe-com.svg', EP_FILE ) ),
 			'features'      => $features,
 			'indexMeta'     => Utils\get_indexing_status(),
 			'settings'      => $store->get_feature_settings(),

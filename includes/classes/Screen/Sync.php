@@ -3,18 +3,18 @@
  * Sync (Dashboard Index) functionality
  *
  * @since  3.6.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\Screen;
+namespace WPProbe\Screen;
 
-use ElasticPress\Elasticsearch;
-use ElasticPress\Indexables;
-use ElasticPress\IndexHelper;
-use ElasticPress\REST;
-use ElasticPress\Screen;
-use ElasticPress\Stats;
-use ElasticPress\Utils;
+use WPProbe\Elasticsearch;
+use WPProbe\Indexables;
+use WPProbe\IndexHelper;
+use WPProbe\REST;
+use WPProbe\Screen;
+use WPProbe\Stats;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class Sync
  *
  * @since  3.6.0
- * @package ElasticPress
+ * @package WPProbe
  */
 class Sync {
 	/**
@@ -54,7 +54,7 @@ class Sync {
 			true
 		);
 
-		wp_set_script_translations( 'ep_sync_scripts', 'elasticpress' );
+		wp_set_script_translations( 'ep_sync_scripts', 'wpprobe' );
 
 		wp_enqueue_style(
 			'ep_sync_style',

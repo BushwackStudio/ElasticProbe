@@ -1,12 +1,12 @@
 <?php
 /**
- * Class for interacting with ElasticPress.io
+ * Class for interacting with WPProbe.com
  *
  * @since 4.5.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress;
+namespace WPProbe;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * ElasticPressIo class
  *
- * @package ElasticPress
+ * @package wpprobe
  */
 class ElasticPressIo {
 	/**
@@ -39,10 +39,10 @@ class ElasticPressIo {
 	}
 
 	/**
-	 * Get messages from ElasticPress.io.
+	 * Get messages from WPProbe.com.
 	 *
 	 * @param bool $skip_cache Whether to fetch the API or use the cached messages. Defaults to false, i.e., use cache.
-	 * @return array ElasticPress.io messages.
+	 * @return array WPProbe.com messages.
 	 */
 	public function get_endpoint_messages( $skip_cache = false ): array {
 		if ( ! Utils\is_epio() ) {
@@ -55,7 +55,7 @@ class ElasticPressIo {
 			return $messages;
 		}
 
-		$response = \ElasticPress\Elasticsearch::factory()->remote_request( 'endpoint-messages' );
+		$response = \WPProbe\Elasticsearch::factory()->remote_request( 'endpoint-messages' );
 
 		$response_code = wp_remote_retrieve_response_code( $response );
 		if ( is_wp_error( $response ) || 200 !== $response_code ) {

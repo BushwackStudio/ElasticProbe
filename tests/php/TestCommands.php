@@ -3,16 +3,16 @@
  * Test WP-CLI commands.
  *
  * @since 4.4.1
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress;
-use ElasticPress\Command;
-use ElasticPress\Indexables;
-use ElasticPress\Utils;
-use ElasticPress\Command\Utility;
+use WPProbe;
+use WPProbe\Command;
+use WPProbe\Indexables;
+use WPProbe\Utils;
+use WPProbe\Command\Utility;
 
 /**
  * Commands test class
@@ -32,11 +32,11 @@ class TestCommands extends BaseTestCase {
 	public function set_up() {
 		$this->command = new Command();
 
-		ElasticPress\Elasticsearch::factory()->delete_all_indices();
-		ElasticPress\Indexables::factory()->deactivate_all();
-		ElasticPress\Indexables::factory()->activate( 'post' );
-		ElasticPress\Indexables::factory()->get( 'post' )->put_mapping();
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->delete_all_indices();
+		WPProbe\Indexables::factory()->deactivate_all();
+		WPProbe\Indexables::factory()->activate( 'post' );
+		WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		parent::set_up();
 	}
@@ -175,8 +175,8 @@ class TestCommands extends BaseTestCase {
 	 */
 	public function testPutMappingWithIndexablesFlag() {
 
-		ElasticPress\Features::factory()->activate_feature( 'comments' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'comments' );
+		WPProbe\Features::factory()->setup_features();
 
 		// test it only index the posts.
 		$this->command->put_mapping( [], [ 'indexables' => 'post' ] );
@@ -193,8 +193,8 @@ class TestCommands extends BaseTestCase {
 	 */
 	public function testPutMappingForNetworkWide() {
 
-		ElasticPress\Features::factory()->activate_feature( 'comments' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'comments' );
+		WPProbe\Features::factory()->setup_features();
 
 		$blog_id = $this->factory->blog->create();
 		update_site_meta( $blog_id, 'ep_indexable', 'no' );
@@ -255,8 +255,8 @@ class TestCommands extends BaseTestCase {
 	 * Test put-mapping command can put mapping for global indexables.
 	 */
 	public function testPutMappingForGlobalIndexables() {
-		ElasticPress\Features::factory()->activate_feature( 'global' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'global' );
+		WPProbe\Features::factory()->setup_features();
 
 		$this->command->put_mapping( [], [ 'indexables' => 'global,post' ] );
 
@@ -374,7 +374,7 @@ class TestCommands extends BaseTestCase {
 	 */
 	public function testReCreateNetworkAliasOnSingleSite() {
 
-		$this->expectExceptionMessage( 'ElasticPress is not network activated.' );
+		$this->expectExceptionMessage( 'WPProbe is not network activated.' );
 
 		$this->command->recreate_network_alias( [], [] );
 	}
@@ -387,8 +387,8 @@ class TestCommands extends BaseTestCase {
 	public function testSync() {
 
 		// activate comments feature
-		ElasticPress\Features::factory()->activate_feature( 'comments' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'comments' );
+		WPProbe\Features::factory()->setup_features();
 
 		// create dummy comments
 		$this->ep_factory->post->create_many( 10 );
@@ -412,8 +412,8 @@ class TestCommands extends BaseTestCase {
 	public function testSyncOnNetwork() {
 
 		// activate comments feature
-		ElasticPress\Features::factory()->activate_feature( 'comments' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'comments' );
+		WPProbe\Features::factory()->setup_features();
 
 		// create dummy comments
 		$this->ep_factory->post->create_many( 10 );
@@ -449,8 +449,8 @@ class TestCommands extends BaseTestCase {
 	public function testSyncWithSetupFlag() {
 
 		// activate comments feature
-		ElasticPress\Features::factory()->activate_feature( 'comments' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'comments' );
+		WPProbe\Features::factory()->setup_features();
 
 		// without these dummy content, the sync command gets failed because the static variable
 		// https://github.com/10up/ElasticPress/blob/4.0.0/includes/classes/Indexable/Post/Post.php#L173
@@ -479,8 +479,8 @@ class TestCommands extends BaseTestCase {
 	 */
 	public function testSyncWithSetupFlagDeleteUnusedIndices() {
 		// activate comments and users features
-		ElasticPress\Indexables::factory()->get( 'comment' )->put_mapping();
-		ElasticPress\Indexables::factory()->get( 'term' )->put_mapping();
+		WPProbe\Indexables::factory()->get( 'comment' )->put_mapping();
+		WPProbe\Indexables::factory()->get( 'term' )->put_mapping();
 
 		$this->command->sync(
 			[],
@@ -500,8 +500,8 @@ class TestCommands extends BaseTestCase {
 	 */
 	public function testSyncWithIndexablesFlag() {
 
-		ElasticPress\Features::factory()->activate_feature( 'comments' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'comments' );
+		WPProbe\Features::factory()->setup_features();
 
 		// without these dummy content, the sync command gets failed because the static variable
 		// https://github.com/10up/ElasticPress/blob/4.0.0/includes/classes/Indexable/Post/Post.php#L173
@@ -697,8 +697,8 @@ class TestCommands extends BaseTestCase {
 	public function testDeleteIndex() {
 
 		// activate comments feature
-		ElasticPress\Features::factory()->activate_feature( 'comments' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'comments' );
+		WPProbe\Features::factory()->setup_features();
 
 		$this->command->delete_index( [], [ 'yes' => true ] );
 
@@ -727,8 +727,8 @@ class TestCommands extends BaseTestCase {
 	 */
 	public function testDeleteIndexGlobal() {
 
-		ElasticPress\Features::factory()->activate_feature( 'global' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'global' );
+		WPProbe\Features::factory()->setup_features();
 
 		$this->command->delete_index( [], [ 'yes' => true ] );
 
@@ -754,7 +754,7 @@ class TestCommands extends BaseTestCase {
 		);
 
 		$output = $this->getActualOutputForAssertion();
-		$sites  = ElasticPress\Utils\get_sites();
+		$sites  = WPProbe\Utils\get_sites();
 
 		foreach ( $sites as $site ) {
 			$this->assertStringContainsString( "Deleting post index for site {$site['blog_id']}", $output );
@@ -824,7 +824,7 @@ class TestCommands extends BaseTestCase {
 		$this->assertStringContainsString( 'There is no indexing operation running.', $output );
 
 		// mock sync option
-		ElasticPress\Utils\update_option( 'ep_index_meta', [ 'indexing' => true ] );
+		WPProbe\Utils\update_option( 'ep_index_meta', [ 'indexing' => true ] );
 
 		$this->command->stop_sync( [], [] );
 
@@ -842,7 +842,7 @@ class TestCommands extends BaseTestCase {
 
 		$output = $this->getActualOutputForAssertion();
 		$this->assertStringContainsString( 'Done', $output );
-		$this->assertEquals( 1, ElasticPress\Utils\get_option( 'ep_search_algorithm_version' ) );
+		$this->assertEquals( 1, WPProbe\Utils\get_option( 'ep_search_algorithm_version' ) );
 
 		// clean output buffer
 		ob_clean();
@@ -852,7 +852,7 @@ class TestCommands extends BaseTestCase {
 
 		$output = $this->getActualOutputForAssertion();
 		$this->assertStringContainsString( 'Done', $output );
-		$this->assertEmpty( ElasticPress\Utils\get_option( 'ep_search_algorithm_version' ) );
+		$this->assertEmpty( WPProbe\Utils\get_option( 'ep_search_algorithm_version' ) );
 	}
 
 	/**
@@ -1012,7 +1012,7 @@ class TestCommands extends BaseTestCase {
 	 */
 	public function testSettingsResetAskForConfirmation() {
 
-		$this->expectExceptionMessage( 'Are you sure you want to delete all ElasticPress settings?' );
+		$this->expectExceptionMessage( 'Are you sure you want to delete all WPProbe settings?' );
 
 		$this->command->settings_reset( [], [] );
 	}
@@ -1033,7 +1033,7 @@ class TestCommands extends BaseTestCase {
 	 */
 	public function testEPioSetAutosuggest() {
 
-		ElasticPress\Features::factory()->activate_feature( 'autosuggest' );
+		WPProbe\Features::factory()->activate_feature( 'autosuggest' );
 
 		$this->command->epio_set_autosuggest( [], [] );
 
@@ -1215,8 +1215,8 @@ class TestCommands extends BaseTestCase {
 	public function testIndexThrowsDeprecatedWarning() {
 
 		// activate comments feature
-		ElasticPress\Features::factory()->activate_feature( 'comments' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'comments' );
+		WPProbe\Features::factory()->setup_features();
 
 		// without these dummy content, the sync command gets failed because the static variable
 		// https://github.com/10up/ElasticPress/blob/4.0.0/includes/classes/Indexable/Post/Post.php#L173

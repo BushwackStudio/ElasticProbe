@@ -3,10 +3,10 @@
  * Abstract Facet Renderer class.
  *
  * @since 4.7.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\Feature\Facets;
+namespace WPProbe\Feature\Facets;
 
 /**
  * Abstract Facet Renderer class.
@@ -72,7 +72,8 @@ abstract class Renderer {
 	 * @param string       $url         URL for the facet item.
 	 * @return string|null
 	 */
-	public function get_facet_item_value_html( $item, string $url ) {
+	public function get_facet_item_value_html( $item, string $url ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+		// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
 		return null;
 	}
 }

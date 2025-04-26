@@ -1,14 +1,14 @@
 <?php
 /**
- * ElasticPress uninstaller
+ * WPProbe uninstaller
  *
  * Used when clicking "Delete" from inside of WordPress's plugins page.
  *
- * @package elasticpress
+ * @package wpprobe
  * @since   1.7
  */
 
-use ElasticPress\Utils;
+use WPProbe\Utils;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -106,7 +106,7 @@ class EP_Uninstaller {
 			}
 		}
 
-		// Uninstall ElasticPress.
+		// Uninstall WPProbe.
 		$this->clean_options_and_transients();
 		$this->clean_site_meta();
 		$this->remove_elasticpress_capability();
@@ -171,7 +171,7 @@ class EP_Uninstaller {
 	/**
 	 * Cleanup options and transients
 	 *
-	 * Deletes ElasticPress options and transients.
+	 * Deletes WPProbe options and transients.
 	 *
 	 * @since 4.2.0
 	 */
@@ -219,7 +219,7 @@ class EP_Uninstaller {
 	}
 
 	/**
-	 * Remove the ElasticPress' capability
+	 * Remove the WPProbe' capability
 	 *
 	 * @since 4.5.0
 	 */

@@ -3,14 +3,14 @@
  * WooCommerce Products
  *
  * @since 4.7.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\Feature\WooCommerce;
+namespace WPProbe\Feature\WooCommerce;
 
-use ElasticPress\Indexables;
-use ElasticPress\IndexHelper;
-use ElasticPress\Utils;
+use WPProbe\Indexables;
+use WPProbe\IndexHelper;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -323,7 +323,7 @@ class Products {
 
 		$fields['attributes']['children'][ $sku_key ] = array(
 			'key'   => $sku_key,
-			'label' => __( 'SKU', 'elasticpress' ),
+			'label' => __( 'SKU', 'wpprobe' ),
 		);
 
 		$variations_skus_key = 'meta._variations_skus.value';
@@ -332,7 +332,7 @@ class Products {
 
 		$fields['attributes']['children'][ $variations_skus_key ] = array(
 			'key'   => $variations_skus_key,
-			'label' => __( 'Variations SKUs', 'elasticpress' ),
+			'label' => __( 'Variations SKUs', 'wpprobe' ),
 		);
 
 		return $fields;
@@ -407,13 +407,13 @@ class Products {
 	}
 
 	/**
-	 * Integrate ElasticPress with the WooCommerce Admin Product List.
+	 * Integrate WPProbe with the WooCommerce Admin Product List.
 	 *
 	 * WooCommerce uses its `WC_Admin_List_Table_Products` class to control that screen. This
-	 * function adds all necessary hooks to bypass the default behavior and integrate with ElasticPress.
+	 * function adds all necessary hooks to bypass the default behavior and integrate with WPProbe.
 	 * By default, WC runs a SQL query to get the Product IDs that match the list criteria and passes
 	 * that list of IDs to the main WP_Query. This integration changes that process to a single query, run
-	 * by ElasticPress.
+	 * by WPProbe.
 	 *
 	 * @param array $query_vars Query vars.
 	 * @return array
@@ -532,7 +532,7 @@ class Products {
 	/**
 	 * Depending on the number of products display an admin notice in the custom sort screen for WooCommerce Products
 	 *
-	 * @param array $notices Current ElasticPress admin notices
+	 * @param array $notices Current WPProbe admin notices
 	 * @return array
 	 */
 	public function maybe_display_notice_about_product_ordering( $notices ) {
@@ -553,7 +553,7 @@ class Products {
 		$notices['woocommerce_custom_sort'] = [
 			'html'    => sprintf(
 				/* translators: Sync Page URL */
-				__( 'Due to the number of products in the site, you will need to <a href="%s">resync</a> after applying a custom sort order.', 'elasticpress' ),
+				__( 'Due to the number of products in the site, you will need to <a href="%s">resync</a> after applying a custom sort order.', 'wpprobe' ),
 				Utils\get_sync_url()
 			),
 			'type'    => 'warning',
@@ -588,8 +588,8 @@ class Products {
 	 */
 	public function add_weight_settings_search( $settings ) {
 		?>
-		<label><input name="settings[decaying_enabled]" type="radio" <?php checked( $settings['decaying_enabled'], 'disabled_only_products' ); ?> value="disabled_only_products"><?php esc_html_e( 'Disabled for product only queries', 'elasticpress' ); ?></label><br>
-		<label><input name="settings[decaying_enabled]" type="radio" <?php checked( $settings['decaying_enabled'], 'disabled_includes_products' ); ?> value="disabled_includes_products"><?php esc_html_e( 'Disabled for any query that includes products', 'elasticpress' ); ?></label>
+		<label><input name="settings[decaying_enabled]" type="radio" <?php checked( $settings['decaying_enabled'], 'disabled_only_products' ); ?> value="disabled_only_products"><?php esc_html_e( 'Disabled for product only queries', 'wpprobe' ); ?></label><br>
+		<label><input name="settings[decaying_enabled]" type="radio" <?php checked( $settings['decaying_enabled'], 'disabled_includes_products' ); ?> value="disabled_includes_products"><?php esc_html_e( 'Disabled for any query that includes products', 'wpprobe' ); ?></label>
 		<?php
 	}
 
@@ -623,7 +623,7 @@ class Products {
 	}
 
 	/**
-	 * Translate args to ElasticPress compat format. This is the meat of what the feature does
+	 * Translate args to WPProbe compat format. This is the meat of what the feature does
 	 *
 	 * @param \WP_Query $query WP Query
 	 */
@@ -1101,11 +1101,11 @@ class Products {
 				$setting_schema['options'],
 				[
 					[
-						'label' => __( 'Weight results by date, except for product-only queries', 'elasticpress' ),
+						'label' => __( 'Weight results by date, except for product-only queries', 'wpprobe' ),
 						'value' => 'disabled_only_products',
 					],
 					[
-						'label' => __( 'Weight results by date, except for any query that includes products', 'elasticpress' ),
+						'label' => __( 'Weight results by date, except for any query that includes products', 'wpprobe' ),
 						'value' => 'disabled_includes_products',
 					],
 				]

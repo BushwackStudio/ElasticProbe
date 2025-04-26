@@ -2,17 +2,17 @@
 /**
  * Feature test class
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress;
+use WPProbe;
 
 /**
  * Feature test class
  */
-class FeatureTest extends ElasticPress\Feature {
+class FeatureTest extends WPProbe\Feature {
 	/**
 	 * Create feature test class
 	 */
@@ -27,12 +27,12 @@ class FeatureTest extends ElasticPress\Feature {
 	/**
 	 * Return requirement status
 	 *
-	 * @return ElasticPress\FeatureRequirementsStatus
+	 * @return WPProbe\FeatureRequirementsStatus
 	 */
 	public function requirements_status() {
 		$on = get_site_option( 'ep_test_feature_on', 0 );
 
-		$status = new ElasticPress\FeatureRequirementsStatus( $on );
+		$status = new WPProbe\FeatureRequirementsStatus( $on );
 
 		return $status;
 	}

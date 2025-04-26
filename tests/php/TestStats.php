@@ -2,15 +2,15 @@
 /**
  * Test stats functionality
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress;
-use ElasticPress\Elasticsearch;
-use ElasticPress\Indexables;
-use ElasticPress\Stats;
+use WPProbe;
+use WPProbe\Elasticsearch;
+use WPProbe\Indexables;
+use WPProbe\Stats;
 
 /**
  * Stats test class
@@ -59,7 +59,7 @@ class TestStats extends BaseTestCase {
 		// Update since we are deleting to test notifications
 		update_site_option( 'ep_host', $this->current_host );
 
-		ElasticPress\Screen::factory()->set_current_screen( null );
+		WPProbe\Screen::factory()->set_current_screen( null );
 	}
 
 	/**
@@ -119,10 +119,11 @@ class TestStats extends BaseTestCase {
 
 		Stats::factory()->build_stats( true );
 		$failed_queries = Stats::factory()->get_failed_queries();
+		$prefix = WPProbe\Utils\get_index_prefix();
 		$this->assertSame(
 			[
 				[
-					'path'  => '_stats?format=json',
+					'path'  => $prefix . '*/_stats?format=json',
 					'error' => 'Message',
 				],
 			],
@@ -148,10 +149,11 @@ class TestStats extends BaseTestCase {
 
 		Stats::factory()->build_stats( true );
 		$failed_queries = Stats::factory()->get_failed_queries();
+		$prefix = WPProbe\Utils\get_index_prefix();
 		$this->assertSame(
 			[
 				[
-					'path'  => '_stats?format=json',
+					'path'  => $prefix . '*/_stats?format=json',
 					'error' => '["some error data"]',
 				],
 			],

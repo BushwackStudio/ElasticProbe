@@ -3,12 +3,12 @@
  * Test health check elasticsearch functionality.
  *
  * @since 4.4.1
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress\Elasticsearch;
+use WPProbe\Elasticsearch;
 use WP_Site_Health;
 use WP_Ajax_UnitTestCase;
 use WPAjaxDieContinueException;
@@ -46,7 +46,7 @@ class TestHealthCheckElasticsearch extends WP_Ajax_UnitTestCase {
 		$this->assertTrue( $response['success'] );
 		$this->assertEquals( 'Your site can connect to Elasticsearch.', $response['data']['label'] );
 		$this->assertEquals( 'good', $response['data']['status'] );
-		$this->assertEquals( 'ElasticPress', $response['data']['badge']['label'] );
+		$this->assertEquals( 'WPProbe', $response['data']['badge']['label'] );
 		$this->assertEquals( 'green', $response['data']['badge']['color'] );
 	}
 
@@ -71,7 +71,7 @@ class TestHealthCheckElasticsearch extends WP_Ajax_UnitTestCase {
 		$this->assertTrue( $response['success'] );
 		$this->assertEquals( 'Your site could not connect to Elasticsearch', $response['data']['label'] );
 		$this->assertEquals( 'critical', $response['data']['status'] );
-		$this->assertEquals( 'ElasticPress', $response['data']['badge']['label'] );
+		$this->assertEquals( 'WPProbe', $response['data']['badge']['label'] );
 		$this->assertEquals( 'red', $response['data']['badge']['color'] );
 		$this->assertEquals( 'The Elasticsearch host is not set.', $response['data']['description'] );
 	}
@@ -97,13 +97,13 @@ class TestHealthCheckElasticsearch extends WP_Ajax_UnitTestCase {
 		$this->assertTrue( $response['success'] );
 		$this->assertEquals( 'Your site could not connect to Elasticsearch', $response['data']['label'] );
 		$this->assertEquals( 'critical', $response['data']['status'] );
-		$this->assertEquals( 'ElasticPress', $response['data']['badge']['label'] );
+		$this->assertEquals( 'WPProbe', $response['data']['badge']['label'] );
 		$this->assertEquals( 'red', $response['data']['badge']['color'] );
 		$this->assertEquals( 'Check if your Elasticsearch host URL is correct and you have the right access to the host.', $response['data']['description'] );
 	}
 
 	/**
-	 * Test ajax output when elasticpress.io host is not valid.
+	 * Test ajax output when wpprobe.com host is not valid.
 	 */
 	public function testAjaxOutPutWhenEpioHostIsNotValid() {
 		$admin_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
@@ -127,9 +127,9 @@ class TestHealthCheckElasticsearch extends WP_Ajax_UnitTestCase {
 		$this->assertTrue( $response['success'] );
 		$this->assertEquals( 'Your site could not connect to Elasticsearch', $response['data']['label'] );
 		$this->assertEquals( 'critical', $response['data']['status'] );
-		$this->assertEquals( 'ElasticPress', $response['data']['badge']['label'] );
+		$this->assertEquals( 'WPProbe', $response['data']['badge']['label'] );
 		$this->assertEquals( 'red', $response['data']['badge']['color'] );
-		$this->assertEquals( 'Check if your credentials to ElasticPress.io host are correct.', $response['data']['description'] );
+		$this->assertEquals( 'Check if your credentials to WPProbe host are correct.', $response['data']['description'] );
 
 		remove_filter( 'ep_host', $ep_host );
 		remove_filter( 'ep_elasticsearch_version', '__return_false' );

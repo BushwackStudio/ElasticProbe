@@ -3,19 +3,19 @@
  * Features REST API Controller
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\REST;
+namespace WPProbe\REST;
 
-use ElasticPress\Features as FeaturesStore;
-use ElasticPress\Utils;
+use WPProbe\Features as FeaturesStore;
+use WPProbe\Utils;
 
 /**
  * Features API controller class.
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 class Features {
 
@@ -25,6 +25,7 @@ class Features {
 	 * @return void
 	 */
 	public function register_routes() {
+		// TODO: Change rest route
 		register_rest_route(
 			'elasticpress/v1',
 			'features',
@@ -45,7 +46,7 @@ class Features {
 	public function get_args() {
 		$args = [];
 
-		$features = \ElasticPress\Features::factory()->registered_features;
+		$features = \WPProbe\Features::factory()->registered_features;
 
 		foreach ( $features as $feature ) {
 			$properties = [];
@@ -70,6 +71,9 @@ class Features {
 						break;
 					case 'toggle':
 						$property['type'] = 'boolean';
+						break;
+					case 'number':
+						$property['type'] = 'number';
 						break;
 					case 'url':
 						$property['type']   = 'string';
@@ -116,7 +120,7 @@ class Features {
 		$current_settings = FeaturesStore::factory()->get_feature_settings();
 		$new_settings     = $current_settings;
 
-		$features = \ElasticPress\Features::factory()->registered_features;
+		$features = \WPProbe\Features::factory()->registered_features;
 
 		$settings_that_requires_features = [];
 

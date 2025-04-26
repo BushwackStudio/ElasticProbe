@@ -3,18 +3,18 @@
  * Meta Range REST API Controller
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\REST;
+namespace WPProbe\REST;
 
-use ElasticPress\Features;
+use WPProbe\Features;
 
 /**
  * Meta Range API controller class.
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 class MetaRange {
 
@@ -33,7 +33,7 @@ class MetaRange {
 			'methods'             => 'GET',
 			'permission_callback' => [ $this, 'check_permission' ],
 		];
-
+		// TODO: Change REST route
 		register_rest_route( 'elasticpress/v1', 'meta-range', $args );
 		register_rest_route( 'elasticpress/v1', 'facets/meta-range/block-preview', $args );
 	}
@@ -55,7 +55,7 @@ class MetaRange {
 	public function get_args() {
 		return [
 			'facet' => [
-				'description' => __( 'Filter to get a value range for.', 'elasticpress' ),
+				'description' => __( 'Filter to get a value range for.', 'wpprobe' ),
 				'required'    => true,
 				'type'        => 'string',
 			],

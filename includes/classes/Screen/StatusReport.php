@@ -1,21 +1,21 @@
 <?php
 /**
- * ElasticPress Status Report class
+ * WPProbe Status Report class
  *
  * @since 4.4.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\Screen;
+namespace WPProbe\Screen;
 
-use ElasticPress\Utils;
+use WPProbe\Utils;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Status Report class
  *
- * @package ElasticPress
+ * @package WPProbe
  */
 class StatusReport {
 	/**
@@ -40,7 +40,7 @@ class StatusReport {
 	 * @return void
 	 */
 	public function admin_enqueue_scripts() {
-		if ( 'status-report' !== \ElasticPress\Screen::factory()->get_current_screen() ) {
+		if ( 'status-report' !== \WPProbe\Screen::factory()->get_current_screen() ) {
 			return;
 		}
 
@@ -90,22 +90,22 @@ class StatusReport {
 	public function get_reports(): array {
 		$reports = [];
 
-		$query_logger = \ElasticPress\get_container()->get( '\ElasticPress\QueryLogger' );
+		$query_logger = \WPProbe\get_container()->get( '\WPProbe\QueryLogger' );
 
 		if ( $query_logger ) {
-			$reports['failed-queries'] = new \ElasticPress\StatusReport\FailedQueries( $query_logger );
+			$reports['failed-queries'] = new \WPProbe\StatusReport\FailedQueries( $query_logger );
 		}
 
 		if ( Utils\is_epio() ) {
-			$reports['autosuggest'] = new \ElasticPress\StatusReport\ElasticPressIo();
+			$reports['autosuggest'] = new \WPProbe\StatusReport\ElasticPressIo();
 		}
 
-		$reports['wordpress']    = new \ElasticPress\StatusReport\WordPress();
-		$reports['indexable']    = new \ElasticPress\StatusReport\IndexableContent();
-		$reports['elasticpress'] = new \ElasticPress\StatusReport\ElasticPress();
-		$reports['indices']      = new \ElasticPress\StatusReport\Indices();
-		$reports['last-sync']    = new \ElasticPress\StatusReport\LastSync();
-		$reports['features']     = new \ElasticPress\StatusReport\Features();
+		$reports['wordpress']    = new \WPProbe\StatusReport\WordPress();
+		$reports['indexable']    = new \WPProbe\StatusReport\IndexableContent();
+		$reports['elasticpress'] = new \WPProbe\StatusReport\ElasticPress();
+		$reports['indices']      = new \WPProbe\StatusReport\Indices();
+		$reports['last-sync']    = new \WPProbe\StatusReport\LastSync();
+		$reports['features']     = new \WPProbe\StatusReport\Features();
 
 		/**
 		 * Filter the reports executed in the Status Report page.
@@ -204,14 +204,14 @@ class StatusReport {
 
 	/**
 	 * Display a badge in the admin menu if there's admin notices from
-	 * ElasticPress.io.
+	 * WPProbe.com.
 	 *
 	 * @return void
 	 */
 	public function admin_menu_count() {
 		global $menu, $submenu;
 
-		$messages = \ElasticPress\ElasticPressIo::factory()->get_endpoint_messages();
+		$messages = \WPProbe\ElasticPressIo::factory()->get_endpoint_messages();
 
 		if ( empty( $messages ) ) {
 			return;
@@ -220,7 +220,7 @@ class StatusReport {
 		$count = count( $messages );
 		$title = sprintf(
 			/* translators: %d: Number of messages. */
-			_n( '%s message from ElasticPress.io', '%s messages from ElasticPress.io', $count, 'elasticpress' ),
+			_n( '%s message from WPProbe.com', '%s messages from WPProbe.com', $count, 'wpprobe' ),
 			$count
 		);
 
@@ -239,7 +239,7 @@ class StatusReport {
 		}
 
 		foreach ( $submenu['elasticpress'] as $key => $value ) {
-			if ( 'elasticpress-status-report' === $value[2] ) {
+			if ( 'wpprobe-status-report' === $value[2] ) {
 				$submenu['elasticpress'][ $key ][0] .= sprintf(
 					' <span class="menu-counter"><span aria-hidden="true">%1$s</span><span class="screen-reader-text">%2$s</span></span>',
 					esc_html( $count ),

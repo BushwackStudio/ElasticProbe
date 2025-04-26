@@ -21,7 +21,7 @@ export default ({ isOpen, onClick }) => {
 			onClick={onClick}
 			type="button"
 		>
-			{isOpen ? __('Close filters', 'elasticpress') : __('All filters', 'elasticpress')}
+			{isOpen ? __('Close filters', 'wpprobe') : __('All filters', 'wpprobe')}
 			<Icon icon={isOpen ? chevronUp : chevronDown} />
 		</button>
 	);

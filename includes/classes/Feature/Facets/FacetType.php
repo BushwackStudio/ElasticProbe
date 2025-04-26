@@ -3,10 +3,10 @@
  * Taxonomy facet type
  *
  * @since 4.3.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\Feature\Facets;
+namespace WPProbe\Feature\Facets;
 
 /**
  * Abstract Facet type class
@@ -93,14 +93,14 @@ abstract class FacetType {
 	/**
 	 * Get all facet fields selected across all blocks of the current facet type.
 	 *
-	 * Given a block name, e.g., `elasticpress/facet-meta` this method returns all meta fields
+	 * Given a block name, e.g., `wpprobe/facet-meta` this method returns all meta fields
 	 * selected in all blocks.
 	 *
 	 * @param string $block_name The block name
 	 * @return array
 	 */
 	protected function block_template_meta_fields( string $block_name ): array {
-		$block_template_utils = \ElasticPress\get_container()->get( '\ElasticPress\BlockTemplateUtils' );
+		$block_template_utils = \WPProbe\get_container()->get( '\WPProbe\BlockTemplateUtils' );
 		$ep_blocks            = $block_template_utils->get_specific_block_in_all_templates( $block_name );
 
 		return array_filter(

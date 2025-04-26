@@ -2,13 +2,13 @@
 /**
  * Health info screen.
  *
- * @package ElasticPress
+ * @package WPProbe
  */
 
-namespace ElasticPress\Screen;
+namespace WPProbe\Screen;
 
-use ElasticPress\Features;
-use ElasticPress\Utils;
+use WPProbe\Features;
+use WPProbe\Utils;
 
 /**
  * Health info screen Class.
@@ -30,13 +30,13 @@ class HealthInfo {
 	 * @return array The debug info for site health screen.
 	 */
 	public function last_sync_health_info( $debug_info ) {
-		$last_sync_report = new \ElasticPress\StatusReport\LastSync();
+		$last_sync_report = new \WPProbe\StatusReport\LastSync();
 
 		$groups      = $last_sync_report->get_groups();
 		$first_group = reset( $groups );
 
 		$debug_info['ep-last-sync'] = [
-			'label'  => esc_html__( 'ElasticPress - Last Sync', 'elasticpress' ),
+			'label'  => esc_html__( 'WPProbe - Last Sync', 'wpprobe' ),
 			'fields' => $first_group['fields'] ?? [],
 		];
 
@@ -61,12 +61,12 @@ class HealthInfo {
 			return $debug_info;
 		}
 
-		$epio_report = new \ElasticPress\StatusReport\ElasticPressIo();
+		$epio_report = new \WPProbe\StatusReport\ElasticPressIo();
 		$groups      = $epio_report->get_groups();
 		$first_group = reset( $groups );
 
 		$debug_info['epio-autosuggest'] = [
-			'label'  => esc_html__( 'ElasticPress.io - Autosuggest', 'elasticpress' ),
+			'label'  => esc_html__( 'WPProbe.com - Autosuggest', 'wpprobe' ),
 			'fields' => $first_group['fields'],
 		];
 

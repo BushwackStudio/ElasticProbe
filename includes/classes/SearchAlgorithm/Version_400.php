@@ -3,10 +3,10 @@
  * EP version 4.0.0 search algorithm
  *
  * @since  4.3.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\SearchAlgorithm;
+namespace WPProbe\SearchAlgorithm;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	// @codeCoverageIgnoreStart
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * EP version 4.0.0 search algorithm class.
  */
-class Version_400 extends \ElasticPress\SearchAlgorithm {
+class Version_400 extends \WPProbe\SearchAlgorithm {
 	/**
 	 * Search algorithm slug.
 	 *
@@ -33,7 +33,7 @@ class Version_400 extends \ElasticPress\SearchAlgorithm {
 	 * @return string
 	 */
 	public function get_name(): string {
-		return esc_html__( 'Version 4.0', 'elasticpress' );
+		return esc_html__( 'Version 4.0', 'wpprobe' );
 	}
 
 	/**
@@ -42,11 +42,11 @@ class Version_400 extends \ElasticPress\SearchAlgorithm {
 	 * @return string
 	 */
 	public function get_description(): string {
-		return esc_html__( 'Search for all search terms in one field first, then prioritize them over search terms matched in different fields.', 'elasticpress' );
+		return esc_html__( 'Search for all search terms in one field first, then prioritize them over search terms matched in different fields.', 'wpprobe' );
 	}
 
 	/**
-	 * Return the Elasticsearch `query` clause.
+	 * Return the WPProbe `query` clause.
 	 *
 	 * @param string $indexable_slug Indexable slug
 	 * @param string $search_term    Search term(s)

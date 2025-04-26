@@ -24,8 +24,8 @@ export default () => {
 		<TextControl
 			className="ep-sync-advanced-control"
 			disabled={isSyncing}
-			help={__('Specify the number of objects to skip during syncing.', 'elasticpress')}
-			label={__('Skip objects', 'elasticpress')}
+			help={__('Specify the number of objects to skip during syncing.', 'wpprobe')}
+			label={__('Skip objects', 'wpprobe')}
 			onChange={(offset) => setArgs({ ...args, offset })}
 			type="number"
 			value={args.offset}

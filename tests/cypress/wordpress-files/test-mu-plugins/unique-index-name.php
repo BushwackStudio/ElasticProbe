@@ -64,7 +64,7 @@ function ep_tests_delete_all_indices() {
 	}
 
 	// Get full list of indices.
-	$response_cat_indices = \ElasticPress\Elasticsearch::factory()->remote_request( '_cat/indices?format=json' );
+	$response_cat_indices = \WPProbe\Elasticsearch::factory()->remote_request( '_cat/indices?format=json' );
 
 	if ( is_wp_error( $response_cat_indices ) ) {
 		WP_CLI::error( 'Could not fetch indices names.' );
@@ -77,7 +77,7 @@ function ep_tests_delete_all_indices() {
 			continue;
 		}
 
-		\ElasticPress\Elasticsearch::factory()->delete_index( $index['index'] );
+		\WPProbe\Elasticsearch::factory()->delete_index( $index['index'] );
 	}
 }
-WP_CLI::add_command( 'elasticpress-tests delete-all-indices', 'ep_tests_delete_all_indices' );
+WP_CLI::add_command( 'wpprobe-tests delete-all-indices', 'ep_tests_delete_all_indices' );

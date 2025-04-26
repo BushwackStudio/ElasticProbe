@@ -3,15 +3,15 @@
  * Terms feature
  *
  * @since   3.1
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\Feature\Terms;
+namespace WPProbe\Feature\Terms;
 
-use ElasticPress\Feature;
-use ElasticPress\FeatureRequirementsStatus;
-use ElasticPress\Indexable;
-use ElasticPress\Indexables;
+use WPProbe\Feature;
+use WPProbe\FeatureRequirementsStatus;
+use WPProbe\Indexable;
+use WPProbe\Indexables;
 
 /**
  * Terms feature class
@@ -33,17 +33,25 @@ class Terms extends Feature {
 	public function __construct() {
 		$this->slug = 'terms';
 
-		$this->title = esc_html__( 'Terms', 'elasticpress' );
-
-		$this->summary = '<p>' . __( 'This feature will empower your website to overcome traditional WordPress term search and query limitations that can present themselves at scale. This feature is only needed if you are using <code>WP_Term_Query</code> directly.', 'elasticpress' ) . '</p>';
-
-		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#terms', 'elasticpress' );
-
 		$this->requires_install_reindex = true;
 
 		Indexables::factory()->register( new Indexable\Term\Term(), false );
 
 		parent::__construct();
+	}
+
+	/**
+	 * Sets i18n strings.
+	 *
+	 * @return void
+	 * @since 5.2.0
+	 */
+	public function set_i18n_strings(): void {
+		$this->title = esc_html__( 'Terms', 'wpprobe' );
+
+		$this->summary = '<p>' . __( 'This feature will empower your website to overcome traditional WordPress term search and query limitations that can present themselves at scale. This feature is only needed if you are using <code>WP_Term_Query</code> directly.', 'wpprobe' ) . '</p>';
+
+		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#terms', 'wpprobe' );
 	}
 
 	/**
@@ -74,7 +82,7 @@ class Terms extends Feature {
 	 */
 	public function output_feature_box_long() {
 		?>
-		<p><?php esc_html_e( 'This feature will empower your website to overcome traditional WordPress term search and query limitations that can present themselves at scale.', 'elasticpress' ); ?></p>
+		<p><?php esc_html_e( 'This feature will empower your website to overcome traditional WordPress term search and query limitations that can present themselves at scale.', 'wpprobe' ); ?></p>
 		<?php
 	}
 

@@ -3,19 +3,19 @@
  * Synonyms REST API Controller.
  *
  * @since 5.1.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\REST;
+namespace WPProbe\REST;
 
-use ElasticPress\Features;
-use ElasticPress\Utils;
+use WPProbe\Features;
+use WPProbe\Utils;
 
 /**
  * Synonyms API controller class.
  *
  * @since 5.1.0
- * @package elasticpress
+ * @package wpprobe
  */
 class Synonyms {
 
@@ -25,6 +25,7 @@ class Synonyms {
 	 * @return void
 	 */
 	public function register_routes() {
+		// Change REST route
 		register_rest_route(
 			'elasticpress/v1',
 			'synonyms',
@@ -48,11 +49,11 @@ class Synonyms {
 		$args = [
 			'mode' => [
 				'default'     => 'simple',
-				'description' => __( 'Synonyms editor mode.', 'elasticpress' ),
+				'description' => __( 'Synonyms editor mode.', 'wpprobe' ),
 				'enum'        => [ 'advanced', 'simple' ],
 			],
 			'solr' => [
-				'description'       => __( 'Synonyms in Solr format.', 'elasticpress' ),
+				'description'       => __( 'Synonyms in Solr format.', 'wpprobe' ),
 				'type'              => 'string',
 				'sanitize_callback' => [ $this, 'sanitize_solr' ],
 			],

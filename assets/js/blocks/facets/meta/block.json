@@ -6,7 +6,7 @@
 	"category": "elasticpress",
 	"description": "Let visitors filter your content by metadata values.",
 	"keywords": ["custom fields", "facets"],
-	"textdomain": "elasticpress",
+	"textdomain": "wpprobe",
 	"attributes": {
 		"displayCount": {
 			"type": "boolean",

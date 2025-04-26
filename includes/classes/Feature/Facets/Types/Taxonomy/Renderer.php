@@ -3,13 +3,13 @@
  * Class responsible for rendering the filters.
  *
  * @since 4.2.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\Feature\Facets\Types\Taxonomy;
+namespace WPProbe\Feature\Facets\Types\Taxonomy;
 
-use ElasticPress\Features;
-use ElasticPress\Utils;
+use WPProbe\Features;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Facets render class
  */
-class Renderer extends \ElasticPress\Feature\Facets\Renderer {
+class Renderer extends \WPProbe\Feature\Facets\Renderer {
 	/**
 	 * Whether the term count should be displayed or not.
 	 *
@@ -211,7 +211,7 @@ class Renderer extends \ElasticPress\Feature\Facets\Renderer {
 		<div class="terms <?php if ( count( $terms_by_slug ) > $search_threshold ) : ?>searchable<?php endif; ?>">
 			<?php if ( count( $terms_by_slug ) > $search_threshold ) : ?>
 				<?php // translators: Taxonomy Name ?>
-				<input class="facet-search" type="search" placeholder="<?php printf( esc_html__( 'Search %s', 'elasticpress' ), esc_attr( $taxonomy_object->labels->name ) ); ?>">
+				<input class="facet-search" type="search" placeholder="<?php printf( esc_html__( 'Search %s', 'wpprobe' ), esc_attr( $taxonomy_object->labels->name ) ); ?>">
 				<?php
 			endif;
 			ob_start();
@@ -431,9 +431,9 @@ class Renderer extends \ElasticPress\Feature\Facets\Renderer {
 			'ep_facet_widget_term_accessible_label',
 			$item->is_selected
 				/* translators: %s: Filter term name. */
-				? sprintf( __( 'Remove filter: %s', 'elasticpress' ), $item->name )
+				? sprintf( __( 'Remove filter: %s', 'wpprobe' ), $item->name )
 				/* translators: %s: Filter term name. */
-				: sprintf( __( 'Apply filter: %s', 'elasticpress' ), $item->name ),
+				: sprintf( __( 'Apply filter: %s', 'wpprobe' ), $item->name ),
 			$item,
 			$item->is_selected
 		);

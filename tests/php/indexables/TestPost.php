@@ -2,13 +2,13 @@
 /**
  * Test post indexable functionality
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress;
-use ElasticPress\Indexables;
+use WPProbe;
+use WPProbe\Indexables;
 
 /**
  * Test post indexable class
@@ -35,21 +35,21 @@ class TestPost extends BaseTestCase {
 
 		wp_set_current_user( $admin_id );
 
-		ElasticPress\Elasticsearch::factory()->delete_all_indices();
-		ElasticPress\Indexables::factory()->get( 'post' )->put_mapping();
+		WPProbe\Elasticsearch::factory()->delete_all_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
 
-		ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
+		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
 
 		$this->setup_test_post_type();
 
 		/**
 		 * Most of our search test are bundled into core tests for legacy reasons
 		 */
-		ElasticPress\Features::factory()->activate_feature( 'search' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'search' );
+		WPProbe\Features::factory()->setup_features();
 
 		// Need to call this since it's hooked to init
-		ElasticPress\Features::factory()->get_registered_feature( 'search' )->search_setup();
+		WPProbe\Features::factory()->get_registered_feature( 'search' )->search_setup();
 
 		// Allow some meta fields to be indexed.
 		add_filter(
@@ -74,10 +74,10 @@ class TestPost extends BaseTestCase {
 	/**
 	 * Get Search feature
 	 *
-	 * @return ElasticPress\Feature\Search\
+	 * @return WPProbe\Feature\Search\
 	 */
 	protected function get_feature() {
-		return ElasticPress\Features::factory()->get_registered_feature( 'search' );
+		return WPProbe\Features::factory()->get_registered_feature( 'search' );
 	}
 
 	/**
@@ -98,7 +98,7 @@ class TestPost extends BaseTestCase {
 				)
 			);
 
-			ElasticPress\Elasticsearch::factory()->refresh_indices();
+			WPProbe\Elasticsearch::factory()->refresh_indices();
 		}
 	}
 
@@ -132,11 +132,11 @@ class TestPost extends BaseTestCase {
 
 		$post_id = $this->ep_factory->post->create();
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$this->assertTrue( ! empty( $this->fired_actions['ep_sync_on_transition'] ) );
 
-		$post = ElasticPress\Indexables::factory()->get( 'post' )->get( $post_id );
+		$post = WPProbe\Indexables::factory()->get( 'post' )->get( $post_id );
 		$this->assertTrue( ! empty( $post ) );
 	}
 
@@ -153,15 +153,15 @@ class TestPost extends BaseTestCase {
 
 		$this->fired_actions = array();
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		update_post_meta( $post_id, 'test', 1 );
 
-		ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
+		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
 
 		$this->assertTrue( ! empty( $this->fired_actions['ep_sync_on_meta_update'] ) );
 
-		$post = ElasticPress\Indexables::factory()->get( 'post' )->get( $post_id );
+		$post = WPProbe\Indexables::factory()->get( 'post' )->get( $post_id );
 		$this->assertTrue( ! empty( $post ) );
 	}
 
@@ -176,7 +176,7 @@ class TestPost extends BaseTestCase {
 
 		$post_id = $this->ep_factory->post->create();
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		update_post_meta( $post_id, 'test', 1 );
 
@@ -184,11 +184,11 @@ class TestPost extends BaseTestCase {
 
 		update_post_meta( $post_id, 'test', 2 );
 
-		ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
+		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
 
 		$this->assertTrue( ! empty( $this->fired_actions['ep_sync_on_meta_update'] ) );
 
-		$post = ElasticPress\Indexables::factory()->get( 'post' )->get( $post_id );
+		$post = WPProbe\Indexables::factory()->get( 'post' )->get( $post_id );
 		$this->assertTrue( ! empty( $post ) );
 	}
 
@@ -202,7 +202,7 @@ class TestPost extends BaseTestCase {
 		$this->ep_factory->post->create( array( 'post_title' => 'one' ) );
 		$this->ep_factory->post->create( array( 'post_title' => 'two' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query(
 			array(
@@ -235,7 +235,7 @@ class TestPost extends BaseTestCase {
 		$post_ids[3] = $this->ep_factory->post->create();
 		$post_ids[4] = $this->ep_factory->post->create( array( 'post_content' => 'findme' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's' => 'findme',
@@ -285,7 +285,7 @@ class TestPost extends BaseTestCase {
 		$post_ids[3] = $this->ep_factory->post->create( array( 'post_title' => 'findme test2' ) );
 		$post_ids[4] = $this->ep_factory->post->create( array( 'post_title' => 'findme test2' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's' => 'findme',
@@ -315,13 +315,13 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		// Check if ES post sync filter has been triggered
 		$this->assertTrue( ! empty( $this->applied_filters['ep_post_sync_args'] ) );
 
 		// Check if tag was synced
-		$post = ElasticPress\Indexables::factory()->get( 'post' )->get( $post_id );
+		$post = WPProbe\Indexables::factory()->get( 'post' )->get( $post_id );
 		$this->assertTrue( ! empty( $post['terms']['post_tag'] ) );
 	}
 
@@ -351,9 +351,9 @@ class TestPost extends BaseTestCase {
 
 		wp_set_object_terms( $post->ID, array( $term3['term_id'] ), $tax_name, true );
 
-		ElasticPress\Indexables::factory()->get( 'post' )->index( $post->ID, true );
+		WPProbe\Indexables::factory()->get( 'post' )->index( $post->ID, true );
 
-		$post = ElasticPress\Indexables::factory()->get( 'post' )->get( $post->ID );
+		$post = WPProbe\Indexables::factory()->get( 'post' )->get( $post->ID );
 
 		$terms = $post['terms'];
 		$this->assertTrue( isset( $terms[ $tax_name ] ) );
@@ -401,9 +401,9 @@ class TestPost extends BaseTestCase {
 
 		wp_set_object_terms( $post->ID, array( $term3['term_id'] ), $tax_name, true );
 
-		ElasticPress\Indexables::factory()->get( 'post' )->index( $post->ID, true );
+		WPProbe\Indexables::factory()->get( 'post' )->index( $post->ID, true );
 
-		$post = ElasticPress\Indexables::factory()->get( 'post' )->get( $post->ID );
+		$post = WPProbe\Indexables::factory()->get( 'post' )->get( $post->ID );
 
 		$terms = $post['terms'];
 		$this->assertTrue( isset( $terms[ $tax_name ] ) );
@@ -444,8 +444,8 @@ class TestPost extends BaseTestCase {
 
 		wp_set_object_terms( $post->ID, array( $term3['term_id'] ), $tax_name, true );
 
-		ElasticPress\Indexables::factory()->get( 'post' )->index( $post->ID, true );
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->index( $post->ID, true );
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query( array( 's' => '#findme' ) );
 
@@ -486,8 +486,8 @@ class TestPost extends BaseTestCase {
 
 		wp_set_object_terms( $post->ID, array( $term1['term_id'] ), $tax_name, true );
 
-		ElasticPress\Indexables::factory()->get( 'post' )->index( $post->ID, true );
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->index( $post->ID, true );
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			$tax_name      => $term_1_name,
@@ -516,8 +516,8 @@ class TestPost extends BaseTestCase {
 
 		wp_set_object_terms( $post_id, array( $term1['term_id'] ), 'category', true );
 
-		ElasticPress\Indexables::factory()->get( 'post' )->index( $post_id, true );
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->index( $post_id, true );
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			'category_name' => $term_1_name,
@@ -545,8 +545,8 @@ class TestPost extends BaseTestCase {
 
 		wp_set_object_terms( $post_id, array( $term1['term_id'] ), 'post_tag', true );
 
-		ElasticPress\Indexables::factory()->get( 'post' )->index( $post_id, true );
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->index( $post_id, true );
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			'tag'          => $term_1_name,
@@ -575,7 +575,7 @@ class TestPost extends BaseTestCase {
 		$post_ids[3] = $this->ep_factory->post->create();
 		$post_ids[4] = $this->ep_factory->post->create();
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's' => 'findme',
@@ -600,7 +600,7 @@ class TestPost extends BaseTestCase {
 		$this->ep_factory->post->create( array( 'post_excerpt' => 'findme test 2' ) );
 		$this->ep_factory->post->create( array( 'post_excerpt' => 'findme test 3' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		/**
 		 * Tests posts_per_page
@@ -695,7 +695,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'         => 'findme',
@@ -741,7 +741,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'         => 'findme',
@@ -803,7 +803,7 @@ class TestPost extends BaseTestCase {
 			}
 		}
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'         => 'findme',
@@ -876,7 +876,7 @@ class TestPost extends BaseTestCase {
 			}
 		}
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args  = array(
 			'ep_integrate' => false,
@@ -931,7 +931,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'         => 'findme',
@@ -987,7 +987,7 @@ class TestPost extends BaseTestCase {
 			}
 		}
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'         => 'findme',
@@ -1070,7 +1070,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'             => 'findme',
@@ -1097,7 +1097,7 @@ class TestPost extends BaseTestCase {
 		$post_ids[1] = $this->ep_factory->post->create( array( 'post_content' => 'findme test 2' ) );
 		$post_ids[2] = $this->ep_factory->post->create( array( 'post_content' => 'findme test 3' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'        => 'findme',
@@ -1125,7 +1125,7 @@ class TestPost extends BaseTestCase {
 		$post_ids[2] = $this->ep_factory->post->create( array( 'post_content' => 'findme test 3' ) );
 		$post_ids[3] = $this->ep_factory->post->create( array( 'post_content' => 'findme test 4' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'            => 'findme',
@@ -1162,7 +1162,7 @@ class TestPost extends BaseTestCase {
 		$post_ids[1] = $this->ep_factory->post->create( array( 'post_content' => 'findme cat not in test 2' ) );
 		$post_ids[2] = $this->ep_factory->post->create( array( 'post_content' => 'findme cat not in test 3' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'                => 'findme cat not in test',
@@ -1196,7 +1196,7 @@ class TestPost extends BaseTestCase {
 		$post_ids[1] = $this->ep_factory->post->create( array( 'post_content' => 'findme cat not in test 2' ) );
 		$post_ids[2] = $this->ep_factory->post->create( array( 'post_content' => 'findme cat not in test 3' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'           => 'findme cat not in test',
@@ -1233,7 +1233,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'      => 'findme',
@@ -1278,7 +1278,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's' => 'findme',
@@ -1322,7 +1322,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'         => 'findme',
@@ -1358,7 +1358,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'         => 'findme',
@@ -1388,7 +1388,7 @@ class TestPost extends BaseTestCase {
 		$this->ep_factory->post->create( array( 'post_content' => 'findme test 2' ) );
 		$this->ep_factory->post->create( array( 'post_content' => 'findme test 3' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		// post_type defaults to "any"
 		$args = array(
@@ -1423,7 +1423,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'           => 'findme',
@@ -1460,7 +1460,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'           => 'findme',
@@ -1497,7 +1497,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'           => 'findme',
@@ -1557,7 +1557,7 @@ class TestPost extends BaseTestCase {
 		$this->ep_factory->post->create( array( 'post_content' => 'findme test 2' ) );
 		$this->ep_factory->post->create( array( 'post_content' => 'findme test 3' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		// post_type defaults to "any"
 		$args = array(
@@ -1589,7 +1589,7 @@ class TestPost extends BaseTestCase {
 		$this->ep_factory->post->create( array( 'post_content' => 'findme test 2' ) );
 		$this->ep_factory->post->create( array( 'post_content' => 'findme test 3' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		// post_type defaults to "any"
 		$args = array(
@@ -1624,7 +1624,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'         => 'findme',
@@ -1655,7 +1655,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 		$args = array(
 			'ep_integrate' => true,
 		);
@@ -1684,7 +1684,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 		$args = array(
 			's'             => 'findme',
 			'search_fields' => array(
@@ -1736,7 +1736,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'             => 'one findme two',
@@ -1787,7 +1787,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'             => 'john boy',
@@ -1847,7 +1847,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'             => 'meta value',
@@ -1886,7 +1886,7 @@ class TestPost extends BaseTestCase {
 		$this->ep_factory->post->create( array( 'post_title' => 'ordertest 111' ) );
 		$this->ep_factory->post->create( array( 'post_title' => 'Ordertest 222' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'       => 'ordertest',
@@ -1930,7 +1930,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'       => 'ordertest',
@@ -1974,7 +1974,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'       => 'ordertest',
@@ -2028,7 +2028,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'       => 'ordertest',
@@ -2090,7 +2090,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'       => 'findme',
@@ -2155,7 +2155,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'       => 'findme',
@@ -2207,7 +2207,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'       => 'ordertest',
@@ -2263,7 +2263,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'       => 'ordertest',
@@ -2314,7 +2314,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'       => 'ordertest',
@@ -2377,7 +2377,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'       => 'ordertest',
@@ -2414,7 +2414,7 @@ class TestPost extends BaseTestCase {
 
 		$this->ep_factory->post->create( array( 'post_title' => 'Ordertest 222' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'       => 'ordertest',
@@ -2447,7 +2447,7 @@ class TestPost extends BaseTestCase {
 
 		$this->ep_factory->post->create( array( 'post_title' => 'Ordertest 222' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			'ep_integrate' => true,
@@ -2501,7 +2501,7 @@ class TestPost extends BaseTestCase {
 
 		$this->ep_factory->post->create( array( 'post_title' => 'Lorem ipsum' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'       => 'ordertest',
@@ -2536,7 +2536,7 @@ class TestPost extends BaseTestCase {
 		$this->ep_factory->post->create( array( 'post_title' => 'ordertet' ) );
 		$this->ep_factory->post->create( array( 'post_title' => 'ordertest' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'       => 'ordertest',
@@ -2563,7 +2563,7 @@ class TestPost extends BaseTestCase {
 		$this->ep_factory->post->create( array( 'post_title' => 'postname-ordertest-111' ) );
 		$this->ep_factory->post->create( array( 'post_title' => 'postname-Ordertest-222' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'       => 'postname ordertest',
@@ -2597,7 +2597,7 @@ class TestPost extends BaseTestCase {
 		$this->ep_factory->post->create( array( 'post_title' => 'Ordertet' ) );
 		$this->ep_factory->post->create( array( 'post_title' => 'ordertest' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's' => 'ordertest',
@@ -2628,7 +2628,7 @@ class TestPost extends BaseTestCase {
 		$this->ep_factory->post->create( array( 'post_title' => 'Ordertest' ) );
 		$this->ep_factory->post->create( array( 'post_title' => 'ordertestt' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'     => 'ordertest',
@@ -2655,7 +2655,7 @@ class TestPost extends BaseTestCase {
 		$this->ep_factory->post->create( array( 'post_title' => 'ordertest 2' ) );
 		$this->ep_factory->post->create( array( 'post_title' => 'ordertest 3' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			'ep_integrate' => true,
@@ -2688,7 +2688,7 @@ class TestPost extends BaseTestCase {
 		$posts[] = $this->ep_factory->post->create( array( 'post_title' => 'ordertest 2' ) );
 		$posts[] = $this->ep_factory->post->create( array( 'post_title' => 'ordertest 3' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			'ep_integrate' => true,
@@ -2716,7 +2716,7 @@ class TestPost extends BaseTestCase {
 		$post_c = $this->ep_factory->post->create( [ 'meta_input' => [ 'test_key' => 'c' ] ] );
 		$this->ep_factory->post->create( [ 'post_title' => 'No meta_input' ] );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			'ep_integrate' => true,
@@ -2749,9 +2749,9 @@ class TestPost extends BaseTestCase {
 		add_action( 'ep_delete_post', array( $this, 'action_delete_post' ), 10, 0 );
 		$post_id = $this->ep_factory->post->create();
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
-		$post = ElasticPress\Indexables::factory()->get( 'post' )->get( $post_id );
+		$post = WPProbe\Indexables::factory()->get( 'post' )->get( $post_id );
 
 		// Ensure that our post made it over to elasticsearch
 		$this->assertTrue( ! empty( $post ) );
@@ -2759,11 +2759,11 @@ class TestPost extends BaseTestCase {
 		// Let's directly delete the post, bypassing the trash
 		wp_delete_post( $post_id, true );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$this->assertTrue( ! empty( $this->fired_actions['ep_delete_post'] ) );
 
-		$post = ElasticPress\Indexables::factory()->get( 'post' )->get( $post_id );
+		$post = WPProbe\Indexables::factory()->get( 'post' )->get( $post_id );
 
 		// Alright, now the post has been removed from the index, so this should be empty
 		$this->assertTrue( empty( $post ) );
@@ -2786,7 +2786,7 @@ class TestPost extends BaseTestCase {
 		$this->ep_factory->post->create();
 		$this->ep_factory->post->create();
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			'ep_integrate' => true,
@@ -2815,7 +2815,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 		$args = array(
 			's'          => 'findme',
 			'meta_query' => array(
@@ -2844,7 +2844,7 @@ class TestPost extends BaseTestCase {
 		$this->ep_factory->post->create( array( 'post_content' => 'the post content findme' ) );
 		$this->ep_factory->post->create( array( 'post_content' => 'post content findme' ), array( 'test_key' => 'value' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 		$args = array(
 			's'          => 'findme',
 			'meta_query' => array(
@@ -2879,7 +2879,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 		$args = array(
 			's'          => 'findme',
 			'meta_query' => array(
@@ -2908,7 +2908,7 @@ class TestPost extends BaseTestCase {
 		$this->ep_factory->post->create( array( 'post_content' => 'the post content findme' ) );
 		$this->ep_factory->post->create( array( 'post_content' => 'post content findme' ), array( 'test_key' => 'value' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 		$args = array(
 			's'          => 'findme',
 			'meta_query' => array(
@@ -2948,7 +2948,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 		$args = array(
 			's'          => 'findme',
 			'meta_query' => array(
@@ -2995,7 +2995,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 		$args = array(
 			's'          => 'findme',
 			'meta_query' => array(
@@ -3036,7 +3036,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 		$args = array(
 			's'          => 'findme',
 			'meta_query' => array(
@@ -3077,7 +3077,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 		$args = array(
 			's'          => 'findme',
 			'meta_query' => array(
@@ -3118,7 +3118,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 		$args = array(
 			's'          => 'findme',
 			'meta_query' => array(
@@ -3170,7 +3170,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 		$args = array(
 			's'          => 'findme',
 			'meta_query' => array(
@@ -3226,8 +3226,8 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		$post = new \ElasticPress\Indexable\Post\Post();
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		$post = new \WPProbe\Indexable\Post\Post();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 		$args = array(
 			'ep_integrate' => true,
 			'meta_key'     => 'test_key',
@@ -3291,7 +3291,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 		$args = array(
 			's'          => 'findme',
 			'meta_query' => array(
@@ -3346,7 +3346,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 		$args = array(
 			's'          => 'findme',
 			'meta_query' => array(
@@ -3389,7 +3389,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 		$args = array(
 			's'          => 'findme',
 			'meta_query' => array(
@@ -3435,7 +3435,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 		$args = array(
 			's'          => 'findme',
 			'meta_query' => array(
@@ -3499,7 +3499,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'          => 'findme',
@@ -3579,7 +3579,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's' => 'findme',
@@ -3621,7 +3621,7 @@ class TestPost extends BaseTestCase {
 		$post_ids[3] = $this->ep_factory->post->create();
 		$post_ids[4] = $this->ep_factory->post->create( array( 'post_content' => 'findme' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's' => 'findme',
@@ -3650,7 +3650,7 @@ class TestPost extends BaseTestCase {
 	public function testCacheResultsDefaultOff() {
 		$this->ep_factory->post->create();
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			'ep_integrate' => true,
@@ -3671,7 +3671,7 @@ class TestPost extends BaseTestCase {
 	public function testCacheResultsOn() {
 		$this->ep_factory->post->create();
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			'ep_integrate'  => true,
@@ -3693,7 +3693,7 @@ class TestPost extends BaseTestCase {
 	public function testCachedResultIsInCache() {
 		$this->ep_factory->post->create();
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		wp_cache_flush();
 
@@ -3720,7 +3720,7 @@ class TestPost extends BaseTestCase {
 	public function testCachedResultIsNotInCache() {
 		$this->ep_factory->post->create();
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		wp_cache_flush();
 
@@ -3758,14 +3758,14 @@ class TestPost extends BaseTestCase {
 		add_filter( 'ep_indexable_post_status', array( $this, 'mock_indexable_post_status' ), 10, 1 );
 		$post_id = $this->ep_factory->post->create( array( 'post_status' => 'draft' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
-		ElasticPress\Indexables::factory()->get( 'post' )->index( $post_id, true );
+		WPProbe\Indexables::factory()->get( 'post' )->index( $post_id, true );
 
 		wp_cache_flush();
 
 		$wp_post = get_post( $post_id );
-		$post    = ElasticPress\Indexables::factory()->get( 'post' )->get( $post_id );
+		$post    = WPProbe\Indexables::factory()->get( 'post' )->get( $post_id );
 
 		$invalid_datetime = '0000-00-00 00:00:00';
 		if ( $wp_post->post_date_gmt === $invalid_datetime ) {
@@ -3785,7 +3785,7 @@ class TestPost extends BaseTestCase {
 	 * @group post
 	 */
 	public function testExcludeIndexablePostType() {
-		$post_types = ElasticPress\Indexables::factory()->get( 'post' )->get_indexable_post_types();
+		$post_types = WPProbe\Indexables::factory()->get( 'post' )->get_indexable_post_types();
 		$this->assertArrayNotHasKey( 'ep_test_excluded', $post_types );
 		$this->assertArrayNotHasKey( 'ep_test_not_public', $post_types );
 	}
@@ -3827,11 +3827,11 @@ class TestPost extends BaseTestCase {
 	 *
 	 * @param array|WP_Error $response  HTTP response or WP_Error object.
 	 * @param string         $type Context under which the hook is fired.
-	 * @param string         $class HTTP transport used.
+	 * @param string         $http_class HTTP transport used.
 	 * @param array          $args HTTP request arguments.
 	 * @param string         $url The request URL.
 	 */
-	public function check404( $response, $type, $class, $args, $url ) {
+	public function check404( $response, $type, $http_class, $args, $url ) {
 		$response_code = $response['response']['code'];
 		if ( 404 === $response_code ) {
 			$this->is_404 = true;
@@ -3862,11 +3862,11 @@ class TestPost extends BaseTestCase {
 		add_post_meta( $post_id, '_test_private_meta_1', 'value 2' );
 		add_post_meta( $post_id, '_test_private_meta_1', $meta_values );
 
-		$meta_1 = ElasticPress\Indexables::factory()->get( 'post' )->prepare_meta( $post );
+		$meta_1 = WPProbe\Indexables::factory()->get( 'post' )->prepare_meta( $post );
 
 		add_filter( 'ep_prepare_meta_allowed_protected_keys', array( $this, 'filter_ep_prepare_meta_allowed_protected_keys' ) );
 
-		$meta_2 = ElasticPress\Indexables::factory()->get( 'post' )->prepare_meta( $post );
+		$meta_2 = WPProbe\Indexables::factory()->get( 'post' )->prepare_meta( $post );
 
 		add_filter(
 			'ep_meta_mode',
@@ -3876,7 +3876,7 @@ class TestPost extends BaseTestCase {
 		);
 		add_filter( 'ep_prepare_meta_excluded_public_keys', array( $this, 'filter_ep_prepare_meta_excluded_public_keys' ) );
 
-		$meta_3 = ElasticPress\Indexables::factory()->get( 'post' )->prepare_meta( $post );
+		$meta_3 = WPProbe\Indexables::factory()->get( 'post' )->prepare_meta( $post );
 
 		$this->assertTrue( is_array( $meta_1 ) && 1 === count( $meta_1 ) );
 		$this->assertTrue( is_array( $meta_1 ) && array_key_exists( 'test_key1', $meta_1 ) );
@@ -3902,7 +3902,7 @@ class TestPost extends BaseTestCase {
 		};
 		add_filter( 'ep_meta_mode', $change_meta_mode );
 
-		$weighting = ElasticPress\Features::factory()->get_registered_feature( 'search' )->weighting;
+		$weighting = WPProbe\Features::factory()->get_registered_feature( 'search' )->weighting;
 		$this->assertSame( $weighting->get_meta_mode(), 'manual' );
 
 		// Set default weighting
@@ -3927,7 +3927,7 @@ class TestPost extends BaseTestCase {
 
 		$post = get_post( $post_id );
 
-		$prepared_meta = ElasticPress\Indexables::factory()->get( 'post' )->prepare_meta( $post );
+		$prepared_meta = WPProbe\Indexables::factory()->get( 'post' )->prepare_meta( $post );
 		$this->assertEmpty( $prepared_meta );
 
 		/**
@@ -3940,7 +3940,7 @@ class TestPost extends BaseTestCase {
 		};
 		add_filter( 'ep_prepare_meta_allowed_protected_keys', $add_meta_via_allowed_protected, 10, 2 );
 
-		$prepared_meta = ElasticPress\Indexables::factory()->get( 'post' )->prepare_meta( $post );
+		$prepared_meta = WPProbe\Indexables::factory()->get( 'post' )->prepare_meta( $post );
 		$this->assertSame( [ '_test_private_meta_1' ], array_keys( $prepared_meta ) );
 
 		/**
@@ -3955,7 +3955,7 @@ class TestPost extends BaseTestCase {
 		};
 		add_filter( 'ep_prepare_meta_allowed_keys', $add_meta_via_allowed, 10, 2 );
 
-		$prepared_meta = ElasticPress\Indexables::factory()->get( 'post' )->prepare_meta( $post );
+		$prepared_meta = WPProbe\Indexables::factory()->get( 'post' )->prepare_meta( $post );
 		$this->assertSame( [ 'not_allowed_key1', '_test_private_meta_1' ], array_keys( $prepared_meta ) );
 
 		// Set changed weighting
@@ -3973,7 +3973,7 @@ class TestPost extends BaseTestCase {
 		};
 		add_filter( 'ep_weighting_configuration', $set_changed_weighting );
 
-		$prepared_meta = ElasticPress\Indexables::factory()->get( 'post' )->prepare_meta( $post );
+		$prepared_meta = WPProbe\Indexables::factory()->get( 'post' )->prepare_meta( $post );
 		$this->assertSame(
 			[ 'not_allowed_key1', '_test_private_meta_1', '_test_private_meta_2' ],
 			array_keys( $prepared_meta )
@@ -4038,7 +4038,7 @@ class TestPost extends BaseTestCase {
 		$this->assertSame( $meta_key, $row->meta_key );
 		$this->assertSame( $meta_value_1, $row->meta_value );
 
-		$meta_data = ElasticPress\Indexables::factory()->get( 'post' )->prepare_meta( $post );
+		$meta_data = WPProbe\Indexables::factory()->get( 'post' )->prepare_meta( $post );
 
 		$this->assertIsArray( $meta_data );
 		$this->assertCount( 1, $meta_data );
@@ -4053,15 +4053,15 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testMetaValueTypes() {
 
-		$intval            = ElasticPress\Indexables::factory()->get( 'post' )->prepare_meta_value_types( 13 );
-		$floatval          = ElasticPress\Indexables::factory()->get( 'post' )->prepare_meta_value_types( 13.43 );
-		$textval           = ElasticPress\Indexables::factory()->get( 'post' )->prepare_meta_value_types( 'some text' );
-		$float_string      = ElasticPress\Indexables::factory()->get( 'post' )->prepare_meta_value_types( '20.000000' );
-		$bool_false_val    = ElasticPress\Indexables::factory()->get( 'post' )->prepare_meta_value_types( false );
-		$bool_true_val     = ElasticPress\Indexables::factory()->get( 'post' )->prepare_meta_value_types( true );
-		$dateval           = ElasticPress\Indexables::factory()->get( 'post' )->prepare_meta_value_types( '2015-01-01' );
-		$recognizable_time = ElasticPress\Indexables::factory()->get( 'post' )->prepare_meta_value_types( 'third monday of January 2020' );
-		$relative_format   = ElasticPress\Indexables::factory()->get( 'post' )->prepare_meta_value_types( '+1 year' );
+		$intval            = WPProbe\Indexables::factory()->get( 'post' )->prepare_meta_value_types( 13 );
+		$floatval          = WPProbe\Indexables::factory()->get( 'post' )->prepare_meta_value_types( 13.43 );
+		$textval           = WPProbe\Indexables::factory()->get( 'post' )->prepare_meta_value_types( 'some text' );
+		$float_string      = WPProbe\Indexables::factory()->get( 'post' )->prepare_meta_value_types( '20.000000' );
+		$bool_false_val    = WPProbe\Indexables::factory()->get( 'post' )->prepare_meta_value_types( false );
+		$bool_true_val     = WPProbe\Indexables::factory()->get( 'post' )->prepare_meta_value_types( true );
+		$dateval           = WPProbe\Indexables::factory()->get( 'post' )->prepare_meta_value_types( '2015-01-01' );
+		$recognizable_time = WPProbe\Indexables::factory()->get( 'post' )->prepare_meta_value_types( 'third monday of January 2020' );
+		$relative_format   = WPProbe\Indexables::factory()->get( 'post' )->prepare_meta_value_types( '+1 year' );
 
 		$this->assertTrue( is_array( $intval ) && 5 === count( $intval ) );
 		$this->assertTrue( is_array( $intval ) && array_key_exists( 'long', $intval ) && 13 === $intval['long'] );
@@ -4098,10 +4098,10 @@ class TestPost extends BaseTestCase {
 		);
 
 		// Invalid dates
-		$textval        = ElasticPress\Indexables::factory()->get( 'post' )->prepare_date_meta_values( $meta_types, 'some text' );
-		$k20_string     = ElasticPress\Indexables::factory()->get( 'post' )->prepare_date_meta_values( $meta_types, '20.000000' );
-		$bool_false_val = ElasticPress\Indexables::factory()->get( 'post' )->prepare_date_meta_values( $meta_types, false );
-		$bool_true_val  = ElasticPress\Indexables::factory()->get( 'post' )->prepare_date_meta_values( $meta_types, true );
+		$textval        = WPProbe\Indexables::factory()->get( 'post' )->prepare_date_meta_values( $meta_types, 'some text' );
+		$k20_string     = WPProbe\Indexables::factory()->get( 'post' )->prepare_date_meta_values( $meta_types, '20.000000' );
+		$bool_false_val = WPProbe\Indexables::factory()->get( 'post' )->prepare_date_meta_values( $meta_types, false );
+		$bool_true_val  = WPProbe\Indexables::factory()->get( 'post' )->prepare_date_meta_values( $meta_types, true );
 
 		$this->assertEquals( $default_date_time, $textval );
 		$this->assertEquals( $default_date_time, $k20_string );
@@ -4109,12 +4109,12 @@ class TestPost extends BaseTestCase {
 		$this->assertEmpty( $bool_true_val );
 
 		// Valid dates
-		$intval            = ElasticPress\Indexables::factory()->get( 'post' )->prepare_date_meta_values( $meta_types, time() );
-		$floatval          = ElasticPress\Indexables::factory()->get( 'post' )->prepare_date_meta_values( $meta_types, 13.43 );
-		$float_string      = ElasticPress\Indexables::factory()->get( 'post' )->prepare_date_meta_values( $meta_types, '20.000001' );
-		$dateval           = ElasticPress\Indexables::factory()->get( 'post' )->prepare_date_meta_values( $meta_types, '2015-01-01' );
-		$recognizable_time = ElasticPress\Indexables::factory()->get( 'post' )->prepare_date_meta_values( $meta_types, 'third day of January 2020' );
-		$relative_format   = ElasticPress\Indexables::factory()->get( 'post' )->prepare_date_meta_values( $meta_types, '+1 year' );
+		$intval            = WPProbe\Indexables::factory()->get( 'post' )->prepare_date_meta_values( $meta_types, time() );
+		$floatval          = WPProbe\Indexables::factory()->get( 'post' )->prepare_date_meta_values( $meta_types, 13.43 );
+		$float_string      = WPProbe\Indexables::factory()->get( 'post' )->prepare_date_meta_values( $meta_types, '20.000001' );
+		$dateval           = WPProbe\Indexables::factory()->get( 'post' )->prepare_date_meta_values( $meta_types, '2015-01-01' );
+		$recognizable_time = WPProbe\Indexables::factory()->get( 'post' )->prepare_date_meta_values( $meta_types, 'third day of January 2020' );
+		$relative_format   = WPProbe\Indexables::factory()->get( 'post' )->prepare_date_meta_values( $meta_types, '+1 year' );
 
 		$this->assertFalse( isset( $intval['date'] ) || isset( $intval['datetime'] ) || isset( $intval['time'] ) );
 		$this->assertFalse( isset( $floatval['date'] ) || isset( $floatval['datetime'] ) || isset( $floatval['time'] ) );
@@ -4140,7 +4140,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'          => 'findme',
@@ -4171,7 +4171,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 		$args = array(
 			's'              => 'findme',
 			'meta_key'       => 'test_key',
@@ -4204,7 +4204,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 		$args = array(
 			's'              => 'findme',
 			'meta_key'       => 'test_key',
@@ -4247,7 +4247,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 		$args = array(
 			's'          => 'findme',
 			'meta_query' => array(
@@ -4326,7 +4326,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 		$args = array(
 			's'          => 'findme',
 			'meta_query' => array(
@@ -4387,7 +4387,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 		$args = array(
 			's'          => 'findme',
 			'meta_query' => array(
@@ -4428,7 +4428,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 		$args = array(
 			's'          => 'findme',
 			'meta_query' => array(
@@ -4479,7 +4479,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 		$args = array(
 			's'          => 'findme',
 			'meta_query' => array(
@@ -4530,7 +4530,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 		$args = array(
 			's'          => 'findme',
 			'meta_query' => array(
@@ -4599,7 +4599,7 @@ class TestPost extends BaseTestCase {
 		);
 		$this->ep_factory->post->create( array( 'post_content' => 'findme test 3' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'           => 'findme',
@@ -4663,7 +4663,7 @@ class TestPost extends BaseTestCase {
 		$this->ep_factory->post->create( array( 'post_content' => 'findme name in test 2' ) );
 		$this->ep_factory->post->create( array( 'post_content' => 'findme name in test 3' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's' => 'findme name in',
@@ -4710,7 +4710,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'         => 'findme',
@@ -4777,7 +4777,7 @@ class TestPost extends BaseTestCase {
 		);
 		$this->ep_factory->post->create( array( 'post_content' => 'findme test 3' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'         => 'findme',
@@ -4843,7 +4843,7 @@ class TestPost extends BaseTestCase {
 		);
 		$this->ep_factory->post->create( array( 'post_content' => 'findme test 3' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'         => 'findme',
@@ -4897,7 +4897,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			'ep_integrate'   => true,
@@ -5023,7 +5023,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'         => 'findme',
@@ -5085,7 +5085,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'         => 'findme',
@@ -5134,8 +5134,8 @@ class TestPost extends BaseTestCase {
 
 		wp_set_object_terms( $post->ID, array( $term1['term_id'] ), $tax_name, true );
 
-		ElasticPress\Indexables::factory()->get( 'post' )->index( $post->ID, true );
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->index( $post->ID, true );
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'         => 'test',
@@ -5181,7 +5181,7 @@ class TestPost extends BaseTestCase {
 			]
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$this->go_to( '/' );
 
@@ -5215,7 +5215,7 @@ class TestPost extends BaseTestCase {
 			]
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		// This used to perform a new WP_Query with "s", but it needs to
 		// perform a search request via the URL.
@@ -5475,7 +5475,7 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testDateQueryFiltersRelation() {
 
-		$date_query = new \ElasticPress\Indexable\Post\DateQuery(
+		$date_query = new \WPProbe\Indexable\Post\DateQuery(
 			[
 				'relation' => '',
 				[
@@ -5500,7 +5500,7 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testDateQueryValidateDateValues() {
 
-		$date_query = new \ElasticPress\Indexable\Post\DateQuery( [] );
+		$date_query = new \WPProbe\Indexable\Post\DateQuery( [] );
 
 		$this->assertFalse( $date_query->validate_date_values() );
 
@@ -5520,7 +5520,7 @@ class TestPost extends BaseTestCase {
 
 		$this->assertTrue( $valid );
 
-		$results = \ElasticPress\Indexable\Post\DateQuery::simple_es_date_filter(
+		$results = \WPProbe\Indexable\Post\DateQuery::simple_es_date_filter(
 			[
 				'w' => 10,
 			]
@@ -5537,9 +5537,9 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testDateQueryValidateDateDoingItWrong() {
 
-		$this->setExpectedIncorrectUsage( 'ElasticPress\Indexable\Post\DateQuery' );
+		$this->setExpectedIncorrectUsage( 'WPProbe\Indexable\Post\DateQuery' );
 
-		$date_query = new \ElasticPress\Indexable\Post\DateQuery( [] );
+		$date_query = new \WPProbe\Indexable\Post\DateQuery( [] );
 
 		$valid = $date_query->validate_date_values(
 			[
@@ -5687,7 +5687,7 @@ class TestPost extends BaseTestCase {
 			),
 		);
 
-		$date_query = new \ElasticPress\Indexable\Post\DateQuery(
+		$date_query = new \WPProbe\Indexable\Post\DateQuery(
 			[
 				'w' => 10,
 			]
@@ -5704,7 +5704,7 @@ class TestPost extends BaseTestCase {
 		$this->assertEquals( $query->post_count, 4 );
 		$this->assertEquals( $query->found_posts, 4 );
 
-		$date_query = new \ElasticPress\Indexable\Post\DateQuery(
+		$date_query = new \WPProbe\Indexable\Post\DateQuery(
 			[
 				'monthnum' => 1,
 				'compare'  => '!=',
@@ -5716,7 +5716,7 @@ class TestPost extends BaseTestCase {
 		$this->assertTrue( is_array( $filter ) );
 		$this->assertSame( 1, $filter['and']['bool']['must_not'][0]['term']['date_terms.month'] );
 
-		$date_query = new \ElasticPress\Indexable\Post\DateQuery(
+		$date_query = new \WPProbe\Indexable\Post\DateQuery(
 			[
 				'monthnum' => [ 1, 2 ],
 				'compare'  => 'IN',
@@ -5729,7 +5729,7 @@ class TestPost extends BaseTestCase {
 		$this->assertSame( 1, $filter['and']['bool']['should'][0]['term']['date_terms.month'] );
 		$this->assertSame( 2, $filter['and']['bool']['should'][1]['term']['date_terms.month'] );
 
-		$date_query = new \ElasticPress\Indexable\Post\DateQuery(
+		$date_query = new \WPProbe\Indexable\Post\DateQuery(
 			[
 				'monthnum' => [ 1, 2 ],
 				'compare'  => 'NOT IN',
@@ -5878,7 +5878,7 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testQueryWithoutIsSearch() {
 		$query = new \stdClass();
-		$check = ElasticPress\Indexables::factory()->get( 'post' )->elasticpress_enabled( $query );
+		$check = WPProbe\Indexables::factory()->get( 'post' )->elasticpress_enabled( $query );
 		$this->assertFalse( $check );
 	}
 
@@ -5896,7 +5896,7 @@ class TestPost extends BaseTestCase {
 
 		$this->assertTrue( $query->elasticsearch_success );
 
-		$check = ElasticPress\Indexables::factory()->get( 'post' )->elasticpress_enabled( $query );
+		$check = WPProbe\Indexables::factory()->get( 'post' )->elasticpress_enabled( $query );
 		$this->assertTrue( $check );
 	}
 
@@ -5927,7 +5927,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			'ep_integrate' => 1,
@@ -5981,7 +5981,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query1_args = [
 			's'   => 'findme',
@@ -6079,7 +6079,7 @@ class TestPost extends BaseTestCase {
 		 * post 3 |  x  |  x  |     |     |     |  x  |
 		 */
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		// Should find only posts with both tags 1 AND 2
 		$args = array(
@@ -6155,7 +6155,7 @@ class TestPost extends BaseTestCase {
 
 		$post_id = $this->ep_factory->post->create();
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 	}
 
 	/**
@@ -6166,13 +6166,14 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testPostConstructor() {
 
-		$post = new \ElasticPress\Indexable\Post\Post();
+		$post = new \WPProbe\Indexable\Post\Post();
+		$post->setup();
 
 		$this->assertSame( 'Posts', $post->labels['plural'] );
 		$this->assertSame( 'Post', $post->labels['singular'] );
 
-		$this->assertTrue( is_a( $post->sync_manager, '\ElasticPress\Indexable\Post\SyncManager' ) );
-		$this->assertTrue( is_a( $post->query_integration, '\ElasticPress\Indexable\Post\QueryIntegration' ) );
+		$this->assertTrue( is_a( $post->sync_manager, '\WPProbe\Indexable\Post\SyncManager' ) );
+		$this->assertTrue( is_a( $post->query_integration, '\WPProbe\Indexable\Post\QueryIntegration' ) );
 	}
 
 	/**
@@ -6182,7 +6183,7 @@ class TestPost extends BaseTestCase {
 	 * @group post
 	 */
 	public function testQueryDb() {
-		$indexable_post_object = new \ElasticPress\Indexable\Post\Post();
+		$indexable_post_object = new \WPProbe\Indexable\Post\Post();
 
 		$post_id_1 = $this->ep_factory->post->create();
 		$post_id_2 = $this->ep_factory->post->create();
@@ -6298,8 +6299,8 @@ class TestPost extends BaseTestCase {
 		$this->assertEquals( 4, $results['total_objects'] );
 
 		// Test it pulls the post with passwords when password protected feature is enabled.
-		ElasticPress\Features::factory()->activate_feature( 'protected_content' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'protected_content' );
+		WPProbe\Features::factory()->setup_features();
 
 		$results = $indexable_post_object->query_db(
 			[
@@ -6319,7 +6320,7 @@ class TestPost extends BaseTestCase {
 		global $wpdb;
 		global $wp_taxonomies;
 
-		$post = new \ElasticPress\Indexable\Post\Post();
+		$post = new \WPProbe\Indexable\Post\Post();
 
 		$this->assertFalse( $post->prepare_document( null ) );
 
@@ -6420,7 +6421,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query(
 			[
@@ -6494,7 +6495,7 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testFormatArgsPostMimeType() {
 
-		$post = new \ElasticPress\Indexable\Post\Post();
+		$post = new \WPProbe\Indexable\Post\Post();
 
 		$query = new \WP_Query();
 
@@ -6567,7 +6568,7 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testFormatArgsAuthor() {
 
-		$post = new \ElasticPress\Indexable\Post\Post();
+		$post = new \WPProbe\Indexable\Post\Post();
 
 		$query = new \WP_Query();
 
@@ -6606,7 +6607,7 @@ class TestPost extends BaseTestCase {
 		$sticky_posts = get_option( 'sticky_posts' );
 		$this->assertNotEmpty( $sticky_posts );
 
-		$post = new \ElasticPress\Indexable\Post\Post();
+		$post = new \WPProbe\Indexable\Post\Post();
 
 		$this->go_to( home_url( '/' ) );
 
@@ -6635,7 +6636,7 @@ class TestPost extends BaseTestCase {
 		set_current_screen( 'edit.php' );
 		$this->assertTrue( is_admin() );
 
-		$post = new \ElasticPress\Indexable\Post\Post();
+		$post = new \WPProbe\Indexable\Post\Post();
 
 		// This will include statuses besides publish.
 		$args = $post->format_args( [], new \WP_Query() );
@@ -6657,7 +6658,7 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testFormatArgsFields() {
 
-		$post = new \ElasticPress\Indexable\Post\Post();
+		$post = new \WPProbe\Indexable\Post\Post();
 
 		$args = $post->format_args(
 			[
@@ -6687,7 +6688,7 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testFormatArgsAggs() {
 		// For reference https://www.elasticpress.io/blog/2017/09/aggregations-api-for-grouping-data/.
-		$post = new \ElasticPress\Indexable\Post\Post();
+		$post = new \WPProbe\Indexable\Post\Post();
 
 		$args = $post->format_args(
 			[
@@ -6765,7 +6766,7 @@ class TestPost extends BaseTestCase {
 	 * @group post
 	 */
 	public function testFormatArgsEpPostFilter() {
-		$post = new \ElasticPress\Indexable\Post\Post();
+		$post = new \WPProbe\Indexable\Post\Post();
 
 		$test_args  = [];
 		$test_query = new \WP_Query( $test_args );
@@ -6901,7 +6902,7 @@ class TestPost extends BaseTestCase {
 		foreach ( $meta_values as $value ) {
 			$posts[] = $this->ep_factory->post->create( [ 'meta_input' => [ 'test_key' => $value ] ] );
 		}
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query_args = [
 			'ep_integrate' => true,
@@ -7129,7 +7130,7 @@ class TestPost extends BaseTestCase {
 		// This lets us trigger the ep_fallback_elasticsearch_version filter.
 		add_filter( 'ep_elasticsearch_version', '__return_false' );
 
-		$post = new \ElasticPress\Indexable\Post\Post();
+		$post = new \WPProbe\Indexable\Post\Post();
 
 		// Test the mapping files for different ES versions.
 		$version_and_file = [
@@ -7175,7 +7176,7 @@ class TestPost extends BaseTestCase {
 		// Pretend we're indexing.
 		add_filter( 'ep_is_full_reindexing_post', '__return_true' );
 
-		$query_integration = new \ElasticPress\Indexable\Post\QueryIntegration();
+		$query_integration = new \WPProbe\Indexable\Post\QueryIntegration();
 
 		$action_function = [
 			'pre_get_posts'   => [ 'add_es_header', 5 ],
@@ -7192,7 +7193,7 @@ class TestPost extends BaseTestCase {
 
 		remove_filter( 'ep_is_full_reindexing_post', '__return_true' );
 
-		$query_integration = new \ElasticPress\Indexable\Post\QueryIntegration();
+		$query_integration = new \WPProbe\Indexable\Post\QueryIntegration();
 
 		// Make sure these filters ARE not present since EP is not flagged
 		// as indexing.
@@ -7209,7 +7210,7 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testFoundPosts() {
 
-		$query_integration = new \ElasticPress\Indexable\Post\QueryIntegration();
+		$query_integration = new \WPProbe\Indexable\Post\QueryIntegration();
 
 		// Simulate a WP_Query object.
 		$query                        = new \stdClass();
@@ -7255,7 +7256,7 @@ class TestPost extends BaseTestCase {
 		$post_ids[] = $this->ep_factory->post->create();
 		$post_ids[] = $this->ep_factory->post->create( [ 'post_parent' => $post_ids[1] ] );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		// Now test the fields parameter.
 		$assert_callback = function ( $new_posts ) use ( $post_ids ) {
@@ -7353,7 +7354,7 @@ class TestPost extends BaseTestCase {
 
 		$blog_1_post_id = $this->ep_factory->post->create();
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query(
 			[
@@ -7374,7 +7375,7 @@ class TestPost extends BaseTestCase {
 
 		$blog_2_post_id = $this->ep_factory->post->create();
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query(
 			[
@@ -7394,7 +7395,7 @@ class TestPost extends BaseTestCase {
 
 		// Now we have two different posts in different sites and can
 		// test the function. Try accessing the 2nd post from the 1st blog.
-		$query_integration = new \ElasticPress\Indexable\Post\QueryIntegration();
+		$query_integration = new \WPProbe\Indexable\Post\QueryIntegration();
 
 		// This should not switch to the 2nd site because the query is not in the loop.
 		$query_integration->maybe_switch_to_blog( $blog_2_post, $query );
@@ -7436,13 +7437,13 @@ class TestPost extends BaseTestCase {
 		// Create a post sync it.
 		$post_id = $this->ep_factory->post->create();
 
-		$this->assertNotEmpty( ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->get_sync_queue() );
+		$this->assertNotEmpty( WPProbe\Indexables::factory()->get( 'post' )->sync_manager->get_sync_queue() );
 
-		ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		// Make sure we're starting with an empty queue.
-		$this->assertEmpty( ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->get_sync_queue() );
+		$this->assertEmpty( WPProbe\Indexables::factory()->get( 'post' )->sync_manager->get_sync_queue() );
 
 		// Turn on the filter to kill syncing.
 		add_filter( 'ep_post_sync_kill', '__return_true' );
@@ -7451,7 +7452,7 @@ class TestPost extends BaseTestCase {
 
 		// Make sure sync queue is still empty when meta is updated for
 		// an existing post.
-		$this->assertEmpty( ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->get_sync_queue() );
+		$this->assertEmpty( WPProbe\Indexables::factory()->get( 'post' )->sync_manager->get_sync_queue() );
 
 		wp_insert_post(
 			[
@@ -7461,18 +7462,18 @@ class TestPost extends BaseTestCase {
 		);
 
 		// Make sure sync queue is still empty when a new post is added.
-		$this->assertEmpty( ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->get_sync_queue() );
+		$this->assertEmpty( WPProbe\Indexables::factory()->get( 'post' )->sync_manager->get_sync_queue() );
 
 		remove_filter( 'ep_post_sync_kill', '__return_true' );
 
 		// Now verify the queue when this filter is not enabled.
 		update_post_meta( $post_id, 'test_key', 456 );
 
-		$this->assertNotEmpty( ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->get_sync_queue() );
+		$this->assertNotEmpty( WPProbe\Indexables::factory()->get( 'post' )->sync_manager->get_sync_queue() );
 
 		// Flush the queues.
-		ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 	}
 
 	/**
@@ -7486,11 +7487,11 @@ class TestPost extends BaseTestCase {
 		// Create a post sync it.
 		$post_id = $this->ep_factory->post->create();
 
-		ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		// Make sure we're starting with an empty queue.
-		$this->assertEmpty( ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->get_sync_queue() );
+		$this->assertEmpty( WPProbe\Indexables::factory()->get( 'post' )->sync_manager->get_sync_queue() );
 
 		// Test user permissions. We'll tell WP the user is not allowed
 		// to edit the post we created at the top of this function.
@@ -7506,12 +7507,12 @@ class TestPost extends BaseTestCase {
 		add_filter( 'map_meta_cap', $map_meta_cap_callback, 10, 4 );
 
 		// Try deleting the post.
-		ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->action_delete_post( $post_id );
-		ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->action_delete_post( $post_id );
+		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		// Verify we can still get it from ES.
-		$document = ElasticPress\Indexables::factory()->get( 'post' )->get( $post_id );
+		$document = WPProbe\Indexables::factory()->get( 'post' )->get( $post_id );
 
 		$this->assertTrue( is_array( $document ) );
 		$this->assertSame( $post_id, $document['post_id'] );
@@ -7525,10 +7526,10 @@ class TestPost extends BaseTestCase {
 				'post_title' => 'New Post Title',
 			]
 		);
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		// Verify the old title is still there.
-		$document = ElasticPress\Indexables::factory()->get( 'post' )->get( $post_id );
+		$document = WPProbe\Indexables::factory()->get( 'post' )->get( $post_id );
 
 		$this->assertTrue( is_array( $document ) );
 		$this->assertSame( $post_title, $document['post_title'] );
@@ -7544,20 +7545,20 @@ class TestPost extends BaseTestCase {
 				'post_title' => 'New Post Title',
 			]
 		);
-		ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		// Verify the new title is there.
-		$document = ElasticPress\Indexables::factory()->get( 'post' )->get( $post_id );
+		$document = WPProbe\Indexables::factory()->get( 'post' )->get( $post_id );
 
 		$this->assertSame( 'New Post Title', $document['post_title'] );
 
 		// Delete it, make sure it's gone.
-		ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->action_delete_post( $post_id );
-		ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->action_delete_post( $post_id );
+		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
-		$document = ElasticPress\Indexables::factory()->get( 'post' )->get( $post_id );
+		$document = WPProbe\Indexables::factory()->get( 'post' )->get( $post_id );
 
 		$this->assertEmpty( $document );
 	}
@@ -7571,7 +7572,7 @@ class TestPost extends BaseTestCase {
 	public function testPostPrepareDateTerms() {
 		$date = new \DateTime( '2021-04-11 23:58:12' );
 
-		$return_prepare_date_terms = ElasticPress\Indexables::factory()->get( 'post' )->prepare_date_terms( $date->format( 'Y-m-d H:i:s' ) );
+		$return_prepare_date_terms = WPProbe\Indexables::factory()->get( 'post' )->prepare_date_terms( $date->format( 'Y-m-d H:i:s' ) );
 
 		$this->assertIsArray( $return_prepare_date_terms );
 
@@ -7608,7 +7609,7 @@ class TestPost extends BaseTestCase {
 		$this->assertArrayHasKey( 'm', $return_prepare_date_terms );
 		$this->assertEquals( $date->format( 'Ym' ), $return_prepare_date_terms['m'] );
 
-		$return_prepare_date_terms = ElasticPress\Indexables::factory()->get( 'post' )->prepare_date_terms( '' );
+		$return_prepare_date_terms = WPProbe\Indexables::factory()->get( 'post' )->prepare_date_terms( '' );
 
 		$this->assertIsArray( $return_prepare_date_terms );
 
@@ -7636,7 +7637,7 @@ class TestPost extends BaseTestCase {
 
 		$query = new \WP_Query();
 
-		$post = new \ElasticPress\Indexable\Post\Post();
+		$post = new \WPProbe\Indexable\Post\Post();
 
 		$args = $post->format_args(
 			[
@@ -7687,8 +7688,8 @@ class TestPost extends BaseTestCase {
 
 		delete_metadata( 'post', null, 'test_key1', 'lorem', true );
 
-		ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query(
 			array(
@@ -7770,8 +7771,8 @@ class TestPost extends BaseTestCase {
 
 		wp_delete_post( $post_to_be_deleted, true );
 
-		\ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
-		\ElasticPress\Elasticsearch::factory()->refresh_indices();
+		\WPProbe\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
+		\WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query(
 			[
@@ -7808,21 +7809,21 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
-		$document = ElasticPress\Indexables::factory()->get( 'post' )->get( $post_id );
+		$document = WPProbe\Indexables::factory()->get( 'post' )->get( $post_id );
 		$this->assertNotEmpty( $document['terms']['category'] );
 		$this->assertNotEmpty( $document['terms']['post_tag'] );
 
-		ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
+		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
 
 		wp_delete_term( $tag, 'post_tag' );
 		wp_delete_term( $cat, 'category' );
 
-		ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
-		$document = ElasticPress\Indexables::factory()->get( 'post' )->get( $post_id );
+		$document = WPProbe\Indexables::factory()->get( 'post' )->get( $post_id );
 		// Category will fallback to Uncategorized.
 		$this->assertNotContains( $cat, wp_list_pluck( $document['terms']['category'], 'term_id' ) );
 		$this->assertArrayNotHasKey( 'post_tag', $document['terms'] );
@@ -7841,7 +7842,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$test_tag = get_term_by( 'name', 'test-tag', 'post_tag' );
 		wp_update_term(
@@ -7853,10 +7854,10 @@ class TestPost extends BaseTestCase {
 			]
 		);
 
-		ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
-		$document = ElasticPress\Indexables::factory()->get( 'post' )->get( $post_id );
+		$document = WPProbe\Indexables::factory()->get( 'post' )->get( $post_id );
 		$this->assertEquals( 'different-tag-slug', $document['terms']['post_tag'][0]['slug'] );
 		$this->assertEquals( 'Different Tag Name', $document['terms']['post_tag'][0]['name'] );
 	}
@@ -7882,7 +7883,7 @@ class TestPost extends BaseTestCase {
 
 		wp_set_object_terms( $post->ID, array( $term_2['term_id'] ), $tax_name, true );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$test_tag = get_term_by( 'id', $term_1['term_id'], $tax_name );
 
@@ -7895,10 +7896,10 @@ class TestPost extends BaseTestCase {
 			]
 		);
 
-		ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
-		$document = ElasticPress\Indexables::factory()->get( 'post' )->get( $post->ID );
+		$document = WPProbe\Indexables::factory()->get( 'post' )->get( $post->ID );
 		$this->assertEquals( 'parent-term', $document['terms'][ $tax_name ][1]['slug'] );
 		$this->assertEquals( 'Parent Term', $document['terms'][ $tax_name ][1]['name'] );
 	}
@@ -7915,7 +7916,7 @@ class TestPost extends BaseTestCase {
 
 		$expected_result = '2';
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		// Make sure WordPress returns only 2 posts.
 		$args  = array(
@@ -7930,7 +7931,7 @@ class TestPost extends BaseTestCase {
 		$this->assertEquals( $expected_result, $query->post_count );
 		$this->assertNull( $query->elasticsearch_success );
 
-		// Make sure ElasticPress returns only 2 posts when meta query is set
+		// Make sure WPProbe returns only 2 posts when meta query is set
 		$args  = array(
 			'ep_integrate' => true,
 			'meta_query'   => array(
@@ -7944,7 +7945,7 @@ class TestPost extends BaseTestCase {
 		$this->assertTrue( $query->elasticsearch_success );
 		$this->assertEquals( $expected_result, $query->post_count );
 
-		// Make sure ElasticPress returns only 2 posts when meta key is set
+		// Make sure WPProbe returns only 2 posts when meta key is set
 		$args  = array(
 			'ep_integrate' => true,
 			'meta_key'     => 'test_key',
@@ -7962,9 +7963,9 @@ class TestPost extends BaseTestCase {
 		/**
 		 * Test default search algorithm
 		 */
-		$version_40 = \ElasticPress\SearchAlgorithms::factory()->get( '4.0' );
+		$version_40 = \WPProbe\SearchAlgorithms::factory()->get( '4.0' );
 
-		$post_indexable   = \ElasticPress\Indexables::factory()->get( 'post' );
+		$post_indexable   = \WPProbe\Indexables::factory()->get( 'post' );
 		$search_algorithm = $post_indexable->get_search_algorithm( '', [], [] );
 
 		$this->assertSame( $version_40, $search_algorithm );
@@ -7972,7 +7973,7 @@ class TestPost extends BaseTestCase {
 		/**
 		 * Test setting a different algorithm through the `ep_search_algorithm_version` filter
 		 */
-		$version_35 = \ElasticPress\SearchAlgorithms::factory()->get( '3.5' );
+		$version_35 = \WPProbe\SearchAlgorithms::factory()->get( '3.5' );
 
 		$set_version_35 = function () {
 			return '3.5';
@@ -7989,7 +7990,7 @@ class TestPost extends BaseTestCase {
 		 * Test setting a non-existent algorithm through the `ep_search_algorithm_version` filter
 		 * It should use `basic`
 		 */
-		$basic = \ElasticPress\SearchAlgorithms::factory()->get( 'basic' );
+		$basic = \WPProbe\SearchAlgorithms::factory()->get( 'basic' );
 
 		$set_non_existent_version = function () {
 			return 'foobar';
@@ -8042,7 +8043,7 @@ class TestPost extends BaseTestCase {
 			}
 		);
 
-		$indexable = \ElasticPress\Indexables::factory()->get( 'post' );
+		$indexable = \WPProbe\Indexables::factory()->get( 'post' );
 		$post      = new \WP_Post( (object) [ 'post_type' => 'post' ] );
 
 		$this->assertTrue( $indexable->is_meta_allowed( $meta_not_protected, $post ) );
@@ -8059,12 +8060,12 @@ class TestPost extends BaseTestCase {
 	 * @group  post
 	 */
 	public function testGetDistinctMetaFieldKeys() {
-		$indexable = \ElasticPress\Indexables::factory()->get( 'post' );
+		$indexable = \WPProbe\Indexables::factory()->get( 'post' );
 
 		$this->ep_factory->post->create( array( 'meta_input' => array( 'test_key1' => '' ) ) );
 		$this->ep_factory->post->create( array( 'meta_input' => array( 'test_key2' => '' ) ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$distinct_meta_field_keys = $indexable->get_distinct_meta_field_keys();
 
@@ -8080,7 +8081,7 @@ class TestPost extends BaseTestCase {
 	 * @group  post
 	 */
 	public function testGetAllDistinctValues() {
-		$indexable = \ElasticPress\Indexables::factory()->get( 'post' );
+		$indexable = \WPProbe\Indexables::factory()->get( 'post' );
 
 		$this->ep_factory->post->create( array( 'meta_input' => array( 'test_key1' => 'foo' ) ) );
 		$this->ep_factory->post->create( array( 'meta_input' => array( 'test_key1' => 'bar' ) ) );
@@ -8089,7 +8090,7 @@ class TestPost extends BaseTestCase {
 		$this->ep_factory->post->create( array( 'meta_input' => array( 'test_key2' => 'lorem' ) ) );
 		$this->ep_factory->post->create( array( 'meta_input' => array( 'test_key2' => 'ipsum' ) ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$distinct_values = $indexable->get_all_distinct_values( 'meta.test_key1.raw' );
 
@@ -8122,7 +8123,7 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testHighlightTags() {
 
-		ElasticPress\Features::factory()->update_feature(
+		WPProbe\Features::factory()->update_feature(
 			'search',
 			array(
 				'active'            => true,
@@ -8137,7 +8138,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args  = array(
 			's' => 'test',
@@ -8174,7 +8175,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$bypass = function ( $should_bypass, $query ) {
 			$this->assertInstanceOf( \WP_Query::class, $query );
@@ -8220,7 +8221,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args  = array(
 			's' => 'search',
@@ -8260,7 +8261,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args  = array(
 			's' => 'search',
@@ -8300,7 +8301,7 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testHighlightTagsWithCustomClass() {
 
-		ElasticPress\Features::factory()->update_feature(
+		WPProbe\Features::factory()->update_feature(
 			'search',
 			array(
 				'active'            => true,
@@ -8315,11 +8316,11 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		add_filter(
 			'ep_highlighting_class',
-			function ( $class ) {
+			function ( $highlight_class ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 				return 'my-custom-class';
 			}
 		);
@@ -8338,7 +8339,7 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testHighlightTagsOnlyForTitle() {
 
-		ElasticPress\Features::factory()->update_feature(
+		WPProbe\Features::factory()->update_feature(
 			'search',
 			array(
 				'active'            => true,
@@ -8353,11 +8354,11 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		add_filter(
 			'ep_highlighting_fields',
-			function ( $fields ) {
+			function ( $fields ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 				return array( 'post_title' );
 			}
 		);
@@ -8376,7 +8377,7 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testExcerptHasHighlightHTMLTags() {
 
-		ElasticPress\Features::factory()->update_feature(
+		WPProbe\Features::factory()->update_feature(
 			'search',
 			array(
 				'active'            => true,
@@ -8386,7 +8387,7 @@ class TestPost extends BaseTestCase {
 		);
 
 		$this->ep_factory->post->create( array( 'post_excerpt' => 'test excerpt' ) );
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args  = array(
 			's' => 'test',
@@ -8404,7 +8405,7 @@ class TestPost extends BaseTestCase {
 				'post_excerpt' => '',
 			)
 		);
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args  = array(
 			's' => 'new',
@@ -8420,7 +8421,7 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testHighlightTagsNotSetWhenSearchIsEmpty() {
 
-		ElasticPress\Features::factory()->update_feature(
+		WPProbe\Features::factory()->update_feature(
 			'search',
 			array(
 				'active'            => true,
@@ -8429,18 +8430,18 @@ class TestPost extends BaseTestCase {
 		);
 
 		$this->ep_factory->post->create( array( 'post_content' => 'test content' ) );
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		add_action(
 			'pre_http_request',
-			function ( $preempt, $parsed_args, $url ) {
+			function ( $preempt, $parsed_args ) {
 
 				$body = json_decode( $parsed_args['body'], true );
 				$this->assertArrayNotHasKey( 'highlight', $body );
 				return $preempt;
 			},
 			10,
-			3
+			2
 		);
 
 		$args  = array(
@@ -8465,7 +8466,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args  = array(
 			'ep_integrate' => true,
@@ -8509,7 +8510,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args  = array(
 			's'          => 'test',
@@ -8544,7 +8545,7 @@ class TestPost extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args  = array(
 			's' => 'test post',
@@ -8564,7 +8565,7 @@ class TestPost extends BaseTestCase {
 	public function testGetDistinctMetaFieldKeysDb() {
 		global $wpdb;
 
-		$indexable = \ElasticPress\Indexables::factory()->get( 'post' );
+		$indexable = \WPProbe\Indexables::factory()->get( 'post' );
 
 		$meta_keys = $wpdb->get_col( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} ORDER BY meta_key" );
 		$this->assertSame( $meta_keys, $indexable->get_distinct_meta_field_keys_db( true ) );
@@ -8608,12 +8609,12 @@ class TestPost extends BaseTestCase {
 	 *
 	 * @since 4.4.0
 	 * @group post
-	 * @expectedIncorrectUsage ElasticPress\Indexable\Post\Post::get_distinct_meta_field_keys_db_per_post_type
+	 * @expectedIncorrectUsage WPProbe\Indexable\Post\Post::get_distinct_meta_field_keys_db_per_post_type
 	 */
 	public function testGetDistinctMetaFieldKeysDbPerPostType() {
 		global $wpdb;
 
-		$indexable = \ElasticPress\Indexables::factory()->get( 'post' );
+		$indexable = \WPProbe\Indexables::factory()->get( 'post' );
 
 		// Without setting the correct screen, this should throw a _doing_it_wrong
 		$this->assertSame( [], $indexable->get_distinct_meta_field_keys_db_per_post_type( 'ep_test' ) );
@@ -8661,7 +8662,7 @@ class TestPost extends BaseTestCase {
 	 * @group post
 	 */
 	public function testGetLazyPostTypeIdsFilters() {
-		$indexable = \ElasticPress\Indexables::factory()->get( 'post' );
+		$indexable = \WPProbe\Indexables::factory()->get( 'post' );
 
 		$this->setupDistinctMetaFieldKeysDbPerPostType();
 
@@ -8693,9 +8694,9 @@ class TestPost extends BaseTestCase {
 	 * @group post
 	 */
 	public function testGetIndexableMetaKeysPerPostType() {
-		ElasticPress\Screen::factory()->set_current_screen( 'status-report' );
+		WPProbe\Screen::factory()->set_current_screen( 'status-report' );
 
-		$indexable = \ElasticPress\Indexables::factory()->get( 'post' );
+		$indexable = \WPProbe\Indexables::factory()->get( 'post' );
 
 		$this->ep_factory->post->create(
 			[
@@ -8736,7 +8737,7 @@ class TestPost extends BaseTestCase {
 	 * @group post
 	 */
 	public function testGetPredictedIndexableMetaKeys() {
-		$indexable = \ElasticPress\Indexables::factory()->get( 'post' );
+		$indexable = \WPProbe\Indexables::factory()->get( 'post' );
 
 		$this->ep_factory->post->create(
 			[
@@ -8777,22 +8778,22 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testPutMappingThrowsError() {
 
-		ElasticPress\Elasticsearch::factory()->delete_all_indices();
-		$mapping = ElasticPress\Indexables::factory()->get( 'post' )->put_mapping();
+		WPProbe\Elasticsearch::factory()->delete_all_indices();
+		$mapping = WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
 
 		$this->assertTrue( $mapping );
 
 		// Try to put mapping again to trigger error `resource_already_exists_exception`. Expect false as it defaults to return a bool
-		$mapping = ElasticPress\Indexables::factory()->get( 'post' )->put_mapping();
+		$mapping = WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
 		$this->assertFalse( $mapping );
 
-		$mapping = ElasticPress\Indexables::factory()->get( 'post' )->put_mapping( 'raw' );
+		$mapping = WPProbe\Indexables::factory()->get( 'post' )->put_mapping( 'raw' );
 		$this->assertInstanceOf( 'WP_Error', $mapping );
 		$this->assertEquals( 400, $mapping->get_error_code() );
 
 		// Try to put mapping again to trigger WP_Error by providing an empty host.
 		add_filter( 'ep_pre_request_host', '__return_empty_string' );
-		$mapping = ElasticPress\Indexables::factory()->get( 'post' )->put_mapping( 'raw' );
+		$mapping = WPProbe\Indexables::factory()->get( 'post' )->put_mapping( 'raw' );
 
 		$this->assertInstanceOf( 'WP_Error', $mapping );
 		$this->assertEquals( 'http_request_failed', $mapping->get_error_code() );
@@ -8805,7 +8806,7 @@ class TestPost extends BaseTestCase {
 	 * @return void
 	 */
 	protected function setupDistinctMetaFieldKeysDbPerPostType() {
-		ElasticPress\Screen::factory()->set_current_screen( 'status-report' );
+		WPProbe\Screen::factory()->set_current_screen( 'status-report' );
 
 		$this->ep_factory->post->create(
 			[
@@ -8854,13 +8855,13 @@ class TestPost extends BaseTestCase {
 		$thumbnail_id = get_post_thumbnail_id( $product_id );
 		$this->assertEquals( $thumbnail_id, get_post_meta( $product_id, '_thumbnail_id', true ) );
 
-		ElasticPress\Indexables::factory()->get( 'post' )->index( $product_id, true );
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->index( $product_id, true );
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		wp_delete_attachment( $thumbnail_id, true );
 		$this->assertEquals( '', get_post_meta( $product_id, '_thumbnail_id', true ) );
 
-		$ep_post = ElasticPress\Indexables::factory()->get( 'post' )->get( $product_id );
+		$ep_post = WPProbe\Indexables::factory()->get( 'post' )->get( $product_id );
 		$this->assertArrayNotHasKey( '_thumbnail_id', $ep_post['meta'] );
 	}
 
@@ -8891,8 +8892,8 @@ class TestPost extends BaseTestCase {
 		$thumbnail_id = get_post_thumbnail_id( $product_id );
 		$this->assertEquals( $thumbnail_id, get_post_meta( $product_id, '_thumbnail_id', true ) );
 
-		ElasticPress\Indexables::factory()->get( 'post' )->index( $product_id, true );
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->index( $product_id, true );
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		// Remove product from indexable post types.
 		add_filter(
@@ -8906,7 +8907,7 @@ class TestPost extends BaseTestCase {
 		wp_delete_attachment( $thumbnail_id, true );
 		$this->assertEquals( '', get_post_meta( $product_id, '_thumbnail_id', true ) );
 
-		$ep_post = ElasticPress\Indexables::factory()->get( 'post' )->get( $product_id );
+		$ep_post = WPProbe\Indexables::factory()->get( 'post' )->get( $product_id );
 		$this->assertArrayHasKey( '_thumbnail_id', $ep_post['meta'] );
 	}
 
@@ -8991,7 +8992,7 @@ class TestPost extends BaseTestCase {
 	 * @group post
 	 */
 	public function testAddNgramAnalyzer() {
-		$post_indexable   = ElasticPress\Indexables::factory()->get( 'post' );
+		$post_indexable   = WPProbe\Indexables::factory()->get( 'post' );
 		$changed_mapping  = $post_indexable->add_ngram_analyzer( [] );
 		$expected_mapping = [
 			'settings' => [
@@ -9020,7 +9021,7 @@ class TestPost extends BaseTestCase {
 	 * @group post
 	 */
 	public function testAddTermSuggestFieldEs7() {
-		$post_indexable = ElasticPress\Indexables::factory()->get( 'post' );
+		$post_indexable = WPProbe\Indexables::factory()->get( 'post' );
 
 		$original_mapping = [
 			'mappings' => [
@@ -9059,7 +9060,7 @@ class TestPost extends BaseTestCase {
 		};
 		add_filter( 'ep_elasticsearch_version', $change_es_version );
 
-		$post_indexable = ElasticPress\Indexables::factory()->get( 'post' );
+		$post_indexable = WPProbe\Indexables::factory()->get( 'post' );
 
 		$original_mapping = [
 			'mappings' => [
@@ -9101,7 +9102,7 @@ class TestPost extends BaseTestCase {
 		$post_negative = $this->ep_factory->post->create( array( 'menu_order' => -2 ) );
 		$post_positive = $this->ep_factory->post->create( array( 'menu_order' => 1 ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query(
 			array(
@@ -9129,9 +9130,9 @@ class TestPost extends BaseTestCase {
 		$pw_post    = $this->ep_factory->post->create( [ 'post_password' => 'password' ] );
 		$no_pw_post = $this->ep_factory->post->create( [] );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
-		$sync_manager = ElasticPress\Indexables::factory()->get( 'post' )->sync_manager;
+		$sync_manager = WPProbe\Indexables::factory()->get( 'post' )->sync_manager;
 
 		$this->assertTrue( $sync_manager->kill_sync_for_password_protected( false, $pw_post ) );
 		$this->assertFalse( $sync_manager->kill_sync_for_password_protected( false, $no_pw_post ) );
@@ -9156,9 +9157,9 @@ class TestPost extends BaseTestCase {
 	 * @group post
 	 */
 	public function test_mapping_ep_stop_filter() {
-		$indexable      = ElasticPress\Indexables::factory()->get( 'post' );
+		$indexable      = WPProbe\Indexables::factory()->get( 'post' );
 		$index_name     = $indexable->get_index_name();
-		$settings       = ElasticPress\Elasticsearch::factory()->get_index_settings( $index_name );
+		$settings       = WPProbe\Elasticsearch::factory()->get_index_settings( $index_name );
 		$index_settings = $settings[ $index_name ]['settings'];
 
 		$this->assertContains( 'ep_stop', $index_settings['index.analysis.analyzer.default.filter'] );
@@ -9169,10 +9170,10 @@ class TestPost extends BaseTestCase {
 		};
 		add_filter( 'ep_analyzer_language', $change_lang, 11, 2 );
 
-		ElasticPress\Elasticsearch::factory()->delete_all_indices();
+		WPProbe\Elasticsearch::factory()->delete_all_indices();
 		$indexable->put_mapping();
 
-		$settings       = ElasticPress\Elasticsearch::factory()->get_index_settings( $index_name );
+		$settings       = WPProbe\Elasticsearch::factory()->get_index_settings( $index_name );
 		$index_settings = $settings[ $index_name ]['settings'];
 		$this->assertSame( '_arabic_', $index_settings['index.analysis.filter.ep_stop.stopwords'] );
 	}
@@ -9214,7 +9215,7 @@ class TestPost extends BaseTestCase {
 	 */
 	public function test_get_all_allowed_metas_manual() {
 		// Remove product meta data to avoid some noise.
-		ElasticPress\Features::factory()->get_registered_feature( 'woocommerce' )->tear_down();
+		WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->tear_down();
 
 		// Add some meta data using the Weighting Dashboard
 		$set_changed_weighting = function ( $weighting_default ) {
@@ -9226,7 +9227,7 @@ class TestPost extends BaseTestCase {
 		};
 		add_filter( 'ep_weighting_configuration', $set_changed_weighting );
 
-		$allowed_metas_manual = ElasticPress\Indexables::factory()->get( 'post' )->get_all_allowed_metas_manual();
+		$allowed_metas_manual = WPProbe\Indexables::factory()->get( 'post' )->get_all_allowed_metas_manual();
 
 		$this->assertContains( 'allowed_weighting_dashboard', $allowed_metas_manual );
 		// Added using the `ep_prepare_meta_allowed_keys` in the test set_up method.

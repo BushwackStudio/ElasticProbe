@@ -2,12 +2,12 @@
 /**
  * Test document feature
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress;
+use WPProbe;
 use WP_Comment_Query;
 
 /**
@@ -29,10 +29,10 @@ class TestComments extends BaseTestCase {
 
 		wp_set_current_user( $admin_id );
 
-		ElasticPress\Elasticsearch::factory()->delete_all_indices();
-		ElasticPress\Indexables::factory()->get( 'post' )->put_mapping();
+		WPProbe\Elasticsearch::factory()->delete_all_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
 
-		ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
+		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
 
 		$this->setup_test_post_type();
 
@@ -59,10 +59,10 @@ class TestComments extends BaseTestCase {
 	 * Get Comment feature
 	 *
 	 * @since  3.6.0
-	 * @return ElasticPress\Feature\Comments
+	 * @return WPProbe\Feature\Comments
 	 */
 	protected function get_feature() {
-		return ElasticPress\Features::factory()->get_registered_feature( 'comments' );
+		return WPProbe\Features::factory()->get_registered_feature( 'comments' );
 	}
 
 	/**
@@ -72,7 +72,8 @@ class TestComments extends BaseTestCase {
 	 * @group comments
 	 */
 	public function testConstruct() {
-		$instance = new ElasticPress\Feature\Comments\Comments();
+		$instance = new WPProbe\Feature\Comments\Comments();
+		$instance->set_i18n_strings();
 
 		$this->assertEquals( 'comments', $instance->slug );
 		$this->assertEquals( 'Comments', $instance->title );
@@ -173,7 +174,7 @@ class TestComments extends BaseTestCase {
 		$change_visibility = function ( $is_visible, $feature_slug, $feature ) {
 			$this->assertFalse( $is_visible );
 			$this->assertSame( 'comments', $feature_slug );
-			$this->assertInstanceOf( '\ElasticPress\Feature\Comments\Comments', $feature );
+			$this->assertInstanceOf( '\WPProbe\Feature\Comments\Comments', $feature );
 			return true;
 		};
 		add_filter( 'ep_feature_is_visible', $change_visibility, 10, 3 );
@@ -193,7 +194,7 @@ class TestComments extends BaseTestCase {
 		$change_availability = function ( $is_available, $feature_slug, $feature ) {
 			$this->assertFalse( $is_available );
 			$this->assertSame( 'comments', $feature_slug );
-			$this->assertInstanceOf( '\ElasticPress\Feature\Comments\Comments', $feature );
+			$this->assertInstanceOf( '\WPProbe\Feature\Comments\Comments', $feature );
 			return true;
 		};
 		add_filter( 'ep_feature_is_available', $change_availability, 10, 3 );

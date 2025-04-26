@@ -43,7 +43,7 @@ const App = () => (
 		nonce={nonce}
 	>
 		<SyncSettingsProvider autoIndex={autoIndex} indexables={indexables} postTypes={postTypes}>
-			<SettingsScreenProvider title={__('Sync Settings', 'elasticpress')}>
+			<SettingsScreenProvider title={__('Sync Settings', 'wpprobe')}>
 				<Sync />
 			</SettingsScreenProvider>
 		</SyncSettingsProvider>

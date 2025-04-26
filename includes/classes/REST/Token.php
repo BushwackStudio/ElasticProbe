@@ -3,18 +3,18 @@
  * Token REST API Controller
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\REST;
+namespace WPProbe\REST;
 
-use ElasticPress\Elasticsearch;
+use WPProbe\Elasticsearch;
 
 /**
  * Token API controller class.
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 class Token {
 
@@ -24,6 +24,7 @@ class Token {
 	 * @return void
 	 */
 	public function register_routes() {
+		// TODO: Change REST route
 		register_rest_route(
 			'elasticpress/v1',
 			'token',
@@ -81,10 +82,9 @@ class Token {
 	/**
 	 * Refresh the temporary token.
 	 *
-	 * @param \WP_REST_Request $request Full details about the request.
 	 * @return string|false
 	 */
-	public function refresh_token( \WP_REST_Request $request ) {
+	public function refresh_token() {
 		$user_id = get_current_user_id();
 
 		$endpoint = $this->get_token_endpoint();

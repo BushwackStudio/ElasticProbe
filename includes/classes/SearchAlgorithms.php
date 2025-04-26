@@ -3,10 +3,10 @@
  * Handles search algorithms registration and storage
  *
  * @since   4.3.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress;
+namespace WPProbe;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.

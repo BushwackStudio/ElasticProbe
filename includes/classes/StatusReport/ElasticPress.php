@@ -1,21 +1,21 @@
 <?php
 /**
- * ElasticPress report class
+ * WPProbe report class
  *
  * @since 4.4.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\StatusReport;
+namespace WPProbe\StatusReport;
 
-use ElasticPress\Utils;
+use WPProbe\Utils;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * ElasticPress report class
+ * WPProbe report class
  *
- * @package ElasticPress
+ * @package WPProbe
  */
 class ElasticPress extends Report {
 
@@ -25,7 +25,7 @@ class ElasticPress extends Report {
 	 * @return string
 	 */
 	public function get_title(): string {
-		return __( 'ElasticPress', 'elasticpress' );
+		return __( 'WPProbe', 'wpprobe' );
 	}
 
 	/**
@@ -41,7 +41,7 @@ class ElasticPress extends Report {
 	}
 
 	/**
-	 * Process ElasticPress's basic settings.
+	 * Process WPProbe's basic settings.
 	 *
 	 * @return array
 	 */
@@ -51,38 +51,38 @@ class ElasticPress extends Report {
 		$fields = [];
 
 		$fields['host'] = [
-			'label' => $is_epio ? __( 'ElasticPress.io Host URL', 'elasticpress' ) : __( 'Elasticsearch Host URL', 'elasticpress' ),
+			'label' => $is_epio ? __( 'WPProbe.com Host URL', 'wpprobe' ) : __( 'Elasticsearch Host URL', 'wpprobe' ),
 			'value' => Utils\get_host(),
 		];
 
 		$fields['index_prefix'] = [
-			'label' => __( 'Index Prefix', 'elasticpress' ),
+			'label' => __( 'Index Prefix', 'wpprobe' ),
 			'value' => Utils\get_index_prefix(),
 		];
 
 		$fields['language'] = [
-			'label' => __( 'Elasticsearch Language', 'elasticpress' ),
+			'label' => __( 'Elasticsearch Language', 'wpprobe' ),
 			'value' => Utils\get_language(),
 		];
 
 		$fields['per_page'] = [
-			'label' => __( 'Content Items per Index Cycle', 'elasticpress' ),
-			'value' => \ElasticPress\IndexHelper::factory()->get_index_default_per_page(),
+			'label' => __( 'Content Items per Index Cycle', 'wpprobe' ),
+			'value' => \WPProbe\IndexHelper::factory()->get_index_default_per_page(),
 		];
 
 		$fields['network_active'] = [
-			'label' => __( 'Network Active', 'elasticpress' ),
+			'label' => __( 'Network Active', 'wpprobe' ),
 			'value' => is_multisite() && defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK,
 		];
 
 		return [
-			'title'  => __( 'Settings', 'elasticpress' ),
+			'title'  => __( 'Settings', 'wpprobe' ),
 			'fields' => $fields,
 		];
 	}
 
 	/**
-	 * Process ElasticPress timeouts.
+	 * Process WPProbe timeouts.
 	 *
 	 * @return array
 	 */
@@ -91,7 +91,7 @@ class ElasticPress extends Report {
 		$fields['request_timeout'] = [
 			'label' => sprintf(
 				/* translators: default time */
-				__( 'Default Requests Timeout (default: %s)', 'elasticpress' ),
+				__( 'Default Requests Timeout (default: %s)', 'wpprobe' ),
 				$default_request_timeout
 			),
 			'value' => apply_filters( 'http_request_timeout', $default_request_timeout, Utils\get_host() ),
@@ -101,7 +101,7 @@ class ElasticPress extends Report {
 		$fields['index_document_timeout'] = [
 			'label' => sprintf(
 				/* translators: default time */
-				__( 'Index Document Request Timeout (default: %s)', 'elasticpress' ),
+				__( 'Index Document Request Timeout (default: %s)', 'wpprobe' ),
 				$default_index_document_timeout
 			),
 			'value' => apply_filters( 'ep_index_document_timeout', $default_index_document_timeout ),
@@ -111,14 +111,14 @@ class ElasticPress extends Report {
 		$fields['bulk_request_timeout'] = [
 			'label' => sprintf(
 				/* translators: default time */
-				__( 'Default Requests Timeout (default: %s)', 'elasticpress' ),
+				__( 'Default Requests Timeout (default: %s)', 'wpprobe' ),
 				$default_bulk_request_timeout
 			),
 			'value' => apply_filters( 'bulk_request_timeout', $default_bulk_request_timeout ),
 		];
 
 		return [
-			'title'  => __( 'Timeouts', 'elasticpress' ),
+			'title'  => __( 'Timeouts', 'wpprobe' ),
 			'fields' => $fields,
 		];
 	}

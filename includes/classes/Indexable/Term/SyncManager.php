@@ -3,13 +3,13 @@
  * Manage syncing of content between WP and Elasticsearch for Terms
  *
  * @since   3.1
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\Indexable\Term;
+namespace WPProbe\Indexable\Term;
 
-use ElasticPress\Elasticsearch;
-use ElasticPress\Indexables;
+use WPProbe\Elasticsearch;
+use WPProbe\Indexables;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Sync manager class
  */
-class SyncManager extends \ElasticPress\SyncManager {
+class SyncManager extends \WPProbe\SyncManager {
 	/**
 	 * Indexable slug
 	 *

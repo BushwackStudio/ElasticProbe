@@ -3,18 +3,18 @@
  * Taxonomies REST API Controller
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\REST;
+namespace WPProbe\REST;
 
-use ElasticPress\Features;
+use WPProbe\Features;
 
 /**
  * Taxonomies API controller class.
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 class Taxonomies {
 
@@ -32,7 +32,7 @@ class Taxonomies {
 			'methods'             => 'GET',
 			'permission_callback' => [ $this, 'check_permission' ],
 		];
-
+		// TODO: Change REST route
 		register_rest_route( 'elasticpress/v1', 'taxonomies', $args );
 		register_rest_route( 'elasticpress/v1', 'facets/taxonomies', $args );
 	}
@@ -49,10 +49,9 @@ class Taxonomies {
 	/**
 	 * Get filterable taxonomies.
 	 *
-	 * @param \WP_REST_Request $request Full details about the request.
 	 * @return array
 	 */
-	public function get_taxonomies( \WP_REST_Request $request ) {
+	public function get_taxonomies() {
 		$filterable_taxonomies = Features::factory()->get_registered_feature( 'facets' )->types['taxonomy']->get_facetable_taxonomies();
 
 		$taxonomies = [];

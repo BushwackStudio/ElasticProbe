@@ -6,7 +6,7 @@
 	"category": "elasticpress",
 	"description": "Let visitors filter your content by taxonomy terms, such as categories or tags.",
 	"keywords": ["attributes", "facets"],
-	"textdomain": "elasticpress",
+	"textdomain": "wpprobe",
 	"attributes": {
 		"displayCount": {
 			"type": "boolean",

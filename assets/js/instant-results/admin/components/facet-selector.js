@@ -70,7 +70,7 @@ export default ({ defaultValue, ...props }) => {
 			<FormTokenField
 				__experimentalExpandOnFocus
 				__experimentalShowHowTo={false}
-				label={__('Select filters', 'elasticpress')}
+				label={__('Select filters', 'wpprobe')}
 				onChange={onChange}
 				suggestions={suggestions}
 				value={value}

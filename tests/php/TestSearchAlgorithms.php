@@ -3,13 +3,13 @@
  * Test SearchAlgorithms class.
  *
  * @since 4.3.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress\SearchAlgorithms;
-use ElasticPress\SearchAlgorithm;
+use WPProbe\SearchAlgorithms;
+use WPProbe\SearchAlgorithm;
 
 /**
  * SearchAlgorithms test class

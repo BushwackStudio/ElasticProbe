@@ -2,12 +2,12 @@
 /**
  * Test facet feature
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress\Features;
+use WPProbe\Features;
 
 /**
  * Facet test class
@@ -82,7 +82,7 @@ class TestFacet extends BaseTestCase {
 	 * @group facets
 	 */
 	public function testFacetTypeRegistration() {
-		$facet_type = $this->getMockForAbstractClass( '\ElasticPress\Feature\Facets\FacetType' );
+		$facet_type = $this->getMockForAbstractClass( '\WPProbe\Feature\Facets\FacetType' );
 		$facet_type->expects( $this->exactly( 1 ) )->method( 'setup' );
 
 		$register_facet_type = function ( $types ) use ( $facet_type ) {
@@ -92,7 +92,7 @@ class TestFacet extends BaseTestCase {
 
 		add_filter( 'ep_facet_types', $register_facet_type );
 
-		$facets = new \ElasticPress\Feature\Facets\Facets();
+		$facets = new \WPProbe\Feature\Facets\Facets();
 
 		$this->assertArrayHasKey( 'test_custom', $facets->types );
 		$this->assertInstanceOf( get_class( $facet_type ), $facets->types['test_custom'] );
@@ -280,7 +280,7 @@ class TestFacet extends BaseTestCase {
 			'post_status' => 'publish',
 		];
 		// Get the ES query args.
-		$formatted_args = \ElasticPress\Indexables::factory()->get( 'post' )->format_args( $query_args, $query );
+		$formatted_args = \WPProbe\Indexables::factory()->get( 'post' )->format_args( $query_args, $query );
 		// Get the ES query args after applying the changes to aggs filters.
 		$formatted_args_with_args = $facet_feature->set_agg_filters( $formatted_args, $query_args, $query );
 

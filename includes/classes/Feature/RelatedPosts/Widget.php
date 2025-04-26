@@ -3,12 +3,12 @@
  * Related posts widget
  *
  * @since  2.2
- * @package  elasticpress
+ * @package  wpprobe
  */
 
-namespace ElasticPress\Feature\RelatedPosts;
+namespace WPProbe\Feature\RelatedPosts;
 
-use ElasticPress\Features;
+use WPProbe\Features;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -26,11 +26,11 @@ class Widget extends \WP_Widget {
 	 */
 	public function __construct() {
 		$options = array(
-			'description'           => esc_html__( 'Show related posts using ElasticPress. This widget will only appear on single post, page, and custom type pages.', 'elasticpress' ),
+			'description'           => esc_html__( 'Show related posts using WPProbe. This widget will only appear on single post, page, and custom type pages.', 'wpprobe' ),
 			'show_instance_in_rest' => true,
 		);
 
-		parent::__construct( 'ep-related-posts', esc_html__( 'ElasticPress - Related Posts', 'elasticpress' ), $options );
+		parent::__construct( 'ep-related-posts', esc_html__( 'WPProbe - Related Posts', 'wpprobe' ), $options );
 	}
 
 	/**
@@ -100,7 +100,7 @@ class Widget extends \WP_Widget {
 		?>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
-				<?php esc_html_e( 'Title:', 'elasticpress' ); ?>
+				<?php esc_html_e( 'Title:', 'wpprobe' ); ?>
 			</label>
 
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
@@ -108,7 +108,7 @@ class Widget extends \WP_Widget {
 
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'num_posts' ) ); ?>">
-				<?php esc_html_e( 'Number of Posts to Show:', 'elasticpress' ); ?>
+				<?php esc_html_e( 'Number of Posts to Show:', 'wpprobe' ); ?>
 			</label>
 
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'num_posts' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'num_posts' ) ); ?>" type="text" value="<?php echo absint( $num_posts ); ?>" />

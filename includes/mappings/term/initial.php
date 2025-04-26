@@ -3,7 +3,7 @@
  * Elasticsearch mapping for terms
  *
  * @since   3.1
- * @package elasticpress
+ * @package wpprobe
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

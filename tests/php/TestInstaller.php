@@ -2,12 +2,12 @@
 /**
  * Test installer class.
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress;
+use WPProbe;
 
 /**
  * Installer test class
@@ -29,10 +29,10 @@ class TestInstaller extends BaseTestCase {
 
 		wp_set_current_user( $admin_id );
 
-		ElasticPress\Elasticsearch::factory()->delete_all_indices();
-		ElasticPress\Indexables::factory()->get( 'post' )->put_mapping();
+		WPProbe\Elasticsearch::factory()->delete_all_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
 
-		ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
+		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
 
 		$this->setup_test_post_type();
 
@@ -72,9 +72,9 @@ class TestInstaller extends BaseTestCase {
 	public function testCalculateInstallStatusHostAndSync() {
 		update_option( 'ep_last_sync', time() );
 
-		ElasticPress\Installer::factory()->calculate_install_status();
+		WPProbe\Installer::factory()->calculate_install_status();
 
-		$install_status = ElasticPress\Installer::factory()->get_install_status();
+		$install_status = WPProbe\Installer::factory()->get_install_status();
 
 		$this->assertEquals( true, $install_status );
 	}
@@ -86,9 +86,9 @@ class TestInstaller extends BaseTestCase {
 	 * @since  3.0
 	 */
 	public function testCalculateInstallStatusNoSync() {
-		ElasticPress\Installer::factory()->calculate_install_status();
+		WPProbe\Installer::factory()->calculate_install_status();
 
-		$install_status = ElasticPress\Installer::factory()->get_install_status();
+		$install_status = WPProbe\Installer::factory()->get_install_status();
 
 		$this->assertEquals( 3, $install_status );
 	}
@@ -102,9 +102,9 @@ class TestInstaller extends BaseTestCase {
 	public function testCalculateInstallStatusNoHost() {
 		add_filter( 'ep_host', '__return_false' );
 
-		ElasticPress\Installer::factory()->calculate_install_status();
+		WPProbe\Installer::factory()->calculate_install_status();
 
-		$install_status = ElasticPress\Installer::factory()->get_install_status();
+		$install_status = WPProbe\Installer::factory()->get_install_status();
 
 		$this->assertEquals( 2, $install_status );
 	}
@@ -120,9 +120,9 @@ class TestInstaller extends BaseTestCase {
 
 		$_POST['ep_host'] = 'test';
 
-		ElasticPress\Installer::factory()->calculate_install_status();
+		WPProbe\Installer::factory()->calculate_install_status();
 
-		$install_status = ElasticPress\Installer::factory()->get_install_status();
+		$install_status = WPProbe\Installer::factory()->get_install_status();
 
 		$this->assertEquals( 3, $install_status );
 	}

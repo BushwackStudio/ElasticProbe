@@ -2,12 +2,12 @@
 /**
  * Test taxonomy facet type feature
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress\Features;
+use WPProbe\Features;
 
 /**
  * Facets\Types\Taxonomy\FacetType test class
@@ -219,9 +219,9 @@ class TestFacetTypeTaxonomy extends BaseTestCase {
 		$expected_result = sanitize_title( $test_taxonomy );
 		$this->assertArrayHasKey( $expected_result, $selected['taxonomies']['taxonomy']['terms'] );
 
-		$sanitize_function = function ( $function ) {
+		$sanitize_function = function ( $callback ) {
 
-			$this->assertSame( 'sanitize_title', $function );
+			$this->assertSame( 'sanitize_title', $callback );
 
 			return 'sanitize_text_field';
 		};

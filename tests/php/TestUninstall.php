@@ -3,10 +3,10 @@
  * Test the uninstall class/process
  *
  * @since 4.7.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
 /**
  * TestUninstall test class

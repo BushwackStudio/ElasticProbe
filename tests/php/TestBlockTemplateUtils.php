@@ -3,12 +3,12 @@
  * Test the BlockTemplateUtils class methods
  *
  * @since 4.7.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress\BlockTemplateUtils;
+use WPProbe\BlockTemplateUtils;
 
 /**
  * TestBlockTemplateUtils test class

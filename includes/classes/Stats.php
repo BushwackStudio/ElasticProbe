@@ -1,14 +1,14 @@
 <?php
 /**
- * ElasticPress index health stats page handler
+ * WPProbe index health stats page handler
  *
  * @since  3.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress;
+namespace WPProbe;
 
-use ElasticPress\Utils;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class Stats
  *
- * @package ElasticPress
+ * @package WPProbe
  */
 class Stats {
 	/**
@@ -123,6 +123,7 @@ class Stats {
 	 * @since 3.2
 	 */
 	public function build_stats( $force = false ) {
+		// TODO: Customize for WPProbe
 		static $stats_built = false;
 
 		if ( $stats_built && ! $force ) {
@@ -130,8 +131,9 @@ class Stats {
 		}
 
 		$stats_built = true;
+		$prefix      = Utils\get_index_prefix();
 
-		$this->stats = $this->remote_request_helper( '_stats?format=json' );
+		$this->stats = $this->remote_request_helper( $prefix . '*/_stats?format=json' );
 
 		if ( empty( $this->stats ) || empty( $this->stats['_all'] ) || empty( $this->stats['_all']['total'] ) ) {
 			return;

@@ -62,7 +62,7 @@ export default () => {
 		<>
 			<input
 				className="ep-search-input"
-				placeholder={__('Search…', 'elasticpress')}
+				placeholder={__('Search…', 'wpprobe')}
 				type="search"
 				value={value}
 				onChange={onChange}
@@ -71,7 +71,7 @@ export default () => {
 				<ActiveConstraint
 					label={sprintf(
 						/* translators: %s: Search term. */
-						__('“%s”', 'elasticpress'),
+						__('“%s”', 'wpprobe'),
 						searchTerm,
 					)}
 					onClick={onClear}

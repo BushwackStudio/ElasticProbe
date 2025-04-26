@@ -3,18 +3,18 @@
  * Related Posts REST API Controller
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\REST;
+namespace WPProbe\REST;
 
-use ElasticPress\Features;
+use WPProbe\Features;
 
 /**
  * Related Posts API controller class.
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 class RelatedPosts {
 
@@ -33,7 +33,7 @@ class RelatedPosts {
 			'methods'             => 'GET',
 			'permission_callback' => '__return_true',
 		];
-
+		// TODO: Change REST route
 		register_rest_route( 'elasticpress/v1', 'related-posts/(?P<id>[0-9]+)', $args );
 		register_rest_route( 'wp/v2', 'posts/(?P<id>[0-9]+)/related', $args );
 	}
@@ -47,13 +47,13 @@ class RelatedPosts {
 	public function get_args() {
 		return [
 			'id'     => [
-				'description' => __( 'ID of the post to get related posts for.', 'elasticpress' ),
+				'description' => __( 'ID of the post to get related posts for.', 'wpprobe' ),
 				'required'    => true,
 				'type'        => 'integer',
 			],
 			'number' => [
 				'default'     => 5,
-				'description' => __( 'Number of related posts to return.', 'elasticpress' ),
+				'description' => __( 'Number of related posts to return.', 'wpprobe' ),
 				'required'    => false,
 				'type'        => 'integer',
 			],

@@ -18,7 +18,7 @@ import Reports from './components/reports';
  */
 const App = () => {
 	return (
-		<SettingsScreenProvider title={__('Status Report', 'elasticpress')}>
+		<SettingsScreenProvider title={__('Status Report', 'wpprobe')}>
 			<Reports plainTextReport={plainTextReport} reports={reports} />
 		</SettingsScreenProvider>
 	);

@@ -3,15 +3,15 @@
  * Manage syncing of content between WP and Elasticsearch for posts
  *
  * @since  1.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\Indexable\Post;
+namespace WPProbe\Indexable\Post;
 
-use ElasticPress\Elasticsearch;
-use ElasticPress\Indexables;
-use ElasticPress\IndexHelper;
-use ElasticPress\Utils;
+use WPProbe\Elasticsearch;
+use WPProbe\Indexables;
+use WPProbe\IndexHelper;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	// @codeCoverageIgnoreStart
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Sync manager class
  */
-class SyncManager extends \ElasticPress\SyncManager {
+class SyncManager extends \WPProbe\SyncManager {
 
 	/**
 	 * Indexable slug
@@ -391,7 +391,7 @@ class SyncManager extends \ElasticPress\SyncManager {
 	 * Depending on the number of posts associated with the term display an admin notice
 	 *
 	 * @since 4.4.0
-	 * @param array $notices Current ElasticPress admin notices
+	 * @param array $notices Current WPProbe admin notices
 	 * @return array
 	 */
 	public function maybe_display_notice_edit_single_term( $notices ) {
@@ -416,11 +416,12 @@ class SyncManager extends \ElasticPress\SyncManager {
 					$notices['edited_single_parent_term'] = [
 						'html'    => sprintf(
 							/* translators: Sync Page URL */
-							__( 'Due to the number of posts associated with its child terms, you will need to <a href="%s">resync</a> after editing or deleting it.', 'elasticpress' ),
+							__( 'Due to the number of posts associated with its child terms, you will need to <a href="%s">resync</a> after editing or deleting it.', 'wpprobe' ),
 							Utils\get_sync_url()
 						),
 						'type'    => 'warning',
 						'dismiss' => true,
+						'scope'   => 'site',
 					];
 					break;
 				}
@@ -431,11 +432,12 @@ class SyncManager extends \ElasticPress\SyncManager {
 		$notices['edited_single_term'] = [
 			'html'    => sprintf(
 				/* translators: Sync Page URL */
-				__( 'Due to the number of posts associated with this term, you will need to <a href="%s">resync</a> after editing or deleting it.', 'elasticpress' ),
+				__( 'Due to the number of posts associated with this term, you will need to <a href="%s">resync</a> after editing or deleting it.', 'wpprobe' ),
 				Utils\get_sync_url()
 			),
 			'type'    => 'warning',
 			'dismiss' => true,
+			'scope'   => 'site',
 		];
 
 		return $notices;
@@ -445,7 +447,7 @@ class SyncManager extends \ElasticPress\SyncManager {
 	 * Depending on the number of posts display an admin notice in the Dashboard Terms List Screen
 	 *
 	 * @since 4.4.0
-	 * @param array $notices Current ElasticPress admin notices
+	 * @param array $notices Current WPProbe admin notices
 	 * @return array
 	 */
 	public function maybe_display_notice_term_list_screen( $notices ) {
@@ -465,11 +467,12 @@ class SyncManager extends \ElasticPress\SyncManager {
 		$notices['too_many_posts_on_term'] = [
 			'html'    => sprintf(
 				/* translators: Sync Page URL */
-				__( 'Depending on the number of posts associated with a term, you may need to <a href="%s">resync</a> after editing or deleting it.', 'elasticpress' ),
+				__( 'Depending on the number of posts associated with a term, you may need to <a href="%s">resync</a> after editing or deleting it.', 'wpprobe' ),
 				Utils\get_sync_url()
 			),
 			'type'    => 'warning',
 			'dismiss' => true,
+			'scope'   => 'site',
 		];
 
 		return $notices;
@@ -747,7 +750,7 @@ class SyncManager extends \ElasticPress\SyncManager {
 	 * @since 4.4.0
 	 */
 	public function clear_total_fields_limit_cache() {
-		_deprecated_function( __METHOD__, '4.7.0', '\ElasticPress\Indexable\Post\SyncManager::clear_index_settings_cache()' );
+		_deprecated_function( __METHOD__, '4.7.0', '\WPProbe\Indexable\Post\SyncManager::clear_index_settings_cache()' );
 	}
 
 	/**

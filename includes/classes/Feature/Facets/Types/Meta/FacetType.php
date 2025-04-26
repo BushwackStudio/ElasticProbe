@@ -3,12 +3,12 @@
  * Meta facet type
  *
  * @since 4.3.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\Feature\Facets\Types\Meta;
+namespace WPProbe\Feature\Facets\Types\Meta;
 
-use ElasticPress\Features;
+use WPProbe\Features;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Meta facet type class
  */
-class FacetType extends \ElasticPress\Feature\Facets\FacetType {
+class FacetType extends \WPProbe\Feature\Facets\FacetType {
 
 	const TRANSIENT_PREFIX = 'ep_facet_meta_';
 
@@ -55,7 +55,7 @@ class FacetType extends \ElasticPress\Feature\Facets\FacetType {
 		_doing_it_wrong(
 			__METHOD__,
 			esc_html( 'Aggregation filters related to facet types are now managed by the main Facets class.' ),
-			'ElasticPress 4.4.0'
+			'WPProbe 0.1.0'
 		);
 
 		return $query_args;
@@ -156,7 +156,7 @@ class FacetType extends \ElasticPress\Feature\Facets\FacetType {
 		_doing_it_wrong(
 			__METHOD__,
 			esc_html( 'Facet selections are now applied directly to the ES Query.' ),
-			'ElasticPress 4.4.0'
+			'WPProbe 0.1.0'
 		);
 
 		$feature = Features::factory()->get_registered_feature( 'facets' );
@@ -331,7 +331,7 @@ class FacetType extends \ElasticPress\Feature\Facets\FacetType {
 
 		$meta_values = get_transient( self::TRANSIENT_PREFIX . $meta_key );
 		if ( ! $meta_values ) {
-			$meta_values = \ElasticPress\Indexables::factory()->get( 'post' )->get_all_distinct_values( "meta.{$meta_key}.raw", 100 );
+			$meta_values = \WPProbe\Indexables::factory()->get( 'post' )->get_all_distinct_values( "meta.{$meta_key}.raw", 100 );
 
 			/**
 			 * Max length of each value in the facet.

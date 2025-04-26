@@ -20,6 +20,9 @@ for opt in "$@"; do
     -u=*|--ep-index-prefix=*)
       EP_INDEX_PREFIX="${opt#*=}"
       ;;
+    -i=*|--probe-sid=*)
+      WPP_SID="${opt#*=}"
+      ;;
     -wp=*|--wp-version=*)
       WP_VERSION="${opt#*=}"
       ;;
@@ -42,6 +45,7 @@ if [ $DISPLAY_HELP -eq 1 ]; then
 	echo "-h=*, --ep-host=*             The remote Elasticsearch Host URL."
 	echo "-s=*, --es-shield=*           The Elasticsearch credentials, used in the ES_SHIELD constant."
 	echo "-u=*, --ep-index-prefix=*     The Elasticsearch credentials, used in the EP_INDEX_PREFIX constant."
+	echo "-i=*, --probe-sid=*           The WPProbe subscription id, used in the PROBE_SID constant."
 	echo "-W=*, --wp-version=*          WordPress Core version."
 	echo "-w=*, --wc-version=*          WooCommerce version."
 	echo "-h|--help                     Display this help screen"
@@ -57,7 +61,7 @@ fi
 # Set twentytwentyone as the active theme here, as 2025 won't work with WP 6.0
 ./bin/wp-env-cli tests-wordpress "wp --allow-root theme activate twentytwentyone"
 
-# Fix the debug-bar-elasticpress dependency of ElasticPress
+# Fix the debug-bar-elasticpress dependency of WPProbe
 ./bin/wp-env-cli tests-wordpress "wp --allow-root plugin install debug-bar-elasticpress"
 ./bin/wp-env-cli tests-wordpress "sed -i \"s/Requires Plugins:  elasticpress/Requires Plugins:  $PLUGIN_NAME/\" /var/www/html/wp-content/plugins/debug-bar-elasticpress/debug-bar-elasticpress.php"
 ./bin/wp-env-cli tests-wordpress "wp --allow-root plugin activate debug-bar-elasticpress"
@@ -90,6 +94,10 @@ if [ ! -z $EP_INDEX_PREFIX ]; then
 	./bin/wp-env-cli tests-wordpress "wp --allow-root config set EP_INDEX_PREFIX ${EP_INDEX_PREFIX}"
 fi
 
+if [ ! -z $WPP_SID ]; then
+	./bin/wp-env-cli tests-wordpress "wp --allow-root config set PROBE_SID ${WPP_SID}"
+fi
+
 ./bin/wp-env-cli tests-wordpress "wp --allow-root core multisite-convert"
 
 SITES_COUNT=$(./bin/wp-env-cli tests-wordpress "wp --allow-root site list --format=count")
@@ -110,7 +118,7 @@ fi
 
 ./bin/wp-env-cli tests-wordpress "wp --allow-root plugin activate ${PLUGIN_NAME}"
 
-./bin/wp-env-cli tests-wordpress "wp --allow-root elasticpress sync --setup --yes --show-errors"
+./bin/wp-env-cli tests-wordpress "wp --allow-root wpprobe sync --setup --yes --show-errors"
 
 ./bin/wp-env-cli tests-wordpress "wp --allow-root option set posts_per_page 5"
 ./bin/wp-env-cli tests-wordpress "wp --allow-root user meta update admin edit_post_per_page 5"

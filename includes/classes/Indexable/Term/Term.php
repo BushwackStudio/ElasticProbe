@@ -3,14 +3,14 @@
  * Term indexable
  *
  * @since  3.1
- * @package  elasticpress
+ * @package  wpprobe
  */
 
-namespace ElasticPress\Indexable\Term;
+namespace WPProbe\Indexable\Term;
 
 use WP_Term_Query;
-use ElasticPress\Elasticsearch;
-use ElasticPress\Indexable;
+use WPProbe\Elasticsearch;
+use WPProbe\Indexable;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	// @codeCoverageIgnoreStart
@@ -32,24 +32,17 @@ class Term extends Indexable {
 	public $slug = 'term';
 
 	/**
-	 * Create indexable and initialize dependencies
-	 *
-	 * @since 3.1
-	 */
-	public function __construct() {
-		$this->labels = [
-			'plural'   => esc_html__( 'Terms', 'elasticpress' ),
-			'singular' => esc_html__( 'Term', 'elasticpress' ),
-		];
-	}
-
-	/**
 	 * Instantiate the indexable SyncManager and QueryIntegration, the main responsibles for the WP integration.
 	 *
 	 * @since 4.5.0
 	 * @return void
 	 */
 	public function setup() {
+		$this->labels = [
+			'plural'   => esc_html__( 'Terms', 'wpprobe' ),
+			'singular' => esc_html__( 'Term', 'wpprobe' ),
+		];
+
 		$this->sync_manager      = new SyncManager( $this->slug );
 		$this->query_integration = new QueryIntegration( $this->slug );
 	}
@@ -332,7 +325,7 @@ class Term extends Indexable {
 		/**
 		 * Filter non-indexed public meta
 		 *
-		 * Allows for specifying public meta keys that should be excluded from the ElasticPress index.
+		 * Allows for specifying public meta keys that should be excluded from the WPProbe index.
 		 *
 		 * @since 3.4
 		 * @hook ep_prepare_term_meta_excluded_public_keys

@@ -3,19 +3,19 @@
  * Test search ordering REST controller
  *
  * @since 5.0.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPressTest\REST;
+namespace WPProbeTest\REST;
 
-use ElasticPress\Elasticsearch;
-use ElasticPress\Features;
-use ElasticPress\REST\SearchOrdering;
+use WPProbe\Elasticsearch;
+use WPProbe\Features;
+use WPProbe\REST\SearchOrdering;
 
 /**
  * SearchOrdering test class
  */
-class TestSearchOrdering extends \ElasticPressTest\BaseTestCase {
+class TestSearchOrdering extends \WPProbeTest\BaseTestCase {
 	/**
 	 * Test the `get_posts` method
 	 *

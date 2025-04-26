@@ -3,13 +3,13 @@
  * Handle upgrades.
  *
  * @since  3.x
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress;
+namespace WPProbe;
 
-use ElasticPress\Features;
-use ElasticPress\Utils;
+use WPProbe\Features;
+use WPProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class Upgrades
  *
- * @package ElasticPress
+ * @package WPProbe
  */
 class Upgrades {
 
@@ -38,7 +38,7 @@ class Upgrades {
 
 		/**
 		 * An array with the upgrades routines.
-		 * Indexes are the ElasticPress version and values
+		 * Indexes are the WPProbe version and values
 		 * are an array with the method name and, if needed,
 		 * the action name where it should be hooked.
 		 */
@@ -145,7 +145,7 @@ class Upgrades {
 	public function upgrade_3_6_6() {
 		global $wpdb;
 
-		$synonyms = \ElasticPress\Features::factory()->get_registered_feature( 'search' )->synonyms;
+		$synonyms = \WPProbe\Features::factory()->get_registered_feature( 'search' )->synonyms;
 
 		if ( ! $synonyms ) {
 			return;
@@ -200,7 +200,7 @@ class Upgrades {
 	/**
 	 * Upgrade routine of v4.5.0.
 	 *
-	 * Add the ElasticPress capability to admins
+	 * Add the WPProbe capability to admins
 	 *
 	 * @see https://github.com/10up/ElasticPress/pull/3313
 	 */
@@ -302,7 +302,7 @@ class Upgrades {
 			return $notices;
 		}
 
-		$instant_results = \ElasticPress\Features::factory()->get_registered_feature( 'instant-results' );
+		$instant_results = \WPProbe\Features::factory()->get_registered_feature( 'instant-results' );
 		if ( $instant_results->is_active() ) {
 			return $notices;
 		}
@@ -311,15 +311,15 @@ class Upgrades {
 		$appended_message = '';
 		if ( 1 >= $feature_status->code ) {
 			if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
-				$features_url = admin_url( 'network/admin.php?page=elasticpress' );
+				$features_url = admin_url( 'network/admin.php?page=wpprobe' );
 			} else {
-				$features_url = admin_url( 'admin.php?page=elasticpress' );
+				$features_url = admin_url( 'admin.php?page=wpprobe' );
 			}
 
 			$appended_message = wp_kses_post(
 				sprintf(
 					/* translators: 1: <a> tag (Support article); 2. </a>; 3: <a> tag (link to Features screen); 4. </a>; */
-					__( '%1$sInstant Results%2$s is now available in ElasticPress, but requires a re-sync before activation. If you would like to use Instant Results, click %3$shere%4$s to activate the feature and start your sync.', 'elasticpress' ),
+					__( '%1$sInstant Results%2$s is now available in WPProbe, but requires a re-sync before activation. If you would like to use Instant Results, click %3$shere%4$s to activate the feature and start your sync.', 'wpprobe' ),
 					'<a href="https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#instant-results">',
 					'</a>',
 					'<a href="' . $features_url . '">',
@@ -330,7 +330,7 @@ class Upgrades {
 			$appended_message = wp_kses_post(
 				sprintf(
 					/* translators: 1: <a> tag (Support article about Instant Results); 2. </a>; 3: <a> tag (Support article about self hosted Elasticsearch setups); 4. </a>; */
-					__( '%1$sInstant Results%2$s is now available in ElasticPress, but requires a re-sync before activation. If you would like to use Instant Results, since you are not using ElasticPress.io, you will also need to %3$sinstall and configure a PHP proxy%4$s.', 'elasticpress' ),
+					__( '%1$sInstant Results%2$s is now available in WPProbe, but requires a re-sync before activation. If you would like to use Instant Results, since you are not using WPProbe.com, you will also need to %3$sinstall and configure a PHP proxy%4$s.', 'wpprobe' ),
 					'<a href="https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#instant-results">',
 					'</a>',
 					'<a href="https://www.elasticpress.io/documentation/article/considerations-for-self-hosted-elasticsearch-setups/">',
@@ -365,20 +365,7 @@ class Upgrades {
 		$reindex_versions = apply_filters(
 			'ep_reindex_versions',
 			array(
-				'2.2',
-				'2.3.1',
-				'2.4',
-				'2.5.1',
-				'2.6',
-				'2.7',
-				'3.0',
-				'3.1',
-				'3.3',
-				'3.4',
-				'3.6.0',
-				'3.6.1',
-				'4.0.0-beta.1',
-				'4.0.0',
+				'0.1.0',
 			)
 		);
 

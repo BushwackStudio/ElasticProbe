@@ -3,10 +3,10 @@
  * Default search algorithm
  *
  * @since  4.3.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\SearchAlgorithm;
+namespace WPProbe\SearchAlgorithm;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	// @codeCoverageIgnoreStart
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Default search algorithm class.
  */
-class DefaultAlgorithm extends \ElasticPress\SearchAlgorithm {
+class DefaultAlgorithm extends \WPProbe\SearchAlgorithm {
 	/**
 	 * Search algorithm slug.
 	 *
@@ -33,7 +33,7 @@ class DefaultAlgorithm extends \ElasticPress\SearchAlgorithm {
 	 * @return string
 	 */
 	public function get_name(): string {
-		return esc_html__( 'Default', 'elasticpress' );
+		return esc_html__( 'Default', 'wpprobe' );
 	}
 
 	/**
@@ -42,7 +42,7 @@ class DefaultAlgorithm extends \ElasticPress\SearchAlgorithm {
 	 * @return string
 	 */
 	public function get_description(): string {
-		return esc_html__( 'Use a fuzzy match approach which includes results that have misspellings, and also includes matches on only some of the words in the search.', 'elasticpress' );
+		return esc_html__( 'Use a fuzzy match approach which includes results that have misspellings, and also includes matches on only some of the words in the search.', 'wpprobe' );
 	}
 
 	/**

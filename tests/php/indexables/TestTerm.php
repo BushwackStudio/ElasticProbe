@@ -2,12 +2,12 @@
 /**
  * Test term indexable functionality
  *
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPressTest;
+namespace WPProbeTest;
 
-use ElasticPress;
+use WPProbe;
 
 /**
  * Test term indexable class
@@ -34,25 +34,25 @@ class TestTerm extends BaseTestCase {
 
 		wp_set_current_user( $admin_id );
 
-		ElasticPress\Features::factory()->activate_feature( 'terms' );
-		ElasticPress\Features::factory()->setup_features();
+		WPProbe\Features::factory()->activate_feature( 'terms' );
+		WPProbe\Features::factory()->setup_features();
 
-		ElasticPress\Elasticsearch::factory()->delete_all_indices();
-		ElasticPress\Indexables::factory()->get( 'term' )->put_mapping();
+		WPProbe\Elasticsearch::factory()->delete_all_indices();
+		WPProbe\Indexables::factory()->get( 'term' )->put_mapping();
 
-		ElasticPress\Indexables::factory()->get( 'term' )->sync_manager->reset_sync_queue();
+		WPProbe\Indexables::factory()->get( 'term' )->sync_manager->reset_sync_queue();
 
 		// Need to call this since it's hooked to init.
-		ElasticPress\Features::factory()->get_registered_feature( 'terms' )->search_setup();
+		WPProbe\Features::factory()->get_registered_feature( 'terms' )->search_setup();
 	}
 
 	/**
 	 * Get Term feature
 	 *
-	 * @return ElasticPress\Feature\Terms
+	 * @return WPProbe\Feature\Terms
 	 */
 	protected function get_feature() {
-		return ElasticPress\Features::factory()->get_registered_feature( 'terms' );
+		return WPProbe\Features::factory()->get_registered_feature( 'terms' );
 	}
 
 	/**
@@ -94,7 +94,7 @@ class TestTerm extends BaseTestCase {
 			)
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 	}
 
 	/**
@@ -144,19 +144,19 @@ class TestTerm extends BaseTestCase {
 			}
 		);
 
-		ElasticPress\Indexables::factory()->get( 'term' )->sync_manager->reset_sync_queue();
+		WPProbe\Indexables::factory()->get( 'term' )->sync_manager->reset_sync_queue();
 
 		$term = wp_insert_term( 'term name', 'category' );
 
-		$this->assertEquals( 1, count( ElasticPress\Indexables::factory()->get( 'term' )->sync_manager->get_sync_queue() ) );
+		$this->assertEquals( 1, count( WPProbe\Indexables::factory()->get( 'term' )->sync_manager->get_sync_queue() ) );
 
-		ElasticPress\Indexables::factory()->get( 'term' )->index( $term['term_id'] );
+		WPProbe\Indexables::factory()->get( 'term' )->index( $term['term_id'] );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$this->assertTrue( ! empty( $this->fired_actions['ep_sync_term_on_transition'] ) );
 
-		$term = ElasticPress\Indexables::factory()->get( 'term' )->get( $term['term_id'] );
+		$term = WPProbe\Indexables::factory()->get( 'term' )->get( $term['term_id'] );
 
 		$this->assertTrue( ! empty( $term ) );
 	}
@@ -172,11 +172,11 @@ class TestTerm extends BaseTestCase {
 
 		update_term_meta( $term['term_id'], 'new_meta', 'test' );
 
-		ElasticPress\Indexables::factory()->get( 'term' )->index( $term['term_id'] );
+		WPProbe\Indexables::factory()->get( 'term' )->index( $term['term_id'] );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
-		$term = ElasticPress\Indexables::factory()->get( 'term' )->get( $term['term_id'] );
+		$term = WPProbe\Indexables::factory()->get( 'term' )->get( $term['term_id'] );
 
 		$this->assertEquals( 'test', $term['meta']['new_meta'][0]['value'] );
 	}
@@ -190,12 +190,12 @@ class TestTerm extends BaseTestCase {
 	public function testTermSyncOnMetaUpdate() {
 		$term = wp_insert_term( 'term name', 'category' );
 
-		ElasticPress\Indexables::factory()->get( 'term' )->sync_manager->reset_sync_queue();
+		WPProbe\Indexables::factory()->get( 'term' )->sync_manager->reset_sync_queue();
 
 		update_term_meta( $term['term_id'], 'test_key', true );
 
-		$this->assertEquals( 1, count( ElasticPress\Indexables::factory()->get( 'term' )->sync_manager->get_sync_queue() ) );
-		$this->assertTrue( ! empty( ElasticPress\Indexables::factory()->get( 'term' )->sync_manager->add_to_queue( $term['term_id'] ) ) );
+		$this->assertEquals( 1, count( WPProbe\Indexables::factory()->get( 'term' )->sync_manager->get_sync_queue() ) );
+		$this->assertTrue( ! empty( WPProbe\Indexables::factory()->get( 'term' )->sync_manager->add_to_queue( $term['term_id'] ) ) );
 	}
 
 	/**
@@ -229,13 +229,13 @@ class TestTerm extends BaseTestCase {
 			2
 		);
 
-		ElasticPress\Indexables::factory()->get( 'term' )->sync_manager->action_sync_on_update( $created_term_id );
+		WPProbe\Indexables::factory()->get( 'term' )->sync_manager->action_sync_on_update( $created_term_id );
 
 		$this->assertTrue( empty( $this->fired_actions['ep_sync_term_on_transition'] ) );
 	}
 
 	/**
-	 * Test a basic term query with and without ElasticPress
+	 * Test a basic term query with and without WPProbe
 	 *
 	 * @since 3.3
 	 * @group term
@@ -331,9 +331,9 @@ class TestTerm extends BaseTestCase {
 
 		$this->assertTrue( is_array( $term ) );
 
-		ElasticPress\Indexables::factory()->get( 'term' )->index( $term['term_id'], true );
+		WPProbe\Indexables::factory()->get( 'term' )->index( $term['term_id'], true );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		// First, verify this with default functionality.
 		$term_query = new \WP_Term_Query(
@@ -388,8 +388,8 @@ class TestTerm extends BaseTestCase {
 
 		wp_set_object_terms( $post, $term['term_id'], 'post_tag', true );
 
-		ElasticPress\Indexables::factory()->get( 'term' )->sync_manager->index_sync_queue();
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Indexables::factory()->get( 'term' )->sync_manager->index_sync_queue();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$term_query = new \WP_Term_Query(
 			[
@@ -417,7 +417,7 @@ class TestTerm extends BaseTestCase {
 
 		$term_id = $this->ep_factory->term->create( array( 'name' => 'aaa' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$this->assertGreaterThan( 0, $term_id );
 
@@ -462,7 +462,7 @@ class TestTerm extends BaseTestCase {
 
 		$term_id = $this->ep_factory->term->create( array( 'name' => 'aaa' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$this->assertGreaterThan( 0, $term_id );
 
@@ -510,7 +510,7 @@ class TestTerm extends BaseTestCase {
 		$term_id_1 = $this->ep_factory->term->create( array( 'description' => 'aaa' ) );
 		$term_id_2 = $this->ep_factory->term->create( array( 'description' => 'bbb' ) );
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$this->assertGreaterThan( 0, $term_id_1 );
 		$this->assertGreaterThan( 0, $term_id_2 );
@@ -665,8 +665,8 @@ class TestTerm extends BaseTestCase {
 		$term   = wp_insert_term( 'ff', 'post_tag', [ 'parent' => $apple->term_id ] );
 		$term_2 = wp_insert_term( 'yff', 'post_tag', [ 'parent' => $orange->term_id ] );
 
-		ElasticPress\Indexables::factory()->get( 'term' )->sync_manager->index_sync_queue();
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Indexables::factory()->get( 'term' )->sync_manager->index_sync_queue();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$this->assertTrue( is_array( $term ) );
 		$this->assertTrue( is_array( $term_2 ) );
@@ -732,7 +732,7 @@ class TestTerm extends BaseTestCase {
 	public function testTermQueryParent() {
 		$parent_term_id = $this->ep_factory->category->create();
 		$child_term_id  = $this->ep_factory->category->create( [ 'parent' => $parent_term_id ] );
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$term_query = new \WP_Term_Query(
 			[
@@ -783,8 +783,8 @@ class TestTerm extends BaseTestCase {
 
 		wp_set_object_terms( $post, $term_id, 'post_tag', true );
 
-		ElasticPress\Indexables::factory()->get( 'term' )->index( $term_id, true );
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Indexables::factory()->get( 'term' )->index( $term_id, true );
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$term_query = new \WP_Term_Query(
 			[
@@ -807,7 +807,7 @@ class TestTerm extends BaseTestCase {
 	 */
 	public function testPrepareDocument() {
 
-		$results = ElasticPress\Indexables::factory()->get( 'term' )->prepare_document( 0 );
+		$results = WPProbe\Indexables::factory()->get( 'term' )->prepare_document( 0 );
 
 		$this->assertFalse( $results );
 	}
@@ -820,7 +820,7 @@ class TestTerm extends BaseTestCase {
 	 */
 	public function testFormatArgsIncludeExclude() {
 
-		$term = new \ElasticPress\Indexable\Term\Term();
+		$term = new \WPProbe\Indexable\Term\Term();
 
 		$args = $term->format_args(
 			[
@@ -856,7 +856,7 @@ class TestTerm extends BaseTestCase {
 	 */
 	public function testFormatArgsNameSlug() {
 
-		$term = new \ElasticPress\Indexable\Term\Term();
+		$term = new \WPProbe\Indexable\Term\Term();
 
 		$args = $term->format_args(
 			[
@@ -883,7 +883,7 @@ class TestTerm extends BaseTestCase {
 	 */
 	public function testFormatArgsTermTaxIdHierarchical() {
 
-		$term = new \ElasticPress\Indexable\Term\Term();
+		$term = new \WPProbe\Indexable\Term\Term();
 
 		$args = $term->format_args(
 			[
@@ -967,9 +967,9 @@ class TestTerm extends BaseTestCase {
 
 		$this->ep_factory->post->create( $post_args );
 
-		ElasticPress\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
-		ElasticPress\Indexables::factory()->get( 'term' )->sync_manager->index_sync_queue();
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
+		WPProbe\Indexables::factory()->get( 'term' )->sync_manager->index_sync_queue();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$parent_term = get_term( $parent_term_id, 'category' );
 		$child_term  = get_term( $child_term_id, 'category' );
@@ -1084,7 +1084,7 @@ class TestTerm extends BaseTestCase {
 	 */
 	public function testFormatArgsSearch() {
 
-		$term = new \ElasticPress\Indexable\Term\Term();
+		$term = new \WPProbe\Indexable\Term\Term();
 
 		// Default search fields.
 		$args = $term->format_args(
@@ -1163,7 +1163,7 @@ class TestTerm extends BaseTestCase {
 	 */
 	public function testFormatArgsChildParent() {
 
-		$term = new \ElasticPress\Indexable\Term\Term();
+		$term = new \WPProbe\Indexable\Term\Term();
 
 		$args = $term->format_args(
 			[
@@ -1200,7 +1200,7 @@ class TestTerm extends BaseTestCase {
 	 */
 	public function testFormatArgsMeta() {
 
-		$term = new \ElasticPress\Indexable\Term\Term();
+		$term = new \WPProbe\Indexable\Term\Term();
 
 		$args = $term->format_args(
 			[
@@ -1244,7 +1244,7 @@ class TestTerm extends BaseTestCase {
 	 */
 	public function testFormatArgsFields() {
 
-		$term = new \ElasticPress\Indexable\Term\Term();
+		$term = new \WPProbe\Indexable\Term\Term();
 
 		$args = $term->format_args(
 			[
@@ -1306,7 +1306,7 @@ class TestTerm extends BaseTestCase {
 	 */
 	public function testParseOrder() {
 
-		$term = new \ElasticPress\Indexable\Term\Term();
+		$term = new \WPProbe\Indexable\Term\Term();
 
 		$args = $term->format_args(
 			[
@@ -1314,7 +1314,7 @@ class TestTerm extends BaseTestCase {
 			]
 		);
 
-		$es_version = \ElasticPress\Elasticsearch::factory()->get_elasticsearch_version();
+		$es_version = \WPProbe\Elasticsearch::factory()->get_elasticsearch_version();
 		$field_name = ( version_compare( (string) $es_version, '7.0', '>=' ) ) ? 'name.sortable' : 'name.raw';
 
 		$this->assertSame( 'desc', $args['sort'][0][ $field_name ]['order'] );
@@ -1394,7 +1394,7 @@ class TestTerm extends BaseTestCase {
 	 */
 	public function testPrepareMetaProtectedKeys() {
 
-		$term = new \ElasticPress\Indexable\Term\Term();
+		$term = new \WPProbe\Indexable\Term\Term();
 
 		$callback = function ( $keys ) {
 			$keys[] = '_custom_protected_key';
@@ -1421,7 +1421,7 @@ class TestTerm extends BaseTestCase {
 	 */
 	public function testRemapTerms() {
 
-		$term = new \ElasticPress\Indexable\Term\Term();
+		$term = new \WPProbe\Indexable\Term\Term();
 
 		$new_term = wp_insert_term(
 			'testRemapTerms',
@@ -1468,7 +1468,7 @@ class TestTerm extends BaseTestCase {
 
 		$this->createAndIndexTerms();
 
-		$term = new \ElasticPress\Indexable\Term\Term();
+		$term = new \WPProbe\Indexable\Term\Term();
 
 		$results = $term->query_db(
 			[
@@ -1486,7 +1486,7 @@ class TestTerm extends BaseTestCase {
 		$this->assertCount( 3, $results['objects'] );
 		$this->assertSame( 4, $results['total_objects'] );
 
-		$term = new \ElasticPress\Indexable\Term\Term();
+		$term = new \WPProbe\Indexable\Term\Term();
 
 		$results = $term->query_db(
 			[
@@ -1515,7 +1515,7 @@ class TestTerm extends BaseTestCase {
 		// This lets us trigger the ep_fallback_elasticsearch_version filter.
 		add_filter( 'ep_elasticsearch_version', '__return_false' );
 
-		$term = new \ElasticPress\Indexable\Term\Term();
+		$term = new \WPProbe\Indexable\Term\Term();
 
 		// Test the mapping files for different ES versions.
 		$version_and_file = [
@@ -1558,7 +1558,7 @@ class TestTerm extends BaseTestCase {
 	 */
 	public function testDeleteTerm() {
 		$term_id = $this->ep_factory->category->create();
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$term_query = new \WP_Term_Query(
 			[
@@ -1574,7 +1574,7 @@ class TestTerm extends BaseTestCase {
 		$this->assertEquals( $term_id, $term_query->terms[0]->term_id );
 
 		wp_delete_term( $term_id, 'category' );
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$term_query = new \WP_Term_Query(
 			[
@@ -1638,15 +1638,15 @@ class TestTerm extends BaseTestCase {
 
 		$term_id = $this->ep_factory->category->create();
 		update_term_meta( $term_id, 'test_key', 'value' );
-		ElasticPress\Indexables::factory()->get( 'term' )->index( $term_id, true );
+		WPProbe\Indexables::factory()->get( 'term' )->index( $term_id, true );
 
 		$term_id = $this->ep_factory->category->create();
 		update_term_meta( $term_id, 'test_key', 'value' );
-		ElasticPress\Indexables::factory()->get( 'term' )->index( $term_id, true );
+		WPProbe\Indexables::factory()->get( 'term' )->index( $term_id, true );
 
 		$this->ep_factory->category->create();
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		// Make sure WP_Term_Query returns only taxonomies for whom meta exists.
 		$args = array(
@@ -1691,7 +1691,7 @@ class TestTerm extends BaseTestCase {
 		);
 
 		$this->ep_factory->term->create_many( '2', array( 'taxonomy' => 'wptests_tax' ) );
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$term_query = new \WP_Term_Query(
 			[
@@ -1706,7 +1706,7 @@ class TestTerm extends BaseTestCase {
 		$this->assertEquals( 2, count( $term_query->terms ) );
 
 		$this->ep_factory->term->create_many( '2', array( 'taxonomy' => 'post_tag' ) );
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		WPProbe\Elasticsearch::factory()->refresh_indices();
 
 		$term_query = new \WP_Term_Query(
 			[
@@ -1728,9 +1728,9 @@ class TestTerm extends BaseTestCase {
 	 * @group term
 	 */
 	public function test_mapping_ep_stop_filter() {
-		$indexable      = ElasticPress\Indexables::factory()->get( 'term' );
+		$indexable      = WPProbe\Indexables::factory()->get( 'term' );
 		$index_name     = $indexable->get_index_name();
-		$settings       = ElasticPress\Elasticsearch::factory()->get_index_settings( $index_name );
+		$settings       = WPProbe\Elasticsearch::factory()->get_index_settings( $index_name );
 		$index_settings = $settings[ $index_name ]['settings'];
 
 		$this->assertContains( 'ep_stop', $index_settings['index.analysis.analyzer.default.filter'] );
@@ -1741,10 +1741,10 @@ class TestTerm extends BaseTestCase {
 		};
 		add_filter( 'ep_analyzer_language', $change_lang, 11, 2 );
 
-		ElasticPress\Elasticsearch::factory()->delete_all_indices();
+		WPProbe\Elasticsearch::factory()->delete_all_indices();
 		$indexable->put_mapping();
 
-		$settings       = ElasticPress\Elasticsearch::factory()->get_index_settings( $index_name );
+		$settings       = WPProbe\Elasticsearch::factory()->get_index_settings( $index_name );
 		$index_settings = $settings[ $index_name ]['settings'];
 		$this->assertSame( '_arabic_', $index_settings['index.analysis.filter.ep_stop.stopwords'] );
 	}

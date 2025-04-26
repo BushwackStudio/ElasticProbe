@@ -3,10 +3,10 @@
  * Abstract Facet Block class.
  *
  * @since 4.7.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\Feature\Facets;
+namespace WPProbe\Feature\Facets;
 
 /**
  * Abstract Facet Block class.
@@ -29,5 +29,5 @@ abstract class Block {
 	 * @param array $attributes Block attributes.
 	 * @return string
 	 */
-	abstract  public function render_block( $attributes );
+	abstract public function render_block( $attributes );
 }

@@ -5,13 +5,13 @@
  * An indexable is a type of "data" in WP e.g. post type, term, user, etc.
  *
  * @since  3.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress;
+namespace WPProbe;
 
-use ElasticPress\Elasticsearch;
-use ElasticPress\SyncManager;
+use WPProbe\Elasticsearch;
+use WPProbe\SyncManager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -76,7 +76,10 @@ abstract class Indexable {
 	 * @since 4.5.0
 	 * @var array
 	 */
-	public $labels = [];
+	public $labels = [
+		'plural'   => '',
+		'singular' => '',
+	];
 
 	/**
 	 * Get number of bulk items to index per page
@@ -408,7 +411,7 @@ abstract class Indexable {
 
 		if ( empty( $documents ) ) {
 			return [
-				new \WP_Error( 'ep_bulk_index_no_documents', esc_html__( 'It was not possible to create a body request with the document IDs provided.', 'elasticpress' ), $object_ids ),
+				new \WP_Error( 'ep_bulk_index_no_documents', esc_html__( 'It was not possible to create a body request with the document IDs provided.', 'wpprobe' ), $object_ids ),
 			];
 		}
 
@@ -628,7 +631,7 @@ abstract class Indexable {
 	}
 
 	/**
-	 * Check to see if we should allow elasticpress to override this query
+	 * Check to see if we should allow wpprobe to override this query
 	 *
 	 * @param \WP_Query|\WP_User_Query|\WP_Term_Query $query WP_Query or WP_User_Query or WP_Term_Query instance
 	 * @return bool
@@ -642,7 +645,7 @@ abstract class Indexable {
 		}
 
 		/**
-		 * Determine if ElasticPress should integrate with a query
+		 * Determine if WPProbe should integrate with a query
 		 *
 		 * @hook ep_elasticpress_enabled
 		 * @param  {bool} $enabled Whether to integrate with Elasticsearch or not
@@ -1127,7 +1130,7 @@ abstract class Indexable {
 			$blog_id = get_current_blog_id();
 		}
 
-		return \ElasticPress\IndexHelper::factory()->is_full_reindexing( $this->slug, $blog_id );
+		return \WPProbe\IndexHelper::factory()->is_full_reindexing( $this->slug, $blog_id );
 	}
 
 	/**
@@ -1168,7 +1171,7 @@ abstract class Indexable {
 	 * @return array
 	 */
 	public function generate_mapping() {
-		_doing_it_wrong( __METHOD__, 'The Indexable class should not call generate_mapping() directly.', 'ElasticPress 4.0' );
+		_doing_it_wrong( __METHOD__, 'The Indexable class should not call generate_mapping() directly.', 'WPProbe 0.1.0' );
 
 		return [];
 	}
@@ -1182,7 +1185,7 @@ abstract class Indexable {
 	 * @param array  $query_vars    Query vars
 	 * @return SearchAlgorithm Instance of search algorithm to be used
 	 */
-	public function get_search_algorithm( string $search_text, array $search_fields, array $query_vars ): \ElasticPress\SearchAlgorithm {
+	public function get_search_algorithm( string $search_text, array $search_fields, array $query_vars ): \WPProbe\SearchAlgorithm {
 		/**
 		 * Filter the search algorithm to be used
 		 *
@@ -1196,7 +1199,7 @@ abstract class Indexable {
 		 */
 		$search_algorithm = apply_filters( "ep_{$this->slug}_search_algorithm", 'basic', $search_text, $search_fields, $query_vars );
 
-		return \ElasticPress\SearchAlgorithms::factory()->get( $search_algorithm );
+		return \WPProbe\SearchAlgorithms::factory()->get( $search_algorithm );
 	}
 
 	/**

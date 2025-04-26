@@ -3,12 +3,12 @@
  * WooCommerce Orders
  *
  * @since 4.7.0
- * @package elasticpress
+ * @package wpprobe
  */
 
-namespace ElasticPress\Feature\WooCommerce;
+namespace WPProbe\Feature\WooCommerce;
 
-use ElasticPress\Indexables;
+use WPProbe\Indexables;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -337,9 +337,9 @@ class Orders {
 	}
 
 	/**
-	 * Display a notice if WooCommerce Orders are not compatible with ElasticPress
+	 * Display a notice if WooCommerce Orders are not compatible with WPProbe
 	 *
-	 * If the user has WooCommerce, Protected Content, and HPOS enabled, orders will not go through ElasticPress.
+	 * If the user has WooCommerce, Protected Content, and HPOS enabled, orders will not go through WPProbe.
 	 *
 	 * @param array $notices Current EP notices
 	 * @return array
@@ -350,11 +350,11 @@ class Orders {
 			return $notices;
 		}
 
-		if ( \ElasticPress\Utils\get_option( 'ep_hide_wc_orders_incompatible_notice' ) ) {
+		if ( \WPProbe\Utils\get_option( 'ep_hide_wc_orders_incompatible_notice' ) ) {
 			return $notices;
 		}
 
-		$protected_content = \ElasticPress\Features::factory()->get_registered_feature( 'protected_content' );
+		$protected_content = \WPProbe\Features::factory()->get_registered_feature( 'protected_content' );
 		if ( ! $protected_content->is_active() ) {
 			return $notices;
 		}
@@ -370,7 +370,7 @@ class Orders {
 		}
 
 		$notices['wc_orders_incompatible'] = [
-			'html'    => esc_html__( "Although the WooCommerce and Protected Content features are enabled, ElasticPress will not integrate with the WooCommerce Orders list if WooCommerce's High-performance order storage is enabled.", 'elasticpress' ),
+			'html'    => esc_html__( "Although the WooCommerce and Protected Content features are enabled, WPProbe will not integrate with the WooCommerce Orders list if WooCommerce's High-performance order storage is enabled.", 'wpprobe' ),
 			'type'    => 'warning',
 			'dismiss' => true,
 		];
@@ -456,7 +456,7 @@ class Orders {
 	}
 
 	/**
-	 * Translate args to ElasticPress compat format. This is the meat of what the feature does
+	 * Translate args to WPProbe compat format. This is the meat of what the feature does
 	 *
 	 * @param  \WP_Query $query WP Query
 	 */
@@ -515,9 +515,9 @@ class Orders {
 
 		if ( in_array( $method_name, $orders_autosuggest_methods, true ) ) {
 			_deprecated_function(
-				"\ElasticPress\Feature\WooCommerce\WooCommerce\Orders::{$method_name}", // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				"\WPProbe\Feature\WooCommerce\WooCommerce\Orders::{$method_name}", // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				'4.7.0',
-				"\ElasticPress\Features::factory()->get_registered_feature( 'woocommerce' )->orders_autosuggest->{$method_name}()" // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				"\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders_autosuggest->{$method_name}()" // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			);
 
 			if ( $this->woocommerce->orders_autosuggest->is_enabled() && method_exists( $this->woocommerce->orders_autosuggest, $method_name ) ) {
