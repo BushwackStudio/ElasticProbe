@@ -1,8 +1,8 @@
 === WPProbe ===
 Contributors: wpprobe
 Tags:         performance, search, elasticsearch, fuzzy, related posts
-Tested up to: 6.7
-Stable tag:   0.1.0
+Tested up to: 6.8
+Stable tag:   0.1.1
 License:      GPLv2 or later
 License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,6 +64,24 @@ For sure! Feel free to submit ideas or feedback in general to our [GitHub repo](
 5. Instant Results modal
 
 == Changelog ==
+
+= 0.1.1 - 2024-04-26 =
+
+__Added:__
+
+
+__Changed:__
+
+* Bumped the tested wordpress version and plugin version
+
+__Fixed:__
+
+
+__Security:__
+
+
+__Developer:__
+
 
 = 0.1.0 - 2024-04-23 =
 
