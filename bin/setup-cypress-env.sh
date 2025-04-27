@@ -62,7 +62,7 @@ fi
 ./bin/wp-env-cli tests-wordpress "wp --allow-root theme activate twentytwentyone"
 
 # Fix the debug-bar-wpprobe dependency of WPProbe
-./bin/wp-env-cli tests-wordpress "wp --allow-root plugin install https://github.com/BushwackStudio/debug-bar-wpprobe"
+./bin/wp-env-cli tests-wordpress "wp --allow-root plugin install https://github.com/BushwackStudio/debug-bar-wpprobe/archive/refs/tags/0.1.0.zip"
 ./bin/wp-env-cli tests-wordpress "sed -i \"s/Requires Plugins:  wpprobe/Requires Plugins:  $PLUGIN_NAME/\" /var/www/html/wp-content/plugins/debug-bar-wpprobe/debug-bar-wpprobe.php"
 ./bin/wp-env-cli tests-wordpress "wp --allow-root plugin activate debug-bar-wpprobe"
 
