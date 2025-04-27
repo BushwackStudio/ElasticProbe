@@ -43,7 +43,7 @@ before(() => {
 
 afterEach(() => {
 	if (cy.state('test').state === 'failed') {
-		cy.get('#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-copy-button')
+		cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-copy-button')
 			.invoke('attr', 'data-clipboard-text')
 			.then((text) => {
 				if (!text) {

@@ -60,13 +60,13 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 		cy.maybeEnableFeature('woocommerce');
 
 		cy.visit('/shop/?filter_size=small');
-		cy.get('#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-query-debug').should(
+		cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug').should(
 			'contain.text',
 			'Query Response Code: HTTP 200',
 		);
 
 		cy.visit('/product-category/uncategorized');
-		cy.get('#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-query-debug').should(
+		cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug').should(
 			'contain.text',
 			'Query Response Code: HTTP 200',
 		);
@@ -126,7 +126,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 			cy.wpCli('wpprobe sync --setup --yes');
 
 			cy.visitAdminPage('edit.php?post_type=shop_order');
-			cy.get('#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-query-debug').should(
+			cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug').should(
 				'contain.text',
 				'Query Response Code: HTTP 200',
 			);
@@ -135,7 +135,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 			 * Products
 			 */
 			cy.visitAdminPage('edit.php?post_type=product');
-			cy.get('#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-query-debug').should(
+			cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug').should(
 				'contain.text',
 				'Query Response Code: HTTP 200',
 			);
@@ -209,7 +209,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 			cy.get('.woocommerce-orders-table tbody tr').should('have.length', 1);
 
 			// Test orderby parameter set to `date` in query.
-			cy.get('#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-query-debug')
+			cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug')
 				.should('contain.text', 'shop_order')
 				.should('contain.text', "'orderby' => 'date'");
 
@@ -225,7 +225,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 			cy.visit('my-account/orders');
 			cy.get('.woocommerce-orders-table tbody tr').should('have.length', 0);
 
-			cy.get('#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-query-debug')
+			cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug')
 				.should('contain.text', 'shop_order')
 				.should('contain.text', 'Query Response Code: HTTP 200');
 		});
@@ -237,7 +237,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 			cy.get('#post-search-input').clear();
 			cy.get('#post-search-input').type(`${userData.firstName} ${userData.lastName}{enter}`);
 
-			cy.get('#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-query-debug').should(
+			cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug').should(
 				'contain.text',
 				'Query Response Code: HTTP 200',
 			);
@@ -250,7 +250,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 			// search order by user's address.
 			cy.get('#post-search-input').clear();
 			cy.get('#post-search-input').type(`${userData.address}{enter}`);
-			cy.get('#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-query-debug').should(
+			cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug').should(
 				'contain.text',
 				'Query Response Code: HTTP 200',
 			);
@@ -263,7 +263,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 			// search order by product.
 			cy.get('#post-search-input').clear();
 			cy.get('#post-search-input').type(`fantastic-silk-knife{enter}`);
-			cy.get('#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-query-debug').should(
+			cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug').should(
 				'contain.text',
 				'Query Response Code: HTTP 200',
 			);
@@ -297,9 +297,10 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 
 					cy.refreshIndex('post').then(() => {
 						cy.reload();
-						cy.get(
-							'#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-query-debug',
-						).should('contain.text', 'Query Response Code: HTTP 200');
+						cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug').should(
+							'contain.text',
+							'Query Response Code: HTTP 200',
+						);
 						cy.get('#the-list tr:eq(0)').should('have.id', thirdProductId);
 					});
 				});
@@ -325,9 +326,10 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 
 					cy.refreshIndex('post').then(() => {
 						cy.reload();
-						cy.get(
-							'#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-query-debug',
-						).should('contain.text', 'Query Response Code: HTTP 200');
+						cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug').should(
+							'contain.text',
+							'Query Response Code: HTTP 200',
+						);
 						cy.get('#the-list tr:eq(0)').should('have.not.id', thirdProductId);
 					});
 				});

@@ -49,7 +49,7 @@ describe('Post Indexable', () => {
 
 		cy.visit('/?s=b10ck');
 		cy.get('.hentry').should('exist');
-		cy.get('#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-query-debug').should(
+		cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug').should(
 			'contain.text',
 			'"name": "b10ck",',
 		);

@@ -27,7 +27,7 @@ describe('Protected Content Feature', () => {
 		cy.maybeEnableFeature('protected_content');
 
 		cy.visitAdminPage('edit.php');
-		cy.get('#debug-menu-target-EP_Debug_Bar_ElasticPress').should('contain.text', 'Time Taken');
+		cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe').should('contain.text', 'Time Taken');
 	});
 
 	it('Can use Elasticsearch in the Draft Posts List Admin Screen', () => {

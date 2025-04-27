@@ -281,7 +281,7 @@ function handle_upgrades() {
 function setup_misc() {
 	if ( is_user_logged_in() && ! defined( 'WP_EP_DEBUG' ) ) {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		define( 'WP_EP_DEBUG', is_plugin_active( 'debug-bar-elasticpress/debug-bar-elasticpress.php' ) );
+		define( 'WP_EP_DEBUG', is_plugin_active( 'debug-bar-wpprobe/debug-bar-wpprobe.php' ) );
 	}
 }
 add_action( 'plugins_loaded', __NAMESPACE__ . '\setup_misc' );

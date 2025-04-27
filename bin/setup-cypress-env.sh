@@ -61,10 +61,10 @@ fi
 # Set twentytwentyone as the active theme here, as 2025 won't work with WP 6.0
 ./bin/wp-env-cli tests-wordpress "wp --allow-root theme activate twentytwentyone"
 
-# Fix the debug-bar-elasticpress dependency of WPProbe
-./bin/wp-env-cli tests-wordpress "wp --allow-root plugin install debug-bar-elasticpress"
-./bin/wp-env-cli tests-wordpress "sed -i \"s/Requires Plugins:  elasticpress/Requires Plugins:  $PLUGIN_NAME/\" /var/www/html/wp-content/plugins/debug-bar-elasticpress/debug-bar-elasticpress.php"
-./bin/wp-env-cli tests-wordpress "wp --allow-root plugin activate debug-bar-elasticpress"
+# Fix the debug-bar-wpprobe dependency of WPProbe
+./bin/wp-env-cli tests-wordpress "wp --allow-root plugin install https://github.com/BushwackStudio/debug-bar-wpprobe"
+./bin/wp-env-cli tests-wordpress "sed -i \"s/Requires Plugins:  wpprobe/Requires Plugins:  $PLUGIN_NAME/\" /var/www/html/wp-content/plugins/debug-bar-wpprobe/debug-bar-wpprobe.php"
+./bin/wp-env-cli tests-wordpress "wp --allow-root plugin activate debug-bar-wpprobe"
 
 if [ ! -z $WP_VERSION ]; then
 	./bin/wp-env-cli tests-wordpress "wp --allow-root core update --version=${WP_VERSION} --force"
@@ -114,7 +114,7 @@ fi
 
 ./bin/wp-env-cli tests-wordpress "wp --allow-root plugin deactivate woocommerce elasticpress-proxy"
 
-./bin/wp-env-cli tests-wordpress "wp --allow-root plugin activate debug-bar debug-bar-elasticpress wordpress-importer --network"
+./bin/wp-env-cli tests-wordpress "wp --allow-root plugin activate debug-bar debug-bar-wpprobe wordpress-importer --network"
 
 ./bin/wp-env-cli tests-wordpress "wp --allow-root plugin activate ${PLUGIN_NAME}"
 

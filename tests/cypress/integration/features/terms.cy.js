@@ -56,9 +56,10 @@ describe('Terms Feature', { tags: '@slow' }, () => {
 			.should('contain.text', searchTerm);
 
 		// make sure elasticsearch result does contain the term.
-		cy.get(
-			'#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-query-debug .ep-query-result',
-		).should('contain.text', searchTerm);
+		cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug .ep-query-result').should(
+			'contain.text',
+			searchTerm,
+		);
 
 		// Delete the term
 		cy.get('.wp-list-table tbody tr')
@@ -81,9 +82,10 @@ describe('Terms Feature', { tags: '@slow' }, () => {
 		cy.get('.wp-list-table tbody tr').should('have.length', 1).should('contain.text', term);
 
 		// make sure elasticsearch result does contain the term.
-		cy.get(
-			'#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-query-debug .ep-query-result',
-		).should('contain.text', term);
+		cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug .ep-query-result').should(
+			'contain.text',
+			term,
+		);
 
 		// Delete the term
 		cy.get('.wp-list-table tbody tr')
@@ -102,7 +104,7 @@ describe('Terms Feature', { tags: '@slow' }, () => {
 		// Re-search for the term and make sure it's not there.
 		cy.get('#search-submit').click();
 		cy.get('.wp-list-table tbody').should('contain.text', 'No categories found');
-		cy.get('#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-query-debug').should(
+		cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug').should(
 			'contain.text',
 			'Query Response Code: HTTP 200',
 		);
@@ -125,9 +127,10 @@ describe('Terms Feature', { tags: '@slow' }, () => {
 
 		cy.get('.wp-list-table tbody tr .row-title').should('contain.text', 'The Most Fun Thing');
 
-		cy.get(
-			'#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-query-debug .ep-query-result',
-		).should('contain.text', 'The Most Fun Thing');
+		cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug .ep-query-result').should(
+			'contain.text',
+			'The Most Fun Thing',
+		);
 	});
 
 	it('Can update a child term when a parent term is deleted', () => {

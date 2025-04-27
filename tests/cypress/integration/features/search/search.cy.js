@@ -10,7 +10,7 @@ describe('Post Search Feature', { tags: '@slow' }, () => {
 		cy.visit('/?s=test');
 
 		// eslint-disable-next-line jest/valid-expect-in-promise
-		cy.get('#debug-menu-target-EP_Debug_Bar_ElasticPress')
+		cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe')
 			.invoke('text')
 			.then((debugText) => {
 				expect(debugText).to.contain('Query Response Code: HTTP 200');
