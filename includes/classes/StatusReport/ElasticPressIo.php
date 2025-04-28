@@ -112,7 +112,7 @@ class ElasticPressIo extends Report {
 	protected function get_instant_results_group(): array {
 		$instant_results_feature = \WPProbe\Features::factory()->get_registered_feature( 'instant-results' );
 
-		if ( ! $instant_results_feature->is_active() ) {
+		if ( ! $instant_results_feature || ! $instant_results_feature->is_active() ) {
 			return [];
 		}
 

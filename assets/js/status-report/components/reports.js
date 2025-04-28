@@ -50,11 +50,7 @@ export default ({ plainTextReport, reports }) => {
 			<p>
 				<Flex justify="start">
 					<FlexItem>
-						<Button
-							download="elasticpress-report.txt"
-							href={downloadUrl}
-							variant="primary"
-						>
+						<Button download="wpprobe-report.txt" href={downloadUrl} variant="primary">
 							{__('Download status report', 'wpprobe')}
 						</Button>
 					</FlexItem>

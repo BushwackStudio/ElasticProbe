@@ -225,7 +225,7 @@ class StatusReport {
 		);
 
 		foreach ( $menu as $key => $value ) {
-			if ( 'elasticpress' === $value[2] ) {
+			if ( 'wpprobe' === $value[2] ) {
 				$menu[ $key ][0] .= sprintf(
 					' <span class="update-plugins"><span aria-hidden="true">%1$s</span><span class="screen-reader-text">%2$s</span></span>',
 					esc_html( $count ),
@@ -234,13 +234,13 @@ class StatusReport {
 			}
 		}
 
-		if ( ! isset( $submenu['elasticpress'] ) ) {
+		if ( ! isset( $submenu['wpprobe'] ) ) {
 			return;
 		}
 
-		foreach ( $submenu['elasticpress'] as $key => $value ) {
+		foreach ( $submenu['wpprobe'] as $key => $value ) {
 			if ( 'wpprobe-status-report' === $value[2] ) {
-				$submenu['elasticpress'][ $key ][0] .= sprintf(
+				$submenu['wpprobe'][ $key ][0] .= sprintf(
 					' <span class="menu-counter"><span aria-hidden="true">%1$s</span><span class="screen-reader-text">%2$s</span></span>',
 					esc_html( $count ),
 					esc_attr( $title )
