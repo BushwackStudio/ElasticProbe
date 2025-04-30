@@ -19,7 +19,7 @@ return array(
 		 * @param  {int} $shards Number of shards
 		 * @return {int} New number
 		 */
-		'index.number_of_shards'           => apply_filters( 'ep_default_index_number_of_shards', 5 ),
+		'index.number_of_shards'           => apply_filters( 'ep_default_index_number_of_shards', 3 ),
 		/**
 		 * Filter number of Elasticsearch replicas to use in indices
 		 *
