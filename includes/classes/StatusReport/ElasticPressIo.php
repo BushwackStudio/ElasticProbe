@@ -53,7 +53,7 @@ class ElasticPressIo extends Report {
 	protected function get_autosuggest_group(): array {
 		$autosuggest_feature = \WPProbe\Features::factory()->get_registered_feature( 'autosuggest' );
 
-		if ( ! $autosuggest_feature->is_active() ) {
+		if ( ! $autosuggest_feature || ! $autosuggest_feature->is_active() ) {
 			return [];
 		}
 

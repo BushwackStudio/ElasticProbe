@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+### Added
+* Added compatibility with debug-bar-wpprobe plugin
+
+### Changed
+* Changed default ES primary shard count to 3
+
+### Fixed
+* Status report page
+
 <!--
 ### Added
 ### Changed
@@ -13,6 +22,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 ### Security
 ### Developer
 -->
+
 
 ## [0.1.1] - 2025-04-26
 

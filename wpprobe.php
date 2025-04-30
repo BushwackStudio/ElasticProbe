@@ -160,9 +160,10 @@ function register_indexable_posts() {
 	// new Feature\InstantResults\InstantResults()
 	// );
 
-	Features::factory()->register_feature(
-		new Feature\Autosuggest\Autosuggest()
-	);
+	// TODO: work out the custom endpoints and enable this
+	// Features::factory()->register_feature(
+	// new Feature\Autosuggest\Autosuggest()
+	// );
 
 	Features::factory()->register_feature(
 		new Feature\DidYouMean\DidYouMean()
