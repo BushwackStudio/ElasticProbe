@@ -4,7 +4,7 @@
  * Plugin URI:        https://github.com/BushwackStudio/WpProbe
  * Description:       Supercharge your WordPress search with ElasticSearch® precision.
  * Version:           0.1.1
- * Requires at least: 6.0
+ * Requires at least: 6.2
  * Requires PHP:      7.4
  * Author:            BushwackStudio
  * Author URI:        https://github.com/orgs/BushwackStudio
@@ -193,6 +193,10 @@ function register_indexable_posts() {
 	// Features::factory()->register_feature(
 	// new Feature\Documents\Documents()
 	// );
+
+	Features::factory()->register_feature(
+		new Feature\AcfRepeater\AcfRepeater()
+	);
 
 	Features::factory()->register_feature(
 		new Feature\Comments\Comments()

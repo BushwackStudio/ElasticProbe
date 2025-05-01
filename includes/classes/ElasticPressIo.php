@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class ElasticPressIo {
 	/**
-	 * Name of the transient that stores EP.io messages
+	 * Name of the transient that stores WPProbe.com messages
 	 */
 	const MESSAGES_TRANSIENT_NAME = 'ep_elasticpress_io_messages';
 

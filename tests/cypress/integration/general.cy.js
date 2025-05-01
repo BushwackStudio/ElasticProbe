@@ -3,7 +3,7 @@ describe('WordPress can perform standard WPProbe actions', { tags: '@slow' }, ()
 	it('Can see the settings page link in WordPress Dashboard', () => {
 		cy.login();
 
-		cy.activatePlugin('elasticpress', 'dashboard');
+		cy.activatePlugin('wpprobe', 'dashboard');
 
 		cy.get('.toplevel_page_elasticpress .wp-menu-name').should('contain.text', 'WPProbe');
 	});
@@ -11,8 +11,8 @@ describe('WordPress can perform standard WPProbe actions', { tags: '@slow' }, ()
 	it('Can see quick setup message after enabling the plugin for the first time', () => {
 		cy.login();
 
-		cy.deactivatePlugin('elasticpress', 'wpCli');
-		cy.activatePlugin('fake-new-activation elasticpress', 'wpCli');
+		cy.deactivatePlugin('wpprobe', 'wpCli');
+		cy.activatePlugin('fake-new-activation wpprobe', 'wpCli');
 
 		cy.visitAdminPage('/');
 		cy.get('.wrap').should('contain.text', 'WPProbe is almost ready to go.');
@@ -23,8 +23,8 @@ describe('WordPress can perform standard WPProbe actions', { tags: '@slow' }, ()
 	it('Can select features if user is setting up plugin for the first time', () => {
 		cy.login();
 
-		cy.deactivatePlugin('elasticpress', 'wpCli');
-		cy.activatePlugin('fake-new-activation elasticpress', 'wpCli');
+		cy.deactivatePlugin('wpprobe', 'wpCli');
+		cy.activatePlugin('fake-new-activation wpprobe', 'wpCli');
 
 		cy.visitAdminPage('admin.php?page=wpprobe');
 
@@ -40,6 +40,9 @@ describe('WordPress can perform standard WPProbe actions', { tags: '@slow' }, ()
 			title: 'Test WPProbe 1',
 		});
 
+		cy.reload();
+		cy.get('#wp-admin-bar-ep-doc-status').should('contain.text', 'Content in sync');
+
 		cy.visit('/?s=Test+WPProbe+1');
 		cy.contains('.site-content article h2', 'Test WPProbe 1').should('exist');
 	});
@@ -48,13 +51,13 @@ describe('WordPress can perform standard WPProbe actions', { tags: '@slow' }, ()
 		cy.login();
 
 		cy.wpCli('eval "echo WPProbe\\Utils\\get_host();"').then((epHost) => {
-			// Nothing needs to be done if EP.io.
+			// Nothing needs to be done if WPProbe.com.
 			if (epHost.stdout.match(/wpprobe\.com/)) {
 				return;
 			}
 
-			cy.deactivatePlugin('elasticpress', 'wpCli');
-			cy.activatePlugin('unsupported-elasticsearch-version elasticpress', 'wpCli');
+			cy.deactivatePlugin('wpprobe', 'wpCli');
+			cy.activatePlugin('unsupported-elasticsearch-version wpprobe', 'wpCli');
 
 			cy.visitAdminPage('plugins.php');
 			cy.get('.notice')
@@ -76,8 +79,8 @@ describe('WordPress can perform standard WPProbe actions', { tags: '@slow' }, ()
 				return;
 			}
 
-			cy.deactivatePlugin('elasticpress', 'wpCli');
-			cy.activatePlugin('unsupported-server-software elasticpress', 'wpCli');
+			cy.deactivatePlugin('wpprobe', 'wpCli');
+			cy.activatePlugin('unsupported-server-software wpprobe', 'wpCli');
 
 			cy.visitAdminPage('plugins.php');
 			cy.get('.notice')

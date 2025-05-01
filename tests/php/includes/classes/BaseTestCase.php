@@ -220,11 +220,11 @@ class BaseTestCase extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Forces tests to use EP.io
+	 * Forces tests to use WPProbe
 	 *
 	 * @since 5.1.0
 	 */
 	protected function force_epio() {
-		update_site_option( 'ep_host', 'https://prefix.elasticpress.io/' );
+		update_site_option( 'ep_host', 'https://gateway.wpprobe.com/' );
 	}
 }

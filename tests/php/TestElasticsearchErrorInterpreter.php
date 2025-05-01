@@ -134,7 +134,7 @@ class TestElasticsearchErrorInterpreter extends BaseTestCase {
 	}
 
 	/**
-	 * Test the `maybe_suggest_solution_for_es` method when the indices limit was reached on EP.io
+	 * Test the `maybe_suggest_solution_for_es` method when the indices limit was reached on WPProbe.com
 	 *
 	 * @since 5.1.0
 	 * @group elasticsearch-error-interpreter
