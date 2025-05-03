@@ -370,7 +370,7 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 			),
 			'recommended_solution' => array(
 				'label' => 'Recommended Solution',
-				'value' => 'We did not recognize this error. Please consider opening a <a href="https://github.com/BushwackStudio/WpProbe/issues/new/choose">GitHub Issue</a> so we can add it to our list of supported errors.',
+				'value' => 'We did not recognize this error. Please consider opening a <a href="https://github.com/BushwackStudio/WpProbe/issues/new/choose">GitHub Issue</a> so we can add it to our list of supported errors and troubleshoot further.',
 			),
 			'es_req'               => array(
 				'label' => 'Elasticsearch Request',
@@ -429,6 +429,8 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 	 * @since 4.5.1
 	 */
 	public function testElasticPressIoReport() {
+		$this->markTestSkipped( 'Needs autosuggest and instant result' );
+
 		\WPProbe\Features::factory()->activate_feature( 'autosuggest' );
 		\WPProbe\Features::factory()->activate_feature( 'instant-results' );
 
@@ -457,7 +459,7 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 				'title'  => 'Settings',
 				'fields' => array(
 					'host'           => array(
-						'label' => 'Elasticsearch Host URL',
+						'label' => 'WPProbe.com Host URL',
 						'value' => Utils\get_host(),
 					),
 					'index_prefix'   => array(

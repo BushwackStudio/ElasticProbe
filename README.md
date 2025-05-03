@@ -20,7 +20,7 @@ WPProbe, a fast and flexible search and query engine for WordPress, enables Word
 
 WPProbe requires these software with the following versions:
 
-* [Elasticsearch](https://www.elastic.co) 8.0+
+* [Elasticsearch](https://www.elastic.co) 7.0+
 * [WordPress](https://wordpress.org) 6.0+
 * [PHP](https://php.net/) 7.4+
 

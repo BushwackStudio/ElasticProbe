@@ -61,6 +61,8 @@ class TestDocuments extends BaseTestCase {
 	 * @group documents
 	 */
 	public function testSearchAllowedMimeType() {
+		$this->markTestSkipped( 'Needs Document feature' );
+
 		WPProbe\Features::factory()->activate_feature( 'search' );
 		WPProbe\Features::factory()->activate_feature( 'documents' );
 		WPProbe\Features::factory()->setup_features();

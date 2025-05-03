@@ -119,8 +119,8 @@ class ElasticsearchErrorInterpreter {
 				'error'    => $error,
 				'solution' => sprintf(
 					/* translators: WPProbe.com My Account URL */
-					__( 'We did not recognize this error. Please open an WPProbe.com <a href="%s">support ticket</a> so we can troubleshoot further.', 'wpprobe' ),
-					'https://www.wpprobe.com/my-account/'
+					__( 'We did not recognize this error. Please consider opening a <a href="%s">GitHub Issue</a> so we can add it to our list of supported errors and troubleshoot further.', 'wpprobe' ),
+					'https://github.com/BushwackStudio/WpProbe/issues/new/choose'
 				),
 			];
 		}

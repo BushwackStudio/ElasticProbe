@@ -3,7 +3,7 @@
 WPProbe, a fast and flexible search and query engine for WordPress, enables WordPress to find or “query” relevant content extremely fast through a variety of highly customizable features. WordPress out-of-the-box struggles to analyze content relevancy and can be very slow. WPProbe supercharges your WordPress website making for happier users and administrators. The plugin even contains features for popular plugins.
 
 **WPProbe 0.1.0:** Minimum versions required for WPProbe 0.1.0 are:
-* [Elasticsearch](https://www.elastic.co) 8.0+
+* [Elasticsearch](https://www.elastic.co) 7.0+
 * [WordPress](https://wordpress.org) 6.2+
 * [PHP](https://php.net/) 7.4+
 

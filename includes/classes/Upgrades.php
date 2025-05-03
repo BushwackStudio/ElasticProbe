@@ -303,7 +303,7 @@ class Upgrades {
 		}
 
 		$instant_results = \WPProbe\Features::factory()->get_registered_feature( 'instant-results' );
-		if ( $instant_results->is_active() ) {
+		if ( ! $instant_results || $instant_results->is_active() ) {
 			return $notices;
 		}
 

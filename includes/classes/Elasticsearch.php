@@ -291,10 +291,12 @@ class Elasticsearch {
 	 * @return bool|array
 	 */
 	public function query( $index, $type, $query, $query_args, $query_object = null ) {
-		if ( version_compare( (string) $this->get_elasticsearch_version(), '7.0', '<' ) ) {
+		if ( is_epio() ) {
+			$path = 'v1/' . $index . '/search';
+		} elseif ( version_compare( (string) $this->get_elasticsearch_version(), '7.0', '<' ) ) {
 			$path = $index . '/' . $type . '/_search';
 		} else {
-			$path = 'v1/' . $index . '/search';
+			$path = $index . '/_search';
 		}
 
 		// For backwards compat

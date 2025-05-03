@@ -44,6 +44,23 @@ function load_plugin() {
 	update_option( 'ep_host', $host );
 	update_site_option( 'ep_host', $host );
 
+	$shield_id = getenv( 'EP_SHIELD_ID' );
+	$shield    = getenv( 'EP_SHIELD' );
+	if ( ! empty( $shield ) && ! empty( $shield_id ) ) {
+		$credentials = [
+			'username' => $shield_id,
+			'token'    => $shield,
+		];
+		update_option( 'ep_credentials', $credentials );
+		update_site_option( 'ep_credentials', $credentials );
+	}
+
+	$probe_sid = getenv( 'PROBE_SID' );
+	if ( ! empty( $probe_sid ) ) {
+		update_option( 'wpprobe_subscription_id', $probe_sid );
+		update_site_option( 'wpprobe_subscription_id', $probe_sid );
+	}
+
 	define( 'EP_UNIT_TESTS', true );
 
 	if ( defined( 'WP_TESTS_MULTISITE' ) && '1' === WP_TESTS_MULTISITE ) {
@@ -77,7 +94,7 @@ function load_plugin() {
 	require_once __DIR__ . '/includes/functions.php';
 
 	echo 'WordPress version ' . $wp_version . "\n"; // phpcs:ignore
-	echo 'Elasticsearch version ' . \WPProbe\Elasticsearch::factory()->get_elasticsearch_version( true ) . "\n"; // phpcs:ignore
+	echo 'Elasticsearch version ' . \WPProbe\Elasticsearch::factory()->get_elasticsearch_version(true) . "\n"; // phpcs:ignore
 }
 
 tests_add_filter( 'muplugins_loaded', __NAMESPACE__ . '\load_plugin' );

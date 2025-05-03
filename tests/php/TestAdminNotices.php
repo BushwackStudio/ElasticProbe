@@ -9,10 +9,13 @@ namespace WPProbeTest;
 
 use WPProbe;
 
+use function WPProbe\Utils\is_epio;
+
 /**
  * Admin notices test class
  */
 class TestAdminNotices extends BaseTestCase {
+
 
 	/**
 	 * Setup each test.
@@ -317,8 +320,12 @@ class TestAdminNotices extends BaseTestCase {
 
 		$notices = WPProbe\AdminNotices::factory()->get_notices();
 
-		$this->assertEquals( 1, count( $notices ) );
-		$this->assertTrue( ! empty( $notices['es_above_compat'] ) );
+		if ( ! is_epio() ) {
+			$this->assertEquals( 1, count( $notices ) );
+			$this->assertTrue( ! empty( $notices['es_above_compat'] ) );
+		} else {
+			$this->assertEquals( 0, count( $notices ) );
+		}
 	}
 
 	/**
@@ -354,8 +361,12 @@ class TestAdminNotices extends BaseTestCase {
 
 		$notices = WPProbe\AdminNotices::factory()->get_notices();
 
-		$this->assertEquals( 1, count( $notices ) );
-		$this->assertTrue( ! empty( $notices['es_below_compat'] ) );
+		if ( ! is_epio() ) {
+			$this->assertEquals( 1, count( $notices ) );
+			$this->assertTrue( ! empty( $notices['es_below_compat'] ) );
+		} else {
+			$this->assertEquals( 0, count( $notices ) );
+		}
 	}
 
 	/**
@@ -413,7 +424,7 @@ class TestAdminNotices extends BaseTestCase {
 
 		// Instant Results not available.
 		$not_available_full_text = '<a href="https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#instant-results">Instant Results</a> is now available in WPProbe, but requires a re-sync before activation. If you would like to use Instant Results, since you are not using WPProbe.com, you will also need to <a href="https://www.elasticpress.io/documentation/article/considerations-for-self-hosted-elasticsearch-setups/">install and configure a PHP proxy</a>.';
-			WPProbe\AdminNotices::factory()->process_notices();
+		WPProbe\AdminNotices::factory()->process_notices();
 		$notices = WPProbe\AdminNotices::factory()->get_notices();
 		$this->assertTrue( ! empty( $notices['upgrade_sync'] ) );
 		$this->assertStringContainsString( $not_available_full_text, $notices['upgrade_sync']['html'] );

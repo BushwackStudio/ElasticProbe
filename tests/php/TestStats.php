@@ -119,7 +119,7 @@ class TestStats extends BaseTestCase {
 
 		Stats::factory()->build_stats( true );
 		$failed_queries = Stats::factory()->get_failed_queries();
-		$prefix = WPProbe\Utils\get_index_prefix();
+		$prefix         = WPProbe\Utils\get_index_prefix();
 		$this->assertSame(
 			[
 				[
@@ -149,7 +149,7 @@ class TestStats extends BaseTestCase {
 
 		Stats::factory()->build_stats( true );
 		$failed_queries = Stats::factory()->get_failed_queries();
-		$prefix = WPProbe\Utils\get_index_prefix();
+		$prefix         = WPProbe\Utils\get_index_prefix();
 		$this->assertSame(
 			[
 				[
