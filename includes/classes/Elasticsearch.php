@@ -645,7 +645,11 @@ class Elasticsearch {
 
 		if ( ! empty( $shield ) ) {
 			// phpcs:disable
-			$headers['Authorization'] = 'ApiKey ' . base64_encode($shield);
+			if ( is_epio()){
+				$headers['Authorization'] = 'ApiKey ' . base64_encode($shield);
+			} else {
+				$headers['Authorization'] = 'Basic ' . base64_encode($shield);
+			}
 			// phpcs:enable
 		}
 
@@ -676,7 +680,6 @@ class Elasticsearch {
 	 * @return boolean|array
 	 */
 	public function get_document( $index, $type, $document_id ) {
-		// TODO: Change for WPProbe
 		if ( version_compare( (string) $this->get_elasticsearch_version(), '7.0', '<' ) ) {
 			$path = $index . '/' . $type . '/' . $document_id;
 		} else {
