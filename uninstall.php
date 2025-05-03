@@ -158,14 +158,14 @@ class EP_Uninstaller {
 	 * DEPRECATED. Delete all transients of the Related Posts feature.
 	 */
 	protected function delete_related_posts_transients() {
-		_deprecated_function( __METHOD__, '4.7.0', '\EP_Uninstaller::delete_transients_by_name()' );
+		_deprecated_function( __METHOD__, '0.1.0', '\EP_Uninstaller::delete_transients_by_name()' );
 	}
 
 	/**
 	 * DEPRECATED. Delete all transients of the total fields limit.
 	 */
 	protected function delete_total_fields_limit_transients() {
-		_deprecated_function( __METHOD__, '4.7.0', '\EP_Uninstaller::delete_transients_by_name()' );
+		_deprecated_function( __METHOD__, '0.1.0', '\EP_Uninstaller::delete_transients_by_name()' );
 	}
 
 	/**
@@ -236,7 +236,7 @@ class EP_Uninstaller {
 	 * @see clean_options_and_transients
 	 */
 	protected static function clean_options() {
-		_deprecated_function( __FUNCTION__, '4.2.0', '\EP_Uninstaller->clean_options_and_transients()' );
+		_deprecated_function( __FUNCTION__, '0.1.0', '\EP_Uninstaller->clean_options_and_transients()' );
 	}
 
 	/**

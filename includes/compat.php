@@ -20,7 +20,7 @@ class EP_Feature_Requirements_Status {
 	 * @since  2.2
 	 */
 	public function __construct( $code, $message = null ) {
-		_deprecated_function( __CLASS__, '3.0', '\WPProbe\FeatureRequirementsStatus' );
+		_deprecated_function( __CLASS__, '0.1.0', '\WPProbe\FeatureRequirementsStatus' );
 
 		$this->code    = $code;
 		$this->message = $message;
@@ -56,7 +56,7 @@ class EP_Feature_Requirements_Status {
  * @return array|bool
  */
 function ep_find_related( $post_id, $post_return = 5 ) {
-	_deprecated_function( __FUNCTION__, '3.0', 'WPProbe\Features::factory()->get_registered_feature' );
+	_deprecated_function( __FUNCTION__, '0.1.0', 'WPProbe\Features::factory()->get_registered_feature' );
 
 	$feature = \WPProbe\Features::factory()->get_registered_feature( 'related_posts' );
 
@@ -70,7 +70,7 @@ function ep_find_related( $post_id, $post_return = 5 ) {
  * @return boolean|object
  */
 function ep_index_post( $post_id ) {
-	_deprecated_function( __FUNCTION__, '3.0', "WPProbe\Indexables::factory()->get( 'post' )->index" );
+	_deprecated_function( __FUNCTION__, '0.1.0', "WPProbe\Indexables::factory()->get( 'post' )->index" );
 
 	return \WPProbe\Indexables::factory()->get( 'post' )->index( $post_id, true );
 }
@@ -83,7 +83,7 @@ function ep_index_post( $post_id ) {
  * @return string
  */
 function ep_get_index_name( $blog_id = null ) {
-	_deprecated_function( __FUNCTION__, '3.0', "WPProbe\Indexables::factory()->get( 'post' )->get_index_name()" );
+	_deprecated_function( __FUNCTION__, '0.1.0', "WPProbe\Indexables::factory()->get( 'post' )->get_index_name()" );
 
 	return \WPProbe\Indexables::factory()->get( 'post' )->get_index_name( $blog_id );
 }
@@ -95,7 +95,7 @@ function ep_get_index_name( $blog_id = null ) {
  * @since  2.1
  */
 function ep_register_feature( $slug, $args ) {
-	_deprecated_function( __FUNCTION__, '3.0', esc_html__( 'Feature registration API', 'wpprobe' ) );
+	_deprecated_function( __FUNCTION__, '0.1.0', esc_html__( 'Feature registration API', 'wpprobe' ) );
 
 	$callbacks = [
 		'feature_box_summary_cb',

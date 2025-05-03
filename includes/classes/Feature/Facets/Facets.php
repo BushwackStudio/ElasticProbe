@@ -516,10 +516,10 @@ class Facets extends Feature {
 	/**
 	 * Register facet widget(s)
 	 *
-	 * @since 2.5, deprecated in 4.3.0
+	 * @since 2.5, deprecated in 0.1.0
 	 */
 	public function register_widgets() {
-		_deprecated_function( __METHOD__, '4.3.0', "\WPProbe\Features::factory()->get_registered_feature( 'facets' )->types[ \$type ]->register_widgets()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'facets' )->types[ \$type ]->register_widgets()" );
 	}
 
 	/**
@@ -609,7 +609,7 @@ class Facets extends Feature {
 	 * @return string The filter name.
 	 */
 	protected function get_filter_name() {
-		_deprecated_function( __METHOD__, '4.3.0', "\WPProbe\Features::factory()->get_registered_feature( 'facets' )->types['taxonomy']->get_filter_name()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'facets' )->types['taxonomy']->get_filter_name()" );
 
 		return $this->types['taxonomy']->get_filter_name();
 	}
@@ -617,11 +617,11 @@ class Facets extends Feature {
 	/**
 	 * Get all taxonomies that could be selected for a facet.
 	 *
-	 * @since 4.2.0, deprecated in 4.3.0
+	 * @since 4.2.0, deprecated in 0.1.0
 	 * @return array
 	 */
 	public function get_facetable_taxonomies() {
-		_deprecated_function( __METHOD__, '4.3.0', "\WPProbe\Features::factory()->get_registered_feature( 'facets' )->types['taxonomy']->get_facetable_taxonomies()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'facets' )->types['taxonomy']->get_facetable_taxonomies()" );
 
 		return $this->types['taxonomy']->get_filter_name();
 	}

@@ -275,7 +275,7 @@ Upgrades::factory();
  * @since  2.2
  */
 function handle_upgrades() {
-	_deprecated_function( __CLASS__, '3.5.2', '\WPProbe\Upgrades::factory()' );
+	_deprecated_function( __CLASS__, '0.1.0', '\WPProbe\Upgrades::factory()' );
 }
 
 /**

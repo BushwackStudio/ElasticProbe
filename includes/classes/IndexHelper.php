@@ -1554,11 +1554,11 @@ class IndexHelper {
 	 * DEPRECATED. Get the last index/sync meta information.
 	 *
 	 * @since 4.2.0
-	 * @deprecated 5.0.0
+	 * @deprecated 0.1.0
 	 * @return array
 	 */
 	public function get_last_index() {
-		_deprecated_function( __METHOD__, '5.0.0', '\WPProbe\IndexHelper::get_last_sync' );
+		_deprecated_function( __METHOD__, '0.1.0', '\WPProbe\IndexHelper::get_last_sync' );
 		return $this->get_last_sync();
 	}
 }

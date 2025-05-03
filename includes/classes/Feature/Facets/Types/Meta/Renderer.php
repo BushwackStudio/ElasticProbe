@@ -320,7 +320,7 @@ class Renderer extends \WPProbe\Feature\Facets\Renderer {
 	 * @return string HTML for an individual facet term.
 	 */
 	public function get_meta_value_html( array $value, string $url ): string {
-		_deprecated_function( __METHOD__, '4.7.0', '\WPProbe\Feature\Facets\Types\Meta\Renderer::get_facet_item_value_html()' );
+		_deprecated_function( __METHOD__, '0.1.0', '\WPProbe\Feature\Facets\Types\Meta\Renderer::get_facet_item_value_html()' );
 
 		return $this->get_facet_item_value_html( $value, $url );
 	}

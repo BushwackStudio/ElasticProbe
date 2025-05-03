@@ -759,7 +759,7 @@ class SyncManager extends \WPProbe\SyncManager {
 	 * @since 4.4.0
 	 */
 	public function clear_total_fields_limit_cache() {
-		_deprecated_function( __METHOD__, '4.7.0', '\WPProbe\Indexable\Post\SyncManager::clear_index_settings_cache()' );
+		_deprecated_function( __METHOD__, '0.1.0', '\WPProbe\Indexable\Post\SyncManager::clear_index_settings_cache()' );
 	}
 
 	/**

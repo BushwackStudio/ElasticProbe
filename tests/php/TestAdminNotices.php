@@ -415,6 +415,8 @@ class TestAdminNotices extends BaseTestCase {
 	 * @since 4.0.0
 	 */
 	public function testUpgradeSyncNoticeAndInstantResultsInAdmin() {
+		$this->markTestSkipped( 'Requires Instant results' );
+
 		update_site_option( 'ep_last_sync', time() );
 		update_site_option( 'ep_need_upgrade_sync', true );
 		update_site_option( 'ep_version', '3.6.6' );

@@ -372,12 +372,12 @@ class Renderer extends \WPProbe\Feature\Facets\Renderer {
 	 * @param WP_Term $term     Term object.
 	 * @param string  $url      Filter URL.
 	 * @param boolean $selected Whether the term is currently selected.
-	 * @since 4.2.0, 4.7.0 deprecated in favor of a method in the abstract renderer class.
+	 * @since 4.2.0, 0.1.0 deprecated in favor of a method in the abstract renderer class.
 	 * @return string HTML for an individual facet term.
 	 */
 	public function get_facet_term_html( $term, $url, $selected = false ) {
 		$term->is_selected = $selected;
-		_deprecated_function( __FUNCTION__, '4.7.0', '$this->renderer->get_facet_item_value_html()' );
+		_deprecated_function( __FUNCTION__, '0.1.0', '$this->renderer->get_facet_item_value_html()' );
 
 		return $this->get_facet_item_value_html( $term, $url );
 	}

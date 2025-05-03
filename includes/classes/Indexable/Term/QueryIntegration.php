@@ -108,7 +108,7 @@ class QueryIntegration {
 			$site__not_in = [];
 
 			if ( ! empty( $query->query_vars['sites'] ) ) {
-				_deprecated_argument( __FUNCTION__, '4.4.0', esc_html__( 'sites is deprecated. Use site__in instead.', 'wpprobe' ) );
+				_deprecated_argument( __FUNCTION__, '0.1.0', esc_html__( 'sites is deprecated. Use site__in instead.', 'wpprobe' ) );
 			}
 
 			if ( ! empty( $query->query_vars['site__in'] ) || ! empty( $query->query_vars['sites'] ) ) {

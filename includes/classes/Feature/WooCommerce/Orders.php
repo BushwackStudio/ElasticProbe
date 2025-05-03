@@ -314,7 +314,7 @@ class Orders {
 		$supported_post_types = apply_filters_deprecated(
 			'ep_woocommerce_default_supported_post_types',
 			[ $post_types ],
-			'4.7.0',
+			'0.1.0',
 			'ep_woocommerce_orders_supported_post_types'
 		);
 
@@ -517,7 +517,7 @@ class Orders {
 		if ( in_array( $method_name, $orders_autosuggest_methods, true ) ) {
 			_deprecated_function(
 				"\WPProbe\Feature\WooCommerce\WooCommerce\Orders::{$method_name}", // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				'4.7.0',
+				'0.1.0',
 				"\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders_autosuggest->{$method_name}()" // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			);
 

@@ -206,10 +206,10 @@ class Synonyms {
 	 * Admin notices.
 	 *
 	 * @return void
-	 * @deprecated 5.1.0
+	 * @deprecated 0.1.0
 	 */
 	public function admin_notices() {
-		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::admin_notices', '5.1.0' );
+		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::admin_notices', '0.1.0' );
 
 		if ( ! $this->is_synonym_page() ) {
 			return;
@@ -414,10 +414,10 @@ class Synonyms {
 	 * Handles updating the synonym list.
 	 *
 	 * @return void
-	 * @deprecated 5.1.0
+	 * @deprecated 0.1.0
 	 */
 	public function handle_update_synonyms() {
-		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::handle_update_synonyms', '5.1.0' );
+		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::handle_update_synonyms', '0.1.0' );
 
 		$nonce   = filter_input( INPUT_POST, $this->get_nonce_field(), FILTER_SANITIZE_SPECIAL_CHARS );
 		$referer = filter_input( INPUT_POST, '_wp_http_referer', FILTER_SANITIZE_URL );
@@ -583,10 +583,10 @@ class Synonyms {
 	 *
 	 * @access protected
 	 * @return string The admin post form action url.
-	 * @deprecated 5.1.0
+	 * @deprecated 0.1.0
 	 */
 	public function get_form_action() {
-		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_form_action', '5.1.0' );
+		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_form_action', '0.1.0' );
 
 		return esc_url_raw( admin_url( 'admin-post.php' ) );
 	}
@@ -595,10 +595,10 @@ class Synonyms {
 	 * Render admin page form hidden fields.
 	 *
 	 * @return void
-	 * @deprecated 5.1.0
+	 * @deprecated 0.1.0
 	 */
 	public function form_hidden_fields() {
-		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_form_action', '5.1.0', );
+		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_form_action', '0.1.0', );
 
 		wp_nonce_field( $this->get_nonce_action(), $this->get_nonce_field() );
 		?>
@@ -610,10 +610,10 @@ class Synonyms {
 	 * Get nonce action for admin page form.
 	 *
 	 * @return string
-	 * @deprecated 5.1.0
+	 * @deprecated 0.1.0
 	 */
 	public function get_nonce_action() {
-		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_form_action', '5.1.0', );
+		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_form_action', '0.1.0', );
 
 		return $this->get_action();
 	}
@@ -622,10 +622,10 @@ class Synonyms {
 	 * Get nonce field for admin page form.
 	 *
 	 * @return string
-	 * @deprecated 5.1.0
+	 * @deprecated 0.1.0
 	 */
 	public function get_nonce_field() {
-		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_nonce_field', '5.1.0', );
+		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_nonce_field', '0.1.0', );
 
 		return 'ep_synonyms_nonce';
 	}
@@ -634,10 +634,10 @@ class Synonyms {
 	 * Get synonym field name for admin page form.
 	 *
 	 * @return string
-	 * @deprecated 5.1.0
+	 * @deprecated 0.1.0
 	 */
 	public function get_synonym_field() {
-		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_synonym_field', '5.1.0', );
+		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_synonym_field', '0.1.0', );
 
 		return 'ep_synonyms';
 	}
@@ -646,10 +646,10 @@ class Synonyms {
 	 * Get the action slug for admin page form.
 	 *
 	 * @return string
-	 * @deprecated 5.1.0
+	 * @deprecated 0.1.0
 	 */
 	public function get_action() {
-		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_action', '5.1.0', );
+		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_action', '0.1.0', );
 
 		return 'ep_synonyms_update';
 	}
@@ -695,10 +695,10 @@ class Synonyms {
 	 * Gets localized strings for use on the front end.
 	 *
 	 * @return array
-	 * @deprecated 5.1.0
+	 * @deprecated 0.1.0
 	 */
 	public function get_localized_strings() {
-		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_localized_strings', '5.1.0' );
+		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_localized_strings', '0.1.0' );
 
 		return array(
 			'pageHeading'                  => __( 'Manage Synonyms', 'wpprobe' ),
@@ -736,10 +736,10 @@ class Synonyms {
 	 * Get data to export to the frontend with localization strings.
 	 *
 	 * @return array
-	 * @deprecated 5.1.0
+	 * @deprecated 0.1.0
 	 */
 	public function get_localized_data() {
-		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_localized_strings', '5.1.0' );
+		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_localized_strings', '0.1.0' );
 
 		$data     = array(
 			'sets'         => array(),
@@ -823,10 +823,10 @@ class Synonyms {
 	 * @param string  $token    The synonym token to prepare.
 	 * @param boolean $primary Whether this string is the primary term of an alternative.
 	 * @return array
-	 * @deprecated 5.1.0
+	 * @deprecated 0.1.0
 	 */
 	public static function prepare_localized_token( $token, $primary = false ) {
-		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::prepare_localized_token', '5.1.0' );
+		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::prepare_localized_token', '0.1.0' );
 
 		return array(
 			'label'   => trim( sanitize_text_field( $token ) ),

@@ -101,7 +101,7 @@ abstract class SearchAlgorithm {
 			$query = apply_filters_deprecated(
 				'ep_formatted_args_query',
 				[ $query, $query_vars, $search_term, $search_fields ],
-				'4.3.0',
+				'0.1.0',
 				'ep_post_formatted_args_query'
 			);
 		}

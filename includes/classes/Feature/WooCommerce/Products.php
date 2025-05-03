@@ -728,7 +728,7 @@ class Products {
 		$supported_taxonomies = apply_filters_deprecated(
 			'ep_woocommerce_supported_taxonomies',
 			[ $supported_taxonomies ],
-			'4.7.0',
+			'0.1.0',
 			'ep_woocommerce_products_supported_taxonomies'
 		);
 

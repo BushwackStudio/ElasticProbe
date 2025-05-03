@@ -650,7 +650,7 @@ class Command extends WP_CLI_Command {
 	 * @since  3.3
 	 */
 	public function delete_transient_on_int( $signal_no ) {
-		_deprecated_function( __METHOD__, '4.5.0', '\WPProbe\Command\Utility::delete_transient_on_int' );
+		_deprecated_function( __METHOD__, '0.1.0', '\WPProbe\Command\Utility::delete_transient_on_int' );
 		Utility::delete_transient_on_int( $signal_no );
 	}
 
@@ -982,7 +982,7 @@ class Command extends WP_CLI_Command {
 	 * @since 3.1
 	 */
 	private function delete_transient() {
-		_deprecated_function( __METHOD__, '4.5.0', '\WPProbe\Command\Utility::delete_transient()' );
+		_deprecated_function( __METHOD__, '0.1.0', '\WPProbe\Command\Utility::delete_transient()' );
 		Utility::delete_transient();
 	}
 
@@ -1145,7 +1145,7 @@ class Command extends WP_CLI_Command {
 	 * @since 3.5.2
 	 */
 	public function should_interrupt_sync() {
-		_deprecated_function( __METHOD__, '4.5.0', '\WPProbe\Command\Utility::should_interrupt_sync' );
+		_deprecated_function( __METHOD__, '0.1.0', '\WPProbe\Command\Utility::should_interrupt_sync' );
 		Utility::should_interrupt_sync();
 	}
 
@@ -1269,7 +1269,7 @@ class Command extends WP_CLI_Command {
 	 * @return true|null
 	 */
 	public function custom_get_transient( $pre_transient, $transient ) {
-		_deprecated_function( __METHOD__, '4.5.0', '\WPProbe\Command\Utility::custom_get_transient' );
+		_deprecated_function( __METHOD__, '0.1.0', '\WPProbe\Command\Utility::custom_get_transient' );
 		return Utility::custom_get_transient( $pre_transient, $transient );
 	}
 
@@ -1351,7 +1351,7 @@ class Command extends WP_CLI_Command {
 	 * @param bool      $result     Whether the request was successful or not
 	 */
 	public function stop_on_failed_mapping( $index_meta, $indexable, $result ) {
-		_deprecated_function( __METHOD__, '4.5.0', '\WPProbe\Command\Utility::stop_on_failed_mapping' );
+		_deprecated_function( __METHOD__, '0.1.0', '\WPProbe\Command\Utility::stop_on_failed_mapping' );
 		Utility::stop_on_failed_mapping( $index_meta, $indexable, $result );
 	}
 
@@ -1365,7 +1365,7 @@ class Command extends WP_CLI_Command {
 	 * @return void
 	 */
 	public function call_ep_cli_put_mapping( $index_meta, $indexable ) {
-		_deprecated_function( __METHOD__, '4.5.0', '\WPProbe\Command\Utility::call_ep_cli_put_mapping' );
+		_deprecated_function( __METHOD__, '0.1.0', '\WPProbe\Command\Utility::call_ep_cli_put_mapping' );
 		Utility::call_ep_cli_put_mapping( $index_meta, $indexable );
 	}
 

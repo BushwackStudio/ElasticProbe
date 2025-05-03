@@ -135,7 +135,7 @@ class Version_400 extends \WPProbe\SearchAlgorithm {
 		$query['bool']['should'][0]['multi_match']['boost'] = apply_filters_deprecated(
 			'ep_match_phrase_boost',
 			[ $query['bool']['should'][0]['multi_match']['boost'], $search_fields, $query_vars ],
-			'4.3.0',
+			'0.1.0',
 			'ep_post_match_phrase_boost'
 		);
 
@@ -143,7 +143,7 @@ class Version_400 extends \WPProbe\SearchAlgorithm {
 		$query['bool']['should'][1]['multi_match']['boost'] = apply_filters_deprecated(
 			'ep_match_boost',
 			[ $query['bool']['should'][1]['multi_match']['boost'], $search_fields, $query_vars ],
-			'4.3.0',
+			'0.1.0',
 			'ep_post_match_boost'
 		);
 
@@ -162,7 +162,7 @@ class Version_400 extends \WPProbe\SearchAlgorithm {
 		$query['bool']['should'][1]['multi_match']['fuzziness'] = apply_filters_deprecated(
 			'ep_match_fuzziness',
 			[ $query['bool']['should'][1]['multi_match']['fuzziness'], $search_fields, $query_vars ],
-			'4.3.0',
+			'0.1.0',
 			'ep_post_match_fuzziness'
 		);
 
@@ -181,7 +181,7 @@ class Version_400 extends \WPProbe\SearchAlgorithm {
 		$query['bool']['should'][2]['multi_match']['boost'] = apply_filters_deprecated(
 			'ep_match_cross_fields_boost',
 			[ $query['bool']['should'][2]['multi_match']['boost'], $search_fields, $query_vars ],
-			'4.3.0',
+			'0.1.0',
 			'ep_post_match_cross_fields_boost'
 		);
 

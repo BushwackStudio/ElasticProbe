@@ -1140,11 +1140,19 @@ class Elasticsearch {
 	 */
 	public function index_exists( $index ) {
 
-		$request_args = [
-			'method' => 'GET',
-		];
+		if ( is_epio() ) {
+			$request_args = [
+				'method' => 'GET',
+			];
 
-		$path = 'v1/' . trailingslashit( $index ) . 'exists';
+			$path = 'v1/' . trailingslashit( $index ) . 'exists';
+		} else {
+			$request_args = [
+				'method' => 'HEAD',
+			];
+
+			$path = $index;
+		}
 
 		$request = $this->remote_request( $path, $request_args, [], 'index_exists' );
 
@@ -1183,10 +1191,12 @@ class Elasticsearch {
 		 * @param  {string} $type Index type
 		 * @return  {string} New path
 		 */
-		if ( version_compare( (string) $this->get_elasticsearch_version(), '7.0', '<' ) ) {
+		if ( is_epio() ) {
+			$path = apply_filters( 'ep_bulk_index_request_path', 'v1/' . $index . '/_bulk', $body, $type );
+		} elseif ( version_compare( (string) $this->get_elasticsearch_version(), '7.0', '<' ) ) {
 			$path = apply_filters( 'ep_bulk_index_request_path', $index . '/' . $type . '/_bulk', $body, $type );
 		} else {
-			$path = apply_filters( 'ep_bulk_index_request_path', 'v1/' . $index . '/_bulk', $body, $type );
+			$path = apply_filters( 'ep_bulk_index_request_path', $index . '/_bulk', $body, $type );
 		}
 
 		$request_args = array(
