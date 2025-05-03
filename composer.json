@@ -39,8 +39,8 @@
   "scripts": {
     "lint": "phpcs . -s --runtime-set testVersion 7.4-",
     "lint-fix": "phpcbf .",
-    "test": "phpunit",
-    "test-single-site": "phpunit -c single-site.xml.dist",
+    "test": "phpunit --testdox",
+    "test-single-site": "phpunit -c single-site.xml.dist --testdox",
     "setup-local-tests": "bash bin/install-wp-tests.sh wordpress wordpress 1234 127.0.0.1 latest true",
     "strauss": [ "vendor/bin/strauss" ],
     "post-install-cmd": [

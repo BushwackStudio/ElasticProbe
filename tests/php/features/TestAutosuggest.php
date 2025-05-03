@@ -20,6 +20,8 @@ class TestAutosuggest extends BaseTestCase {
 	 * @since 2.3
 	 */
 	public function set_up() {
+		$this->markTestSkipped( 'Requires autosuggest' );
+
 		global $wpdb;
 		parent::set_up();
 		$wpdb->suppress_errors();

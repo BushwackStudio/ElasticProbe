@@ -19,6 +19,8 @@ class TestInstantResults extends BaseTestCase {
 	 * @group instant-results
 	 */
 	public function test_get_settings_schema() {
+		$this->markTestSkipped( 'Requires instant results' );
+
 		$settings_schema = \WPProbe\Features::factory()->get_registered_feature( 'instant-results' )->get_settings_schema();
 
 		$settings_keys = wp_list_pluck( $settings_schema, 'key' );

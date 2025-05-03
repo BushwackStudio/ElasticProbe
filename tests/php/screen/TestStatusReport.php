@@ -370,7 +370,7 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 			),
 			'recommended_solution' => array(
 				'label' => 'Recommended Solution',
-				'value' => 'We did not recognize this error. Please consider opening a <a href="https://github.com/BushwackStudio/WpProbe/issues/new/choose">GitHub Issue</a> so we can add it to our list of supported errors and troubleshoot further.',
+				'value' => Utils\is_epio() ? 'We did not recognize this error. Please consider opening a <a href="https://github.com/BushwackStudio/WpProbe/issues/new/choose">GitHub Issue</a> so we can add it to our list of supported errors and troubleshoot further.' : 'We did not recognize this error. Please consider opening a <a href="https://github.com/BushwackStudio/WpProbe/issues/new/choose">GitHub Issue</a> so we can add it to our list of supported errors.',
 			),
 			'es_req'               => array(
 				'label' => 'Elasticsearch Request',
@@ -459,7 +459,7 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 				'title'  => 'Settings',
 				'fields' => array(
 					'host'           => array(
-						'label' => 'WPProbe.com Host URL',
+						'label' => Utils\is_epio() ? 'WPProbe.com Host URL' : 'Elasticsearch Host URL',
 						'value' => Utils\get_host(),
 					),
 					'index_prefix'   => array(

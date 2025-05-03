@@ -10,6 +10,8 @@ namespace WPProbeTest;
 use WPProbe;
 use WPProbe\Utils;
 
+use function WPProbe\Utils\is_epio;
+
 /**
  * Elasticsearch test class
  */
@@ -300,7 +302,11 @@ class TestElasticsearch extends BaseTestCase {
 		$new_headers = WPProbe\Elasticsearch::factory()->format_request_headers();
 
 		$this->assertCount( 4, $new_headers );
-		$this->assertSame( 'Basic ' . base64_encode( 'custom_shield' ), $new_headers['Authorization'] ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
+		if ( is_epio() ) {
+			$this->assertSame( 'ApiKey ' . base64_encode( 'custom_shield' ), $new_headers['Authorization'] ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
+		} else {
+			$this->assertSame( 'Basic ' . base64_encode( 'custom_shield' ), $new_headers['Authorization'] ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
+		}
 
 		/**
 		 * Test if an empty request ID removes `X-WPProbe-Request-ID`
