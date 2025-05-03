@@ -38,7 +38,7 @@
     "lint-php": "composer run lint",
     "format-js": "10up-toolkit format-js assets/js tests/cypress",
     "lint": "npm run lint-style && npm run lint-js && npm run lint-php",
-    "build:docs": "rm -rf hook_docs && jsdoc -c hookdoc-conf.json elasticpress.php includes",
+    "build:docs": "rm -rf hook_docs && jsdoc -c hookdoc-conf.json wpprobe.php includes",
     "build:zip": "./bin/build-zip.sh",
     "lint-style": "10up-toolkit lint-style",
     "env": "wp-env",

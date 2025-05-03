@@ -96,12 +96,12 @@ class Elasticsearch {
 		 * @return  {string} New path
 		 * @since  3.0
 		 */
-		if ( version_compare( (string) $this->get_elasticsearch_version(), '7.0', '<' ) ) {
-			$path = apply_filters( 'ep_index_' . $type . '_request_path', $index . '/' . $type . '/' . $document['ID'], $document, $type );
-		} elseif ( ! is_epio() ) {
-				$path = apply_filters( 'ep_index_' . $type . '_request_path', $index . '/_doc/' . $document['ID'], $document, $type );
-		} else {
+		if ( is_epio() ) {
 			$path = apply_filters( 'ep_index_' . $type . '_request_path', 'v1/' . $index . '/' . $document['ID'], $document, $type );
+		} elseif ( version_compare( (string) $this->get_elasticsearch_version(), '7.0', '<' ) ) {
+			$path = apply_filters( 'ep_index_' . $type . '_request_path', $index . '/' . $type . '/' . $document['ID'], $document, $type );
+		} else {
+				$path = apply_filters( 'ep_index_' . $type . '_request_path', $index . '/_doc/' . $document['ID'], $document, $type );
 		}
 
 		$path = apply_filters( 'ep_index_request_path', $path, $document, $type );
