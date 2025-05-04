@@ -105,7 +105,7 @@ class Settings {
 		if ( isset( $post['ep_credentials'] ) ) {
 			$credentials = ( isset( $post['ep_credentials'] ) ) ? Utils\sanitize_credentials( $post['ep_credentials'] ) : [
 				'username' => '',
-				// 'token'    => '',
+				'token'    => '',
 			];
 
 			Utils\update_option( 'ep_credentials', $credentials );

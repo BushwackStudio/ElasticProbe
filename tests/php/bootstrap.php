@@ -73,24 +73,6 @@ function load_plugin() {
 
 	add_filter( 'ep_default_index_number_of_shards', __NAMESPACE__ . '\test_shard_number' );
 
-	$tries = 5;
-	$sleep = 3;
-
-	// do {
-	// $response = wp_remote_get( $host );
-	// if ( 200 === wp_remote_retrieve_response_code( $response ) ) {
-	// Looks good!
-	// break;
-	// } else {
-	// printf( "\nInvalid response from ES, sleeping %d seconds and trying again...\n", intval( $sleep ) );
-	// sleep( $sleep );
-	// }
-	// } while ( --$tries );
-
-	// if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
-	// exit( 'Could not connect to WPProbe server.' );
-	// }
-
 	require_once __DIR__ . '/includes/functions.php';
 
 	echo 'WordPress version ' . $wp_version . "\n"; // phpcs:ignore
