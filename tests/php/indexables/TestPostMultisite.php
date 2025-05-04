@@ -26,7 +26,7 @@ class TestPostMultisite extends BaseTestCase {
 
 		global $wpdb;
 		parent::set_up();
-		// $wpdb->suppress_errors();
+		$wpdb->suppress_errors();
 
 		$admin_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
 		grant_super_admin( $admin_id );

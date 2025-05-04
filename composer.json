@@ -41,7 +41,7 @@
     "lint-fix": "phpcbf .",
     "test": "phpunit --testdox",
     "test-single-site": "phpunit -c single-site.xml.dist --testdox",
-    "setup-local-tests": "bash bin/install-wp-tests.sh wordpress wordpress 1234 127.0.0.1 latest true",
+    "setup-local-tests": "bash bin/install-wp-tests.sh wp_test wordpress 1234 127.0.0.1 latest true",
     "strauss": [ "vendor/bin/strauss" ],
     "post-install-cmd": [
       "@strauss"

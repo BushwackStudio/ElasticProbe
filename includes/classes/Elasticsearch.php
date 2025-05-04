@@ -200,7 +200,11 @@ class Elasticsearch {
 	public function refresh_indices() {
 		$request_args = array( 'method' => 'POST' );
 
-		$path = Utils\get_index_prefix() . '*/_refresh';
+		if ( is_epio() ) {
+			$path = Utils\get_index_prefix() . '*/_refresh';
+		} else {
+			$path = '_refresh';
+		}
 
 		$request = $this->remote_request( $path, $request_args, [], 'refresh_indices' );
 

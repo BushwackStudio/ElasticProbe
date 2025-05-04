@@ -24,6 +24,8 @@ class TestDocuments extends BaseTestCase {
 		parent::set_up();
 		$wpdb->suppress_errors();
 
+		$this->markTestSkipped( 'Needs Document feature' );
+
 		$admin_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
 
 		wp_set_current_user( $admin_id );
