@@ -1,4 +1,4 @@
-name: Unit Tests
+name: Local ES Unit Tests
 
 env:
   COMPOSER_VERSION: "2"

@@ -1,4 +1,4 @@
-name: Unit Tests
+name: WPProbe.com Unit Tests
 
 env:
   COMPOSER_VERSION: "2"
@@ -63,4 +63,4 @@ jobs:
 
     - name: PHPUnit
       run: |
-         EP_HOST="${{ secrets.WPPROBE_HOST }}" PROBE_SID=${{ secrets.WPPROBE_SID }} EP_SHIELD="${{ secrets.WPPROBE_SHIELD }}" composer run-script ${{ matrix.type.command }}
+         EP_HOST="${{ secrets.WPPROBE_HOST }}" PROBE_SID=${{ secrets.WPPROBE_SID }} EP_SHIELD_ID="${{ secrets.WPPROBE_SHIELD_ID }}" EP_SHIELD_TOKEN="${{ secrets.WPPROBE_SHIELD_TOKEN }}" composer run-script ${{ matrix.type.command }}

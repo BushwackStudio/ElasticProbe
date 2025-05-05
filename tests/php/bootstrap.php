@@ -45,11 +45,11 @@ function load_plugin() {
 	update_site_option( 'ep_host', $host );
 
 	$shield_id = getenv( 'EP_SHIELD_ID' );
-	$shield    = getenv( 'EP_SHIELD' );
-	if ( ! empty( $shield ) && ! empty( $shield_id ) ) {
+	$shield_token    = getenv( 'EP_SHIELD_TOKEN' );
+	if ( ! empty( $shield_id ) && ! empty( $shield_token ) ) {
 		$credentials = [
 			'username' => $shield_id,
-			'token'    => $shield,
+			'token'    => $shield_token,
 		];
 		update_option( 'ep_credentials', $credentials );
 		update_site_option( 'ep_credentials', $credentials );
