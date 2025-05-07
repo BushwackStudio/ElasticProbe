@@ -153,7 +153,11 @@ function get_shield_credentials() {
  */
 function get_index_prefix() {
 	if ( defined( 'EP_INDEX_PREFIX' ) && \EP_INDEX_PREFIX ) {
-		$prefix = \EP_INDEX_PREFIX;
+		if ( is_epio() ) {
+			$prefix = get_index_prefix() . \EP_INDEX_PREFIX;
+		} else {
+			$prefix = \EP_INDEX_PREFIX;
+		}
 	} elseif ( is_epio() ) {
 		$prefix = get_subscription_id();
 		if (

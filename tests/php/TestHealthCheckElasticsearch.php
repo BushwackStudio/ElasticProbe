@@ -13,6 +13,8 @@ use WP_Site_Health;
 use WP_Ajax_UnitTestCase;
 use WPAjaxDieContinueException;
 
+use function WPProbe\Utils\is_epio;
+
 /**
  *  Health check elasticsearch test class
  */
@@ -99,7 +101,11 @@ class TestHealthCheckElasticsearch extends WP_Ajax_UnitTestCase {
 		$this->assertEquals( 'critical', $response['data']['status'] );
 		$this->assertEquals( 'WPProbe', $response['data']['badge']['label'] );
 		$this->assertEquals( 'red', $response['data']['badge']['color'] );
-		$this->assertEquals( 'Check if your Elasticsearch host URL is correct and you have the right access to the host.', $response['data']['description'] );
+		if ( is_epio() ) {
+			$this->assertEquals( 'Check if your credentials to WPProbe.com host are correct.', $response['data']['description'] );
+		} else {
+			$this->assertEquals( 'Check if your Elasticsearch host URL is correct and you have the right access to the host.', $response['data']['description'] );
+		}
 	}
 
 	/**

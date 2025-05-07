@@ -296,7 +296,11 @@ class TestCommands extends BaseTestCase {
 		ob_clean();
 
 		// test with incorrect index name
-		$this->command->get_mapping( [], [ 'index-name' => 'invalid-index' ] );
+		if ( Utils\is_epio() ) {
+			$this->command->get_mapping( [], [ 'index-name' => Utils\get_index_prefix() . 'invalid-index' ] );
+		} else {
+			$this->command->get_mapping( [], [ 'index-name' => 'invalid-index' ] );
+		}
 		$output = $this->getActualOutputForAssertion();
 		$this->assertStringContainsString( 'index_not_found_exception', $output );
 	}
@@ -330,7 +334,11 @@ class TestCommands extends BaseTestCase {
 		$this->command->get_indices( [], [] );
 
 		$output = $this->getActualOutputForAssertion();
-		$this->assertEquals( "[\"exampleorg-post-1\"]\n", $output );
+		if ( Utils\is_epio() ) {
+			$this->assertEquals( '["' . Utils\get_index_prefix() . "--exampleorg-post-1\"]\n", $output );
+		} else {
+			$this->assertEquals( "[\"exampleorg-post-1\"]\n", $output );
+		}
 
 		// clean output buffer
 		ob_clean();
@@ -493,8 +501,13 @@ class TestCommands extends BaseTestCase {
 		);
 
 		$output = $this->getActualOutputForAssertion();
-		$this->assertStringContainsString( 'Index exampleorg-comment-1 deleted', $output );
-		$this->assertStringContainsString( 'Index exampleorg-term-1 deleted', $output );
+		if ( Utils\is_epio() ) {
+			$this->assertStringContainsString( 'Index ' . Utils\get_index_prefix() . '--exampleorg-comment-1 deleted', $output );
+			$this->assertStringContainsString( 'Index ' . Utils\get_index_prefix() . '--exampleorg-term-1 deleted', $output );
+		} else {
+			$this->assertStringContainsString( 'Index exampleorg-comment-1 deleted', $output );
+			$this->assertStringContainsString( 'Index exampleorg-term-1 deleted', $output );
+		}
 	}
 
 	/**
@@ -609,7 +622,7 @@ class TestCommands extends BaseTestCase {
 	 * Test sync command can ask for confirmation when setup flag is set
 	 */
 	public function testSyncAskForConfirmationWhenSetupIsPassed() {
-		$this->expectExceptionMessage( 'Syncing with the --setup option will delete your existing index in Elasticsearch. Are you sure you want to delete your Elasticsearch index' );
+		$this->expectExceptionMessage( Utils\is_epio() ? 'Syncing with the --setup option will delete your existing index in Elasticsearch. Are you sure you want to delete your Elasticsearch index' : 'Syncing with the --setup option will delete your existing index in WPProbe.com. Are you sure you want to delete your Elasticsearch index' );
 
 		$this->command->sync( [], [ 'setup' => true ] );
 	}
@@ -712,11 +725,16 @@ class TestCommands extends BaseTestCase {
 		ob_clean();
 
 		// test with index-name option
+		if ( Utils\is_epio() ) {
+			$name = Utils\get_index_prefix() . 'exampleorg-post-1';
+		} else {
+			$name = 'exampleorg-post-1';
+		}
 		$this->command->delete_index(
 			[],
 			[
 				'yes'        => true,
-				'index-name' => 'exampleorg-post-1',
+				'index-name' => $name,
 			]
 		);
 
@@ -1088,7 +1106,11 @@ class TestCommands extends BaseTestCase {
 	 * @since 4.7.0
 	 */
 	public function testGetIndexSettings() {
-		$this->command->get_index_settings( [ 'exampleorg-post-1' ], [] );
+		if ( Utils\is_epio() ) {
+			$this->command->get_index_settings( [ Utils\get_index_prefix() . '--exampleorg-post-1' ], [] );
+		} else {
+			$this->command->get_index_settings( [ 'exampleorg-post-1' ], [] );
+		}
 
 		$output = $this->getActualOutputForAssertion();
 		$this->assertStringStartsWith( '{', $output );
@@ -1098,7 +1120,11 @@ class TestCommands extends BaseTestCase {
 		ob_clean();
 
 		// test with --pretty flag
-		$this->command->get_index_settings( [ 'exampleorg-post-1' ], [ 'pretty' => true ] );
+		if ( Utils\is_epio() ) {
+			$this->command->get_index_settings( [ Utils\get_index_prefix() . '--exampleorg-post-1' ], [ 'pretty' => true ] );
+		} else {
+			$this->command->get_index_settings( [ 'exampleorg-post-1' ], [ 'pretty' => true ] );
+		}
 
 		$output = $this->getActualOutputForAssertion();
 		$this->assertStringStartsWith( "{\n", $output );
