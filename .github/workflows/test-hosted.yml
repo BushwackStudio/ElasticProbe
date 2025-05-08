@@ -34,7 +34,7 @@ jobs:
     - name: Start MySQL
       run: sudo systemctl start mysql.service
 
-    - name: Set standard WPProbe cache directories
+    - name: Set standard ElasticProbe cache directories
       run: |
         composer config -g cache-dir "${{ env.COMPOSER_CACHE }}"
 

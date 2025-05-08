@@ -303,9 +303,9 @@ function get_subscription_id() {
 	if ( defined( 'PROBE_SID' ) && \PROBE_SID ) {
 		$sid = \PROBE_SID;
 	} else {
-		$sid = get_option( 'wpprobe_subscription_id', '' );
+		$sid = get_option( 'elasticprobe_subscription_id', '' );
 	}
-	return apply_filters( 'wpprobe_subscription_id', $sid );
+	return apply_filters( 'elasticprobe_subscription_id', $sid );
 }
 
 /**

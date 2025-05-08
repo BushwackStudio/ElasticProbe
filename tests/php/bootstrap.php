@@ -57,8 +57,8 @@ function load_plugin() {
 
 	$probe_sid = getenv( 'PROBE_SID' );
 	if ( ! empty( $probe_sid ) ) {
-		update_option( 'wpprobe_subscription_id', $probe_sid );
-		update_site_option( 'wpprobe_subscription_id', $probe_sid );
+		update_option( 'elasticprobe_subscription_id', $probe_sid );
+		update_site_option( 'elasticprobe_subscription_id', $probe_sid );
 	}
 
 	define( 'EP_UNIT_TESTS', true );

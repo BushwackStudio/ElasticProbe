@@ -99,7 +99,7 @@ class Settings {
 
 		if ( isset( $post['sid'] ) ) {
 			$sid = sanitize_text_field( trim( $post['sid'] ) );
-			Utils\update_option( 'wpprobe_subscription_id', $sid );
+			Utils\update_option( 'elasticprobe_subscription_id', $sid );
 		}
 
 		if ( isset( $post['ep_credentials'] ) ) {
