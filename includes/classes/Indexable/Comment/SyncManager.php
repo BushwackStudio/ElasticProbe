@@ -3,13 +3,13 @@
  * Manage syncing of content between WP and Elasticsearch for Comments
  *
  * @since   3.6.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Indexable\Comment;
+namespace ElasticProbe\Indexable\Comment;
 
-use WPProbe\Elasticsearch;
-use WPProbe\Indexables;
+use ElasticProbe\Elasticsearch;
+use ElasticProbe\Indexables;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Sync manager class
  */
-class SyncManager extends \WPProbe\SyncManager {
+class SyncManager extends \ElasticProbe\SyncManager {
 	/**
 	 * Indexable slug
 	 *

@@ -3,7 +3,7 @@
 npm ci
 npm run build
 
-rm ./wpprobe.zip
+rm ./elasticprobe.zip
 
-git archive --output=wpprobe.zip HEAD
-zip -ur wpprobe.zip dist vendor-prefixed
+git archive --output=elasticprobe.zip HEAD
+zip -ur elasticprobe.zip dist vendor-prefixed

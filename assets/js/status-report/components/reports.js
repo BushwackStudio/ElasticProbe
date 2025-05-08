@@ -33,15 +33,15 @@ export default ({ plainTextReport, reports }) => {
 	const [generatedReport, setGeneratedReport] = useState(false);
 	const downloadButtontext = __(
 		`Download ${generatedReport ? 'full' : 'partial'} status report`,
-		'wpprobe',
+		'elasticprobe',
 	);
 	const copyButtontext = __(
 		`Copy ${generatedReport ? 'full' : 'partial'} status report to clipboard`,
-		'wpprobe',
+		'elasticprobe',
 	);
 
 	const ref = useCopyToClipboard(updatedPlainTextReport, () => {
-		createNotice('info', __('Copied status report to clipboard.', 'wpprobe'));
+		createNotice('info', __('Copied status report to clipboard.', 'elasticprobe'));
 	});
 
 	const downloadUrl = `data:text/plain;charset=utf-8,${encodeURIComponent(updatedPlainTextReport)}`;
@@ -110,7 +110,7 @@ export default ({ plainTextReport, reports }) => {
 			return;
 		}
 
-		createNotice('info', __('Generating full status report ...', 'wpprobe'));
+		createNotice('info', __('Generating full status report ...', 'elasticprobe'));
 
 		const newReports = { ...reports };
 
@@ -153,15 +153,15 @@ export default ({ plainTextReport, reports }) => {
 
 		setGeneratedReport(true);
 
-		createNotice('info', __('Successfully generated status report.', 'wpprobe'));
+		createNotice('info', __('Successfully generated status report.', 'elasticprobe'));
 	};
 
 	return (
 		<>
 			<p>
 				{__(
-					'This screen provides a list of information related to WPProbe and synced content that can be helpful during troubleshooting. This list can also be copy/pasted and shared as needed. As the process can be resource-intensive, the report presented here is partial. You must click the "Generate Full Status Report" button to generate a full report.',
-					'wpprobe',
+					'This screen provides a list of information related to ElasticProbe and synced content that can be helpful during troubleshooting. This list can also be copy/pasted and shared as needed. As the process can be resource-intensive, the report presented here is partial. You must click the "Generate Full Status Report" button to generate a full report.',
+					'elasticprobe',
 				)}
 			</p>
 			<p>
@@ -173,13 +173,13 @@ export default ({ plainTextReport, reports }) => {
 							onClick={handleReportLoading}
 							variant="primary"
 						>
-							{__('Generate Full Status Report', 'wpprobe')}
+							{__('Generate Full Status Report', 'elasticprobe')}
 						</Button>
 					</FlexItem>
 					<FlexItem>
 						<Button
 							id="download-report"
-							download="wpprobe-report.txt"
+							download="elasticprobe-report.txt"
 							href={downloadUrl}
 							variant="primary"
 						>

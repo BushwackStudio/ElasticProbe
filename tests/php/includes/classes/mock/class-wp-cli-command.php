@@ -2,7 +2,7 @@
 /**
  * Base class for WP-CLI commands
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
 /**

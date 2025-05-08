@@ -3,15 +3,15 @@
  * Dashboard screen class.
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Screen;
+namespace ElasticProbe\Screen;
 
-use WPProbe\Features as FeaturesStore;
-use WPProbe\REST;
-use WPProbe\Screen;
-use WPProbe\Utils;
+use ElasticProbe\Features as FeaturesStore;
+use ElasticProbe\REST;
+use ElasticProbe\Screen;
+use ElasticProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Dashboard screen.
  *
  * @since 5.0.0
- * @package WPProbe
+ * @package ElasticProbe
  */
 class Features {
 	/**
@@ -51,7 +51,7 @@ class Features {
 			true
 		);
 
-		wp_set_script_translations( 'ep_features_script', 'wpprobe' );
+		wp_set_script_translations( 'ep_features_script', 'elasticprobe' );
 
 		wp_enqueue_style(
 			'ep_features_script',
@@ -67,8 +67,8 @@ class Features {
 		$features = array_values( $features );
 
 		$sync_url = ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) ?
-				network_admin_url( 'admin.php?page=wpprobe-sync' ) :
-				admin_url( 'admin.php?page=wpprobe-sync' );
+				network_admin_url( 'admin.php?page=elasticprobe-sync' ) :
+				admin_url( 'admin.php?page=elasticprobe-sync' );
 
 		$data = [
 			'apiUrl'        => rest_url( 'elasticpress/v1/features' ),

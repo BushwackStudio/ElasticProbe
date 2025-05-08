@@ -108,7 +108,7 @@ jobs:
         ./bin/wp-env-cli tests-wordpress "cp -r wp-content/plugins/${PLUGIN_NAME} wp-content/plugins/ep-delete"
         ./bin/wp-env-cli tests-wordpress "wp --allow-root plugin uninstall ep-delete"
 
-  cypress_wpprobe:
+  cypress_elasticprobe:
     name: WPProbe.com - ${{ matrix.core.name }} (${{ matrix.testGroup }})
     runs-on: ubuntu-latest
     strategy:
@@ -187,7 +187,7 @@ jobs:
       run: |
         PLUGIN_NAME=$(basename "$PWD")
         ./bin/wp-env-cli tests-wordpress "wp --allow-root plugin activate ${PLUGIN_NAME} --network"
-        ./bin/wp-env-cli tests-wordpress "wp --allow-root wpprobe-tests delete-all-indices"
+        ./bin/wp-env-cli tests-wordpress "wp --allow-root elasticprobe-tests delete-all-indices"
 
     - name: Test plugin uninstall
       if: always()

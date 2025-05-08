@@ -1,14 +1,14 @@
 <?php
 /**
- * WPProbe index health stats page handler
+ * ElasticProbe index health stats page handler
  *
  * @since  3.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe;
+namespace ElasticProbe;
 
-use WPProbe\Utils;
+use ElasticProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class Stats
  *
- * @package WPProbe
+ * @package ElasticProbe
  */
 class Stats {
 	/**
@@ -123,7 +123,7 @@ class Stats {
 	 * @since 3.2
 	 */
 	public function build_stats( $force = false ) {
-		// TODO: Customize for WPProbe
+		// TODO: Customize for ElasticProbe
 		static $stats_built = false;
 
 		if ( $stats_built && ! $force ) {

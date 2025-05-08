@@ -9,7 +9,7 @@
  * @package ElasticPress_Tests_E2e
  */
 
-namespace WPProbe\Tests\E2E\SyncError;
+namespace ElasticProbe\Tests\E2E\SyncError;
 
 const META_COUNT = 100;
 

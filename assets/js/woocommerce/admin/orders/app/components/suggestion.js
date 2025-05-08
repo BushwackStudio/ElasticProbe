@@ -56,7 +56,7 @@ export default ({ dateFormat, hit, statusLabels, timeFormat }) => {
 				<div className="ep-suggestion__details">
 					{sprintf(
 						// translators: %1$d: Order item count. %2$s: Order time.
-						_n('%1$d item @ %2$s', '%1$d items @ %2$s', itemCount, 'wpprobe'),
+						_n('%1$d item @ %2$s', '%1$d items @ %2$s', itemCount, 'elasticprobe'),
 						itemCount,
 						formattedTime,
 					)}

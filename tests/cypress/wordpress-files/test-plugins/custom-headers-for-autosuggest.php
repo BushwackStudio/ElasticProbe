@@ -15,7 +15,7 @@ add_action(
 		wp_add_inline_script(
 			'elasticpress-autosuggest',
 			"const epAutosuggestFetchOptions = (fetchOptions) => {
-				fetchOptions.headers['X-WPProbe-Request-ID'] = 'CustomRequestId123';
+				fetchOptions.headers['X-ElasticProbe-Request-ID'] = 'CustomRequestId123';
 				return fetchOptions;
             };
             wp.hooks.addFilter('ep.Autosuggest.fetchOptions', 'myTheme/epAutosuggestFetchOptions', epAutosuggestFetchOptions);",

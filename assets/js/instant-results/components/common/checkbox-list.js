@@ -228,14 +228,14 @@ export default ({ disabled, label, locale, options, onChange, selected, sortBy }
 			{options.length > optionsLimit && (
 				<SmallButton aria-expanded={showAll} disabled={disabled} onClick={onToggleShowAll}>
 					{showAll
-						? __('Show fewer options', 'wpprobe')
+						? __('Show fewer options', 'elasticprobe')
 						: sprintf(
 								/* translators: %d: Number of additional options available. */
 								_n(
 									'Show %d more option',
 									'Show %d more options',
 									options.length - optionsLimit,
-									'wpprobe',
+									'elasticprobe',
 								),
 								options.length - optionsLimit,
 							)}

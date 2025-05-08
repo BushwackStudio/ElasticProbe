@@ -3,14 +3,14 @@
  * ACF Repeater Field Compatibility feature
  *
  * @since 5.2.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Feature\AcfRepeater;
+namespace ElasticProbe\Feature\AcfRepeater;
 
-use WPProbe\Feature;
-use WPProbe\FeatureRequirementsStatus;
-use WPProbe\Utils;
+use ElasticProbe\Feature;
+use ElasticProbe\FeatureRequirementsStatus;
+use ElasticProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -46,13 +46,13 @@ class AcfRepeater extends Feature {
 	 * Sets i18n strings.
 	 */
 	public function set_i18n_strings(): void {
-		$this->title = esc_html__( 'ACF Repeater Field Compatibility', 'wpprobe' );
+		$this->title = esc_html__( 'ACF Repeater Field Compatibility', 'elasticprobe' );
 
-		$this->short_title = esc_html__( 'ACF Repeater Field', 'wpprobe' );
+		$this->short_title = esc_html__( 'ACF Repeater Field', 'elasticprobe' );
 
-		$this->summary = '<p>' . __( 'Index your ACF Repeater fields as a JSON object and, optionally, make it searchable in the Search Fields & Weighting dashboard.', 'elasticpress' ) . '</p>';
+		$this->summary = '<p>' . __( 'Index your ACF Repeater fields as a JSON object and, optionally, make it searchable in the Search Fields & Weighting dashboard.', 'elasticprobe' ) . '</p>';
 
-		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/acf-repeater-field-compatibility-feature/', 'wpprobe' );
+		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/acf-repeater-field-compatibility-feature/', 'elasticprobe' );
 	}
 
 	/**
@@ -66,7 +66,7 @@ class AcfRepeater extends Feature {
 		foreach ( $this->acf_functions as $function ) {
 			if ( ! function_exists( $function ) ) {
 				$status->code    = 2;
-				$status->message = esc_html__( 'ACF Pro not installed.', 'wpprobe' );
+				$status->message = esc_html__( 'ACF Pro not installed.', 'elasticprobe' );
 				break;
 			}
 		}
@@ -117,8 +117,8 @@ class AcfRepeater extends Feature {
 		$instructions = wp_kses_post(
 			sprintf(
 				/* translators: %s: post type name */
-				__( 'Index this field as a JSON object. If you want to make it searchable, do not forget to enable it under the related post types in the <a href="%1$s">Search Fields & Weighting dashboard</a>. To index existent content you can either manually save posts with this field or <a href="%2$s">run a sync</a>.', 'wpprobe' ),
-				esc_url( admin_url( 'admin.php?page=wpprobe-weighting' ) ),
+				__( 'Index this field as a JSON object. If you want to make it searchable, do not forget to enable it under the related post types in the <a href="%1$s">Search Fields & Weighting dashboard</a>. To index existent content you can either manually save posts with this field or <a href="%2$s">run a sync</a>.', 'elasticprobe' ),
+				esc_url( admin_url( 'admin.php?page=elasticprobe-weighting' ) ),
 				Utils\get_sync_url()
 			)
 		);
@@ -126,7 +126,7 @@ class AcfRepeater extends Feature {
 		\acf_render_field_setting(
 			$field,
 			[
-				'label'        => esc_html__( 'Index in WPProbe', 'wpprobe' ),
+				'label'        => esc_html__( 'Index in ElasticProbe', 'elasticprobe' ),
 				'instructions' => $instructions,
 				'name'         => 'ep_acf_repeater_index_field',
 				'type'         => 'true_false',

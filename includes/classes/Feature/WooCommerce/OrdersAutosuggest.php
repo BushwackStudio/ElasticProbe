@@ -3,16 +3,16 @@
  * WooCommerce Orders Feature
  *
  * @since 4.5.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Feature\WooCommerce;
+namespace ElasticProbe\Feature\WooCommerce;
 
-use WPProbe\Elasticsearch;
-use WPProbe\Features;
-use WPProbe\Indexables;
-use WPProbe\REST;
-use WPProbe\Utils;
+use ElasticProbe\Elasticsearch;
+use ElasticProbe\Features;
+use ElasticProbe\Indexables;
+use ElasticProbe\REST;
+use ElasticProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -179,7 +179,7 @@ class OrdersAutosuggest {
 			true
 		);
 
-		wp_set_script_translations( 'elasticpress-woocommerce-order-search', 'wpprobe' );
+		wp_set_script_translations( 'elasticpress-woocommerce-order-search', 'elasticprobe' );
 
 		$api_endpoint = $this->get_search_endpoint();
 		$api_host     = Utils\get_host();
@@ -634,7 +634,7 @@ class OrdersAutosuggest {
 			'disabled'      => ! $available,
 			'help'          => $this->get_setting_help_message(),
 			'key'           => 'orders',
-			'label'         => __( 'Show suggestions when searching for Orders', 'wpprobe' ),
+			'label'         => __( 'Show suggestions when searching for Orders', 'elasticprobe' ),
 			'requires_sync' => true,
 			'type'          => 'checkbox',
 		];
@@ -655,7 +655,7 @@ class OrdersAutosuggest {
 
 		if ( $available ) {
 			/* translators: 1: <a> tag (WPProbe.com); 2. </a>; 3: <a> tag (KB article); 4. </a>; */
-			$message = __( 'You are directly connected to %1$sWPProbe.com%2$s! Enable autosuggest for Orders to enhance Dashboard results and quickly find WooCommerce Orders. %3$sLearn More%4$s.', 'wpprobe' );
+			$message = __( 'You are directly connected to %1$sWPProbe.com%2$s! Enable autosuggest for Orders to enhance Dashboard results and quickly find WooCommerce Orders. %3$sLearn More%4$s.', 'elasticprobe' );
 
 			return sprintf(
 				wp_kses( $message, 'ep-html' ),
@@ -667,11 +667,11 @@ class OrdersAutosuggest {
 		}
 
 		if ( ! $this->is_hpos_compatible() ) {
-			return esc_html__( 'Currently, autosuggest for orders is only available if WooCommerce order data storage is set in legacy or compatibility mode.', 'wpprobe' );
+			return esc_html__( 'Currently, autosuggest for orders is only available if WooCommerce order data storage is set in legacy or compatibility mode.', 'elasticprobe' );
 		}
 
 		/* translators: 1: <a> tag (WPProbe.com); 2. </a>; 3: <a> tag (KB article); 4. </a>; */
-		$message = __( 'Due to the sensitive nature of orders, this autosuggest feature is available only to %1$sWPProbe.com%2$s customers. %3$sLearn More%4$s.', 'wpprobe' );
+		$message = __( 'Due to the sensitive nature of orders, this autosuggest feature is available only to %1$sWPProbe.com%2$s customers. %3$sLearn More%4$s.', 'elasticprobe' );
 
 		$message = sprintf(
 			wp_kses( $message, 'ep-html' ),

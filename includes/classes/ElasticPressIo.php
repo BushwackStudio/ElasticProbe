@@ -3,10 +3,10 @@
  * Class for interacting with WPProbe.com
  *
  * @since 4.5.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe;
+namespace ElasticProbe;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * ElasticPressIo class
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 class ElasticPressIo {
 	/**
@@ -55,7 +55,7 @@ class ElasticPressIo {
 			return $messages;
 		}
 
-		$response = \WPProbe\Elasticsearch::factory()->remote_request( 'endpoint-messages' );
+		$response = \ElasticProbe\Elasticsearch::factory()->remote_request( 'endpoint-messages' );
 
 		$response_code = wp_remote_retrieve_response_code( $response );
 		if ( is_wp_error( $response ) || 200 !== $response_code ) {

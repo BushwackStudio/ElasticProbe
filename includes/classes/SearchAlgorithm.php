@@ -5,10 +5,10 @@
  * All search algorithms extend this class.
  *
  * @since  4.3.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe;
+namespace ElasticProbe;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.

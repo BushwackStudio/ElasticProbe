@@ -3,14 +3,14 @@
  * Term indexable
  *
  * @since  3.1
- * @package  wpprobe
+ * @package  elasticprobe
  */
 
-namespace WPProbe\Indexable\Term;
+namespace ElasticProbe\Indexable\Term;
 
 use WP_Term_Query;
-use WPProbe\Elasticsearch;
-use WPProbe\Indexable;
+use ElasticProbe\Elasticsearch;
+use ElasticProbe\Indexable;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	// @codeCoverageIgnoreStart
@@ -48,8 +48,8 @@ class Term extends Indexable {
 	 */
 	public function setup() {
 		$this->labels = [
-			'plural'   => esc_html__( 'Terms', 'wpprobe' ),
-			'singular' => esc_html__( 'Term', 'wpprobe' ),
+			'plural'   => esc_html__( 'Terms', 'elasticprobe' ),
+			'singular' => esc_html__( 'Term', 'elasticprobe' ),
 		];
 
 		$this->sync_manager      = new SyncManager( $this->slug );
@@ -448,7 +448,7 @@ class Term extends Indexable {
 		/**
 		 * Filter non-indexed public meta
 		 *
-		 * Allows for specifying public meta keys that should be excluded from the WPProbe index.
+		 * Allows for specifying public meta keys that should be excluded from the ElasticProbe index.
 		 *
 		 * @since 3.4
 		 * @hook ep_prepare_term_meta_excluded_public_keys

@@ -15,7 +15,7 @@ describe('ACF Repeater Field Compatibility Feature', () => {
 	});
 
 	it('Can index an ACF Repeater Field', () => {
-		// Check WPProbe controls in the ACF group edit screen
+		// Check ElasticProbe controls in the ACF group edit screen
 		cy.visitAdminPage('edit.php?post_type=acf-field-group');
 		cy.get('a[aria-label="Edit “Repeater Test”"]').click({ force: true });
 
@@ -48,7 +48,7 @@ describe('ACF Repeater Field Compatibility Feature', () => {
 		cy.wait(2000); // eslint-disable-line
 
 		// Make the field searchable
-		cy.visitAdminPage('admin.php?page=wpprobe-weighting');
+		cy.visitAdminPage('admin.php?page=elasticprobe-weighting');
 		cy.contains('h2', 'Posts').closest('.ep-weighting-post-type').as('postBox');
 		cy.get('@postBox')
 			.contains('button.components-panel__body-toggle', 'Metadata')
@@ -70,11 +70,11 @@ describe('ACF Repeater Field Compatibility Feature', () => {
 		cy.get('.site-content article a').first().click();
 
 		cy.get('#wpadminbar li#wp-admin-bar-debug-bar').click();
-		cy.get('#debug-menu-link-EP_Debug_Bar_WPProbe').click();
+		cy.get('#debug-menu-link-EP_Debug_Bar_ElasticProbe').click();
 		cy.contains('a', 'Reload and retrieve raw ES document').click();
 
 		cy.get('#wpadminbar li#wp-admin-bar-debug-bar').click();
-		cy.get('#debug-menu-link-EP_Debug_Bar_WPProbe').click();
+		cy.get('#debug-menu-link-EP_Debug_Bar_ElasticProbe').click();
 		cy.get('.query-results')
 			.first()
 			.should(

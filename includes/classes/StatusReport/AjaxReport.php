@@ -2,19 +2,19 @@
 /**
  * AjaxReport abstract class
  *
- * @package wpprobe
+ * @package elasticprobe
  *
  * @since 5.2.0
  */
 
-namespace WPProbe\StatusReport;
+namespace ElasticProbe\StatusReport;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * AjaxReport class
  *
- * @package WPProbe
+ * @package ElasticProbe
  */
 abstract class AjaxReport extends Report {
 	/**
@@ -40,7 +40,7 @@ abstract class AjaxReport extends Report {
 			[
 				'type'    => 'warning',
 				'message' => sprintf(
-					__( 'To see this report, please generate a full report first by clicking the "Generate Full Status Report" button.', 'wpprobe' ),
+					__( 'To see this report, please generate a full report first by clicking the "Generate Full Status Report" button.', 'elasticprobe' ),
 				),
 			],
 		];

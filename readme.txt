@@ -1,5 +1,5 @@
-=== WPProbe ===
-Contributors: wpprobe
+=== ElasticProbe ===
+Contributors: elasticprobe, nshayanfar
 Tags:         performance, search, elasticsearch, fuzzy, related posts
 Tested up to: 6.8
 Stable tag:   0.1.1
@@ -9,15 +9,15 @@ License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 A fast and flexible search and query engine for WordPress.
 
 == Description ==
-WPProbe, a fast and flexible search and query engine for WordPress, enables WordPress to find or “query” relevant content extremely fast through a variety of highly customizable features. WordPress out-of-the-box struggles to analyze content relevancy and can be very slow. WPProbe supercharges your WordPress website making for happier users and administrators. The plugin even contains features for popular plugins.
+ElasticProbe, a fast and flexible search and query engine for WordPress, enables WordPress to find or “query” relevant content extremely fast through a variety of highly customizable features. WordPress out-of-the-box struggles to analyze content relevancy and can be very slow. ElasticProbe supercharges your WordPress website making for happier users and administrators. The plugin even contains features for popular plugins.
 
-Here is a list of the amazing WPProbe features included in the plugin:
+Here is a list of the amazing ElasticProbe features included in the plugin:
 
 __Search__: Instantly find the content you’re looking for. The first time.
 
-__WooCommerce__: With WPProbe, filtering WooCommerce product results is fast and easy. Your customers can find and buy exactly what they're looking for, even if you have a large or complex product catalog.
+__WooCommerce__: With ElasticProbe, filtering WooCommerce product results is fast and easy. Your customers can find and buy exactly what they're looking for, even if you have a large or complex product catalog.
 
-__Related Posts__: WPProbe understands data in real time, so it can instantly deliver engaging and precise related content with no impact on site performance.
+__Related Posts__: ElasticProbe understands data in real time, so it can instantly deliver engaging and precise related content with no impact on site performance.
 
 __Protected Content__: Optionally index all of your content, including private and unpublished content, to speed up searches and queries in places like the administrative dashboard.
 
@@ -29,30 +29,30 @@ __Comments__: Indexes your comments and provides a widget with type-ahead search
 
 == Frequently Asked Questions ==
 
-= How does WPProbe work? =
+= How does ElasticProbe work? =
 
-The WPProbe plugin enables you to connect your WordPress site to the WPProbe.com service, a SaaS solution that provides an enhanced search experience while reducing load on your WordPress site.
+The ElasticProbe plugin enables you to connect your WordPress site to the WPProbe.com service, a SaaS solution that provides an enhanced search experience while reducing load on your WordPress site.
 
-= Where can I find WPProbe documentation and user guides? =
+= Where can I find ElasticProbe documentation and user guides? =
 
-Please refer to [GitHub](https://github.com/BushwackStudio/WpProbe) for detailed usage instructions and documentation.
+Please refer to [GitHub](https://github.com/BushwackStudio/ElasticProbe) for detailed usage instructions and documentation.
 
 = I have a problem with the plugin. Where can I get help? =
 
-If you have identified a bug or would like to suggest an enhancement, please refer to our [GitHub repo](https://github.com/BushwackStudio/WpProbe). We do not provide support here at WordPress.org forums.
+If you have identified a bug or would like to suggest an enhancement, please refer to our [GitHub repo](https://github.com/BushwackStudio/ElasticProbe). We do not provide support here at WordPress.org forums.
 
-= Is WPProbe compatible with OpenSearch or Elasticsearch X.Y? =
+= Is ElasticProbe compatible with OpenSearch or Elasticsearch X.Y? =
 
-WPProbe requirements can be found in the [Requirements section](https://github.com/BushwackStudio/WpProbe#requirements) of our GitHub repository.
+ElasticProbe requirements can be found in the [Requirements section](https://github.com/BushwackStudio/ElasticProbe#requirements) of our GitHub repository.
 
-= I really like WPProbe! Can I contribute? =
+= I really like ElasticProbe! Can I contribute? =
 
-For sure! Feel free to submit ideas or feedback in general to our [GitHub repo](https://github.com/BushwackStudio/WpProbe).
+For sure! Feel free to submit ideas or feedback in general to our [GitHub repo](https://github.com/BushwackStudio/ElasticProbe).
 
 == Installation ==
 1. First, you will need to properly [install and configure](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup.html) Elasticsearch.
 2. Activate the plugin in WordPress.
-3. In the WPProbe settings page, input your Elasticsearch host.
+3. In the ElasticProbe settings page, input your Elasticsearch host.
 4. Sync your content by clicking the sync icon.
 5. Enjoy!
 
@@ -101,4 +101,4 @@ __Security:__
 __Developer:__
 
 
-[View historical changelog details here](https://github.com/BushwackStudio/WpProbe/blob/dev/CHANGELOG.md).
+[View historical changelog details here](https://github.com/BushwackStudio/ElasticProbe/blob/dev/CHANGELOG.md).

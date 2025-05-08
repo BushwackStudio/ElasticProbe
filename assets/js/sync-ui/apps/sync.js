@@ -59,7 +59,7 @@ export default () => {
 	 */
 	const onCompleteDisplayNotice = () => {
 		if (isComplete) {
-			createNotice('success', __('Sync completed.', 'wpprobe'));
+			createNotice('success', __('Sync completed.', 'elasticprobe'));
 		}
 	};
 
@@ -86,7 +86,7 @@ export default () => {
 	const onInit = () => {
 		if (autoIndex) {
 			startSync({ put_mapping: true, trigger: syncTrigger });
-			logMessage(__('Starting delete and sync…', 'wpprobe'), 'info');
+			logMessage(__('Starting delete and sync…', 'elasticprobe'), 'info');
 		}
 	};
 
@@ -105,7 +105,7 @@ export default () => {
 		const syncArgs = { ...args, put_mapping: putMapping, trigger: 'manual' };
 
 		startSync(syncArgs);
-		logMessage(__('Starting sync…', 'wpprobe'), 'info');
+		logMessage(__('Starting sync…', 'elasticprobe'), 'info');
 	};
 
 	useEffect(onCompleteDisplayNotice, [createNotice, isComplete]);
@@ -118,17 +118,17 @@ export default () => {
 				{syncHistory.length
 					? __(
 							'If you are missing data in your search results or have recently added custom content types to your site, you should run a sync to reflect these changes.',
-							'wpprobe',
+							'elasticprobe',
 						)
 					: sprintf(
 							/* translators: %s: Index type. WPProbe.com or Elasticsearch. */
 							__(
 								'Run a sync to index your existing content %s. Once syncing finishes, your site is officially supercharged.',
-								'wpprobe',
+								'elasticprobe',
 							),
 							isEpio
-								? __('on WPProbe.com', 'wpprobe')
-								: __('in Elasticsearch', 'wpprobe'),
+								? __('on WPProbe.com', 'elasticprobe')
+								: __('in Elasticsearch', 'elasticprobe'),
 						)}
 			</p>
 			<Panel className="ep-sync-panel">
@@ -145,12 +145,12 @@ export default () => {
 						<PanelBody
 							className="ep-sync-panel__advanced"
 							initialOpen={false}
-							title={__('Advanced options', 'wpprobe')}
+							title={__('Advanced options', 'elasticprobe')}
 						>
 							<Indexables />
 							<Objects />
 						</PanelBody>
-						<PanelBody title={__('Sync history', 'wpprobe')}>
+						<PanelBody title={__('Sync history', 'elasticprobe')}>
 							<SyncHistory />
 						</PanelBody>
 					</>

@@ -9,7 +9,7 @@
  * @package ElasticPress_Tests_E2e
  */
 
-namespace WPProbe\Tests\E2e;
+namespace ElasticProbe\Tests\E2e;
 
 /**
  * Create a CPT called "Movies" and a non-searchable CPT called "Group".

@@ -4,12 +4,12 @@
  *
  * @see ../includes/acf-pro-functions.php for mock implementations of ACF functions
  * @since 5.3.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe\Features;
+use ElasticProbe\Features;
 
 /**
  * ACF Repeater Field Compatibility test class
@@ -18,7 +18,7 @@ class TestAcfRepeater extends BaseTestCase {
 	/**
 	 * AcfRepeater feature instance
 	 *
-	 * @var WPProbe\Feature\AcfRepeater\AcfRepeater
+	 * @var ElasticProbe\Feature\AcfRepeater\AcfRepeater
 	 */
 	protected $feature;
 
@@ -27,7 +27,7 @@ class TestAcfRepeater extends BaseTestCase {
 	 */
 	public function set_up() {
 		$this->feature = Features::factory()->get_registered_feature( 'acf_repeater' );
-		\WPProbeTest\FunctionsCallCounter::get_instance()->reset_all_counters();
+		\ElasticProbeTest\FunctionsCallCounter::get_instance()->reset_all_counters();
 
 		parent::set_up();
 	}
@@ -70,17 +70,17 @@ class TestAcfRepeater extends BaseTestCase {
 		];
 
 		$this->feature->render_field_settings( $field );
-		$this->assertEquals( 0, \WPProbeTest\FunctionsCallCounter::get_instance()->get_counter( 'acf_render_field_setting' ) );
+		$this->assertEquals( 0, \ElasticProbeTest\FunctionsCallCounter::get_instance()->get_counter( 'acf_render_field_setting' ) );
 
 		$field['type'] = 'repeater';
 
 		$this->feature->render_field_settings( $field );
-		$this->assertEquals( 0, \WPProbeTest\FunctionsCallCounter::get_instance()->get_counter( 'acf_render_field_setting' ) );
+		$this->assertEquals( 0, \ElasticProbeTest\FunctionsCallCounter::get_instance()->get_counter( 'acf_render_field_setting' ) );
 
 		$field['parent'] = $this->factory->post->create();
 
 		$this->feature->render_field_settings( $field );
-		$this->assertEquals( 1, \WPProbeTest\FunctionsCallCounter::get_instance()->get_counter( 'acf_render_field_setting' ) );
+		$this->assertEquals( 1, \ElasticProbeTest\FunctionsCallCounter::get_instance()->get_counter( 'acf_render_field_setting' ) );
 	}
 
 	/**
@@ -98,7 +98,7 @@ class TestAcfRepeater extends BaseTestCase {
 		add_filter( 'ep_acf_repeater_should_display_field_setting', '__return_false' );
 
 		$this->feature->render_field_settings( $field );
-		$this->assertEquals( 0, \WPProbeTest\FunctionsCallCounter::get_instance()->get_counter( 'acf_render_field_setting' ) );
+		$this->assertEquals( 0, \ElasticProbeTest\FunctionsCallCounter::get_instance()->get_counter( 'acf_render_field_setting' ) );
 	}
 
 	/**

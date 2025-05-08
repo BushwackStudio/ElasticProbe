@@ -45,26 +45,29 @@ export default () => {
 
 		try {
 			await save();
-			createNotice('success', __('Synonym settings saved.', 'wpprobe'));
+			createNotice('success', __('Synonym settings saved.', 'elasticprobe'));
 		} catch (e) {
 			if (e.code === 'error-update-index') {
 				createNotice(
 					'error',
 					__(
 						'Could not update index with synonyms. Make sure your data is synced.',
-						'wpprobe',
+						'elasticprobe',
 					),
 					{
 						actions: [
 							{
 								url: syncUrl,
-								label: __('Sync', 'wpprobe'),
+								label: __('Sync', 'elasticprobe'),
 							},
 						],
 					},
 				);
 			} else {
-				createNotice('error', __('Something went wrong. Please try again.', 'wpprobe'));
+				createNotice(
+					'error',
+					__('Something went wrong. Please try again.', 'elasticprobe'),
+				);
 			}
 		}
 	};
@@ -81,7 +84,7 @@ export default () => {
 				<GroupTab isValid={!synonyms.some((s) => !s.valid)}>
 					{
 						/* translators: Synonyms count */
-						sprintf(__('Synonyms (%d)', 'wpprobe'), synonyms.length)
+						sprintf(__('Synonyms (%d)', 'elasticprobe'), synonyms.length)
 					}
 				</GroupTab>
 			),
@@ -92,7 +95,7 @@ export default () => {
 				<GroupTab isValid={!hyponyms.some((s) => !s.valid)}>
 					{
 						/* translators: Hyponyms count */
-						sprintf(__('Hyponyms (%d)', 'wpprobe'), hyponyms.length)
+						sprintf(__('Hyponyms (%d)', 'elasticprobe'), hyponyms.length)
 					}
 				</GroupTab>
 			),
@@ -103,7 +106,7 @@ export default () => {
 				<GroupTab isValid={!replacements.some((s) => !s.valid)}>
 					{
 						/* translators: Replacements count */
-						sprintf(__('Replacements (%d)', 'wpprobe'), replacements.length)
+						sprintf(__('Replacements (%d)', 'elasticprobe'), replacements.length)
 					}
 				</GroupTab>
 			),
@@ -115,14 +118,14 @@ export default () => {
 			<ActionSlot>
 				<Button onClick={onClick} size="small" type="button" variant="secondary">
 					{isSolr
-						? __('Switch to visual editor', 'wpprobe')
-						: __('Switch to advanced text editor', 'wpprobe')}
+						? __('Switch to visual editor', 'elasticprobe')
+						: __('Switch to advanced text editor', 'elasticprobe')}
 				</Button>
 			</ActionSlot>
 			<p>
 				{__(
 					'Synonym rules enable a more flexible search experience that returns relevant results even without an exact match. Rules can be defined as synonyms, for terms with similar meanings; hyponyms, for terms with a hierarchical relationship; or replacements, for corrections and substitutions.',
-					'wpprobe',
+					'elasticprobe',
 				)}
 			</p>
 			{!isSolr ? (
@@ -148,13 +151,13 @@ export default () => {
 			) : (
 				<Panel className="ep-synonyms-panel">
 					<PanelHeader>
-						<h2>{__('Advanced Synonyms Editor', 'wpprobe')}</h2>
+						<h2>{__('Advanced Synonyms Editor', 'elasticprobe')}</h2>
 					</PanelHeader>
 					<PanelBody>
 						<p>
 							{__(
-								'WPProbe uses the Solr format to define your synonym rules for Elasticsearch. Advanced users can use the field below to edit the synonym rules in this format directly. This can also be used to import a large dictionary of synonyms, or to export your synonyms for use on another site.',
-								'wpprobe',
+								'ElasticProbe uses the Solr format to define your synonym rules for Elasticsearch. Advanced users can use the field below to edit the synonym rules in this format directly. This can also be used to import a large dictionary of synonyms, or to export your synonyms for use on another site.',
+								'elasticprobe',
 							)}
 						</p>
 						<SolrEditor />
@@ -168,7 +171,7 @@ export default () => {
 				type="button"
 				variant="primary"
 			>
-				{__('Save changes', 'wpprobe')}
+				{__('Save changes', 'elasticprobe')}
 			</Button>
 		</>
 	);

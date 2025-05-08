@@ -3,18 +3,18 @@
  * Related Posts REST API Controller
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\REST;
+namespace ElasticProbe\REST;
 
-use WPProbe\Features;
+use ElasticProbe\Features;
 
 /**
  * Related Posts API controller class.
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 class RelatedPosts {
 
@@ -47,13 +47,13 @@ class RelatedPosts {
 	public function get_args() {
 		return [
 			'id'     => [
-				'description' => __( 'ID of the post to get related posts for.', 'wpprobe' ),
+				'description' => __( 'ID of the post to get related posts for.', 'elasticprobe' ),
 				'required'    => true,
 				'type'        => 'integer',
 			],
 			'number' => [
 				'default'     => 5,
-				'description' => __( 'Number of related posts to return.', 'wpprobe' ),
+				'description' => __( 'Number of related posts to return.', 'elasticprobe' ),
 				'required'    => false,
 				'type'        => 'integer',
 			],

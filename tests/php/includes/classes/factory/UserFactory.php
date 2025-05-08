@@ -2,12 +2,12 @@
 /**
  * Class for User factory.
  *
- * @package  wpprobe
+ * @package  elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe;
+use ElasticProbe;
 
 /**
  * Unit test factory for the user.
@@ -32,7 +32,7 @@ class UserFactory extends \WP_UnitTest_Factory_For_User {
 			return $user_id;
 		}
 
-		WPProbe\Indexables::factory()->get( 'user' )->index( $user_id, true );
+		ElasticProbe\Indexables::factory()->get( 'user' )->index( $user_id, true );
 		return $user_id;
 	}
 }

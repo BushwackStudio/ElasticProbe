@@ -31,7 +31,7 @@ const SolrEditor = () => {
 		<TextareaControl
 			className="ep-synonyms-solr-editor"
 			disabled={isBusy}
-			label={__('Solr synonyms', 'wpprobe')}
+			label={__('Solr synonyms', 'elasticprobe')}
 			rows="20"
 			value={solr}
 			onChange={onChange}

@@ -3,12 +3,12 @@
  * Class responsible for rendering the block.
  *
  * @since 4.5.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Feature\Facets\Types\MetaRange;
+namespace ElasticProbe\Feature\Facets\Types\MetaRange;
 
-use WPProbe\Features;
+use ElasticProbe\Features;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Facets render class
  */
-class Renderer extends \WPProbe\Feature\Facets\Renderer {
+class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 	/**
 	 * Holds the meta field selected.
 	 *
@@ -42,7 +42,7 @@ class Renderer extends \WPProbe\Feature\Facets\Renderer {
 		$this->meta_field = $instance['facet'];
 		if ( empty( $this->meta_field ) ) {
 			if ( $instance['is_preview'] ) {
-				esc_html_e( 'Preview not available. Make sure you select a field.', 'wpprobe' );
+				esc_html_e( 'Preview not available. Make sure you select a field.', 'elasticprobe' );
 			}
 			return false;
 		}
@@ -61,7 +61,7 @@ class Renderer extends \WPProbe\Feature\Facets\Renderer {
 			|| empty( $GLOBALS['ep_facet_aggs'][ $max_field_name ] )
 		) {
 			if ( ! empty( $instance['is_preview'] ) ) {
-				esc_html_e( 'Could not get min and max values. Is this a numeric field?', 'wpprobe' );
+				esc_html_e( 'Could not get min and max values. Is this a numeric field?', 'elasticprobe' );
 			}
 			return false;
 		}

@@ -3,17 +3,17 @@
  * Test health check elasticsearch functionality.
  *
  * @since 4.4.1
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe\Elasticsearch;
+use ElasticProbe\Elasticsearch;
 use WP_Site_Health;
 use WP_Ajax_UnitTestCase;
 use WPAjaxDieContinueException;
 
-use function WPProbe\Utils\is_epio;
+use function ElasticProbe\Utils\is_epio;
 
 /**
  *  Health check elasticsearch test class
@@ -48,7 +48,7 @@ class TestHealthCheckElasticsearch extends WP_Ajax_UnitTestCase {
 		$this->assertTrue( $response['success'] );
 		$this->assertEquals( 'Your site can connect to Elasticsearch.', $response['data']['label'] );
 		$this->assertEquals( 'good', $response['data']['status'] );
-		$this->assertEquals( 'WPProbe', $response['data']['badge']['label'] );
+		$this->assertEquals( 'ElasticProbe', $response['data']['badge']['label'] );
 		$this->assertEquals( 'green', $response['data']['badge']['color'] );
 	}
 
@@ -73,7 +73,7 @@ class TestHealthCheckElasticsearch extends WP_Ajax_UnitTestCase {
 		$this->assertTrue( $response['success'] );
 		$this->assertEquals( 'Your site could not connect to Elasticsearch', $response['data']['label'] );
 		$this->assertEquals( 'critical', $response['data']['status'] );
-		$this->assertEquals( 'WPProbe', $response['data']['badge']['label'] );
+		$this->assertEquals( 'ElasticProbe', $response['data']['badge']['label'] );
 		$this->assertEquals( 'red', $response['data']['badge']['color'] );
 		$this->assertEquals( 'The Elasticsearch host is not set.', $response['data']['description'] );
 	}
@@ -99,7 +99,7 @@ class TestHealthCheckElasticsearch extends WP_Ajax_UnitTestCase {
 		$this->assertTrue( $response['success'] );
 		$this->assertEquals( 'Your site could not connect to Elasticsearch', $response['data']['label'] );
 		$this->assertEquals( 'critical', $response['data']['status'] );
-		$this->assertEquals( 'WPProbe', $response['data']['badge']['label'] );
+		$this->assertEquals( 'ElasticProbe', $response['data']['badge']['label'] );
 		$this->assertEquals( 'red', $response['data']['badge']['color'] );
 		if ( is_epio() ) {
 			$this->assertEquals( 'Check if your credentials to WPProbe.com host are correct.', $response['data']['description'] );
@@ -133,7 +133,7 @@ class TestHealthCheckElasticsearch extends WP_Ajax_UnitTestCase {
 		$this->assertTrue( $response['success'] );
 		$this->assertEquals( 'Your site could not connect to Elasticsearch', $response['data']['label'] );
 		$this->assertEquals( 'critical', $response['data']['status'] );
-		$this->assertEquals( 'WPProbe', $response['data']['badge']['label'] );
+		$this->assertEquals( 'ElasticProbe', $response['data']['badge']['label'] );
 		$this->assertEquals( 'red', $response['data']['badge']['color'] );
 		$this->assertEquals( 'Check if your credentials to WPProbe.com host are correct.', $response['data']['description'] );
 

@@ -1,6 +1,6 @@
 describe('Documents Feature', () => {
 	function enableDocumentsFeature() {
-		cy.visitAdminPage('admin.php?page=wpprobe');
+		cy.visitAdminPage('admin.php?page=elasticprobe');
 		cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
 
 		cy.contains('button', 'Documents').click();
@@ -35,7 +35,7 @@ describe('Documents Feature', () => {
 	}
 
 	before(() => {
-		cy.wpCli('wpprobe sync --setup --yes');
+		cy.wpCli('elasticprobe sync --setup --yes');
 		cy.exec(
 			'npm run env run tests-wordpress -- sudo chmod -R 777 /var/www/html/wp-content/uploads',
 		);
@@ -55,7 +55,7 @@ describe('Documents Feature', () => {
 		cy.get('body').should('contain.text', 'pdf-file');
 
 		// Check if the file is still searchable after a reindex.
-		cy.wpCli('wpprobe sync --setup --yes --show-errors').then(() => {
+		cy.wpCli('elasticprobe sync --setup --yes --show-errors').then(() => {
 			/**
 			 * Give Elasticsearch some time. Apparently, if the visit happens right after the index, it won't find anything.
 			 *

@@ -3,12 +3,12 @@
  * Date facet type
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Feature\Facets\Types\Date;
+namespace ElasticProbe\Feature\Facets\Types\Date;
 
-use WPProbe\Features;
+use ElasticProbe\Features;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Date facet type class
  */
-class FacetType extends \WPProbe\Feature\Facets\FacetType {
+class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 
 	/**
 	 * Block instance.
@@ -166,17 +166,17 @@ class FacetType extends \WPProbe\Feature\Facets\FacetType {
 		 */
 		$options = [
 			[
-				'label'     => __( 'Last 3 months', 'wpprobe' ),
+				'label'     => __( 'Last 3 months', 'elasticprobe' ),
 				'value'     => '-3 months',
 				'url-param' => 'last-3-months',
 			],
 			[
-				'label'     => __( 'Last 6 months', 'wpprobe' ),
+				'label'     => __( 'Last 6 months', 'elasticprobe' ),
 				'value'     => '-6 months',
 				'url-param' => 'last-6-months',
 			],
 			[
-				'label'     => __( 'Last 12 months', 'wpprobe' ),
+				'label'     => __( 'Last 12 months', 'elasticprobe' ),
 				'value'     => '-12 months',
 				'url-param' => 'last-12-months',
 			],
@@ -192,27 +192,27 @@ class FacetType extends \WPProbe\Feature\Facets\FacetType {
 		 *   function( $options ) {
 		 *       $options = [
 		 *            [
-		 *               'label'     => esc_html__( 'Last 7 days', 'wpprobe' ),
+		 *               'label'     => esc_html__( 'Last 7 days', 'elasticprobe' ),
 		 *               'value'     => '-7 days',
 		 *               'url-param' => 'last-7-days',
 		 *           ],
 		 *           [
-		 *               'label'     => esc_html__( 'Last 1 month', 'wpprobe' ),
+		 *               'label'     => esc_html__( 'Last 1 month', 'elasticprobe' ),
 		 *               'value'     => '-1 month',
 		 *               'url-param' => 'last-1-month',
 		 *           ],
 		 *           [
-		 *               'label'     => esc_html__( 'Last 6 months', 'wpprobe' ),
+		 *               'label'     => esc_html__( 'Last 6 months', 'elasticprobe' ),
 		 *               'value'     => '-6 months',
 		 *               'url-param' => 'last-6-months',
 		 *           ],
 		 *           [
-		 *               'label'     => esc_html__( 'Last 1 year', 'wpprobe' ),
+		 *               'label'     => esc_html__( 'Last 1 year', 'elasticprobe' ),
 		 *               'value'     => '-1 year',
 		 *               'url-param' => 'last-1-year',
 		 *           ],
 		 *           [
-		 *               'label'     => esc_html__( 'Last 5 years', 'wpprobe' ),
+		 *               'label'     => esc_html__( 'Last 5 years', 'elasticprobe' ),
 		 *               'value'     => '-5 years',
 		 *               'url-param' => 'last-5-years',
 		 *           ],

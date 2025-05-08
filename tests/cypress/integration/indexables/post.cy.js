@@ -8,7 +8,7 @@ describe('Post Indexable', () => {
 		 */
 
 		// Make sure post categories are searchable.
-		cy.visitAdminPage('admin.php?page=wpprobe-weighting');
+		cy.visitAdminPage('admin.php?page=elasticprobe-weighting');
 		cy.intercept('/wp-json/elasticpress/v1/weighting*').as('apiRequest');
 
 		cy.contains('h2', 'Posts').closest('.components-panel').as('postsPanel');
@@ -49,7 +49,7 @@ describe('Post Indexable', () => {
 
 		cy.visit('/?s=b10ck');
 		cy.get('.hentry').should('exist');
-		cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug').should(
+		cy.get('#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-query-debug').should(
 			'contain.text',
 			'"name": "b10ck",',
 		);
@@ -76,11 +76,13 @@ describe('Post Indexable', () => {
 			true,
 		);
 
-		cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-retrieve-es-document').click({
+		cy.get('#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-retrieve-es-document').click({
 			force: true,
 		});
 
-		cy.get('a[href="#debug-menu-target-EP_Debug_Bar_WPProbe"]').first().click({ force: true });
+		cy.get('a[href="#debug-menu-target-EP_Debug_Bar_ElasticProbe"]')
+			.first()
+			.click({ force: true });
 		cy.contains('.ep-query-type', 'Raw ES document')
 			.closest('.ep-query-debug')
 			.should('contain.text', 'HTTP 404');
@@ -90,10 +92,12 @@ describe('Post Indexable', () => {
 		cy.setPostPassword('');
 
 		cy.get('#wp-admin-bar-view a').click({ force: true });
-		cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-retrieve-es-document').click({
+		cy.get('#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-retrieve-es-document').click({
 			force: true,
 		});
-		cy.get('a[href="#debug-menu-target-EP_Debug_Bar_WPProbe"]').first().click({ force: true });
+		cy.get('a[href="#debug-menu-target-EP_Debug_Bar_ElasticProbe"]')
+			.first()
+			.click({ force: true });
 		cy.contains('.ep-query-type', 'Raw ES document')
 			.closest('.ep-query-debug')
 			.should('contain.text', 'HTTP 200');
@@ -103,10 +107,12 @@ describe('Post Indexable', () => {
 		cy.setPostPassword('password');
 
 		cy.get('#wp-admin-bar-view a').click({ force: true });
-		cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-retrieve-es-document').click({
+		cy.get('#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-retrieve-es-document').click({
 			force: true,
 		});
-		cy.get('a[href="#debug-menu-target-EP_Debug_Bar_WPProbe"]').first().click({ force: true });
+		cy.get('a[href="#debug-menu-target-EP_Debug_Bar_ElasticProbe"]')
+			.first()
+			.click({ force: true });
 		cy.contains('.ep-query-type', 'Raw ES document')
 			.closest('.ep-query-debug')
 			.should('contain.text', 'HTTP 404');

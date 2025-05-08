@@ -42,7 +42,7 @@ export default () => {
 	return postTypes.length > 1 ? (
 		<fieldset className="ep-sync-advanced-control">
 			<legend className="ep-sync-advanced-control__label">
-				{__('Post types to sync', 'wpprobe')}
+				{__('Post types to sync', 'elasticprobe')}
 			</legend>
 			{postTypes.map(([postType, label]) => (
 				<CheckboxControl

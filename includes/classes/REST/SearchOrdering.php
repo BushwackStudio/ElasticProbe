@@ -3,19 +3,19 @@
  * Custom Results REST API Controller
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\REST;
+namespace ElasticProbe\REST;
 
-use WPProbe\Features;
-use WPProbe\Utils;
+use ElasticProbe\Features;
+use ElasticProbe\Utils;
 
 /**
  * Custom Results API controller class.
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 class SearchOrdering {
 
@@ -58,7 +58,7 @@ class SearchOrdering {
 	public function get_args() {
 		return [
 			's' => [
-				'description'       => __( 'Search query.', 'wpprobe' ),
+				'description'       => __( 'Search query.', 'elasticprobe' ),
 				'required'          => true,
 				'type'              => 'string',
 				'validate_callback' => fn( $param ) => ! empty( $param ),

@@ -3,15 +3,15 @@
  * Manage syncing of content between WP and Elasticsearch for posts
  *
  * @since  1.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Indexable\Post;
+namespace ElasticProbe\Indexable\Post;
 
-use WPProbe\Elasticsearch;
-use WPProbe\Indexables;
-use WPProbe\IndexHelper;
-use WPProbe\Utils;
+use ElasticProbe\Elasticsearch;
+use ElasticProbe\Indexables;
+use ElasticProbe\IndexHelper;
+use ElasticProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	// @codeCoverageIgnoreStart
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Sync manager class
  */
-class SyncManager extends \WPProbe\SyncManager {
+class SyncManager extends \ElasticProbe\SyncManager {
 
 	/**
 	 * Indexable slug
@@ -400,7 +400,7 @@ class SyncManager extends \WPProbe\SyncManager {
 	 * Depending on the number of posts associated with the term display an admin notice
 	 *
 	 * @since 4.4.0
-	 * @param array $notices Current WPProbe admin notices
+	 * @param array $notices Current ElasticProbe admin notices
 	 * @return array
 	 */
 	public function maybe_display_notice_edit_single_term( $notices ) {
@@ -425,7 +425,7 @@ class SyncManager extends \WPProbe\SyncManager {
 					$notices['edited_single_parent_term'] = [
 						'html'    => sprintf(
 							/* translators: Sync Page URL */
-							__( 'Due to the number of posts associated with its child terms, you will need to <a href="%s">resync</a> after editing or deleting it.', 'wpprobe' ),
+							__( 'Due to the number of posts associated with its child terms, you will need to <a href="%s">resync</a> after editing or deleting it.', 'elasticprobe' ),
 							Utils\get_sync_url()
 						),
 						'type'    => 'warning',
@@ -441,7 +441,7 @@ class SyncManager extends \WPProbe\SyncManager {
 		$notices['edited_single_term'] = [
 			'html'    => sprintf(
 				/* translators: Sync Page URL */
-				__( 'Due to the number of posts associated with this term, you will need to <a href="%s">resync</a> after editing or deleting it.', 'wpprobe' ),
+				__( 'Due to the number of posts associated with this term, you will need to <a href="%s">resync</a> after editing or deleting it.', 'elasticprobe' ),
 				Utils\get_sync_url()
 			),
 			'type'    => 'warning',
@@ -456,7 +456,7 @@ class SyncManager extends \WPProbe\SyncManager {
 	 * Depending on the number of posts display an admin notice in the Dashboard Terms List Screen
 	 *
 	 * @since 4.4.0
-	 * @param array $notices Current WPProbe admin notices
+	 * @param array $notices Current ElasticProbe admin notices
 	 * @return array
 	 */
 	public function maybe_display_notice_term_list_screen( $notices ) {
@@ -476,7 +476,7 @@ class SyncManager extends \WPProbe\SyncManager {
 		$notices['too_many_posts_on_term'] = [
 			'html'    => sprintf(
 				/* translators: Sync Page URL */
-				__( 'Depending on the number of posts associated with a term, you may need to <a href="%s">resync</a> after editing or deleting it.', 'wpprobe' ),
+				__( 'Depending on the number of posts associated with a term, you may need to <a href="%s">resync</a> after editing or deleting it.', 'elasticprobe' ),
 				Utils\get_sync_url()
 			),
 			'type'    => 'warning',
@@ -759,7 +759,7 @@ class SyncManager extends \WPProbe\SyncManager {
 	 * @since 4.4.0
 	 */
 	public function clear_total_fields_limit_cache() {
-		_deprecated_function( __METHOD__, '0.1.0', '\WPProbe\Indexable\Post\SyncManager::clear_index_settings_cache()' );
+		_deprecated_function( __METHOD__, '0.1.0', '\ElasticProbe\Indexable\Post\SyncManager::clear_index_settings_cache()' );
 	}
 
 	/**
@@ -1023,8 +1023,8 @@ class SyncManager extends \WPProbe\SyncManager {
 	protected function get_doc_status( int $post_id ): array {
 		$status = [
 			'status'      => 'success',
-			'message'     => esc_html__( 'Content in sync', 'wpprobe' ),
-			'explanation' => esc_html__( 'WordPress and Elasticsearch content match.', 'wpprobe' ),
+			'message'     => esc_html__( 'Content in sync', 'elasticprobe' ),
+			'explanation' => esc_html__( 'WordPress and Elasticsearch content match.', 'elasticprobe' ),
 		];
 
 		$indexable = Indexables::factory()->get( $this->indexable_slug );
@@ -1032,16 +1032,16 @@ class SyncManager extends \WPProbe\SyncManager {
 		if ( ! $es_doc ) {
 			$status = [
 				'status'      => 'error',
-				'message'     => esc_html__( 'Sync required', 'wpprobe' ),
-				'explanation' => esc_html__( 'Content not found in Elasticsearch.', 'wpprobe' ),
+				'message'     => esc_html__( 'Sync required', 'elasticprobe' ),
+				'explanation' => esc_html__( 'Content not found in Elasticsearch.', 'elasticprobe' ),
 			];
 		} else {
 			$post = get_post( $post_id );
 			if ( $post->post_modified_gmt !== $es_doc['post_modified_gmt'] ) {
 				$status = [
 					'status'      => 'warning',
-					'message'     => esc_html__( 'Out of sync', 'wpprobe' ),
-					'explanation' => esc_html__( 'WordPress and Elasticsearch content are out of sync.', 'wpprobe' ),
+					'message'     => esc_html__( 'Out of sync', 'elasticprobe' ),
+					'explanation' => esc_html__( 'WordPress and Elasticsearch content are out of sync.', 'elasticprobe' ),
 				];
 			}
 		}
@@ -1070,7 +1070,7 @@ class SyncManager extends \WPProbe\SyncManager {
 
 		$message = sprintf(
 			// translators: 1: EP prefix 2: Document status message
-			_x( '[%1$s] %2$s', 'Doc status message', 'wpprobe' ),
+			_x( '[%1$s] %2$s', 'Doc status message', 'elasticprobe' ),
 			'EP',
 			$document_status['message']
 		);

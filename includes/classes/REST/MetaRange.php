@@ -3,18 +3,18 @@
  * Meta Range REST API Controller
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\REST;
+namespace ElasticProbe\REST;
 
-use WPProbe\Features;
+use ElasticProbe\Features;
 
 /**
  * Meta Range API controller class.
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 class MetaRange {
 
@@ -55,7 +55,7 @@ class MetaRange {
 	public function get_args() {
 		return [
 			'facet' => [
-				'description' => __( 'Filter to get a value range for.', 'wpprobe' ),
+				'description' => __( 'Filter to get a value range for.', 'elasticprobe' ),
 				'required'    => true,
 				'type'        => 'string',
 			],

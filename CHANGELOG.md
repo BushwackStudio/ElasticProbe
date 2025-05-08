@@ -36,4 +36,4 @@ All notable changes to this project will be documented in this file, per [the Ke
 * Changed the API endpoint paths
 
 
-[Unreleased]: https://github.com/BushwackStudio/WpProbe/compare/trunk...dev
+[Unreleased]: https://github.com/BushwackStudio/ElasticProbe/compare/trunk...dev

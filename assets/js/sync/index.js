@@ -235,7 +235,7 @@ export const SyncProvider = ({
 			/**
 			 * Log a final message and update the sync state.
 			 */
-			logMessage(__('Sync failed', 'wpprobe'), 'error');
+			logMessage(__('Sync failed', 'elasticprobe'), 'error');
 
 			updateState({
 				isFailed: true,
@@ -263,11 +263,13 @@ export const SyncProvider = ({
 						/* translators: %s: Index type. WPProbe.com or Elasticsearch. */
 						__(
 							'Your indexing process has been stopped by WP-CLI and your %s index could be missing content. To restart indexing, please click the Start button or use WP-CLI commands to perform the reindex. Please note that search results could be incorrect or incomplete until the reindex finishes.',
-							'wpprobe',
+							'elasticprobe',
 						),
-						isEpio ? __('WPProbe.com', 'wpprobe') : __('Elasticsearch', 'wpprobe'),
+						isEpio
+							? __('WPProbe.com', 'elasticprobe')
+							: __('Elasticsearch', 'elasticprobe'),
 					)
-				: __('Sync interrupted by WP-CLI command.', 'wpprobe');
+				: __('Sync interrupted by WP-CLI command.', 'elasticprobe');
 
 			logMessage(message, 'info');
 			updateState({ isSyncing: false });
@@ -379,7 +381,7 @@ export const SyncProvider = ({
 				 * Don't continue if syncing has been paused.
 				 */
 				if (isPaused) {
-					logMessage(__('Sync paused', 'wpprobe'), 'info');
+					logMessage(__('Sync paused', 'elasticprobe'), 'info');
 					return;
 				}
 
@@ -552,10 +554,10 @@ export const SyncProvider = ({
 			 */
 			if (indexMeta.method === 'cli') {
 				doIndexStatus();
-				logMessage(__('WP CLI sync in progress', 'wpprobe'), 'info');
+				logMessage(__('WP CLI sync in progress', 'elasticprobe'), 'info');
 			} else {
 				pauseSync();
-				logMessage(__('Sync paused', 'wpprobe'), 'info');
+				logMessage(__('Sync paused', 'elasticprobe'), 'info');
 			}
 		}
 	};

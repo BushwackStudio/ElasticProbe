@@ -2,12 +2,12 @@
 /**
  * Test meta facet type feature
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe\Feature\Facets\Types\Meta\Renderer;
+use ElasticProbe\Feature\Facets\Types\Meta\Renderer;
 
 /**
  * Facets\Types\Taxonomy\FacetType test class

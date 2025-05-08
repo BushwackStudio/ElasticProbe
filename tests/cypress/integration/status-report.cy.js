@@ -1,6 +1,6 @@
 describe('Status Report', () => {
 	beforeEach(() => {
-		cy.visitAdminPage('admin.php?page=wpprobe-status-report');
+		cy.visitAdminPage('admin.php?page=elasticprobe-status-report');
 	});
 
 	it('should have a notice component for AJAX reports instead of the content, buttons should not be disabled by default, should load report after click on full report, and generate report should be disabled after clicking it', () => {

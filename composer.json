@@ -1,8 +1,8 @@
 {
-  "name": "bushwack/wpprobe",
+  "name": "bushwack/elasticprobe",
   "description": "Supercharge your wordPress search with ElasticSearch® precision.",
   "type": "wordpress-plugin",
-  "keywords": ["wordpress", "plugin", "elasticsearch", "wpprobe", "search"],
+  "keywords": ["wordpress", "plugin", "elasticsearch", "elasticprobe", "search"],
   "license": ["GPL-2.0-only"],
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -56,8 +56,8 @@
     },
     "strauss": {
       "target_directory": "vendor-prefixed",
-      "namespace_prefix": "WPProbe\\Vendor_Prefixed\\",
-      "classmap_prefix": "WPProbe_Vendor_Prefixed_",
+      "namespace_prefix": "ElasticProbe\\Vendor_Prefixed\\",
+      "classmap_prefix": "ElasticProbe_Vendor_Prefixed_",
       "constant_prefix": "WPP_VENDOR_"
     }
   },

@@ -1,6 +1,6 @@
 describe('Autosuggest Feature', () => {
 	before(() => {
-		cy.wpCli('wpprobe sync --setup --yes');
+		cy.wpCli('elasticprobe sync --setup --yes');
 	});
 
 	beforeEach(() => {
@@ -21,7 +21,7 @@ describe('Autosuggest Feature', () => {
 		cy.intercept({
 			url: /(_search|autosuggest)$/,
 			headers: {
-				'X-WPProbe-Request-ID': /[0-9a-f]{32}$/,
+				'X-ElasticProbe-Request-ID': /[0-9a-f]{32}$/,
 			},
 		}).as('apiRequest');
 
@@ -89,7 +89,7 @@ describe('Autosuggest Feature', () => {
 		cy.intercept({
 			url: /(_search|autosuggest)$/,
 			headers: {
-				'X-WPProbe-Request-ID': 'CustomRequestId123',
+				'X-ElasticProbe-Request-ID': 'CustomRequestId123',
 			},
 		}).as('apiRequest');
 

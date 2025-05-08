@@ -5,12 +5,12 @@
  * @phpcs:disable WordPress.DateTime.CurrentTimeTimestamp.Requested
  *
  * @since 4.4.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe\QueryLogger;
+use ElasticProbe\QueryLogger;
 
 /**
  * Test the Query Logger class
@@ -228,16 +228,16 @@ class TestQueryLogger extends BaseTestCase {
 		};
 		add_filter( 'ep_query_logger_logs', $add_fake_log );
 
-		\WPProbe\Screen::factory()->set_current_screen( 'features' );
+		\ElasticProbe\Screen::factory()->set_current_screen( 'features' );
 
 		/**
 		 * Check messages when no indices are found
 		 */
-		\WPProbe\Elasticsearch::factory()->delete_all_indices();
+		\ElasticProbe\Elasticsearch::factory()->delete_all_indices();
 		$notices = $query_logger->maybe_add_notice( [] );
 		$this->assertArrayHasKey( 'has_failed_queries', $notices );
 		$this->assertStringStartsWith( 'Your site&#039;s content is not synced with your', $notices['has_failed_queries']['html'] );
-		if ( \WPProbe\Utils\is_epio() ) {
+		if ( \ElasticProbe\Utils\is_epio() ) {
 			$this->assertStringContainsString( 'WPProbe.com account', $notices['has_failed_queries']['html'] );
 		} else {
 			$this->assertStringContainsString( 'Elasticsearch server', $notices['has_failed_queries']['html'] );
@@ -246,10 +246,10 @@ class TestQueryLogger extends BaseTestCase {
 		/**
 		 * Generic check (we have at least one index present)
 		 */
-		\WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
+		\ElasticProbe\Indexables::factory()->get( 'post' )->put_mapping();
 		$notices = $query_logger->maybe_add_notice( [] );
 		$this->assertArrayHasKey( 'has_failed_queries', $notices );
-		$this->assertStringStartsWith( 'Some WPProbe queries failed in the last 24 hours.', $notices['has_failed_queries']['html'] );
+		$this->assertStringStartsWith( 'Some ElasticProbe queries failed in the last 24 hours.', $notices['has_failed_queries']['html'] );
 
 		/**
 		 * No message when no failed queries
@@ -278,10 +278,10 @@ class TestQueryLogger extends BaseTestCase {
 		/**
 		 * No message when on status-report page
 		 */
-		\WPProbe\Screen::factory()->set_current_screen( 'status-report' );
+		\ElasticProbe\Screen::factory()->set_current_screen( 'status-report' );
 		$notices = $query_logger->maybe_add_notice( [] );
 		$this->assertEmpty( $notices );
-		\WPProbe\Screen::factory()->set_current_screen( 'features' );
+		\ElasticProbe\Screen::factory()->set_current_screen( 'features' );
 
 		$notices = $query_logger->maybe_add_notice( [] );
 		$this->assertArrayHasKey( 'has_failed_queries', $notices );
@@ -300,7 +300,7 @@ class TestQueryLogger extends BaseTestCase {
 		$this->assertArrayHasKey( 'has_failed_queries', $notices );
 
 		// Reset current screen
-		\WPProbe\Screen::factory()->set_current_screen( null );
+		\ElasticProbe\Screen::factory()->set_current_screen( null );
 	}
 
 	/**

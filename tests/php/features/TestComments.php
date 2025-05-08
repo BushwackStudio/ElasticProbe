@@ -2,12 +2,12 @@
 /**
  * Test document feature
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe;
+use ElasticProbe;
 use WP_Comment_Query;
 
 /**
@@ -29,10 +29,10 @@ class TestComments extends BaseTestCase {
 
 		wp_set_current_user( $admin_id );
 
-		WPProbe\Elasticsearch::factory()->delete_all_indices();
-		WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
+		ElasticProbe\Elasticsearch::factory()->delete_all_indices();
+		ElasticProbe\Indexables::factory()->get( 'post' )->put_mapping();
 
-		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
+		ElasticProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
 
 		$this->setup_test_post_type();
 
@@ -59,10 +59,10 @@ class TestComments extends BaseTestCase {
 	 * Get Comment feature
 	 *
 	 * @since  3.6.0
-	 * @return WPProbe\Feature\Comments
+	 * @return ElasticProbe\Feature\Comments
 	 */
 	protected function get_feature() {
-		return WPProbe\Features::factory()->get_registered_feature( 'comments' );
+		return ElasticProbe\Features::factory()->get_registered_feature( 'comments' );
 	}
 
 	/**
@@ -72,7 +72,7 @@ class TestComments extends BaseTestCase {
 	 * @group comments
 	 */
 	public function testConstruct() {
-		$instance = new WPProbe\Feature\Comments\Comments();
+		$instance = new ElasticProbe\Feature\Comments\Comments();
 		$instance->set_i18n_strings();
 
 		$this->assertEquals( 'comments', $instance->slug );
@@ -174,7 +174,7 @@ class TestComments extends BaseTestCase {
 		$change_visibility = function ( $is_visible, $feature_slug, $feature ) {
 			$this->assertFalse( $is_visible );
 			$this->assertSame( 'comments', $feature_slug );
-			$this->assertInstanceOf( '\WPProbe\Feature\Comments\Comments', $feature );
+			$this->assertInstanceOf( '\ElasticProbe\Feature\Comments\Comments', $feature );
 			return true;
 		};
 		add_filter( 'ep_feature_is_visible', $change_visibility, 10, 3 );
@@ -194,7 +194,7 @@ class TestComments extends BaseTestCase {
 		$change_availability = function ( $is_available, $feature_slug, $feature ) {
 			$this->assertFalse( $is_available );
 			$this->assertSame( 'comments', $feature_slug );
-			$this->assertInstanceOf( '\WPProbe\Feature\Comments\Comments', $feature );
+			$this->assertInstanceOf( '\ElasticProbe\Feature\Comments\Comments', $feature );
 			return true;
 		};
 		add_filter( 'ep_feature_is_available', $change_availability, 10, 3 );

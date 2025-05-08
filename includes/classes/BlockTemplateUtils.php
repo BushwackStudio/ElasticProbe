@@ -3,10 +3,10 @@
  * Block Template Utils class
  *
  * @since 4.7.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe;
+namespace ElasticProbe;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.

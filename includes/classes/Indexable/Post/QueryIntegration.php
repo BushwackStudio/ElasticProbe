@@ -3,14 +3,14 @@
  * Integrate with WP_Query
  *
  * @since  1.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Indexable\Post;
+namespace ElasticProbe\Indexable\Post;
 
 use WP_Query;
-use WPProbe\Indexables;
-use WPProbe\Utils;
+use ElasticProbe\Indexables;
+use ElasticProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	// @codeCoverageIgnoreStart
@@ -51,9 +51,9 @@ class QueryIntegration {
 		 */
 		$allow_query_integration_during_indexing = apply_filters( 'ep_enable_query_integration_during_indexing', false, $indexable_slug );
 
-		// Ensure that we are currently allowing WPProbe to override the normal WP_Query
+		// Ensure that we are currently allowing ElasticProbe to override the normal WP_Query
 		// Indexable->is_full_reindexing() is not available at this point yet, so using the IndexHelper version of it.
-		if ( \WPProbe\IndexHelper::factory()->is_full_reindexing( $indexable_slug, get_current_blog_id() ) && ! $allow_query_integration_during_indexing ) {
+		if ( \ElasticProbe\IndexHelper::factory()->is_full_reindexing( $indexable_slug, get_current_blog_id() ) && ! $allow_query_integration_during_indexing ) {
 			return;
 		}
 
@@ -292,7 +292,7 @@ class QueryIntegration {
 			$site__not_in = '';
 
 			if ( ! empty( $query_vars['sites'] ) ) {
-				_deprecated_argument( __FUNCTION__, '0.1.0', esc_html__( 'sites is deprecated. Use site__in instead.', 'wpprobe' ) );
+				_deprecated_argument( __FUNCTION__, '0.1.0', esc_html__( 'sites is deprecated. Use site__in instead.', 'elasticprobe' ) );
 			}
 
 			if ( ! empty( $query_vars['site__in'] ) || ! empty( $query_vars['sites'] ) ) {

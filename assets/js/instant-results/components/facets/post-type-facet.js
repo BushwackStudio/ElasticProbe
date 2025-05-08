@@ -93,7 +93,7 @@ export default ({ defaultIsOpen, label }) => {
 					<>
 						<CheckboxList
 							disabled={isLoading}
-							label={__('Select content type', 'wpprobe')}
+							label={__('Select content type', 'elasticprobe')}
 							options={options}
 							onChange={onChange}
 							selected={selectedPostTypes}

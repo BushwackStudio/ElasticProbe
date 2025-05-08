@@ -3,18 +3,18 @@
  * Token REST API Controller
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\REST;
+namespace ElasticProbe\REST;
 
-use WPProbe\Elasticsearch;
+use ElasticProbe\Elasticsearch;
 
 /**
  * Token API controller class.
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 class Token {
 

@@ -3,17 +3,17 @@
  * Test default search algorithm
  *
  * @since 4.3.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe\SearchAlgorithm\DefaultAlgorithm;
+use ElasticProbe\SearchAlgorithm\DefaultAlgorithm;
 
 /**
  * Test default search algorithm class
  */
-class TestDefaultSearchAlgorithm extends \WPProbeTest\BaseTestCase {
+class TestDefaultSearchAlgorithm extends \ElasticProbeTest\BaseTestCase {
 	/**
 	 * Test get_slug
 	 *

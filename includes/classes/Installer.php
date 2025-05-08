@@ -1,14 +1,14 @@
 <?php
 /**
- * WPProbe installer handler
+ * ElasticProbe installer handler
  *
  * @since  3.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe;
+namespace ElasticProbe;
 
-use WPProbe\Utils;
+use ElasticProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -46,7 +46,7 @@ class Installer {
 	public function filter_admin_title( $admin_title ) {
 		if ( 'install' === Screen::factory()->get_current_screen() ) {
 			// translators: Site Name
-			return sprintf( esc_html__( 'WPProbe Setup &lsaquo; %s &#8212; WordPress', 'wpprobe' ), esc_html( get_bloginfo( 'name' ) ) );
+			return sprintf( esc_html__( 'ElasticProbe Setup &lsaquo; %s &#8212; WordPress', 'elasticprobe' ), esc_html( get_bloginfo( 'name' ) ) );
 		}
 
 		return $admin_title;
@@ -120,14 +120,14 @@ class Installer {
 			return;
 		}
 
-		$registered_features = \WPProbe\Features::factory()->registered_features;
+		$registered_features = \ElasticProbe\Features::factory()->registered_features;
 		$activation_features = wp_list_filter( $registered_features, array( 'available_during_installation' => true ) );
 
 		foreach ( $activation_features as $slug => $feature ) {
 			if ( in_array( $slug, $_POST['features'], true ) ) {
-				\WPProbe\Features::factory()->activate_feature( $slug );
+				\ElasticProbe\Features::factory()->activate_feature( $slug );
 			} else {
-				\WPProbe\Features::factory()->deactivate_feature( $slug );
+				\ElasticProbe\Features::factory()->deactivate_feature( $slug );
 			}
 		}
 

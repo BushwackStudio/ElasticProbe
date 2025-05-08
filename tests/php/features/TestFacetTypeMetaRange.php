@@ -3,12 +3,12 @@
  * Test meta range facet type feature
  *
  * @since 4.5.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe\Features;
+use ElasticProbe\Features;
 
 /**
  * Facets\Types\Taxonomy\FacetType test class
@@ -18,7 +18,7 @@ class TestFacetTypeMetaRange extends BaseTestCase {
 	/**
 	 * The facet type instance
 	 *
-	 * @var null|\WPProbe\Feature\Facets\Types\MetaRange\FacetType
+	 * @var null|\ElasticProbe\Feature\Facets\Types\MetaRange\FacetType
 	 */
 	protected $facet_type = null;
 
@@ -32,8 +32,8 @@ class TestFacetTypeMetaRange extends BaseTestCase {
 		 * NOTE: This can be removed after the meta range facet type is made available.
 		 */
 		$facet_feature = Features::factory()->get_registered_feature( 'facets' );
-		if ( ! isset( $facet_feature->types['meta-range'] ) && class_exists( '\WPProbe\Feature\Facets\Types\MetaRange\FacetType' ) ) {
-			$facet_feature->types['meta-range'] = new \WPProbe\Feature\Facets\Types\MetaRange\FacetType();
+		if ( ! isset( $facet_feature->types['meta-range'] ) && class_exists( '\ElasticProbe\Feature\Facets\Types\MetaRange\FacetType' ) ) {
+			$facet_feature->types['meta-range'] = new \ElasticProbe\Feature\Facets\Types\MetaRange\FacetType();
 			$facet_feature->types['meta-range']->setup();
 		}
 

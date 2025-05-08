@@ -46,4 +46,4 @@ jobs:
         name: Plugin Zip
         retention-days: 2
         path: |
-          ${{ github.workspace }}/wpprobe.zip
+          ${{ github.workspace }}/elasticprobe.zip

@@ -2,12 +2,12 @@
 /**
  * Test document feature
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe;
+use ElasticProbe;
 
 /**
  * Document test class
@@ -30,10 +30,10 @@ class TestAutosuggest extends BaseTestCase {
 
 		wp_set_current_user( $admin_id );
 
-		WPProbe\Elasticsearch::factory()->delete_all_indices();
-		WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
+		ElasticProbe\Elasticsearch::factory()->delete_all_indices();
+		ElasticProbe\Indexables::factory()->get( 'post' )->put_mapping();
 
-		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
+		ElasticProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
 
 		$this->setup_test_post_type();
 
@@ -62,14 +62,14 @@ class TestAutosuggest extends BaseTestCase {
 	 * Get the feature instance
 	 */
 	protected function get_feature() {
-		return WPProbe\Features::factory()->get_registered_feature( 'autosuggest' );
+		return ElasticProbe\Features::factory()->get_registered_feature( 'autosuggest' );
 	}
 
 	/**
 	 * Test the class constructor
 	 */
 	public function testConstruct() {
-		$instance = new WPProbe\Feature\Autosuggest\Autosuggest();
+		$instance = new ElasticProbe\Feature\Autosuggest\Autosuggest();
 		$instance->set_i18n_strings();
 
 		$this->assertEquals( 'autosuggest', $instance->slug );
@@ -345,7 +345,7 @@ class TestAutosuggest extends BaseTestCase {
 			)
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		add_filter(
 			'ep_query_request_path',
@@ -397,7 +397,7 @@ class TestAutosuggest extends BaseTestCase {
 			)
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		add_filter(
 			'ep_query_request_path',
@@ -447,7 +447,7 @@ class TestAutosuggest extends BaseTestCase {
 			)
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		add_filter(
 			'ep_query_request_path',
@@ -498,7 +498,7 @@ class TestAutosuggest extends BaseTestCase {
 			)
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		add_filter(
 			'ep_query_request_path',

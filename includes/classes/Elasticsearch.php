@@ -1,18 +1,18 @@
 <?php
 /**
- * WPProbe-Elasticsearch API functions
+ * ElasticProbe-Elasticsearch API functions
  *
  * @since  3.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe;
+namespace ElasticProbe;
 
 use WP_Error;
-use WPProbe\Indexables;
-use WPProbe\Utils;
+use ElasticProbe\Indexables;
+use ElasticProbe\Utils;
 
-use function WPProbe\Utils\is_epio;
+use function ElasticProbe\Utils\is_epio;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -635,7 +635,7 @@ class Elasticsearch {
 			'Content-Type' => 'application/json',
 		);
 
-		// Check for WPProbe API key and add to header if needed.
+		// Check for ElasticProbe API key and add to header if needed.
 		if ( defined( 'EP_API_KEY' ) && EP_API_KEY ) {
 			$headers['X-ElasticPress-API-Key'] = EP_API_KEY;
 		}
@@ -659,7 +659,7 @@ class Elasticsearch {
 
 		$request_id = Utils\generate_request_id();
 		if ( ! empty( $request_id ) ) {
-			$headers['X-WPProbe-Request-ID'] = $request_id;
+			$headers['X-ElasticProbe-Request-ID'] = $request_id;
 		}
 
 		/**
@@ -1013,7 +1013,7 @@ class Elasticsearch {
 			Utils\set_transient( $transient_key, $request, MINUTE_IN_SECONDS );
 			return new \WP_Error(
 				'ep_get_index_settings_failed',
-				esc_html__( 'Error while getting the index settings.', 'wpprobe' ),
+				esc_html__( 'Error while getting the index settings.', 'elasticprobe' ),
 				$request
 			);
 		}
@@ -1418,7 +1418,7 @@ class Elasticsearch {
 
 			return array(
 				'status' => false,
-				'msg'    => esc_html__( 'Invalid response from WPProbe server. Please contact your administrator.' ),
+				'msg'    => esc_html__( 'Invalid response from ElasticProbe server. Please contact your administrator.' ),
 			);
 		} elseif (
 			isset( $response->error ) &&
@@ -1430,10 +1430,10 @@ class Elasticsearch {
 
 			if ( is_multisite() ) {
 
-				$error = __( 'Site not indexed. <p>Please run: <code>wp wpprobe index --setup --network-wide</code> using WP-CLI. Or use the index button on the left of this screen.</p>', 'wpprobe' );
+				$error = __( 'Site not indexed. <p>Please run: <code>wp elasticprobe index --setup --network-wide</code> using WP-CLI. Or use the index button on the left of this screen.</p>', 'elasticprobe' );
 			} else {
 
-				$error = __( 'Site not indexed. <p>Please run: <code>wp wpprobe index --setup</code> using WP-CLI. Or use the index button on the left of this screen.</p>', 'wpprobe' );
+				$error = __( 'Site not indexed. <p>Please run: <code>wp elasticprobe index --setup</code> using WP-CLI. Or use the index button on the left of this screen.</p>', 'elasticprobe' );
 			}
 
 			return array(
@@ -1616,7 +1616,7 @@ class Elasticsearch {
 
 			return array(
 				'status' => false,
-				'msg'    => esc_html__( 'Elasticsearch Host is not available.', 'wpprobe' ),
+				'msg'    => esc_html__( 'Elasticsearch Host is not available.', 'elasticprobe' ),
 			);
 		} else {
 
@@ -1724,7 +1724,7 @@ class Elasticsearch {
 	}
 
 	/**
-	 * Conditionally add the WPProbe version to the User Agent string.
+	 * Conditionally add the ElasticProbe version to the User Agent string.
 	 *
 	 * @since 3.6.1
 	 * @param string $user_agent Original User Agent.
@@ -1735,7 +1735,7 @@ class Elasticsearch {
 		 * Filter the User Agent header when submitting requests to Elasticsearch.
 		 *
 		 * @hook ep_remote_request_add_ep_user_agent
-		 * @param  {bool} $should_add_ep_version Whether the WPProbe version should be added to the User Agent string.
+		 * @param  {bool} $should_add_ep_version Whether the ElasticProbe version should be added to the User Agent string.
 		 * @return {bool} New value
 		 * @since  3.6.1
 		 */
@@ -1743,7 +1743,7 @@ class Elasticsearch {
 			$end_part   = '; ' . get_bloginfo( 'url' );
 			$user_agent = str_replace(
 				$end_part,
-				' (WPProbe/' . EP_VERSION . ')' . $end_part,
+				' (ElasticProbe/' . EP_VERSION . ')' . $end_part,
 				$user_agent
 			);
 		}
@@ -1753,7 +1753,7 @@ class Elasticsearch {
 	/**
 	 * Query logging. Don't log anything to the queries property when
 	 * WP_DEBUG is not enabled. Calls action 'ep_add_query_log' if you
-	 * want to access the query outside of the WPProbe plugin. This
+	 * want to access the query outside of the ElasticProbe plugin. This
 	 * runs regardless of debug settings.
 	 *
 	 * @param array $query Query to log.

@@ -2,12 +2,12 @@
 /**
  * Test comment indexable functionality
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe;
+use ElasticProbe;
 
 /**
  * Test multisite comment class
@@ -31,32 +31,32 @@ class TestCommentMultisite extends BaseTestCase {
 		$admin_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
 		grant_super_admin( $admin_id );
 
-		WPProbe\Features::factory()->activate_feature( 'comments' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'comments' );
+		ElasticProbe\Features::factory()->setup_features();
 
-		WPProbe\Elasticsearch::factory()->delete_all_indices();
+		ElasticProbe\Elasticsearch::factory()->delete_all_indices();
 
-		WPProbe\Indexables::factory()->get( 'comment' )->put_mapping();
+		ElasticProbe\Indexables::factory()->get( 'comment' )->put_mapping();
 
 		// Need to call this since it's hooked to init.
-		WPProbe\Features::factory()->get_registered_feature( 'comments' )->search_setup();
+		ElasticProbe\Features::factory()->get_registered_feature( 'comments' )->search_setup();
 
 		$this->factory->blog->create_many( 2, array( 'user_id' => $admin_id ) );
 
-		$sites   = WPProbe\Utils\get_sites();
+		$sites   = ElasticProbe\Utils\get_sites();
 		$indexes = array();
 
 		foreach ( $sites as $site ) {
 			switch_to_blog( $site['blog_id'] );
 
-			WPProbe\Indexables::factory()->get( 'comment' )->put_mapping();
-			$indexes[] = WPProbe\Indexables::factory()->get( 'comment' )->get_index_name();
+			ElasticProbe\Indexables::factory()->get( 'comment' )->put_mapping();
+			$indexes[] = ElasticProbe\Indexables::factory()->get( 'comment' )->get_index_name();
 
 			restore_current_blog();
 		}
 
-		WPProbe\Indexables::factory()->get( 'comment' )->delete_network_alias();
-		WPProbe\Indexables::factory()->get( 'comment' )->create_network_alias( $indexes );
+		ElasticProbe\Indexables::factory()->get( 'comment' )->delete_network_alias();
+		ElasticProbe\Indexables::factory()->get( 'comment' )->create_network_alias( $indexes );
 
 		wp_set_current_user( $admin_id );
 	}
@@ -72,7 +72,7 @@ class TestCommentMultisite extends BaseTestCase {
 		}
 
 		parent::tear_down();
-		WPProbe\Indexables::factory()->get( 'comment' )->delete_network_alias();
+		ElasticProbe\Indexables::factory()->get( 'comment' )->delete_network_alias();
 	}
 
 	/**
@@ -82,7 +82,7 @@ class TestCommentMultisite extends BaseTestCase {
 	 */
 	public function testCommentQueryForAllSites() {
 
-		$sites = WPProbe\Utils\get_sites();
+		$sites = ElasticProbe\Utils\get_sites();
 		if ( ! is_multisite() ) {
 			$this->assertEmpty( $sites );
 			return;
@@ -97,7 +97,7 @@ class TestCommentMultisite extends BaseTestCase {
 			$this->ep_factory->comment->create( array( 'comment_post_ID' => $post_id ) );
 			$this->ep_factory->comment->create( array( 'comment_post_ID' => $post_id ) );
 
-			WPProbe\Elasticsearch::factory()->refresh_indices();
+			ElasticProbe\Elasticsearch::factory()->refresh_indices();
 			restore_current_blog();
 		}
 
@@ -120,7 +120,7 @@ class TestCommentMultisite extends BaseTestCase {
 	 */
 	public function testCommentQueryForSitesSubset() {
 
-		$sites = WPProbe\Utils\get_sites();
+		$sites = ElasticProbe\Utils\get_sites();
 		if ( ! is_multisite() ) {
 			$this->assertEmpty( $sites );
 			return;
@@ -135,7 +135,7 @@ class TestCommentMultisite extends BaseTestCase {
 			$this->ep_factory->comment->create( array( 'comment_post_ID' => $post_id ) );
 			$this->ep_factory->comment->create( array( 'comment_post_ID' => $post_id ) );
 
-			WPProbe\Elasticsearch::factory()->refresh_indices();
+			ElasticProbe\Elasticsearch::factory()->refresh_indices();
 			restore_current_blog();
 		}
 
@@ -157,7 +157,7 @@ class TestCommentMultisite extends BaseTestCase {
 	 */
 	public function testCommentQueryForSitesExceptOne() {
 
-		$sites = WPProbe\Utils\get_sites();
+		$sites = ElasticProbe\Utils\get_sites();
 		if ( ! is_multisite() ) {
 			$this->assertEmpty( $sites );
 			return;
@@ -172,7 +172,7 @@ class TestCommentMultisite extends BaseTestCase {
 			$this->ep_factory->comment->create( array( 'comment_post_ID' => $post_id ) );
 			$this->ep_factory->comment->create( array( 'comment_post_ID' => $post_id ) );
 
-			WPProbe\Elasticsearch::factory()->refresh_indices();
+			ElasticProbe\Elasticsearch::factory()->refresh_indices();
 			restore_current_blog();
 		}
 
@@ -194,7 +194,7 @@ class TestCommentMultisite extends BaseTestCase {
 	 */
 	public function testCommentQuerySearchForAllSites() {
 
-		$sites = WPProbe\Utils\get_sites();
+		$sites = ElasticProbe\Utils\get_sites();
 		if ( ! is_multisite() ) {
 			$this->assertEmpty( $sites );
 			return;
@@ -214,7 +214,7 @@ class TestCommentMultisite extends BaseTestCase {
 				)
 			);
 
-			WPProbe\Elasticsearch::factory()->refresh_indices();
+			ElasticProbe\Elasticsearch::factory()->refresh_indices();
 			restore_current_blog();
 		}
 
@@ -237,7 +237,7 @@ class TestCommentMultisite extends BaseTestCase {
 	 */
 	public function testCommentQueryWithDeprecatedSitesParam() {
 
-		$sites = WPProbe\Utils\get_sites();
+		$sites = ElasticProbe\Utils\get_sites();
 		if ( ! is_multisite() ) {
 			$this->assertEmpty( $sites );
 			return;
@@ -252,7 +252,7 @@ class TestCommentMultisite extends BaseTestCase {
 			$this->ep_factory->comment->create( array( 'comment_post_ID' => $post_id ) );
 			$this->ep_factory->comment->create( array( 'comment_post_ID' => $post_id ) );
 
-			WPProbe\Elasticsearch::factory()->refresh_indices();
+			ElasticProbe\Elasticsearch::factory()->refresh_indices();
 			restore_current_blog();
 		}
 
@@ -275,7 +275,7 @@ class TestCommentMultisite extends BaseTestCase {
 	 */
 	public function testCommentQueryWithDeprecatedSitesParamWithValueCurrent() {
 
-		$sites = WPProbe\Utils\get_sites();
+		$sites = ElasticProbe\Utils\get_sites();
 		if ( ! is_multisite() ) {
 			$this->assertEmpty( $sites );
 			return;
@@ -287,7 +287,7 @@ class TestCommentMultisite extends BaseTestCase {
 			$post_id = $this->ep_factory->post->create();
 			$this->ep_factory->comment->create_many( 3, array( 'comment_post_ID' => $post_id ) );
 
-			WPProbe\Elasticsearch::factory()->refresh_indices();
+			ElasticProbe\Elasticsearch::factory()->refresh_indices();
 			restore_current_blog();
 		}
 
@@ -316,7 +316,7 @@ class TestCommentMultisite extends BaseTestCase {
 	 */
 	public function testCommentQueryWithSiteInParamWithValueCurrent() {
 
-		$sites = WPProbe\Utils\get_sites();
+		$sites = ElasticProbe\Utils\get_sites();
 		if ( ! is_multisite() ) {
 			$this->assertEmpty( $sites );
 			return;
@@ -328,7 +328,7 @@ class TestCommentMultisite extends BaseTestCase {
 			$post_id = $this->ep_factory->post->create();
 			$this->ep_factory->comment->create_many( 3, array( 'comment_post_ID' => $post_id ) );
 
-			WPProbe\Elasticsearch::factory()->refresh_indices();
+			ElasticProbe\Elasticsearch::factory()->refresh_indices();
 			restore_current_blog();
 		}
 

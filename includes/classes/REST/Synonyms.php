@@ -3,19 +3,19 @@
  * Synonyms REST API Controller.
  *
  * @since 5.1.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\REST;
+namespace ElasticProbe\REST;
 
-use WPProbe\Features;
-use WPProbe\Utils;
+use ElasticProbe\Features;
+use ElasticProbe\Utils;
 
 /**
  * Synonyms API controller class.
  *
  * @since 5.1.0
- * @package wpprobe
+ * @package elasticprobe
  */
 class Synonyms {
 
@@ -49,11 +49,11 @@ class Synonyms {
 		$args = [
 			'mode' => [
 				'default'     => 'simple',
-				'description' => __( 'Synonyms editor mode.', 'wpprobe' ),
+				'description' => __( 'Synonyms editor mode.', 'elasticprobe' ),
 				'enum'        => [ 'advanced', 'simple' ],
 			],
 			'solr' => [
-				'description'       => __( 'Synonyms in Solr format.', 'wpprobe' ),
+				'description'       => __( 'Synonyms in Solr format.', 'elasticprobe' ),
 				'type'              => 'string',
 				'sanitize_callback' => [ $this, 'sanitize_solr' ],
 			],

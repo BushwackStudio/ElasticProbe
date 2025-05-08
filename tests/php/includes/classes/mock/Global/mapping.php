@@ -3,7 +3,7 @@
  * Global Feature Mapping
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

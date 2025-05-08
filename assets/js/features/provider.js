@@ -20,7 +20,7 @@ const Context = createContext();
 /**
  * Feature settings provider.
  *
- * Provides data and methods for interacting with WPProbe feature
+ * Provides data and methods for interacting with ElasticProbe feature
  * settings.
  *
  * @param {object} props Component props.

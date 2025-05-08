@@ -3,12 +3,12 @@
  * Facets meta range block
  *
  * @since 4.5.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Feature\Facets\Types\MetaRange;
+namespace ElasticProbe\Feature\Facets\Types\MetaRange;
 
-use WPProbe\Utils;
+use ElasticProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Facets block class
  */
-class Block extends \WPProbe\Feature\Facets\Block {
+class Block extends \ElasticProbe\Feature\Facets\Block {
 	/**
 	 * Hook block functionality.
 	 */
@@ -56,7 +56,7 @@ class Block extends \WPProbe\Feature\Facets\Block {
 			true
 		);
 
-		wp_set_script_translations( 'ep-facets-meta-range-block-script', 'wpprobe' );
+		wp_set_script_translations( 'ep-facets-meta-range-block-script', 'elasticprobe' );
 	}
 
 	/**

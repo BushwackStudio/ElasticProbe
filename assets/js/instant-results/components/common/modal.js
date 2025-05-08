@@ -87,7 +87,7 @@ export default ({ children, isOpen, onClose, ...props }) => {
 							ref={closeRef}
 						>
 							<Icon icon={closeSmall} />
-							{__('Close', 'wpprobe')}
+							{__('Close', 'elasticprobe')}
 						</button>
 						{children}
 					</div>

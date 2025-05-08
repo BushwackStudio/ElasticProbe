@@ -3,17 +3,17 @@
  * Report abstract class
  *
  * @since 4.4.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\StatusReport;
+namespace ElasticProbe\StatusReport;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Report class
  *
- * @package WPProbe
+ * @package ElasticProbe
  */
 abstract class Report {
 

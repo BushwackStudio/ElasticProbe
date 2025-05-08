@@ -85,17 +85,17 @@ export default ({
 	const requiredFeatureNotice =
 		name === 'active'
 			? /* translators: Feature name */
-				__('The %s feature must be enabled to use this feature.', 'wpprobe')
+				__('The %s feature must be enabled to use this feature.', 'elasticprobe')
 			: /* translators: Feature name */
-				__('The %s feature must be enabled to use the following setting.', 'wpprobe');
+				__('The %s feature must be enabled to use the following setting.', 'elasticprobe');
 
 	/**
 	 * The notice to display if a sync is required.
 	 */
 	const syncNotice =
 		name === 'active'
-			? __('Enabling this feature requires re-syncing your content.', 'wpprobe')
-			: __('A change to following setting requires re-syncing your content.', 'wpprobe');
+			? __('Enabling this feature requires re-syncing your content.', 'elasticprobe')
+			: __('A change to following setting requires re-syncing your content.', 'elasticprobe');
 
 	/**
 	 * Whether the control is disabled.

@@ -3,20 +3,20 @@
  * Failed Queries report class
  *
  * @since 4.4.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\StatusReport;
+namespace ElasticProbe\StatusReport;
 
-use WPProbe\QueryLogger;
-use WPProbe\Utils;
+use ElasticProbe\QueryLogger;
+use ElasticProbe\Utils;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * FailedQueries report class
  *
- * @package WPProbe
+ * @package ElasticProbe
  */
 class FailedQueries extends Report {
 
@@ -42,7 +42,7 @@ class FailedQueries extends Report {
 	 * @return string
 	 */
 	public function get_title(): string {
-		return __( 'Failed Queries', 'wpprobe' );
+		return __( 'Failed Queries', 'elasticprobe' );
 	}
 
 	/**
@@ -56,15 +56,15 @@ class FailedQueries extends Report {
 		$logs = $this->query_logger->get_logs( false );
 
 		$labels = [
-			'wp_url'      => esc_html__( 'Page URL', 'wpprobe' ),
-			'es_req'      => esc_html__( 'Elasticsearch Request', 'wpprobe' ),
-			'request_id'  => esc_html__( 'Request ID', 'wpprobe' ),
-			'timestamp'   => esc_html__( 'Time', 'wpprobe' ),
-			'query_time'  => esc_html__( 'Time Spent (ms)', 'wpprobe' ),
-			'wp_args'     => esc_html__( 'WP Query Args', 'wpprobe' ),
-			'status_code' => esc_html__( 'HTTP Status Code', 'wpprobe' ),
-			'body'        => esc_html__( 'Query Body', 'wpprobe' ),
-			'result'      => esc_html__( 'Query Result', 'wpprobe' ),
+			'wp_url'      => esc_html__( 'Page URL', 'elasticprobe' ),
+			'es_req'      => esc_html__( 'Elasticsearch Request', 'elasticprobe' ),
+			'request_id'  => esc_html__( 'Request ID', 'elasticprobe' ),
+			'timestamp'   => esc_html__( 'Time', 'elasticprobe' ),
+			'query_time'  => esc_html__( 'Time Spent (ms)', 'elasticprobe' ),
+			'wp_args'     => esc_html__( 'WP Query Args', 'elasticprobe' ),
+			'status_code' => esc_html__( 'HTTP Status Code', 'elasticprobe' ),
+			'body'        => esc_html__( 'Query Body', 'elasticprobe' ),
+			'result'      => esc_html__( 'Query Result', 'elasticprobe' ),
 		];
 
 		$groups = [];
@@ -73,11 +73,11 @@ class FailedQueries extends Report {
 
 			$fields = [
 				'error'                => [
-					'label' => __( 'Error', 'wpprobe' ),
+					'label' => __( 'Error', 'elasticprobe' ),
 					'value' => $error,
 				],
 				'recommended_solution' => [
-					'label' => __( 'Recommended Solution', 'wpprobe' ),
+					'label' => __( 'Recommended Solution', 'elasticprobe' ),
 					'value' => $solution,
 				],
 			];
@@ -117,7 +117,7 @@ class FailedQueries extends Report {
 			return [];
 		}
 
-		$label = __( 'Clear query log', 'wpprobe' );
+		$label = __( 'Clear query log', 'elasticprobe' );
 		$href  = wp_nonce_url( add_query_arg( [ $_GET ], $wp->request ), 'ep-clear-logged-queries', '_wpnonce' ); // phpcs:ignore WordPress.Security.NonceVerification
 
 		return [
@@ -139,9 +139,9 @@ class FailedQueries extends Report {
 		$this->query_logger->clear_logs();
 
 		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
-			$redirect_url = network_admin_url( 'admin.php?page=wpprobe-status-report' );
+			$redirect_url = network_admin_url( 'admin.php?page=elasticprobe-status-report' );
 		} else {
-			$redirect_url = admin_url( 'admin.php?page=wpprobe-status-report' );
+			$redirect_url = admin_url( 'admin.php?page=elasticprobe-status-report' );
 		}
 
 		wp_safe_redirect( $redirect_url );
@@ -158,14 +158,14 @@ class FailedQueries extends Report {
 		if ( is_array( $log['result'] ) && ! empty( $log['result']['is_wp_error'] ) ) {
 			return [
 				$log['result']['message'],
-				__( 'It seems WordPress was not able to complete the request. Review the error message and your configuration.', 'wpprobe' ),
+				__( 'It seems WordPress was not able to complete the request. Review the error message and your configuration.', 'elasticprobe' ),
 			];
 		}
 
 		$error = Utils\get_elasticsearch_error_reason( $log );
 
 		$solution = ( ! empty( $error ) ) ?
-			( new \WPProbe\ElasticsearchErrorInterpreter() )->maybe_suggest_solution_for_es( $error )['solution'] :
+			( new \ElasticProbe\ElasticsearchErrorInterpreter() )->maybe_suggest_solution_for_es( $error )['solution'] :
 			'';
 
 		return [ $error, $solution ];
@@ -179,8 +179,8 @@ class FailedQueries extends Report {
 	 * @return string
 	 */
 	protected function maybe_suggest_solution_for_es( $error ) {
-		_deprecated_function( __METHOD__, '5.0.0', '\WPProbe\ElasticsearchErrorInterpreter::maybe_suggest_solution_for_es()' );
+		_deprecated_function( __METHOD__, '5.0.0', '\ElasticProbe\ElasticsearchErrorInterpreter::maybe_suggest_solution_for_es()' );
 
-		return ( new \WPProbe\ElasticsearchErrorInterpreter() )->maybe_suggest_solution_for_es( $error )['solution'];
+		return ( new \ElasticProbe\ElasticsearchErrorInterpreter() )->maybe_suggest_solution_for_es( $error )['solution'];
 	}
 }

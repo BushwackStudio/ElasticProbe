@@ -3,10 +3,10 @@
  * Test Feature methods
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
 /**
  * Feature test class
@@ -18,7 +18,7 @@ class TestFeature extends BaseTestCase {
 	 * @group feature
 	 */
 	public function test_get_json() {
-		$stub                   = $this->getMockForAbstractClass( '\WPProbe\Feature' );
+		$stub                   = $this->getMockForAbstractClass( '\ElasticProbe\Feature' );
 		$stub->slug             = 'slug';
 		$stub->title            = 'title';
 		$stub->short_title      = 'short_title';
@@ -30,7 +30,7 @@ class TestFeature extends BaseTestCase {
 		add_filter(
 			'ep_feature_requirements_status',
 			function () {
-				return new \WPProbe\FeatureRequirementsStatus( 2, 'Testing' );
+				return new \ElasticProbe\FeatureRequirementsStatus( 2, 'Testing' );
 			}
 		);
 
@@ -51,7 +51,7 @@ class TestFeature extends BaseTestCase {
 				[
 					'default'          => false,
 					'key'              => 'active',
-					'label'            => __( 'Enable', 'wpprobe' ),
+					'label'            => __( 'Enable', 'elasticprobe' ),
 					'requires_feature' => false,
 					'requires_sync'    => false,
 					'type'             => 'toggle',
@@ -68,7 +68,7 @@ class TestFeature extends BaseTestCase {
 	 * @group feature
 	 */
 	public function test_get_settings_schema() {
-		$stub = $this->getMockForAbstractClass( '\WPProbe\Feature' );
+		$stub = $this->getMockForAbstractClass( '\ElasticProbe\Feature' );
 
 		$reflection          = new \ReflectionClass( $stub );
 		$reflection_property = $reflection->getProperty( 'settings_schema' );
@@ -84,7 +84,7 @@ class TestFeature extends BaseTestCase {
 				[
 					'default'          => false,
 					'key'              => 'active',
-					'label'            => __( 'Enable', 'wpprobe' ),
+					'label'            => __( 'Enable', 'elasticprobe' ),
 					'requires_feature' => false,
 					'requires_sync'    => false,
 					'type'             => 'toggle',
@@ -102,7 +102,7 @@ class TestFeature extends BaseTestCase {
 	 * @group feature
 	 */
 	public function test_ep_feature_settings_schema_filter() {
-		$stub       = $this->getMockForAbstractClass( '\WPProbe\Feature' );
+		$stub       = $this->getMockForAbstractClass( '\ElasticProbe\Feature' );
 		$stub->slug = 'slug';
 
 		$change_settings_schema = function ( $settings_schema, $feature_slug, $feature ) use ( $stub ) {
@@ -119,7 +119,7 @@ class TestFeature extends BaseTestCase {
 				[
 					'default'          => false,
 					'key'              => 'active',
-					'label'            => __( 'Enable', 'wpprobe' ),
+					'label'            => __( 'Enable', 'elasticprobe' ),
 					'requires_feature' => false,
 					'requires_sync'    => false,
 					'type'             => 'toggle',
@@ -136,7 +136,7 @@ class TestFeature extends BaseTestCase {
 	 * @group feature
 	 */
 	public function test_set_settings_schema() {
-		$stub                   = $this->getMockForAbstractClass( '\WPProbe\Feature' );
+		$stub                   = $this->getMockForAbstractClass( '\ElasticProbe\Feature' );
 		$stub->slug             = 'slug';
 		$stub->default_settings = [
 			'field_1' => '0',

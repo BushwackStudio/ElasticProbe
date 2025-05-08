@@ -50,7 +50,7 @@ if [ $DISPLAY_HELP -eq 1 ]; then
 	echo "-h=*, --ep-host=*             The remote Elasticsearch Host URL."
 	echo "-s=*, --es-shield=*           The Elasticsearch credentials, used in the ES_SHIELD constant."
 	echo "-u=*, --ep-index-prefix=*     The Elasticsearch credentials, used in the EP_INDEX_PREFIX constant."
-	echo "-i=*, --probe-sid=*           The WPProbe subscription id, used in the PROBE_SID constant."
+	echo "-i=*, --probe-sid=*           The ElasticProbe subscription id, used in the PROBE_SID constant."
 	echo "-W=*, --wp-version=*          WordPress Core version."
 	echo "-w=*, --wc-version=*          WooCommerce version."
 	echo "-h|--help                     Display this help screen"
@@ -66,7 +66,7 @@ fi
 # Set twentytwentyone as the active theme here, as 2025 won't work with WP 6.2
 ./bin/wp-env-cli tests-wordpress "wp --allow-root theme activate twentytwentyone"
 
-# Fix the debug-bar-wpprobe dependency of WPProbe
+# Fix the debug-bar-wpprobe dependency of ElasticProbe
 ./bin/wp-env-cli tests-wordpress "wp --allow-root plugin install https://github.com/BushwackStudio/debug-bar-wpprobe/archive/refs/tags/0.1.0.zip"
 ./bin/wp-env-cli tests-wordpress "sed -i \"s/Requires Plugins:  wpprobe/Requires Plugins:  $PLUGIN_NAME/\" /var/www/html/wp-content/plugins/debug-bar-wpprobe/debug-bar-wpprobe.php"
 ./bin/wp-env-cli tests-wordpress "wp --allow-root plugin activate debug-bar-wpprobe"
@@ -131,7 +131,7 @@ fi
 
 ./bin/wp-env-cli tests-wordpress "wp --allow-root plugin activate ${PLUGIN_NAME}"
 
-./bin/wp-env-cli tests-wordpress "wp --allow-root wpprobe sync --setup --yes --show-errors"
+./bin/wp-env-cli tests-wordpress "wp --allow-root elasticprobe sync --setup --yes --show-errors"
 
 ./bin/wp-env-cli tests-wordpress "wp --allow-root option set posts_per_page 5"
 ./bin/wp-env-cli tests-wordpress "wp --allow-root user meta update admin edit_post_per_page 5"

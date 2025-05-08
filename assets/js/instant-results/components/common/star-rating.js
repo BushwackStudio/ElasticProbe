@@ -14,7 +14,7 @@ import { WPElement } from '@wordpress/element';
 export default ({ rating }) => {
 	const label = sprintf(
 		/* translators: %1$f Rating. %2$d Max rating. */
-		__('Rated %1$f out of %2$d', 'wpprobe'),
+		__('Rated %1$f out of %2$d', 'elasticprobe'),
 		rating,
 		5,
 	);

@@ -20,11 +20,11 @@ export default ({ attributes }) => {
 			{type === 'taxonomy'
 				? __(
 						'Preview unavailable. The selected taxonomy has no terms assigned to searchable content.',
-						'wpprobe',
+						'elasticprobe',
 					)
 				: __(
 						'Preview unavailable. There is no searchable content available with the selected metadata.',
-						'wpprobe',
+						'elasticprobe',
 					)}
 		</Warning>
 	);

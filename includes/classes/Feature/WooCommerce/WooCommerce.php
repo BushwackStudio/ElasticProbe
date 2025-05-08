@@ -1,18 +1,18 @@
 <?php
 /**
- * WPProbe WooCommerce feature
+ * ElasticProbe WooCommerce feature
  *
  * @since  2.1
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Feature\WooCommerce;
+namespace ElasticProbe\Feature\WooCommerce;
 
-use WPProbe\Feature;
-use WPProbe\FeatureRequirementsStatus;
-use WPProbe\Indexables;
-use WPProbe\IndexHelper;
-use WPProbe\Utils;
+use ElasticProbe\Feature;
+use ElasticProbe\FeatureRequirementsStatus;
+use ElasticProbe\Indexables;
+use ElasticProbe\IndexHelper;
+use ElasticProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -78,11 +78,11 @@ class WooCommerce extends Feature {
 	 * @since 5.2.0
 	 */
 	public function set_i18n_strings(): void {
-		$this->title = esc_html__( 'WooCommerce', 'wpprobe' );
+		$this->title = esc_html__( 'WooCommerce', 'elasticprobe' );
 
-		$this->summary = '<p>' . __( 'Most caching and performance tools can’t keep up with the nearly infinite ways your visitors might filter or navigate your products. No matter how many products, filters, or customers you have, WPProbe will keep your online store performing quickly. If used in combination with the Protected Content feature, WPProbe will also accelerate order searches and back end product management.', 'wpprobe' ) . '</p>';
+		$this->summary = '<p>' . __( 'Most caching and performance tools can’t keep up with the nearly infinite ways your visitors might filter or navigate your products. No matter how many products, filters, or customers you have, ElasticProbe will keep your online store performing quickly. If used in combination with the Protected Content feature, ElasticProbe will also accelerate order searches and back end product management.', 'elasticprobe' ) . '</p>';
 
-		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#woocommerce', 'wpprobe' );
+		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#woocommerce', 'elasticprobe' );
 	}
 
 	/**
@@ -176,7 +176,7 @@ class WooCommerce extends Feature {
 	 */
 	public function output_feature_box_long() {
 		?>
-		<p><?php esc_html_e( 'Most caching and performance tools can’t keep up with the nearly infinite ways your visitors might filter or navigate your products. No matter how many products, filters, or customers you have, WPProbe will keep your online store performing quickly. If used in combination with the Protected Content feature, WPProbe will also accelerate order searches and back end product management.', 'wpprobe' ); ?></p>
+		<p><?php esc_html_e( 'Most caching and performance tools can’t keep up with the nearly infinite ways your visitors might filter or navigate your products. No matter how many products, filters, or customers you have, ElasticProbe will keep your online store performing quickly. If used in combination with the Protected Content feature, ElasticProbe will also accelerate order searches and back end product management.', 'elasticprobe' ); ?></p>
 		<?php
 	}
 
@@ -191,7 +191,7 @@ class WooCommerce extends Feature {
 
 		if ( ! class_exists( 'WooCommerce' ) ) {
 			$status->code    = 2;
-			$status->message = esc_html__( 'WooCommerce not installed.', 'wpprobe' );
+			$status->message = esc_html__( 'WooCommerce not installed.', 'elasticprobe' );
 		}
 
 		return $status;
@@ -243,7 +243,7 @@ class WooCommerce extends Feature {
 		}
 
 		/**
-		 * WPProbe does not yet support post_parent queries
+		 * ElasticProbe does not yet support post_parent queries
 		 */
 		$post_parent = $query->get( 'post_parent', false );
 		if ( ! empty( $post_parent ) ) {
@@ -286,7 +286,7 @@ class WooCommerce extends Feature {
 	public function output_feature_box_settings() {
 		_doing_it_wrong(
 			__METHOD__,
-			esc_html__( 'Settings are now generated via the set_settings_schema() method.', 'wpprobe' ),
+			esc_html__( 'Settings are now generated via the set_settings_schema() method.', 'elasticprobe' ),
 			'5.0.0'
 		);
 	}
@@ -299,7 +299,7 @@ class WooCommerce extends Feature {
 	 * @return boolean
 	 */
 	public function is_orders_autosuggest_available(): bool {
-		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders_autosuggest->is_available()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders_autosuggest->is_available()" );
 		return $this->orders_autosuggest->is_available();
 	}
 
@@ -311,19 +311,19 @@ class WooCommerce extends Feature {
 	 * @return boolean
 	 */
 	public function is_orders_autosuggest_enabled(): bool {
-		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders_autosuggest->is_enabled()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders_autosuggest->is_enabled()" );
 		return $this->orders_autosuggest->is_enabled();
 	}
 
 	/**
-	 * DEPRECATED. Translate args to WPProbe compat format. This is the meat of what the feature does
+	 * DEPRECATED. Translate args to ElasticProbe compat format. This is the meat of what the feature does
 	 *
 	 * @param  \WP_Query $query WP Query
 	 * @since  2.1
 	 * @deprecated 0.1.0
 	 */
 	public function translate_args( $query ) {
-		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->translate_args() OR \WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders->translate_args()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->translate_args() OR \ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders->translate_args()" );
 		$this->products->translate_args( $query );
 		$this->orders->translate_args( $query );
 	}
@@ -337,7 +337,7 @@ class WooCommerce extends Feature {
 	 * @return string    The mapped meta key.
 	 */
 	public function get_orderby_meta_mapping( $meta_key ) {
-		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->get_orderby_meta_mapping()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->get_orderby_meta_mapping()" );
 		return $this->products->get_orderby_meta_mapping( $meta_key );
 	}
 
@@ -350,7 +350,7 @@ class WooCommerce extends Feature {
 	 * @return array
 	 */
 	public function remove_author( $search_fields ) {
-		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->remove_author()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->remove_author()" );
 		return $this->products->remove_author( $search_fields );
 	}
 
@@ -364,7 +364,7 @@ class WooCommerce extends Feature {
 	 * @return  array
 	 */
 	public function whitelist_meta_keys( $meta, $post ) {
-		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->allow_meta_keys() AND/OR \WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders->allow_meta_keys()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->allow_meta_keys() AND/OR \ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders->allow_meta_keys()" );
 		return array_unique(
 			array_merge(
 				$this->products->allow_meta_keys( $meta ),
@@ -383,7 +383,7 @@ class WooCommerce extends Feature {
 	 * @return  array
 	 */
 	public function whitelist_taxonomies( $taxonomies, $post ) {
-		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->sync_taxonomies()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->sync_taxonomies()" );
 		return $this->products->sync_taxonomies( $taxonomies );
 	}
 
@@ -395,7 +395,7 @@ class WooCommerce extends Feature {
 	 * @return mixed|void
 	 */
 	public function get_admin_searchable_post_types() {
-		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders->get_admin_searchable_post_types()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders->get_admin_searchable_post_types()" );
 		return $this->orders->get_admin_searchable_post_types();
 	}
 
@@ -409,7 +409,7 @@ class WooCommerce extends Feature {
 	 * @return bool
 	 */
 	public function blacklist_coupons( $enabled, $query ) {
-		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->disallow_coupons()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->disallow_coupons()" );
 		return $this->disallow_coupons( $enabled, $query );
 	}
 
@@ -423,7 +423,7 @@ class WooCommerce extends Feature {
 	 * @return bool
 	 */
 	public function bypass_order_permissions_check( $override, $post_id ) {
-		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders->price_filter()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders->price_filter()" );
 		return $this->orders->bypass_order_permissions_check( $override, $post_id );
 	}
 
@@ -439,7 +439,7 @@ class WooCommerce extends Feature {
 	 * @param \WP_Query $query Current query
 	 */
 	public function maybe_hook_woocommerce_search_fields( $query ) {
-		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders->maybe_hook_woocommerce_search_fields()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders->maybe_hook_woocommerce_search_fields()" );
 		return $this->orders->maybe_hook_woocommerce_search_fields( $query );
 	}
 
@@ -455,7 +455,7 @@ class WooCommerce extends Feature {
 	 * @since  2.3
 	 */
 	public function search_order( $wp ) {
-		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders->search_order()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders->search_order()" );
 		return $this->orders->search_order( $wp );
 	}
 
@@ -474,7 +474,7 @@ class WooCommerce extends Feature {
 	 * @return array
 	 */
 	public function add_order_items_search( $post_args, $post_id ) {
-		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders->add_order_items_search()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders->add_order_items_search()" );
 		return $this->orders->add_order_items_search( $post_args, $post_id );
 	}
 
@@ -486,7 +486,7 @@ class WooCommerce extends Feature {
 	 * @return array
 	 */
 	public function add_product_attributes( $taxonomies = [] ) {
-		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->add_product_attributes()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->add_product_attributes()" );
 		return $this->products->add_product_attributes( $taxonomies );
 	}
 
@@ -500,7 +500,7 @@ class WooCommerce extends Feature {
 	 * @return array            New fields.
 	 */
 	public function add_product_attributes_to_weighting( $fields, $post_type ) {
-		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->add_product_attributes_to_weighting()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->add_product_attributes_to_weighting()" );
 		return $this->products->add_product_attributes_to_weighting( $fields, $post_type );
 	}
 
@@ -514,7 +514,7 @@ class WooCommerce extends Feature {
 	 * @return array
 	 */
 	public function add_product_default_post_type_weights( $defaults, $post_type ) {
-		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->add_product_default_post_type_weights()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->add_product_default_post_type_weights()" );
 		return $this->products->add_product_default_post_type_weights( $defaults, $post_type );
 	}
 
@@ -527,7 +527,7 @@ class WooCommerce extends Feature {
 	 * @return array
 	 */
 	public function suggest_wc_add_post_type( $post_types ) {
-		_deprecated_function( __METHOD__, '4.7.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->suggest_wc_add_post_type()" );
+		_deprecated_function( __METHOD__, '4.7.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->suggest_wc_add_post_type()" );
 		return $this->products->suggest_wc_add_post_type( $post_types );
 	}
 
@@ -542,7 +542,7 @@ class WooCommerce extends Feature {
 	 * @return array
 	 */
 	public function price_filter( $args, $query_args, $query ) {
-		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->price_filter()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->price_filter()" );
 		return $this->products->price_filter( $args, $query_args, $query );
 	}
 
@@ -561,7 +561,7 @@ class WooCommerce extends Feature {
 	 * @return bool
 	 */
 	public function keep_order_fields( $skip, $post_args ) {
-		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders->keep_order_fields()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders->keep_order_fields()" );
 		return $this->orders->keep_order_fields( $skip, $post_args );
 	}
 
@@ -575,18 +575,18 @@ class WooCommerce extends Feature {
 	 * @return array
 	 */
 	public function add_variations_skus_meta( $post_meta, $post ) {
-		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->add_variations_skus_meta()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->add_variations_skus_meta()" );
 		return $this->products->add_variations_skus_meta( $post_meta, $post );
 	}
 
 	/**
-	 * DEPRECATED. Integrate WPProbe with the WooCommerce Admin Product List.
+	 * DEPRECATED. Integrate ElasticProbe with the WooCommerce Admin Product List.
 	 *
 	 * WooCommerce uses its `WC_Admin_List_Table_Products` class to control that screen. This
-	 * function adds all necessary hooks to bypass the default behavior and integrate with WPProbe.
+	 * function adds all necessary hooks to bypass the default behavior and integrate with ElasticProbe.
 	 * By default, WC runs a SQL query to get the Product IDs that match the list criteria and passes
 	 * that list of IDs to the main WP_Query. This integration changes that process to a single query, run
-	 * by WPProbe.
+	 * by ElasticProbe.
 	 *
 	 * @since 4.2.0
 	 * @deprecated 0.1.0
@@ -594,7 +594,7 @@ class WooCommerce extends Feature {
 	 * @return array
 	 */
 	public function admin_product_list_request_query( $query_vars ) {
-		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->admin_product_list_request_query()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->admin_product_list_request_query()" );
 		return $this->products->admin_product_list_request_query( $query_vars );
 	}
 
@@ -605,7 +605,7 @@ class WooCommerce extends Feature {
 	 * @deprecated 0.1.0
 	 */
 	public function translate_args_admin_products_list( $query ) {
-		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->price_filter()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->price_filter()" );
 		$this->products->translate_args_admin_products_list( $query );
 	}
 
@@ -614,11 +614,11 @@ class WooCommerce extends Feature {
 	 *
 	 * @since 4.4.0
 	 * @deprecated 0.1.0
-	 * @param array $notices Current WPProbe admin notices
+	 * @param array $notices Current ElasticProbe admin notices
 	 * @return array
 	 */
 	public function maybe_display_notice_about_product_ordering( $notices ) {
-		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->maybe_display_notice_about_product_ordering()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->maybe_display_notice_about_product_ordering()" );
 		return $this->products->maybe_display_notice_about_product_ordering( $notices );
 	}
 
@@ -631,7 +631,7 @@ class WooCommerce extends Feature {
 	 * @param array $menu_orders Post IDs and their new menu_order value
 	 */
 	public function action_sync_on_woocommerce_sort_single( $sorting_id, $menu_orders ) {
-		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->action_sync_on_woocommerce_sort_single()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->action_sync_on_woocommerce_sort_single()" );
 		return $this->products->action_sync_on_woocommerce_sort_single( $sorting_id, $menu_orders );
 	}
 
@@ -643,7 +643,7 @@ class WooCommerce extends Feature {
 	 * @param array $settings Current settings.
 	 */
 	public function add_weight_settings_search( $settings ) {
-		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->add_weight_settings_search()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->add_weight_settings_search()" );
 		$this->products->add_weight_settings_search( $settings );
 	}
 
@@ -658,7 +658,7 @@ class WooCommerce extends Feature {
 	 * @return bool
 	 */
 	public function maybe_disable_decaying( $is_decaying_enabled, $settings, $args ) {
-		_deprecated_function( __METHOD__, '0.1.0', "\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->maybe_disable_decaying()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products->maybe_disable_decaying()" );
 		return $this->products->maybe_disable_decaying( $is_decaying_enabled, $settings, $args );
 	}
 }

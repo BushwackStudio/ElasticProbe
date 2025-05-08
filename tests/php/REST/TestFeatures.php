@@ -3,17 +3,17 @@
  * Test the Features REST controller
  *
  * @since 5.3.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest\REST;
+namespace ElasticProbeTest\REST;
 
-use WPProbe\REST\Features;
+use ElasticProbe\REST\Features;
 
 /**
  * TestFeatures test class
  */
-class TestFeatures extends \WPProbeTest\BaseTestCase {
+class TestFeatures extends \ElasticProbeTest\BaseTestCase {
 	/**
 	 * Test get_args.
 	 *
@@ -22,10 +22,10 @@ class TestFeatures extends \WPProbeTest\BaseTestCase {
 	 */
 	public function test_get_args() {
 		$features_rest     = new Features();
-		$features_instance = \WPProbe\Features::factory();
+		$features_instance = \ElasticProbe\Features::factory();
 
 		$features_instance->register_feature(
-			new \WPProbeTest\SettingsSchemaFeature()
+			new \ElasticProbeTest\SettingsSchemaFeature()
 		);
 
 		$args = $features_rest->get_args();

@@ -2,14 +2,14 @@
 /**
  * Test feature activation, registration, and deactivation.
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe;
-use WPProbe\Features;
-use WPProbe\REST\Features as FeaturesRest;
+use ElasticProbe;
+use ElasticProbe\Features;
+use ElasticProbe\REST\Features as FeaturesRest;
 
 /**
  * Feature activation test class
@@ -36,10 +36,10 @@ class TestFeatureActivation extends BaseTestCase {
 
 		wp_set_current_user( $admin_id );
 
-		WPProbe\Elasticsearch::factory()->delete_all_indices();
-		WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
+		ElasticProbe\Elasticsearch::factory()->delete_all_indices();
+		ElasticProbe\Indexables::factory()->get( 'post' )->put_mapping();
 
-		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
+		ElasticProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
 
 		$this->setup_test_post_type();
 	}
@@ -65,9 +65,9 @@ class TestFeatureActivation extends BaseTestCase {
 		delete_site_option( 'ep_feature_requirement_statuses' );
 		delete_site_option( 'ep_feature_settings' );
 
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->setup_features();
 
-		foreach ( WPProbe\Features::factory()->registered_features as $feature ) {
+		foreach ( ElasticProbe\Features::factory()->registered_features as $feature ) {
 			$this->assertEquals( false, $feature->is_active() );
 		}
 	}
@@ -83,19 +83,19 @@ class TestFeatureActivation extends BaseTestCase {
 		delete_site_option( 'ep_feature_settings' );
 
 		$this->handle_feature_activation();
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->setup_features();
 
-		$this->assertEquals( true, WPProbe\Features::factory()->registered_features['search']->is_active() );
-		$this->assertEquals( 0, WPProbe\Features::factory()->registered_features['search']->requirements_status()->code );
+		$this->assertEquals( true, ElasticProbe\Features::factory()->registered_features['search']->is_active() );
+		$this->assertEquals( 0, ElasticProbe\Features::factory()->registered_features['search']->requirements_status()->code );
 
-		$this->assertEquals( false, WPProbe\Features::factory()->registered_features['protected_content']->is_active() );
-		$this->assertEquals( 1, WPProbe\Features::factory()->registered_features['protected_content']->requirements_status()->code );
+		$this->assertEquals( false, ElasticProbe\Features::factory()->registered_features['protected_content']->is_active() );
+		$this->assertEquals( 1, ElasticProbe\Features::factory()->registered_features['protected_content']->requirements_status()->code );
 
-		$this->assertEquals( true, WPProbe\Features::factory()->registered_features['woocommerce']->is_active() );
-		$this->assertEquals( 0, WPProbe\Features::factory()->registered_features['woocommerce']->requirements_status()->code );
+		$this->assertEquals( true, ElasticProbe\Features::factory()->registered_features['woocommerce']->is_active() );
+		$this->assertEquals( 0, ElasticProbe\Features::factory()->registered_features['woocommerce']->requirements_status()->code );
 
-		$this->assertEquals( true, WPProbe\Features::factory()->registered_features['related_posts']->is_active() );
-		$this->assertEquals( 0, WPProbe\Features::factory()->registered_features['related_posts']->requirements_status()->code );
+		$this->assertEquals( true, ElasticProbe\Features::factory()->registered_features['related_posts']->is_active() );
+		$this->assertEquals( 0, ElasticProbe\Features::factory()->registered_features['related_posts']->requirements_status()->code );
 	}
 
 	/**
@@ -109,7 +109,7 @@ class TestFeatureActivation extends BaseTestCase {
 		delete_site_option( 'ep_feature_settings' );
 
 		$this->handle_feature_activation();
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->setup_features();
 
 		$requirements_statuses = get_site_option( 'ep_feature_requirement_statuses' );
 
@@ -129,15 +129,15 @@ class TestFeatureActivation extends BaseTestCase {
 		delete_site_option( 'ep_feature_requirement_statuses' );
 		delete_site_option( 'ep_feature_settings' );
 
-		WPProbe\Features::factory()->register_feature(
+		ElasticProbe\Features::factory()->register_feature(
 			new FeatureTest()
 		);
 
 		$this->handle_feature_activation();
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->setup_features();
 
-		$this->assertEquals( true, WPProbe\Features::factory()->registered_features['test']->is_active() );
-		$this->assertEquals( 0, WPProbe\Features::factory()->registered_features['test']->requirements_status()->code );
+		$this->assertEquals( true, ElasticProbe\Features::factory()->registered_features['test']->is_active() );
+		$this->assertEquals( 0, ElasticProbe\Features::factory()->registered_features['test']->requirements_status()->code );
 	}
 
 	/**
@@ -151,17 +151,17 @@ class TestFeatureActivation extends BaseTestCase {
 		delete_site_option( 'ep_feature_requirement_statuses' );
 		delete_site_option( 'ep_feature_settings' );
 
-		WPProbe\Features::factory()->register_feature(
+		ElasticProbe\Features::factory()->register_feature(
 			new FeatureTest()
 		);
 
 		$this->handle_feature_activation();
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->setup_features();
 
 		$requirements_statuses = get_site_option( 'ep_feature_requirement_statuses' );
 
-		$this->assertEquals( true, WPProbe\Features::factory()->registered_features['test']->is_active() );
-		$this->assertEquals( 0, WPProbe\Features::factory()->registered_features['test']->requirements_status()->code );
+		$this->assertEquals( true, ElasticProbe\Features::factory()->registered_features['test']->is_active() );
+		$this->assertEquals( 0, ElasticProbe\Features::factory()->registered_features['test']->requirements_status()->code );
 		$this->assertEquals( 0, $requirements_statuses['test'] );
 
 		update_site_option( 'ep_test_feature_on', 2 );
@@ -170,8 +170,8 @@ class TestFeatureActivation extends BaseTestCase {
 
 		$requirements_statuses = get_site_option( 'ep_feature_requirement_statuses' );
 
-		$this->assertEquals( false, WPProbe\Features::factory()->registered_features['test']->is_active() );
-		$this->assertEquals( 2, WPProbe\Features::factory()->registered_features['test']->requirements_status()->code );
+		$this->assertEquals( false, ElasticProbe\Features::factory()->registered_features['test']->is_active() );
+		$this->assertEquals( 2, ElasticProbe\Features::factory()->registered_features['test']->requirements_status()->code );
 		$this->assertEquals( 2, $requirements_statuses['test'] );
 	}
 
@@ -190,17 +190,17 @@ class TestFeatureActivation extends BaseTestCase {
 
 		$feature->requires_install_reindex = false;
 
-		WPProbe\Features::factory()->register_feature( $feature );
+		ElasticProbe\Features::factory()->register_feature( $feature );
 
 		update_site_option( 'ep_test_feature_on', 2 );
 
 		$this->handle_feature_activation();
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->setup_features();
 
 		$requirements_statuses = get_site_option( 'ep_feature_requirement_statuses' );
 
-		$this->assertEquals( false, WPProbe\Features::factory()->registered_features['test']->is_active() );
-		$this->assertEquals( 2, WPProbe\Features::factory()->registered_features['test']->requirements_status()->code );
+		$this->assertEquals( false, ElasticProbe\Features::factory()->registered_features['test']->is_active() );
+		$this->assertEquals( 2, ElasticProbe\Features::factory()->registered_features['test']->requirements_status()->code );
 		$this->assertEquals( 2, $requirements_statuses['test'] );
 
 		update_site_option( 'ep_test_feature_on', 0 );
@@ -209,8 +209,8 @@ class TestFeatureActivation extends BaseTestCase {
 
 		$requirements_statuses = get_site_option( 'ep_feature_requirement_statuses' );
 
-		$this->assertEquals( true, WPProbe\Features::factory()->registered_features['test']->is_active() );
-		$this->assertEquals( 0, WPProbe\Features::factory()->registered_features['test']->requirements_status()->code );
+		$this->assertEquals( true, ElasticProbe\Features::factory()->registered_features['test']->is_active() );
+		$this->assertEquals( 0, ElasticProbe\Features::factory()->registered_features['test']->requirements_status()->code );
 		$this->assertEquals( 0, $requirements_statuses['test'] );
 	}
 
@@ -225,19 +225,19 @@ class TestFeatureActivation extends BaseTestCase {
 		delete_site_option( 'ep_feature_requirement_statuses' );
 		delete_site_option( 'ep_feature_settings' );
 
-		WPProbe\Features::factory()->register_feature(
+		ElasticProbe\Features::factory()->register_feature(
 			new FeatureTest()
 		);
 
 		update_site_option( 'ep_test_feature_on', 0 );
 
 		$this->handle_feature_activation();
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->setup_features();
 
 		$requirements_statuses = get_site_option( 'ep_feature_requirement_statuses' );
 
-		$this->assertEquals( true, WPProbe\Features::factory()->registered_features['test']->is_active() );
-		$this->assertEquals( 0, WPProbe\Features::factory()->registered_features['test']->requirements_status()->code );
+		$this->assertEquals( true, ElasticProbe\Features::factory()->registered_features['test']->is_active() );
+		$this->assertEquals( 0, ElasticProbe\Features::factory()->registered_features['test']->requirements_status()->code );
 		$this->assertEquals( 0, $requirements_statuses['test'] );
 
 		update_site_option( 'ep_test_feature_on', 1 );
@@ -246,8 +246,8 @@ class TestFeatureActivation extends BaseTestCase {
 
 		$requirements_statuses = get_site_option( 'ep_feature_requirement_statuses' );
 
-		$this->assertEquals( true, WPProbe\Features::factory()->registered_features['test']->is_active() );
-		$this->assertEquals( 1, WPProbe\Features::factory()->registered_features['test']->requirements_status()->code );
+		$this->assertEquals( true, ElasticProbe\Features::factory()->registered_features['test']->is_active() );
+		$this->assertEquals( 1, ElasticProbe\Features::factory()->registered_features['test']->requirements_status()->code );
 		$this->assertEquals( 1, $requirements_statuses['test'] );
 	}
 
@@ -396,7 +396,7 @@ class TestFeatureActivation extends BaseTestCase {
 
 		Features::factory()->update_feature( 'test', $test_settings, true, 'draft' );
 
-		$wp_cli = new \WPProbe\Command();
+		$wp_cli = new \ElasticProbe\Command();
 
 		$wp_cli->sync(
 			[],
@@ -428,7 +428,7 @@ class TestFeatureActivation extends BaseTestCase {
 	 */
 	protected function handle_feature_activation() {
 		set_current_screen( 'edit.php' );
-		WPProbe\Features::factory()->handle_feature_activation();
+		ElasticProbe\Features::factory()->handle_feature_activation();
 		set_current_screen( 'front' );
 	}
 }

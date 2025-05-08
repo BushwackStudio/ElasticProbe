@@ -3,12 +3,12 @@
  * Test the Container class methods
  *
  * @since 4.7.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe\Container;
+use ElasticProbe\Container;
 
 /**
  * TestElasticPress test class
@@ -27,7 +27,7 @@ class TestContainer extends BaseTestCase {
 
 		$this->assertSame( $new_object, $container->get( 'present' ) );
 
-		$this->expectException( '\WPProbe\Vendor_Prefixed\Psr\Container\NotFoundExceptionInterface' );
+		$this->expectException( '\ElasticProbe\Vendor_Prefixed\Psr\Container\NotFoundExceptionInterface' );
 		$container->get( 'absent' );
 	}
 

@@ -3,17 +3,17 @@
  * SettingsSchemaFeature feature
  *
  * @since 5.3.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe\Indexables;
+use ElasticProbe\Indexables;
 
 /**
  * SettingsSchemaFeature class
  */
-class SettingsSchemaFeature extends \WPProbe\Feature {
+class SettingsSchemaFeature extends \ElasticProbe\Feature {
 	/**
 	 * Initialize feature setting it's config
 	 */

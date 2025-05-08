@@ -3,19 +3,19 @@
  * Indexable Content report class
  *
  * @since 4.4.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\StatusReport;
+namespace ElasticProbe\StatusReport;
 
-use WPProbe\Utils;
+use ElasticProbe\Utils;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * IndexableContent report class
  *
- * @package WPProbe
+ * @package ElasticProbe
  */
 class IndexableContent extends AjaxReport {
 
@@ -25,7 +25,7 @@ class IndexableContent extends AjaxReport {
 	 * @return string
 	 */
 	public function get_title(): string {
-		return __( 'Indexable Content', 'wpprobe' );
+		return __( 'Indexable Content', 'elasticprobe' );
 	}
 
 	/**
@@ -89,7 +89,7 @@ class IndexableContent extends AjaxReport {
 	 * @return array
 	 */
 	protected function get_post_count_group(): array {
-		$post_indexable = \WPProbe\Indexables::factory()->get( 'post' );
+		$post_indexable = \ElasticProbe\Indexables::factory()->get( 'post' );
 		$post_types     = $post_indexable->get_indexable_post_types();
 
 		$post_stati = $post_indexable->get_indexable_post_status();
@@ -127,7 +127,7 @@ class IndexableContent extends AjaxReport {
 	 * @return array
 	 */
 	protected function get_post_meta_fields(): array {
-		$post_indexable = \WPProbe\Indexables::factory()->get( 'post' );
+		$post_indexable = \ElasticProbe\Indexables::factory()->get( 'post' );
 		$post_types     = $post_indexable->get_indexable_post_types();
 
 		$force_refresh = ! empty( $_GET['force_refresh'] ); // phpcs:ignore WordPress.Security.NonceVerification
@@ -159,7 +159,7 @@ class IndexableContent extends AjaxReport {
 						'For performance reasons the reported count is based on the first %1$s %2$s only. The actual number may be higher.',
 						'For performance reasons the reported count is based on the first %1$s %2$s only. The actual number may be higher.',
 						$post_count_limit,
-						'wpprobe'
+						'elasticprobe'
 					),
 					number_format_i18n( $post_count_limit ),
 					// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralSingle,WordPress.WP.I18n.NonSingularStringLiteralPlural
@@ -180,12 +180,12 @@ class IndexableContent extends AjaxReport {
 		}
 
 		$fields['total-all-post-types'] = [
-			'label' => __( 'Total Distinct Meta Keys', 'wpprobe' ),
+			'label' => __( 'Total Distinct Meta Keys', 'elasticprobe' ),
 			'value' => count( $all_keys ),
 		];
 
 		$fields['distinct-meta-keys'] = [
-			'label' => __( 'Distinct Meta Keys', 'wpprobe' ),
+			'label' => __( 'Distinct Meta Keys', 'elasticprobe' ),
 			'value' => wp_sprintf( '%l', $all_keys ),
 		];
 

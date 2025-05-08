@@ -4,17 +4,17 @@
  *
  * phpcs:disable WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Feature\Autosuggest;
+namespace ElasticProbe\Feature\Autosuggest;
 
-use WPProbe\Elasticsearch;
-use WPProbe\Feature;
-use WPProbe\FeatureRequirementsStatus;
-use WPProbe\Features;
-use WPProbe\Indexables;
-use WPProbe\Utils;
+use ElasticProbe\Elasticsearch;
+use ElasticProbe\Feature;
+use ElasticProbe\FeatureRequirementsStatus;
+use ElasticProbe\Features;
+use ElasticProbe\Indexables;
+use ElasticProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -62,13 +62,13 @@ class Autosuggest extends Feature {
 	 * @since 5.2.0
 	 */
 	public function set_i18n_strings(): void {
-		$this->title = esc_html__( 'Autosuggest', 'wpprobe' );
+		$this->title = esc_html__( 'Autosuggest', 'elasticprobe' );
 
-		$this->short_title = esc_html__( 'Autosuggest', 'wpprobe' );
+		$this->short_title = esc_html__( 'Autosuggest', 'elasticprobe' );
 
-		$this->summary = '<p>' . __( 'Input fields of type "search" or with the CSS class "search-field" or "ep-autosuggest" will be enhanced with autosuggest functionality. As text is entered into the search field, suggested content will appear below it, based on top search results for the text. Suggestions link directly to the content.', 'wpprobe' ) . '</p>';
+		$this->summary = '<p>' . __( 'Input fields of type "search" or with the CSS class "search-field" or "ep-autosuggest" will be enhanced with autosuggest functionality. As text is entered into the search field, suggested content will appear below it, based on top search results for the text. Suggestions link directly to the content.', 'elasticprobe' ) . '</p>';
 
-		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#autosuggest', 'wpprobe' );
+		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#autosuggest', 'elasticprobe' );
 	}
 
 	/**
@@ -78,7 +78,7 @@ class Autosuggest extends Feature {
 	 */
 	public function output_feature_box_long() {
 		?>
-		<p><?php esc_html_e( 'Input fields of type "search" or with the CSS class "search-field" or "ep-autosuggest" will be enhanced with autosuggest functionality. As text is entered into the search field, suggested content will appear below it, based on top search results for the text. Suggestions link directly to the content.', 'wpprobe' ); ?></p>
+		<p><?php esc_html_e( 'Input fields of type "search" or with the CSS class "search-field" or "ep-autosuggest" will be enhanced with autosuggest functionality. As text is entered into the search field, suggested content will appear below it, based on top search results for the text. Suggestions link directly to the content.', 'elasticprobe' ); ?></p>
 		<?php
 	}
 
@@ -107,19 +107,19 @@ class Autosuggest extends Feature {
 		$settings = $this->get_settings();
 		?>
 		<div class="field">
-			<div class="field-name status"><label for="feature_autosuggest_selector"><?php esc_html_e( 'Autosuggest Selector', 'wpprobe' ); ?></label></div>
+			<div class="field-name status"><label for="feature_autosuggest_selector"><?php esc_html_e( 'Autosuggest Selector', 'elasticprobe' ); ?></label></div>
 			<div class="input-wrap">
 				<input value="<?php echo empty( $settings['autosuggest_selector'] ) ? '.ep-autosuggest' : esc_attr( $settings['autosuggest_selector'] ); ?>" type="text" name="settings[autosuggest_selector]" id="feature_autosuggest_selector">
-				<p class="field-description"><?php esc_html_e( 'Input additional selectors where you would like to include autosuggest separated by a comma. Example: .custom-selector, #custom-id, input[type="text"]', 'wpprobe' ); ?></p>
+				<p class="field-description"><?php esc_html_e( 'Input additional selectors where you would like to include autosuggest separated by a comma. Example: .custom-selector, #custom-id, input[type="text"]', 'elasticprobe' ); ?></p>
 			</div>
 		</div>
 
 		<div class="field">
-			<div class="field-name status"><?php esc_html_e( 'Google Analytics Events', 'wpprobe' ); ?></div>
+			<div class="field-name status"><?php esc_html_e( 'Google Analytics Events', 'elasticprobe' ); ?></div>
 			<div class="input-wrap">
-				<label><input name="settings[trigger_ga_event]" <?php checked( (bool) $settings['trigger_ga_event'] ); ?> type="radio" value="1"><?php esc_html_e( 'Enabled', 'wpprobe' ); ?></label><br>
-				<label><input name="settings[trigger_ga_event]" <?php checked( ! (bool) $settings['trigger_ga_event'] ); ?> type="radio" value="0"><?php esc_html_e( 'Disabled', 'wpprobe' ); ?></label>
-				<p class="field-description"><?php esc_html_e( 'When enabled, a gtag tracking event is fired when an autosuggest result is clicked.', 'wpprobe' ); ?></p>
+				<label><input name="settings[trigger_ga_event]" <?php checked( (bool) $settings['trigger_ga_event'] ); ?> type="radio" value="1"><?php esc_html_e( 'Enabled', 'elasticprobe' ); ?></label><br>
+				<label><input name="settings[trigger_ga_event]" <?php checked( ! (bool) $settings['trigger_ga_event'] ); ?> type="radio" value="0"><?php esc_html_e( 'Disabled', 'elasticprobe' ); ?></label>
+				<p class="field-description"><?php esc_html_e( 'When enabled, a gtag tracking event is fired when an autosuggest result is clicked.', 'elasticprobe' ); ?></p>
 			</div>
 		</div>
 		<?php
@@ -133,15 +133,15 @@ class Autosuggest extends Feature {
 		?>
 
 		<div class="field">
-			<div class="field-name status"><label for="feature_autosuggest_endpoint_url"><?php esc_html_e( 'Endpoint URL', 'wpprobe' ); ?></label></div>
+			<div class="field-name status"><label for="feature_autosuggest_endpoint_url"><?php esc_html_e( 'Endpoint URL', 'elasticprobe' ); ?></label></div>
 			<div class="input-wrap">
 				<input <?php disabled( defined( 'EP_AUTOSUGGEST_ENDPOINT' ) && EP_AUTOSUGGEST_ENDPOINT ); ?> value="<?php echo esc_url( $endpoint_url ); ?>" type="text" name="settings[endpoint_url]" id="feature_autosuggest_endpoint_url">
 
 				<?php if ( defined( 'EP_AUTOSUGGEST_ENDPOINT' ) && EP_AUTOSUGGEST_ENDPOINT ) : ?>
-					<p class="field-description"><?php esc_html_e( 'Your autosuggest endpoint is set in wp-config.php', 'wpprobe' ); ?></p>
+					<p class="field-description"><?php esc_html_e( 'Your autosuggest endpoint is set in wp-config.php', 'elasticprobe' ); ?></p>
 				<?php endif; ?>
 
-				<p class="field-description"><?php esc_html_e( 'This address will be exposed to the public.', 'wpprobe' ); ?></p>
+				<p class="field-description"><?php esc_html_e( 'This address will be exposed to the public.', 'elasticprobe' ); ?></p>
 			</div>
 		</div>
 
@@ -279,7 +279,7 @@ class Autosuggest extends Feature {
 				 * `fuzziness` is used in the original algorithm.
 				 * `slop` is used in `3.5`.
 				 *
-				 * @see \WPProbe\Indexable\Post\Post::format_args()
+				 * @see \ElasticProbe\Indexable\Post\Post::format_args()
 				 */
 				if ( empty( $current_bool_should['multi_match']['fuzziness'] ) && empty( $current_bool_should['multi_match']['slop'] ) ) {
 					continue;
@@ -375,7 +375,7 @@ class Autosuggest extends Feature {
 			true
 		);
 
-		wp_set_script_translations( 'elasticpress-autosuggest', 'wpprobe' );
+		wp_set_script_translations( 'elasticpress-autosuggest', 'elasticprobe' );
 
 		wp_enqueue_style(
 			'elasticpress-autosuggest',
@@ -603,7 +603,7 @@ class Autosuggest extends Feature {
 
 		$message = wp_json_encode(
 			[
-				esc_html__( 'This is a fake request to build the WPProbe Autosuggest query. It is not really sent.', 'wpprobe' ),
+				esc_html__( 'This is a fake request to build the ElasticProbe Autosuggest query. It is not really sent.', 'elasticprobe' ),
 			]
 		);
 
@@ -628,11 +628,11 @@ class Autosuggest extends Feature {
 
 		$status->message = [];
 
-		$status->message[] = esc_html__( 'This feature modifies the site’s default user experience by presenting a list of suggestions below detected search fields as text is entered into the field.', 'wpprobe' );
+		$status->message[] = esc_html__( 'This feature modifies the site’s default user experience by presenting a list of suggestions below detected search fields as text is entered into the field.', 'elasticprobe' );
 
 		if ( ! Utils\is_epio() ) {
 			$status->code      = 1;
-			$status->message[] = wp_kses_post( __( "You aren't using <a href='https://wpprobe.com'>WPProbe.com</a> so we can't be sure your host is properly secured. Autosuggest requires a publicly accessible endpoint, which can expose private content and allow data modification if improperly configured.", 'wpprobe' ) );
+			$status->message[] = wp_kses_post( __( "You aren't using <a href='https://wpprobe.com'>WPProbe.com</a> so we can't be sure your host is properly secured. Autosuggest requires a publicly accessible endpoint, which can expose private content and allow data modification if improperly configured.", 'elasticprobe' ) );
 		}
 
 		return $status;
@@ -786,16 +786,16 @@ class Autosuggest extends Feature {
 		}
 		?>
 		<div class="field js-toggle-feature" data-feature="<?php echo esc_attr( $this->slug ); ?>">
-			<div class="field-name status"><?php esc_html_e( 'Connection', 'wpprobe' ); ?></div>
+			<div class="field-name status"><?php esc_html_e( 'Connection', 'elasticprobe' ); ?></div>
 			<div class="input-wrap">
 			<?php
 			$epio_link                = 'https://wpprobe.com';
 			$epio_autosuggest_kb_link = 'https://www.elasticpress.io/documentation/article/elasticpress-io-autosuggest/';
-			$status_report_link       = defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ? network_admin_url( 'admin.php?page=wpprobe-status-report' ) : admin_url( 'admin.php?page=wpprobe-status-report' );
+			$status_report_link       = defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ? network_admin_url( 'admin.php?page=elasticprobe-status-report' ) : admin_url( 'admin.php?page=elasticprobe-status-report' );
 
 			printf(
 				/* translators: 1: <a> tag (WPProbe.com); 2. </a>; 3: <a> tag (KB article); 4. </a>; 5: <a> tag (Site Health Debug Section); 6. </a>; */
-				esc_html__( 'You are directly connected to %1$sWPProbe.com%2$s, ensuring the most performant Autosuggest experience. %3$sLearn more about what this means%4$s or %5$sclick here for debug information%6$s.', 'wpprobe' ),
+				esc_html__( 'You are directly connected to %1$sWPProbe.com%2$s, ensuring the most performant Autosuggest experience. %3$sLearn more about what this means%4$s or %5$sclick here for debug information%6$s.', 'elasticprobe' ),
 				'<a href="' . esc_url( $epio_link ) . '">',
 				'</a>',
 				'<a href="' . esc_url( $epio_autosuggest_kb_link ) . '">',
@@ -864,13 +864,13 @@ class Autosuggest extends Feature {
 
 		$epio_link                = 'https://wpprobe.com';
 		$epio_autosuggest_kb_link = 'https://www.elasticpress.io/documentation/article/elasticpress-io-autosuggest/';
-		$status_report_link       = defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ? network_admin_url( 'admin.php?page=wpprobe-status-report' ) : admin_url( 'admin.php?page=wpprobe-status-report' );
+		$status_report_link       = defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ? network_admin_url( 'admin.php?page=elasticprobe-status-report' ) : admin_url( 'admin.php?page=elasticprobe-status-report' );
 
 		$this->settings_schema[] = [
 			'key'   => 'epio',
 			'label' => sprintf(
 				/* translators: 1: <a> tag (WPProbe.com); 2. </a>; 3: <a> tag (KB article); 4. </a>; 5: <a> tag (Site Health Debug Section); 6. </a>; */
-				__( 'You are directly connected to %1$sWPProbe.com%2$s, ensuring the most performant Autosuggest experience. %3$sLearn more about what this means%4$s or %5$sclick here for debug information%6$s.', 'wpprobe' ),
+				__( 'You are directly connected to %1$sWPProbe.com%2$s, ensuring the most performant Autosuggest experience. %3$sLearn more about what this means%4$s or %5$sclick here for debug information%6$s.', 'elasticprobe' ),
 				'<a href="' . esc_url( $epio_link ) . '">',
 				'</a>',
 				'<a href="' . esc_url( $epio_autosuggest_kb_link ) . '">',
@@ -891,16 +891,16 @@ class Autosuggest extends Feature {
 		$this->settings_schema = [
 			[
 				'default' => '.ep-autosuggest',
-				'help'    => __( 'Input additional selectors where you would like to include autosuggest, separated by a comma. Example: <code>.custom-selector, #custom-id, input[type="text"]</code>', 'wpprobe' ),
+				'help'    => __( 'Input additional selectors where you would like to include autosuggest, separated by a comma. Example: <code>.custom-selector, #custom-id, input[type="text"]</code>', 'elasticprobe' ),
 				'key'     => 'autosuggest_selector',
-				'label'   => __( 'Additional selectors', 'wpprobe' ),
+				'label'   => __( 'Additional selectors', 'elasticprobe' ),
 				'type'    => 'text',
 			],
 			[
 				'default' => '0',
 				'key'     => 'trigger_ga_event',
-				'help'    => __( 'Enable to fire a gtag tracking event when an autosuggest result is clicked.', 'wpprobe' ),
-				'label'   => __( 'Trigger Google Analytics events', 'wpprobe' ),
+				'help'    => __( 'Enable to fire a gtag tracking event when an autosuggest result is clicked.', 'elasticprobe' ),
+				'label'   => __( 'Trigger Google Analytics events', 'elasticprobe' ),
 				'type'    => 'checkbox',
 			],
 		];
@@ -912,9 +912,9 @@ class Autosuggest extends Feature {
 
 			$this->settings_schema[] = [
 				'disabled' => $set_in_wp_config,
-				'help'     => ! $set_in_wp_config ? __( 'A valid URL starting with <code>http://</code> or <code>https://</code>. This address will be exposed to the public.', 'wpprobe' ) : '',
+				'help'     => ! $set_in_wp_config ? __( 'A valid URL starting with <code>http://</code> or <code>https://</code>. This address will be exposed to the public.', 'elasticprobe' ) : '',
 				'key'      => 'endpoint_url',
-				'label'    => __( 'Endpoint URL', 'wpprobe' ),
+				'label'    => __( 'Endpoint URL', 'elasticprobe' ),
 				'type'     => 'url',
 			];
 		}
@@ -929,7 +929,7 @@ class Autosuggest extends Feature {
 		_doing_it_wrong(
 			__METHOD__,
 			esc_html__( 'This method should not be called anymore, as autosuggest requests are not sent regularly anymore.' ),
-			'WPProbe 4.7.0'
+			'ElasticProbe 0.1.0'
 		);
 	}
 

@@ -23,7 +23,7 @@ import './style.css';
  * @returns {WPElement} App component.
  */
 const App = () => (
-	<SettingsScreenProvider title={__('Manage Search Fields & Weighting', 'wpprobe')}>
+	<SettingsScreenProvider title={__('Manage Search Fields & Weighting', 'elasticprobe')}>
 		<WeightingSettingsProvider
 			apiUrl={apiUrl}
 			metaMode={metaMode}

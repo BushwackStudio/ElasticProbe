@@ -1,21 +1,21 @@
 <?php
 /**
- * WPProbe Status Report class
+ * ElasticProbe Status Report class
  *
  * @since 4.4.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Screen;
+namespace ElasticProbe\Screen;
 
-use WPProbe\Utils;
+use ElasticProbe\Utils;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Status Report class
  *
- * @package WPProbe
+ * @package ElasticProbe
  */
 class StatusReport {
 	/**
@@ -41,7 +41,7 @@ class StatusReport {
 	 * @return void
 	 */
 	public function admin_enqueue_scripts() {
-		if ( 'status-report' !== \WPProbe\Screen::factory()->get_current_screen() ) {
+		if ( 'status-report' !== \ElasticProbe\Screen::factory()->get_current_screen() ) {
 			return;
 		}
 
@@ -92,7 +92,7 @@ class StatusReport {
 	 */
 	public function action_wp_ajax_ep_load_groups(): void {
 		if ( ! isset( $_POST['ep-status-report-nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ep-status-report-nonce'] ) ), 'ep-status-report-nonce' ) ) {
-			wp_send_json_error( [ 'message' => __( 'Nonce is not present.', 'wpprobe' ) ], 403 );
+			wp_send_json_error( [ 'message' => __( 'Nonce is not present.', 'elasticprobe' ) ], 403 );
 		}
 
 		if ( empty( $this->formatted_reports ) ) {
@@ -102,13 +102,13 @@ class StatusReport {
 		$post = wp_unslash( $_POST );
 
 		if ( empty( $this->formatted_reports[ $post['report'] ] ) ) {
-			wp_send_json_error( [ 'message' => __( 'Status report not found.', 'wpprobe' ) ], 404 );
+			wp_send_json_error( [ 'message' => __( 'Status report not found.', 'elasticprobe' ) ], 404 );
 		}
 
 		$report = $this->formatted_reports[ $post['report'] ];
 
-		if ( ! $report instanceof \WPProbe\StatusReport\AjaxReport ) {
-			wp_send_json_error( [ 'message' => __( 'Report is not an AJAX report.', 'wpprobe' ) ], 403 );
+		if ( ! $report instanceof \ElasticProbe\StatusReport\AjaxReport ) {
+			wp_send_json_error( [ 'message' => __( 'Report is not an AJAX report.', 'elasticprobe' ) ], 403 );
 		}
 
 		wp_send_json_success(
@@ -128,22 +128,22 @@ class StatusReport {
 	public function get_reports(): array {
 		$reports = [];
 
-		$query_logger = \WPProbe\get_container()->get( '\WPProbe\QueryLogger' );
+		$query_logger = \ElasticProbe\get_container()->get( '\ElasticProbe\QueryLogger' );
 
 		if ( $query_logger ) {
-			$reports['failed-queries'] = new \WPProbe\StatusReport\FailedQueries( $query_logger );
+			$reports['failed-queries'] = new \ElasticProbe\StatusReport\FailedQueries( $query_logger );
 		}
 
 		if ( Utils\is_epio() ) {
-			$reports['autosuggest'] = new \WPProbe\StatusReport\ElasticPressIo();
+			$reports['autosuggest'] = new \ElasticProbe\StatusReport\ElasticPressIo();
 		}
 
-		$reports['wordpress']    = new \WPProbe\StatusReport\WordPress();
-		$reports['indexable']    = new \WPProbe\StatusReport\IndexableContent();
-		$reports['elasticpress'] = new \WPProbe\StatusReport\ElasticPress();
-		$reports['indices']      = new \WPProbe\StatusReport\Indices();
-		$reports['last-sync']    = new \WPProbe\StatusReport\LastSync();
-		$reports['features']     = new \WPProbe\StatusReport\Features();
+		$reports['wordpress']    = new \ElasticProbe\StatusReport\WordPress();
+		$reports['indexable']    = new \ElasticProbe\StatusReport\IndexableContent();
+		$reports['elasticpress'] = new \ElasticProbe\StatusReport\ElasticPress();
+		$reports['indices']      = new \ElasticProbe\StatusReport\Indices();
+		$reports['last-sync']    = new \ElasticProbe\StatusReport\LastSync();
+		$reports['features']     = new \ElasticProbe\StatusReport\Features();
 
 		/**
 		 * Filter the reports executed in the Status Report page.
@@ -189,7 +189,7 @@ class StatusReport {
 						'groups'       => $report->get_groups(),
 						'messages'     => $report->get_messages(),
 						'title'        => $report->get_title(),
-						'isAjaxReport' => $report instanceof \WPProbe\StatusReport\AjaxReport,
+						'isAjaxReport' => $report instanceof \ElasticProbe\StatusReport\AjaxReport,
 					];
 				},
 				$reports
@@ -254,7 +254,7 @@ class StatusReport {
 	 * @return string
 	 */
 	protected function render_pending_generation() {
-		return __( 'Please generate a full report to see the content of this group.', 'wpprobe' );
+		return __( 'Please generate a full report to see the content of this group.', 'elasticprobe' );
 	}
 
 	/**
@@ -266,7 +266,7 @@ class StatusReport {
 	public function admin_menu_count() {
 		global $menu, $submenu;
 
-		$messages = \WPProbe\ElasticPressIo::factory()->get_endpoint_messages();
+		$messages = \ElasticProbe\ElasticPressIo::factory()->get_endpoint_messages();
 
 		if ( empty( $messages ) ) {
 			return;
@@ -275,12 +275,12 @@ class StatusReport {
 		$count = count( $messages );
 		$title = sprintf(
 			/* translators: %d: Number of messages. */
-			_n( '%s message from WPProbe.com', '%s messages from WPProbe.com', $count, 'wpprobe' ),
+			_n( '%s message from WPProbe.com', '%s messages from WPProbe.com', $count, 'elasticprobe' ),
 			$count
 		);
 
 		foreach ( $menu as $key => $value ) {
-			if ( 'wpprobe' === $value[2] ) {
+			if ( 'elasticprobe' === $value[2] ) {
 				$menu[ $key ][0] .= sprintf(
 					' <span class="update-plugins"><span aria-hidden="true">%1$s</span><span class="screen-reader-text">%2$s</span></span>',
 					esc_html( $count ),
@@ -289,13 +289,13 @@ class StatusReport {
 			}
 		}
 
-		if ( ! isset( $submenu['wpprobe'] ) ) {
+		if ( ! isset( $submenu['elasticprobe'] ) ) {
 			return;
 		}
 
-		foreach ( $submenu['wpprobe'] as $key => $value ) {
-			if ( 'wpprobe-status-report' === $value[2] ) {
-				$submenu['wpprobe'][ $key ][0] .= sprintf(
+		foreach ( $submenu['elasticprobe'] as $key => $value ) {
+			if ( 'elasticprobe-status-report' === $value[2] ) {
+				$submenu['elasticprobe'][ $key ][0] .= sprintf(
 					' <span class="menu-counter"><span aria-hidden="true">%1$s</span><span class="screen-reader-text">%2$s</span></span>',
 					esc_html( $count ),
 					esc_attr( $title )

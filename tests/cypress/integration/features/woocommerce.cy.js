@@ -25,7 +25,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 
 		cy.activatePlugin('woocommerce');
 
-		cy.visitAdminPage('admin.php?page=wpprobe');
+		cy.visitAdminPage('admin.php?page=elasticprobe');
 		cy.get('#tab-panel-0-woocommerce').click();
 		cy.get('.components-form-toggle__input').should('be.checked');
 	});
@@ -35,7 +35,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 
 		cy.maybeDisableFeature('woocommerce');
 
-		cy.visitAdminPage('admin.php?page=wpprobe');
+		cy.visitAdminPage('admin.php?page=elasticprobe');
 		cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
 
 		cy.contains('button', 'WooCommerce').click();
@@ -51,7 +51,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 			.should('contain.text', 'Mapping sent')
 			.should('contain.text', 'Sync complete');
 
-		cy.wpCli('wpprobe list-features').its('stdout').should('contain', 'woocommerce');
+		cy.wpCli('elasticprobe list-features').its('stdout').should('contain', 'woocommerce');
 	});
 
 	it('Can fetch products from Elasticsearch in product rivers and category archives', () => {
@@ -60,13 +60,13 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 		cy.maybeEnableFeature('woocommerce');
 
 		cy.visit('/shop/?filter_size=small');
-		cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug').should(
+		cy.get('#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-query-debug').should(
 			'contain.text',
 			'Query Response Code: HTTP 200',
 		);
 
 		cy.visit('/product-category/uncategorized');
-		cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug').should(
+		cy.get('#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-query-debug').should(
 			'contain.text',
 			'Query Response Code: HTTP 200',
 		);
@@ -93,7 +93,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 					},
 				},
 			}).then(() => {
-				cy.wpCli('wpprobe sync --setup --yes').then(() => {
+				cy.wpCli('elasticprobe sync --setup --yes').then(() => {
 					/**
 					 * Give Elasticsearch some time. Apparently, if the visit happens right after the index, it won't find anything.
 					 *
@@ -123,10 +123,10 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 			 * Orders
 			 */
 			// this is required to sync the orders to Elasticsearch.
-			cy.wpCli('wpprobe sync --setup --yes');
+			cy.wpCli('elasticprobe sync --setup --yes');
 
 			cy.visitAdminPage('edit.php?post_type=shop_order');
-			cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug').should(
+			cy.get('#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-query-debug').should(
 				'contain.text',
 				'Query Response Code: HTTP 200',
 			);
@@ -135,7 +135,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 			 * Products
 			 */
 			cy.visitAdminPage('edit.php?post_type=product');
-			cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug').should(
+			cy.get('#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-query-debug').should(
 				'contain.text',
 				'Query Response Code: HTTP 200',
 			);
@@ -209,7 +209,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 			cy.get('.woocommerce-orders-table tbody tr').should('have.length', 1);
 
 			// Test orderby parameter set to `date` in query.
-			cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug')
+			cy.get('#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-query-debug')
 				.should('contain.text', 'shop_order')
 				.should('contain.text', "'orderby' => 'date'");
 
@@ -225,19 +225,19 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 			cy.visit('my-account/orders');
 			cy.get('.woocommerce-orders-table tbody tr').should('have.length', 0);
 
-			cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug')
+			cy.get('#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-query-debug')
 				.should('contain.text', 'shop_order')
 				.should('contain.text', 'Query Response Code: HTTP 200');
 		});
 
-		it('Can search orders from WPProbe in WP Dashboard', () => {
+		it('Can search orders from ElasticProbe in WP Dashboard', () => {
 			cy.visitAdminPage('edit.php?post_type=shop_order');
 
 			// search order by user's name.
 			cy.get('#post-search-input').clear();
 			cy.get('#post-search-input').type(`${userData.firstName} ${userData.lastName}{enter}`);
 
-			cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug').should(
+			cy.get('#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-query-debug').should(
 				'contain.text',
 				'Query Response Code: HTTP 200',
 			);
@@ -250,7 +250,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 			// search order by user's address.
 			cy.get('#post-search-input').clear();
 			cy.get('#post-search-input').type(`${userData.address}{enter}`);
-			cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug').should(
+			cy.get('#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-query-debug').should(
 				'contain.text',
 				'Query Response Code: HTTP 200',
 			);
@@ -263,7 +263,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 			// search order by product.
 			cy.get('#post-search-input').clear();
 			cy.get('#post-search-input').type(`fantastic-silk-knife{enter}`);
-			cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug').should(
+			cy.get('#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-query-debug').should(
 				'contain.text',
 				'Query Response Code: HTTP 200',
 			);
@@ -297,10 +297,9 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 
 					cy.refreshIndex('post').then(() => {
 						cy.reload();
-						cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug').should(
-							'contain.text',
-							'Query Response Code: HTTP 200',
-						);
+						cy.get(
+							'#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-query-debug',
+						).should('contain.text', 'Query Response Code: HTTP 200');
 						cy.get('#the-list tr:eq(0)').should('have.id', thirdProductId);
 					});
 				});
@@ -326,10 +325,9 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 
 					cy.refreshIndex('post').then(() => {
 						cy.reload();
-						cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug').should(
-							'contain.text',
-							'Query Response Code: HTTP 200',
-						);
+						cy.get(
+							'#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-query-debug',
+						).should('contain.text', 'Query Response Code: HTTP 200');
 						cy.get('#the-list tr:eq(0)').should('have.not.id', thirdProductId);
 					});
 				});
@@ -350,7 +348,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 		});
 
 		it('Will require a sync when enabling Orders Autosuggest', () => {
-			cy.visitAdminPage('admin.php?page=wpprobe');
+			cy.visitAdminPage('admin.php?page=elasticprobe');
 			cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
 
 			cy.contains('button', 'WooCommerce').click();

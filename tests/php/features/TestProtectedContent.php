@@ -2,12 +2,12 @@
 /**
  * Test protected content feature
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe;
+use ElasticProbe;
 
 /**
  * Protected content test class
@@ -29,10 +29,10 @@ class TestProtectedContent extends BaseTestCase {
 
 		wp_set_current_user( $admin_id );
 
-		WPProbe\Elasticsearch::factory()->delete_all_indices();
-		WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
+		ElasticProbe\Elasticsearch::factory()->delete_all_indices();
+		ElasticProbe\Indexables::factory()->get( 'post' )->put_mapping();
 
-		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
+		ElasticProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
 
 		$this->setup_test_post_type();
 	}
@@ -60,11 +60,11 @@ class TestProtectedContent extends BaseTestCase {
 	public function testAdminNotOn() {
 		set_current_screen( 'edit.php' );
 
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->setup_features();
 
 		$this->ep_factory->post->create();
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query();
 
@@ -86,12 +86,12 @@ class TestProtectedContent extends BaseTestCase {
 	public function testAdminOn() {
 		set_current_screen( 'edit.php' );
 
-		WPProbe\Features::factory()->activate_feature( 'protected_content' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$this->ep_factory->post->create();
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query();
 
@@ -113,13 +113,13 @@ class TestProtectedContent extends BaseTestCase {
 	public function testAdminOnDraft() {
 		set_current_screen( 'edit.php' );
 
-		WPProbe\Features::factory()->activate_feature( 'protected_content' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$this->ep_factory->post->create();
 		$this->ep_factory->post->create( array( 'post_status' => 'draft' ) );
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query();
 
@@ -147,8 +147,8 @@ class TestProtectedContent extends BaseTestCase {
 	public function testAdminOnDraftUpdated() {
 		set_current_screen( 'edit.php' );
 
-		WPProbe\Features::factory()->activate_feature( 'protected_content' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$this->ep_factory->post->create();
 		$post_id = $this->ep_factory->post->create();
@@ -160,9 +160,9 @@ class TestProtectedContent extends BaseTestCase {
 			)
 		);
 
-		WPProbe\Indexables::factory()->get( 'post' )->index( $post_id, true );
+		ElasticProbe\Indexables::factory()->get( 'post' )->index( $post_id, true );
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query();
 
@@ -189,8 +189,8 @@ class TestProtectedContent extends BaseTestCase {
 	public function testAdminCategories() {
 		set_current_screen( 'edit.php' );
 
-		WPProbe\Features::factory()->activate_feature( 'protected_content' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$cat1 = $this->factory->category->create( array( 'name' => 'category one' ) );
 		$cat2 = $this->factory->category->create( array( 'name' => 'category two' ) );
@@ -199,7 +199,7 @@ class TestProtectedContent extends BaseTestCase {
 		$this->ep_factory->post->create( array( 'post_category' => array( $cat2 ) ) );
 		$this->ep_factory->post->create( array( 'post_category' => array( $cat1 ) ) );
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query();
 
@@ -234,13 +234,13 @@ class TestProtectedContent extends BaseTestCase {
 
 		$post_id = $this->ep_factory->post->create( array( 'post_password' => 'test' ) );
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		// Check if ES post sync filter has been triggered
 		$this->assertNotEmpty( $this->applied_filters['ep_post_sync_args'] );
 
 		// Check if password was synced
-		$post = WPProbe\Indexables::factory()->get( 'post' )->get( $post_id );
+		$post = ElasticProbe\Indexables::factory()->get( 'post' )->get( $post_id );
 
 		$this->assertArrayNotHasKey( 'post_password', $post );
 	}
@@ -252,20 +252,20 @@ class TestProtectedContent extends BaseTestCase {
 	 * @group protected-content
 	 */
 	public function testSyncPasswordedPost() {
-		WPProbe\Features::factory()->activate_feature( 'protected_content' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		add_filter( 'ep_post_sync_args', array( $this, 'filter_post_sync_args' ), 10, 1 );
 
 		$post_id = $this->ep_factory->post->create( array( 'post_password' => 'test' ) );
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		// Check if ES post sync filter has been triggered
 		$this->assertNotEmpty( $this->applied_filters['ep_post_sync_args'] );
 
 		// Check if password was synced
-		$post = WPProbe\Indexables::factory()->get( 'post' )->get( $post_id );
+		$post = ElasticProbe\Indexables::factory()->get( 'post' )->get( $post_id );
 		$this->assertEquals( 'test', $post['post_password'] );
 
 		// Remove password from post
@@ -276,10 +276,10 @@ class TestProtectedContent extends BaseTestCase {
 			)
 		);
 
-		WPProbe\Indexables::factory()->get( 'post' )->index( $post_id, true );
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Indexables::factory()->get( 'post' )->index( $post_id, true );
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
-		$post = WPProbe\Indexables::factory()->get( 'post' )->get( $post_id );
+		$post = ElasticProbe\Indexables::factory()->get( 'post' )->get( $post_id );
 
 		// Check if password was removed on sync
 		$this->assertEmpty( $post['post_password'] );
@@ -292,10 +292,10 @@ class TestProtectedContent extends BaseTestCase {
 			)
 		);
 
-		WPProbe\Indexables::factory()->get( 'post' )->index( $post_id, true );
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Indexables::factory()->get( 'post' )->index( $post_id, true );
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
-		$post = WPProbe\Indexables::factory()->get( 'post' )->get( $post_id );
+		$post = ElasticProbe\Indexables::factory()->get( 'post' )->get( $post_id );
 
 		// Check if password was added back on sync
 		$this->assertEquals( 'test', $post['post_password'] );
@@ -310,8 +310,8 @@ class TestProtectedContent extends BaseTestCase {
 	public function testAdminPasswordedPost() {
 		set_current_screen( 'edit.php' );
 
-		WPProbe\Features::factory()->activate_feature( 'protected_content' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		// Post title is indexed but content is not.
 		$this->ep_factory->post->create(
@@ -322,7 +322,7 @@ class TestProtectedContent extends BaseTestCase {
 			)
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query();
 
@@ -360,12 +360,12 @@ class TestProtectedContent extends BaseTestCase {
 	public function testFrontEndSearchPasswordedPost() {
 		set_current_screen( 'front' );
 
-		WPProbe\Features::factory()->activate_feature( 'protected_content' );
-		WPProbe\Features::factory()->activate_feature( 'search' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
+		ElasticProbe\Features::factory()->activate_feature( 'search' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		// Need to call this since it's hooked to init
-		WPProbe\Features::factory()->get_registered_feature( 'search' )->search_setup();
+		ElasticProbe\Features::factory()->get_registered_feature( 'search' )->search_setup();
 
 		$this->ep_factory->post->create(
 			array(
@@ -373,7 +373,7 @@ class TestProtectedContent extends BaseTestCase {
 				'post_password' => 'test',
 			)
 		);
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query(
 			array(
@@ -411,15 +411,15 @@ class TestProtectedContent extends BaseTestCase {
 		set_current_screen( 'edit-comments.php' );
 		$this->assertTrue( is_admin() );
 
-		WPProbe\Features::factory()->activate_feature( 'comments' );
-		WPProbe\Features::factory()->activate_feature( 'protected_content' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'comments' );
+		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
+		ElasticProbe\Features::factory()->setup_features();
 
-		WPProbe\Indexables::factory()->get( 'comment' )->put_mapping();
-		WPProbe\Indexables::factory()->get( 'comment' )->sync_manager->reset_sync_queue();
+		ElasticProbe\Indexables::factory()->get( 'comment' )->put_mapping();
+		ElasticProbe\Indexables::factory()->get( 'comment' )->sync_manager->reset_sync_queue();
 
 		// Need to call this since it's hooked to init.
-		WPProbe\Features::factory()->get_registered_feature( 'comments' )->search_setup();
+		ElasticProbe\Features::factory()->get_registered_feature( 'comments' )->search_setup();
 
 		$this->ep_factory->comment->create(
 			[
@@ -428,7 +428,7 @@ class TestProtectedContent extends BaseTestCase {
 			]
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$comments_query = new \WP_Comment_Query(
 			[
@@ -450,8 +450,8 @@ class TestProtectedContent extends BaseTestCase {
 		set_current_screen( 'edit.php' );
 		$this->assertTrue( is_admin() );
 
-		WPProbe\Features::factory()->activate_feature( 'protected_content' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$exact_match_id       = $this->ep_factory->post->create(
 			[
@@ -466,7 +466,7 @@ class TestProtectedContent extends BaseTestCase {
 			]
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		// By default, display the best match first
 		$query = new \WP_Query( [ 's' => 'beautiful' ] );

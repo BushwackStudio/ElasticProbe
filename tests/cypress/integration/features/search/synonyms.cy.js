@@ -31,7 +31,7 @@ describe('Post Search Feature - Synonyms Functionality', () => {
 				'Plugin',
 				'Extension',
 				'Module',
-				'WPProbe',
+				'ElasticProbe',
 				'Safe Redirect Manager',
 				'Bandeirole',
 				'Flag',
@@ -78,7 +78,7 @@ describe('Post Search Feature - Synonyms Functionality', () => {
 		/**
 		 * Save synonyms settings.
 		 */
-		cy.visitAdminPage('admin.php?page=wpprobe-synonyms');
+		cy.visitAdminPage('admin.php?page=elasticprobe-synonyms');
 		saveSynonyms();
 	});
 
@@ -97,7 +97,7 @@ describe('Post Search Feature - Synonyms Functionality', () => {
 		/**
 		 * Enter a synonym.
 		 */
-		cy.visit('/wp-admin/admin.php?page=wpprobe-synonyms');
+		cy.visit('/wp-admin/admin.php?page=elasticprobe-synonyms');
 		cy.get('.ep-synonyms-edit-panel').as('panel');
 		cy.get('@panel').contains('Add Synonyms').should('exist');
 		cy.get('@panel').find('input[type="text"]').as('input').type('plugin,');
@@ -131,7 +131,7 @@ describe('Post Search Feature - Synonyms Functionality', () => {
 		/**
 		 * It should be possible to edit synonym rules.
 		 */
-		cy.visit('/wp-admin/admin.php?page=wpprobe-synonyms');
+		cy.visit('/wp-admin/admin.php?page=elasticprobe-synonyms');
 		cy.contains('.ep-synonyms-list-table tr', 'plugin, extension').as('row');
 		cy.get('@row').find('button[aria-label="Edit"]').click();
 		cy.get('.ep-synonyms-edit-panel').as('panel');
@@ -153,7 +153,7 @@ describe('Post Search Feature - Synonyms Functionality', () => {
 		/**
 		 * In the advanced editor, synonyms should be represented as expected.
 		 */
-		cy.visit('/wp-admin/admin.php?page=wpprobe-synonyms');
+		cy.visit('/wp-admin/admin.php?page=elasticprobe-synonyms');
 		cy.contains('button', 'Switch to advanced text editor').click();
 		cy.get('textarea').should('contain', 'plugin, module');
 
@@ -185,13 +185,13 @@ describe('Post Search Feature - Synonyms Functionality', () => {
 		 */
 		cy.visit('/?s=plugin');
 		cy.contains('article h2', 'Plugin').should('exist');
-		cy.contains('article h2', 'WPProbe').should('not.exist');
+		cy.contains('article h2', 'ElasticProbe').should('not.exist');
 		cy.contains('article h2', 'Safe Redirect Manager').should('not.exist');
 
 		/**
 		 * Enter a hypernym.
 		 */
-		cy.visit('/wp-admin/admin.php?page=wpprobe-synonyms');
+		cy.visit('/wp-admin/admin.php?page=elasticprobe-synonyms');
 		cy.contains('button', 'Hyponyms').click();
 		cy.get('.ep-synonyms-edit-panel').as('panel');
 		cy.get('@panel').contains('Add Hyponyms').should('exist');
@@ -205,7 +205,7 @@ describe('Post Search Feature - Synonyms Functionality', () => {
 		/**
 		 * Enter a hyponym and submit.
 		 */
-		cy.get('@panel').find('input[type="text"]').eq(1).type('WPProbe,');
+		cy.get('@panel').find('input[type="text"]').eq(1).type('elasticprobe,');
 		cy.get('@add').click();
 
 		/**
@@ -220,23 +220,23 @@ describe('Post Search Feature - Synonyms Functionality', () => {
 		 */
 		cy.visit('/?s=plugin');
 		cy.contains('article h2', 'Plugin').should('exist');
-		cy.contains('article h2', 'WPProbe').should('exist');
+		cy.contains('article h2', 'ElasticProbe').should('exist');
 		cy.contains('article h2', 'Safe Redirect Manager').should('not.exist');
 
-		cy.visit('/?s=wpprobe');
+		cy.visit('/?s=elasticprobe');
 		cy.contains('article h2', 'Plugin').should('not.exist');
-		cy.contains('article h2', 'WPProbe').should('exist');
+		cy.contains('article h2', 'ElasticProbe').should('exist');
 		cy.contains('article h2', 'Safe Redirect Manager').should('not.exist');
 
 		cy.visit('/?s=redirect');
 		cy.contains('article h2', 'Plugin').should('not.exist');
-		cy.contains('article h2', 'WPProbe').should('not.exist');
+		cy.contains('article h2', 'ElasticProbe').should('not.exist');
 		cy.contains('article h2', 'Safe Redirect Manager').should('exist');
 
 		/**
 		 * It should be possible to edit hyponym rules.
 		 */
-		cy.visit('/wp-admin/admin.php?page=wpprobe-synonyms');
+		cy.visit('/wp-admin/admin.php?page=elasticprobe-synonyms');
 		cy.contains('button', 'Hyponyms').click();
 		cy.contains('.ep-synonyms-list-table tr', 'plugin').as('row');
 		cy.get('@row').find('button[aria-label="Edit"]').click();
@@ -245,7 +245,7 @@ describe('Post Search Feature - Synonyms Functionality', () => {
 		cy.get('@panel').find('input').eq(1).type('Safe Redirect Manager,');
 		cy.get('@panel').contains('button', 'Save changes').click();
 		cy.get('@row')
-			.contains('td', 'WPProbe, Safe Redirect Manager')
+			.contains('td', 'ElasticProbe, Safe Redirect Manager')
 			.should('exist')
 			.should('not.contain', 'plugin');
 
@@ -256,26 +256,29 @@ describe('Post Search Feature - Synonyms Functionality', () => {
 		 */
 		cy.visit('/?s=plugin');
 		cy.contains('article h2', 'Plugin').should('exist');
-		cy.contains('article h2', 'WPProbe').should('exist');
+		cy.contains('article h2', 'ElasticProbe').should('exist');
 		cy.contains('article h2', 'Safe Redirect Manager').should('exist');
 
-		cy.visit('/?s=wpprobe');
+		cy.visit('/?s=elasticprobe');
 		cy.contains('article h2', 'Plugin').should('not.exist');
-		cy.contains('article h2', 'WPProbe').should('exist');
+		cy.contains('article h2', 'ElasticProbe').should('exist');
 		cy.contains('article h2', 'Safe Redirect Manager').should('not.exist');
 
 		cy.visit('/?s=redirect');
 		cy.contains('article h2', 'Plugin').should('not.exist');
-		cy.contains('article h2', 'WPProbe').should('not.exist');
+		cy.contains('article h2', 'ElasticProbe').should('not.exist');
 		cy.contains('article h2', 'Safe Redirect Manager').should('exist');
 
 		/**
 		 * In the advanced editor, hyponyms should be represented as
 		 * replacements where the hypernym is also included as a replacement.
 		 */
-		cy.visit('/wp-admin/admin.php?page=wpprobe-synonyms');
+		cy.visit('/wp-admin/admin.php?page=elasticprobe-synonyms');
 		cy.contains('button', 'Switch to advanced text editor').click();
-		cy.get('textarea').should('contain', 'plugin => plugin, WPProbe, Safe Redirect Manager');
+		cy.get('textarea').should(
+			'contain',
+			'plugin => plugin, ElasticProbe, Safe Redirect Manager',
+		);
 
 		/**
 		 * It should be possible to delete hyponym rules.
@@ -293,17 +296,17 @@ describe('Post Search Feature - Synonyms Functionality', () => {
 		 */
 		cy.visit('/?s=plugin');
 		cy.contains('article h2', 'Plugin').should('exist');
-		cy.contains('article h2', 'WPProbe').should('not.exist');
+		cy.contains('article h2', 'ElasticProbe').should('not.exist');
 		cy.contains('article h2', 'Safe Redirect Manager').should('not.exist');
 
-		cy.visit('/?s=wpprobe');
+		cy.visit('/?s=elasticprobe');
 		cy.contains('article h2', 'Plugin').should('not.exist');
-		cy.contains('article h2', 'WPProbe').should('exist');
+		cy.contains('article h2', 'ElasticProbe').should('exist');
 		cy.contains('article h2', 'Safe Redirect Manager').should('not.exist');
 
 		cy.visit('/?s=redirect');
 		cy.contains('article h2', 'Plugin').should('not.exist');
-		cy.contains('article h2', 'WPProbe').should('not.exist');
+		cy.contains('article h2', 'ElasticProbe').should('not.exist');
 		cy.contains('article h2', 'Safe Redirect Manager').should('exist');
 	});
 
@@ -324,7 +327,7 @@ describe('Post Search Feature - Synonyms Functionality', () => {
 		/**
 		 * Enter a term.
 		 */
-		cy.visit('/wp-admin/admin.php?page=wpprobe-synonyms');
+		cy.visit('/wp-admin/admin.php?page=elasticprobe-synonyms');
 		cy.contains('button', 'Replacements').click();
 		cy.get('.ep-synonyms-edit-panel').as('panel');
 		cy.get('@panel').contains('Add Replacements').should('exist');
@@ -359,7 +362,7 @@ describe('Post Search Feature - Synonyms Functionality', () => {
 		/**
 		 * It should be possible to edit replacement rules.
 		 */
-		cy.visit('/wp-admin/admin.php?page=wpprobe-synonyms');
+		cy.visit('/wp-admin/admin.php?page=elasticprobe-synonyms');
 		cy.contains('button', 'Replacements').click();
 		cy.contains('.ep-synonyms-list-table tr', 'bandeirole').as('row');
 		cy.get('@row').find('button[aria-label="Edit"]').click();
@@ -383,7 +386,7 @@ describe('Post Search Feature - Synonyms Functionality', () => {
 		 * In the advanced editor, replacements hould be represented as
 		 * expected.
 		 */
-		cy.visit('/wp-admin/admin.php?page=wpprobe-synonyms');
+		cy.visit('/wp-admin/admin.php?page=elasticprobe-synonyms');
 		cy.contains('button', 'Switch to advanced text editor').click();
 		cy.get('textarea').should('contain', 'bandeirole => flag, banner');
 
@@ -425,7 +428,7 @@ describe('Post Search Feature - Synonyms Functionality', () => {
 		/**
 		 * Add a hyponym rule to the text editor.
 		 */
-		cy.visit('/wp-admin/admin.php?page=wpprobe-synonyms');
+		cy.visit('/wp-admin/admin.php?page=elasticprobe-synonyms');
 		cy.contains('button', 'Switch to advanced text editor').click();
 		cy.get('textarea').type('red => red, carmine, cordovan, crimson');
 
@@ -449,7 +452,7 @@ describe('Post Search Feature - Synonyms Functionality', () => {
 		/**
 		 * The settings page should remember that we used the text editor.
 		 */
-		cy.visit('/wp-admin/admin.php?page=wpprobe-synonyms');
+		cy.visit('/wp-admin/admin.php?page=elasticprobe-synonyms');
 		cy.get('textarea').should('exist');
 
 		/**

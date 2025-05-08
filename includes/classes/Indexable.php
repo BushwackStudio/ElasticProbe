@@ -5,13 +5,13 @@
  * An indexable is a type of "data" in WP e.g. post type, term, user, etc.
  *
  * @since  3.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe;
+namespace ElasticProbe;
 
-use WPProbe\Elasticsearch;
-use WPProbe\SyncManager;
+use ElasticProbe\Elasticsearch;
+use ElasticProbe\SyncManager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -411,7 +411,7 @@ abstract class Indexable {
 
 		if ( empty( $documents ) ) {
 			return [
-				new \WP_Error( 'ep_bulk_index_no_documents', esc_html__( 'It was not possible to create a body request with the document IDs provided.', 'wpprobe' ), $object_ids ),
+				new \WP_Error( 'ep_bulk_index_no_documents', esc_html__( 'It was not possible to create a body request with the document IDs provided.', 'elasticprobe' ), $object_ids ),
 			];
 		}
 
@@ -631,7 +631,7 @@ abstract class Indexable {
 	}
 
 	/**
-	 * Check to see if we should allow wpprobe to override this query
+	 * Check to see if we should allow ElasticProbe to override this query
 	 *
 	 * @param \WP_Query|\WP_User_Query|\WP_Term_Query $query WP_Query or WP_User_Query or WP_Term_Query instance
 	 * @return bool
@@ -645,7 +645,7 @@ abstract class Indexable {
 		}
 
 		/**
-		 * Determine if WPProbe should integrate with a query
+		 * Determine if ElasticProbe should integrate with a query
 		 *
 		 * @hook ep_elasticpress_enabled
 		 * @param  {bool} $enabled Whether to integrate with Elasticsearch or not
@@ -1130,7 +1130,7 @@ abstract class Indexable {
 			$blog_id = get_current_blog_id();
 		}
 
-		return \WPProbe\IndexHelper::factory()->is_full_reindexing( $this->slug, $blog_id );
+		return \ElasticProbe\IndexHelper::factory()->is_full_reindexing( $this->slug, $blog_id );
 	}
 
 	/**
@@ -1171,7 +1171,7 @@ abstract class Indexable {
 	 * @return array
 	 */
 	public function generate_mapping() {
-		_doing_it_wrong( __METHOD__, 'The Indexable class should not call generate_mapping() directly.', 'WPProbe 0.1.0' );
+		_doing_it_wrong( __METHOD__, 'The Indexable class should not call generate_mapping() directly.', 'ElasticProbe 0.1.0' );
 
 		return [];
 	}
@@ -1185,7 +1185,7 @@ abstract class Indexable {
 	 * @param array  $query_vars    Query vars
 	 * @return SearchAlgorithm Instance of search algorithm to be used
 	 */
-	public function get_search_algorithm( string $search_text, array $search_fields, array $query_vars ): \WPProbe\SearchAlgorithm {
+	public function get_search_algorithm( string $search_text, array $search_fields, array $query_vars ): \ElasticProbe\SearchAlgorithm {
 		/**
 		 * Filter the search algorithm to be used
 		 *
@@ -1199,7 +1199,7 @@ abstract class Indexable {
 		 */
 		$search_algorithm = apply_filters( "ep_{$this->slug}_search_algorithm", 'basic', $search_text, $search_fields, $query_vars );
 
-		return \WPProbe\SearchAlgorithms::factory()->get( $search_algorithm );
+		return \ElasticProbe\SearchAlgorithms::factory()->get( $search_algorithm );
 	}
 
 	/**

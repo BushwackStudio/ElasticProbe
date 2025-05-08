@@ -2,12 +2,12 @@
 /**
  * Class for Post factory.
  *
- * @package  wpprobe
+ * @package  elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe;
+use ElasticProbe;
 
 /**
  * Unit test factory for the post.
@@ -31,7 +31,7 @@ class PostFactory extends \WP_UnitTest_Factory_For_Post {
 			return $post_id;
 		}
 
-		WPProbe\Indexables::factory()->get( 'post' )->index( $post_id );
+		ElasticProbe\Indexables::factory()->get( 'post' )->index( $post_id );
 		return $post_id;
 	}
 }

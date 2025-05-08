@@ -3,19 +3,19 @@
  * GlobalFeature feature
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest\GlobalIndexable;
+namespace ElasticProbeTest\GlobalIndexable;
 
-use WPProbe\Indexables;
+use ElasticProbe\Indexables;
 
 require_once __DIR__ . '/Indexable.php';
 
 /**
  * Global feature class
  */
-class GlobalFeature extends \WPProbe\Feature {
+class GlobalFeature extends \ElasticProbe\Feature {
 	/**
 	 * Initialize feature setting it's config
 	 */
@@ -45,10 +45,10 @@ class GlobalFeature extends \WPProbe\Feature {
 	 * Determine feature reqs status
 	 */
 	public function requirements_status() {
-		return new \WPProbe\FeatureRequirementsStatus( 1 );
+		return new \ElasticProbe\FeatureRequirementsStatus( 1 );
 	}
 }
 
-\WPProbe\Features::factory()->register_feature(
+\ElasticProbe\Features::factory()->register_feature(
 	new GlobalFeature()
 );

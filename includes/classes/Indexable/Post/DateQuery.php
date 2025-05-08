@@ -2,11 +2,11 @@
 /**
  * Support date query integration
  *
- * @package wpprobe
+ * @package elasticprobe
  * @since   1.3
  */
 
-namespace WPProbe\Indexable\Post;
+namespace ElasticProbe\Indexable\Post;
 
 use WP_Date_Query;
 

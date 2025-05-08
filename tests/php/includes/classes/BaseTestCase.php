@@ -1,11 +1,11 @@
 <?php
 /**
- * WPProbe base test class
+ * ElasticProbe base test class
  *
- * @package  wpprobe
+ * @package  elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
 use WP_UnitTestCase;
 
@@ -48,7 +48,7 @@ class BaseTestCase extends WP_UnitTestCase {
 
 		$this->setup_factory();
 
-		\WPProbe\setup_roles();
+		\ElasticProbe\setup_roles();
 
 		parent::set_up();
 	}
@@ -220,7 +220,7 @@ class BaseTestCase extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Forces tests to use WPProbe
+	 * Forces tests to use ElasticProbe
 	 *
 	 * @since 5.1.0
 	 */

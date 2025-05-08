@@ -3,17 +3,17 @@
  * Comment indexable
  *
  * @since   3.6.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Indexable\Comment;
+namespace ElasticProbe\Indexable\Comment;
 
 use WP_Comment_Query;
-use WPProbe\Elasticsearch;
-use WPProbe\Features;
-use WPProbe\Indexable;
-use WPProbe\Indexable\Post\DateQuery;
-use WPProbe\Indexables;
+use ElasticProbe\Elasticsearch;
+use ElasticProbe\Features;
+use ElasticProbe\Indexable;
+use ElasticProbe\Indexable\Post\DateQuery;
+use ElasticProbe\Indexables;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -49,8 +49,8 @@ class Comment extends Indexable {
 	 */
 	public function setup() {
 		$this->labels = [
-			'plural'   => esc_html__( 'Comments', 'wpprobe' ),
-			'singular' => esc_html__( 'Comment', 'wpprobe' ),
+			'plural'   => esc_html__( 'Comments', 'elasticprobe' ),
+			'singular' => esc_html__( 'Comment', 'elasticprobe' ),
 		];
 
 		$this->sync_manager      = new SyncManager( $this->slug );
@@ -1066,7 +1066,7 @@ class Comment extends Indexable {
 		/**
 		 * Filter non-indexed public meta
 		 *
-		 * Allows for specifying public meta keys that should be excluded from the WPProbe index.
+		 * Allows for specifying public meta keys that should be excluded from the ElasticProbe index.
 		 *
 		 * @since 3.6.0
 		 *

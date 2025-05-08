@@ -3,12 +3,12 @@
  * NotFoundException class
  *
  * @since 4.7.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Exception;
+namespace ElasticProbe\Exception;
 
-use WPProbe\Vendor_Prefixed\Psr\Container\NotFoundExceptionInterface;
+use ElasticProbe\Vendor_Prefixed\Psr\Container\NotFoundExceptionInterface;
 
 /**
  * NotFoundException class

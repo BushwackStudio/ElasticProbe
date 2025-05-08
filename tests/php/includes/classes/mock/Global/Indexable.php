@@ -3,10 +3,10 @@
  * Global indexable
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest\GlobalIndexable;
+namespace ElasticProbeTest\GlobalIndexable;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * User indexable class
  */
-class Indexable extends \WPProbe\Indexable {
+class Indexable extends \ElasticProbe\Indexable {
 	/**
 	 * Set as global indexable
 	 *
@@ -35,8 +35,8 @@ class Indexable extends \WPProbe\Indexable {
 	 */
 	public function __construct() {
 		$this->labels = [
-			'plural'   => esc_html__( 'Global', 'wpprobe' ),
-			'singular' => esc_html__( 'Global', 'wpprobe' ),
+			'plural'   => esc_html__( 'Global', 'elasticprobe' ),
+			'singular' => esc_html__( 'Global', 'elasticprobe' ),
 		];
 	}
 

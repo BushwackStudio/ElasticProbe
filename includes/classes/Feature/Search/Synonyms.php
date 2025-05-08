@@ -2,17 +2,17 @@
 /**
  * Synonyms Feature
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Feature\Search;
+namespace ElasticProbe\Feature\Search;
 
-use WPProbe\Elasticsearch;
-use WPProbe\FeatureRequirementsStatus;
-use WPProbe\Features;
-use WPProbe\Indexables;
-use WPProbe\REST;
-use WPProbe\Utils;
+use ElasticProbe\Elasticsearch;
+use ElasticProbe\FeatureRequirementsStatus;
+use ElasticProbe\Features;
+use ElasticProbe\Indexables;
+use ElasticProbe\REST;
+use ElasticProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Synonyms Feature
  *
  * @since 3.4
- * @package WPProbe\Feature\Synonyms
+ * @package ElasticProbe\Feature\Synonyms
  */
 class Synonyms {
 
@@ -86,7 +86,7 @@ class Synonyms {
 		$search = $this->get_search_feature();
 
 		if ( ! $search->is_active() ) {
-			return new FeatureRequirementsStatus( 2, esc_html__( 'This feature requires the "Post Search" feature to be enabled', 'wpprobe' ) );
+			return new FeatureRequirementsStatus( 2, esc_html__( 'This feature requires the "Post Search" feature to be enabled', 'elasticprobe' ) );
 		}
 
 		return new FeatureRequirementsStatus( 0 );
@@ -136,7 +136,7 @@ class Synonyms {
 			true
 		);
 
-		wp_set_script_translations( 'ep_synonyms_scripts', 'wpprobe' );
+		wp_set_script_translations( 'ep_synonyms_scripts', 'elasticprobe' );
 
 		wp_enqueue_style( 'wp-edit-post' );
 
@@ -178,11 +178,11 @@ class Synonyms {
 	 */
 	public function admin_menu() {
 		add_submenu_page(
-			'wpprobe',
-			esc_html__( 'WPProbe Synonyms', 'wpprobe' ),
-			esc_html__( 'Synonyms', 'wpprobe' ),
+			'elasticprobe',
+			esc_html__( 'ElasticProbe Synonyms', 'elasticprobe' ),
+			esc_html__( 'Synonyms', 'elasticprobe' ),
 			Utils\get_capability( 'synonyms' ),
-			'wpprobe-synonyms',
+			'elasticprobe-synonyms',
 			[ $this, 'admin_page' ]
 		);
 	}
@@ -209,7 +209,7 @@ class Synonyms {
 	 * @deprecated 0.1.0
 	 */
 	public function admin_notices() {
-		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::admin_notices', '0.1.0' );
+		_deprecated_function( 'ElasticProbe\Feature\Search\Synonyms::admin_notices', '0.1.0' );
 
 		if ( ! $this->is_synonym_page() ) {
 			return;
@@ -226,16 +226,16 @@ class Synonyms {
 
 		switch ( $update ) {
 			case 'success':
-				$message = __( 'Successfully updated synonym filter.', 'wpprobe' );
+				$message = __( 'Successfully updated synonym filter.', 'elasticprobe' );
 				break;
 			case 'error-update-post':
-				$message = __( 'There was an error storing your synonyms.', 'wpprobe' );
+				$message = __( 'There was an error storing your synonyms.', 'elasticprobe' );
 				break;
 			case 'error-update-index':
-				$message = __( 'There was a problem updating the index with your synonyms. If you have not indexed your data, please run an index.', 'wpprobe' );
+				$message = __( 'There was a problem updating the index with your synonyms. If you have not indexed your data, please run an index.', 'elasticprobe' );
 				break;
 			default:
-				$message = __( 'There was an error updating the synonym list.', 'wpprobe' );
+				$message = __( 'There was an error updating the synonym list.', 'elasticprobe' );
 		}
 
 		printf(
@@ -252,7 +252,7 @@ class Synonyms {
 	 */
 	public function register_post_type() {
 		$args = [
-			'description'        => esc_html__( 'Elasticsearch Synonyms', 'wpprobe' ),
+			'description'        => esc_html__( 'Elasticsearch Synonyms', 'elasticprobe' ),
 			'public'             => false,
 			'publicly_queryable' => false,
 			'show_ui'            => false,
@@ -417,7 +417,7 @@ class Synonyms {
 	 * @deprecated 0.1.0
 	 */
 	public function handle_update_synonyms() {
-		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::handle_update_synonyms', '0.1.0' );
+		_deprecated_function( 'ElasticProbe\Feature\Search\Synonyms::handle_update_synonyms', '0.1.0' );
 
 		$nonce   = filter_input( INPUT_POST, $this->get_nonce_field(), FILTER_SANITIZE_SPECIAL_CHARS );
 		$referer = filter_input( INPUT_POST, '_wp_http_referer', FILTER_SANITIZE_URL );
@@ -586,7 +586,7 @@ class Synonyms {
 	 * @deprecated 0.1.0
 	 */
 	public function get_form_action() {
-		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_form_action', '0.1.0' );
+		_deprecated_function( 'ElasticProbe\Feature\Search\Synonyms::get_form_action', '0.1.0' );
 
 		return esc_url_raw( admin_url( 'admin-post.php' ) );
 	}
@@ -598,7 +598,7 @@ class Synonyms {
 	 * @deprecated 0.1.0
 	 */
 	public function form_hidden_fields() {
-		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_form_action', '0.1.0', );
+		_deprecated_function( 'ElasticProbe\Feature\Search\Synonyms::get_form_action', '0.1.0', );
 
 		wp_nonce_field( $this->get_nonce_action(), $this->get_nonce_field() );
 		?>
@@ -613,7 +613,7 @@ class Synonyms {
 	 * @deprecated 0.1.0
 	 */
 	public function get_nonce_action() {
-		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_form_action', '0.1.0', );
+		_deprecated_function( 'ElasticProbe\Feature\Search\Synonyms::get_form_action', '0.1.0', );
 
 		return $this->get_action();
 	}
@@ -625,7 +625,7 @@ class Synonyms {
 	 * @deprecated 0.1.0
 	 */
 	public function get_nonce_field() {
-		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_nonce_field', '0.1.0', );
+		_deprecated_function( 'ElasticProbe\Feature\Search\Synonyms::get_nonce_field', '0.1.0', );
 
 		return 'ep_synonyms_nonce';
 	}
@@ -637,7 +637,7 @@ class Synonyms {
 	 * @deprecated 0.1.0
 	 */
 	public function get_synonym_field() {
-		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_synonym_field', '0.1.0', );
+		_deprecated_function( 'ElasticProbe\Feature\Search\Synonyms::get_synonym_field', '0.1.0', );
 
 		return 'ep_synonyms';
 	}
@@ -649,7 +649,7 @@ class Synonyms {
 	 * @deprecated 0.1.0
 	 */
 	public function get_action() {
-		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_action', '0.1.0', );
+		_deprecated_function( 'ElasticProbe\Feature\Search\Synonyms::get_action', '0.1.0', );
 
 		return 'ep_synonyms_update';
 	}
@@ -665,7 +665,7 @@ class Synonyms {
 		}
 
 		$screen = get_current_screen();
-		return ( 'wpprobe_page_wpprobe-synonyms' === $screen->base );
+		return ( 'elasticprobe_page_elasticprobe-synonyms' === $screen->base );
 	}
 
 	/**
@@ -676,13 +676,13 @@ class Synonyms {
 	 */
 	public function example_synonym_list( $as_array = false ) {
 		$lines = [
-			__( '# Defined synonyms.', 'wpprobe' ),
+			__( '# Defined synonyms.', 'elasticprobe' ),
 			'runner, running shoe, sneaker, tennis shoe, trainer',
 			'',
-			__( '# Defined hyponyms.', 'wpprobe' ),
+			__( '# Defined hyponyms.', 'elasticprobe' ),
 			'blue => blue, aqua, azure, cerulean, cyan, ultramarine',
 			'',
-			__( '# Defined replacements.', 'wpprobe' ),
+			__( '# Defined replacements.', 'elasticprobe' ),
 			'supposably => supposedly',
 			'flustrated => flustered, frustrated',
 			'intensive purposes => intents and purposes',
@@ -698,35 +698,35 @@ class Synonyms {
 	 * @deprecated 0.1.0
 	 */
 	public function get_localized_strings() {
-		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_localized_strings', '0.1.0' );
+		_deprecated_function( 'ElasticProbe\Feature\Search\Synonyms::get_localized_strings', '0.1.0' );
 
 		return array(
-			'pageHeading'                  => __( 'Manage Synonyms', 'wpprobe' ),
-			'pageDescription'              => __( 'Synonyms enable more flexible search results that show relevant results even without an exact match. Synonyms can be defined as a sets where all words are synonyms for each other, or as alternatives where searches for the primary word will also match the rest, but no vice versa.', 'wpprobe' ),
-			'pageToggleAdvanceText'        => __( 'Switch to Advanced Text Editor', 'wpprobe' ),
-			'pageToggleSimpleText'         => __( 'Switch to Visual Editor', 'wpprobe' ),
+			'pageHeading'                  => __( 'Manage Synonyms', 'elasticprobe' ),
+			'pageDescription'              => __( 'Synonyms enable more flexible search results that show relevant results even without an exact match. Synonyms can be defined as a sets where all words are synonyms for each other, or as alternatives where searches for the primary word will also match the rest, but no vice versa.', 'elasticprobe' ),
+			'pageToggleAdvanceText'        => __( 'Switch to Advanced Text Editor', 'elasticprobe' ),
+			'pageToggleSimpleText'         => __( 'Switch to Visual Editor', 'elasticprobe' ),
 
-			'setsTitle'                    => __( 'Sets', 'wpprobe' ),
-			'setsDescription'              => __( 'Sets are terms that will all match each other for search results. This is useful where all words are considered equivalent, such as product renaming or regional variations like sneakers, tennis shoes, trainers, and runners.', 'wpprobe' ),
-			'setsInputHeading'             => __( 'Comma separated list of terms', 'wpprobe' ),
-			'setsAddButtonText'            => __( 'Add Set', 'wpprobe' ),
-			'setsErrorMessage'             => __( 'This set must contain at least 2 terms.', 'wpprobe' ),
+			'setsTitle'                    => __( 'Sets', 'elasticprobe' ),
+			'setsDescription'              => __( 'Sets are terms that will all match each other for search results. This is useful where all words are considered equivalent, such as product renaming or regional variations like sneakers, tennis shoes, trainers, and runners.', 'elasticprobe' ),
+			'setsInputHeading'             => __( 'Comma separated list of terms', 'elasticprobe' ),
+			'setsAddButtonText'            => __( 'Add Set', 'elasticprobe' ),
+			'setsErrorMessage'             => __( 'This set must contain at least 2 terms.', 'elasticprobe' ),
 
-			'alternativesTitle'            => __( 'Alternatives', 'wpprobe' ),
-			'alternativesDescription'      => __( 'Alternatives are terms that will also be matched when you search for the primary term. For instance, a search for shoes can also include results for sneaker, sandals, boots, and high heels.', 'wpprobe' ),
-			'alternativesPrimaryHeading'   => __( 'Primary term', 'wpprobe' ),
-			'alternativesInputHeading'     => __( 'Comma separated list of alternatives', 'wpprobe' ),
-			'alternativesAddButtonText'    => __( 'Add Alternative', 'wpprobe' ),
-			'alternativesErrorMessage'     => __( 'You must enter both a primary term and at least one alternative term.', 'wpprobe' ),
+			'alternativesTitle'            => __( 'Alternatives', 'elasticprobe' ),
+			'alternativesDescription'      => __( 'Alternatives are terms that will also be matched when you search for the primary term. For instance, a search for shoes can also include results for sneaker, sandals, boots, and high heels.', 'elasticprobe' ),
+			'alternativesPrimaryHeading'   => __( 'Primary term', 'elasticprobe' ),
+			'alternativesInputHeading'     => __( 'Comma separated list of alternatives', 'elasticprobe' ),
+			'alternativesAddButtonText'    => __( 'Add Alternative', 'elasticprobe' ),
+			'alternativesErrorMessage'     => __( 'You must enter both a primary term and at least one alternative term.', 'elasticprobe' ),
 
-			'solrTitle'                    => __( 'Advanced Synonym Editor', 'wpprobe' ),
-			'solrDescription'              => __( 'When you add Sets and Alternatives above, we reduce them to SolrSynonyms which Elasticsearch can understand. If you are an advanced user, you can edit synonyms directly using Solr synonym formatting. This is beneficial if you want to import a large dictionary of synonyms, or want to export this site\'s synonyms for use on another site.', 'wpprobe' ),
-			'solrInputHeading'             => __( 'SolrSynonym Text', 'wpprobe' ),
-			'solrAlternativesErrorMessage' => __( 'Alternatives must have both a primary term and at least one alternative term.', 'wpprobe' ),
-			'solrSetsErrorMessage'         => __( 'Sets must contain at least 2 terms.', 'wpprobe' ),
+			'solrTitle'                    => __( 'Advanced Synonym Editor', 'elasticprobe' ),
+			'solrDescription'              => __( 'When you add Sets and Alternatives above, we reduce them to SolrSynonyms which Elasticsearch can understand. If you are an advanced user, you can edit synonyms directly using Solr synonym formatting. This is beneficial if you want to import a large dictionary of synonyms, or want to export this site\'s synonyms for use on another site.', 'elasticprobe' ),
+			'solrInputHeading'             => __( 'SolrSynonym Text', 'elasticprobe' ),
+			'solrAlternativesErrorMessage' => __( 'Alternatives must have both a primary term and at least one alternative term.', 'elasticprobe' ),
+			'solrSetsErrorMessage'         => __( 'Sets must contain at least 2 terms.', 'elasticprobe' ),
 
-			'removeItemText'               => __( 'Remove', 'wpprobe' ),
-			'submitText'                   => __( 'Update Synonyms', 'wpprobe' ),
+			'removeItemText'               => __( 'Remove', 'elasticprobe' ),
+			'submitText'                   => __( 'Update Synonyms', 'elasticprobe' ),
 
 			'synonymsTextareaInputName'    => $this->get_synonym_field(),
 		);
@@ -739,7 +739,7 @@ class Synonyms {
 	 * @deprecated 0.1.0
 	 */
 	public function get_localized_data() {
-		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::get_localized_strings', '0.1.0' );
+		_deprecated_function( 'ElasticProbe\Feature\Search\Synonyms::get_localized_strings', '0.1.0' );
 
 		$data     = array(
 			'sets'         => array(),
@@ -826,7 +826,7 @@ class Synonyms {
 	 * @deprecated 0.1.0
 	 */
 	public static function prepare_localized_token( $token, $primary = false ) {
-		_deprecated_function( 'WPProbe\Feature\Search\Synonyms::prepare_localized_token', '0.1.0' );
+		_deprecated_function( 'ElasticProbe\Feature\Search\Synonyms::prepare_localized_token', '0.1.0' );
 
 		return array(
 			'label'   => trim( sanitize_text_field( $token ) ),

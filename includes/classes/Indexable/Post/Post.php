@@ -3,15 +3,15 @@
  * Post indexable
  *
  * @since  3.0
- * @package  wpprobe
+ * @package  elasticprobe
  */
 
-namespace WPProbe\Indexable\Post;
+namespace ElasticProbe\Indexable\Post;
 
 use WP_Query;
 use WP_User;
-use WPProbe\Elasticsearch;
-use WPProbe\Indexable;
+use ElasticProbe\Elasticsearch;
+use ElasticProbe\Indexable;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	// @codeCoverageIgnoreStart
@@ -49,8 +49,8 @@ class Post extends Indexable {
 	 */
 	public function setup() {
 		$this->labels = [
-			'plural'   => esc_html__( 'Posts', 'wpprobe' ),
-			'singular' => esc_html__( 'Post', 'wpprobe' ),
+			'plural'   => esc_html__( 'Posts', 'wppelasticproberobe' ),
+			'singular' => esc_html__( 'Post', 'elasticprobe' ),
 		];
 
 		$this->sync_manager      = new SyncManager( $this->slug );
@@ -380,7 +380,7 @@ class Post extends Indexable {
 			$mapping = Elasticsearch::factory()->get_mapping( $index );
 
 			if ( empty( $mapping ) ) {
-				return new \WP_Error( 'ep_failed_mapping_version', esc_html__( 'Error while fetching the mapping version.', 'wpprobe' ) );
+				return new \WP_Error( 'ep_failed_mapping_version', esc_html__( 'Error while fetching the mapping version.', 'elasticprobe' ) );
 			}
 
 			if ( ! isset( $mapping[ $index ] ) ) {
@@ -849,7 +849,7 @@ class Post extends Indexable {
 	public function filter_allowed_metas( $metas, $post ) {
 		$filtered_metas = [];
 
-		$search = \WPProbe\Features::factory()->get_registered_feature( 'search' );
+		$search = \ElasticProbe\Features::factory()->get_registered_feature( 'search' );
 		if ( $search && ! empty( $search->weighting ) && 'manual' === $search->weighting->get_meta_mode() ) {
 			$filtered_metas = $this->filter_allowed_metas_manual( $metas, $post );
 		} else {
@@ -1424,8 +1424,8 @@ class Post extends Indexable {
 	 * @param array  $query_vars    Query vars
 	 * @return SearchAlgorithm Instance of search algorithm to be used
 	 */
-	public function get_search_algorithm( string $search_text, array $search_fields, array $query_vars ): \WPProbe\SearchAlgorithm {
-		$search_algorithm_version_option = \WPProbe\Utils\get_option( 'ep_search_algorithm_version', '4.0' );
+	public function get_search_algorithm( string $search_text, array $search_fields, array $query_vars ): \ElasticProbe\SearchAlgorithm {
+		$search_algorithm_version_option = \ElasticProbe\Utils\get_option( 'ep_search_algorithm_version', '4.0' );
 
 		/**
 		 * Filter the algorithm version to be used.
@@ -1450,7 +1450,7 @@ class Post extends Indexable {
 		 */
 		$search_algorithm = apply_filters( "ep_{$this->slug}_search_algorithm", $search_algorithm, $search_text, $search_fields, $query_vars );
 
-		return \WPProbe\SearchAlgorithms::factory()->get( $search_algorithm );
+		return \ElasticProbe\SearchAlgorithms::factory()->get( $search_algorithm );
 	}
 
 	/**
@@ -2497,7 +2497,7 @@ class Post extends Indexable {
 	 */
 	protected function filter_allowed_metas_manual( $metas, $post ) {
 		$filtered_metas = [];
-		$search_feature = \WPProbe\Features::factory()->get_registered_feature( 'search' );
+		$search_feature = \ElasticProbe\Features::factory()->get_registered_feature( 'search' );
 
 		if ( empty( $post->post_type ) ) {
 			return $filtered_metas;
@@ -2553,7 +2553,7 @@ class Post extends Indexable {
 	 * Filter a list of meta keys down to public keys or protected keys
 	 * allowed via a hook.
 	 *
-	 * This function is used to filter meta keys when WPProbe is in
+	 * This function is used to filter meta keys when ElasticProbe is in
 	 * network mode or when the meta mode is set to `auto` via the
 	 * `ep_meta_mode` hook. This was the default behaviour prior to 5.0.0.
 	 *
@@ -2711,7 +2711,7 @@ class Post extends Indexable {
 	 * @return array
 	 */
 	public function get_distinct_meta_field_keys_db_per_post_type( string $post_type, bool $force_refresh = false ): array {
-		$allowed_screen = 'status-report' === \WPProbe\Screen::factory()->get_current_screen();
+		$allowed_screen = 'status-report' === \ElasticProbe\Screen::factory()->get_current_screen();
 
 		/**
 		 * Filter if the current screen is allowed or not to use the function.
@@ -2727,7 +2727,7 @@ class Post extends Indexable {
 			_doing_it_wrong(
 				__METHOD__,
 				esc_html__( 'This method should not be called outside specific pages. Use the `ep_post_meta_keys_db_per_post_type_allowed_screen` filter if you need to use it in your custom screen.' ),
-				'WPProbe 0.1.0'
+				'ElasticProbe 0.1.0'
 			);
 			return [];
 		}
@@ -2988,8 +2988,8 @@ class Post extends Indexable {
 	 * @return array
 	 */
 	public function get_all_allowed_metas_manual(): array {
-		$post_types     = \WPProbe\Indexables::factory()->get( 'post' )->get_indexable_post_types();
-		$search_feature = \WPProbe\Features::factory()->get_registered_feature( 'search' );
+		$post_types     = \ElasticProbe\Indexables::factory()->get( 'post' )->get_indexable_post_types();
+		$search_feature = \ElasticProbe\Features::factory()->get_registered_feature( 'search' );
 		$weighting      = $search_feature->weighting->get_weighting_configuration_with_defaults();
 		$fake_post      = new \WP_Post( new \stdClass() );
 

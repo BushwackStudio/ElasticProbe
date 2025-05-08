@@ -3,14 +3,14 @@
  * Test the Status Report
  *
  * @since 4.4.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe\Screen\StatusReport;
+use ElasticProbe\Screen\StatusReport;
 use WP_Ajax_UnitTestCase;
-use WPProbe\Utils;
+use ElasticProbe\Utils;
 
 /**
  * Test the Status Report class
@@ -79,7 +79,7 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 	public function testWordPressReport() {
 		global $wp_version;
 
-		$report = new \WPProbe\StatusReport\WordPress();
+		$report = new \ElasticProbe\StatusReport\WordPress();
 
 		$expected_result = array(
 			array(
@@ -145,7 +145,7 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 	 * @since 4.5.1
 	 */
 	public function testLastSyncReport() {
-		$report = new \WPProbe\StatusReport\LastSync();
+		$report = new \ElasticProbe\StatusReport\LastSync();
 
 		// Test when no last sync information is available
 		$this->assertEmpty( $report->get_groups() );
@@ -204,9 +204,9 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 	 */
 	public function testIndicesReport() {
 		// Make sure the index exists
-		\WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
+		\ElasticProbe\Indexables::factory()->get( 'post' )->put_mapping();
 
-		$report = new \WPProbe\StatusReport\Indices();
+		$report = new \ElasticProbe\StatusReport\Indices();
 
 		$group         = $report->get_groups();
 		$expected_keys = [ 'health', 'status', 'index', 'uuid', 'pri', 'rep', 'docs.count', 'docs.deleted', 'store.size', 'pri.store.size', 'total_fields_limit' ];
@@ -227,10 +227,10 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 	public function testIndexableContentReport() {
 		// set screen to status report
 		add_filter( 'ep_install_status', '__return_true' );
-		$_GET['page'] = 'wpprobe-status-report';
-		\WPProbe\Screen::factory()->determine_screen();
+		$_GET['page'] = 'elasticprobe-status-report';
+		\ElasticProbe\Screen::factory()->determine_screen();
 
-		$post_indexable = \WPProbe\Indexables::factory()->get( 'post' );
+		$post_indexable = \ElasticProbe\Indexables::factory()->get( 'post' );
 		$post_types     = $post_indexable->get_indexable_post_types();
 
 		$posts_fields       = array();
@@ -290,7 +290,7 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 			),
 		);
 
-		$report = new \WPProbe\StatusReport\IndexableContent();
+		$report = new \ElasticProbe\StatusReport\IndexableContent();
 
 		$this->assertSame( $expected_result, $report->get_groups_ajax() );
 		$this->assertEquals( 'Indexable Content', $report->get_title() );
@@ -307,9 +307,9 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 		Utils\delete_option( 'ep_feature_settings' );
 
 		// activate search feature.
-		\WPProbe\Features::factory()->activate_feature( 'search' );
+		\ElasticProbe\Features::factory()->activate_feature( 'search' );
 
-		$report = new \WPProbe\StatusReport\Features();
+		$report = new \ElasticProbe\StatusReport\Features();
 		$groups = $report->get_groups();
 
 		$this->assertEquals( 1, count( $groups ) );
@@ -370,7 +370,7 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 			),
 			'recommended_solution' => array(
 				'label' => 'Recommended Solution',
-				'value' => Utils\is_epio() ? 'We did not recognize this error. Please consider opening a <a href="https://github.com/BushwackStudio/WpProbe/issues/new/choose">GitHub Issue</a> so we can add it to our list of supported errors and troubleshoot further.' : 'We did not recognize this error. Please consider opening a <a href="https://github.com/BushwackStudio/WpProbe/issues/new/choose">GitHub Issue</a> so we can add it to our list of supported errors.',
+				'value' => Utils\is_epio() ? 'We did not recognize this error. Please consider opening a <a href="https://github.com/BushwackStudio/ElasticProbe/issues/new/choose">GitHub Issue</a> so we can add it to our list of supported errors and troubleshoot further.' : 'We did not recognize this error. Please consider opening a <a href="https://github.com/BushwackStudio/ElasticProbe/issues/new/choose">GitHub Issue</a> so we can add it to our list of supported errors.',
 			),
 			'es_req'               => array(
 				'label' => 'Elasticsearch Request',
@@ -412,8 +412,8 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 			),
 		);
 
-		$query_logger = new \WPProbe\QueryLogger();
-		$report       = new \WPProbe\StatusReport\FailedQueries( $query_logger );
+		$query_logger = new \ElasticProbe\QueryLogger();
+		$report       = new \ElasticProbe\StatusReport\FailedQueries( $query_logger );
 
 		$this->assertSame( $expected_result, $report->get_groups()[0]['fields'] );
 		$this->assertEquals( 'Failed Queries', $report->get_title() );
@@ -431,10 +431,10 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 	public function testElasticPressIoReport() {
 		$this->markTestSkipped( 'Needs autosuggest and instant result' );
 
-		\WPProbe\Features::factory()->activate_feature( 'autosuggest' );
-		\WPProbe\Features::factory()->activate_feature( 'instant-results' );
+		\ElasticProbe\Features::factory()->activate_feature( 'autosuggest' );
+		\ElasticProbe\Features::factory()->activate_feature( 'instant-results' );
 
-		$report = new \WPProbe\StatusReport\ElasticPressIo();
+		$report = new \ElasticProbe\StatusReport\ElasticPressIo();
 		$groups = $report->get_groups();
 
 		$this->assertEquals( 3, count( $groups ) );
@@ -445,13 +445,13 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 	}
 
 	/**
-	 * Tests WPProbe report.
+	 * Tests ElasticProbe report.
 	 *
 	 * @group statusReport
 	 * @since 4.5.1
 	 */
 	public function testElasticPressReport() {
-		$report = new \WPProbe\StatusReport\ElasticPress();
+		$report = new \ElasticProbe\StatusReport\ElasticPress();
 		$groups = $report->get_groups();
 
 		$expected_result = array(
@@ -472,7 +472,7 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 					),
 					'per_page'       => array(
 						'label' => 'Content Items per Index Cycle',
-						'value' => \WPProbe\IndexHelper::factory()->get_index_default_per_page(),
+						'value' => \ElasticProbe\IndexHelper::factory()->get_index_default_per_page(),
 					),
 					'network_active' => array(
 						'label' => 'Network Active',

@@ -3,12 +3,12 @@
  * Meta range facet type
  *
  * @since 4.5.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Feature\Facets\Types\MetaRange;
+namespace ElasticProbe\Feature\Facets\Types\MetaRange;
 
-use WPProbe\Features;
+use ElasticProbe\Features;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Meta facet type class
  */
-class FacetType extends \WPProbe\Feature\Facets\FacetType {
+class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 
 	/**
 	 * Block instance.

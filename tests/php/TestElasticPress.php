@@ -3,10 +3,10 @@
  * Test the main plugin file functions
  *
  * @since 4.7.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
 /**
  * TestElasticPress test class
@@ -18,11 +18,11 @@ class TestElasticPress extends BaseTestCase {
 	 * @group elasticpress
 	 */
 	public function test_get_container() {
-		$container = \WPProbe\get_container();
+		$container = \ElasticProbe\get_container();
 
-		$this->assertInstanceOf( '\WPProbe\Container', $container );
+		$this->assertInstanceOf( '\ElasticProbe\Container', $container );
 
 		// Calling it again should return the same instance
-		$this->assertSame( $container, \WPProbe\get_container() );
+		$this->assertSame( $container, \ElasticProbe\get_container() );
 	}
 }

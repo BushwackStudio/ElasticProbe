@@ -22,7 +22,7 @@ describe('Terms Feature', { tags: '@slow' }, () => {
 
 		cy.maybeDisableFeature('terms');
 
-		cy.visitAdminPage('admin.php?page=wpprobe');
+		cy.visitAdminPage('admin.php?page=elasticprobe');
 		cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
 
 		cy.contains('button', 'Terms').click();
@@ -38,7 +38,7 @@ describe('Terms Feature', { tags: '@slow' }, () => {
 			.should('contain.text', 'Mapping sent')
 			.should('contain.text', 'Sync complete');
 
-		cy.wpCli('wp wpprobe list-features').its('stdout').should('contain', 'terms');
+		cy.wpCli('wp elasticprobe list-features').its('stdout').should('contain', 'terms');
 	});
 
 	it('Can search a term in the admin dashboard using Elasticsearch', () => {
@@ -56,10 +56,9 @@ describe('Terms Feature', { tags: '@slow' }, () => {
 			.should('contain.text', searchTerm);
 
 		// make sure elasticsearch result does contain the term.
-		cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug .ep-query-result').should(
-			'contain.text',
-			searchTerm,
-		);
+		cy.get(
+			'#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-query-debug .ep-query-result',
+		).should('contain.text', searchTerm);
 
 		// Delete the term
 		cy.get('.wp-list-table tbody tr')
@@ -82,10 +81,9 @@ describe('Terms Feature', { tags: '@slow' }, () => {
 		cy.get('.wp-list-table tbody tr').should('have.length', 1).should('contain.text', term);
 
 		// make sure elasticsearch result does contain the term.
-		cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug .ep-query-result').should(
-			'contain.text',
-			term,
-		);
+		cy.get(
+			'#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-query-debug .ep-query-result',
+		).should('contain.text', term);
 
 		// Delete the term
 		cy.get('.wp-list-table tbody tr')
@@ -104,7 +102,7 @@ describe('Terms Feature', { tags: '@slow' }, () => {
 		// Re-search for the term and make sure it's not there.
 		cy.get('#search-submit').click();
 		cy.get('.wp-list-table tbody').should('contain.text', 'No categories found');
-		cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug').should(
+		cy.get('#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-query-debug').should(
 			'contain.text',
 			'Query Response Code: HTTP 200',
 		);
@@ -127,10 +125,9 @@ describe('Terms Feature', { tags: '@slow' }, () => {
 
 		cy.get('.wp-list-table tbody tr .row-title').should('contain.text', 'The Most Fun Thing');
 
-		cy.get('#debug-menu-target-EP_Debug_Bar_WPProbe .ep-query-debug .ep-query-result').should(
-			'contain.text',
-			'The Most Fun Thing',
-		);
+		cy.get(
+			'#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-query-debug .ep-query-result',
+		).should('contain.text', 'The Most Fun Thing');
 	});
 
 	it('Can update a child term when a parent term is deleted', () => {

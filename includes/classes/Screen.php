@@ -1,15 +1,15 @@
 <?php
 /**
- * Determine which WPProbe screen we are viewing
+ * Determine which ElasticProbe screen we are viewing
  *
  * @since  3.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe;
+namespace ElasticProbe;
 
-use WPProbe\Utils;
-use WPProbe\Installer;
+use ElasticProbe\Utils;
+use ElasticProbe\Installer;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -89,18 +89,18 @@ class Screen {
 	}
 
 	/**
-	 * Determine current WPProbe screen. null means not EP screen.
+	 * Determine current ElasticProbe screen. null means not EP screen.
 	 *
 	 * @since 3.0
 	 */
 	public function determine_screen() {
 		// phpcs:disable WordPress.Security.NonceVerification
-		if ( ! empty( $_GET['page'] ) && false !== strpos( sanitize_key( $_GET['page'] ), 'wpprobe' ) ) {
+		if ( ! empty( $_GET['page'] ) && false !== strpos( sanitize_key( $_GET['page'] ), 'elasticprobe' ) ) {
 			$install_status = Installer::factory()->get_install_status();
 
 			$this->screen = 'install';
 
-			if ( 'wpprobe' === $_GET['page'] ) {
+			if ( 'elasticprobe' === $_GET['page'] ) {
 				if ( ! isset( $_GET['install_complete'] ) && ( true === $install_status || Utils\isset_do_sync_parameter() ) ) {
 					if ( Utils\is_top_level_admin_context() ) {
 						$this->screen = 'dashboard';
@@ -108,27 +108,27 @@ class Screen {
 						$this->screen = 'weighting';
 					}
 				}
-			} elseif ( 'wpprobe-settings' === $_GET['page'] ) {
+			} elseif ( 'elasticprobe-settings' === $_GET['page'] ) {
 				if ( true === $install_status || 2 === $install_status || Utils\isset_do_sync_parameter() ) {
 					$this->screen = 'settings';
 				}
-			} elseif ( 'wpprobe-health' === $_GET['page'] ) {
+			} elseif ( 'elasticprobe-health' === $_GET['page'] ) {
 				if ( ! isset( $_GET['install_complete'] ) && ( true === $install_status || Utils\isset_do_sync_parameter() ) ) {
 					$this->screen = 'health';
 				}
-			} elseif ( 'wpprobe-weighting' === $_GET['page'] ) {
+			} elseif ( 'elasticprobe-weighting' === $_GET['page'] ) {
 				if ( ! isset( $_GET['install_complete'] ) && ( true === $install_status || Utils\isset_do_sync_parameter() ) ) {
 					$this->screen = 'weighting';
 				}
-			} elseif ( 'wpprobe-synonyms' === $_GET['page'] ) {
+			} elseif ( 'elasticprobe-synonyms' === $_GET['page'] ) {
 				if ( ! isset( $_GET['install_complete'] ) && ( true === $install_status || Utils\isset_do_sync_parameter() ) ) {
 					$this->screen = 'synonyms';
 				}
-			} elseif ( 'wpprobe-sync' === $_GET['page'] ) {
+			} elseif ( 'elasticprobe-sync' === $_GET['page'] ) {
 				if ( ! isset( $_GET['install_complete'] ) && ( true === $install_status || Utils\isset_do_sync_parameter() ) ) {
 					$this->screen = 'sync';
 				}
-			} elseif ( 'wpprobe-status-report' === $_GET['page'] ) {
+			} elseif ( 'elasticprobe-status-report' === $_GET['page'] ) {
 				if ( ! isset( $_GET['install_complete'] ) && ( true === $install_status || Utils\isset_do_sync_parameter() ) ) {
 					$this->screen = 'status-report';
 				}

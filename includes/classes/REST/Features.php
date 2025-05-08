@@ -3,19 +3,19 @@
  * Features REST API Controller
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\REST;
+namespace ElasticProbe\REST;
 
-use WPProbe\Features as FeaturesStore;
-use WPProbe\Utils;
+use ElasticProbe\Features as FeaturesStore;
+use ElasticProbe\Utils;
 
 /**
  * Features API controller class.
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 class Features {
 
@@ -46,7 +46,7 @@ class Features {
 	public function get_args() {
 		$args = [];
 
-		$features = \WPProbe\Features::factory()->registered_features;
+		$features = \ElasticProbe\Features::factory()->registered_features;
 
 		foreach ( $features as $feature ) {
 			$properties = [];
@@ -120,7 +120,7 @@ class Features {
 		$current_settings = FeaturesStore::factory()->get_feature_settings();
 		$new_settings     = $current_settings;
 
-		$features = \WPProbe\Features::factory()->registered_features;
+		$features = \ElasticProbe\Features::factory()->registered_features;
 
 		$settings_that_requires_features = [];
 

@@ -3,7 +3,7 @@
  * ACF Pro mock functions
  *
  * @since 5.3.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
 /**
@@ -30,7 +30,7 @@ function acf_get_field_groups( $args = [] ) {
  * @return void
  */
 function acf_render_field_setting() {
-	\WPProbeTest\FunctionsCallCounter::get_instance()->update_counter( 'acf_render_field_setting' );
+	\ElasticProbeTest\FunctionsCallCounter::get_instance()->update_counter( 'acf_render_field_setting' );
 }
 
 /**

@@ -2,12 +2,12 @@
 /**
  * Class for Term factory.
  *
- * @package  wpprobe
+ * @package  elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe;
+use ElasticProbe;
 
 /**
  * Unit test factory for the term.
@@ -30,7 +30,7 @@ class TermFactory extends \WP_UnitTest_Factory_For_Term {
 			return $term_id;
 		}
 
-		WPProbe\Indexables::factory()->get( 'term' )->index( $term_id, true );
+		ElasticProbe\Indexables::factory()->get( 'term' )->index( $term_id, true );
 
 		return $term_id;
 	}

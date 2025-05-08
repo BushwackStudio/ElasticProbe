@@ -5,13 +5,13 @@
  * All features extend this class.
  *
  * @since  2.1
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe;
+namespace ElasticProbe;
 
-use WPProbe\FeatureRequirementsStatus;
-use WPProbe\Utils;
+use ElasticProbe\FeatureRequirementsStatus;
+use ElasticProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -312,12 +312,12 @@ abstract class Feature {
 		do_action( 'ep_feature_box_summary', $this->slug, $this );
 		?>
 
-		<button aria-expanded="false" class="learn-more button button-secondary button-small" type="button"><?php esc_html_e( 'Learn more', 'wpprobe' ); ?></button>
+		<button aria-expanded="false" class="learn-more button button-secondary button-small" type="button"><?php esc_html_e( 'Learn more', 'elasticprobe' ); ?></button>
 
 		<div class="long">
 			<?php $this->output_feature_box_long(); ?>
 
-			<p><button aria-expanded="true" class="collapse button button-secondary button-small" type="button"><?php esc_html_e( 'Collapse', 'wpprobe' ); ?></button></p>
+			<p><button aria-expanded="true" class="collapse button button-secondary button-small" type="button"><?php esc_html_e( 'Collapse', 'elasticprobe' ); ?></button></p>
 
 			<?php
 			/**
@@ -356,8 +356,8 @@ abstract class Feature {
 	public function output_settings_box() {
 		$requirements_status = $this->requirements_status();
 		$sync_url            = ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK )
-			? network_admin_url( 'admin.php?page=wpprobe-sync' )
-			: admin_url( 'admin.php?page=wpprobe-sync' );
+			? network_admin_url( 'admin.php?page=elasticprobe-sync' )
+			: admin_url( 'admin.php?page=elasticprobe-sync' );
 		?>
 
 		<form>
@@ -374,7 +374,7 @@ abstract class Feature {
 
 			<?php if ( $this->requires_install_reindex || $this->setting_requires_install_reindex ) : ?>
 				<div class="requirements-status-notice requirements-status-notice--reindex" role="status">
-					<?php esc_html_e( 'Enabling this feature will require re-syncing your content.', 'wpprobe' ); ?>
+					<?php esc_html_e( 'Enabling this feature will require re-syncing your content.', 'elasticprobe' ); ?>
 				</div>
 			<?php endif; ?>
 
@@ -382,21 +382,21 @@ abstract class Feature {
 				<?php
 				printf(
 					'%1$s <a href="%2$s">%3$s</a>',
-					esc_html__( 'Settings not saved. Cannot save settings while a sync is in progress.', 'wpprobe' ),
+					esc_html__( 'Settings not saved. Cannot save settings while a sync is in progress.', 'elasticprobe' ),
 					esc_url( $sync_url ),
-					esc_html__( 'View sync status.', 'wpprobe' )
+					esc_html__( 'View sync status.', 'elasticprobe' )
 				);
 				?>
 			</div>
 
-			<h3><?php esc_html_e( 'Settings', 'wpprobe' ); ?></h3>
+			<h3><?php esc_html_e( 'Settings', 'elasticprobe' ); ?></h3>
 
 			<div class="feature-fields">
 				<div class="field js-toggle-feature">
-					<div class="field-name status"><?php esc_html_e( 'Status', 'wpprobe' ); ?></div>
+					<div class="field-name status"><?php esc_html_e( 'Status', 'elasticprobe' ); ?></div>
 					<div class="input-wrap <?php if ( 2 === $requirements_status->code ) : ?>disabled<?php endif; ?>">
-						<label><input name="settings[active]" <?php disabled( 2 === $requirements_status->code ); ?> type="radio" <?php checked( $this->is_active() ); ?> value="1"><?php esc_html_e( 'Enabled', 'wpprobe' ); ?></label><br>
-						<label><input name="settings[active]" <?php disabled( 2 === $requirements_status->code ); ?> type="radio" <?php checked( ! $this->is_active() ); ?> value="0"><?php esc_html_e( 'Disabled', 'wpprobe' ); ?></label>
+						<label><input name="settings[active]" <?php disabled( 2 === $requirements_status->code ); ?> type="radio" <?php checked( $this->is_active() ); ?> value="1"><?php esc_html_e( 'Enabled', 'elasticprobe' ); ?></label><br>
+						<label><input name="settings[active]" <?php disabled( 2 === $requirements_status->code ); ?> type="radio" <?php checked( ! $this->is_active() ); ?> value="0"><?php esc_html_e( 'Disabled', 'elasticprobe' ); ?></label>
 					</div>
 				</div>
 
@@ -407,7 +407,7 @@ abstract class Feature {
 
 			<div class="action-wrap">
 				<span class="no-dash-sync">
-					<?php esc_html_e( 'Setting adjustments to this feature require a re-sync. Use WP-CLI.', 'wpprobe' ); ?>
+					<?php esc_html_e( 'Setting adjustments to this feature require a re-sync. Use WP-CLI.', 'elasticprobe' ); ?>
 				</span>
 
 				<input type="hidden" name="action" value="ep_save_feature">
@@ -419,7 +419,7 @@ abstract class Feature {
 				<?php wp_nonce_field( 'ep_dashboard_nonce', 'nonce' ); ?>
 
 				<button name="submit" <?php disabled( 2 === $requirements_status->code || ( $this->requires_install_reindex && defined( 'EP_DASHBOARD_SYNC' ) && ! EP_DASHBOARD_SYNC ) ); ?> class="button button-primary" type="submit">
-					<?php esc_html_e( 'Save', 'wpprobe' ); ?>
+					<?php esc_html_e( 'Save', 'elasticprobe' ); ?>
 				</button>
 			</div>
 		</form>
@@ -571,7 +571,7 @@ abstract class Feature {
 		$active = [
 			'default'          => false,
 			'key'              => 'active',
-			'label'            => __( 'Enable', 'wpprobe' ),
+			'label'            => __( 'Enable', 'elasticprobe' ),
 			'requires_feature' => $this->requires_feature,
 			'requires_sync'    => $this->requires_install_reindex,
 			'type'             => 'toggle',

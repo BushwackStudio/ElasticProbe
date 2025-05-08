@@ -3,17 +3,17 @@
  * Indices report class
  *
  * @since 4.4.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\StatusReport;
+namespace ElasticProbe\StatusReport;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Indices report class
  *
- * @package WPProbe
+ * @package ElasticProbe
  */
 class Indices extends Report {
 
@@ -23,7 +23,7 @@ class Indices extends Report {
 	 * @return string
 	 */
 	public function get_title(): string {
-		return __( 'Elasticsearch Indices', 'wpprobe' );
+		return __( 'Elasticsearch Indices', 'elasticprobe' );
 	}
 
 	/**
@@ -32,7 +32,7 @@ class Indices extends Report {
 	 * @return array
 	 */
 	public function get_groups(): array {
-		$elasticsearch = \WPProbe\Elasticsearch::factory();
+		$elasticsearch = \ElasticProbe\Elasticsearch::factory();
 
 		$should_have_indices   = $elasticsearch->get_index_names();
 		$indices_in_es         = $elasticsearch->get_cluster_indices();

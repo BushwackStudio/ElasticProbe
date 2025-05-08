@@ -319,11 +319,11 @@ Cypress.Commands.add('updateWeighting', (newWeightingValues = null) => {
 });
 
 Cypress.Commands.add('maybeEnableFeature', (featureName) => {
-	cy.wpCli(`wpprobe activate-feature ${featureName}`, true);
+	cy.wpCli(`elasticprobe activate-feature ${featureName}`, true);
 });
 
 Cypress.Commands.add('maybeDisableFeature', (featureName) => {
-	cy.wpCli(`wpprobe deactivate-feature ${featureName}`, true);
+	cy.wpCli(`elasticprobe deactivate-feature ${featureName}`, true);
 });
 
 Cypress.Commands.add('getTotal', (totalNumber) => {
@@ -350,7 +350,7 @@ Cypress.Commands.add('activatePlugin', (slug, method = 'dashboard', mode = 'sing
 		return;
 	}
 
-	const pluginSlug = slug.replace('wpprobe', Cypress.config('pluginName'));
+	const pluginSlug = slug.replace('elasticprobe', Cypress.config('pluginName'));
 	let command = `wp plugin activate ${pluginSlug}`;
 	if (mode === 'network') {
 		command += ' --network';
@@ -376,7 +376,7 @@ Cypress.Commands.add('deactivatePlugin', (slug, method = 'dashboard', mode = 'si
 		return;
 	}
 
-	const pluginSlug = slug.replace('wpprobe', Cypress.config('pluginName'));
+	const pluginSlug = slug.replace('elasticprobe', Cypress.config('pluginName'));
 	let command = `wp plugin deactivate ${pluginSlug}`;
 	if (mode === 'network') {
 		command += ' --network';
@@ -559,7 +559,7 @@ Cypress.Commands.add('setPerIndexCycle', (number = 350) => {
 Cypress.Commands.add('refreshIndex', (indexable) => {
 	cy.wpCliEval(
 		`
-		$index = \\WPProbe\\Indexables::factory()->get( "${indexable}" )->get_index_name();
-		WP_CLI::runcommand("wpprobe request {$index}/_refresh --method=POST");`,
+		$index = \\ElasticProbe\\Indexables::factory()->get( "${indexable}" )->get_index_name();
+		WP_CLI::runcommand("elasticprobe request {$index}/_refresh --method=POST");`,
 	);
 });

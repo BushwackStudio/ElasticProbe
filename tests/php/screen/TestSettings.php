@@ -3,14 +3,14 @@
  * Test the Settings screen
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe\Screen;
-use WPProbe\Screen\Settings;
-use WPProbe\Utils;
+use ElasticProbe\Screen;
+use ElasticProbe\Screen\Settings;
+use ElasticProbe\Utils;
 
 /**
  * Test the Settings class

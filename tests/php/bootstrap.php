@@ -1,11 +1,11 @@
 <?php
 /**
- * WPProbe test bootstrap
+ * ElasticProbe test bootstrap
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
 set_time_limit( 0 );
 
@@ -69,14 +69,14 @@ function load_plugin() {
 	}
 
 	include_once __DIR__ . '/../../vendor/woocommerce/woocommerce.php';
-	require_once __DIR__ . '/../../wpprobe.php';
+	require_once __DIR__ . '/../../elasticprobe.php';
 
 	add_filter( 'ep_default_index_number_of_shards', __NAMESPACE__ . '\test_shard_number' );
 
 	require_once __DIR__ . '/includes/functions.php';
 
 	echo 'WordPress version ' . $wp_version . "\n"; // phpcs:ignore
-	echo 'Elasticsearch version ' . \WPProbe\Elasticsearch::factory()->get_elasticsearch_version(true) . "\n"; // phpcs:ignore
+	echo 'Elasticsearch version ' . \ElasticProbe\Elasticsearch::factory()->get_elasticsearch_version(true) . "\n"; // phpcs:ignore
 }
 
 tests_add_filter( 'muplugins_loaded', __NAMESPACE__ . '\load_plugin' );

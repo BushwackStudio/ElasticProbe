@@ -1,5 +1,5 @@
 {
-  "name": "wpprobe",
+  "name": "elasticprobe",
   "version": "0.1.1",
   "license": "GPL-2.0-or-later",
   "description": "Supercharge your wordPress search with ElasticSearch® precision.",
@@ -38,7 +38,7 @@
     "lint-php": "composer run lint",
     "format-js": "10up-toolkit format-js assets/js tests/cypress",
     "lint": "npm run lint-style && npm run lint-js && npm run lint-php",
-    "build:docs": "rm -rf hook_docs && jsdoc -c hookdoc-conf.json wpprobe.php includes",
+    "build:docs": "rm -rf hook_docs && jsdoc -c hookdoc-conf.json elasticprobe.php includes",
     "build:zip": "./bin/build-zip.sh",
     "lint-style": "10up-toolkit lint-style",
     "env": "wp-env",
@@ -55,7 +55,7 @@
   "author": "BushwackStudio",
   "repository": {
     "type": "git",
-    "url": "https://github.com/BushwackStudio/WpProbe"
+    "url": "https://github.com/BushwackStudio/ElasticProbe"
   },
   "engineStrict": true,
   "engines": {
