@@ -17,6 +17,7 @@ use ElasticProbe\Utils;
  */
 class TestStatusReport extends WP_Ajax_UnitTestCase {
 
+
 	/**
 	 * Test the default behavior of the get_reports method
 	 *
@@ -26,10 +27,17 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 		$status_report = new StatusReport();
 
 		$reports = $status_report->get_reports();
-		$this->assertSame(
-			[ 'failed-queries', 'wordpress', 'indexable', 'elasticpress', 'indices', 'last-sync', 'features' ],
-			array_keys( $reports )
-		);
+		if ( Utils\is_epio() ) {
+			$this->assertSame(
+				[ 'failed-queries', 'autosuggest', 'wordpress', 'indexable', 'elasticpress', 'indices', 'last-sync', 'features' ],
+				array_keys( $reports )
+			);
+		} else {
+			$this->assertSame(
+				[ 'failed-queries', 'wordpress', 'indexable', 'elasticpress', 'indices', 'last-sync', 'features' ],
+				array_keys( $reports )
+			);
+		}
 	}
 
 	/**
@@ -47,10 +55,17 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 		add_filter( 'ep_status_report_reports', $add_filter );
 
 		$reports = $status_report->get_reports();
-		$this->assertSame(
-			[ 'failed-queries', 'wordpress', 'indexable', 'elasticpress', 'indices', 'last-sync', 'features', 'custom' ],
-			array_keys( $reports )
-		);
+		if ( Utils\is_epio() ) {
+			$this->assertSame(
+				[ 'failed-queries', 'autosuggest', 'wordpress', 'indexable', 'elasticpress', 'indices', 'last-sync', 'features', 'custom' ],
+				array_keys( $reports )
+			);
+		} else {
+			$this->assertSame(
+				[ 'failed-queries', 'wordpress', 'indexable', 'elasticpress', 'indices', 'last-sync', 'features', 'custom' ],
+				array_keys( $reports )
+			);
+		}
 	}
 
 	/**
@@ -64,10 +79,17 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 		parse_str( 'ep-skip-reports[]=wordpress&ep-skip-reports[]=indexable', $_GET ); // phpcs:ignore WordPress.WP.CapitalPDangit.MisspelledInText
 
 		$reports = $status_report->get_reports();
-		$this->assertSame(
-			[ 'failed-queries', 'elasticpress', 'indices', 'last-sync', 'features' ],
-			array_keys( $reports )
-		);
+		if ( Utils\is_epio() ) {
+			$this->assertSame(
+				[ 'failed-queries', 'autosuggest', 'elasticpress', 'indices', 'last-sync', 'features' ],
+				array_keys( $reports )
+			);
+		} else {
+			$this->assertSame(
+				[ 'failed-queries', 'elasticpress', 'indices', 'last-sync', 'features' ],
+				array_keys( $reports )
+			);
+		}
 	}
 
 	/**

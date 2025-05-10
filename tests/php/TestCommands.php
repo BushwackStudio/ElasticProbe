@@ -335,7 +335,7 @@ class TestCommands extends BaseTestCase {
 
 		$output = $this->getActualOutputForAssertion();
 		if ( Utils\is_epio() ) {
-			$this->assertEquals( '["' . Utils\get_index_prefix() . "--exampleorg-post-1\"]\n", $output );
+			$this->assertEquals( '["' . Utils\get_index_prefix() . "-exampleorg-post-1\"]\n", $output );
 		} else {
 			$this->assertEquals( "[\"exampleorg-post-1\"]\n", $output );
 		}
@@ -502,8 +502,8 @@ class TestCommands extends BaseTestCase {
 
 		$output = $this->getActualOutputForAssertion();
 		if ( Utils\is_epio() ) {
-			$this->assertStringContainsString( 'Index ' . Utils\get_index_prefix() . '--exampleorg-comment-1 deleted', $output );
-			$this->assertStringContainsString( 'Index ' . Utils\get_index_prefix() . '--exampleorg-term-1 deleted', $output );
+			$this->assertStringContainsString( 'Index ' . Utils\get_index_prefix() . '-exampleorg-comment-1 deleted', $output );
+			$this->assertStringContainsString( 'Index ' . Utils\get_index_prefix() . '-exampleorg-term-1 deleted', $output );
 		} else {
 			$this->assertStringContainsString( 'Index exampleorg-comment-1 deleted', $output );
 			$this->assertStringContainsString( 'Index exampleorg-term-1 deleted', $output );
