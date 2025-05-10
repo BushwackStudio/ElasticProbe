@@ -894,7 +894,7 @@ class Command extends WP_CLI_Command {
 
 		$index_names_imploded = implode( ',', $index_names );
 
-		$request = Elasticsearch::factory()->remote_request( $index_names_imploded . '/_recovery/?pretty' );
+		$request = Elasticsearch::factory()->remote_request( $index_names_imploded . '/_recovery?pretty' );
 
 		if ( is_wp_error( $request ) ) {
 			WP_CLI::error( implode( "\n", $request->get_error_messages() ) );

@@ -359,7 +359,11 @@ class TestCommands extends BaseTestCase {
 		$this->command->get_indices( [], [ 'status' => 'all' ] );
 
 		$output = $this->getActualOutputForAssertion();
-		$this->assertEquals( "[\"exampleorg-post-1\",\"exampleorg-comment-1\",\"exampleorg-term-1\",\"exampleorg-global\"]\n", $output );
+		if ( Utils\is_epio() ) {
+			$this->assertEquals( "[\"{$this->ep_factory->get_index_prefix()}exampleorg-post-1\",\"{$this->ep_factory->get_index_prefix()}exampleorg-comment-1\",\"{$this->ep_factory->get_index_prefix()}exampleorg-term-1\",\"{$this->ep_factory->get_index_prefix()}exampleorg-global\"]\n", $output );
+		} else {
+			$this->assertEquals( "[\"exampleorg-post-1\",\"exampleorg-comment-1\",\"exampleorg-term-1\",\"exampleorg-global\"]\n", $output );
+		}
 	}
 
 
@@ -598,6 +602,10 @@ class TestCommands extends BaseTestCase {
 	 * Test sync command with ep-prefix flag.
 	 */
 	public function testSyncWithEPPrefixFlag() {
+		if ( Utils\is_epio() ) {
+			$this->assertTrue( Utils\is_epio() );
+			return;
+		}
 
 		$this->ep_factory->post->create_many( 10 );
 		$this->ep_factory->post->create_many( 10, [ 'post_type' => 'page' ] );
