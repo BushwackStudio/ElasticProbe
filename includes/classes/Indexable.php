@@ -134,7 +134,7 @@ abstract class Indexable {
 
 		$prefix = Utils\get_index_prefix();
 
-		if ( ! empty( $prefix ) ) {
+		if ( ! empty( $index_name ) && ! empty( $prefix ) ) {
 			$index_name = $prefix . '-' . $index_name;
 		}
 
