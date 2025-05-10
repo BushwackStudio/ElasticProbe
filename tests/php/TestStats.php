@@ -2,15 +2,15 @@
 /**
  * Test stats functionality
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe;
-use WPProbe\Elasticsearch;
-use WPProbe\Indexables;
-use WPProbe\Stats;
+use ElasticProbe;
+use ElasticProbe\Elasticsearch;
+use ElasticProbe\Indexables;
+use ElasticProbe\Stats;
 
 /**
  * Stats test class
@@ -59,7 +59,7 @@ class TestStats extends BaseTestCase {
 		// Update since we are deleting to test notifications
 		update_site_option( 'ep_host', $this->current_host );
 
-		WPProbe\Screen::factory()->set_current_screen( null );
+		ElasticProbe\Screen::factory()->set_current_screen( null );
 	}
 
 	/**
@@ -119,7 +119,7 @@ class TestStats extends BaseTestCase {
 
 		Stats::factory()->build_stats( true );
 		$failed_queries = Stats::factory()->get_failed_queries();
-		$prefix = WPProbe\Utils\get_index_prefix();
+		$prefix         = ElasticProbe\Utils\get_index_prefix();
 		$this->assertSame(
 			[
 				[
@@ -149,7 +149,7 @@ class TestStats extends BaseTestCase {
 
 		Stats::factory()->build_stats( true );
 		$failed_queries = Stats::factory()->get_failed_queries();
-		$prefix = WPProbe\Utils\get_index_prefix();
+		$prefix         = ElasticProbe\Utils\get_index_prefix();
 		$this->assertSame(
 			[
 				[

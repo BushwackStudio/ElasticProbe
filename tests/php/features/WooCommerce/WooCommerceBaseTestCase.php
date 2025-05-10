@@ -3,10 +3,10 @@
  * WooCommerce Base Test Case
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
 /**
  * WooCommerceBaseTestCase class
@@ -26,10 +26,10 @@ class WooCommerceBaseTestCase extends BaseTestCase {
 
 		wp_set_current_user( $admin_id );
 
-		\WPProbe\Elasticsearch::factory()->delete_all_indices();
-		\WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
+		\ElasticProbe\Elasticsearch::factory()->delete_all_indices();
+		\ElasticProbe\Indexables::factory()->get( 'post' )->put_mapping();
 
-		\WPProbe\Indexables::factory()->get( 'post' )->sync_manager->sync_queue = [];
+		\ElasticProbe\Indexables::factory()->get( 'post' )->sync_manager->sync_queue = [];
 
 		$this->setup_test_post_type();
 	}

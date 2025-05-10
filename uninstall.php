@@ -1,14 +1,14 @@
 <?php
 /**
- * WPProbe uninstaller
+ * ElasticProbe uninstaller
  *
  * Used when clicking "Delete" from inside of WordPress's plugins page.
  *
- * @package wpprobe
+ * @package elasticprobe
  * @since   1.7
  */
 
-use WPProbe\Utils;
+use ElasticProbe\Utils;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -106,7 +106,7 @@ class EP_Uninstaller {
 			}
 		}
 
-		// Uninstall WPProbe.
+		// Uninstall ElasticProbe.
 		$this->clean_options_and_transients();
 		$this->clean_site_meta();
 		$this->remove_elasticpress_capability();
@@ -158,20 +158,20 @@ class EP_Uninstaller {
 	 * DEPRECATED. Delete all transients of the Related Posts feature.
 	 */
 	protected function delete_related_posts_transients() {
-		_deprecated_function( __METHOD__, '4.7.0', '\EP_Uninstaller::delete_transients_by_name()' );
+		_deprecated_function( __METHOD__, '0.1.0', '\EP_Uninstaller::delete_transients_by_name()' );
 	}
 
 	/**
 	 * DEPRECATED. Delete all transients of the total fields limit.
 	 */
 	protected function delete_total_fields_limit_transients() {
-		_deprecated_function( __METHOD__, '4.7.0', '\EP_Uninstaller::delete_transients_by_name()' );
+		_deprecated_function( __METHOD__, '0.1.0', '\EP_Uninstaller::delete_transients_by_name()' );
 	}
 
 	/**
 	 * Cleanup options and transients
 	 *
-	 * Deletes WPProbe options and transients.
+	 * Deletes ElasticProbe options and transients.
 	 *
 	 * @since 4.2.0
 	 */
@@ -219,7 +219,7 @@ class EP_Uninstaller {
 	}
 
 	/**
-	 * Remove the WPProbe' capability
+	 * Remove the ElasticProbe's capability
 	 *
 	 * @since 4.5.0
 	 */
@@ -236,7 +236,7 @@ class EP_Uninstaller {
 	 * @see clean_options_and_transients
 	 */
 	protected static function clean_options() {
-		_deprecated_function( __FUNCTION__, '4.2.0', '\EP_Uninstaller->clean_options_and_transients()' );
+		_deprecated_function( __FUNCTION__, '0.1.0', '\EP_Uninstaller->clean_options_and_transients()' );
 	}
 
 	/**

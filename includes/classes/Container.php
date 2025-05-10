@@ -3,15 +3,15 @@
  * Container class
  *
  * @since 4.7.0
- * @package wpprobe
+ * @package elasticprobe
  * @see https://github.com/php-fig/container
  */
 
-namespace WPProbe;
+namespace ElasticProbe;
 
-use WPProbe\Vendor_Prefixed\Psr\Container\ContainerInterface;
+use ElasticProbe\Vendor_Prefixed\Psr\Container\ContainerInterface;
 
-use WPProbe\Exception\NotFoundException;
+use ElasticProbe\Exception\NotFoundException;
 
 /**
  * PSR11 compliant container class

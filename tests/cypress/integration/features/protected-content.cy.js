@@ -2,7 +2,7 @@ describe('Protected Content Feature', () => {
 	it('Can turn the feature on', () => {
 		cy.login();
 
-		cy.visitAdminPage('admin.php?page=wpprobe');
+		cy.visitAdminPage('admin.php?page=elasticprobe');
 		cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
 
 		cy.contains('button', 'Protected Content').click();
@@ -18,7 +18,7 @@ describe('Protected Content Feature', () => {
 			.should('contain.text', 'Mapping sent')
 			.should('contain.text', 'Sync complete');
 
-		cy.wpCli('wpprobe list-features').its('stdout').should('contain', 'protected_content');
+		cy.wpCli('elasticprobe list-features').its('stdout').should('contain', 'protected_content');
 	});
 
 	it('Can use Elasticsearch in the Posts List Admin Screen', () => {
@@ -27,7 +27,7 @@ describe('Protected Content Feature', () => {
 		cy.maybeEnableFeature('protected_content');
 
 		cy.visitAdminPage('edit.php');
-		cy.get('#debug-menu-target-EP_Debug_Bar_ElasticPress').should('contain.text', 'Time Taken');
+		cy.get('#debug-menu-target-EP_Debug_Bar_ElasticProbe').should('contain.text', 'Time Taken');
 	});
 
 	it('Can use Elasticsearch in the Draft Posts List Admin Screen', () => {
@@ -42,10 +42,10 @@ describe('Protected Content Feature', () => {
 			}
 		});
 
-		cy.wpCli('wpprobe sync --setup --yes');
+		cy.wpCli('elasticprobe sync --setup --yes');
 
 		cy.publishPost({
-			title: 'Test WPProbe Draft',
+			title: 'Test ElasticProbe Draft',
 			status: 'draft',
 		});
 
@@ -65,7 +65,7 @@ describe('Protected Content Feature', () => {
 			}
 		});
 
-		cy.wpCli('wpprobe sync --setup --yes');
+		cy.wpCli('elasticprobe sync --setup --yes');
 
 		cy.createAutosavePost();
 

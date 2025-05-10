@@ -3,16 +3,16 @@
  * Facets feature
  *
  * @since  2.5
- * @package  wpprobe
+ * @package  elasticprobe
  */
 
-namespace WPProbe\Feature\Facets;
+namespace ElasticProbe\Feature\Facets;
 
-use WPProbe\Feature;
-use WPProbe\Features;
-use WPProbe\Indexables;
-use WPProbe\REST;
-use WPProbe\Utils;
+use ElasticProbe\Feature;
+use ElasticProbe\Features;
+use ElasticProbe\Indexables;
+use ElasticProbe\REST;
+use ElasticProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -92,23 +92,23 @@ class Facets extends Feature {
 	 * @since 5.2.0
 	 */
 	public function set_i18n_strings(): void {
-		$this->title = esc_html__( 'Filters', 'wpprobe' );
+		$this->title = esc_html__( 'Filters', 'elasticprobe' );
 
 		$this->summary = '<p>' .
 		( wp_is_block_theme()
 			? sprintf(
 				/* translators: Site Editor URL */
-				__( 'Adds <a href="%s">filter blocks</a> that administrators can add to the website’s templates and template parts, so that visitors can filter applicable content and search results by one or more taxonomy terms, metafields, and date ranges.', 'wpprobe' ),
+				__( 'Adds <a href="%s">filter blocks</a> that administrators can add to the website’s templates and template parts, so that visitors can filter applicable content and search results by one or more taxonomy terms, metafields, and date ranges.', 'elasticprobe' ),
 				esc_url( admin_url( 'site-editor.php' ) )
 			)
 			: sprintf(
 				/* translators: Widgets Edit Screen URL */
-				__( 'Adds <a href="%s">filter widgets</a> that administrators can add to the website’s sidebars (widgetized areas), so that visitors can filter applicable content and search results by one or more taxonomy terms, metafields, and date ranges.', 'wpprobe' ),
+				__( 'Adds <a href="%s">filter widgets</a> that administrators can add to the website’s sidebars (widgetized areas), so that visitors can filter applicable content and search results by one or more taxonomy terms, metafields, and date ranges.', 'elasticprobe' ),
 				esc_url( admin_url( 'widgets.php' ) )
 			)
 		) . '</p>';
 
-		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#filters', 'wpprobe' );
+		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#filters', 'elasticprobe' );
 	}
 
 	/**
@@ -174,11 +174,11 @@ class Facets extends Feature {
 		$settings = $this->get_settings();
 		?>
 		<div class="field">
-			<div class="field-name status"><?php esc_html_e( 'Match Type', 'wpprobe' ); ?></div>
+			<div class="field-name status"><?php esc_html_e( 'Match Type', 'elasticprobe' ); ?></div>
 			<div class="input-wrap">
-				<label><input name="settings[match_type]" type="radio" <?php checked( $settings['match_type'], 'all' ); ?> value="all"><?php echo wp_kses_post( __( 'Show any content tagged to <strong>all</strong> selected terms', 'wpprobe' ) ); ?></label><br>
-				<label><input name="settings[match_type]" type="radio" <?php checked( $settings['match_type'], 'any' ); ?> value="any"><?php echo wp_kses_post( __( 'Show all content tagged to <strong>any</strong> selected term', 'wpprobe' ) ); ?></label>
-				<p class="field-description"><?php esc_html_e( '"All" will only show content that matches all filters. "Any" will show content that matches any filter.', 'wpprobe' ); ?></p>
+				<label><input name="settings[match_type]" type="radio" <?php checked( $settings['match_type'], 'all' ); ?> value="all"><?php echo wp_kses_post( __( 'Show any content tagged to <strong>all</strong> selected terms', 'elasticprobe' ) ); ?></label><br>
+				<label><input name="settings[match_type]" type="radio" <?php checked( $settings['match_type'], 'any' ); ?> value="any"><?php echo wp_kses_post( __( 'Show all content tagged to <strong>any</strong> selected term', 'elasticprobe' ) ); ?></label>
+				<p class="field-description"><?php esc_html_e( '"All" will only show content that matches all filters. "Any" will show content that matches any filter.', 'elasticprobe' ); ?></p>
 			</div>
 		</div>
 		<?php
@@ -246,7 +246,7 @@ class Facets extends Feature {
 	public function admin_scripts( $hook ) {
 		_doing_it_wrong(
 			__METHOD__,
-			esc_html__( 'Facets no longer require admin styles.', 'wpprobe' ),
+			esc_html__( 'Facets no longer require admin styles.', 'elasticprobe' ),
 			'4.7.0'
 		);
 	}
@@ -265,7 +265,7 @@ class Facets extends Feature {
 			true
 		);
 
-		wp_set_script_translations( 'elasticpress-facets', 'wpprobe' );
+		wp_set_script_translations( 'elasticpress-facets', 'elasticprobe' );
 
 		wp_register_style(
 			'elasticpress-facets',
@@ -328,7 +328,7 @@ class Facets extends Feature {
 	}
 
 	/**
-	 * We enable WPProbe facet on all archive/search queries as well as non-static home pages. There is no way to know
+	 * We enable ElasticProbe facet on all archive/search queries as well as non-static home pages. There is no way to know
 	 * when a facet widget is used before the main query is executed so we enable EP
 	 * everywhere where a facet widget could be used.
 	 *
@@ -516,10 +516,10 @@ class Facets extends Feature {
 	/**
 	 * Register facet widget(s)
 	 *
-	 * @since 2.5, deprecated in 4.3.0
+	 * @since 2.5, deprecated in 0.1.0
 	 */
 	public function register_widgets() {
-		_deprecated_function( __METHOD__, '4.3.0', "\WPProbe\Features::factory()->get_registered_feature( 'facets' )->types[ \$type ]->register_widgets()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'facets' )->types[ \$type ]->register_widgets()" );
 	}
 
 	/**
@@ -547,7 +547,7 @@ class Facets extends Feature {
 		if ( current_theme_supports( 'widgets' ) ) {
 			$message = sprintf(
 				/* translators: Widgets Edit Screen URL */
-				__( "Adds <a href='%s'>filter widgets</a> that administrators can add to the website's sidebars (widgetized areas), so that visitors can filter applicable content and search results by one or more taxonomy terms.", 'wpprobe' ),
+				__( "Adds <a href='%s'>filter widgets</a> that administrators can add to the website's sidebars (widgetized areas), so that visitors can filter applicable content and search results by one or more taxonomy terms.", 'elasticprobe' ),
 				esc_url( admin_url( 'widgets.php' ) )
 			);
 		}
@@ -555,7 +555,7 @@ class Facets extends Feature {
 		if ( function_exists( 'wp_is_block_theme' ) && wp_is_block_theme() ) {
 			$message = sprintf(
 				/* translators: Site Editor URL */
-				__( "Adds <a href='%s'>filter blocks</a> that administrators can add to the website's templates and template parts, so that visitors can filter applicable content and search results by one or more taxonomy terms.", 'wpprobe' ),
+				__( "Adds <a href='%s'>filter blocks</a> that administrators can add to the website's templates and template parts, so that visitors can filter applicable content and search results by one or more taxonomy terms.", 'elasticprobe' ),
 				esc_url( admin_url( 'site-editor.php' ) )
 			);
 		}
@@ -609,7 +609,7 @@ class Facets extends Feature {
 	 * @return string The filter name.
 	 */
 	protected function get_filter_name() {
-		_deprecated_function( __METHOD__, '4.3.0', "\WPProbe\Features::factory()->get_registered_feature( 'facets' )->types['taxonomy']->get_filter_name()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'facets' )->types['taxonomy']->get_filter_name()" );
 
 		return $this->types['taxonomy']->get_filter_name();
 	}
@@ -617,11 +617,11 @@ class Facets extends Feature {
 	/**
 	 * Get all taxonomies that could be selected for a facet.
 	 *
-	 * @since 4.2.0, deprecated in 4.3.0
+	 * @since 4.2.0, deprecated in 0.1.0
 	 * @return array
 	 */
 	public function get_facetable_taxonomies() {
-		_deprecated_function( __METHOD__, '4.3.0', "\WPProbe\Features::factory()->get_registered_feature( 'facets' )->types['taxonomy']->get_facetable_taxonomies()" );
+		_deprecated_function( __METHOD__, '0.1.0', "\ElasticProbe\Features::factory()->get_registered_feature( 'facets' )->types['taxonomy']->get_facetable_taxonomies()" );
 
 		return $this->types['taxonomy']->get_filter_name();
 	}
@@ -709,14 +709,14 @@ class Facets extends Feature {
 	protected function set_settings_schema() {
 		$this->settings_schema[] = [
 			'key'     => 'match_type',
-			'label'   => __( 'Filter matching', 'wpprobe' ),
+			'label'   => __( 'Filter matching', 'elasticprobe' ),
 			'options' => [
 				[
-					'label' => __( 'Show results that match <strong>all</strong> selected filters', 'wpprobe' ),
+					'label' => __( 'Show results that match <strong>all</strong> selected filters', 'elasticprobe' ),
 					'value' => 'all',
 				],
 				[
-					'label' => __( 'Show results that match <strong>any</strong> selected filter', 'wpprobe' ),
+					'label' => __( 'Show results that match <strong>any</strong> selected filter', 'elasticprobe' ),
 					'value' => 'any',
 				],
 			],

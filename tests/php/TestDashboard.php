@@ -3,12 +3,12 @@
  * Test dashboard functions
  *
  * @since 4.7.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe\Dashboard;
+use ElasticProbe\Dashboard;
 
 /**
  * Dashboard test class

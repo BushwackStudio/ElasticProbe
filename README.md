@@ -1,26 +1,26 @@
-# WPProbe
+# ElasticProbe
 
 > A fast and flexible search and query engine for WordPress.
 
-[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Tests Status](https://github.com/BushwackStudio/WpProbe/actions/workflows/test.yml/badge.svg?branch=dev)](https://github.com/BushwackStudio/WpProbe) [![Release Version](https://img.shields.io/github/release/bushwack/WPProbe.svg)](https://github.com/BushwackStudio/WpProbe/releases/latest) ![WordPress tested up to version](https://img.shields.io/wordpress/plugin/tested/wpprobe?label=WordPress) [![MIT License](https://img.shields.io/github/license/bushwack/WPProbe.svg)](https://github.com/BushwackStudio/WpProbe/blob/dev/LICENSE.md)
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Tests Status](https://github.com/BushwackStudio/ElasticProbe/actions/workflows/test.yml/badge.svg?branch=dev)](https://github.com/BushwackStudio/ElasticProbe) [![Release Version](https://img.shields.io/github/release/BushwackStudio/ElasticProbe.svg)](https://github.com/BushwackStudio/ElasticProbe/releases/latest) ![WordPress tested up to version](https://img.shields.io/wordpress/plugin/tested/elasticprobe?label=WordPress) [![MIT License](https://img.shields.io/github/license/BushwackStudio/ElasticProbe.svg)](https://github.com/BushwackStudio/ElasticProbe/blob/dev/LICENSE.md)
 
-**Please note:** `trunk` is the stable branch, built assets were removed from the `dev` branch, a ZIP with the plugin and its built assets are available on the [GitHub Releases page](https://github.com/BushwackStudio/WpProbe/releases), and will include a build script should you want to build assets from a branch.  As such, please ensure you have updated any references you have from `master` to `trunk` or to GitHub releases depending on whether you require built assets or not.
+**Please note:** `trunk` is the stable branch, built assets were removed from the `dev` branch, a ZIP with the plugin and its built assets are available on the [GitHub Releases page](https://github.com/BushwackStudio/ElasticProbe/releases), and will include a build script should you want to build assets from a branch.  As such, please ensure you have updated any references you have from `master` to `trunk` or to GitHub releases depending on whether you require built assets or not.
 
 ## Overview
 
-WPProbe, a fast and flexible search and query engine for WordPress, enables WordPress to find or “query” relevant content extremely fast through a variety of highly customizable features. WordPress out-of-the-box struggles to analyze content relevancy and can be very slow. WPProbe supercharges your WordPress website making for happier users and administrators. The plugin even contains features for popular plugins.
+ElasticProbe, a fast and flexible search and query engine for WordPress, enables WordPress to find or “query” relevant content extremely fast through a variety of highly customizable features. WordPress out-of-the-box struggles to analyze content relevancy and can be very slow. ElasticProbe supercharges your WordPress website making for happier users and administrators. The plugin even contains features for popular plugins.
 
 ## Documentation
 
-* [Security Policy ☞](https://github.com/BushwackStudio/WpProbe/blob/dev/SECURITY.md)
+* [Security Policy ☞](https://github.com/BushwackStudio/ElasticProbe/blob/dev/SECURITY.md)
 
 ## Requirements and Compatibility
 
 ### Requirements
 
-WPProbe requires these software with the following versions:
+ElasticProbe requires these software with the following versions:
 
-* [Elasticsearch](https://www.elastic.co) 8.0+
+* [Elasticsearch](https://www.elastic.co) 7.0+
 * [WordPress](https://wordpress.org) 6.0+
 * [PHP](https://php.net/) 7.4+
 
@@ -38,7 +38,7 @@ Simply downloading the repository files is not enough to have the plugin working
 
 ## Issues
 
-If you identify any errors or have an idea for improving the plugin, please [open an issue](https://github.com/BushwackStudio/WpProbe/issues?state=open). We're excited to see what the community thinks of this project, and we would love your input!
+If you identify any errors or have an idea for improving the plugin, please [open an issue](https://github.com/BushwackStudio/ElasticProbe/issues?state=open). We're excited to see what the community thinks of this project, and we would love your input!
 
 ## Support Level
 
@@ -46,11 +46,11 @@ If you identify any errors or have an idea for improving the plugin, please [ope
 
 ## Changelog
 
-A complete listing of all notable changes to WPProbe are documented in [CHANGELOG.md](https://github.com/BushwackStudio/WpProbe/blob/dev/CHANGELOG.md).
+A complete listing of all notable changes to ElasticProbe are documented in [CHANGELOG.md](https://github.com/BushwackStudio/ElasticProbe/blob/dev/CHANGELOG.md).
 
 ## Upgrade notices
 
 ## Contributing
 
-Please read [CODE_OF_CONDUCT.md](https://github.com/BushwackStudio/WpProbe/blob/dev/CODE_OF_CONDUCT.md) for details on our code of conduct, [CONTRIBUTING.md](https://github.com/BushwackStudio/WpProbe/blob/dev/CONTRIBUTING.md) for details on the process for submitting pull requests to us, and [CREDITS.md](https://github.com/BushwackStudio/WpProbe/blob/dev/CREDITS.md) for a listing of maintainers of, contributors to, and libraries used by WPProbe.
+Please read [CODE_OF_CONDUCT.md](https://github.com/BushwackStudio/ElasticProbe/blob/dev/CODE_OF_CONDUCT.md) for details on our code of conduct, [CONTRIBUTING.md](https://github.com/BushwackStudio/ElasticProbe/blob/dev/CONTRIBUTING.md) for details on the process for submitting pull requests to us, and [CREDITS.md](https://github.com/BushwackStudio/ElasticProbe/blob/dev/CREDITS.md) for a listing of maintainers of, contributors to, and libraries used by ElasticProbe.
 

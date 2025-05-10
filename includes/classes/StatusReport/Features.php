@@ -3,20 +3,20 @@
  * Feature report class
  *
  * @since 4.4.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\StatusReport;
+namespace ElasticProbe\StatusReport;
 
-use WPProbe\Features as EP_Features;
-use WPProbe\Feature\Search\Search;
+use ElasticProbe\Features as EP_Features;
+use ElasticProbe\Feature\Search\Search;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Feature report class
  *
- * @package WPProbe
+ * @package ElasticProbe
  */
 class Features extends Report {
 
@@ -26,7 +26,7 @@ class Features extends Report {
 	 * @return string
 	 */
 	public function get_title(): string {
-		return __( 'Feature Settings', 'wpprobe' );
+		return __( 'Feature Settings', 'elasticprobe' );
 	}
 
 	/**
@@ -35,7 +35,7 @@ class Features extends Report {
 	 * @return array
 	 */
 	public function get_groups(): array {
-		$features_settings = \WPProbe\Utils\get_option( 'ep_feature_settings', [] );
+		$features_settings = \ElasticProbe\Utils\get_option( 'ep_feature_settings', [] );
 
 		$features = array_filter(
 			EP_Features::factory()->registered_features,
@@ -88,11 +88,11 @@ class Features extends Report {
 			$fields,
 			[
 				'synonyms'  => [
-					'label' => __( 'Synonyms', 'wpprobe' ),
+					'label' => __( 'Synonyms', 'elasticprobe' ),
 					'value' => '<pre>' . $feature->synonyms->get_synonyms_raw() . '</pre>',
 				],
 				'weighting' => [
-					'label' => __( 'Search Fields & Weighting', 'wpprobe' ),
+					'label' => __( 'Search Fields & Weighting', 'elasticprobe' ),
 					'value' => $feature->weighting->get_weighting_configuration(),
 				],
 			]

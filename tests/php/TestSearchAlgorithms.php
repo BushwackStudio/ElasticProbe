@@ -3,13 +3,13 @@
  * Test SearchAlgorithms class.
  *
  * @since 4.3.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe\SearchAlgorithms;
-use WPProbe\SearchAlgorithm;
+use ElasticProbe\SearchAlgorithms;
+use ElasticProbe\SearchAlgorithm;
 
 /**
  * SearchAlgorithms test class

@@ -1,16 +1,16 @@
 <?php
 /**
- * Plugin Name:       WPProbe
- * Plugin URI:        https://github.com/BushwackStudio/WpProbe
+ * Plugin Name:       ElasticProbe
+ * Plugin URI:        https://github.com/BushwackStudio/ElasticProbe
  * Description:       Supercharge your WordPress search with ElasticSearch® precision.
- * Version:           0.1.1
- * Requires at least: 6.0
+ * Version:           0.2.0
+ * Requires at least: 6.2
  * Requires PHP:      7.4
  * Author:            BushwackStudio
  * Author URI:        https://github.com/orgs/BushwackStudio
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       wpprobe
+ * Text Domain:       elasticprobe
  * Domain Path:       /lang
  *
  * This program derives work from 10up's Elasticpress, Alley Interactive's SearchPress
@@ -20,10 +20,10 @@
  * Copyright (C) 2013 SearchPress
  * Copyright (C) 2025 10up
  *
- * @package  wpprobe
+ * @package  elasticprobe
  */
 
-namespace WPProbe;
+namespace ElasticProbe;
 
 use WP_CLI;
 
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'EP_URL', plugin_dir_url( __FILE__ ) );
 define( 'EP_PATH', plugin_dir_path( __FILE__ ) );
 define( 'EP_FILE', plugin_basename( __FILE__ ) );
-define( 'EP_VERSION', '0.1.0' );
+define( 'EP_VERSION', '0.2.0' );
 
 define( 'EP_PHP_VERSION_MIN', '7.4' );
 
@@ -49,7 +49,7 @@ if ( ! version_compare( phpversion(), EP_PHP_VERSION_MIN, '>=' ) ) {
 					echo wp_kses_post(
 						sprintf(
 							/* translators: %s: Minimum required PHP version */
-							__( 'WPProbe requires PHP version %s or later. Please upgrade PHP or disable the plugin.', 'wpprobe' ),
+							__( 'ElasticProbe requires PHP version %s or later. Please upgrade PHP or disable the plugin.', 'elasticprobe' ),
 							EP_PHP_VERSION_MIN
 						)
 					);
@@ -75,7 +75,7 @@ if ( file_exists( __DIR__ . '/vendor-prefixed/autoload.php' ) ) {
 spl_autoload_register(
 	function ( $class_name ) {
 			// project-specific namespace prefix.
-			$prefix = 'WPProbe\\';
+			$prefix = 'ElasticProbe\\';
 
 			// base directory for the namespace prefix.
 			$base_dir = __DIR__ . '/includes/classes/';
@@ -108,7 +108,7 @@ spl_autoload_register(
  * @since  2.2
  */
 define( 'EP_ES_VERSION_MAX', '8.99' );
-define( 'EP_ES_VERSION_MIN', '8.0' );
+define( 'EP_ES_VERSION_MIN', '7.0' );
 
 require_once __DIR__ . '/includes/compat.php';
 require_once __DIR__ . '/includes/utils.php';
@@ -122,7 +122,7 @@ if ( $network_activated ) {
 }
 
 /**
- * Return the WPProbe container
+ * Return the ElasticProbe container
  *
  * @since 4.7.0
  * @return Container
@@ -160,9 +160,10 @@ function register_indexable_posts() {
 	// new Feature\InstantResults\InstantResults()
 	// );
 
-	Features::factory()->register_feature(
-		new Feature\Autosuggest\Autosuggest()
-	);
+	// TODO: work out the custom endpoints and enable this
+	// Features::factory()->register_feature(
+	// new Feature\Autosuggest\Autosuggest()
+	// );
 
 	Features::factory()->register_feature(
 		new Feature\DidYouMean\DidYouMean()
@@ -194,6 +195,10 @@ function register_indexable_posts() {
 	// );
 
 	Features::factory()->register_feature(
+		new Feature\AcfRepeater\AcfRepeater()
+	);
+
+	Features::factory()->register_feature(
 		new Feature\Comments\Comments()
 	);
 
@@ -216,10 +221,10 @@ function register_indexable_posts() {
 	 * @param {QueryLogger} $query_logger Default query logger
 	 * @return {QueryLogger} New query logger
 	 */
-	$query_logger = apply_filters( 'ep_query_logger', new \WPProbe\QueryLogger() );
-	get_container()->set( '\WPProbe\QueryLogger', $query_logger, true );
+	$query_logger = apply_filters( 'ep_query_logger', new \ElasticProbe\QueryLogger() );
+	get_container()->set( '\ElasticProbe\QueryLogger', $query_logger, true );
 
-	get_container()->set( '\WPProbe\BlockTemplateUtils', new \WPProbe\BlockTemplateUtils(), true );
+	get_container()->set( '\ElasticProbe\BlockTemplateUtils', new \ElasticProbe\BlockTemplateUtils(), true );
 }
 add_action( 'plugins_loaded', __NAMESPACE__ . '\register_indexable_posts' );
 
@@ -255,7 +260,7 @@ Dashboard\setup();
  * WP CLI Commands
  */
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
-	WP_CLI::add_command( 'wpprobe', __NAMESPACE__ . '\Command' );
+	WP_CLI::add_command( 'elasticprobe', __NAMESPACE__ . '\Command' );
 }
 
 /**
@@ -265,12 +270,12 @@ Upgrades::factory();
 
 /**
  * Handle upgrades. Certain version require a re-sync on upgrade.
- * Deprecated in favor of `\WPProbe\Upgrades::factory()`.
+ * Deprecated in favor of `\ElasticProbe\Upgrades::factory()`.
  *
  * @since  2.2
  */
 function handle_upgrades() {
-	_deprecated_function( __CLASS__, '3.5.2', '\WPProbe\Upgrades::factory()' );
+	_deprecated_function( __CLASS__, '0.1.0', '\ElasticProbe\Upgrades::factory()' );
 }
 
 /**
@@ -281,7 +286,7 @@ function handle_upgrades() {
 function setup_misc() {
 	if ( is_user_logged_in() && ! defined( 'WP_EP_DEBUG' ) ) {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		define( 'WP_EP_DEBUG', is_plugin_active( 'debug-bar-elasticpress/debug-bar-elasticpress.php' ) );
+		define( 'WP_EP_DEBUG', is_plugin_active( 'debug-bar-elasticprobe/debug-bar-elasticprobe.php' ) );
 	}
 }
 add_action( 'plugins_loaded', __NAMESPACE__ . '\setup_misc' );
@@ -292,7 +297,7 @@ add_action( 'plugins_loaded', __NAMESPACE__ . '\setup_misc' );
  * @since 5.1.4
  */
 function i18n() {
-	load_plugin_textdomain( 'wpprobe', false, basename( __DIR__ ) . '/lang' );
+	load_plugin_textdomain( 'elasticprobe', false, basename( __DIR__ ) . '/lang' );
 }
 add_action( 'init', __NAMESPACE__ . '\i18n' );
 
@@ -308,7 +313,7 @@ function setup_roles() {
 register_activation_hook( __FILE__, __NAMESPACE__ . '\setup_roles' );
 
 /**
- * Fires after WPProbe plugin is loaded
+ * Fires after ElasticProbe plugin is loaded
  *
  * @since  2.0
  * @hook elasticpress_loaded

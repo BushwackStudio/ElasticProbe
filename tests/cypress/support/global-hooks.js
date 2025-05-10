@@ -6,17 +6,17 @@ before(() => {
 	cy.wpCliEval(
 		`
 		// Clear any stuck sync process.
-		\\WPProbe\\IndexHelper::factory()->clear_index_meta();
+		\\ElasticProbe\\IndexHelper::factory()->clear_index_meta();
 
 		$features = json_decode( '${JSON.stringify(cy.elasticPress.defaultFeatures)}', true );
 
-		$is_epio = (int) \\WPProbe\\Utils\\is_epio();
+		$is_epio = (int) \\ElasticProbe\\Utils\\is_epio();
 
 		if ( ! $is_epio ) {
-			$host            = \\WPProbe\\Utils\\get_host();
+			$host            = \\ElasticProbe\\Utils\\get_host();
 			$host            = str_replace( '172.17.0.1', 'localhost', $host );
 			$host            = str_replace( 'host.docker.internal', 'localhost', $host );
-			$index_name      = \\WPProbe\\Indexables::factory()->get( 'post' )->get_index_name();
+			$index_name      = \\ElasticProbe\\Indexables::factory()->get( 'post' )->get_index_name();
 			$as_endpoint_url = $host . $index_name . '/_search';
 			
 			$features['autosuggest']['endpoint_url'] = $as_endpoint_url;
@@ -24,7 +24,7 @@ before(() => {
 
 		update_option( 'ep_feature_settings', $features );
 
-		$index_names = \\WPProbe\\Elasticsearch::factory()->get_index_names( 'active' );
+		$index_names = \\ElasticProbe\\Elasticsearch::factory()->get_index_names( 'active' );
 		echo wp_json_encode(
 			[
 				'indexNames' => $index_names,
@@ -42,8 +42,16 @@ before(() => {
 });
 
 afterEach(() => {
-	if (cy.state('test').state === 'failed') {
-		cy.get('#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-copy-button')
+	if (cy.state('test').state !== 'failed') {
+		return;
+	}
+
+	cy.get('body').then(($body) => {
+		if (!$body.find('#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-copy-button').length) {
+			return;
+		}
+
+		cy.get('#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-copy-button')
 			.invoke('attr', 'data-clipboard-text')
 			.then((text) => {
 				if (!text) {
@@ -53,5 +61,5 @@ afterEach(() => {
 				const testTitle = cy.state('test').title;
 				cy.writeFile(`tests/cypress/logs/${parentTitle} - ${testTitle}.log`, text);
 			});
-	}
+	});
 });

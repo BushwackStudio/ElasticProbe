@@ -3,12 +3,12 @@
  * Handles registering and storing feature instances
  *
  * @since  2.1
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe;
+namespace ElasticProbe;
 
-use WPProbe\Utils;
+use ElasticProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -61,7 +61,7 @@ class Features {
 	}
 
 	/**
-	 * Registers a feature for use in WPProbe
+	 * Registers a feature for use in ElasticProbe
 	 *
 	 * @param  Feature $feature An instance of the Feature class
 	 * @since  3.0
@@ -332,7 +332,12 @@ class Features {
 		foreach ( $this->registered_features as $feature_slug => $feature ) {
 			$feature->set_i18n_strings();
 
-			if ( $feature->is_active() ) {
+			/**
+			 * 2 is the code for "not usable".
+			 *
+			 * @see FeatureRequirementsStatus
+			 */
+			if ( $feature->is_active() && 2 !== $feature->requirements_status()->code ) {
 				$feature->setup();
 			}
 		}

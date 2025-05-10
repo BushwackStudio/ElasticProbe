@@ -24,7 +24,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set standard WPProbe cache directories
+    - name: Set standard ElasticProbe cache directories
       run: |
         sudo npm config set cache "${{ env.NODE_CACHE }}" --global
 
@@ -58,7 +58,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Set standard WPProbe cache directories
+    - name: Set standard ElasticProbe cache directories
       run: |
         composer config -g cache-dir "${{ env.COMPOSER_CACHE }}"
 

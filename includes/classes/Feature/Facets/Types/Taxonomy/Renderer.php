@@ -3,13 +3,13 @@
  * Class responsible for rendering the filters.
  *
  * @since 4.2.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Feature\Facets\Types\Taxonomy;
+namespace ElasticProbe\Feature\Facets\Types\Taxonomy;
 
-use WPProbe\Features;
-use WPProbe\Utils;
+use ElasticProbe\Features;
+use ElasticProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Facets render class
  */
-class Renderer extends \WPProbe\Feature\Facets\Renderer {
+class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 	/**
 	 * Whether the term count should be displayed or not.
 	 *
@@ -211,7 +211,7 @@ class Renderer extends \WPProbe\Feature\Facets\Renderer {
 		<div class="terms <?php if ( count( $terms_by_slug ) > $search_threshold ) : ?>searchable<?php endif; ?>">
 			<?php if ( count( $terms_by_slug ) > $search_threshold ) : ?>
 				<?php // translators: Taxonomy Name ?>
-				<input class="facet-search" type="search" placeholder="<?php printf( esc_html__( 'Search %s', 'wpprobe' ), esc_attr( $taxonomy_object->labels->name ) ); ?>">
+				<input class="facet-search" type="search" placeholder="<?php printf( esc_html__( 'Search %s', 'elasticprobe' ), esc_attr( $taxonomy_object->labels->name ) ); ?>">
 				<?php
 			endif;
 			ob_start();
@@ -372,12 +372,12 @@ class Renderer extends \WPProbe\Feature\Facets\Renderer {
 	 * @param WP_Term $term     Term object.
 	 * @param string  $url      Filter URL.
 	 * @param boolean $selected Whether the term is currently selected.
-	 * @since 4.2.0, 4.7.0 deprecated in favor of a method in the abstract renderer class.
+	 * @since 4.2.0, 0.1.0 deprecated in favor of a method in the abstract renderer class.
 	 * @return string HTML for an individual facet term.
 	 */
 	public function get_facet_term_html( $term, $url, $selected = false ) {
 		$term->is_selected = $selected;
-		_deprecated_function( __FUNCTION__, '4.7.0', '$this->renderer->get_facet_item_value_html()' );
+		_deprecated_function( __FUNCTION__, '0.1.0', '$this->renderer->get_facet_item_value_html()' );
 
 		return $this->get_facet_item_value_html( $term, $url );
 	}
@@ -431,9 +431,9 @@ class Renderer extends \WPProbe\Feature\Facets\Renderer {
 			'ep_facet_widget_term_accessible_label',
 			$item->is_selected
 				/* translators: %s: Filter term name. */
-				? sprintf( __( 'Remove filter: %s', 'wpprobe' ), $item->name )
+				? sprintf( __( 'Remove filter: %s', 'elasticprobe' ), $item->name )
 				/* translators: %s: Filter term name. */
-				: sprintf( __( 'Apply filter: %s', 'wpprobe' ), $item->name ),
+				: sprintf( __( 'Apply filter: %s', 'elasticprobe' ), $item->name ),
 			$item,
 			$item->is_selected
 		);

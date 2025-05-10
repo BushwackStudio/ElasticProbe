@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPProbe 0.1.0\n"
+"Project-Id-Version: WPProbe 0.1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wpprobe\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-04-23T09:20:13+00:00\n"
+"POT-Creation-Date: 2025-05-01T04:23:19+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: wpprobe\n"
@@ -29,7 +29,7 @@ msgstr ""
 
 #. Description of the plugin
 #: wpprobe.php
-msgid "Supercharge your wordPress search with ElasticSearch® precision."
+msgid "Supercharge your WordPress search with ElasticSearch® precision."
 msgstr ""
 
 #. Author of the plugin
@@ -415,15 +415,15 @@ msgstr ""
 msgid "Error while getting the index settings."
 msgstr ""
 
-#: includes/classes/Elasticsearch.php:1411
+#: includes/classes/Elasticsearch.php:1414
 msgid "Site not indexed. <p>Please run: <code>wp wpprobe index --setup --network-wide</code> using WP-CLI. Or use the index button on the left of this screen.</p>"
 msgstr ""
 
-#: includes/classes/Elasticsearch.php:1414
+#: includes/classes/Elasticsearch.php:1417
 msgid "Site not indexed. <p>Please run: <code>wp wpprobe index --setup</code> using WP-CLI. Or use the index button on the left of this screen.</p>"
 msgstr ""
 
-#: includes/classes/Elasticsearch.php:1597
+#: includes/classes/Elasticsearch.php:1600
 msgid "Elasticsearch Host is not available."
 msgstr ""
 
@@ -489,7 +489,7 @@ msgstr ""
 
 #: includes/classes/Feature.php:392
 #: includes/classes/StatusReport/ElasticPress.php:79
-#: includes/dashboard.php:645
+#: includes/dashboard.php:652
 #: includes/partials/settings-page.php:35
 #: assets/js/blocks/facets/common/edit.js:87
 #: assets/js/blocks/facets/date/edit.js:23
@@ -537,6 +537,31 @@ msgstr ""
 
 #: includes/classes/Feature.php:574
 msgid "Enable"
+msgstr ""
+
+#: includes/classes/Feature/AcfRepeater/AcfRepeater.php:49
+msgid "ACF Repeater Field Compatibility"
+msgstr ""
+
+#: includes/classes/Feature/AcfRepeater/AcfRepeater.php:51
+msgid "ACF Repeater Field"
+msgstr ""
+
+#: includes/classes/Feature/AcfRepeater/AcfRepeater.php:55
+msgid "https://www.elasticpress.io/documentation/article/acf-repeater-field-compatibility-feature/"
+msgstr ""
+
+#: includes/classes/Feature/AcfRepeater/AcfRepeater.php:69
+msgid "ACF Pro not installed."
+msgstr ""
+
+#. translators: %s: post type name
+#: includes/classes/Feature/AcfRepeater/AcfRepeater.php:120
+msgid "Index this field as a JSON object. If you want to make it searchable, do not forget to enable it under the related post types in the <a href=\"%1$s\">Search Fields & Weighting dashboard</a>. To index existent content you can either manually save posts with this field or <a href=\"%2$s\">run a sync</a>."
+msgstr ""
+
+#: includes/classes/Feature/AcfRepeater/AcfRepeater.php:129
+msgid "Index in WPProbe"
 msgstr ""
 
 #: includes/classes/Feature/Autosuggest/Autosuggest.php:65
@@ -625,7 +650,7 @@ msgid "A valid URL starting with <code>http://</code> or <code>https://</code>. 
 msgstr ""
 
 #: includes/classes/Feature/Comments/Comments.php:53
-#: includes/classes/Indexable/Comment/Comment.php:43
+#: includes/classes/Indexable/Comment/Comment.php:52
 msgid "Comments"
 msgstr ""
 
@@ -840,29 +865,29 @@ msgstr ""
 msgid "Last 12 months"
 msgstr ""
 
-#: includes/classes/Feature/Facets/Types/Date/Renderer.php:135
+#: includes/classes/Feature/Facets/Types/Date/Renderer.php:137
 #: assets/js/blocks/facets/common/components/range-filter.js:57
 #: dist/js/facets-meta-range-block-script.js:1
 #: dist/js/facets-meta-range-block-view-script.js:1
 msgid "Filter"
 msgstr ""
 
-#: includes/classes/Feature/Facets/Types/Date/Renderer.php:141
+#: includes/classes/Feature/Facets/Types/Date/Renderer.php:143
 #: assets/js/blocks/facets/common/components/range-filter.js:55
 #: dist/js/facets-meta-range-block-script.js:1
 #: dist/js/facets-meta-range-block-view-script.js:1
 msgid "Clear"
 msgstr ""
 
-#: includes/classes/Feature/Facets/Types/Date/Renderer.php:179
+#: includes/classes/Feature/Facets/Types/Date/Renderer.php:181
 msgid "Custom"
 msgstr ""
 
-#: includes/classes/Feature/Facets/Types/Date/Renderer.php:185
+#: includes/classes/Feature/Facets/Types/Date/Renderer.php:187
 msgid "From:"
 msgstr ""
 
-#: includes/classes/Feature/Facets/Types/Date/Renderer.php:188
+#: includes/classes/Feature/Facets/Types/Date/Renderer.php:190
 msgid "To:"
 msgstr ""
 
@@ -1321,7 +1346,7 @@ msgid "Sets must contain at least 2 terms."
 msgstr ""
 
 #: includes/classes/Feature/Search/Synonyms.php:728
-#: assets/js/weighting/components/field.js:82
+#: assets/js/weighting/components/field.js:83
 #: dist/js/weighting-script.js:1
 msgid "Remove"
 msgstr ""
@@ -1536,7 +1561,7 @@ msgid "WPProbe Custom Search Results"
 msgstr ""
 
 #: includes/classes/Feature/Terms/Terms.php:50
-#: includes/classes/Indexable/Term/Term.php:42
+#: includes/classes/Indexable/Term/Term.php:51
 msgid "Terms"
 msgstr ""
 
@@ -1571,7 +1596,7 @@ msgstr ""
 
 #. translators: 1: <a> tag (WPProbe.com); 2. </a>; 3: <a> tag (KB article); 4. </a>;
 #: includes/classes/Feature/WooCommerce/OrdersAutosuggest.php:674
-msgid "Due to the sensitive nature of orders, this autosuggest feature is available only to %1$WPProbe.com%2$s customers. %3$sLearn More%4$s."
+msgid "Due to the sensitive nature of orders, this autosuggest feature is available only to %1$sWPProbe.com%2$s customers. %3$sLearn More%4$s."
 msgstr ""
 
 #: includes/classes/Feature/WooCommerce/Products.php:326
@@ -1661,7 +1686,7 @@ msgstr ""
 msgid "It was not possible to create a body request with the document IDs provided."
 msgstr ""
 
-#: includes/classes/Indexable/Comment/Comment.php:44
+#: includes/classes/Indexable/Comment/Comment.php:53
 msgid "Comment"
 msgstr ""
 
@@ -1679,26 +1704,58 @@ msgstr ""
 msgid "Post"
 msgstr ""
 
-#: includes/classes/Indexable/Post/Post.php:376
+#: includes/classes/Indexable/Post/Post.php:383
 msgid "Error while fetching the mapping version."
 msgstr ""
 
 #. translators: Sync Page URL
-#: includes/classes/Indexable/Post/SyncManager.php:419
+#: includes/classes/Indexable/Post/SyncManager.php:428
 msgid "Due to the number of posts associated with its child terms, you will need to <a href=\"%s\">resync</a> after editing or deleting it."
 msgstr ""
 
 #. translators: Sync Page URL
-#: includes/classes/Indexable/Post/SyncManager.php:435
+#: includes/classes/Indexable/Post/SyncManager.php:444
 msgid "Due to the number of posts associated with this term, you will need to <a href=\"%s\">resync</a> after editing or deleting it."
 msgstr ""
 
 #. translators: Sync Page URL
-#: includes/classes/Indexable/Post/SyncManager.php:470
+#: includes/classes/Indexable/Post/SyncManager.php:479
 msgid "Depending on the number of posts associated with a term, you may need to <a href=\"%s\">resync</a> after editing or deleting it."
 msgstr ""
 
-#: includes/classes/Indexable/Term/Term.php:43
+#: includes/classes/Indexable/Post/SyncManager.php:1026
+msgid "Content in sync"
+msgstr ""
+
+#: includes/classes/Indexable/Post/SyncManager.php:1027
+msgid "WordPress and Elasticsearch content match."
+msgstr ""
+
+#: includes/classes/Indexable/Post/SyncManager.php:1035
+#: assets/js/features/components/tab.js:32
+#: dist/js/features-script.js:1
+msgid "Sync required"
+msgstr ""
+
+#: includes/classes/Indexable/Post/SyncManager.php:1036
+msgid "Content not found in Elasticsearch."
+msgstr ""
+
+#: includes/classes/Indexable/Post/SyncManager.php:1043
+msgid "Out of sync"
+msgstr ""
+
+#: includes/classes/Indexable/Post/SyncManager.php:1044
+msgid "WordPress and Elasticsearch content are out of sync."
+msgstr ""
+
+#. translators: 1: EP prefix 2: Document status message
+#: includes/classes/Indexable/Post/SyncManager.php:1073
+msgctxt "Doc status message"
+msgid "[%1$s] %2$s"
+msgstr ""
+
+#: includes/classes/Indexable/Term/Term.php:52
 msgid "Term"
 msgstr ""
 
@@ -1893,18 +1950,34 @@ msgctxt "Settings validation message"
 msgid "Elasticsearch server"
 msgstr ""
 
-#. translators: EP.io account or ES server.
+#. translators: WPProbe.com account or ES server.
 #: includes/classes/Screen/Settings.php:139
 msgid "It was not possible to connect to your %s. Please check your settings and try again."
 msgstr ""
 
-#. translators: EP.io account or ES server.
+#. translators: WPProbe.com account or ES server.
 #: includes/classes/Screen/Settings.php:145
 msgid "It was not possible to connect to your %s. Your settings were reverted."
 msgstr ""
 
+#: includes/classes/Screen/StatusReport.php:95
+msgid "Nonce is not present."
+msgstr ""
+
+#: includes/classes/Screen/StatusReport.php:105
+msgid "Status report not found."
+msgstr ""
+
+#: includes/classes/Screen/StatusReport.php:111
+msgid "Report is not an AJAX report."
+msgstr ""
+
+#: includes/classes/Screen/StatusReport.php:257
+msgid "Please generate a full report to see the content of this group."
+msgstr ""
+
 #. translators: %d: Number of messages.
-#: includes/classes/Screen/StatusReport.php:223
+#: includes/classes/Screen/StatusReport.php:278
 msgid "%s message from WPProbe.com"
 msgid_plural "%s messages from WPProbe.com"
 msgstr[0] ""
@@ -1932,6 +2005,10 @@ msgstr ""
 
 #: includes/classes/SearchAlgorithm/Version_400.php:45
 msgid "Search for all search terms in one field first, then prioritize them over search terms matched in different fields."
+msgstr ""
+
+#: includes/classes/StatusReport/AjaxReport.php:43
+msgid "To see this report, please generate a full report first by clicking the \"Generate Full Status Report\" button."
 msgstr ""
 
 #: includes/classes/StatusReport/ElasticPress.php:54
@@ -2230,22 +2307,22 @@ msgstr ""
 msgid "Dashboard"
 msgstr ""
 
-#: includes/dashboard.php:635
+#: includes/dashboard.php:642
 msgid "WPProbe Features"
 msgstr ""
 
-#: includes/dashboard.php:636
+#: includes/dashboard.php:643
 #: assets/js/features/index.js:34
 #: dist/js/features-script.js:1
 msgid "Features"
 msgstr ""
 
-#: includes/dashboard.php:644
+#: includes/dashboard.php:651
 msgid "WPProbe Settings"
 msgstr ""
 
-#: includes/dashboard.php:653
-#: includes/dashboard.php:654
+#: includes/dashboard.php:660
+#: includes/dashboard.php:661
 #: assets/js/features/apps/features.js:83
 #: assets/js/synonyms/apps/synonyms-settings.js:61
 #: dist/js/features-script.js:1
@@ -2253,26 +2330,26 @@ msgstr ""
 msgid "Sync"
 msgstr ""
 
-#: includes/dashboard.php:662
+#: includes/dashboard.php:669
 msgid "WPProbe Index Health"
 msgstr ""
 
-#: includes/dashboard.php:663
+#: includes/dashboard.php:670
 #: includes/partials/stats-page.php:35
 msgid "Index Health"
 msgstr ""
 
-#: includes/dashboard.php:671
+#: includes/dashboard.php:678
 msgid "WPProbe Status Report"
 msgstr ""
 
-#: includes/dashboard.php:672
+#: includes/dashboard.php:679
 #: assets/js/status-report/index.js:21
 #: dist/js/status-report-script.js:1
 msgid "Status Report"
 msgstr ""
 
-#: includes/dashboard.php:870
+#: includes/dashboard.php:877
 msgid "WPProbe Indexing"
 msgstr ""
 
@@ -2602,13 +2679,13 @@ msgstr ""
 msgid "Value prefix"
 msgstr ""
 
-#: assets/js/blocks/facets/meta-range/edit.js:102
+#: assets/js/blocks/facets/meta-range/edit.js:103
 #: dist/js/facets-meta-range-block-script.js:1
 msgid "Value suffix"
 msgstr ""
 
 #. translators: %s: Field name.
-#: assets/js/blocks/facets/meta-range/edit.js:129
+#: assets/js/blocks/facets/meta-range/edit.js:131
 #: dist/js/facets-meta-range-block-script.js:1
 msgid "Preview unavailable. The \"%s\" field does not appear to contain numeric values. Select a new meta field key or populate the field with numeric values to enable filtering by range."
 msgstr ""
@@ -2685,7 +2762,7 @@ msgstr ""
 
 #: assets/js/features/apps/features.js:246
 #: assets/js/synonyms/apps/synonyms-settings.js:171
-#: assets/js/synonyms/components/common/edit-panel.js:98
+#: assets/js/synonyms/components/common/edit-panel.js:101
 #: assets/js/weighting/apps/weighting.js:59
 #: dist/js/features-script.js:1
 #: dist/js/synonyms-script.js:1
@@ -2728,11 +2805,6 @@ msgstr ""
 #: assets/js/features/components/tab.js:29
 #: dist/js/features-script.js:1
 msgid "Unavailable"
-msgstr ""
-
-#: assets/js/features/components/tab.js:32
-#: dist/js/features-script.js:1
-msgid "Sync required"
 msgstr ""
 
 #: assets/js/features/index.js:46
@@ -2982,68 +3054,69 @@ msgstr ""
 msgid "Off"
 msgstr ""
 
-#: assets/js/status-report/components/reports.js:39
+#: assets/js/status-report/components/reports.js:44
 #: dist/js/status-report-script.js:1
 msgid "Copied status report to clipboard."
 msgstr ""
 
-#: assets/js/status-report/components/reports.js:45
-#: dist/js/status-report-script.js:1
-msgid "This screen provides a list of information related to WPProbe and synced content that can be helpful during troubleshooting. This list can also be copy/pasted and shared as needed."
+#: assets/js/status-report/components/reports.js:113
+msgid "Generating full status report ..."
 msgstr ""
 
-#: assets/js/status-report/components/reports.js:58
-#: dist/js/status-report-script.js:1
-msgid "Download status report"
+#: assets/js/status-report/components/reports.js:156
+msgid "Successfully generated status report."
 msgstr ""
 
-#: assets/js/status-report/components/reports.js:63
-#: dist/js/status-report-script.js:1
-msgid "Copy status report to clipboard"
+#: assets/js/status-report/components/reports.js:162
+msgid "This screen provides a list of information related to WPProbe and synced content that can be helpful during troubleshooting. This list can also be copy/pasted and shared as needed. As the process can be resource-intensive, the report presented here is partial. You must click the \"Generate Full Status Report\" button to generate a full report."
 msgstr ""
 
-#: assets/js/sync-ui/apps/sync.js:64
+#: assets/js/status-report/components/reports.js:176
+msgid "Generate Full Status Report"
+msgstr ""
+
+#: assets/js/sync-ui/apps/sync.js:62
 #: dist/js/sync-script.js:1
 msgid "Sync completed."
 msgstr ""
 
-#: assets/js/sync-ui/apps/sync.js:82
+#: assets/js/sync-ui/apps/sync.js:89
 #: dist/js/sync-script.js:1
 msgid "Starting delete and sync…"
 msgstr ""
 
-#: assets/js/sync-ui/apps/sync.js:101
+#: assets/js/sync-ui/apps/sync.js:108
 #: dist/js/sync-script.js:1
 msgid "Starting sync…"
 msgstr ""
 
-#: assets/js/sync-ui/apps/sync.js:111
+#: assets/js/sync-ui/apps/sync.js:119
 #: dist/js/sync-script.js:1
 msgid "If you are missing data in your search results or have recently added custom content types to your site, you should run a sync to reflect these changes."
 msgstr ""
 
 #. translators: %s: Index type. WPProbe.com or Elasticsearch.
-#: assets/js/sync-ui/apps/sync.js:117
+#: assets/js/sync-ui/apps/sync.js:125
 #: dist/js/sync-script.js:1
 msgid "Run a sync to index your existing content %s. Once syncing finishes, your site is officially supercharged."
 msgstr ""
 
-#: assets/js/sync-ui/apps/sync.js:122
+#: assets/js/sync-ui/apps/sync.js:130
 #: dist/js/sync-script.js:1
 msgid "on WPProbe.com"
 msgstr ""
 
-#: assets/js/sync-ui/apps/sync.js:123
+#: assets/js/sync-ui/apps/sync.js:131
 #: dist/js/sync-script.js:1
 msgid "in Elasticsearch"
 msgstr ""
 
-#: assets/js/sync-ui/apps/sync.js:140
+#: assets/js/sync-ui/apps/sync.js:148
 #: dist/js/sync-script.js:1
 msgid "Advanced options"
 msgstr ""
 
-#: assets/js/sync-ui/apps/sync.js:145
+#: assets/js/sync-ui/apps/sync.js:153
 #: dist/js/sync-script.js:1
 msgid "Sync history"
 msgstr ""
@@ -3118,12 +3191,12 @@ msgstr ""
 msgid "Lower object ID"
 msgstr ""
 
-#: assets/js/sync-ui/components/limits.js:65
+#: assets/js/sync-ui/components/limits.js:66
 #: dist/js/sync-script.js:1
 msgid "Sync objects with an ID of this number or lower."
 msgstr ""
 
-#: assets/js/sync-ui/components/limits.js:66
+#: assets/js/sync-ui/components/limits.js:67
 #: dist/js/sync-script.js:1
 msgid "Higher object ID"
 msgstr ""
@@ -3431,7 +3504,7 @@ msgstr ""
 msgid "WPProbe uses the Solr format to define your synonym rules for Elasticsearch. Advanced users can use the field below to edit the synonym rules in this format directly. This can also be used to import a large dictionary of synonyms, or to export your synonyms for use on another site."
 msgstr ""
 
-#: assets/js/synonyms/components/common/edit-panel.js:109
+#: assets/js/synonyms/components/common/edit-panel.js:112
 #: dist/js/synonyms-script.js:1
 msgid "Cancel"
 msgstr ""
@@ -3657,7 +3730,7 @@ msgstr ""
 msgid "Metadata key"
 msgstr ""
 
-#: assets/js/weighting/components/group.js:190
+#: assets/js/weighting/components/group.js:191
 #: dist/js/weighting-script.js:1
 msgid "Add"
 msgstr ""
@@ -3682,6 +3755,18 @@ msgid "%1$d item @ %2$s"
 msgid_plural "%1$d items @ %2$s"
 msgstr[0] ""
 msgstr[1] ""
+
+#: dist/js/status-report-script.js:1
+msgid "This screen provides a list of information related to WPProbe and synced content that can be helpful during troubleshooting. This list can also be copy/pasted and shared as needed."
+msgstr ""
+
+#: dist/js/status-report-script.js:1
+msgid "Download status report"
+msgstr ""
+
+#: dist/js/status-report-script.js:1
+msgid "Copy status report to clipboard"
+msgstr ""
 
 #: assets/js/blocks/comments/block.json
 msgctxt "block title"

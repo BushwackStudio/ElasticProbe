@@ -4,12 +4,12 @@
  *
  * phpcs:disable WordPress.WP.AlternativeFunctions.rand_rand
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe;
+use ElasticProbe;
 
 /**
  * Unit test factory for the product.
@@ -55,7 +55,7 @@ class ProductFactory extends \WP_UnitTest_Factory_For_Post {
 		$product->set_props( array_merge( $default_props, $args ) );
 		$product->save();
 
-		WPProbe\Indexables::factory()->get( 'post' )->index( $product->get_id() );
+		ElasticProbe\Indexables::factory()->get( 'post' )->index( $product->get_id() );
 		return $product->get_id();
 	}
 
@@ -150,7 +150,7 @@ class ProductFactory extends \WP_UnitTest_Factory_For_Post {
 		);
 		$product->set_children( $variation_ids );
 
-		WPProbe\Indexables::factory()->get( 'post' )->index( $product->get_id() );
+		ElasticProbe\Indexables::factory()->get( 'post' )->index( $product->get_id() );
 		return $product->get_id();
 	}
 

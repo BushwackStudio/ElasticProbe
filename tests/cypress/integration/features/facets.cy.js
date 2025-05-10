@@ -6,8 +6,8 @@ describe('Facets Feature', { tags: '@slow' }, () => {
 	 */
 	before(() => {
 		cy.wpCliEval(`
-			\\WPProbe\\Features::factory()->activate_feature('facets' );
-			WP_CLI::runcommand( 'wpprobe sync --setup --yes' );
+			\\ElasticProbe\\Features::factory()->activate_feature('facets' );
+			WP_CLI::runcommand( 'elasticprobe sync --setup --yes' );
 			$posts = new \\WP_Query(
 				[
 					's'            => 'A new',
@@ -22,7 +22,7 @@ describe('Facets Feature', { tags: '@slow' }, () => {
 
 		cy.updateWeighting();
 
-		cy.visitAdminPage('admin.php?page=wpprobe-weighting');
+		cy.visitAdminPage('admin.php?page=elasticprobe-weighting');
 
 		cy.intercept('/wp-json/elasticpress/v1/weighting*').as('apiRequest');
 		cy.contains('h2', 'Posts').closest('.components-panel').as('postsPanel');
@@ -274,7 +274,7 @@ describe('Facets Feature', { tags: '@slow' }, () => {
 		 * Widget block.
 		 */
 		cy.get('.wp-block-legacy-widget')
-			.should('contain.text', 'WPProbe - Filter by Taxonomy')
+			.should('contain.text', 'ElasticProbe - Filter by Taxonomy')
 			.first()
 			.click();
 
@@ -580,7 +580,7 @@ describe('Facets Feature', { tags: '@slow' }, () => {
 			/**
 			 * When Match Type is "any", all options need to be clickable
 			 */
-			cy.visitAdminPage('admin.php?page=wpprobe');
+			cy.visitAdminPage('admin.php?page=elasticprobe');
 			cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
 
 			cy.contains('button', 'Filters').click();
@@ -1003,6 +1003,16 @@ describe('Facets Feature', { tags: '@slow' }, () => {
 				.last()
 				.find('input')
 				.should('be.checked');
+
+			/**
+			 * It should go back to page 1 when selecting a filter in page 2.
+			 */
+			cy.visit('/page/2');
+			cy.get('@block').find('.ep-facet-date-option label').first().click();
+			cy.get('@block').find('.wp-element-button').click();
+
+			cy.url().should('include', 'ep_date_filter=last-3-months');
+			cy.url().should('not.include', 'page/2');
 		});
 	});
 });

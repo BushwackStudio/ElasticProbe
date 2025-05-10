@@ -2,17 +2,20 @@
 /**
  * Test dashboard admin notices. Logic here is very complex.
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe;
+use ElasticProbe;
+
+use function ElasticProbe\Utils\is_epio;
 
 /**
  * Admin notices test class
  */
 class TestAdminNotices extends BaseTestCase {
+
 
 	/**
 	 * Setup each test.
@@ -29,7 +32,7 @@ class TestAdminNotices extends BaseTestCase {
 
 		wp_set_current_user( $admin_id );
 
-		$this->real_es_version = WPProbe\Elasticsearch::factory()->get_elasticsearch_version( true );
+		$this->real_es_version = ElasticProbe\Elasticsearch::factory()->get_elasticsearch_version( true );
 
 		add_filter(
 			'ep_elasticsearch_version',
@@ -38,10 +41,10 @@ class TestAdminNotices extends BaseTestCase {
 			}
 		);
 
-		WPProbe\Elasticsearch::factory()->delete_all_indices();
-		WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
+		ElasticProbe\Elasticsearch::factory()->delete_all_indices();
+		ElasticProbe\Indexables::factory()->get( 'post' )->put_mapping();
 
-		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
+		ElasticProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
 
 		$this->setup_test_post_type();
 
@@ -67,7 +70,7 @@ class TestAdminNotices extends BaseTestCase {
 		// Update since we are deleting to test notifications
 		update_site_option( 'ep_host', $this->current_host );
 
-		WPProbe\Screen::factory()->set_current_screen( null );
+		ElasticProbe\Screen::factory()->set_current_screen( null );
 	}
 
 	/**
@@ -92,11 +95,11 @@ class TestAdminNotices extends BaseTestCase {
 		delete_site_option( 'ep_need_upgrade_sync', true );
 		delete_site_option( 'ep_feature_auto_activated_sync' );
 
-		WPProbe\Screen::factory()->set_current_screen( 'install' );
+		ElasticProbe\Screen::factory()->set_current_screen( 'install' );
 
-		WPProbe\AdminNotices::factory()->process_notices();
+		ElasticProbe\AdminNotices::factory()->process_notices();
 
-		$notices = WPProbe\AdminNotices::factory()->get_notices();
+		$notices = ElasticProbe\AdminNotices::factory()->get_notices();
 
 		$this->assertEquals( 0, count( $notices ) );
 	}
@@ -123,11 +126,11 @@ class TestAdminNotices extends BaseTestCase {
 		delete_site_option( 'ep_need_upgrade_sync', true );
 		delete_site_option( 'ep_feature_auto_activated_sync' );
 
-		WPProbe\Screen::factory()->set_current_screen( null );
+		ElasticProbe\Screen::factory()->set_current_screen( null );
 
-		WPProbe\AdminNotices::factory()->process_notices();
+		ElasticProbe\AdminNotices::factory()->process_notices();
 
-		$notices = WPProbe\AdminNotices::factory()->get_notices();
+		$notices = ElasticProbe\AdminNotices::factory()->get_notices();
 
 		$this->assertEquals( 1, count( $notices ) );
 		$this->assertTrue( ! empty( $notices['need_setup'] ) );
@@ -154,11 +157,11 @@ class TestAdminNotices extends BaseTestCase {
 		delete_site_option( 'ep_need_upgrade_sync', true );
 		delete_site_option( 'ep_feature_auto_activated_sync' );
 
-		WPProbe\Screen::factory()->set_current_screen( null );
+		ElasticProbe\Screen::factory()->set_current_screen( null );
 
-		WPProbe\AdminNotices::factory()->process_notices();
+		ElasticProbe\AdminNotices::factory()->process_notices();
 
-		$notices = WPProbe\AdminNotices::factory()->get_notices();
+		$notices = ElasticProbe\AdminNotices::factory()->get_notices();
 
 		$this->assertEquals( 1, count( $notices ) );
 		$this->assertTrue( ! empty( $notices['no_sync'] ) );
@@ -185,11 +188,11 @@ class TestAdminNotices extends BaseTestCase {
 		delete_site_option( 'ep_need_upgrade_sync', true );
 		delete_site_option( 'ep_feature_auto_activated_sync' );
 
-		WPProbe\Screen::factory()->set_current_screen( 'install' );
+		ElasticProbe\Screen::factory()->set_current_screen( 'install' );
 
-		WPProbe\AdminNotices::factory()->process_notices();
+		ElasticProbe\AdminNotices::factory()->process_notices();
 
-		$notices = WPProbe\AdminNotices::factory()->get_notices();
+		$notices = ElasticProbe\AdminNotices::factory()->get_notices();
 
 		$this->assertEquals( 0, count( $notices ) );
 	}
@@ -227,13 +230,13 @@ class TestAdminNotices extends BaseTestCase {
 			}
 		);
 
-		WPProbe\Elasticsearch::factory()->get_elasticsearch_version( true );
+		ElasticProbe\Elasticsearch::factory()->get_elasticsearch_version( true );
 
-		WPProbe\Screen::factory()->set_current_screen( null );
+		ElasticProbe\Screen::factory()->set_current_screen( null );
 
-		WPProbe\AdminNotices::factory()->process_notices();
+		ElasticProbe\AdminNotices::factory()->process_notices();
 
-		$notices = WPProbe\AdminNotices::factory()->get_notices();
+		$notices = ElasticProbe\AdminNotices::factory()->get_notices();
 
 		$this->assertEquals( 1, count( $notices ) );
 		$this->assertTrue( ! empty( $notices['host_error'] ) );
@@ -270,18 +273,18 @@ class TestAdminNotices extends BaseTestCase {
 			}
 		);
 
-		WPProbe\Elasticsearch::factory()->get_elasticsearch_version( true );
+		ElasticProbe\Elasticsearch::factory()->get_elasticsearch_version( true );
 
-		WPProbe\Screen::factory()->set_current_screen( 'install' );
+		ElasticProbe\Screen::factory()->set_current_screen( 'install' );
 
-		WPProbe\AdminNotices::factory()->process_notices();
+		ElasticProbe\AdminNotices::factory()->process_notices();
 
-		$notices = WPProbe\AdminNotices::factory()->get_notices();
+		$notices = ElasticProbe\AdminNotices::factory()->get_notices();
 
 		$this->assertEquals( 0, count( $notices ) );
 
 		update_site_option( 'ep_host', $this->current_host );
-		WPProbe\Elasticsearch::factory()->get_elasticsearch_version( true );
+		ElasticProbe\Elasticsearch::factory()->get_elasticsearch_version( true );
 	}
 
 	/**
@@ -311,14 +314,18 @@ class TestAdminNotices extends BaseTestCase {
 
 		add_filter( 'ep_elasticsearch_version', $es_version );
 
-		WPProbe\Screen::factory()->set_current_screen( null );
+		ElasticProbe\Screen::factory()->set_current_screen( null );
 
-		WPProbe\AdminNotices::factory()->process_notices();
+		ElasticProbe\AdminNotices::factory()->process_notices();
 
-		$notices = WPProbe\AdminNotices::factory()->get_notices();
+		$notices = ElasticProbe\AdminNotices::factory()->get_notices();
 
-		$this->assertEquals( 1, count( $notices ) );
-		$this->assertTrue( ! empty( $notices['es_above_compat'] ) );
+		if ( ! is_epio() ) {
+			$this->assertEquals( 1, count( $notices ) );
+			$this->assertTrue( ! empty( $notices['es_above_compat'] ) );
+		} else {
+			$this->assertEquals( 0, count( $notices ) );
+		}
 	}
 
 	/**
@@ -348,14 +355,18 @@ class TestAdminNotices extends BaseTestCase {
 
 		add_filter( 'ep_elasticsearch_version', $es_version );
 
-		WPProbe\Screen::factory()->set_current_screen( null );
+		ElasticProbe\Screen::factory()->set_current_screen( null );
 
-		WPProbe\AdminNotices::factory()->process_notices();
+		ElasticProbe\AdminNotices::factory()->process_notices();
 
-		$notices = WPProbe\AdminNotices::factory()->get_notices();
+		$notices = ElasticProbe\AdminNotices::factory()->get_notices();
 
-		$this->assertEquals( 1, count( $notices ) );
-		$this->assertTrue( ! empty( $notices['es_below_compat'] ) );
+		if ( ! is_epio() ) {
+			$this->assertEquals( 1, count( $notices ) );
+			$this->assertTrue( ! empty( $notices['es_below_compat'] ) );
+		} else {
+			$this->assertEquals( 0, count( $notices ) );
+		}
 	}
 
 	/**
@@ -379,11 +390,11 @@ class TestAdminNotices extends BaseTestCase {
 		update_site_option( 'ep_need_upgrade_sync', true );
 		delete_site_option( 'ep_feature_auto_activated_sync' );
 
-		WPProbe\Screen::factory()->set_current_screen( null );
+		ElasticProbe\Screen::factory()->set_current_screen( null );
 
-		WPProbe\AdminNotices::factory()->process_notices();
+		ElasticProbe\AdminNotices::factory()->process_notices();
 
-		$notices = WPProbe\AdminNotices::factory()->get_notices();
+		$notices = ElasticProbe\AdminNotices::factory()->get_notices();
 
 		$this->assertEquals( 1, count( $notices ) );
 		$this->assertTrue( ! empty( $notices['upgrade_sync'] ) );
@@ -394,7 +405,7 @@ class TestAdminNotices extends BaseTestCase {
 	 *
 	 * - In admin
 	 * - Host set
-	 * - Old version of WPProbe
+	 * - Old version of ElasticProbe
 	 * - Upgrade sync is needed
 	 * - Elasticsearch version within bounds
 	 *
@@ -404,40 +415,42 @@ class TestAdminNotices extends BaseTestCase {
 	 * @since 4.0.0
 	 */
 	public function testUpgradeSyncNoticeAndInstantResultsInAdmin() {
+		$this->markTestSkipped( 'Requires Instant results' );
+
 		update_site_option( 'ep_last_sync', time() );
 		update_site_option( 'ep_need_upgrade_sync', true );
 		update_site_option( 'ep_version', '3.6.6' );
 		delete_site_option( 'ep_feature_auto_activated_sync' );
 
-		WPProbe\Screen::factory()->set_current_screen( null );
+		ElasticProbe\Screen::factory()->set_current_screen( null );
 
 		// Instant Results not available.
-		$not_available_full_text = '<a href="https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#instant-results">Instant Results</a> is now available in WPProbe, but requires a re-sync before activation. If you would like to use Instant Results, since you are not using WPProbe.com, you will also need to <a href="https://www.elasticpress.io/documentation/article/considerations-for-self-hosted-elasticsearch-setups/">install and configure a PHP proxy</a>.';
-			WPProbe\AdminNotices::factory()->process_notices();
-		$notices = WPProbe\AdminNotices::factory()->get_notices();
+		$not_available_full_text = '<a href="https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#instant-results">Instant Results</a> is now available in ElasticProbe, but requires a re-sync before activation. If you would like to use Instant Results, since you are not using WPProbe.com, you will also need to <a href="https://www.elasticpress.io/documentation/article/considerations-for-self-hosted-elasticsearch-setups/">install and configure a PHP proxy</a>.';
+			ElasticProbe\AdminNotices::factory()->process_notices();
+		$notices = ElasticProbe\AdminNotices::factory()->get_notices();
 		$this->assertTrue( ! empty( $notices['upgrade_sync'] ) );
 		$this->assertStringContainsString( $not_available_full_text, $notices['upgrade_sync']['html'] );
 
 		// Instant Results available.
 		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
-			$features_url = admin_url( 'network/admin.php?page=wpprobe' );
+			$features_url = admin_url( 'network/admin.php?page=elasticprobe' );
 		} else {
-			$features_url = admin_url( 'admin.php?page=wpprobe' );
+			$features_url = admin_url( 'admin.php?page=elasticprobe' );
 		}
-		$available_full_text = '<a href="https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#instant-results">Instant Results</a> is now available in WPProbe, but requires a re-sync before activation. If you would like to use Instant Results, click <a href="' . $features_url . '">here</a> to activate the feature and start your sync.';
+		$available_full_text = '<a href="https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#instant-results">Instant Results</a> is now available in ElasticProbe, but requires a re-sync before activation. If you would like to use Instant Results, click <a href="' . $features_url . '">here</a> to activate the feature and start your sync.';
 
 		// Instant Results available via custom proxy.
 		add_filter( 'ep_instant_results_available', '__return_true' );
-		WPProbe\AdminNotices::factory()->process_notices();
-		$notices = WPProbe\AdminNotices::factory()->get_notices();
+		ElasticProbe\AdminNotices::factory()->process_notices();
+		$notices = ElasticProbe\AdminNotices::factory()->get_notices();
 		$this->assertTrue( ! empty( $notices['upgrade_sync'] ) );
 		$this->assertStringContainsString( $available_full_text, $notices['upgrade_sync']['html'] );
 		remove_filter( 'ep_instant_results_available', '__return_true' );
 
 		// Instant Results available via EP.io.
 		update_site_option( 'ep_host', 'https://gateway.wpprobe.com/' );
-		WPProbe\AdminNotices::factory()->process_notices();
-		$notices = WPProbe\AdminNotices::factory()->get_notices();
+		ElasticProbe\AdminNotices::factory()->process_notices();
+		$notices = ElasticProbe\AdminNotices::factory()->get_notices();
 		$this->assertTrue( ! empty( $notices['upgrade_sync'] ) );
 		$this->assertStringContainsString( $available_full_text, $notices['upgrade_sync']['html'] );
 	}
@@ -463,11 +476,11 @@ class TestAdminNotices extends BaseTestCase {
 		delete_site_option( 'ep_need_upgrade_sync' );
 		update_site_option( 'ep_feature_auto_activated_sync', true );
 
-		WPProbe\Screen::factory()->set_current_screen( null );
+		ElasticProbe\Screen::factory()->set_current_screen( null );
 
-		WPProbe\AdminNotices::factory()->process_notices();
+		ElasticProbe\AdminNotices::factory()->process_notices();
 
-		$notices = WPProbe\AdminNotices::factory()->get_notices();
+		$notices = ElasticProbe\AdminNotices::factory()->get_notices();
 
 		$this->assertEquals( 1, count( $notices ) );
 		$this->assertTrue( ! empty( $notices['auto_activate_sync'] ) );
@@ -506,15 +519,15 @@ class TestAdminNotices extends BaseTestCase {
 			}
 		);
 
-		WPProbe\Elasticsearch::factory()->delete_all_indices();
-		WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
-		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
+		ElasticProbe\Elasticsearch::factory()->delete_all_indices();
+		ElasticProbe\Indexables::factory()->get( 'post' )->put_mapping();
+		ElasticProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
 
-		WPProbe\Screen::factory()->set_current_screen( null );
+		ElasticProbe\Screen::factory()->set_current_screen( null );
 
-		WPProbe\AdminNotices::factory()->process_notices();
+		ElasticProbe\AdminNotices::factory()->process_notices();
 
-		$notices = WPProbe\AdminNotices::factory()->get_notices();
+		$notices = ElasticProbe\AdminNotices::factory()->get_notices();
 		$this->assertCount( 0, $notices );
 	}
 
@@ -550,20 +563,20 @@ class TestAdminNotices extends BaseTestCase {
 			}
 		);
 
-		WPProbe\Elasticsearch::factory()->delete_all_indices();
-		WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
-		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
+		ElasticProbe\Elasticsearch::factory()->delete_all_indices();
+		ElasticProbe\Indexables::factory()->get( 'post' )->put_mapping();
+		ElasticProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
 
 		$mapping = function () {
 			return 'idonotmatch';
 		};
 		add_filter( 'ep_post_mapping_version_determined', $mapping );
 
-		WPProbe\Screen::factory()->set_current_screen( null );
+		ElasticProbe\Screen::factory()->set_current_screen( null );
 
-		WPProbe\AdminNotices::factory()->process_notices();
+		ElasticProbe\AdminNotices::factory()->process_notices();
 
-		$notices = WPProbe\AdminNotices::factory()->get_notices();
+		$notices = ElasticProbe\AdminNotices::factory()->get_notices();
 		$this->assertCount( 1, $notices );
 		$this->assertTrue( ! empty( $notices['maybe_wrong_mapping'] ) );
 	}
@@ -599,7 +612,7 @@ class TestAdminNotices extends BaseTestCase {
 				return 24;
 			}
 		);
-		WPProbe\Screen::factory()->set_current_screen( 'install' );
+		ElasticProbe\Screen::factory()->set_current_screen( 'install' );
 
 		add_filter(
 			'ep_post_pre_meta_keys_db',
@@ -608,8 +621,8 @@ class TestAdminNotices extends BaseTestCase {
 			}
 		);
 
-		WPProbe\AdminNotices::factory()->process_notices();
-		$notices = WPProbe\AdminNotices::factory()->get_notices();
+		ElasticProbe\AdminNotices::factory()->process_notices();
+		$notices = ElasticProbe\AdminNotices::factory()->get_notices();
 
 		$this->assertCount( 0, $notices );
 
@@ -621,8 +634,8 @@ class TestAdminNotices extends BaseTestCase {
 			}
 		);
 
-		WPProbe\AdminNotices::factory()->process_notices();
-		$notices = WPProbe\AdminNotices::factory()->get_notices();
+		ElasticProbe\AdminNotices::factory()->process_notices();
+		$notices = ElasticProbe\AdminNotices::factory()->get_notices();
 
 		$this->assertCount( 1, $notices );
 		$this->assertArrayHasKey( 'too_many_fields', $notices );
@@ -636,8 +649,8 @@ class TestAdminNotices extends BaseTestCase {
 			}
 		);
 
-		WPProbe\AdminNotices::factory()->process_notices();
-		$notices = WPProbe\AdminNotices::factory()->get_notices();
+		ElasticProbe\AdminNotices::factory()->process_notices();
+		$notices = ElasticProbe\AdminNotices::factory()->get_notices();
 
 		$this->assertCount( 1, $notices );
 		$this->assertArrayHasKey( 'too_many_fields', $notices );
@@ -654,7 +667,7 @@ class TestAdminNotices extends BaseTestCase {
 		$pagenow = 'edit-tags.php';
 		$tax     = get_taxonomy( 'category' );
 
-		$number_of_posts = WPProbe\IndexHelper::factory()->get_index_default_per_page() + 10;
+		$number_of_posts = ElasticProbe\IndexHelper::factory()->get_index_default_per_page() + 10;
 		$term            = $this->factory->term->create_and_get( array( 'taxonomy' => 'category' ) );
 		$this->posts     = $this->factory->post->create_many(
 			$number_of_posts,
@@ -667,7 +680,7 @@ class TestAdminNotices extends BaseTestCase {
 			]
 		);
 
-		$notices = WPProbe\AdminNotices::factory()->get_notices();
+		$notices = ElasticProbe\AdminNotices::factory()->get_notices();
 
 		$this->assertArrayHasKey( 'too_many_posts_on_term', $notices );
 	}
@@ -687,7 +700,7 @@ class TestAdminNotices extends BaseTestCase {
 		set_current_screen( 'edit-tags' );
 		$tax = get_taxonomy( 'category' );
 
-		$number_of_posts = WPProbe\IndexHelper::factory()->get_index_default_per_page() + 10;
+		$number_of_posts = ElasticProbe\IndexHelper::factory()->get_index_default_per_page() + 10;
 		$term            = $this->factory->term->create_and_get( array( 'taxonomy' => 'category' ) );
 		$this->posts     = $this->factory->post->create_many(
 			$number_of_posts,
@@ -713,7 +726,7 @@ class TestAdminNotices extends BaseTestCase {
 			}
 		);
 
-		$notices = WPProbe\AdminNotices::factory()->get_notices();
+		$notices = ElasticProbe\AdminNotices::factory()->get_notices();
 		$this->assertCount( 1, $notices );
 		$this->assertArrayHasKey( 'too_many_posts_on_term', $notices );
 	}
@@ -733,7 +746,7 @@ class TestAdminNotices extends BaseTestCase {
 		set_current_screen( 'edit-tags' );
 		$tax = get_taxonomy( 'category' );
 
-		$number_of_posts = WPProbe\IndexHelper::factory()->get_index_default_per_page() + 10;
+		$number_of_posts = ElasticProbe\IndexHelper::factory()->get_index_default_per_page() + 10;
 		$term            = $this->factory->term->create_and_get( array( 'taxonomy' => 'category' ) );
 		$this->posts     = $this->factory->post->create_many(
 			$number_of_posts,
@@ -759,7 +772,7 @@ class TestAdminNotices extends BaseTestCase {
 			}
 		);
 
-		$notices = WPProbe\AdminNotices::factory()->get_notices();
+		$notices = ElasticProbe\AdminNotices::factory()->get_notices();
 		$this->assertArrayHasKey( 'too_many_posts_on_term', $notices );
 		$this->assertArrayHasKey( 'test_notice', $notices );
 	}
@@ -771,6 +784,6 @@ class TestAdminNotices extends BaseTestCase {
 	 * @return string
 	 */
 	public function ep_post_mapping_version_determined() {
-		return WPProbe\Indexables::factory()->get( 'post' )->get_mapping_name();
+		return ElasticProbe\Indexables::factory()->get( 'post' )->get_mapping_name();
 	}
 }

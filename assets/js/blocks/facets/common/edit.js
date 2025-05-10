@@ -84,7 +84,7 @@ export default ({ attributes, name, setAttributes }) => {
 	return (
 		<Fragment>
 			<InspectorControls>
-				<PanelBody title={__('Settings', 'wpprobe')}>
+				<PanelBody title={__('Settings', 'elasticprobe')}>
 					<FacetControl onChange={onChangeFacet} value={facet} />
 					{type === 'meta' ? (
 						<FacetSearchPlaceholderControl

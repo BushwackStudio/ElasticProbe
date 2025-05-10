@@ -1,11 +1,11 @@
 <?php
 /**
- * WPProbe test bootstrap
+ * ElasticProbe test bootstrap
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
 set_time_limit( 0 );
 
@@ -44,6 +44,23 @@ function load_plugin() {
 	update_option( 'ep_host', $host );
 	update_site_option( 'ep_host', $host );
 
+	$shield_id    = getenv( 'EP_SHIELD_ID' );
+	$shield_token = getenv( 'EP_SHIELD_TOKEN' );
+	if ( ! empty( $shield_id ) && ! empty( $shield_token ) ) {
+		$credentials = [
+			'username' => $shield_id,
+			'token'    => $shield_token,
+		];
+		update_option( 'ep_credentials', $credentials );
+		update_site_option( 'ep_credentials', $credentials );
+	}
+
+	$probe_sid = getenv( 'PROBE_SID' );
+	if ( ! empty( $probe_sid ) ) {
+		update_option( 'elasticprobe_subscription_id', $probe_sid );
+		update_site_option( 'elasticprobe_subscription_id', $probe_sid );
+	}
+
 	define( 'EP_UNIT_TESTS', true );
 
 	if ( defined( 'WP_TESTS_MULTISITE' ) && '1' === WP_TESTS_MULTISITE ) {
@@ -52,32 +69,14 @@ function load_plugin() {
 	}
 
 	include_once __DIR__ . '/../../vendor/woocommerce/woocommerce.php';
-	require_once __DIR__ . '/../../wpprobe.php';
+	require_once __DIR__ . '/../../elasticprobe.php';
 
 	add_filter( 'ep_default_index_number_of_shards', __NAMESPACE__ . '\test_shard_number' );
-
-	$tries = 5;
-	$sleep = 3;
-
-	// do {
-	// $response = wp_remote_get( $host );
-	// if ( 200 === wp_remote_retrieve_response_code( $response ) ) {
-	// Looks good!
-	// break;
-	// } else {
-	// printf( "\nInvalid response from ES, sleeping %d seconds and trying again...\n", intval( $sleep ) );
-	// sleep( $sleep );
-	// }
-	// } while ( --$tries );
-
-	// if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
-	// exit( 'Could not connect to WPProbe server.' );
-	// }
 
 	require_once __DIR__ . '/includes/functions.php';
 
 	echo 'WordPress version ' . $wp_version . "\n"; // phpcs:ignore
-	echo 'Elasticsearch version ' . \WPProbe\Elasticsearch::factory()->get_elasticsearch_version( true ) . "\n"; // phpcs:ignore
+	echo 'Elasticsearch version ' . \ElasticProbe\Elasticsearch::factory()->get_elasticsearch_version(true) . "\n"; // phpcs:ignore
 }
 
 tests_add_filter( 'muplugins_loaded', __NAMESPACE__ . '\load_plugin' );
@@ -181,6 +180,7 @@ require_once __DIR__ . '/includes/classes/factory/CommentFactory.php';
 require_once __DIR__ . '/includes/classes/factory/ProductFactory.php';
 require_once __DIR__ . '/includes/classes/BaseTestCase.php';
 require_once __DIR__ . '/includes/classes/FeatureTest.php';
+require_once __DIR__ . '/includes/classes/FunctionsCallCounter.php';
 require_once __DIR__ . '/includes/classes/mock/Global/Feature.php';
 require_once __DIR__ . '/includes/classes/mock/SettingsSchemaFeature.php';
 require_once __DIR__ . '/includes/classes/mock/class-wp-cli-command.php';

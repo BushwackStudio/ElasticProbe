@@ -3,12 +3,12 @@
  * Test post type facet type feature
  *
  * @since 4.6.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe\Features;
+use ElasticProbe\Features;
 
 /**
  * Facets\Types\PostType\FacetType test class
@@ -17,7 +17,7 @@ class TestFacetTypePostType extends BaseTestCase {
 	/**
 	 * The facet type instance
 	 *
-	 * @var null|\WPProbe\Feature\Facets\Types\PostType\FacetType
+	 * @var null|\ElasticProbe\Feature\Facets\Types\PostType\FacetType
 	 */
 	protected $facet_type = null;
 

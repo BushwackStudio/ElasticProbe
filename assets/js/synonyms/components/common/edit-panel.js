@@ -70,6 +70,7 @@ const EditPanel = (
 							onChange={onChangePrimary}
 							value={primaryValue.map((p) => p.value).join('')}
 							__nextHasNoMarginBottom
+							__next40pxDefaultSize
 						/>
 					) : null}
 					{mode === 'replacements' ? (
@@ -79,6 +80,7 @@ const EditPanel = (
 							onChange={onChangePrimary}
 							value={primaryValue.map((p) => p.value)}
 							__nextHasNoMarginBottom
+							__next40pxDefaultSize
 						/>
 					) : null}
 					<FormTokenField
@@ -87,6 +89,7 @@ const EditPanel = (
 						onChange={onChangeSynonyms}
 						value={synonymsValue.map((h) => h.value)}
 						__nextHasNoMarginBottom
+						__next40pxDefaultSize
 					/>
 					<Flex justify="start">
 						<FlexItem>
@@ -95,7 +98,7 @@ const EditPanel = (
 								type="submit"
 								variant="secondary"
 							>
-								{isNew ? labels.add : __('Save changes', 'wpprobe')}
+								{isNew ? labels.add : __('Save changes', 'elasticprobe')}
 							</Button>
 						</FlexItem>
 						{!isNew ? (
@@ -106,7 +109,7 @@ const EditPanel = (
 									type="button"
 									variant="tertiary"
 								>
-									{__('Cancel', 'wpprobe')}
+									{__('Cancel', 'elasticprobe')}
 								</Button>
 							</FlexItem>
 						) : null}

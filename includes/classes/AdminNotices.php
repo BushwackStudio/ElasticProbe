@@ -1,21 +1,21 @@
 <?php
 /**
- * WPProbe admin notice handler
+ * ElasticProbe admin notice handler
  *
  * phpcs:disable WordPress.WP.I18n.MissingTranslatorsComment
  *
  * @since  3.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe;
+namespace ElasticProbe;
 
-use WPProbe\Utils;
-use WPProbe\Elasticsearch;
-use WPProbe\Screen;
-use WPProbe\Features;
-use WPProbe\Indexables;
-use WPProbe\Stats;
+use ElasticProbe\Utils;
+use ElasticProbe\Elasticsearch;
+use ElasticProbe\Screen;
+use ElasticProbe\Features;
+use ElasticProbe\Indexables;
+use ElasticProbe\Stats;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -117,7 +117,7 @@ class AdminNotices {
 		}
 
 		return [
-			'html'    => sprintf( esc_html__( 'Autosuggest feature is enabled. If documents feature is enabled, your media will also become searchable in the frontend.', 'wpprobe' ) ),
+			'html'    => sprintf( esc_html__( 'Autosuggest feature is enabled. If documents feature is enabled, your media will also become searchable in the frontend.', 'elasticprobe' ) ),
 			'type'    => 'info',
 			'dismiss' => true,
 		];
@@ -182,13 +182,13 @@ class AdminNotices {
 		if ( defined( 'EP_DASHBOARD_SYNC' ) && ! EP_DASHBOARD_SYNC ) {
 			$html = sprintf(
 				/* translators: Feature name */
-				esc_html__( 'Dashboard sync is disabled. The WPProbe %s feature has been auto-activated! You will need to reindex using WP-CLI for it to work.', 'wpprobe' ),
+				esc_html__( 'Dashboard sync is disabled. The ElasticProbe %s feature has been auto-activated! You will need to reindex using WP-CLI for it to work.', 'elasticprobe' ),
 				esc_html( is_object( $feature ) ? $feature->get_short_title() : '' )
 			);
 		} else {
 			$html = sprintf(
 				/* translators: 1. Feature name; 2: Sync page URL */
-				__( 'The WPProbe %1$s feature has been auto-activated! You will need to <a href="%2$s">run a sync</a> for it to work.', 'wpprobe' ),
+				__( 'The ElasticProbe %1$s feature has been auto-activated! You will need to <a href="%2$s">run a sync</a> for it to work.', 'elasticprobe' ),
 				esc_html( is_object( $feature ) ? $feature->get_short_title() : '' ),
 				esc_url( $url )
 			);
@@ -249,16 +249,16 @@ class AdminNotices {
 		$url = Utils\get_sync_url( 'upgrade' );
 
 		if ( defined( 'EP_DASHBOARD_SYNC' ) && ! EP_DASHBOARD_SYNC ) {
-			$html = esc_html__( 'Dashboard sync is disabled. The new version of WPProbe requires that you delete all data and start a fresh sync using WP-CLI.', 'wpprobe' );
+			$html = esc_html__( 'Dashboard sync is disabled. The new version of ElasticProbe requires that you delete all data and start a fresh sync using WP-CLI.', 'elasticprobe' );
 		} else {
 			$html = sprintf(
 				/* translators: Sync Page URL */
-				__( 'The new version of WPProbe requires that you <a href="%s">delete all data and start a fresh sync</a>.', 'wpprobe' ),
+				__( 'The new version of ElasticProbe requires that you <a href="%s">delete all data and start a fresh sync</a>.', 'elasticprobe' ),
 				esc_url( $url )
 			);
 		}
 
-		$notice = esc_html__( 'Please note that some WPProbe functionality may be impaired and/or content may not be searchable until the full sync has been performed.', 'wpprobe' );
+		$notice = esc_html__( 'Please note that some ElasticProbe functionality may be impaired and/or content may not be searchable until the full sync has been performed.', 'elasticprobe' );
 
 		return [
 			'html'    => '<span class="dashicons dashicons-warning"></span> ' . $html . ' ' . $notice,
@@ -307,17 +307,17 @@ class AdminNotices {
 		}
 
 		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
-			$url = admin_url( 'network/admin.php?page=wpprobe-sync' );
+			$url = admin_url( 'network/admin.php?page=elasticprobe-sync' );
 		} else {
-			$url = admin_url( 'admin.php?page=wpprobe-sync' );
+			$url = admin_url( 'admin.php?page=elasticprobe-sync' );
 		}
 
 		if ( defined( 'EP_DASHBOARD_SYNC' ) && ! EP_DASHBOARD_SYNC ) {
-			$html = esc_html__( 'Dashboard sync is disabled, but WPProbe is almost ready to go. Trigger a sync from WP-CLI.', 'wpprobe' );
+			$html = esc_html__( 'Dashboard sync is disabled, but ElasticProbe is almost ready to go. Trigger a sync from WP-CLI.', 'elasticprobe' );
 		} else {
 			$html = sprintf(
 				/* translators: Sync Page URL */
-				__( 'WPProbe is almost ready to go. You just need to <a href="%s">sync your content</a>.', 'wpprobe' ),
+				__( 'ElasticProbe is almost ready to go. You just need to <a href="%s">sync your content</a>.', 'elasticprobe' ),
 				esc_url( $url )
 			);
 		}
@@ -359,9 +359,9 @@ class AdminNotices {
 		}
 
 		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
-			$url = admin_url( 'network/admin.php?page=wpprobe-settings' );
+			$url = admin_url( 'network/admin.php?page=elasticprobe-settings' );
 		} else {
-			$url = admin_url( 'admin.php?page=wpprobe-settings' );
+			$url = admin_url( 'admin.php?page=elasticprobe-settings' );
 		}
 
 		return [
@@ -369,7 +369,7 @@ class AdminNotices {
 			'dismiss' => 'dashboard' !== $screen,
 			'html'    => sprintf(
 				/* translators: Sync Page URL */
-				__( 'WPProbe is almost ready to go. You just need to <a href="%s">enter your settings</a>.', 'wpprobe' ),
+				__( 'ElasticProbe is almost ready to go. You just need to <a href="%s">enter your settings</a>.', 'elasticprobe' ),
 				esc_url( $url )
 			),
 		];
@@ -426,7 +426,7 @@ class AdminNotices {
 				'dismiss' => true,
 				'html'    => sprintf(
 					/* translators: 1. Current Elasticsearch version; 2. Minimum required ES version */
-					__( 'Your Elasticsearch version %1$s is below the minimum required Elasticsearch version %2$s. WPProbe may or may not work properly.', 'wpprobe' ),
+					__( 'Your Elasticsearch version %1$s is below the minimum required Elasticsearch version %2$s. ElasticProbe may or may not work properly.', 'elasticprobe' ),
 					esc_html( $es_version ),
 					esc_html( EP_ES_VERSION_MIN )
 				),
@@ -478,7 +478,7 @@ class AdminNotices {
 				'dismiss' => true,
 				'html'    => sprintf(
 					/* translators: 1. Current Elasticsearch version; 2. Maximum supported ES version */
-					__( 'Your Elasticsearch version %1$s is above the maximum required Elasticsearch version %2$s. WPProbe may or may not work properly.', 'wpprobe' ),
+					__( 'Your Elasticsearch version %1$s is above the maximum required Elasticsearch version %2$s. ElasticProbe may or may not work properly.', 'elasticprobe' ),
 					esc_html( $es_version ),
 					esc_html( EP_ES_VERSION_MAX )
 				),
@@ -522,7 +522,7 @@ class AdminNotices {
 		$doc_url = 'https://10up.github.io/ElasticPress/tutorial-compatibility.html';
 		$html    = sprintf(
 			/* translators: Document page URL */
-			__( 'Your server software is not supported. To learn more about server compatibility please <a href="%s">visit our documentation</a>.', 'wpprobe' ),
+			__( 'Your server software is not supported. To learn more about server compatibility please <a href="%s">visit our documentation</a>.', 'elasticprobe' ),
 			esc_url( $doc_url )
 		);
 
@@ -572,11 +572,11 @@ class AdminNotices {
 		}
 
 		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
-			$url            = admin_url( 'network/admin.php?page=wpprobe-settings' );
+			$url            = admin_url( 'network/admin.php?page=elasticprobe-settings' );
 			$response_code  = get_site_transient( 'ep_es_info_response_code' );
 			$response_error = get_site_transient( 'ep_es_info_response_error' );
 		} else {
-			$url            = admin_url( 'admin.php?page=wpprobe-settings' );
+			$url            = admin_url( 'admin.php?page=elasticprobe-settings' );
 			$response_code  = get_transient( 'ep_es_info_response_code' );
 			$response_error = get_transient( 'ep_es_info_response_error' );
 		}
@@ -590,7 +590,7 @@ class AdminNotices {
 
 		$html = sprintf(
 			/* translators: 1. Current URL with retry parameter; 2. Settings Page URL */
-			__( 'There is a problem with connecting to your Elasticsearch host. WPProbe can <a href="%1$s">try your host again</a>, or you may need to <a href="%2$s">change your settings</a>.', 'wpprobe' ),
+			__( 'There is a problem with connecting to your Elasticsearch host. ElasticProbe can <a href="%1$s">try your host again</a>, or you may need to <a href="%2$s">change your settings</a>.', 'elasticprobe' ),
 			esc_url( $retry_url ),
 			esc_url( $url )
 		);
@@ -598,12 +598,12 @@ class AdminNotices {
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 			if ( ! empty( $response_code ) ) {
 				/* translators: Response Code Number */
-				$html .= '<span class="notice-error-es-response-code"> ' . sprintf( __( 'Response Code: %s', 'wpprobe' ), esc_html( $response_code ) ) . '</span>';
+				$html .= '<span class="notice-error-es-response-code"> ' . sprintf( __( 'Response Code: %s', 'elasticprobe' ), esc_html( $response_code ) ) . '</span>';
 			}
 
 			if ( ! empty( $response_error ) ) {
 				/* translators: Response Code Message */
-				$html .= '<span class="notice-error-es-response-error"> ' . sprintf( __( 'Response error: %s', 'wpprobe' ), esc_html( $response_error ) ) . '</span>';
+				$html .= '<span class="notice-error-es-response-error"> ' . sprintf( __( 'Response error: %s', 'elasticprobe' ), esc_html( $response_error ) ) . '</span>';
 			}
 		}
 
@@ -665,14 +665,14 @@ class AdminNotices {
 		if ( ! $mapping_file_current || $mapping_file_wanted !== $mapping_file_current ) {
 			$html = sprintf(
 				/* translators: 1. <em>; 2. </em> */
-				esc_html__( 'It seems the mapping data in your index does not match the Elasticsearch version used. We recommend to reindex your content using the sync button on the top of the screen or through wp-cli by adding the %1$s--setup%2$s flag', 'wpprobe' ),
+				esc_html__( 'It seems the mapping data in your index does not match the Elasticsearch version used. We recommend to reindex your content using the sync button on the top of the screen or through wp-cli by adding the %1$s--setup%2$s flag', 'elasticprobe' ),
 				'<em>',
 				'</em>'
 			);
 
 			if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 				/* translators: 1. Current mapping file; 2. Mapping file that should be used */
-				$html .= '<span class="notice-error-es-response-code"> ' . sprintf( esc_html__( 'Current mapping: %1$s. Expected mapping: %2$s', 'wpprobe' ), esc_html( $mapping_file_current ), esc_html( $mapping_file_wanted ) ) . '</span>';
+				$html .= '<span class="notice-error-es-response-code"> ' . sprintf( esc_html__( 'Current mapping: %1$s. Expected mapping: %2$s', 'elasticprobe' ), esc_html( $mapping_file_current ), esc_html( $mapping_file_wanted ) ) . '</span>';
 			}
 
 			return [
@@ -719,9 +719,9 @@ class AdminNotices {
 
 		if ( false !== $nodes && $nodes < 2 && $nodes > 0 ) {
 			if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
-				$url = network_admin_url( 'admin.php?page=wpprobe-health' );
+				$url = network_admin_url( 'admin.php?page=elasticprobe-health' );
 			} else {
-				$url = admin_url( 'admin.php?page=wpprobe-health' );
+				$url = admin_url( 'admin.php?page=elasticprobe-health' );
 			}
 
 			return [
@@ -729,7 +729,7 @@ class AdminNotices {
 				'dismiss' => true,
 				'html'    => sprintf(
 					/* translators: Index Health URL */
-					__( 'It looks like one or more of your indices are running on a single node. While this won\'t prevent you from using WPProbe, depending on your site\'s specific needs this can represent a performance issue. Please check the <a href="%s">Index Health</a> page where you can check the health of all of your indices.', 'wpprobe' ),
+					__( 'It looks like one or more of your indices are running on a single node. While this won\'t prevent you from using ElasticProbe, depending on your site\'s specific needs this can represent a performance issue. Please check the <a href="%s">Index Health</a> page where you can check the health of all of your indices.', 'elasticprobe' ),
 					$url
 				),
 			];
@@ -785,8 +785,8 @@ class AdminNotices {
 		if ( $has_error ) {
 			$message = sprintf(
 				/* translators: Elasticsearch or WPProbe.com; 2. Link to article; 3. Link to article */
-				__( 'Your website content has more public custom fields than %1$s is able to store. Check our articles about <a href="%2$s">Elasticsearch field limitations</a> and <a href="%3$s">how to index just the custom fields you need</a> before trying to sync.', 'wpprobe' ),
-				Utils\is_epio() ? __( 'WPProbe.com', 'wpprobe' ) : __( 'Elasticsearch', 'wpprobe' ),
+				__( 'Your website content has more public custom fields than %1$s is able to store. Check our articles about <a href="%2$s">Elasticsearch field limitations</a> and <a href="%3$s">how to index just the custom fields you need</a> before trying to sync.', 'elasticprobe' ),
+				Utils\is_epio() ? __( 'WPProbe.com', 'elasticprobe' ) : __( 'Elasticsearch', 'elasticprobe' ),
 				'https://www.elasticpress.io/documentation/article/i-get-the-error-limit-of-total-fields-in-index-has-been-exceeded/',
 				'https://www.elasticpress.io/documentation/article/how-to-exclude-metadata-from-indexing/'
 			);
@@ -801,8 +801,8 @@ class AdminNotices {
 		if ( $has_warning ) {
 			$message = sprintf(
 				/* translators: Elasticsearch or WPProbe.com; 2. Link to article; 3. Link to article */
-				__( 'Your website content seems to have more public custom fields than %1$s is able to store. Check our articles about <a href="%2$s">Elasticsearch field limitations</a> and <a href="%3$s">how to index just the custom fields you need</a> if you receive any errors while syncing.', 'wpprobe' ),
-				Utils\is_epio() ? __( 'WPProbe.com', 'wpprobe' ) : __( 'Elasticsearch', 'wpprobe' ),
+				__( 'Your website content seems to have more public custom fields than %1$s is able to store. Check our articles about <a href="%2$s">Elasticsearch field limitations</a> and <a href="%3$s">how to index just the custom fields you need</a> if you receive any errors while syncing.', 'elasticprobe' ),
+				Utils\is_epio() ? __( 'WPProbe.com', 'elasticprobe' ) : __( 'Elasticsearch', 'elasticprobe' ),
 				'https://www.elasticpress.io/documentation/article/i-get-the-error-limit-of-total-fields-in-index-has-been-exceeded/',
 				'https://www.elasticpress.io/documentation/article/how-to-exclude-metadata-from-indexing/'
 			);

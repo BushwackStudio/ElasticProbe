@@ -2,13 +2,13 @@
 /**
  * Test weighting sub-feature
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe;
-use WPProbe\Utils;
+use ElasticProbe;
+use ElasticProbe\Utils;
 
 /**
  * Weighting test class
@@ -74,13 +74,13 @@ class TestWeighting extends BaseTestCase {
 
 		wp_set_current_user( $admin_id );
 
-		WPProbe\Elasticsearch::factory()->delete_all_indices();
-		WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
+		ElasticProbe\Elasticsearch::factory()->delete_all_indices();
+		ElasticProbe\Indexables::factory()->get( 'post' )->put_mapping();
 
-		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
+		ElasticProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
 
 		$this->setup_test_post_type();
-		WPProbe\Features::factory()->activate_feature( 'search' );
+		ElasticProbe\Features::factory()->activate_feature( 'search' );
 	}
 
 	/**
@@ -101,7 +101,7 @@ class TestWeighting extends BaseTestCase {
 	 * @return Weighting
 	 */
 	public function get_weighting_feature() {
-		$search = WPProbe\Features::factory()->get_registered_feature( 'search' );
+		$search = ElasticProbe\Features::factory()->get_registered_feature( 'search' );
 
 		return $search->weighting;
 	}
@@ -113,7 +113,7 @@ class TestWeighting extends BaseTestCase {
 	 * @since 5.0.0
 	 */
 	public function test_weightable_post_type_auto() {
-		$search = WPProbe\Features::factory()->get_registered_feature( 'search' );
+		$search = ElasticProbe\Features::factory()->get_registered_feature( 'search' );
 
 		$searchable_post_types = $search->get_searchable_post_types();
 
@@ -138,7 +138,7 @@ class TestWeighting extends BaseTestCase {
 	 *
 	 * @since 5.0.0
 	 * @group weighting
-	 * @expectedIncorrectUsage WPProbe\Feature\Search\Weighting::save_weighting_configuration
+	 * @expectedIncorrectUsage ElasticProbe\Feature\Search\Weighting::save_weighting_configuration
 	 */
 	public function test_weighting_configuration_deprecated() {
 		$this->get_weighting_feature()->save_weighting_configuration( [] );
@@ -234,15 +234,15 @@ class TestWeighting extends BaseTestCase {
 		$site_url = trailingslashit( get_option( 'siteurl' ) );
 
 		add_menu_page(
-			'WPProbe',
-			'WPProbe',
+			'ElasticProbe',
+			'ElasticProbe',
 			Utils\get_capability(),
-			'wpprobe'
+			'elasticprobe'
 		);
 
 		$this->get_weighting_feature()->add_weighting_submenu_page();
 
-		$this->assertEquals( $site_url . 'wp-admin/admin.php?page=wpprobe-weighting', menu_page_url( 'wpprobe-weighting', false ) );
+		$this->assertEquals( $site_url . 'wp-admin/admin.php?page=elasticprobe-weighting', menu_page_url( 'elasticprobe-weighting', false ) );
 	}
 
 	/**
@@ -261,7 +261,7 @@ class TestWeighting extends BaseTestCase {
 	 *
 	 * @since 5.0.0
 	 * @group weighting
-	 * @expectedIncorrectUsage WPProbe\Feature\Search\Weighting::handle_save
+	 * @expectedIncorrectUsage ElasticProbe\Feature\Search\Weighting::handle_save
 	 */
 	public function test_handle_save() {
 		$this->get_weighting_feature()->handle_save();
@@ -434,7 +434,7 @@ class TestWeighting extends BaseTestCase {
 	 * Get formatted ES and query vars
 	 */
 	public function getArgs() {
-		$post = new \WPProbe\Indexable\Post\Post();
+		$post = new \ElasticProbe\Indexable\Post\Post();
 
 		$query      = new \WP_Query( [ 's' => 'blog' ] );
 		$query_vars = $query->query_vars;

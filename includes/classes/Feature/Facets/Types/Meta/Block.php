@@ -3,13 +3,13 @@
  * Facets block
  *
  * @since 4.2.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Feature\Facets\Types\Meta;
+namespace ElasticProbe\Feature\Facets\Types\Meta;
 
-use WPProbe\Features;
-use WPProbe\Utils;
+use ElasticProbe\Features;
+use ElasticProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Facets block class
  */
-class Block extends \WPProbe\Feature\Facets\Block {
+class Block extends \ElasticProbe\Feature\Facets\Block {
 	/**
 	 * Hook block functionality.
 	 */
@@ -56,7 +56,7 @@ class Block extends \WPProbe\Feature\Facets\Block {
 			true
 		);
 
-		wp_set_script_translations( 'ep-facets-meta-block-script', 'wpprobe' );
+		wp_set_script_translations( 'ep-facets-meta-block-script', 'elasticprobe' );
 	}
 
 	/**

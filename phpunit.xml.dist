@@ -31,4 +31,7 @@
       <group>skip-on-multi-site</group>
     </exclude>
   </groups>
+  <logging>
+    <testdoxHtml outputFile="php_test_results.htm" />
+  </logging>
 </phpunit>

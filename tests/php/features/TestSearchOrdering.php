@@ -2,12 +2,12 @@
 /**
  * Test search feature
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe;
+use ElasticProbe;
 
 /**
  * Search test class
@@ -28,10 +28,10 @@ class TestSearchOrdering extends BaseTestCase {
 
 		wp_set_current_user( $admin_id );
 
-		WPProbe\Elasticsearch::factory()->delete_all_indices();
-		WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
+		ElasticProbe\Elasticsearch::factory()->delete_all_indices();
+		ElasticProbe\Indexables::factory()->get( 'post' )->put_mapping();
 
-		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
+		ElasticProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
 
 		$this->setup_test_post_type();
 
@@ -62,17 +62,17 @@ class TestSearchOrdering extends BaseTestCase {
 	/**
 	 * Get the feature instance
 	 *
-	 * @return WPProbe\Feature\SearchOrdering\SearchOrdering
+	 * @return ElasticProbe\Feature\SearchOrdering\SearchOrdering
 	 */
 	public function get_feature() {
-		return WPProbe\Features::factory()->get_registered_feature( 'searchordering' );
+		return ElasticProbe\Features::factory()->get_registered_feature( 'searchordering' );
 	}
 
 	/**
 	 * Test the class constructor
 	 */
 	public function testConstruct() {
-		$instance = new \WPProbe\Feature\SearchOrdering\SearchOrdering();
+		$instance = new \ElasticProbe\Feature\SearchOrdering\SearchOrdering();
 		$instance->set_i18n_strings();
 
 		$this->assertSame( 'searchordering', $instance->slug );
@@ -83,9 +83,9 @@ class TestSearchOrdering extends BaseTestCase {
 	 * Test the `setup` method when search is disabled
 	 */
 	public function testSetupWithSearchDisabled() {
-		WPProbe\Features::factory()->deactivate_feature( 'search' );
+		ElasticProbe\Features::factory()->deactivate_feature( 'search' );
 		$this->assertFalse( $this->get_feature()->setup() );
-		WPProbe\Features::factory()->activate_feature( 'search' );
+		ElasticProbe\Features::factory()->activate_feature( 'search' );
 	}
 
 	/**
@@ -126,18 +126,18 @@ class TestSearchOrdering extends BaseTestCase {
 	 */
 	public function testAdminMenu() {
 		add_menu_page(
-			'WPProbe',
-			'WPProbe',
-			\WPProbe\Utils\get_capability(),
-			'wpprobe'
+			'ElasticProbe',
+			'ElasticProbe',
+			\ElasticProbe\Utils\get_capability(),
+			'elasticprobe'
 		);
 
 		$this->get_feature()->admin_menu();
 
 		$menu = $GLOBALS['submenu'];
 
-		$this->assertEquals( 2, count( $menu['wpprobe'] ) );
-		$this->assertEquals( 'Custom Results', $menu['wpprobe'][1][0] );
+		$this->assertEquals( 2, count( $menu['elasticprobe'] ) );
+		$this->assertEquals( 'Custom Results', $menu['elasticprobe'][1][0] );
 	}
 
 	/**
@@ -532,9 +532,9 @@ class TestSearchOrdering extends BaseTestCase {
 	 * Test the `posts_results` method
 	 */
 	public function testPostsResults() {
-		WPProbe\Features::factory()->activate_feature( 'search' );
-		WPProbe\Features::factory()->setup_features();
-		WPProbe\Features::factory()->get_registered_feature( 'search' )->search_setup();
+		ElasticProbe\Features::factory()->activate_feature( 'search' );
+		ElasticProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->get_registered_feature( 'search' )->search_setup();
 
 		$post_id_1 = $this->ep_factory->post->create( [ 'post_content' => 'findme test 1' ] );
 		$post_id_2 = $this->ep_factory->post->create( [ 'post_content' => 'findme test 2' ] );
@@ -562,8 +562,8 @@ class TestSearchOrdering extends BaseTestCase {
 
 		$this->get_feature()->save_post( $pointer_id, get_post( $pointer_id ) );
 
-		WPProbe\Indexables::factory()->get( 'post' )->index( $post_id_2, true );
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Indexables::factory()->get( 'post' )->index( $post_id_2, true );
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query( [ 's' => 'findme' ] );
 

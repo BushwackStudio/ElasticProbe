@@ -2,12 +2,12 @@
 /**
  * Test related posts feature
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe;
+use ElasticProbe;
 
 /**
  * Related post test class
@@ -29,10 +29,10 @@ class TestRelatedPosts extends BaseTestCase {
 
 		wp_set_current_user( $admin_id );
 
-		WPProbe\Elasticsearch::factory()->delete_all_indices();
-		WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
+		ElasticProbe\Elasticsearch::factory()->delete_all_indices();
+		ElasticProbe\Indexables::factory()->get( 'post' )->put_mapping();
 
-		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
+		ElasticProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
 
 		$this->setup_test_post_type();
 	}
@@ -72,23 +72,23 @@ class TestRelatedPosts extends BaseTestCase {
 			)
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
-		WPProbe\Features::factory()->activate_feature( 'related_posts' );
+		ElasticProbe\Features::factory()->activate_feature( 'related_posts' );
 
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->setup_features();
 
-		$related = WPProbe\Features::factory()->get_registered_feature( 'related_posts' )->find_related( $post_id );
+		$related = ElasticProbe\Features::factory()->get_registered_feature( 'related_posts' )->find_related( $post_id );
 		$this->assertEquals( 1, count( $related ) );
 		$this->assertTrue( isset( $related[0] ) && isset( $related[0]->elasticsearch ) );
 
 		add_filter( 'ep_find_related_args', array( $this, 'find_related_posts_filter' ), 10, 1 );
-		$related = WPProbe\Features::factory()->get_registered_feature( 'related_posts' )->find_related( $post_id );
+		$related = ElasticProbe\Features::factory()->get_registered_feature( 'related_posts' )->find_related( $post_id );
 		$this->assertEquals( 2, count( $related ) );
 		$this->assertTrue( isset( $related[0] ) && isset( $related[0]->elasticsearch ) );
 
 		// Make sure it will use the number of posts to be returned.
-		$related = WPProbe\Features::factory()->get_registered_feature( 'related_posts' )->find_related( $post_id, 1 );
+		$related = ElasticProbe\Features::factory()->get_registered_feature( 'related_posts' )->find_related( $post_id, 1 );
 		$this->assertEquals( 1, count( $related ) );
 		$this->assertTrue( isset( $related[0] ) && isset( $related[0]->elasticsearch ) );
 	}
@@ -109,11 +109,11 @@ class TestRelatedPosts extends BaseTestCase {
 			)
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
-		WPProbe\Features::factory()->activate_feature( 'related_posts' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Features::factory()->activate_feature( 'related_posts' );
+		ElasticProbe\Features::factory()->setup_features();
 
-		$query = WPProbe\Features::factory()->get_registered_feature( 'related_posts' )->get_related_query( $post_id, 1 );
+		$query = ElasticProbe\Features::factory()->get_registered_feature( 'related_posts' )->get_related_query( $post_id, 1 );
 
 		$this->assertTrue( $query->elasticsearch_success );
 		$this->assertNotEmpty( $query->posts );

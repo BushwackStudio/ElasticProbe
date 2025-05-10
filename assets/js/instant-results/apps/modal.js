@@ -97,7 +97,7 @@ export default () => {
 	useEffect(handleEvents, [onSubmit, search]);
 
 	return (
-		<Modal aria-label={__('Search results', 'wpprobe')} isOpen={isOn} onClose={onClose}>
+		<Modal aria-label={__('Search results', 'elasticprobe')} isOpen={isOn} onClose={onClose}>
 			<Layout />
 		</Modal>
 	);

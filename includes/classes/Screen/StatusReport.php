@@ -1,21 +1,21 @@
 <?php
 /**
- * WPProbe Status Report class
+ * ElasticProbe Status Report class
  *
  * @since 4.4.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Screen;
+namespace ElasticProbe\Screen;
 
-use WPProbe\Utils;
+use ElasticProbe\Utils;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Status Report class
  *
- * @package WPProbe
+ * @package ElasticProbe
  */
 class StatusReport {
 	/**
@@ -32,6 +32,7 @@ class StatusReport {
 	public function setup() {
 		add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );
 		add_action( 'admin_head', array( $this, 'admin_menu_count' ), 11 );
+		add_action( 'wp_ajax_ep_load_groups', array( $this, 'action_wp_ajax_ep_load_groups' ) );
 	}
 
 	/**
@@ -40,7 +41,7 @@ class StatusReport {
 	 * @return void
 	 */
 	public function admin_enqueue_scripts() {
-		if ( 'status-report' !== \WPProbe\Screen::factory()->get_current_screen() ) {
+		if ( 'status-report' !== \ElasticProbe\Screen::factory()->get_current_screen() ) {
 			return;
 		}
 
@@ -57,10 +58,9 @@ class StatusReport {
 		$plain_text_reports = [];
 
 		foreach ( $reports as $report ) {
-			$title  = $report['title'];
-			$groups = $report['groups'];
-
-			$plain_text_reports[] = $this->render_copy_paste_report( $title, $groups );
+			$title                = $report['title'];
+			$groups               = $report['groups'];
+			$plain_text_reports[] = $this->render_copy_paste_report( $title, $groups, $report['isAjaxReport'] );
 		}
 
 		$plain_text_report = implode( "\n\n", $plain_text_reports );
@@ -71,6 +71,7 @@ class StatusReport {
 			[
 				'plainTextReport' => $plain_text_report,
 				'reports'         => $reports,
+				'nonce'           => wp_create_nonce( 'ep-status-report-nonce' ),
 			]
 		);
 
@@ -83,6 +84,43 @@ class StatusReport {
 	}
 
 	/**
+	 * AJAX action to load an individual report group.
+	 *
+	 * @since 5.2.0
+	 *
+	 * @return void
+	 */
+	public function action_wp_ajax_ep_load_groups(): void {
+		if ( ! isset( $_POST['ep-status-report-nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ep-status-report-nonce'] ) ), 'ep-status-report-nonce' ) ) {
+			wp_send_json_error( [ 'message' => __( 'Nonce is not present.', 'elasticprobe' ) ], 403 );
+		}
+
+		if ( empty( $this->formatted_reports ) ) {
+			$this->formatted_reports = $this->get_reports();
+		}
+
+		$post = wp_unslash( $_POST );
+
+		if ( empty( $this->formatted_reports[ $post['report'] ] ) ) {
+			wp_send_json_error( [ 'message' => __( 'Status report not found.', 'elasticprobe' ) ], 404 );
+		}
+
+		$report = $this->formatted_reports[ $post['report'] ];
+
+		if ( ! $report instanceof \ElasticProbe\StatusReport\AjaxReport ) {
+			wp_send_json_error( [ 'message' => __( 'Report is not an AJAX report.', 'elasticprobe' ) ], 403 );
+		}
+
+		wp_send_json_success(
+			[
+				'groups'   => $report->get_groups_ajax(),
+				'messages' => $report->get_messages(),
+			],
+			200
+		);
+	}
+
+	/**
 	 * Return all reports available
 	 *
 	 * @return array
@@ -90,22 +128,22 @@ class StatusReport {
 	public function get_reports(): array {
 		$reports = [];
 
-		$query_logger = \WPProbe\get_container()->get( '\WPProbe\QueryLogger' );
+		$query_logger = \ElasticProbe\get_container()->get( '\ElasticProbe\QueryLogger' );
 
 		if ( $query_logger ) {
-			$reports['failed-queries'] = new \WPProbe\StatusReport\FailedQueries( $query_logger );
+			$reports['failed-queries'] = new \ElasticProbe\StatusReport\FailedQueries( $query_logger );
 		}
 
 		if ( Utils\is_epio() ) {
-			$reports['autosuggest'] = new \WPProbe\StatusReport\ElasticPressIo();
+			$reports['autosuggest'] = new \ElasticProbe\StatusReport\ElasticPressIo();
 		}
 
-		$reports['wordpress']    = new \WPProbe\StatusReport\WordPress();
-		$reports['indexable']    = new \WPProbe\StatusReport\IndexableContent();
-		$reports['elasticpress'] = new \WPProbe\StatusReport\ElasticPress();
-		$reports['indices']      = new \WPProbe\StatusReport\Indices();
-		$reports['last-sync']    = new \WPProbe\StatusReport\LastSync();
-		$reports['features']     = new \WPProbe\StatusReport\Features();
+		$reports['wordpress']    = new \ElasticProbe\StatusReport\WordPress();
+		$reports['indexable']    = new \ElasticProbe\StatusReport\IndexableContent();
+		$reports['elasticpress'] = new \ElasticProbe\StatusReport\ElasticPress();
+		$reports['indices']      = new \ElasticProbe\StatusReport\Indices();
+		$reports['last-sync']    = new \ElasticProbe\StatusReport\LastSync();
+		$reports['features']     = new \ElasticProbe\StatusReport\Features();
 
 		/**
 		 * Filter the reports executed in the Status Report page.
@@ -147,10 +185,11 @@ class StatusReport {
 			$this->formatted_reports = array_map(
 				function ( $report ) {
 					return [
-						'actions'  => $report->get_actions(),
-						'groups'   => $report->get_groups(),
-						'messages' => $report->get_messages(),
-						'title'    => $report->get_title(),
+						'actions'      => $report->get_actions(),
+						'groups'       => $report->get_groups(),
+						'messages'     => $report->get_messages(),
+						'title'        => $report->get_title(),
+						'isAjaxReport' => $report instanceof \ElasticProbe\StatusReport\AjaxReport,
 					];
 				},
 				$reports
@@ -164,10 +203,17 @@ class StatusReport {
 	 *
 	 * @param string $title  Report title
 	 * @param array  $groups Report groups
+	 * @param bool   $is_ajax_report Whether the report is an AJAX report
+	 *
 	 * @return string
 	 */
-	protected function render_copy_paste_report( string $title, array $groups ): string {
+	protected function render_copy_paste_report( string $title, array $groups, bool $is_ajax_report = false ): string {
 		$output = "## {$title} ##\n\n";
+
+		if ( $is_ajax_report ) {
+			$output .= $this->render_pending_generation();
+			return $output;
+		}
 
 		foreach ( $groups as $group ) {
 			$output .= "### {$group['title']} ###\n";
@@ -203,6 +249,15 @@ class StatusReport {
 	}
 
 	/**
+	 * Render a message when the report is pending generation
+	 *
+	 * @return string
+	 */
+	protected function render_pending_generation() {
+		return __( 'Please generate a full report to see the content of this group.', 'elasticprobe' );
+	}
+
+	/**
 	 * Display a badge in the admin menu if there's admin notices from
 	 * WPProbe.com.
 	 *
@@ -211,7 +266,7 @@ class StatusReport {
 	public function admin_menu_count() {
 		global $menu, $submenu;
 
-		$messages = \WPProbe\ElasticPressIo::factory()->get_endpoint_messages();
+		$messages = \ElasticProbe\ElasticPressIo::factory()->get_endpoint_messages();
 
 		if ( empty( $messages ) ) {
 			return;
@@ -220,12 +275,12 @@ class StatusReport {
 		$count = count( $messages );
 		$title = sprintf(
 			/* translators: %d: Number of messages. */
-			_n( '%s message from WPProbe.com', '%s messages from WPProbe.com', $count, 'wpprobe' ),
+			_n( '%s message from WPProbe.com', '%s messages from WPProbe.com', $count, 'elasticprobe' ),
 			$count
 		);
 
 		foreach ( $menu as $key => $value ) {
-			if ( 'elasticpress' === $value[2] ) {
+			if ( 'elasticprobe' === $value[2] ) {
 				$menu[ $key ][0] .= sprintf(
 					' <span class="update-plugins"><span aria-hidden="true">%1$s</span><span class="screen-reader-text">%2$s</span></span>',
 					esc_html( $count ),
@@ -234,13 +289,13 @@ class StatusReport {
 			}
 		}
 
-		if ( ! isset( $submenu['elasticpress'] ) ) {
+		if ( ! isset( $submenu['elasticprobe'] ) ) {
 			return;
 		}
 
-		foreach ( $submenu['elasticpress'] as $key => $value ) {
-			if ( 'wpprobe-status-report' === $value[2] ) {
-				$submenu['elasticpress'][ $key ][0] .= sprintf(
+		foreach ( $submenu['elasticprobe'] as $key => $value ) {
+			if ( 'elasticprobe-status-report' === $value[2] ) {
+				$submenu['elasticprobe'][ $key ][0] .= sprintf(
 					' <span class="menu-counter"><span aria-hidden="true">%1$s</span><span class="screen-reader-text">%2$s</span></span>',
 					esc_html( $count ),
 					esc_attr( $title )

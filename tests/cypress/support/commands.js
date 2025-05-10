@@ -150,7 +150,7 @@ Cypress.Commands.add('publishPost', (postData, viewPost) => {
 
 	if (newPostData.password && newPostData.password !== '') {
 		cy.get('@iframe').find('h1.editor-post-title__input').click();
-		if (wpVersion === '6.0') {
+		if (wpVersion === '6.2') {
 			cy.get('body').then(($body) => {
 				const $button = $body.find('.edit-post-post-visibility__toggle');
 				if (!$button.is(':visible')) {
@@ -192,6 +192,60 @@ Cypress.Commands.add('publishPost', (postData, viewPost) => {
 			cy.get('.post-publish-panel__postpublish-buttons a').contains('View Post').click();
 		}
 	}
+
+	/**
+	 * Give Elasticsearch some time to process the new post.
+	 *
+	 * @todo instead of waiting for an arbitrary time, we should ensure the post is stored.
+	 */
+	// eslint-disable-next-line cypress/no-unnecessary-waiting
+	cy.wait(2000);
+});
+
+Cypress.Commands.add('setPostPassword', (password) => {
+	cy.getBlockEditor().as('iframe');
+	cy.get('@iframe').find('h1.editor-post-title__input').click();
+
+	if (wpVersion === '6.2') {
+		cy.get('body').then(($body) => {
+			const $button = $body.find('.edit-post-post-visibility__toggle');
+			if (!$button.is(':visible')) {
+				cy.get('.edit-post-header__settings button[aria-label="Settings"]').click();
+			}
+		});
+		cy.get('.edit-post-post-visibility__toggle').click();
+		cy.get('.editor-post-visibility__dialog-radio, .editor-post-visibility__radio').check(
+			password !== '' ? 'password' : 'public',
+		);
+		if (password !== '') {
+			cy.get(
+				'.editor-post-visibility__dialog-password-input, .editor-post-visibility__password-input',
+			).clearThenType(password);
+		}
+	} else {
+		cy.get('body').then(($body) => {
+			const $button = $body.find('.components-dropdown.editor-post-status');
+			if (!$button.is(':visible')) {
+				cy.get('.editor-header__settings button[aria-label="Settings"]').click();
+			}
+		});
+		cy.get('.components-dropdown.editor-post-status').click();
+		cy.get('.editor-change-status__password-fieldset input[type="checkbox"]').then(($el) => {
+			if (
+				($el.is(':checked') && password === '') ||
+				(!$el.is(':checked') && password !== '')
+			) {
+				cy.wrap($el).click();
+			}
+		});
+		if (password !== '') {
+			cy.get('.editor-change-status__password-input input').type(password);
+		}
+	}
+
+	cy.get('.editor-post-publish-button').click();
+
+	cy.get('.components-snackbar').should('be.visible');
 
 	/**
 	 * Give Elasticsearch some time to process the new post.
@@ -265,11 +319,11 @@ Cypress.Commands.add('updateWeighting', (newWeightingValues = null) => {
 });
 
 Cypress.Commands.add('maybeEnableFeature', (featureName) => {
-	cy.wpCli(`wpprobe activate-feature ${featureName}`, true);
+	cy.wpCli(`elasticprobe activate-feature ${featureName}`, true);
 });
 
 Cypress.Commands.add('maybeDisableFeature', (featureName) => {
-	cy.wpCli(`wpprobe deactivate-feature ${featureName}`, true);
+	cy.wpCli(`elasticprobe deactivate-feature ${featureName}`, true);
 });
 
 Cypress.Commands.add('getTotal', (totalNumber) => {
@@ -296,7 +350,7 @@ Cypress.Commands.add('activatePlugin', (slug, method = 'dashboard', mode = 'sing
 		return;
 	}
 
-	const pluginSlug = slug.replace('elasticpress', Cypress.config('pluginName'));
+	const pluginSlug = slug.replace('elasticprobe', Cypress.config('pluginName'));
 	let command = `wp plugin activate ${pluginSlug}`;
 	if (mode === 'network') {
 		command += ' --network';
@@ -322,7 +376,7 @@ Cypress.Commands.add('deactivatePlugin', (slug, method = 'dashboard', mode = 'si
 		return;
 	}
 
-	const pluginSlug = slug.replace('elasticpress', Cypress.config('pluginName'));
+	const pluginSlug = slug.replace('elasticprobe', Cypress.config('pluginName'));
 	let command = `wp plugin deactivate ${pluginSlug}`;
 	if (mode === 'network') {
 		command += ' --network';
@@ -505,7 +559,7 @@ Cypress.Commands.add('setPerIndexCycle', (number = 350) => {
 Cypress.Commands.add('refreshIndex', (indexable) => {
 	cy.wpCliEval(
 		`
-		$index = \\WPProbe\\Indexables::factory()->get( "${indexable}" )->get_index_name();
-		WP_CLI::runcommand("wpprobe request {$index}/_refresh --method=POST");`,
+		$index = \\ElasticProbe\\Indexables::factory()->get( "${indexable}" )->get_index_name();
+		WP_CLI::runcommand("elasticprobe request {$index}/_refresh --method=POST");`,
 	);
 });

@@ -1,4 +1,4 @@
-name: Unit Tests
+name: Local ES Unit Tests
 
 env:
   COMPOSER_VERSION: "2"
@@ -41,7 +41,7 @@ jobs:
     - name: Check ES response
       run: curl --connect-timeout 5 --max-time 10 --retry 5 --retry-max-time 40 --retry-all-errors http://127.0.0.1:8890
 
-    - name: Set standard WPProbe cache directories
+    - name: Set standard ElasticProbe cache directories
       run: |
         composer config -g cache-dir "${{ env.COMPOSER_CACHE }}"
 

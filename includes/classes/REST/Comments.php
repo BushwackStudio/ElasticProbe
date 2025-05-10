@@ -3,19 +3,19 @@
  * Comments REST API Controller
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\REST;
+namespace ElasticProbe\REST;
 
-use WPProbe\Features;
-use WPProbe\Indexables;
+use ElasticProbe\Features;
+use ElasticProbe\Indexables;
 
 /**
  * Comments API controller class.
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 class Comments {
 
@@ -49,12 +49,12 @@ class Comments {
 		return [
 			'post_type' => [
 				'default'     => '',
-				'description' => __( 'Post type of the posts whose comments to search.', 'wpprobe' ),
+				'description' => __( 'Post type of the posts whose comments to search.', 'elasticprobe' ),
 				'enum'        => $post_types,
 				'required'    => false,
 			],
 			's'         => [
-				'description'       => __( 'Search query.', 'wpprobe' ),
+				'description'       => __( 'Search query.', 'elasticprobe' ),
 				'required'          => true,
 				'type'              => 'string',
 				'validate_callback' => fn( $param ) => ! empty( $param ),

@@ -2,13 +2,13 @@
 /**
  * SyncManager common functionality
  *
- * @package  wpprobe
+ * @package  elasticprobe
  * @since  3.0
  */
 
-namespace WPProbe;
+namespace ElasticProbe;
 
-use WPProbe\Utils;
+use ElasticProbe\Utils;
 
 /**
  * Abstract sync manager class to be extended for each indexable

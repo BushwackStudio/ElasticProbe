@@ -1,19 +1,19 @@
 <?php
 /**
- * Weighting dashboard for WPProbe
+ * Weighting dashboard for ElasticProbe
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Feature\Search;
+namespace ElasticProbe\Feature\Search;
 
-use WPProbe\Features;
-use WPProbe\Utils;
+use ElasticProbe\Features;
+use ElasticProbe\Utils;
 
 /**
  * Controls search weighting and search fields dashboard
  *
- * @package WPProbe\Feature\Search
+ * @package ElasticProbe\Feature\Search
  */
 class Weighting {
 
@@ -49,7 +49,7 @@ class Weighting {
 	public function get_weightable_fields_for_post_type( $post_type ) {
 		$fields = array(
 			'attributes' => array(
-				'label'    => __( 'Attributes', 'wpprobe' ),
+				'label'    => __( 'Attributes', 'elasticprobe' ),
 				'children' => array(
 					'post_title'   => array(
 						'key'   => 'post_title',
@@ -83,7 +83,7 @@ class Weighting {
 
 		if ( ! empty( $taxonomies ) ) {
 			$fields['taxonomies'] = [
-				'label'    => __( 'Taxonomies', 'wpprobe' ),
+				'label'    => __( 'Taxonomies', 'elasticprobe' ),
 				'children' => [],
 			];
 
@@ -321,13 +321,13 @@ class Weighting {
 	 */
 	public function add_weighting_submenu_page() {
 		$menu_slug = ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK && ! Utils\is_top_level_admin_context() ) ?
-			'wpprobe' :
-			'wpprobe-weighting';
+			'elasticprobe' :
+			'elasticprobe-weighting';
 
 		add_submenu_page(
-			'wpprobe',
-			esc_html__( 'WPProbe Search Fields & Weighting', 'wpprobe' ),
-			esc_html__( 'Search Fields & Weighting', 'wpprobe' ),
+			'elasticprobe',
+			esc_html__( 'ElasticProbe Search Fields & Weighting', 'elasticprobe' ),
+			esc_html__( 'Search Fields & Weighting', 'elasticprobe' ),
 			Utils\get_capability(),
 			$menu_slug,
 			[ $this, 'render_settings_page' ]
@@ -358,7 +358,7 @@ class Weighting {
 		_doing_it_wrong(
 			__METHOD__,
 			esc_html( 'Weighting sections display are now handled via React components.' ),
-			'WPProbe 5.0.0'
+			'ElasticProbe 0.1.0'
 		);
 	}
 
@@ -372,7 +372,7 @@ class Weighting {
 		_doing_it_wrong(
 			__METHOD__,
 			esc_html( 'Weighting settings are now updated using the REST API.' ),
-			'WPProbe 5.0.0'
+			'ElasticProbe 5.0.0'
 		);
 	}
 
@@ -386,7 +386,7 @@ class Weighting {
 		_doing_it_wrong(
 			__METHOD__,
 			esc_html( 'Weighting settings are now updated using the REST API, and do not redirect server-side.' ),
-			'WPProbe 0.1.0'
+			'ElasticProbe 0.1.0'
 		);
 	}
 
@@ -402,7 +402,7 @@ class Weighting {
 		_doing_it_wrong(
 			__METHOD__,
 			esc_html( 'Weighting sections display are now handled via React components.' ),
-			'WPProbe 0.1.0'
+			'ElasticProbe 0.1.0'
 		);
 	}
 

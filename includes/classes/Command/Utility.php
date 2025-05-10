@@ -1,12 +1,12 @@
 <?php
 /**
- * WPProbe CLI Utility
+ * ElasticProbe CLI Utility
  *
  * @since 4.5.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Command;
+namespace ElasticProbe\Command;
 
 use WP_CLI;
 
@@ -34,7 +34,7 @@ class Utility {
 	public static function delete_transient_on_int( $signal_no ) {
 		if ( SIGINT === $signal_no ) {
 			self::delete_transient();
-			WP_CLI::log( esc_html__( 'Indexing cleaned up.', 'wpprobe' ) );
+			WP_CLI::log( esc_html__( 'Indexing cleaned up.', 'elasticprobe' ) );
 			WP_CLI::halt( 0 );
 		}
 	}
@@ -43,7 +43,7 @@ class Utility {
 	 * Delete transient that indicates indexing is occurring
 	 */
 	public static function delete_transient() {
-		\WPProbe\IndexHelper::factory()->clear_index_meta();
+		\ElasticProbe\IndexHelper::factory()->clear_index_meta();
 
 		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
 			delete_site_transient( 'ep_cli_sync_progress' );
@@ -62,7 +62,7 @@ class Utility {
 	 */
 	public static function timer_stop( $precision = 3 ) {
 		$diff = microtime( true ) - self::$time_start;
-		return (float) number_format( (float) $diff, $precision );
+		return (float) number_format( (float) $diff, $precision, '.', '' );
 	}
 
 	/**
@@ -82,7 +82,7 @@ class Utility {
 		$should_interrupt_sync = get_transient( 'ep_wpcli_sync_interrupted' );
 
 		if ( $should_interrupt_sync ) {
-			WP_CLI::line( esc_html__( 'Sync was interrupted', 'wpprobe' ) );
+			WP_CLI::line( esc_html__( 'Sync was interrupted', 'elasticprobe' ) );
 			self::delete_transient_on_int( 2 );
 			WP_CLI::halt( 0 );
 		}
@@ -111,7 +111,7 @@ class Utility {
 		if ( ! $result ) {
 			self::delete_transient();
 
-			WP_CLI::error( esc_html__( 'Mapping Failed.', 'wpprobe' ) );
+			WP_CLI::error( esc_html__( 'Mapping Failed.', 'elasticprobe' ) );
 		}
 	}
 

@@ -29,7 +29,7 @@ jobs:
         esVersion: ['7.10.1', '8.12.2']
         core:
           - {name: 'WP latest', version: '', wcVersion: ''}
-          - {name: 'WP minimum', version: '6.0', wcVersion: '6.4.0'}
+          - {name: 'WP minimum', version: '6.2', wcVersion: '6.4.0'}
 
     steps:
     - name: Checkout
@@ -79,7 +79,7 @@ jobs:
       run: npm run build
 
     - name: Set up database
-      run: npm run cypress:setup -- --wp-version=${{ matrix.core.version }} --wc-version=${{ matrix.core.wcVersion }}
+      run: npm run cypress:setup -- --wp-version=${{ matrix.core.version }} --wc-version=${{ matrix.core.wcVersion }} --acf-pro-license='${{ secrets.ACF_PRO_LICENSE_KEY }}'
 
     - name: Test
       run: npm run cypress:run -- --env grepTags=${{ matrix.testGroup }}
@@ -108,7 +108,7 @@ jobs:
         ./bin/wp-env-cli tests-wordpress "cp -r wp-content/plugins/${PLUGIN_NAME} wp-content/plugins/ep-delete"
         ./bin/wp-env-cli tests-wordpress "wp --allow-root plugin uninstall ep-delete"
 
-  cypress_wpprobe:
+  cypress_elasticprobe:
     name: WPProbe.com - ${{ matrix.core.name }} (${{ matrix.testGroup }})
     runs-on: ubuntu-latest
     strategy:
@@ -117,7 +117,7 @@ jobs:
         testGroup: ['@slow', '-@slow']
         core:
           - {name: 'WP latest', version: '', wcVersion: ''}
-          - {name: 'WP minimum', version: '6.0', wcVersion: '6.4.0'}
+          - {name: 'WP minimum', version: '6.2', wcVersion: '6.4.0'}
 
     steps:
     - name: Checkout
@@ -166,7 +166,7 @@ jobs:
       run: npm run build
 
     - name: Set up database
-      run: npm run cypress:setup -- --ep-host=${{ secrets.WPPROBE_HOST }} --es-shield='${{ secrets.WPPROBE_SHIELD }}' --ep-index-prefix=${{ secrets.WPPROBE_INDEX_PREFIX }} --probe-sid=${{ secrets.WPPROBE_SID }} --wp-version=${{ matrix.core.version }} --wc-version=${{ matrix.core.wcVersion }}
+      run: npm run cypress:setup -- --ep-host=${{ secrets.WPPROBE_HOST }} --es-shield='${{ secrets.WPPROBE_SHIELD }}' --ep-index-prefix=${{ secrets.WPPROBE_INDEX_PREFIX }} --probe-sid=${{ secrets.WPPROBE_SID }} --wp-version=${{ matrix.core.version }} --wc-version=${{ matrix.core.wcVersion }} --acf-pro-license='${{ secrets.ACF_PRO_LICENSE_KEY }}'
 
     - name: Test
       run: npm run cypress:run -- --env grepTags=${{ matrix.testGroup }}
@@ -187,7 +187,7 @@ jobs:
       run: |
         PLUGIN_NAME=$(basename "$PWD")
         ./bin/wp-env-cli tests-wordpress "wp --allow-root plugin activate ${PLUGIN_NAME} --network"
-        ./bin/wp-env-cli tests-wordpress "wp --allow-root wpprobe-tests delete-all-indices"
+        ./bin/wp-env-cli tests-wordpress "wp --allow-root elasticprobe-tests delete-all-indices"
 
     - name: Test plugin uninstall
       if: always()

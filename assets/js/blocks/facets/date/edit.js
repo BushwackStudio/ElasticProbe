@@ -20,9 +20,9 @@ const FacetDate = (props) => {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={__('Settings', 'wpprobe')}>
+				<PanelBody title={__('Settings', 'elasticprobe')}>
 					<ToggleControl
-						label={__('Display custom date option', 'wpprobe')}
+						label={__('Display custom date option', 'elasticprobe')}
 						checked={displayCustomDate}
 						onChange={(displayCustomDate) => setAttributes({ displayCustomDate })}
 						__nextHasNoMarginBottom

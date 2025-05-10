@@ -1,14 +1,14 @@
 <?php
 /**
- * Template for WPProbe dashboard page
+ * Template for ElasticProbe dashboard page
  *
  * @since  2.1
- * @package wpprobe
+ * @package elasticprobe
  */
 
-use WPProbe\Elasticsearch;
-use WPProbe\Features;
-use WPProbe\IndexHelper;
+use ElasticProbe\Elasticsearch;
+use ElasticProbe\Features;
+use ElasticProbe\IndexHelper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.

@@ -3,10 +3,10 @@
  * Abstract Facet Block class.
  *
  * @since 4.7.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Feature\Facets;
+namespace ElasticProbe\Feature\Facets;
 
 /**
  * Abstract Facet Block class.

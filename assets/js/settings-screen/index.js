@@ -15,7 +15,7 @@ const Context = createContext();
 const { Fill, Slot } = createSlotFill('SettingsPageAction');
 
 /**
- * WPProbe Settings Screen provider component.
+ * ElasticProbe Settings Screen provider component.
  *
  * @param {object} props Component props.
  * @param {WPElement} props.children Component children.

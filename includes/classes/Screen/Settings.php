@@ -3,13 +3,13 @@
  * Settings screen.
  *
  * @since 5.0.0
- * @package WPProbe
+ * @package ElasticProbe
  */
 
-namespace WPProbe\Screen;
+namespace ElasticProbe\Screen;
 
-use WPProbe\Screen;
-use WPProbe\Utils;
+use ElasticProbe\Screen;
+use ElasticProbe\Utils;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -69,7 +69,7 @@ class Settings {
 			true
 		);
 
-		wp_set_script_translations( 'ep_settings_scripts', 'wpprobe' );
+		wp_set_script_translations( 'ep_settings_scripts', 'elasticprobe' );
 	}
 
 	/**
@@ -99,13 +99,13 @@ class Settings {
 
 		if ( isset( $post['sid'] ) ) {
 			$sid = sanitize_text_field( trim( $post['sid'] ) );
-			Utils\update_option( 'wpprobe_subscription_id', $sid );
+			Utils\update_option( 'elasticprobe_subscription_id', $sid );
 		}
 
 		if ( isset( $post['ep_credentials'] ) ) {
 			$credentials = ( isset( $post['ep_credentials'] ) ) ? Utils\sanitize_credentials( $post['ep_credentials'] ) : [
 				'username' => '',
-				// 'token'    => '',
+				'token'    => '',
 			];
 
 			Utils\update_option( 'ep_credentials', $credentials );
@@ -115,7 +115,7 @@ class Settings {
 			Utils\update_option( 'ep_bulk_setting', $this->sanitize_bulk_settings( $post['ep_bulk_setting'] ) );
 		}
 
-		$es_info = \WPProbe\Elasticsearch::factory()->get_elasticsearch_info( true );
+		$es_info = \ElasticProbe\Elasticsearch::factory()->get_elasticsearch_info( true );
 		if ( empty( $es_info['version'] ) ) {
 			add_action( 'admin_notices', [ $this, 'add_validation_notice' ] );
 
@@ -129,20 +129,20 @@ class Settings {
 	 */
 	public function add_validation_notice() {
 		$target = ( Utils\is_epio() ) ?
-			_x( 'WPProbe.com account', 'Settings validation message', 'wpprobe' ) :
-			_x( 'Elasticsearch server', 'Settings validation message', 'wpprobe' );
+			_x( 'WPProbe.com account', 'Settings validation message', 'elasticprobe' ) :
+			_x( 'Elasticsearch server', 'Settings validation message', 'elasticprobe' );
 
 		if ( empty( $this->prev_ep_host ) ) {
 			// Setting it for the first time -- probably during the install process.
 			$message = sprintf(
-				/* translators: EP.io account or ES server. */
-				__( 'It was not possible to connect to your %s. Please check your settings and try again.', 'wpprobe' ),
+				/* translators: WPProbe.com account or ES server. */
+				__( 'It was not possible to connect to your %s. Please check your settings and try again.', 'elasticprobe' ),
 				$target
 			);
 		} else {
 			$message = sprintf(
-				/* translators: EP.io account or ES server. */
-				__( 'It was not possible to connect to your %s. Your settings were reverted.', 'wpprobe' ),
+				/* translators: WPProbe.com account or ES server. */
+				__( 'It was not possible to connect to your %s. Your settings were reverted.', 'elasticprobe' ),
 				$target
 			);
 		}
@@ -176,6 +176,6 @@ class Settings {
 		Utils\update_option( 'ep_credentials', $this->prev_ep_credentials );
 		Utils\update_option( 'ep_bulk_setting', $this->prev_ep_bulk_setting );
 
-		\WPProbe\Elasticsearch::factory()->get_elasticsearch_info( true );
+		\ElasticProbe\Elasticsearch::factory()->get_elasticsearch_info( true );
 	}
 }

@@ -49,11 +49,12 @@ export default () => {
 		<div className="ep-sync-advanced-control">
 			<FormTokenField
 				disabled={isSyncing}
-				label={__('Object IDs', 'wpprobe')}
+				label={__('Object IDs', 'elasticprobe')}
 				onChange={onChange}
 				saveTransform={saveTransform}
 				value={args.include}
 				__nextHasNoMarginBottom
+				__next40pxDefaultSize
 			/>
 		</div>
 	);

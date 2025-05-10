@@ -86,23 +86,25 @@ export default ({ attributes, name, setAttributes }) => {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={__('Settings', 'wpprobe')}>
+				<PanelBody title={__('Settings', 'elasticprobe')}>
 					<FacetMetaControl onChange={onChangeFacet} value={facet} />
 					<Flex>
 						<FlexItem>
 							<TextControl
-								label={__('Value prefix', 'wpprobe')}
+								label={__('Value prefix', 'elasticprobe')}
 								onChange={onChangePrefix}
 								value={prefix}
 								__nextHasNoMarginBottom
+								__next40pxDefaultSize
 							/>
 						</FlexItem>
 						<FlexItem>
 							<TextControl
-								label={__('Value suffix', 'wpprobe')}
+								label={__('Value suffix', 'elasticprobe')}
 								onChange={onChangeSuffix}
 								value={suffix}
 								__nextHasNoMarginBottom
+								__next40pxDefaultSize
 							/>
 						</FlexItem>
 					</Flex>
@@ -128,7 +130,7 @@ export default ({ attributes, name, setAttributes }) => {
 								/* translators: %s: Field name. */
 								__(
 									'Preview unavailable. The "%s" field does not appear to contain numeric values. Select a new meta field key or populate the field with numeric values to enable filtering by range.',
-									'wpprobe',
+									'elasticprobe',
 								),
 								facet,
 							)}

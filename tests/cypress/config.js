@@ -45,7 +45,7 @@ module.exports = defineConfig({
 				}
 			}
 
-			// Account for WPProbe and wpprobe usages.
+			// Account for ElasticProbe and elasticprobe usages.
 			config.pluginName = path.resolve(`${process.cwd()}../../../`).split('/').pop();
 
 			return config;

@@ -3,19 +3,19 @@
  * Meta Keys REST API Controller
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\REST;
+namespace ElasticProbe\REST;
 
-use WPProbe\Features;
-use WPProbe\Indexables;
+use ElasticProbe\Features;
+use ElasticProbe\Indexables;
 
 /**
  * Meta Keys API controller class.
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 class MetaKeys {
 

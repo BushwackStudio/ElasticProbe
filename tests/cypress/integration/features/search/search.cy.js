@@ -1,7 +1,7 @@
 // eslint-disable-next-line jest/valid-describe-callback
 describe('Post Search Feature', { tags: '@slow' }, () => {
 	before(() => {
-		cy.wpCli('wpprobe sync --setup --yes');
+		cy.wpCli('elasticprobe sync --setup --yes');
 	});
 
 	it('Can use Elasticsearch for the default WP search', () => {
@@ -10,7 +10,7 @@ describe('Post Search Feature', { tags: '@slow' }, () => {
 		cy.visit('/?s=test');
 
 		// eslint-disable-next-line jest/valid-expect-in-promise
-		cy.get('#debug-menu-target-EP_Debug_Bar_ElasticPress')
+		cy.get('#debug-menu-target-EP_Debug_Bar_ElasticProbe')
 			.invoke('text')
 			.then((debugText) => {
 				expect(debugText).to.contain('Query Response Code: HTTP 200');
@@ -25,11 +25,11 @@ describe('Post Search Feature', { tags: '@slow' }, () => {
 		const postsData = [
 			{
 				title: 'Higher',
-				content: 'Bushwack loves wpprobe',
+				content: 'Bushwack loves elasticprobe',
 			},
 			{
 				title: 'Lower',
-				content: 'wpprobe loves Bushwack',
+				content: 'elasticprobe loves Bushwack',
 			},
 		];
 
@@ -37,7 +37,7 @@ describe('Post Search Feature', { tags: '@slow' }, () => {
 			cy.publishPost(postData);
 		});
 
-		cy.visit('/?s=bushwack+loves+wpprobe');
+		cy.visit('/?s=bushwack+loves+elasticprobe');
 		cy.contains('.site-content article:nth-of-type(1) h2', 'Higher').should('exist');
 		cy.contains('.site-content article h2', 'Lower').should('exist');
 	});
@@ -108,7 +108,7 @@ describe('Post Search Feature', { tags: '@slow' }, () => {
 	it('Can see highlighted text', () => {
 		cy.login();
 
-		cy.visitAdminPage('admin.php?page=wpprobe');
+		cy.visitAdminPage('admin.php?page=elasticprobe');
 		cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
 
 		cy.contains('button', 'Post Search').click();

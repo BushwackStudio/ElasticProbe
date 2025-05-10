@@ -40,12 +40,12 @@ export default ({ defaultIsOpen, label, postTypes, name }) => {
 	const uniqueLabel = useMemo(() => {
 		const isNotUnique = facets.some((facet) => facet.label === label && facet.name !== name);
 		const typeLabels = postTypes.map((postType) => postTypeLabels[postType].plural);
-		const typeSeparator = __(', ', 'wpprobe');
+		const typeSeparator = __(', ', 'elasticprobe');
 
 		return isNotUnique
 			? sprintf(
 					/* translators: %1$s: Facet label. $2$s: Facet post types. */
-					__('%1$s (%2$s)', 'wpprobe'),
+					__('%1$s (%2$s)', 'elasticprobe'),
 					label,
 					typeLabels.join(typeSeparator),
 				)
@@ -153,7 +153,7 @@ export default ({ defaultIsOpen, label, postTypes, name }) => {
 								disabled={isLoading}
 								label={sprintf(
 									/* translators: %s: Taxonomy name. */
-									__('Select %s', 'wpprobe'),
+									__('Select %s', 'elasticprobe'),
 									label,
 								)}
 								options={options}

@@ -20,7 +20,7 @@ const Context = createContext();
 /**
  * Feature settings provider.
  *
- * Provides data and methods for interacting with WPProbe feature
+ * Provides data and methods for interacting with ElasticProbe feature
  * settings.
  *
  * @param {object} props Component props.
@@ -63,7 +63,18 @@ export const FeatureSettingsProvider = ({
 	/**
 	 * Whether the settings have changes.
 	 */
-	const isModified = useMemo(() => !isEqual(settings, savedSettings), [settings, savedSettings]);
+	const isModified = useMemo(() => {
+		// The force_inactive attribute is something that is not controlled via UI, so we remove it before comparing things.
+		const deleteForceInactive = (settings) => {
+			Object.keys(settings).forEach((feature) => {
+				delete settings[feature].force_inactive;
+			});
+		};
+		deleteForceInactive(settings);
+		deleteForceInactive(savedSettings);
+
+		return !isEqual(settings, savedSettings);
+	}, [settings, savedSettings]);
 
 	/**
 	 * Return whether a setting change will require a sync, based on the

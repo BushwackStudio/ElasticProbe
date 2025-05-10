@@ -18,7 +18,7 @@ const init = () => {
 	const notices = document.querySelectorAll('.notice[data-ep-notice]');
 
 	/**
-	 * Handle clicking in an WPProbe notice.
+	 * Handle clicking in an ElasticProbe notice.
 	 *
 	 * If the click target is the dismiss button send an AJAX request to remember
 	 * the dismissal.

@@ -3,18 +3,18 @@
  * Comments feature
  *
  * @since   3.6.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Feature\Comments;
+namespace ElasticProbe\Feature\Comments;
 
-use WPProbe\Feature;
-use WPProbe\FeatureRequirementsStatus;
-use WPProbe\Features;
-use WPProbe\Indexable;
-use WPProbe\Indexables;
-use WPProbe\Utils;
-use WPProbe\REST;
+use ElasticProbe\Feature;
+use ElasticProbe\FeatureRequirementsStatus;
+use ElasticProbe\Features;
+use ElasticProbe\Indexable;
+use ElasticProbe\Indexables;
+use ElasticProbe\Utils;
+use ElasticProbe\REST;
 
 /**
  * Comments feature class
@@ -50,11 +50,11 @@ class Comments extends Feature {
 	 * @since 5.2.0
 	 */
 	public function set_i18n_strings(): void {
-		$this->title = esc_html__( 'Comments', 'wpprobe' );
+		$this->title = esc_html__( 'Comments', 'elasticprobe' );
 
-		$this->summary = '<p>' . __( 'This feature will empower your website to overcome traditional WordPress comment search and query limitations that can present themselves at scale. This feature is only needed if you are using <code>WP_Comment_Query</code> directly.', 'wpprobe' ) . '</p>';
+		$this->summary = '<p>' . __( 'This feature will empower your website to overcome traditional WordPress comment search and query limitations that can present themselves at scale. This feature is only needed if you are using <code>WP_Comment_Query</code> directly.', 'elasticprobe' ) . '</p>';
 
-		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#comments', 'wpprobe' );
+		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#comments', 'elasticprobe' );
 	}
 
 	/**
@@ -110,7 +110,7 @@ class Comments extends Feature {
 	 */
 	public function output_feature_box_long() {
 		?>
-		<p><?php esc_html_e( 'This feature will empower your website to overcome traditional WordPress comment search and query limitations that can present themselves at scale.', 'wpprobe' ); ?></p>
+		<p><?php esc_html_e( 'This feature will empower your website to overcome traditional WordPress comment search and query limitations that can present themselves at scale.', 'elasticprobe' ); ?></p>
 		<?php
 	}
 
@@ -208,7 +208,7 @@ class Comments extends Feature {
 			true
 		);
 
-		wp_set_script_translations( 'elasticpress-comments', 'wpprobe' );
+		wp_set_script_translations( 'elasticpress-comments', 'elasticprobe' );
 
 		wp_register_style(
 			'elasticpress-comments',
@@ -218,7 +218,7 @@ class Comments extends Feature {
 		);
 
 		$default_script_data = [
-			'noResultsFoundText'    => esc_html__( 'We could not find any results', 'wpprobe' ),
+			'noResultsFoundText'    => esc_html__( 'We could not find any results', 'elasticprobe' ),
 			'minimumLengthToSearch' => 2,
 			'restApiEndpoint'       => get_rest_url( null, 'elasticpress/v1/comments' ),
 		];
@@ -259,7 +259,7 @@ class Comments extends Feature {
 			true
 		);
 
-		wp_set_script_translations( 'elasticpress-comments-editor-script', 'wpprobe' );
+		wp_set_script_translations( 'elasticpress-comments-editor-script', 'elasticprobe' );
 
 		wp_localize_script(
 			'elasticpress-comments-editor-script',

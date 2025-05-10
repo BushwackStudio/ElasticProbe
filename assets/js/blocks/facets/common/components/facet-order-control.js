@@ -25,18 +25,26 @@ export default ({ onChange, orderby, order }) => {
 			value: 'count/asc',
 		},
 		{
-			label: _x('A → Z', 'label for ordering posts by title in ascending order', 'wpprobe'),
+			label: _x(
+				'A → Z',
+				'label for ordering posts by title in ascending order',
+				'elasticprobe',
+			),
 			value: 'name/asc',
 		},
 		{
-			label: _x('Z → A', 'label for ordering posts by title in descending order', 'wpprobe'),
+			label: _x(
+				'Z → A',
+				'label for ordering posts by title in descending order',
+				'elasticprobe',
+			),
 			value: 'name/desc',
 		},
 	];
 
 	return (
 		<SelectControl
-			label={__('Order by', 'wpprobe')}
+			label={__('Order by', 'elasticprobe')}
 			onChange={(value) => {
 				const [orderby, order] = value.split('/');
 
@@ -45,6 +53,7 @@ export default ({ onChange, orderby, order }) => {
 			options={options}
 			value={`${orderby}/${order}`}
 			__nextHasNoMarginBottom
+			__next40pxDefaultSize
 		/>
 	);
 };

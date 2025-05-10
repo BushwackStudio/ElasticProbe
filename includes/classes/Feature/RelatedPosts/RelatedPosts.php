@@ -1,18 +1,18 @@
 <?php
 /**
- * WPProbe related posts feature
+ * ElasticProbe related posts feature
  *
  * @since  2.1
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Feature\RelatedPosts;
+namespace ElasticProbe\Feature\RelatedPosts;
 
 use WP_Query;
-use WPProbe\Elasticsearch;
-use WPProbe\Feature;
-use WPProbe\REST;
-use WPProbe\Utils;
+use ElasticProbe\Elasticsearch;
+use ElasticProbe\Feature;
+use ElasticProbe\REST;
+use ElasticProbe\Utils;
 
 /**
  * Related posts feature class
@@ -38,11 +38,11 @@ class RelatedPosts extends Feature {
 	 * @since 5.2.0
 	 */
 	public function set_i18n_strings(): void {
-		$this->title = esc_html__( 'Related Posts', 'wpprobe' );
+		$this->title = esc_html__( 'Related Posts', 'elasticprobe' );
 
-		$this->summary = '<p>' . __( 'Instantly deliver engaging and precise related content with no impact on site performance. Output related content using our block or directly in your theme using our <a href="https://www.elasticpress.io/documentation/article/related-posts-api/">API functions</a>.', 'wpprobe' ) . '</p>';
+		$this->summary = '<p>' . __( 'Instantly deliver engaging and precise related content with no impact on site performance. Output related content using our block or directly in your theme using our <a href="https://www.elasticpress.io/documentation/article/related-posts-api/">API functions</a>.', 'elasticprobe' ) . '</p>';
 
-		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#related-posts', 'wpprobe' );
+		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#related-posts', 'elasticprobe' );
 	}
 
 	/**
@@ -207,7 +207,7 @@ class RelatedPosts extends Feature {
 			true
 		);
 
-		wp_set_script_translations( 'ep-related-posts-block-script', 'wpprobe' );
+		wp_set_script_translations( 'ep-related-posts-block-script', 'elasticprobe' );
 
 		register_block_type_from_metadata(
 			EP_PATH . 'assets/js/blocks/related-posts',
@@ -291,7 +291,7 @@ class RelatedPosts extends Feature {
 	 */
 	public function output_feature_box_long() {
 		?>
-		<p><?php echo wp_kses_post( __( 'Output related content using our Widget or directly in your theme using our <a href="https://www.elasticpress.io/documentation/article/related-posts-api/">API functions.</a>', 'wpprobe' ) ); ?></p>
+		<p><?php echo wp_kses_post( __( 'Output related content using our Widget or directly in your theme using our <a href="https://www.elasticpress.io/documentation/article/related-posts-api/">API functions.</a>', 'elasticprobe' ) ); ?></p>
 		<?php
 	}
 }

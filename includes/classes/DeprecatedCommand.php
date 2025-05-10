@@ -1,12 +1,12 @@
 <?php
 /**
- * WP-CLI deprecated commands for WPProbe
+ * WP-CLI deprecated commands for ElasticProbe
  *
  * @since  4.4.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe;
+namespace ElasticProbe;
 
 use WP_CLI;
 
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Deprecated CLI Commands for WPProbe
+ * Deprecated CLI Commands for ElasticProbe
  */
 trait DeprecatedCommand {
 
@@ -35,15 +35,15 @@ trait DeprecatedCommand {
 	 * @since      3.2, `--pretty` introduced in 4.1.0
 	 * @param array $args Positional CLI args.
 	 * @param array $assoc_args Associative CLI args.
-	 * @deprecated 4.4.0
+	 * @deprecated 0.1.0
 	 * @see Command\get_indices()
 	 */
 	public function get_indexes( $args, $assoc_args ) {
-		_deprecated_function( 'get-indexes', '4.4.0', 'get-indices' );
+		_deprecated_function( 'get-indexes', '0.1.0', 'get-indices' );
 		WP_CLI::warning(
 			sprintf(
 				/* translators: New command name */
-				esc_html__( 'This command is deprecated. Please use %s instead.', 'wpprobe' ),
+				esc_html__( 'This command is deprecated. Please use %s instead.', 'elasticprobe' ),
 				'get-indices'
 			)
 		);
@@ -64,15 +64,15 @@ trait DeprecatedCommand {
 	 * @since      3.2, `--pretty` introduced in 4.1.0
 	 * @param array $args Positional CLI args.
 	 * @param array $assoc_args Associative CLI args.
-	 * @deprecated 4.4.0
+	 * @deprecated 0.1.0
 	 * @see Command\get_cluster_indices()
 	 */
 	public function get_cluster_indexes( $args, $assoc_args ) {
-		_deprecated_function( 'get-cluster-indexes', '4.4.0', 'get-cluster-indices' );
+		_deprecated_function( 'get-cluster-indexes', '0.1.0', 'get-cluster-indices' );
 		WP_CLI::warning(
 			sprintf(
 				/* translators: New command name */
-				esc_html__( 'This command is deprecated. Please use %s instead.', 'wpprobe' ),
+				esc_html__( 'This command is deprecated. Please use %s instead.', 'elasticprobe' ),
 				'get-cluster-indices'
 			)
 		);
@@ -135,7 +135,7 @@ trait DeprecatedCommand {
 	 * : Custom Elasticsearch host
 	 *
 	 * [--ep-prefix=<prefix>]
-	 * : Custom WPProbe prefix
+	 * : Custom ElasticProbe prefix
 	 *
 	 * [--yes]
 	 * : Skip confirmation needed by `--setup`
@@ -143,15 +143,15 @@ trait DeprecatedCommand {
 	 * @param array $args Positional CLI args.
 	 * @since 0.1.2
 	 * @param array $assoc_args Associative CLI args.
-	 * @deprecated 4.4.0
+	 * @deprecated 0.1.0
 	 * @see Command\sync()
 	 */
 	public function index( $args, $assoc_args ) {
-		_deprecated_function( 'index', '4.4.0', 'sync' );
+		_deprecated_function( 'index', '0.1.0', 'sync' );
 		WP_CLI::warning(
 			sprintf(
 				/* translators: New command name */
-				esc_html__( 'This command is deprecated. Please use %s instead.', 'wpprobe' ),
+				esc_html__( 'This command is deprecated. Please use %s instead.', 'elasticprobe' ),
 				'sync'
 			)
 		);
@@ -169,15 +169,15 @@ trait DeprecatedCommand {
 	 * @param array $args Positional CLI args.
 	 * @param array $assoc_args Associative CLI args.
 	 * @since      3.4
-	 * @deprecated 4.4.0
+	 * @deprecated 0.1.0
 	 * @see Command\clear_sync()
 	 */
 	public function clear_index( $args, $assoc_args ) {
-		_deprecated_function( 'clear-index', '4.4.0', 'clear-sync' );
+		_deprecated_function( 'clear-index', '0.1.0', 'clear-sync' );
 		WP_CLI::warning(
 			sprintf(
 				/* translators: New command name */
-				esc_html__( 'This command is deprecated. Please use %s instead.', 'wpprobe' ),
+				esc_html__( 'This command is deprecated. Please use %s instead.', 'elasticprobe' ),
 				'clear-sync'
 			)
 		);
@@ -204,15 +204,15 @@ trait DeprecatedCommand {
 	 * @since 3.5.1, `--pretty` introduced in 4.1.0
 	 * @param array $args Positional CLI args.
 	 * @param array $assoc_args Associative CLI args.
-	 * @deprecated 4.4.0
+	 * @deprecated 0.1.0
 	 * @see Command\get_ongoing_sync_status()
 	 */
 	public function get_indexing_status( $args, $assoc_args ) {
-		_deprecated_function( 'get-indexing-status', '4.4.0', 'get-ongoing-sync-status' );
+		_deprecated_function( 'get-indexing-status', '0.1.0', 'get-ongoing-sync-status' );
 		WP_CLI::warning(
 			sprintf(
 				/* translators: New command name */
-				esc_html__( 'This command is deprecated. Please use %s instead.', 'wpprobe' ),
+				esc_html__( 'This command is deprecated. Please use %s instead.', 'elasticprobe' ),
 				'get-ongoing-sync-status'
 			)
 		);
@@ -236,15 +236,15 @@ trait DeprecatedCommand {
 	 * @since 3.5.1, `--pretty` introduced in 4.1.0
 	 * @param array $args Positional CLI args.
 	 * @param array $assoc_args Associative CLI args.
-	 * @deprecated 4.4.0
+	 * @deprecated 0.1.0
 	 * @see Command\get_last_cli_sync()
 	 */
 	public function get_last_cli_index( $args, $assoc_args ) {
-		_deprecated_function( 'get-last-cli-index', '4.4.0', 'get-last-cli-sync' );
+		_deprecated_function( 'get-last-cli-index', '0.1.0', 'get-last-cli-sync' );
 		WP_CLI::warning(
 			sprintf(
 				/* translators: New command name */
-				esc_html__( 'This command is deprecated. Please use %s instead.', 'wpprobe' ),
+				esc_html__( 'This command is deprecated. Please use %s instead.', 'elasticprobe' ),
 				'get-last-cli-sync'
 			)
 		);
@@ -260,15 +260,15 @@ trait DeprecatedCommand {
 	 * @since      3.5.2
 	 * @param array $args Positional CLI args.
 	 * @param array $assoc_args Associative CLI args.
-	 * @deprecated 4.4.0
+	 * @deprecated 0.1.0
 	 * @see Command\stop_sync()
 	 */
 	public function stop_indexing( $args, $assoc_args ) {
-		_deprecated_function( 'stop-indexing', '4.4.0', 'stop-sync' );
+		_deprecated_function( 'stop-indexing', '0.1.0', 'stop-sync' );
 		WP_CLI::warning(
 			sprintf(
 				/* translators: New command name */
-				esc_html__( 'This command is deprecated. Please use %s instead.', 'wpprobe' ),
+				esc_html__( 'This command is deprecated. Please use %s instead.', 'elasticprobe' ),
 				'stop-sync'
 			)
 		);

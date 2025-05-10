@@ -2,13 +2,15 @@
 /**
  * Test Elasticsearch methods
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe;
-use WPProbe\Utils;
+use ElasticProbe;
+use ElasticProbe\Utils;
+
+use function ElasticProbe\Utils\is_epio;
 
 /**
  * Elasticsearch test class
@@ -24,11 +26,11 @@ class TestElasticsearch extends BaseTestCase {
 	 */
 	public function testGetClusterStatus() {
 
-		$status_indexed = WPProbe\Elasticsearch::factory()->get_cluster_status();
+		$status_indexed = ElasticProbe\Elasticsearch::factory()->get_cluster_status();
 
-		WPProbe\Elasticsearch::factory()->delete_all_indices();
+		ElasticProbe\Elasticsearch::factory()->delete_all_indices();
 
-		$status_unindexed = WPProbe\Elasticsearch::factory()->get_cluster_status();
+		$status_unindexed = ElasticProbe\Elasticsearch::factory()->get_cluster_status();
 
 		$this->set_up();
 
@@ -65,11 +67,11 @@ class TestElasticsearch extends BaseTestCase {
 		$post_ids[] = $this->ep_factory->post->create();
 		$post_ids[] = $this->ep_factory->post->create();
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
-		$index_name = WPProbe\Indexables::factory()->get( 'post' )->get_index_name();
+		$index_name = ElasticProbe\Indexables::factory()->get( 'post' )->get_index_name();
 
-		$documents = WPProbe\Elasticsearch::factory()->get_documents( $index_name, 'post', $post_ids );
+		$documents = ElasticProbe\Elasticsearch::factory()->get_documents( $index_name, 'post', $post_ids );
 
 		$this->assertIsArray( $documents );
 		$this->assertEquals( 2, count( $documents ) );
@@ -78,7 +80,7 @@ class TestElasticsearch extends BaseTestCase {
 
 		$post_ids[] = 99999999; // Adding an id that doesn't exist
 
-		$documents = WPProbe\Elasticsearch::factory()->get_documents( $index_name, 'post', $post_ids );
+		$documents = ElasticProbe\Elasticsearch::factory()->get_documents( $index_name, 'post', $post_ids );
 
 		$this->assertIsArray( $documents );
 		$this->assertEquals( 2, count( $documents ) );
@@ -86,12 +88,12 @@ class TestElasticsearch extends BaseTestCase {
 		$this->assertArrayHasKey( $post_ids[1], $documents );
 
 		// Trying to get a document that doesn't exist
-		$documents = WPProbe\Elasticsearch::factory()->get_documents( $index_name, 'post', [ 99999999 ] );
+		$documents = ElasticProbe\Elasticsearch::factory()->get_documents( $index_name, 'post', [ 99999999 ] );
 
 		$this->assertIsArray( $documents );
 		$this->assertEmpty( $documents );
 
-		$documents = WPProbe\Elasticsearch::factory()->get_documents( $index_name, 'post', [] );
+		$documents = ElasticProbe\Elasticsearch::factory()->get_documents( $index_name, 'post', [] );
 
 		$this->assertIsArray( $documents );
 		$this->assertEmpty( $documents );
@@ -117,7 +119,7 @@ class TestElasticsearch extends BaseTestCase {
 			2
 		);
 
-		WPProbe\Elasticsearch::factory()->update_index_settings( $index_name, $settings );
+		ElasticProbe\Elasticsearch::factory()->update_index_settings( $index_name, $settings );
 
 		$this->assertSame( 1, did_action( 'ep_update_index_settings' ) );
 
@@ -153,7 +155,7 @@ class TestElasticsearch extends BaseTestCase {
 			'body'     => wp_json_encode( $test_settings ),
 		];
 
-		$elasticsearch_mock = $this->getMockBuilder( \WPProbe\Elasticsearch::class )
+		$elasticsearch_mock = $this->getMockBuilder( \ElasticProbe\Elasticsearch::class )
 			->setMethods( [ 'remote_request' ] )
 			->getMock();
 
@@ -226,7 +228,7 @@ class TestElasticsearch extends BaseTestCase {
 	public function test_get_index_setting() {
 		$index_name = 'test-index';
 
-		$elasticsearch_mock = $this->getMockBuilder( \WPProbe\Elasticsearch::class )
+		$elasticsearch_mock = $this->getMockBuilder( \ElasticProbe\Elasticsearch::class )
 			->setMethods( [ 'get_index_settings' ] )
 			->getMock();
 		$elasticsearch_mock->expects( $this->exactly( 3 ) )
@@ -258,7 +260,7 @@ class TestElasticsearch extends BaseTestCase {
 	public function test_get_index_total_fields_limit() {
 		$index_name = 'test-index';
 
-		$elasticsearch_mock = $this->getMockBuilder( \WPProbe\Elasticsearch::class )
+		$elasticsearch_mock = $this->getMockBuilder( \ElasticProbe\Elasticsearch::class )
 			->setMethods( [ 'get_index_setting' ] )
 			->getMock();
 		$elasticsearch_mock->expects( $this->exactly( 1 ) )
@@ -278,17 +280,17 @@ class TestElasticsearch extends BaseTestCase {
 		 * Test the default behavior
 		 */
 		// TODO: Change the api key header
-		$default_headers = WPProbe\Elasticsearch::factory()->format_request_headers();
+		$default_headers = ElasticProbe\Elasticsearch::factory()->format_request_headers();
 
 		$this->assertCount( 2, $default_headers );
 		$this->assertSame( 'application/json', $default_headers['Content-Type'] );
-		$this->assertNotEmpty( $default_headers['X-WPProbe-Request-ID'] );
+		$this->assertNotEmpty( $default_headers['X-ElasticProbe-Request-ID'] );
 
 		/**
 		 * Test the addition of `X-ElasticPress-API-Key` if `EP_API_KEY` is defined
 		 */
 		define( 'EP_API_KEY', 'custom_key' );
-		$new_headers = WPProbe\Elasticsearch::factory()->format_request_headers();
+		$new_headers = ElasticProbe\Elasticsearch::factory()->format_request_headers();
 
 		$this->assertCount( 3, $new_headers );
 		$this->assertSame( 'custom_key', $new_headers['X-ElasticPress-API-Key'] );
@@ -297,17 +299,21 @@ class TestElasticsearch extends BaseTestCase {
 		 * Test the addition of `Authorization` if `ES_SHIELD` is defined
 		 */
 		define( 'ES_SHIELD', 'custom_shield' );
-		$new_headers = WPProbe\Elasticsearch::factory()->format_request_headers();
+		$new_headers = ElasticProbe\Elasticsearch::factory()->format_request_headers();
 
 		$this->assertCount( 4, $new_headers );
-		$this->assertSame( 'Basic ' . base64_encode( 'custom_shield' ), $new_headers['Authorization'] ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
+		if ( is_epio() ) {
+			$this->assertSame( 'ApiKey ' . base64_encode( 'custom_shield' ), $new_headers['Authorization'] ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
+		} else {
+			$this->assertSame( 'Basic ' . base64_encode( 'custom_shield' ), $new_headers['Authorization'] ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
+		}
 
 		/**
-		 * Test if an empty request ID removes `X-WPProbe-Request-ID`
+		 * Test if an empty request ID removes `X-ElasticProbe-Request-ID`
 		 */
 		add_filter( 'ep_request_id', '__return_empty_string' );
-		$new_headers = WPProbe\Elasticsearch::factory()->format_request_headers();
-		$this->assertArrayNotHasKey( 'X-WPProbe-Request-ID', $new_headers );
+		$new_headers = ElasticProbe\Elasticsearch::factory()->format_request_headers();
+		$this->assertArrayNotHasKey( 'X-ElasticProbe-Request-ID', $new_headers );
 
 		/**
 		 * Test the `ep_format_request_headers` filter
@@ -317,7 +323,7 @@ class TestElasticsearch extends BaseTestCase {
 			return $headers;
 		};
 		add_filter( 'ep_format_request_headers', $change_headers );
-		$new_headers = WPProbe\Elasticsearch::factory()->format_request_headers();
+		$new_headers = ElasticProbe\Elasticsearch::factory()->format_request_headers();
 
 		$this->assertCount( 4, $new_headers ); // 3 old + 1 new
 		$this->assertSame( 'totally custom', $new_headers['X-Custom'] );
@@ -329,11 +335,11 @@ class TestElasticsearch extends BaseTestCase {
 	 * @since 4.6.0
 	 */
 	public function testGetIndicesComparison() {
-		WPProbe\Features::factory()->activate_feature( 'terms' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'terms' );
+		ElasticProbe\Features::factory()->setup_features();
 
-		$post_indexable = WPProbe\Indexables::factory()->get( 'post' );
-		$term_indexable = WPProbe\Indexables::factory()->get( 'term' );
+		$post_indexable = ElasticProbe\Indexables::factory()->get( 'post' );
+		$term_indexable = ElasticProbe\Indexables::factory()->get( 'term' );
 
 		$post_indexable->put_mapping();
 		$term_indexable->put_mapping();
@@ -348,7 +354,7 @@ class TestElasticsearch extends BaseTestCase {
 				$term_indexable->get_index_name(),
 			],
 		];
-		$this->assertEqualsCanonicalizing( $expected, \WPProbe\Elasticsearch::factory()->get_indices_comparison() );
+		$this->assertEqualsCanonicalizing( $expected, \ElasticProbe\Elasticsearch::factory()->get_indices_comparison() );
 
 		/**
 		 * One missing index
@@ -363,12 +369,12 @@ class TestElasticsearch extends BaseTestCase {
 				$post_indexable->get_index_name(),
 			],
 		];
-		$this->assertEqualsCanonicalizing( $expected, \WPProbe\Elasticsearch::factory()->get_indices_comparison() );
+		$this->assertEqualsCanonicalizing( $expected, \ElasticProbe\Elasticsearch::factory()->get_indices_comparison() );
 
 		/**
 		 * All indices are missing
 		 */
-		WPProbe\Elasticsearch::factory()->delete_all_indices();
+		ElasticProbe\Elasticsearch::factory()->delete_all_indices();
 
 		$expected = [
 			'missing_indices' => [
@@ -377,7 +383,7 @@ class TestElasticsearch extends BaseTestCase {
 			],
 			'present_indices' => [],
 		];
-		$this->assertEqualsCanonicalizing( $expected, \WPProbe\Elasticsearch::factory()->get_indices_comparison() );
+		$this->assertEqualsCanonicalizing( $expected, \ElasticProbe\Elasticsearch::factory()->get_indices_comparison() );
 	}
 
 	/**
@@ -387,7 +393,7 @@ class TestElasticsearch extends BaseTestCase {
 	 * @group elasticsearch
 	 */
 	public function testEpDisableQueryLoggingFilter() {
-		$elasticsearch = new \WPProbe\Elasticsearch();
+		$elasticsearch = new \ElasticProbe\Elasticsearch();
 
 		$reflection = new \ReflectionClass( $elasticsearch );
 		$property   = $reflection->getProperty( 'queries' );
@@ -409,5 +415,38 @@ class TestElasticsearch extends BaseTestCase {
 		$queries = $property->getValue( $elasticsearch );
 		$this->assertCount( 1, $queries );
 		$this->assertSame( $example_query, $queries[0] );
+	}
+
+	/**
+	 * Test the `ep_remote_request` action
+	 *
+	 * @since 5.2.0
+	 * @group elasticsearch
+	 */
+	public function test_ep_remote_request_action() {
+		$elasticsearch = new \ElasticProbe\Elasticsearch();
+
+		// Make sure we don't fire any real request
+		add_filter( 'ep_do_intercept_request', '__return_empty_array' );
+
+		$callback = function ( $query, $type ) {
+			$this->assertIsArray( $query );
+			$this->assertSame( 'example_type', $type );
+		};
+		add_action( 'ep_remote_request', $callback, 10, 2 );
+
+		// It starts with 1, likely because of some previous tests.
+		$initial_count = did_action( 'ep_remote_request' );
+
+		$elasticsearch->remote_request( '', [], [], 'example_type' );
+		$this->assertSame( $initial_count + 1, did_action( 'ep_remote_request' ) );
+
+		// Make sure we execute the action even on non-blocking requests
+		$callback = function ( $query ) {
+			$this->assertFalse( $query['args']['blocking'] );
+		};
+		add_action( 'ep_remote_request', $callback, 10, 2 );
+		$elasticsearch->remote_request( '', [ 'blocking' => false ], [], 'example_type' );
+		$this->assertSame( $initial_count + 2, did_action( 'ep_remote_request' ) );
 	}
 }

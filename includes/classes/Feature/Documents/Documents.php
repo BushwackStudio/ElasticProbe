@@ -2,16 +2,16 @@
 /**
  * Documents feature
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Feature\Documents;
+namespace ElasticProbe\Feature\Documents;
 
-use WPProbe\Elasticsearch;
-use WPProbe\Feature;
-use WPProbe\FeatureRequirementsStatus;
-use WPProbe\Indexables;
-use WPProbe\Utils;
+use ElasticProbe\Elasticsearch;
+use ElasticProbe\Feature;
+use ElasticProbe\FeatureRequirementsStatus;
+use ElasticProbe\Indexables;
+use ElasticProbe\Utils;
 
 /**
  * Documents feature class.
@@ -37,11 +37,11 @@ class Documents extends Feature {
 	 * @since 5.2.0
 	 */
 	public function set_i18n_strings(): void {
-		$this->title = esc_html__( 'Documents', 'wpprobe' );
+		$this->title = esc_html__( 'Documents', 'elasticprobe' );
 
-		$this->summary = '<p>' . __( 'Website search results will include popular document file types, using file names as well as their content. Supported file types include: ppt, pptx, doc, docx, xls, xlsx, pdf, csv, txt.', 'wpprobe' ) . '</p>';
+		$this->summary = '<p>' . __( 'Website search results will include popular document file types, using file names as well as their content. Supported file types include: ppt, pptx, doc, docx, xls, xlsx, pdf, csv, txt.', 'elasticprobe' ) . '</p>';
 
-		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#documents', 'wpprobe' );
+		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#documents', 'elasticprobe' );
 	}
 
 	/**
@@ -315,10 +315,10 @@ class Documents extends Feature {
 		// Ingest attachment plugin is required for this feature.
 		if ( empty( $plugins ) || empty( $plugins['ingest-attachment'] ) ) {
 			$status->code      = 2;
-			$status->message[] = __( 'The <a href="https://www.elastic.co/guide/en/elasticsearch/plugins/master/ingest-attachment.html">Ingest Attachment plugin</a> for Elasticsearch is not installed. To get the most out of WPProbe, without the hassle of Elasticsearch management, check out <a href="https://wpprobe.com">WPProbe.com</a> hosting.', 'wpprobe' );
+			$status->message[] = __( 'The <a href="https://www.elastic.co/guide/en/elasticsearch/plugins/master/ingest-attachment.html">Ingest Attachment plugin</a> for Elasticsearch is not installed. To get the most out of ElasticProbe, without the hassle of Elasticsearch management, check out <a href="https://wpprobe.com">WPProbe.com</a> hosting.', 'elasticprobe' );
 		} else {
 			$status->code      = 1;
-			$status->message[] = __( 'This feature modifies the default user experience for your visitors by adding popular document file types to search results. All supported documents (PDFs and Microsoft Office) uploaded to your media library will appear in search results.', 'wpprobe' );
+			$status->message[] = __( 'This feature modifies the default user experience for your visitors by adding popular document file types to search results. All supported documents (PDFs and Microsoft Office) uploaded to your media library will appear in search results.', 'elasticprobe' );
 		}
 
 		return $status;
@@ -331,7 +331,7 @@ class Documents extends Feature {
 	 */
 	public function output_feature_box_long() {
 		?>
-		<p><?php esc_html_e( 'Website search results will include popular document file types, using file names as well as their content. Supported file types include: ppt, pptx, doc, docx, xls, xlsx, pdf.', 'wpprobe' ); ?></p>
+		<p><?php esc_html_e( 'Website search results will include popular document file types, using file names as well as their content. Supported file types include: ppt, pptx, doc, docx, xls, xlsx, pdf.', 'elasticprobe' ); ?></p>
 		<?php
 	}
 
@@ -463,13 +463,13 @@ class Documents extends Feature {
 		if ( 'attachment' === $post_type ) {
 			// Updates labels for description and caption
 			// @todo this might need to move to Protected Content if attachments are enabled there
-			$fields['attributes']['children']['post_content']['label'] = __( 'Description', 'wpprobe' );
-			$fields['attributes']['children']['post_excerpt']['label'] = __( 'Caption', 'wpprobe' );
+			$fields['attributes']['children']['post_content']['label'] = __( 'Description', 'elasticprobe' );
+			$fields['attributes']['children']['post_excerpt']['label'] = __( 'Caption', 'elasticprobe' );
 
 			// Adds new field
 			$fields['attributes']['children']['attachments.attachment.content'] = [
 				'key'   => 'attachments.attachment.content',
-				'label' => __( 'Document Content', 'wpprobe' ),
+				'label' => __( 'Document Content', 'elasticprobe' ),
 			];
 		}
 
@@ -586,7 +586,7 @@ class Documents extends Feature {
 	 * @return boolean
 	 */
 	protected function is_media_library_ajax_enabled() {
-		$protected_content = \WPProbe\Features::factory()->get_registered_feature( 'protected_content' );
+		$protected_content = \ElasticProbe\Features::factory()->get_registered_feature( 'protected_content' );
 
 		/**
 		 * Filter whether the feature should work on the Media Library admin ajax request

@@ -2,12 +2,12 @@
 /**
  * Test meta facet type feature
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe\Features;
+use ElasticProbe\Features;
 
 /**
  * Facets\Types\Taxonomy\FacetType test class
@@ -24,8 +24,8 @@ class TestFacetTypeMeta extends BaseTestCase {
 		 * NOTE: This can be removed after the meta facet type is made available.
 		 */
 		$facet_feature = Features::factory()->get_registered_feature( 'facets' );
-		if ( ! isset( $facet_feature->types['meta'] ) && class_exists( '\WPProbe\Feature\Facets\Types\Meta\FacetType' ) ) {
-			$facet_feature->types['meta'] = new \WPProbe\Feature\Facets\Types\Meta\FacetType();
+		if ( ! isset( $facet_feature->types['meta'] ) && class_exists( '\ElasticProbe\Feature\Facets\Types\Meta\FacetType' ) ) {
+			$facet_feature->types['meta'] = new \ElasticProbe\Feature\Facets\Types\Meta\FacetType();
 			$facet_feature->types['meta']->setup();
 		}
 
@@ -163,7 +163,7 @@ class TestFacetTypeMeta extends BaseTestCase {
 		$this->ep_factory->post->create( array( 'meta_input' => array( 'new_meta_key_2' => 'lorem' ) ) );
 		$this->ep_factory->post->create( array( 'meta_input' => array( 'new_meta_key_2' => 'ipsum' ) ) );
 
-		\WPProbe\Elasticsearch::factory()->refresh_indices();
+		\ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		/**
 		 * Test default behavior

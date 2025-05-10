@@ -16,7 +16,7 @@ import { __ } from '@wordpress/i18n';
  */
 export default ({ onChange, value }) => {
 	/**
-	 * Filterable meta keys from WPProbe data store.
+	 * Filterable meta keys from ElasticProbe data store.
 	 */
 	const metaKeys = useSelect((select) => select('elasticpress').getMetaKeys());
 
@@ -26,7 +26,7 @@ export default ({ onChange, value }) => {
 	const options = useMemo(() => {
 		return [
 			{
-				label: __('Select key', 'wpprobe'),
+				label: __('Select key', 'elasticprobe'),
 				value: '',
 			},
 			...metaKeys.map((metaKey) => ({
@@ -42,15 +42,16 @@ export default ({ onChange, value }) => {
 			help={createInterpolateElement(
 				__(
 					'This is the list of metadata fields indexed in Elasticsearch. If your desired field does not appear in this list please try to <a>sync your content</a>',
-					'wpprobe',
+					'elasticprobe',
 				),
 				{ a: <a href={window.epBlocks.syncUrl} /> }, // eslint-disable-line jsx-a11y/anchor-has-content, jsx-a11y/control-has-associated-label
 			)}
-			label={__('Filter by', 'wpprobe')}
+			label={__('Filter by', 'elasticprobe')}
 			onChange={onChange}
 			options={options}
 			value={value}
 			__nextHasNoMarginBottom
+			__next40pxDefaultSize
 		/>
 	);
 };

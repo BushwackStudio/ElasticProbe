@@ -3,19 +3,19 @@
  * Sync REST API Controller
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\REST;
+namespace ElasticProbe\REST;
 
-use WPProbe\IndexHelper;
-use WPProbe\Utils;
+use ElasticProbe\IndexHelper;
+use ElasticProbe\Utils;
 
 /**
  * Sync API controller class.
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 class Sync {
 
@@ -66,14 +66,14 @@ class Sync {
 	public function get_args() {
 		return [
 			'include'               => [
-				'description' => __( 'IDs of objects to sync.', 'wpprobe' ),
+				'description' => __( 'IDs of objects to sync.', 'elasticprobe' ),
 				'items'       => [
 					'type' => 'integer',
 				],
 				'type'        => 'array',
 			],
 			'indexables'            => [
-				'description' => __( 'Indexables to sync', 'wpprobe' ),
+				'description' => __( 'Indexables to sync', 'elasticprobe' ),
 				'items'       => [
 					'type' => 'string',
 				],
@@ -81,17 +81,17 @@ class Sync {
 				'type'        => 'array',
 			],
 			'lower_limit_object_id' => [
-				'description' => __( 'Start of object ID range to sync,', 'wpprobe' ),
+				'description' => __( 'Start of object ID range to sync,', 'elasticprobe' ),
 				'type'        => 'integer',
 				'required'    => false,
 			],
 			'offset'                => [
-				'description' => __( 'Number of objects to skip.', 'wpprobe' ),
+				'description' => __( 'Number of objects to skip.', 'elasticprobe' ),
 				'required'    => false,
 				'type'        => 'integer',
 			],
 			'post_type'             => [
-				'description' => __( 'Post type to sync.', 'wpprobe' ),
+				'description' => __( 'Post type to sync.', 'elasticprobe' ),
 				'items'       => [
 					'type' => 'string',
 				],
@@ -99,7 +99,7 @@ class Sync {
 			],
 			'put_mapping'           => [
 				'default'     => false,
-				'description' => __( 'Whether to clear the index and send mapping before syncing.', 'wpprobe' ),
+				'description' => __( 'Whether to clear the index and send mapping before syncing.', 'elasticprobe' ),
 				'type'        => 'boolean',
 				'required'    => false,
 			],
@@ -108,7 +108,7 @@ class Sync {
 				'required' => false,
 			],
 			'upper_limit_object_id' => [
-				'description' => __( 'End of object ID range to sync.', 'wpprobe' ),
+				'description' => __( 'End of object ID range to sync.', 'elasticprobe' ),
 				'type'        => 'integer',
 				'required'    => false,
 			],
@@ -190,7 +190,7 @@ class Sync {
 				[
 					'message'    => sprintf(
 						/* translators: 1. Number of objects indexed, 2. Total number of objects, 3. Last object ID. */
-						esc_html__( 'Processed %1$d/%2$d. Last Object ID: %3$d', 'wpprobe' ),
+						esc_html__( 'Processed %1$d/%2$d. Last Object ID: %3$d', 'elasticprobe' ),
 						$index_meta['offset'],
 						$index_meta['found_items'],
 						$index_meta['current_sync_item']['last_processed_object_id']

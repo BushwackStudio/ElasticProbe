@@ -26,10 +26,10 @@ export default ({ feature }) => {
 
 	const { shortTitle, isAvailable } = getFeature(feature);
 
-	const availabilityStatus = isAvailable ? '' : __('Unavailable', 'wpprobe');
+	const availabilityStatus = isAvailable ? '' : __('Unavailable', 'elasticprobe');
 
 	const status = featuresRequiringSync.includes(feature)
-		? __('Sync required', 'wpprobe')
+		? __('Sync required', 'elasticprobe')
 		: availabilityStatus;
 
 	return (

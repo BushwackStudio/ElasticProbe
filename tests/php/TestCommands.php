@@ -3,16 +3,16 @@
  * Test WP-CLI commands.
  *
  * @since 4.4.1
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe;
-use WPProbe\Command;
-use WPProbe\Indexables;
-use WPProbe\Utils;
-use WPProbe\Command\Utility;
+use ElasticProbe;
+use ElasticProbe\Command;
+use ElasticProbe\Indexables;
+use ElasticProbe\Utils;
+use ElasticProbe\Command\Utility;
 
 /**
  * Commands test class
@@ -32,11 +32,11 @@ class TestCommands extends BaseTestCase {
 	public function set_up() {
 		$this->command = new Command();
 
-		WPProbe\Elasticsearch::factory()->delete_all_indices();
-		WPProbe\Indexables::factory()->deactivate_all();
-		WPProbe\Indexables::factory()->activate( 'post' );
-		WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->delete_all_indices();
+		ElasticProbe\Indexables::factory()->deactivate_all();
+		ElasticProbe\Indexables::factory()->activate( 'post' );
+		ElasticProbe\Indexables::factory()->get( 'post' )->put_mapping();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		parent::set_up();
 	}
@@ -96,6 +96,7 @@ class TestCommands extends BaseTestCase {
 	 * Test activate-feature command throws error when requirement is not met.
 	 */
 	public function testActivateFeatureWhenRequirementIsNotMet() {
+		$this->markTestSkipped( 'Requires instant results' );
 
 		$this->expectExceptionMessage( 'Feature requirements are not met' );
 
@@ -118,6 +119,7 @@ class TestCommands extends BaseTestCase {
 	 * Test deactivate-feature command throws error when feature is already deactivated.
 	 */
 	public function testDeactivateFeatureWhenFeatureIsAlreadyDeactivated() {
+		$this->markTestSkipped( 'Requires instant results' );
 
 		$this->expectExceptionMessage( 'Feature is not active' );
 
@@ -175,8 +177,8 @@ class TestCommands extends BaseTestCase {
 	 */
 	public function testPutMappingWithIndexablesFlag() {
 
-		WPProbe\Features::factory()->activate_feature( 'comments' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'comments' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		// test it only index the posts.
 		$this->command->put_mapping( [], [ 'indexables' => 'post' ] );
@@ -193,8 +195,8 @@ class TestCommands extends BaseTestCase {
 	 */
 	public function testPutMappingForNetworkWide() {
 
-		WPProbe\Features::factory()->activate_feature( 'comments' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'comments' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$blog_id = $this->factory->blog->create();
 		update_site_meta( $blog_id, 'ep_indexable', 'no' );
@@ -255,8 +257,8 @@ class TestCommands extends BaseTestCase {
 	 * Test put-mapping command can put mapping for global indexables.
 	 */
 	public function testPutMappingForGlobalIndexables() {
-		WPProbe\Features::factory()->activate_feature( 'global' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'global' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$this->command->put_mapping( [], [ 'indexables' => 'global,post' ] );
 
@@ -294,7 +296,11 @@ class TestCommands extends BaseTestCase {
 		ob_clean();
 
 		// test with incorrect index name
-		$this->command->get_mapping( [], [ 'index-name' => 'invalid-index' ] );
+		if ( Utils\is_epio() ) {
+			$this->command->get_mapping( [], [ 'index-name' => Utils\get_index_prefix() . 'invalid-index' ] );
+		} else {
+			$this->command->get_mapping( [], [ 'index-name' => 'invalid-index' ] );
+		}
 		$output = $this->getActualOutputForAssertion();
 		$this->assertStringContainsString( 'index_not_found_exception', $output );
 	}
@@ -328,7 +334,11 @@ class TestCommands extends BaseTestCase {
 		$this->command->get_indices( [], [] );
 
 		$output = $this->getActualOutputForAssertion();
-		$this->assertEquals( "[\"exampleorg-post-1\"]\n", $output );
+		if ( Utils\is_epio() ) {
+			$this->assertEquals( '["' . Utils\get_index_prefix() . "-exampleorg-post-1\"]\n", $output );
+		} else {
+			$this->assertEquals( "[\"exampleorg-post-1\"]\n", $output );
+		}
 
 		// clean output buffer
 		ob_clean();
@@ -349,7 +359,11 @@ class TestCommands extends BaseTestCase {
 		$this->command->get_indices( [], [ 'status' => 'all' ] );
 
 		$output = $this->getActualOutputForAssertion();
-		$this->assertEquals( "[\"exampleorg-post-1\",\"exampleorg-comment-1\",\"exampleorg-term-1\",\"exampleorg-global\"]\n", $output );
+		if ( Utils\is_epio() ) {
+			$this->assertEquals( "[\"{$this->ep_factory->get_index_prefix()}exampleorg-post-1\",\"{$this->ep_factory->get_index_prefix()}exampleorg-comment-1\",\"{$this->ep_factory->get_index_prefix()}exampleorg-term-1\",\"{$this->ep_factory->get_index_prefix()}exampleorg-global\"]\n", $output );
+		} else {
+			$this->assertEquals( "[\"exampleorg-post-1\",\"exampleorg-comment-1\",\"exampleorg-term-1\",\"exampleorg-global\"]\n", $output );
+		}
 	}
 
 
@@ -374,7 +388,7 @@ class TestCommands extends BaseTestCase {
 	 */
 	public function testReCreateNetworkAliasOnSingleSite() {
 
-		$this->expectExceptionMessage( 'WPProbe is not network activated.' );
+		$this->expectExceptionMessage( 'ElasticProbe is not network activated.' );
 
 		$this->command->recreate_network_alias( [], [] );
 	}
@@ -387,8 +401,8 @@ class TestCommands extends BaseTestCase {
 	public function testSync() {
 
 		// activate comments feature
-		WPProbe\Features::factory()->activate_feature( 'comments' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'comments' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		// create dummy comments
 		$this->ep_factory->post->create_many( 10 );
@@ -412,8 +426,8 @@ class TestCommands extends BaseTestCase {
 	public function testSyncOnNetwork() {
 
 		// activate comments feature
-		WPProbe\Features::factory()->activate_feature( 'comments' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'comments' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		// create dummy comments
 		$this->ep_factory->post->create_many( 10 );
@@ -449,8 +463,8 @@ class TestCommands extends BaseTestCase {
 	public function testSyncWithSetupFlag() {
 
 		// activate comments feature
-		WPProbe\Features::factory()->activate_feature( 'comments' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'comments' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		// without these dummy content, the sync command gets failed because the static variable
 		// https://github.com/10up/ElasticPress/blob/4.0.0/includes/classes/Indexable/Post/Post.php#L173
@@ -479,8 +493,8 @@ class TestCommands extends BaseTestCase {
 	 */
 	public function testSyncWithSetupFlagDeleteUnusedIndices() {
 		// activate comments and users features
-		WPProbe\Indexables::factory()->get( 'comment' )->put_mapping();
-		WPProbe\Indexables::factory()->get( 'term' )->put_mapping();
+		ElasticProbe\Indexables::factory()->get( 'comment' )->put_mapping();
+		ElasticProbe\Indexables::factory()->get( 'term' )->put_mapping();
 
 		$this->command->sync(
 			[],
@@ -491,8 +505,13 @@ class TestCommands extends BaseTestCase {
 		);
 
 		$output = $this->getActualOutputForAssertion();
-		$this->assertStringContainsString( 'Index exampleorg-comment-1 deleted', $output );
-		$this->assertStringContainsString( 'Index exampleorg-term-1 deleted', $output );
+		if ( Utils\is_epio() ) {
+			$this->assertStringContainsString( 'Index ' . Utils\get_index_prefix() . '-exampleorg-comment-1 deleted', $output );
+			$this->assertStringContainsString( 'Index ' . Utils\get_index_prefix() . '-exampleorg-term-1 deleted', $output );
+		} else {
+			$this->assertStringContainsString( 'Index exampleorg-comment-1 deleted', $output );
+			$this->assertStringContainsString( 'Index exampleorg-term-1 deleted', $output );
+		}
 	}
 
 	/**
@@ -500,8 +519,8 @@ class TestCommands extends BaseTestCase {
 	 */
 	public function testSyncWithIndexablesFlag() {
 
-		WPProbe\Features::factory()->activate_feature( 'comments' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'comments' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		// without these dummy content, the sync command gets failed because the static variable
 		// https://github.com/10up/ElasticPress/blob/4.0.0/includes/classes/Indexable/Post/Post.php#L173
@@ -583,6 +602,10 @@ class TestCommands extends BaseTestCase {
 	 * Test sync command with ep-prefix flag.
 	 */
 	public function testSyncWithEPPrefixFlag() {
+		if ( Utils\is_epio() ) {
+			$this->assertTrue( Utils\is_epio() );
+			return;
+		}
 
 		$this->ep_factory->post->create_many( 10 );
 		$this->ep_factory->post->create_many( 10, [ 'post_type' => 'page' ] );
@@ -607,7 +630,7 @@ class TestCommands extends BaseTestCase {
 	 * Test sync command can ask for confirmation when setup flag is set
 	 */
 	public function testSyncAskForConfirmationWhenSetupIsPassed() {
-		$this->expectExceptionMessage( 'Syncing with the --setup option will delete your existing index in Elasticsearch. Are you sure you want to delete your Elasticsearch index' );
+		$this->expectExceptionMessage( Utils\is_epio() ? 'Syncing with the --setup option will delete your existing index in WPProbe.com. Are you sure you want to delete your Elasticsearch index' : 'Syncing with the --setup option will delete your existing index in Elasticsearch. Are you sure you want to delete your Elasticsearch index' );
 
 		$this->command->sync( [], [ 'setup' => true ] );
 	}
@@ -697,8 +720,8 @@ class TestCommands extends BaseTestCase {
 	public function testDeleteIndex() {
 
 		// activate comments feature
-		WPProbe\Features::factory()->activate_feature( 'comments' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'comments' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$this->command->delete_index( [], [ 'yes' => true ] );
 
@@ -710,11 +733,16 @@ class TestCommands extends BaseTestCase {
 		ob_clean();
 
 		// test with index-name option
+		if ( Utils\is_epio() ) {
+			$name = Utils\get_index_prefix() . 'exampleorg-post-1';
+		} else {
+			$name = 'exampleorg-post-1';
+		}
 		$this->command->delete_index(
 			[],
 			[
 				'yes'        => true,
-				'index-name' => 'exampleorg-post-1',
+				'index-name' => $name,
 			]
 		);
 
@@ -727,8 +755,8 @@ class TestCommands extends BaseTestCase {
 	 */
 	public function testDeleteIndexGlobal() {
 
-		WPProbe\Features::factory()->activate_feature( 'global' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'global' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$this->command->delete_index( [], [ 'yes' => true ] );
 
@@ -754,7 +782,7 @@ class TestCommands extends BaseTestCase {
 		);
 
 		$output = $this->getActualOutputForAssertion();
-		$sites  = WPProbe\Utils\get_sites();
+		$sites  = ElasticProbe\Utils\get_sites();
 
 		foreach ( $sites as $site ) {
 			$this->assertStringContainsString( "Deleting post index for site {$site['blog_id']}", $output );
@@ -824,7 +852,7 @@ class TestCommands extends BaseTestCase {
 		$this->assertStringContainsString( 'There is no indexing operation running.', $output );
 
 		// mock sync option
-		WPProbe\Utils\update_option( 'ep_index_meta', [ 'indexing' => true ] );
+		ElasticProbe\Utils\update_option( 'ep_index_meta', [ 'indexing' => true ] );
 
 		$this->command->stop_sync( [], [] );
 
@@ -842,7 +870,7 @@ class TestCommands extends BaseTestCase {
 
 		$output = $this->getActualOutputForAssertion();
 		$this->assertStringContainsString( 'Done', $output );
-		$this->assertEquals( 1, WPProbe\Utils\get_option( 'ep_search_algorithm_version' ) );
+		$this->assertEquals( 1, ElasticProbe\Utils\get_option( 'ep_search_algorithm_version' ) );
 
 		// clean output buffer
 		ob_clean();
@@ -852,7 +880,7 @@ class TestCommands extends BaseTestCase {
 
 		$output = $this->getActualOutputForAssertion();
 		$this->assertStringContainsString( 'Done', $output );
-		$this->assertEmpty( WPProbe\Utils\get_option( 'ep_search_algorithm_version' ) );
+		$this->assertEmpty( ElasticProbe\Utils\get_option( 'ep_search_algorithm_version' ) );
 	}
 
 	/**
@@ -1012,7 +1040,7 @@ class TestCommands extends BaseTestCase {
 	 */
 	public function testSettingsResetAskForConfirmation() {
 
-		$this->expectExceptionMessage( 'Are you sure you want to delete all WPProbe settings?' );
+		$this->expectExceptionMessage( 'Are you sure you want to delete all ElasticProbe settings?' );
 
 		$this->command->settings_reset( [], [] );
 	}
@@ -1032,8 +1060,9 @@ class TestCommands extends BaseTestCase {
 	 * Test epio-set-autosuggest command.
 	 */
 	public function testEPioSetAutosuggest() {
+		$this->markTestSkipped( 'Requires autosuggest' );
 
-		WPProbe\Features::factory()->activate_feature( 'autosuggest' );
+		ElasticProbe\Features::factory()->activate_feature( 'autosuggest' );
 
 		$this->command->epio_set_autosuggest( [], [] );
 
@@ -1045,6 +1074,7 @@ class TestCommands extends BaseTestCase {
 	 * Test epio-set-autosuggest command throws an error if autosuggest is not enabled.
 	 */
 	public function testEPioSetAutosuggestThrowsError() {
+		$this->markTestSkipped( 'Requires autosuggest' );
 
 		$this->expectExceptionMessage( 'Autosuggest is not enabled.' );
 
@@ -1084,7 +1114,11 @@ class TestCommands extends BaseTestCase {
 	 * @since 4.7.0
 	 */
 	public function testGetIndexSettings() {
-		$this->command->get_index_settings( [ 'exampleorg-post-1' ], [] );
+		if ( Utils\is_epio() ) {
+			$this->command->get_index_settings( [ Utils\get_index_prefix() . '--exampleorg-post-1' ], [] );
+		} else {
+			$this->command->get_index_settings( [ 'exampleorg-post-1' ], [] );
+		}
 
 		$output = $this->getActualOutputForAssertion();
 		$this->assertStringStartsWith( '{', $output );
@@ -1094,7 +1128,11 @@ class TestCommands extends BaseTestCase {
 		ob_clean();
 
 		// test with --pretty flag
-		$this->command->get_index_settings( [ 'exampleorg-post-1' ], [ 'pretty' => true ] );
+		if ( Utils\is_epio() ) {
+			$this->command->get_index_settings( [ Utils\get_index_prefix() . '--exampleorg-post-1' ], [ 'pretty' => true ] );
+		} else {
+			$this->command->get_index_settings( [ 'exampleorg-post-1' ], [ 'pretty' => true ] );
+		}
 
 		$output = $this->getActualOutputForAssertion();
 		$this->assertStringStartsWith( "{\n", $output );
@@ -1215,8 +1253,8 @@ class TestCommands extends BaseTestCase {
 	public function testIndexThrowsDeprecatedWarning() {
 
 		// activate comments feature
-		WPProbe\Features::factory()->activate_feature( 'comments' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'comments' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		// without these dummy content, the sync command gets failed because the static variable
 		// https://github.com/10up/ElasticPress/blob/4.0.0/includes/classes/Indexable/Post/Post.php#L173

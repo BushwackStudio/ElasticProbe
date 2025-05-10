@@ -1,20 +1,20 @@
 <?php
 /**
- * Create an WPProbe dashboard page.
+ * Create an ElasticProbe dashboard page.
  *
- * @package wpprobe
+ * @package elasticprobe
  * @since   1.9
  */
 
-namespace WPProbe\Dashboard;
+namespace ElasticProbe\Dashboard;
 
-use WPProbe\AdminNotices;
-use WPProbe\Elasticsearch;
-use WPProbe\Features;
-use WPProbe\Installer;
-use WPProbe\Screen;
-use WPProbe\Stats;
-use WPProbe\Utils;
+use ElasticProbe\AdminNotices;
+use ElasticProbe\Elasticsearch;
+use ElasticProbe\Features;
+use ElasticProbe\Installer;
+use ElasticProbe\Screen;
+use ElasticProbe\Stats;
+use ElasticProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -53,7 +53,7 @@ function setup() {
 	}
 
 	/**
-	 * Filter whether to show 'WPProbe Indexing' option on Multisite in admin UI or not.
+	 * Filter whether to show 'ElasticProbe Indexing' option on Multisite in admin UI or not.
 	 *
 	 * @since  3.6.0
 	 * @hook ep_show_indexing_option_on_multisite
@@ -192,17 +192,17 @@ function maybe_skip_install() {
 	}
 
 	if ( ! empty( $_GET['ep-skip-features'] ) ) {
-		$features = \WPProbe\Features::factory()->registered_features;
+		$features = \ElasticProbe\Features::factory()->registered_features;
 
 		foreach ( $features as $slug => $feature ) {
-			\WPProbe\Features::factory()->deactivate_feature( $slug );
+			\ElasticProbe\Features::factory()->deactivate_feature( $slug );
 		}
 	}
 
 	if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
-		$redirect_url = network_admin_url( 'admin.php?page=wpprobe' );
+		$redirect_url = network_admin_url( 'admin.php?page=elasticprobe' );
 	} else {
-		$redirect_url = admin_url( 'admin.php?page=wpprobe' );
+		$redirect_url = admin_url( 'admin.php?page=elasticprobe' );
 	}
 	Utils\update_option( 'ep_skip_install', true );
 
@@ -242,7 +242,7 @@ function maybe_clear_es_info_cache() {
 }
 
 /**
- * Show WPProbe in network admin menu bar
+ * Show ElasticProbe in network admin menu bar
  *
  * @param  object $admin_bar WP_Admin Bar reference.
  * @since  2.2
@@ -252,8 +252,8 @@ function action_network_admin_bar_menu( $admin_bar ) {
 		array(
 			'id'     => 'network-admin-elasticpress',
 			'parent' => 'network-admin',
-			'title'  => 'WPProbe',
-			'href'   => esc_url( network_admin_url( 'admin.php?page=wpprobe' ) ),
+			'title'  => 'ElasticProbe',
+			'href'   => esc_url( network_admin_url( 'admin.php?page=elasticprobe' ) ),
 		)
 	);
 }
@@ -269,13 +269,13 @@ function action_network_admin_bar_menu( $admin_bar ) {
 function filter_plugin_action_links( $plugin_actions, $plugin_file ) {
 
 	if ( is_network_admin() ) {
-		$url = admin_url( 'network/admin.php?page=wpprobe' );
+		$url = admin_url( 'network/admin.php?page=elasticprobe' );
 
 		if ( ! defined( 'EP_IS_NETWORK' ) || ! EP_IS_NETWORK ) {
 			return $plugin_actions;
 		}
 	} else {
-		$url = admin_url( 'admin.php?page=wpprobe' );
+		$url = admin_url( 'admin.php?page=elasticprobe' );
 
 		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
 			return $plugin_actions;
@@ -284,8 +284,8 @@ function filter_plugin_action_links( $plugin_actions, $plugin_file ) {
 
 	$new_actions = [];
 
-	if ( basename( EP_PATH ) . '/wpprobe.php' === $plugin_file ) {
-		$new_actions['ep_dashboard'] = sprintf( '<a href="%s">%s</a>', esc_url( $url ), __( 'Dashboard', 'wpprobe' ) );
+	if ( basename( EP_PATH ) . '/elasticprobe.php' === $plugin_file ) {
+		$new_actions['ep_dashboard'] = sprintf( '<a href="%s">%s</a>', esc_url( $url ), __( 'Dashboard', 'elasticprobe' ) );
 	}
 
 	return array_merge( $new_actions, $plugin_actions );
@@ -372,7 +372,7 @@ function action_wp_ajax_ep_notice_dismiss() {
  * @since  2.1
  */
 function action_wp_ajax_ep_cli_index() {
-	_deprecated_function( __CLASS__, '3.6.0', '\WPProbe\Screen::factory()->sync_screen->action_wp_ajax_ep_cli_index()' );
+	_deprecated_function( __CLASS__, '0.1.0', '\ElasticProbe\Screen::factory()->sync_screen->action_wp_ajax_ep_cli_index()' );
 }
 
 /**
@@ -381,7 +381,7 @@ function action_wp_ajax_ep_cli_index() {
  * @since  2.1
  */
 function action_wp_ajax_ep_index() {
-	_deprecated_function( __CLASS__, '3.6.0', '\WPProbe\Screen::factory()->sync_screen->action_wp_ajax_ep_index()' );
+	_deprecated_function( __CLASS__, '0.1.0', '\ElasticProbe\Screen::factory()->sync_screen->action_wp_ajax_ep_index()' );
 }
 
 /**
@@ -390,7 +390,7 @@ function action_wp_ajax_ep_index() {
  * @since  2.1
  */
 function action_wp_ajax_ep_cancel_index() {
-	_deprecated_function( __CLASS__, '3.6.0', '\WPProbe\Screen::factory()->sync_screen->action_wp_ajax_ep_cancel_index()' );
+	_deprecated_function( __CLASS__, '0.1.0', '\ElasticProbe\Screen::factory()->sync_screen->action_wp_ajax_ep_cancel_index()' );
 }
 
 /**
@@ -440,7 +440,7 @@ function action_admin_enqueue_dashboard_scripts() {
 			true
 		);
 
-		wp_set_script_translations( 'ep_admin_sites_scripts', 'wpprobe' );
+		wp_set_script_translations( 'ep_admin_sites_scripts', 'elasticprobe' );
 
 		$data = [
 			'ajax_url' => admin_url( 'admin-ajax.php' ),
@@ -465,7 +465,7 @@ function action_admin_enqueue_dashboard_scripts() {
 			true
 		);
 
-		wp_set_script_translations( 'ep_admin_script', 'wpprobe' );
+		wp_set_script_translations( 'ep_admin_script', 'elasticprobe' );
 	}
 
 	if ( 'weighting' === Screen::factory()->get_current_screen() ) {
@@ -516,7 +516,7 @@ function action_admin_enqueue_dashboard_scripts() {
 			$data
 		);
 
-		wp_set_script_translations( 'ep_weighting_script', 'wpprobe' );
+		wp_set_script_translations( 'ep_weighting_script', 'elasticprobe' );
 	}
 
 	if ( in_array( Screen::factory()->get_current_screen(), [ 'dashboard', 'install' ], true ) ) {
@@ -528,13 +528,13 @@ function action_admin_enqueue_dashboard_scripts() {
 			true
 		);
 
-		wp_set_script_translations( 'ep_dashboard_scripts', 'wpprobe' );
+		wp_set_script_translations( 'ep_dashboard_scripts', 'elasticprobe' );
 
 		$sync_url = Utils\get_sync_url( true );
 
 		$skip_url = ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) ?
-				network_admin_url( 'admin.php?page=wpprobe' ) :
-				admin_url( 'admin.php?page=wpprobe' );
+				network_admin_url( 'admin.php?page=elasticprobe' ) :
+				admin_url( 'admin.php?page=elasticprobe' );
 
 		$data = array(
 			'skipUrl' => add_query_arg(
@@ -564,7 +564,7 @@ function action_admin_enqueue_dashboard_scripts() {
 			true
 		);
 
-		wp_set_script_translations( 'ep_stats', 'wpprobe' );
+		wp_set_script_translations( 'ep_stats', 'elasticprobe' );
 
 		wp_localize_script( 'ep_stats', 'epChartData', $data );
 	}
@@ -577,7 +577,7 @@ function action_admin_enqueue_dashboard_scripts() {
 		true
 	);
 
-	wp_set_script_translations( 'ep_notice_script', 'wpprobe' );
+	wp_set_script_translations( 'ep_notice_script', 'elasticprobe' );
 
 	wp_localize_script(
 		'ep_notice_script',
@@ -586,10 +586,17 @@ function action_admin_enqueue_dashboard_scripts() {
 			'nonce' => wp_create_nonce( 'ep_admin_nonce' ),
 		)
 	);
+
+	wp_enqueue_style(
+		'ep_general_styles',
+		EP_URL . 'dist/css/general-styles.css',
+		Utils\get_asset_info( 'general-styles', 'dependencies' ),
+		Utils\get_asset_info( 'general-styles', 'version' )
+	);
 }
 
 /**
- * Output current WPProbe dashboard screen
+ * Output current ElasticProbe dashboard screen
  *
  * @since 3.0
  */
@@ -618,10 +625,10 @@ function action_admin_menu() {
 	$capability = ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) ? Utils\get_network_capability() : Utils\get_capability();
 
 	add_menu_page(
-		'WPProbe',
-		'WPProbe',
+		'ElasticProbe',
+		'ElasticProbe',
 		$capability,
-		'wpprobe',
+		'elasticprobe',
 		__NAMESPACE__ . '\resolve_screen',
 		'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgNzMgNzEuMyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNzMgNzEuMzsiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwYXRoIGQ9Ik0zNi41LDQuN0MxOS40LDQuNyw1LjYsMTguNiw1LjYsMzUuN2MwLDEwLDQuNywxOC45LDEyLjEsMjQuNWw0LjUtNC41YzAuMS0wLjEsMC4xLTAuMiwwLjItMC4zbDAuNy0wLjdsNi40LTYuNGMyLjEsMS4yLDQuNSwxLjksNy4xLDEuOWM4LDAsMTQuNS02LjUsMTQuNS0xNC41cy02LjUtMTQuNS0xNC41LTE0LjVTMjIsMjcuNiwyMiwzNS42YzAsMi44LDAuOCw1LjMsMi4xLDcuNWwtNi40LDYuNGMtMi45LTMuOS00LjYtOC43LTQuNi0xMy45YzAtMTIuOSwxMC41LTIzLjQsMjMuNC0yMy40czIzLjQsMTAuNSwyMy40LDIzLjRTNDkuNCw1OSwzNi41LDU5Yy0yLjEsMC00LjEtMC4zLTYtMC44bC0wLjYsMC42bC01LjIsNS40YzMuNiwxLjUsNy42LDIuMywxMS44LDIuM2MxNy4xLDAsMzAuOS0xMy45LDMwLjktMzAuOVM1My42LDQuNywzNi41LDQuN3oiLz48L3N2Zz4='
 	);
@@ -631,47 +638,47 @@ function action_admin_menu() {
 	}
 
 	add_submenu_page(
-		'wpprobe',
-		esc_html__( 'WPProbe Features', 'wpprobe' ),
-		esc_html__( 'Features', 'wpprobe' ),
+		'elasticprobe',
+		esc_html__( 'ElasticProbe Features', 'elasticprobe' ),
+		esc_html__( 'Features', 'elasticprobe' ),
 		$capability,
-		'wpprobe',
+		'elasticprobe',
 		__NAMESPACE__ . '\resolve_screen'
 	);
 
 	add_submenu_page(
-		'wpprobe',
-		esc_html__( 'WPProbe Settings', 'wpprobe' ),
-		esc_html__( 'Settings', 'wpprobe' ),
+		'elasticprobe',
+		esc_html__( 'ElasticProbe Settings', 'elasticprobe' ),
+		esc_html__( 'Settings', 'elasticprobe' ),
 		$capability,
-		'wpprobe-settings',
+		'elasticprobe-settings',
 		__NAMESPACE__ . '\resolve_screen'
 	);
 
 	add_submenu_page(
-		'wpprobe',
-		'WPProbe ' . esc_html__( 'Sync', 'wpprobe' ),
-		esc_html__( 'Sync', 'wpprobe' ),
+		'elasticprobe',
+		'ElasticProbe ' . esc_html__( 'Sync', 'elasticprobe' ),
+		esc_html__( 'Sync', 'elasticprobe' ),
 		$capability,
-		'wpprobe-sync',
+		'elasticprobe-sync',
 		__NAMESPACE__ . '\resolve_screen'
 	);
 
 	add_submenu_page(
-		'wpprobe',
-		esc_html__( 'WPProbe Index Health', 'wpprobe' ),
-		esc_html__( 'Index Health', 'wpprobe' ),
+		'elasticprobe',
+		esc_html__( 'ElasticProbe Index Health', 'elasticprobe' ),
+		esc_html__( 'Index Health', 'elasticprobe' ),
 		$capability,
-		'wpprobe-health',
+		'elasticprobe-health',
 		__NAMESPACE__ . '\resolve_screen'
 	);
 
 	add_submenu_page(
-		'wpprobe',
-		esc_html__( 'WPProbe Status Report', 'wpprobe' ),
-		esc_html__( 'Status Report', 'wpprobe' ),
+		'elasticprobe',
+		esc_html__( 'ElasticProbe Status Report', 'elasticprobe' ),
+		esc_html__( 'Status Report', 'elasticprobe' ),
 		$capability,
-		'wpprobe-status-report',
+		'elasticprobe-status-report',
 		__NAMESPACE__ . '\resolve_screen'
 	);
 }
@@ -867,7 +874,7 @@ function use_language_in_setting( $language = 'english', $context = '' ) {
  * @return string[]
  */
 function filter_blogs_columns( $columns ) {
-	$columns['wpprobe'] = esc_html__( 'WPProbe Indexing', 'wpprobe' );
+	$columns['elasticprobe'] = esc_html__( 'ElasticProbe Indexing', 'elasticprobe' );
 
 	return $columns;
 }
@@ -881,7 +888,7 @@ function filter_blogs_columns( $columns ) {
  * @return void | string
  */
 function add_blogs_column( $column_name, $blog_id ) {
-	if ( 'wpprobe' !== $column_name ) {
+	if ( 'elasticprobe' !== $column_name ) {
 		return;
 	}
 
@@ -912,7 +919,7 @@ function action_wp_ajax_ep_site_admin() {
 	}
 
 	/**
-	 * NOTE: This will be removed in WPProbe 5.0.0. Implementations should rely on site_meta since 4.7.0.
+	 * NOTE: This will be removed in ElasticProbe 5.0.0. Implementations should rely on site_meta since 4.7.0.
 	 */
 	$result = update_blog_option( $blog_id, 'ep_indexable', $checked );
 
@@ -929,7 +936,7 @@ function action_wp_ajax_ep_site_admin() {
  * Handle the fetch for indexing status
  */
 function handle_indexing_status() {
-	$indexing_status = \WPProbe\Utils\get_indexing_status();
+	$indexing_status = \ElasticProbe\Utils\get_indexing_status();
 
 	$status = array(
 		'method'        => '',
@@ -956,15 +963,15 @@ function handle_indexing_status() {
 }
 
 /**
- * Add an WPProbe block category.
+ * Add an ElasticProbe block category.
  *
  * @param array $block_categories Array of categories for block types.
  * @return array Array of categories for block types.
  */
 function block_categories( $block_categories ) {
 	$block_categories[] = [
-		'slug'  => 'wpprobe',
-		'title' => 'WPProbe',
+		'slug'  => 'elasticprobe',
+		'title' => 'ElasticProbe',
 	];
 
 	return $block_categories;
@@ -977,7 +984,7 @@ function block_categories( $block_categories ) {
  */
 function block_assets() {
 	wp_enqueue_script(
-		'wpprobe-blocks',
+		'elasticprobe-blocks',
 		EP_URL . 'dist/js/blocks-script.js',
 		Utils\get_asset_info( 'blocks-script', 'dependencies' ),
 		Utils\get_asset_info( 'blocks-script', 'version' ),
@@ -985,7 +992,7 @@ function block_assets() {
 	);
 
 	wp_localize_script(
-		'wpprobe-blocks',
+		'elasticprobe-blocks',
 		'epBlocks',
 		[
 			'syncUrl' => Utils\get_sync_url(),

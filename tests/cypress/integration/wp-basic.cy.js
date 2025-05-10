@@ -1,6 +1,6 @@
 describe('WordPress basic actions', () => {
 	before(() => {
-		cy.wpCli('wpprobe sync --setup --yes');
+		cy.wpCli('elasticprobe sync --setup --yes');
 	});
 
 	it('Has <title> tag', () => {

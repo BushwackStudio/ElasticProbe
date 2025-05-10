@@ -3,12 +3,12 @@
  * WooCommerce Orders
  *
  * @since 4.7.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Feature\WooCommerce;
+namespace ElasticProbe\Feature\WooCommerce;
 
-use WPProbe\Indexables;
+use ElasticProbe\Indexables;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -314,7 +314,7 @@ class Orders {
 		$supported_post_types = apply_filters_deprecated(
 			'ep_woocommerce_default_supported_post_types',
 			[ $post_types ],
-			'4.7.0',
+			'0.1.0',
 			'ep_woocommerce_orders_supported_post_types'
 		);
 
@@ -337,9 +337,9 @@ class Orders {
 	}
 
 	/**
-	 * Display a notice if WooCommerce Orders are not compatible with WPProbe
+	 * Display a notice if WooCommerce Orders are not compatible with ElasticProbe
 	 *
-	 * If the user has WooCommerce, Protected Content, and HPOS enabled, orders will not go through WPProbe.
+	 * If the user has WooCommerce, Protected Content, and HPOS enabled, orders will not go through ElasticProbe.
 	 *
 	 * @param array $notices Current EP notices
 	 * @return array
@@ -350,11 +350,11 @@ class Orders {
 			return $notices;
 		}
 
-		if ( \WPProbe\Utils\get_option( 'ep_hide_wc_orders_incompatible_notice' ) ) {
+		if ( \ElasticProbe\Utils\get_option( 'ep_hide_wc_orders_incompatible_notice' ) ) {
 			return $notices;
 		}
 
-		$protected_content = \WPProbe\Features::factory()->get_registered_feature( 'protected_content' );
+		$protected_content = \ElasticProbe\Features::factory()->get_registered_feature( 'protected_content' );
 		if ( ! $protected_content->is_active() ) {
 			return $notices;
 		}
@@ -370,9 +370,10 @@ class Orders {
 		}
 
 		$notices['wc_orders_incompatible'] = [
-			'html'    => esc_html__( "Although the WooCommerce and Protected Content features are enabled, WPProbe will not integrate with the WooCommerce Orders list if WooCommerce's High-performance order storage is enabled.", 'wpprobe' ),
+			'html'    => esc_html__( "Although the WooCommerce and Protected Content features are enabled, ElasticProbe will not integrate with the WooCommerce Orders list if WooCommerce's High-performance order storage is enabled.", 'elasticprobe' ),
 			'type'    => 'warning',
 			'dismiss' => true,
+			'scope'   => 'site',
 		];
 
 		return $notices;
@@ -456,7 +457,7 @@ class Orders {
 	}
 
 	/**
-	 * Translate args to WPProbe compat format. This is the meat of what the feature does
+	 * Translate args to ElasticProbe compat format. This is the meat of what the feature does
 	 *
 	 * @param  \WP_Query $query WP Query
 	 */
@@ -515,9 +516,9 @@ class Orders {
 
 		if ( in_array( $method_name, $orders_autosuggest_methods, true ) ) {
 			_deprecated_function(
-				"\WPProbe\Feature\WooCommerce\WooCommerce\Orders::{$method_name}", // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				'4.7.0',
-				"\WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders_autosuggest->{$method_name}()" // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				"\ElasticProbe\Feature\WooCommerce\WooCommerce\Orders::{$method_name}", // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				'0.1.0',
+				"\ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders_autosuggest->{$method_name}()" // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			);
 
 			if ( $this->woocommerce->orders_autosuggest->is_enabled() && method_exists( $this->woocommerce->orders_autosuggest, $method_name ) ) {

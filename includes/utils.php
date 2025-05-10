@@ -1,14 +1,14 @@
 <?php
 /**
- * WPProbe utility functions
+ * ElasticProbe utility functions
  *
  * @since  3.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Utils;
+namespace ElasticProbe\Utils;
 
-use WPProbe\IndexHelper;
+use ElasticProbe\IndexHelper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function get_epio_credentials() {
 	if ( defined( 'EP_CREDENTIALS' ) && EP_CREDENTIALS ) {
 		$raw_credentials = explode( ':', EP_CREDENTIALS );
-		if ( is_array( $raw_credentials ) && 1 === count( $raw_credentials ) ) {
+		if ( is_array( $raw_credentials ) && 2 === count( $raw_credentials ) ) {
 			$credentials = array(
 				'username' => $raw_credentials[0],
 				'token'    => $raw_credentials[1],
@@ -52,7 +52,7 @@ function get_epio_credentials() {
 }
 
 /**
- * Get WP capability needed for a user to interact with WPProbe in the admin
+ * Get WP capability needed for a user to interact with ElasticProbe in the admin
  *
  * @since 4.5.0, 5.1.0 added $context
  * @param string $context Context for the capability. Defaults to empty string.
@@ -60,7 +60,7 @@ function get_epio_credentials() {
  */
 function get_capability( string $context = '' ): string {
 	/**
-	 * Filter the WP capability needed to interact with WPProbe in the admin
+	 * Filter the WP capability needed to interact with ElasticProbe in the admin
 	 *
 	 * Example:
 	 * ```
@@ -86,7 +86,7 @@ function get_capability( string $context = '' ): string {
 }
 
 /**
- * Get WP capability needed for a user to interact with WPProbe in the network admin
+ * Get WP capability needed for a user to interact with ElasticProbe in the network admin
  *
  * @since 4.5.0, 5.1.0 added $context
  * @param string $context Context for the capability. Defaults to empty string.
@@ -94,7 +94,7 @@ function get_capability( string $context = '' ): string {
  */
 function get_network_capability( string $context = '' ): string {
 	/**
-	 * Filter the WP capability needed to interact with WPProbe in the network admin
+	 * Filter the WP capability needed to interact with ElasticProbe in the network admin
 	 *
 	 * @since 4.5.0, 5.1.0 added $context
 	 * @hook ep_network_capability
@@ -153,7 +153,11 @@ function get_shield_credentials() {
  */
 function get_index_prefix() {
 	if ( defined( 'EP_INDEX_PREFIX' ) && \EP_INDEX_PREFIX ) {
-		$prefix = \EP_INDEX_PREFIX;
+		if ( is_epio() ) {
+			$prefix = get_index_prefix() . \EP_INDEX_PREFIX;
+		} else {
+			$prefix = \EP_INDEX_PREFIX;
+		}
 	} elseif ( is_epio() ) {
 		$prefix = get_subscription_id();
 		if (
@@ -228,7 +232,7 @@ function sanitize_credentials( $credentials ) {
 }
 
 /**
- * Determine if WPProbe is in the middle of an index
+ * Determine if ElasticProbe is in the middle of an index
  *
  * @since  3.0
  * @return boolean
@@ -280,7 +284,7 @@ function get_host() {
 	}
 
 	/**
-	 * Filter WPProbe host to use
+	 * Filter ElasticProbe host to use
 	 *
 	 * @since  2.1
 	 * @hook ep_host
@@ -291,7 +295,7 @@ function get_host() {
 }
 
 /**
- * Get WPProbe subscription id.
+ * Get ElasticProbe subscription id.
  *
  * @return string
  */
@@ -299,9 +303,9 @@ function get_subscription_id() {
 	if ( defined( 'PROBE_SID' ) && \PROBE_SID ) {
 		$sid = \PROBE_SID;
 	} else {
-		$sid = get_option( 'wpprobe_subscription_id', '' );
+		$sid = get_option( 'elasticprobe_subscription_id', '' );
 	}
-	return apply_filters( 'wpprobe_subscription_id', $sid );
+	return apply_filters( 'elasticprobe_subscription_id', $sid );
 }
 
 /**
@@ -656,7 +660,7 @@ function delete_option( $option ) {
 
 /**
  * Check if queries for the current request are going to be integrated with
- * WPProbe.
+ * ElasticProbe.
  *
  * Public requests and REST API requests are integrated by default, but admin
  * requests will only be integrated in if the `ep_admin_wp_query_integration`
@@ -674,7 +678,7 @@ function delete_option( $option ) {
  * @param string[] $types   Which types of request to check. Any of 'admin',
  *                          'ajax', 'public', and 'rest'. Defaults to all
  *                          types.
- * @return bool Whether the current request supports WPProbe integration
+ * @return bool Whether the current request supports ElasticProbe integration
  *              and is of a given type.
  *
  * @since 3.6.0
@@ -781,7 +785,7 @@ function get_asset_info( $slug, $attribute = null ) {
  * @return string
  */
 function get_sync_url( $do_sync = false ): string {
-	$page = 'admin.php?page=wpprobe-sync';
+	$page = 'admin.php?page=elasticprobe-sync';
 	if ( $do_sync ) {
 		$page .= '&do_sync';
 		if ( is_string( $do_sync ) ) {

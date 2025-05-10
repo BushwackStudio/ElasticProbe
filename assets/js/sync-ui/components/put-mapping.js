@@ -26,7 +26,7 @@ export default () => {
 				<Notice isDismissible={false} status="warning">
 					{__(
 						'Search results could be out of date or returned in different order while the sync completes.',
-						'wpprobe',
+						'elasticprobe',
 					)}
 				</Notice>
 			) : null}
@@ -35,11 +35,11 @@ export default () => {
 				disabled={isSyncing}
 				checked={args.put_mapping}
 				help={__(
-					'All indexed data on WPProbe will be deleted without affecting anything on your WordPress website. This may take a few hours depending on the amount of content that needs to be synced and indexed. While this is happening, searches will use the default WordPress results.',
-					'wpprobe',
+					'All indexed data on ElasticProbe will be deleted without affecting anything on your WordPress website. This may take a few hours depending on the amount of content that needs to be synced and indexed. While this is happening, searches will use the default WordPress results.',
+					'elasticprobe',
 				)}
 				indeterminate={isSyncing && isDeleting && !args.put_mapping}
-				label={__('Delete all data and start fresh sync', 'wpprobe')}
+				label={__('Delete all data and start fresh sync', 'elasticprobe')}
 				onChange={(checked) => setArgs({ ...args, put_mapping: checked })}
 				__nextHasNoMarginBottom
 			/>

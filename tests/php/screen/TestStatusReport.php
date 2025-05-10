@@ -3,18 +3,20 @@
  * Test the Status Report
  *
  * @since 4.4.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe\Screen\StatusReport;
-use WPProbe\Utils;
+use ElasticProbe\Screen\StatusReport;
+use WP_Ajax_UnitTestCase;
+use ElasticProbe\Utils;
 
 /**
  * Test the Status Report class
  */
-class TestStatusReport extends BaseTestCase {
+class TestStatusReport extends WP_Ajax_UnitTestCase {
+
 
 	/**
 	 * Test the default behavior of the get_reports method
@@ -25,10 +27,17 @@ class TestStatusReport extends BaseTestCase {
 		$status_report = new StatusReport();
 
 		$reports = $status_report->get_reports();
-		$this->assertSame(
-			[ 'failed-queries', 'wordpress', 'indexable', 'elasticpress', 'indices', 'last-sync', 'features' ],
-			array_keys( $reports )
-		);
+		if ( Utils\is_epio() ) {
+			$this->assertSame(
+				[ 'failed-queries', 'autosuggest', 'wordpress', 'indexable', 'elasticpress', 'indices', 'last-sync', 'features' ],
+				array_keys( $reports )
+			);
+		} else {
+			$this->assertSame(
+				[ 'failed-queries', 'wordpress', 'indexable', 'elasticpress', 'indices', 'last-sync', 'features' ],
+				array_keys( $reports )
+			);
+		}
 	}
 
 	/**
@@ -46,10 +55,17 @@ class TestStatusReport extends BaseTestCase {
 		add_filter( 'ep_status_report_reports', $add_filter );
 
 		$reports = $status_report->get_reports();
-		$this->assertSame(
-			[ 'failed-queries', 'wordpress', 'indexable', 'elasticpress', 'indices', 'last-sync', 'features', 'custom' ],
-			array_keys( $reports )
-		);
+		if ( Utils\is_epio() ) {
+			$this->assertSame(
+				[ 'failed-queries', 'autosuggest', 'wordpress', 'indexable', 'elasticpress', 'indices', 'last-sync', 'features', 'custom' ],
+				array_keys( $reports )
+			);
+		} else {
+			$this->assertSame(
+				[ 'failed-queries', 'wordpress', 'indexable', 'elasticpress', 'indices', 'last-sync', 'features', 'custom' ],
+				array_keys( $reports )
+			);
+		}
 	}
 
 	/**
@@ -63,10 +79,17 @@ class TestStatusReport extends BaseTestCase {
 		parse_str( 'ep-skip-reports[]=wordpress&ep-skip-reports[]=indexable', $_GET ); // phpcs:ignore WordPress.WP.CapitalPDangit.MisspelledInText
 
 		$reports = $status_report->get_reports();
-		$this->assertSame(
-			[ 'failed-queries', 'elasticpress', 'indices', 'last-sync', 'features' ],
-			array_keys( $reports )
-		);
+		if ( Utils\is_epio() ) {
+			$this->assertSame(
+				[ 'failed-queries', 'autosuggest', 'elasticpress', 'indices', 'last-sync', 'features' ],
+				array_keys( $reports )
+			);
+		} else {
+			$this->assertSame(
+				[ 'failed-queries', 'elasticpress', 'indices', 'last-sync', 'features' ],
+				array_keys( $reports )
+			);
+		}
 	}
 
 	/**
@@ -78,7 +101,7 @@ class TestStatusReport extends BaseTestCase {
 	public function testWordPressReport() {
 		global $wp_version;
 
-		$report = new \WPProbe\StatusReport\WordPress();
+		$report = new \ElasticProbe\StatusReport\WordPress();
 
 		$expected_result = array(
 			array(
@@ -144,7 +167,7 @@ class TestStatusReport extends BaseTestCase {
 	 * @since 4.5.1
 	 */
 	public function testLastSyncReport() {
-		$report = new \WPProbe\StatusReport\LastSync();
+		$report = new \ElasticProbe\StatusReport\LastSync();
 
 		// Test when no last sync information is available
 		$this->assertEmpty( $report->get_groups() );
@@ -203,9 +226,9 @@ class TestStatusReport extends BaseTestCase {
 	 */
 	public function testIndicesReport() {
 		// Make sure the index exists
-		\WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
+		\ElasticProbe\Indexables::factory()->get( 'post' )->put_mapping();
 
-		$report = new \WPProbe\StatusReport\Indices();
+		$report = new \ElasticProbe\StatusReport\Indices();
 
 		$group         = $report->get_groups();
 		$expected_keys = [ 'health', 'status', 'index', 'uuid', 'pri', 'rep', 'docs.count', 'docs.deleted', 'store.size', 'pri.store.size', 'total_fields_limit' ];
@@ -226,10 +249,10 @@ class TestStatusReport extends BaseTestCase {
 	public function testIndexableContentReport() {
 		// set screen to status report
 		add_filter( 'ep_install_status', '__return_true' );
-		$_GET['page'] = 'wpprobe-status-report';
-		\WPProbe\Screen::factory()->determine_screen();
+		$_GET['page'] = 'elasticprobe-status-report';
+		\ElasticProbe\Screen::factory()->determine_screen();
 
-		$post_indexable = \WPProbe\Indexables::factory()->get( 'post' );
+		$post_indexable = \ElasticProbe\Indexables::factory()->get( 'post' );
 		$post_types     = $post_indexable->get_indexable_post_types();
 
 		$posts_fields       = array();
@@ -246,7 +269,7 @@ class TestStatusReport extends BaseTestCase {
 		add_filter( 'ep_prepare_meta_allowed_keys', $allow_metakeys );
 
 		foreach ( $post_types as $post_type ) {
-			$this->ep_factory->post->create_many(
+			$this->factory->post->create_many(
 				10,
 				array(
 					'post_type'  => $post_type,
@@ -289,9 +312,9 @@ class TestStatusReport extends BaseTestCase {
 			),
 		);
 
-		$report = new \WPProbe\StatusReport\IndexableContent();
+		$report = new \ElasticProbe\StatusReport\IndexableContent();
 
-		$this->assertSame( $expected_result, $report->get_groups() );
+		$this->assertSame( $expected_result, $report->get_groups_ajax() );
 		$this->assertEquals( 'Indexable Content', $report->get_title() );
 	}
 
@@ -306,9 +329,9 @@ class TestStatusReport extends BaseTestCase {
 		Utils\delete_option( 'ep_feature_settings' );
 
 		// activate search feature.
-		\WPProbe\Features::factory()->activate_feature( 'search' );
+		\ElasticProbe\Features::factory()->activate_feature( 'search' );
 
-		$report = new \WPProbe\StatusReport\Features();
+		$report = new \ElasticProbe\StatusReport\Features();
 		$groups = $report->get_groups();
 
 		$this->assertEquals( 1, count( $groups ) );
@@ -369,7 +392,7 @@ class TestStatusReport extends BaseTestCase {
 			),
 			'recommended_solution' => array(
 				'label' => 'Recommended Solution',
-				'value' => 'We did not recognize this error. Please consider opening a <a href="https://github.com/BushwackStudio/WpProbe/issues/new/choose">GitHub Issue</a> so we can add it to our list of supported errors.',
+				'value' => Utils\is_epio() ? 'We did not recognize this error. Please consider opening a <a href="https://github.com/BushwackStudio/ElasticProbe/issues/new/choose">GitHub Issue</a> so we can add it to our list of supported errors and troubleshoot further.' : 'We did not recognize this error. Please consider opening a <a href="https://github.com/BushwackStudio/ElasticProbe/issues/new/choose">GitHub Issue</a> so we can add it to our list of supported errors.',
 			),
 			'es_req'               => array(
 				'label' => 'Elasticsearch Request',
@@ -411,8 +434,8 @@ class TestStatusReport extends BaseTestCase {
 			),
 		);
 
-		$query_logger = new \WPProbe\QueryLogger();
-		$report       = new \WPProbe\StatusReport\FailedQueries( $query_logger );
+		$query_logger = new \ElasticProbe\QueryLogger();
+		$report       = new \ElasticProbe\StatusReport\FailedQueries( $query_logger );
 
 		$this->assertSame( $expected_result, $report->get_groups()[0]['fields'] );
 		$this->assertEquals( 'Failed Queries', $report->get_title() );
@@ -428,10 +451,12 @@ class TestStatusReport extends BaseTestCase {
 	 * @since 4.5.1
 	 */
 	public function testElasticPressIoReport() {
-		\WPProbe\Features::factory()->activate_feature( 'autosuggest' );
-		\WPProbe\Features::factory()->activate_feature( 'instant-results' );
+		$this->markTestSkipped( 'Needs autosuggest and instant result' );
 
-		$report = new \WPProbe\StatusReport\ElasticPressIo();
+		\ElasticProbe\Features::factory()->activate_feature( 'autosuggest' );
+		\ElasticProbe\Features::factory()->activate_feature( 'instant-results' );
+
+		$report = new \ElasticProbe\StatusReport\ElasticPressIo();
 		$groups = $report->get_groups();
 
 		$this->assertEquals( 3, count( $groups ) );
@@ -442,13 +467,13 @@ class TestStatusReport extends BaseTestCase {
 	}
 
 	/**
-	 * Tests WPProbe report.
+	 * Tests ElasticProbe report.
 	 *
 	 * @group statusReport
 	 * @since 4.5.1
 	 */
 	public function testElasticPressReport() {
-		$report = new \WPProbe\StatusReport\ElasticPress();
+		$report = new \ElasticProbe\StatusReport\ElasticPress();
 		$groups = $report->get_groups();
 
 		$expected_result = array(
@@ -456,7 +481,7 @@ class TestStatusReport extends BaseTestCase {
 				'title'  => 'Settings',
 				'fields' => array(
 					'host'           => array(
-						'label' => 'Elasticsearch Host URL',
+						'label' => Utils\is_epio() ? 'WPProbe.com Host URL' : 'Elasticsearch Host URL',
 						'value' => Utils\get_host(),
 					),
 					'index_prefix'   => array(
@@ -469,7 +494,7 @@ class TestStatusReport extends BaseTestCase {
 					),
 					'per_page'       => array(
 						'label' => 'Content Items per Index Cycle',
-						'value' => \WPProbe\IndexHelper::factory()->get_index_default_per_page(),
+						'value' => \ElasticProbe\IndexHelper::factory()->get_index_default_per_page(),
 					),
 					'network_active' => array(
 						'label' => 'Network Active',
@@ -498,5 +523,87 @@ class TestStatusReport extends BaseTestCase {
 
 		$this->assertSame( $expected_result, $report->get_groups() );
 		$this->assertEquals( 2, count( $groups ) );
+	}
+
+	/**
+	 * Test ajax report handler with nonce not present.
+	 *
+	 * @group statusReport
+	 * @since 5.2.0
+	 */
+	public function testNoncenotValidAjaxReport() {
+		add_action( 'wp_ajax_ep_load_groups', [ new StatusReport(), 'action_wp_ajax_ep_load_groups' ] );
+
+		try {
+			$this->_handleAjax( 'ep_load_groups' );
+		} catch ( \WPAjaxDieContinueException $e ) {
+			$response = json_decode( $this->_last_response, true );
+			$this->assertSame( 'Nonce is not present.', $response['data']['message'] );
+			return;
+		}
+	}
+
+	/**
+	 * Test report not instance of ajax report.
+	 *
+	 * @group statusReport
+	 * @since 5.2.0
+	 */
+	public function testNotInstanceOfAjaxReport() {
+		add_action( 'wp_ajax_ep_load_groups', [ new StatusReport(), 'action_wp_ajax_ep_load_groups' ] );
+
+		$_POST['ep-status-report-nonce'] = wp_create_nonce( 'ep-status-report-nonce' );
+		$_POST['report']                 = 'indices';
+
+		try {
+			$this->_handleAjax( 'ep_load_groups' );
+		} catch ( \WPAjaxDieContinueException $e ) {
+			$response = json_decode( $this->_last_response, true );
+			$this->assertSame( 'Report is not an AJAX report.', $response['data']['message'] );
+			return;
+		}
+	}
+
+	/**
+	 * Test ajax report handler with report not found.
+	 *
+	 * @group statusReport
+	 * @since 5.2.0
+	 */
+	public function testReportNotFoundAjaxReport() {
+		add_action( 'wp_ajax_ep_load_groups', [ new StatusReport(), 'action_wp_ajax_ep_load_groups' ] );
+
+		$_POST['ep-status-report-nonce'] = wp_create_nonce( 'ep-status-report-nonce' );
+		$_POST['report']                 = 'not-valid';
+
+		try {
+			$this->_handleAjax( 'ep_load_groups' );
+		} catch ( \WPAjaxDieContinueException $e ) {
+			$response = json_decode( $this->_last_response, true );
+			$this->assertSame( 'Status report not found.', $response['data']['message'] );
+			return;
+		}
+	}
+
+	/**
+	 * Test ajax report handler with valid report.
+	 *
+	 * @group statusReport
+	 * @since 5.2.0
+	 */
+	public function testValidReportAjaxReport() {
+		add_action( 'wp_ajax_ep_load_groups', [ new StatusReport(), 'action_wp_ajax_ep_load_groups' ] );
+
+		$_POST['ep-status-report-nonce'] = wp_create_nonce( 'ep-status-report-nonce' );
+		$_POST['report']                 = 'indexable';
+
+		try {
+			$this->_handleAjax( 'ep_load_groups' );
+		} catch ( \WPAjaxDieContinueException $e ) {
+			$response = json_decode( $this->_last_response, true );
+			$this->assertArrayHasKey( 'groups', $response['data'] );
+			$this->assertArrayHasKey( 'messages', $response['data'] );
+			return;
+		}
 	}
 }

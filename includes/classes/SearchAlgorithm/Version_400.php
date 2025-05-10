@@ -3,10 +3,10 @@
  * EP version 4.0.0 search algorithm
  *
  * @since  4.3.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\SearchAlgorithm;
+namespace ElasticProbe\SearchAlgorithm;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	// @codeCoverageIgnoreStart
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * EP version 4.0.0 search algorithm class.
  */
-class Version_400 extends \WPProbe\SearchAlgorithm {
+class Version_400 extends \ElasticProbe\SearchAlgorithm {
 	/**
 	 * Search algorithm slug.
 	 *
@@ -33,7 +33,7 @@ class Version_400 extends \WPProbe\SearchAlgorithm {
 	 * @return string
 	 */
 	public function get_name(): string {
-		return esc_html__( 'Version 4.0', 'wpprobe' );
+		return esc_html__( 'Version 4.0', 'elasticprobe' );
 	}
 
 	/**
@@ -42,11 +42,11 @@ class Version_400 extends \WPProbe\SearchAlgorithm {
 	 * @return string
 	 */
 	public function get_description(): string {
-		return esc_html__( 'Search for all search terms in one field first, then prioritize them over search terms matched in different fields.', 'wpprobe' );
+		return esc_html__( 'Search for all search terms in one field first, then prioritize them over search terms matched in different fields.', 'elasticprobe' );
 	}
 
 	/**
-	 * Return the WPProbe `query` clause.
+	 * Return the ElasticProbe `query` clause.
 	 *
 	 * @param string $indexable_slug Indexable slug
 	 * @param string $search_term    Search term(s)
@@ -135,7 +135,7 @@ class Version_400 extends \WPProbe\SearchAlgorithm {
 		$query['bool']['should'][0]['multi_match']['boost'] = apply_filters_deprecated(
 			'ep_match_phrase_boost',
 			[ $query['bool']['should'][0]['multi_match']['boost'], $search_fields, $query_vars ],
-			'4.3.0',
+			'0.1.0',
 			'ep_post_match_phrase_boost'
 		);
 
@@ -143,7 +143,7 @@ class Version_400 extends \WPProbe\SearchAlgorithm {
 		$query['bool']['should'][1]['multi_match']['boost'] = apply_filters_deprecated(
 			'ep_match_boost',
 			[ $query['bool']['should'][1]['multi_match']['boost'], $search_fields, $query_vars ],
-			'4.3.0',
+			'0.1.0',
 			'ep_post_match_boost'
 		);
 
@@ -162,7 +162,7 @@ class Version_400 extends \WPProbe\SearchAlgorithm {
 		$query['bool']['should'][1]['multi_match']['fuzziness'] = apply_filters_deprecated(
 			'ep_match_fuzziness',
 			[ $query['bool']['should'][1]['multi_match']['fuzziness'], $search_fields, $query_vars ],
-			'4.3.0',
+			'0.1.0',
 			'ep_post_match_fuzziness'
 		);
 
@@ -181,7 +181,7 @@ class Version_400 extends \WPProbe\SearchAlgorithm {
 		$query['bool']['should'][2]['multi_match']['boost'] = apply_filters_deprecated(
 			'ep_match_cross_fields_boost',
 			[ $query['bool']['should'][2]['multi_match']['boost'], $search_fields, $query_vars ],
-			'4.3.0',
+			'0.1.0',
 			'ep_post_match_cross_fields_boost'
 		);
 

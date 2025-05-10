@@ -2,12 +2,12 @@
 /**
  * Test taxonomy facet type feature
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe\Features;
+use ElasticProbe\Features;
 
 /**
  * Facets\Types\Taxonomy\FacetType test class

@@ -16,7 +16,7 @@ import { __ } from '@wordpress/i18n';
  */
 export default ({ onChange, value }) => {
 	/**
-	 * Filterable meta keys from WPProbe data store.
+	 * Filterable meta keys from ElasticProbe data store.
 	 */
 	const taxonomies = useSelect((select) => select('elasticpress').getTaxonomies());
 
@@ -26,7 +26,7 @@ export default ({ onChange, value }) => {
 	const options = useMemo(() => {
 		return [
 			{
-				label: __('Select taxonomy', 'wpprobe'),
+				label: __('Select taxonomy', 'elasticprobe'),
 				value: '',
 			},
 			...Object.entries(taxonomies).map(([slug, taxonomy]) => ({
@@ -40,11 +40,12 @@ export default ({ onChange, value }) => {
 		<SelectControl
 			disabled={options.length <= 1}
 			help=""
-			label={__('Filter by', 'wpprobe')}
+			label={__('Filter by', 'elasticprobe')}
 			onChange={onChange}
 			options={options}
 			value={value}
 			__nextHasNoMarginBottom
+			__next40pxDefaultSize
 		/>
 	);
 };

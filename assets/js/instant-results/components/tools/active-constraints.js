@@ -32,7 +32,7 @@ export const ActiveConstraint = ({ label, onClick }) => {
 		<SmallButton
 			aria-label={sprintf(
 				/* translators: %s: Filter term name. */
-				__('Remove filter: %s', 'wpprobe'),
+				__('Remove filter: %s', 'elasticprobe'),
 				label,
 			)}
 			className="ep-search-icon-button"

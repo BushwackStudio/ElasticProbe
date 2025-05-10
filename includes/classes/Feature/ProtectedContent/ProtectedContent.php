@@ -1,17 +1,17 @@
 <?php
 /**
- * WPProbe Protected Content feature
+ * ElasticProbe Protected Content feature
  *
  * @since  2.2
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Feature\ProtectedContent;
+namespace ElasticProbe\Feature\ProtectedContent;
 
-use WPProbe\Feature;
-use WPProbe\FeatureRequirementsStatus;
-use WPProbe\Features;
-use WPProbe\Utils;
+use ElasticProbe\Feature;
+use ElasticProbe\FeatureRequirementsStatus;
+use ElasticProbe\Features;
+use ElasticProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -44,12 +44,12 @@ class ProtectedContent extends Feature {
 	 * @since 5.2.0
 	 */
 	public function set_i18n_strings(): void {
-		$this->title = esc_html__( 'Protected Content', 'wpprobe' );
+		$this->title = esc_html__( 'Protected Content', 'elasticprobe' );
 
-		$this->summary = '<p>' . __( 'Syncs unpublished content — including private, draft, and scheduled posts — improving load times in places like the administrative dashboard where WordPress needs to include protected content in a query.', 'wpprobe' ) . '</p>' .
-		'<p><em>' . __( 'We recommend using a secured Elasticsearch setup, such as WPProbe.com, to prevent potential exposure of content not intended for the public.', 'wpprobe' ) . '</em></p>';
+		$this->summary = '<p>' . __( 'Syncs unpublished content — including private, draft, and scheduled posts — improving load times in places like the administrative dashboard where WordPress needs to include protected content in a query.', 'elasticprobe' ) . '</p>' .
+		'<p><em>' . __( 'We recommend using a secured Elasticsearch setup, such as WPProbe.com, to prevent potential exposure of content not intended for the public.', 'elasticprobe' ) . '</em></p>';
 
-		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#protected-content', 'wpprobe' );
+		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#protected-content', 'elasticprobe' );
 	}
 
 	/**
@@ -374,7 +374,7 @@ class ProtectedContent extends Feature {
 	 */
 	public function output_feature_box_long() {
 		?>
-		<p><?php echo wp_kses_post( __( 'Securely indexes unpublished content—including private, draft, and scheduled posts —improving load times in places like the administrative dashboard where WordPress needs to include protected content in a query. <em>We recommend using a secured Elasticsearch setup, such as WPProbe.com, to prevent potential exposure of content not intended for the public.</em>', 'wpprobe' ) ); ?></p>
+		<p><?php echo wp_kses_post( __( 'Securely indexes unpublished content—including private, draft, and scheduled posts —improving load times in places like the administrative dashboard where WordPress needs to include protected content in a query. <em>We recommend using a secured Elasticsearch setup, such as WPProbe.com, to prevent potential exposure of content not intended for the public.</em>', 'elasticprobe' ) ); ?></p>
 		<?php
 	}
 
@@ -414,7 +414,7 @@ class ProtectedContent extends Feature {
 		$status = new FeatureRequirementsStatus( 1 );
 
 		if ( ! Utils\is_epio() ) {
-			$status->message = __( "You aren't using <a href='https://wpprobe.com'>WPProbe.com</a> so we can't be sure your Elasticsearch instance is secure.", 'wpprobe' );
+			$status->message = __( "You aren't using <a href='https://wpprobe.com'>WPProbe.com</a> so we can't be sure your Elasticsearch instance is secure.", 'elasticprobe' );
 		}
 
 		return $status;
@@ -473,8 +473,8 @@ class ProtectedContent extends Feature {
 			[
 				'default' => '0',
 				'key'     => 'use_default_wp_sort',
-				'help'    => __( 'Enable to use WordPress default sort for searches inside the WP Dashboard.', 'wpprobe' ),
-				'label'   => __( 'Use default WordPress sort on the WP Dashboard', 'wpprobe' ),
+				'help'    => __( 'Enable to use WordPress default sort for searches inside the WP Dashboard.', 'elasticprobe' ),
+				'label'   => __( 'Use default WordPress sort on the WP Dashboard', 'elasticprobe' ),
 				'type'    => 'checkbox',
 			],
 		];

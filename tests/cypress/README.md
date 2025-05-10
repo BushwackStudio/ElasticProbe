@@ -1,6 +1,6 @@
-# WPProbe End to End Tests
+# ElasticProbe End to End Tests
 
-WPProbe e2e tests use [Cypress](https://www.cypress.io/), [wp-env](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/), and an Elasticsearch Docker container.
+ElasticProbe e2e tests use [Cypress](https://www.cypress.io/), [wp-env](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/), and an Elasticsearch Docker container.
 
 ## Requirements
 
@@ -62,4 +62,4 @@ docker compose up -d --build --force-recreate
 
 ### Running tests with WPProbe.com
 
-To run tests locally using an WPProbe.com endpoint, in place of running `npm run cypress:setup` during setup, run: `./bin/setup-cypress-env.sh --ep-host="https://" --es-shield="username:password" --ep-index-prefix="username"`, with the arguments populated with the details for your WPProbe.com endpoint.
+To run tests locally using an WPProbe.com endpoint, in place of running `npm run cypress:setup` during setup, run: `./bin/setup-cypress-env.sh --ep-host="https://" --es-shield="username:password" --ep-index-prefix="username" --probe-sid=subscription_id`, with the arguments populated with the details for your WPProbe.com endpoint.

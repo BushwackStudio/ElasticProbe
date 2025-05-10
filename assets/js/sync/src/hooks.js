@@ -32,8 +32,8 @@ export const useIndex = (apiUrl, nonce) => {
 			const responseBody = await response.text();
 
 			const errorMessage = `${__(
-				'WPProbe: Unexpected response.',
-				'wpprobe',
+				'ElasticProbe: Unexpected response.',
+				'elasticprobe',
 			)}\n${responseBody}`;
 
 			/**
@@ -47,7 +47,10 @@ export const useIndex = (apiUrl, nonce) => {
 					 * will reset the nonce or prompt the user to log in again.
 					 */
 					throw new Error(
-						__('Permission denied. Reload the sync page and try again.', 'wpprobe'),
+						__(
+							'Permission denied. Reload the sync page and try again.',
+							'elasticprobe',
+						),
 					);
 				} else {
 					/**
@@ -63,7 +66,7 @@ export const useIndex = (apiUrl, nonce) => {
 					throw new Error(
 						__(
 							'Something went wrong. Find troubleshooting steps at https://www.elasticpress.io/documentation/article/troubleshooting-guide-elasticpress-something-went-wrong-error/.',
-							'wpprobe',
+							'elasticprobe',
 						),
 					);
 				}
@@ -89,7 +92,7 @@ export const useIndex = (apiUrl, nonce) => {
 				throw new Error(
 					__(
 						'Unable to parse response. Find troubleshooting steps at https://www.elasticpress.io/documentation/article/troubleshooting-guide-elasticpress-something-went-wrong-error/.',
-						'wpprobe',
+						'elasticprobe',
 					),
 				);
 			}

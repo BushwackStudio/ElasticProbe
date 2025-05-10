@@ -31,9 +31,9 @@ export default () => {
 
 		try {
 			await save();
-			createNotice('success', __('Settings saved.', 'wpprobe'));
+			createNotice('success', __('Settings saved.', 'elasticprobe'));
 		} catch (e) {
-			createNotice('error', __('Something went wrong. Please try again.', 'wpprobe'));
+			createNotice('error', __('Something went wrong. Please try again.', 'elasticprobe'));
 		}
 	};
 
@@ -41,14 +41,14 @@ export default () => {
 		<>
 			<p>
 				{__(
-					'This dashboard enables you to select which fields WPProbe should sync, whether to use those fields in searches, and how heavily to weight fields in the search algorithm. In general, increasing the Weight of a field will increase the relevancy score of a post that has matching text in that field.',
-					'wpprobe',
+					'This dashboard enables you to select which fields ElasticProbe should sync, whether to use those fields in searches, and how heavily to weight fields in the search algorithm. In general, increasing the Weight of a field will increase the relevancy score of a post that has matching text in that field.',
+					'elasticprobe',
 				)}
 			</p>
 			<p>
 				{__(
 					'For example, adding more weight to the title attribute will cause search matches on the post title to appear more prominently.',
-					'wpprobe',
+					'elasticprobe',
 				)}
 			</p>
 			<form className="ep-weighting-screen" onSubmit={onSubmit}>
@@ -56,7 +56,7 @@ export default () => {
 					return <PostType key={key} postType={key} />;
 				})}
 				<Button disabled={isBusy} isBusy={isBusy} isPrimary type="submit" variant="primary">
-					{__('Save changes', 'wpprobe')}
+					{__('Save changes', 'elasticprobe')}
 				</Button>
 			</form>
 		</>

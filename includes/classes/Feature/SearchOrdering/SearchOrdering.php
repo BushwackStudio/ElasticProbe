@@ -2,17 +2,17 @@
 /**
  * Search Ordering Feature
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Feature\SearchOrdering;
+namespace ElasticProbe\Feature\SearchOrdering;
 
-use WPProbe\Feature;
-use WPProbe\FeatureRequirementsStatus;
-use WPProbe\Features;
-use WPProbe\Indexables;
-use WPProbe\REST;
-use WPProbe\Utils;
+use ElasticProbe\Feature;
+use ElasticProbe\FeatureRequirementsStatus;
+use ElasticProbe\Features;
+use ElasticProbe\Indexables;
+use ElasticProbe\REST;
+use ElasticProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Search Ordering Feature
  *
- * @package WPProbe\Feature\SearchOrdering
+ * @package ElasticProbe\Feature\SearchOrdering
  */
 class SearchOrdering extends Feature {
 
@@ -38,7 +38,7 @@ class SearchOrdering extends Feature {
 	/**
 	 * Capability required to manage.
 	 *
-	 * This will be removed in future versions of WPProbe. Please use `Utils\get_capability()` instead.
+	 * This will be removed in future versions of ElasticProbe. Please use `Utils\get_capability()` instead.
 	 *
 	 * @deprecated 4.5.0
 	 */
@@ -66,11 +66,11 @@ class SearchOrdering extends Feature {
 	 * @since 5.2.0
 	 */
 	public function set_i18n_strings(): void {
-		$this->title = esc_html__( 'Custom Search Results', 'wpprobe' );
+		$this->title = esc_html__( 'Custom Search Results', 'elasticprobe' );
 
-		$this->summary = '<p>' . __( 'Selected posts will be inserted into search results in the specified position.', 'wpprobe' ) . '</p>';
+		$this->summary = '<p>' . __( 'Selected posts will be inserted into search results in the specified position.', 'elasticprobe' ) . '</p>';
 
-		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#custom-search-results', 'wpprobe' );
+		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#custom-search-results', 'elasticprobe' );
 	}
 
 	/**
@@ -161,22 +161,22 @@ class SearchOrdering extends Feature {
 
 		$messages[ self::POST_TYPE_NAME ] = array(
 			0  => '',
-			1  => esc_html__( 'Custom result updated.', 'wpprobe' ),
-			2  => esc_html__( 'Custom field updated.', 'wpprobe' ),
-			3  => esc_html__( 'Custom field deleted.', 'wpprobe' ),
-			4  => esc_html__( 'Custom result updated.', 'wpprobe' ),
+			1  => esc_html__( 'Custom result updated.', 'elasticprobe' ),
+			2  => esc_html__( 'Custom field updated.', 'elasticprobe' ),
+			3  => esc_html__( 'Custom field deleted.', 'elasticprobe' ),
+			4  => esc_html__( 'Custom result updated.', 'elasticprobe' ),
 			/* translators: %s: date and time of the revision */
-			5  => isset( $_GET['revision'] ) ? sprintf( __( 'Custom result restored to revision from %s', 'wpprobe' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false, // phpcs:ignore WordPress.Security.NonceVerification
-			6  => esc_html__( 'Custom result published.', 'wpprobe' ),
-			7  => esc_html__( 'Custom result saved.', 'wpprobe' ),
-			8  => esc_html__( 'Custom result submitted.', 'wpprobe' ),
+			5  => isset( $_GET['revision'] ) ? sprintf( __( 'Custom result restored to revision from %s', 'elasticprobe' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false, // phpcs:ignore WordPress.Security.NonceVerification
+			6  => esc_html__( 'Custom result published.', 'elasticprobe' ),
+			7  => esc_html__( 'Custom result saved.', 'elasticprobe' ),
+			8  => esc_html__( 'Custom result submitted.', 'elasticprobe' ),
 			9  => sprintf(
 				// translators: Scheduled date.
-				esc_html__( 'Custom result scheduled for: %1$s.', 'wpprobe' ),
+				esc_html__( 'Custom result scheduled for: %1$s.', 'elasticprobe' ),
 				// translators: Publish box date format, see https://php.net/date
-				date_i18n( esc_html__( 'M j, Y @ G:i', 'wpprobe' ), strtotime( $post->post_date ) )
+				date_i18n( esc_html__( 'M j, Y @ G:i', 'elasticprobe' ), strtotime( $post->post_date ) )
 			),
-			10 => esc_html__( 'Custom result draft updated.', 'wpprobe' ),
+			10 => esc_html__( 'Custom result draft updated.', 'elasticprobe' ),
 		);
 
 		return $messages;
@@ -198,7 +198,7 @@ class SearchOrdering extends Feature {
 	 */
 	public function output_feature_box_long() {
 		?>
-		<p><?php esc_html_e( 'Selected posts will be inserted into search results in the specified position.', 'wpprobe' ); ?></p>
+		<p><?php esc_html_e( 'Selected posts will be inserted into search results in the specified position.', 'elasticprobe' ); ?></p>
 		<?php
 	}
 
@@ -220,9 +220,9 @@ class SearchOrdering extends Feature {
 	 */
 	public function admin_menu() {
 		add_submenu_page(
-			'wpprobe',
-			esc_html__( 'Custom Results', 'wpprobe' ),
-			esc_html__( 'Custom Results', 'wpprobe' ),
+			'elasticprobe',
+			esc_html__( 'Custom Results', 'elasticprobe' ),
+			esc_html__( 'Custom Results', 'elasticprobe' ),
 			Utils\get_capability( 'search-ordering' ),
 			'edit.php?post_type=' . self::POST_TYPE_NAME
 		);
@@ -277,25 +277,25 @@ class SearchOrdering extends Feature {
 	 */
 	public function register_post_type() {
 		$labels = array(
-			'name'               => esc_html_x( 'Custom Search Results', 'post type general name', 'wpprobe' ),
-			'singular_name'      => esc_html_x( 'Custom Search Result', 'post type singular name', 'wpprobe' ),
-			'menu_name'          => esc_html_x( 'Custom Search Results', 'admin menu', 'wpprobe' ),
-			'name_admin_bar'     => esc_html_x( 'Custom Search Result', 'add new on admin bar', 'wpprobe' ),
-			'add_new'            => esc_html_x( 'Add New', 'book', 'wpprobe' ),
-			'add_new_item'       => esc_html__( 'Add New Custom Search Result', 'wpprobe' ),
-			'new_item'           => esc_html__( 'New Custom Search Result', 'wpprobe' ),
-			'edit_item'          => esc_html__( 'Edit Custom Search Result', 'wpprobe' ),
-			'view_item'          => esc_html__( 'View Custom Search Result', 'wpprobe' ),
-			'all_items'          => esc_html__( 'All Custom Search Results', 'wpprobe' ),
-			'search_items'       => esc_html__( 'Search Custom Search Results', 'wpprobe' ),
-			'parent_item_colon'  => esc_html__( 'Parent Custom Search Result:', 'wpprobe' ),
-			'not_found'          => esc_html__( 'No results found.', 'wpprobe' ),
-			'not_found_in_trash' => esc_html__( 'No results found in Trash.', 'wpprobe' ),
+			'name'               => esc_html_x( 'Custom Search Results', 'post type general name', 'elasticprobe' ),
+			'singular_name'      => esc_html_x( 'Custom Search Result', 'post type singular name', 'elasticprobe' ),
+			'menu_name'          => esc_html_x( 'Custom Search Results', 'admin menu', 'elasticprobe' ),
+			'name_admin_bar'     => esc_html_x( 'Custom Search Result', 'add new on admin bar', 'elasticprobe' ),
+			'add_new'            => esc_html_x( 'Add New', 'book', 'elasticprobe' ),
+			'add_new_item'       => esc_html__( 'Add New Custom Search Result', 'elasticprobe' ),
+			'new_item'           => esc_html__( 'New Custom Search Result', 'elasticprobe' ),
+			'edit_item'          => esc_html__( 'Edit Custom Search Result', 'elasticprobe' ),
+			'view_item'          => esc_html__( 'View Custom Search Result', 'elasticprobe' ),
+			'all_items'          => esc_html__( 'All Custom Search Results', 'elasticprobe' ),
+			'search_items'       => esc_html__( 'Search Custom Search Results', 'elasticprobe' ),
+			'parent_item_colon'  => esc_html__( 'Parent Custom Search Result:', 'elasticprobe' ),
+			'not_found'          => esc_html__( 'No results found.', 'elasticprobe' ),
+			'not_found_in_trash' => esc_html__( 'No results found in Trash.', 'elasticprobe' ),
 		);
 
 		$args = array(
 			'labels'               => $labels,
-			'description'          => esc_html__( 'Posts to inject into search results', 'wpprobe' ),
+			'description'          => esc_html__( 'Posts to inject into search results', 'elasticprobe' ),
 			'public'               => false,
 			'publicly_queryable'   => false,
 			'show_ui'              => true,
@@ -315,17 +315,17 @@ class SearchOrdering extends Feature {
 
 		// Register taxonomy
 		$labels = array(
-			'name'              => esc_html_x( 'Custom Results', 'taxonomy general name', 'wpprobe' ),
-			'singular_name'     => esc_html_x( 'Custom Result', 'taxonomy singular name', 'wpprobe' ),
-			'search_items'      => esc_html__( 'Search Custom Results', 'wpprobe' ),
-			'all_items'         => esc_html__( 'All Custom Results', 'wpprobe' ),
-			'parent_item'       => esc_html__( 'Parent Custom Result', 'wpprobe' ),
-			'parent_item_colon' => esc_html__( 'Parent Custom Result:', 'wpprobe' ),
-			'edit_item'         => esc_html__( 'Edit Custom Result', 'wpprobe' ),
-			'update_item'       => esc_html__( 'Update Custom Result', 'wpprobe' ),
-			'add_new_item'      => esc_html__( 'Add New Custom Result', 'wpprobe' ),
-			'new_item_name'     => esc_html__( 'New Custom Result Name', 'wpprobe' ),
-			'menu_name'         => esc_html__( 'Custom Results', 'wpprobe' ),
+			'name'              => esc_html_x( 'Custom Results', 'taxonomy general name', 'elasticprobe' ),
+			'singular_name'     => esc_html_x( 'Custom Result', 'taxonomy singular name', 'elasticprobe' ),
+			'search_items'      => esc_html__( 'Search Custom Results', 'elasticprobe' ),
+			'all_items'         => esc_html__( 'All Custom Results', 'elasticprobe' ),
+			'parent_item'       => esc_html__( 'Parent Custom Result', 'elasticprobe' ),
+			'parent_item_colon' => esc_html__( 'Parent Custom Result:', 'elasticprobe' ),
+			'edit_item'         => esc_html__( 'Edit Custom Result', 'elasticprobe' ),
+			'update_item'       => esc_html__( 'Update Custom Result', 'elasticprobe' ),
+			'add_new_item'      => esc_html__( 'Add New Custom Result', 'elasticprobe' ),
+			'new_item_name'     => esc_html__( 'New Custom Result Name', 'elasticprobe' ),
+			'menu_name'         => esc_html__( 'Custom Results', 'elasticprobe' ),
 		);
 
 		$args = array(
@@ -353,7 +353,7 @@ class SearchOrdering extends Feature {
 	 * Registers meta box for the search pointers
 	 */
 	public function register_meta_box() {
-		add_meta_box( 'ep-ordering', esc_html__( 'Manage Results', 'wpprobe' ), [ $this, 'render_meta_box' ], self::POST_TYPE_NAME, 'normal' );
+		add_meta_box( 'ep-ordering', esc_html__( 'Manage Results', 'elasticprobe' ), [ $this, 'render_meta_box' ], self::POST_TYPE_NAME, 'normal' );
 	}
 
 	/**
@@ -427,7 +427,7 @@ class SearchOrdering extends Feature {
 				true
 			);
 
-			wp_set_script_translations( 'ep_ordering_scripts', 'wpprobe' );
+			wp_set_script_translations( 'ep_ordering_scripts', 'elasticprobe' );
 
 			wp_enqueue_style(
 				'ep_ordering_styles',
@@ -628,7 +628,7 @@ class SearchOrdering extends Feature {
 	 */
 	public function filter_enter_title_here( $text ) {
 		if ( self::POST_TYPE_NAME === get_post_type() ) {
-			$text = esc_html__( 'Enter Search Query', 'wpprobe' );
+			$text = esc_html__( 'Enter Search Query', 'elasticprobe' );
 		}
 
 		return $text;
@@ -642,7 +642,7 @@ class SearchOrdering extends Feature {
 	 * @return array Final Columns
 	 */
 	public function filter_column_names( $columns ) {
-		$columns['title'] = esc_html__( 'Search Query', 'wpprobe' );
+		$columns['title'] = esc_html__( 'Search Query', 'elasticprobe' );
 
 		return $columns;
 	}
@@ -799,7 +799,7 @@ class SearchOrdering extends Feature {
 	 */
 	public function update_page_title( $admin_title, $title ) {
 		if ( $this->title === $title ) {
-			return __( 'WPProbe Custom Search Results', 'wpprobe' );
+			return __( 'ElasticProbe Custom Search Results', 'elasticprobe' );
 		}
 
 		return $admin_title;

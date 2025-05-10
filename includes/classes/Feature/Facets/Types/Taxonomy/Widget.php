@@ -2,12 +2,12 @@
 /**
  * Facets widget
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Feature\Facets\Types\Taxonomy;
+namespace ElasticProbe\Feature\Facets\Types\Taxonomy;
 
-use WPProbe\Features;
+use ElasticProbe\Features;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -29,11 +29,11 @@ class Widget extends \WP_Widget {
 	 */
 	public function __construct() {
 		$options = array(
-			'description'           => esc_html__( 'Add a facet to an archive or search results page.', 'wpprobe' ),
+			'description'           => esc_html__( 'Add a facet to an archive or search results page.', 'elasticprobe' ),
 			'show_instance_in_rest' => true,
 		);
 
-		parent::__construct( 'ep-facet', esc_html__( 'WPProbe - Filter by Taxonomy', 'wpprobe' ), $options );
+		parent::__construct( 'ep-facet', esc_html__( 'ElasticProbe - Filter by Taxonomy', 'elasticprobe' ), $options );
 	}
 
 	/**
@@ -57,11 +57,11 @@ class Widget extends \WP_Widget {
 	 * @param WP_Term $term     Term object.
 	 * @param string  $url      Filter URL.
 	 * @param boolean $selected Whether the term is currently selected.
-	 * @since 3.6.3, 4.2.0 deprecated in favor of a method in the renderer.
+	 * @since 0.1.0, 4.2.0 deprecated in favor of a method in the renderer.
 	 * @return string HTML for an individual facet term.
 	 */
 	public function get_facet_term_html( $term, $url, $selected = false ) {
-		_deprecated_function( __FUNCTION__, '4.2.0', '$this->renderer->get_facet_term_html()' );
+		_deprecated_function( __FUNCTION__, '0.1.0', '$this->renderer->get_facet_term_html()' );
 
 		/** This filter is documented in includes/classes/Feature/Facets/Types/Taxonomy/Block.php */
 		$renderer_class = apply_filters( 'ep_facet_renderer_class', __NAMESPACE__ . '\Renderer', 'taxonomy', 'block', [] );
@@ -77,10 +77,10 @@ class Widget extends \WP_Widget {
 	 * @since 2.5
 	 */
 	public function form( $instance ) {
-		$dashboard_url = admin_url( 'admin.php?page=wpprobe' );
+		$dashboard_url = admin_url( 'admin.php?page=elasticprobe' );
 
 		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
-			$dashboard_url = network_admin_url( 'admin.php?page=wpprobe' );
+			$dashboard_url = network_admin_url( 'admin.php?page=elasticprobe' );
 		}
 
 		$feature  = Features::factory()->get_registered_feature( 'facets' );
@@ -97,12 +97,12 @@ class Widget extends \WP_Widget {
 			)
 		);
 
-		$set     = esc_html__( 'all', 'wpprobe' );
-		$not_set = esc_html__( 'any', 'wpprobe' );
+		$set     = esc_html__( 'all', 'elasticprobe' );
+		$not_set = esc_html__( 'any', 'elasticprobe' );
 
 		if ( 'any' === $settings['match_type'] ) {
-			$set     = esc_html__( 'any', 'wpprobe' );
-			$not_set = esc_html__( 'all', 'wpprobe' );
+			$set     = esc_html__( 'any', 'elasticprobe' );
+			$not_set = esc_html__( 'all', 'elasticprobe' );
 		}
 
 		$title   = ( ! empty( $instance['title'] ) ) ? $instance['title'] : '';
@@ -113,27 +113,27 @@ class Widget extends \WP_Widget {
 		$taxonomies = $feature->types['taxonomy']->get_facetable_taxonomies();
 
 		$orderby_options = [
-			'count' => __( 'Count', 'wpprobe' ),
-			'name'  => __( 'Term Name', 'wpprobe' ),
+			'count' => __( 'Count', 'elasticprobe' ),
+			'name'  => __( 'Term Name', 'elasticprobe' ),
 		];
 
 		$order_options = [
-			'desc' => __( 'Descending', 'wpprobe' ),
-			'asc'  => __( 'Ascending', 'wpprobe' ),
+			'desc' => __( 'Descending', 'elasticprobe' ),
+			'asc'  => __( 'Ascending', 'elasticprobe' ),
 		];
 
 		?>
 		<div class="widget-ep-facet">
 			<p>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
-					<?php esc_html_e( 'Title:', 'wpprobe' ); ?>
+					<?php esc_html_e( 'Title:', 'elasticprobe' ); ?>
 				</label>
 				<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 			</p>
 
 			<p>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'facet' ) ); ?>">
-					<?php esc_html_e( 'Taxonomy:', 'wpprobe' ); ?>
+					<?php esc_html_e( 'Taxonomy:', 'elasticprobe' ); ?>
 				</label><br>
 
 				<select id="<?php echo esc_attr( $this->get_field_id( 'facet' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'facet' ) ); ?>">
@@ -145,7 +145,7 @@ class Widget extends \WP_Widget {
 
 			<p>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'orderby' ) ); ?>">
-					<?php esc_html_e( 'Order Terms By:', 'wpprobe' ); ?>
+					<?php esc_html_e( 'Order Terms By:', 'elasticprobe' ); ?>
 				</label><br>
 
 				<select id="<?php echo esc_attr( $this->get_field_id( 'orderby' ) ); ?>"
@@ -159,7 +159,7 @@ class Widget extends \WP_Widget {
 
 			<p>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'order' ) ); ?>">
-					<?php esc_html_e( 'Term Order:', 'wpprobe' ); ?>
+					<?php esc_html_e( 'Term Order:', 'elasticprobe' ); ?>
 				</label><br>
 
 				<select id="<?php echo esc_attr( $this->get_field_id( 'order' ) ); ?>"
@@ -172,7 +172,7 @@ class Widget extends \WP_Widget {
 			</p>
 
 			<?php // translators: "all" or "any", depending on configuration values, 3: URL ?>
-			<p><?php echo wp_kses_post( sprintf( __( 'Faceting will  filter out any content that is not tagged to all selected terms; change this to show <strong>%1$s</strong> content tagged to <strong>%2$s</strong> selected term in <a href="%3$s">WPProbe settings</a>.', 'wpprobe' ), $set, $not_set, esc_url( $dashboard_url ) ) ); ?></p>
+			<p><?php echo wp_kses_post( sprintf( __( 'Faceting will  filter out any content that is not tagged to all selected terms; change this to show <strong>%1$s</strong> content tagged to <strong>%2$s</strong> selected term in <a href="%3$s">ElasticProbe settings</a>.', 'elasticprobe' ), $set, $not_set, esc_url( $dashboard_url ) ) ); ?></p>
 		</div>
 
 		<?php

@@ -3,10 +3,10 @@
  * Test InderHelper class.
  *
  * @since 4.4.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
 /**
  * InderHelper test class
@@ -20,7 +20,7 @@ class TestIndexHelper extends BaseTestCase {
 	 * @group indexHelper
 	 */
 	public function testFullIndexEpSyncArgsFilter() {
-		$index_helper = \WPProbe\IndexHelper::factory();
+		$index_helper = \ElasticProbe\IndexHelper::factory();
 
 		$args = [
 			'method'        => 'custom',
@@ -45,7 +45,7 @@ class TestIndexHelper extends BaseTestCase {
 	 * @group indexHelper
 	 */
 	public function testGetIndexDefaultPerPage() {
-		$index_helper = \WPProbe\IndexHelper::factory();
+		$index_helper = \ElasticProbe\IndexHelper::factory();
 
 		/**
 		 * Test the default value.

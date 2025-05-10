@@ -1,14 +1,14 @@
 <?php
 /**
- * Template for WPProbe Status Report
+ * Template for ElasticProbe Status Report
  *
  * @since 4.4.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
 defined( 'ABSPATH' ) || exit;
 
-$status_report = \WPProbe\Screen::factory()->status_report;
+$status_report = \ElasticProbe\Screen::factory()->status_report;
 
 require_once __DIR__ . '/header.php';
 ?>

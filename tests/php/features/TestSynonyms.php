@@ -2,13 +2,13 @@
 /**
  * Test synonym feature
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe;
-use WPProbe\Feature\Search\Synonyms;
+use ElasticProbe;
+use ElasticProbe\Feature\Search\Synonyms;
 
 /**
  * Document test class
@@ -29,13 +29,13 @@ class TestSynonyms extends BaseTestCase {
 
 		wp_set_current_user( $admin_id );
 
-		WPProbe\Elasticsearch::factory()->delete_all_indices();
-		WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
+		ElasticProbe\Elasticsearch::factory()->delete_all_indices();
+		ElasticProbe\Indexables::factory()->get( 'post' )->put_mapping();
 
-		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
+		ElasticProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
 
 		$this->setup_test_post_type();
-		WPProbe\Features::factory()->activate_feature( 'synonyms' );
+		ElasticProbe\Features::factory()->activate_feature( 'synonyms' );
 	}
 
 	/**
@@ -151,7 +151,7 @@ class TestSynonyms extends BaseTestCase {
 
 		$post_id = $this->ep_factory->post->create( [ 'post_content' => 'IoT' ] );
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query(
 			[
@@ -185,7 +185,7 @@ class TestSynonyms extends BaseTestCase {
 
 		$post_id = $this->ep_factory->post->create( [ 'post_content' => 'sweatshirt' ] );
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query(
 			[

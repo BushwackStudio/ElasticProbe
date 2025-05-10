@@ -24,12 +24,13 @@ export default () => {
 		<TextControl
 			className="ep-sync-advanced-control"
 			disabled={isSyncing}
-			help={__('Specify the number of objects to skip during syncing.', 'wpprobe')}
-			label={__('Skip objects', 'wpprobe')}
+			help={__('Specify the number of objects to skip during syncing.', 'elasticprobe')}
+			label={__('Skip objects', 'elasticprobe')}
 			onChange={(offset) => setArgs({ ...args, offset })}
 			type="number"
 			value={args.offset}
 			__nextHasNoMarginBottom
+			__next40pxDefaultSize
 		/>
 	);
 };

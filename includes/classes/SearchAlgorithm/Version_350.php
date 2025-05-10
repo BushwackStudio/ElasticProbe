@@ -3,10 +3,10 @@
  * EP version 3.5.0 search algorithm
  *
  * @since  4.3.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\SearchAlgorithm;
+namespace ElasticProbe\SearchAlgorithm;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	// @codeCoverageIgnoreStart
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * EP version 3.5.0 search algorithm class.
  */
-class Version_350 extends \WPProbe\SearchAlgorithm {
+class Version_350 extends \ElasticProbe\SearchAlgorithm {
 	/**
 	 * Search algorithm slug.
 	 *
@@ -33,7 +33,7 @@ class Version_350 extends \WPProbe\SearchAlgorithm {
 	 * @return string
 	 */
 	public function get_name(): string {
-		return esc_html__( 'Version 3.5', 'wpprobe' );
+		return esc_html__( 'Version 3.5', 'elasticprobe' );
 	}
 
 	/**
@@ -42,7 +42,7 @@ class Version_350 extends \WPProbe\SearchAlgorithm {
 	 * @return string
 	 */
 	public function get_description(): string {
-		return esc_html__( 'Search for the existence of all words in the search first, then return results based on how closely those words appear.', 'wpprobe' );
+		return esc_html__( 'Search for the existence of all words in the search first, then return results based on how closely those words appear.', 'elasticprobe' );
 	}
 
 	/**
@@ -102,7 +102,7 @@ class Version_350 extends \WPProbe\SearchAlgorithm {
 		$query['bool']['should'][0]['multi_match']['boost'] = apply_filters_deprecated(
 			'ep_match_phrase_boost',
 			[ $query['bool']['should'][0]['multi_match']['boost'], $search_fields, $query_vars ],
-			'4.3.0',
+			'0.1.0',
 			'ep_post_match_phrase_boost'
 		);
 

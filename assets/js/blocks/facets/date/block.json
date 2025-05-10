@@ -6,7 +6,7 @@
   "category": "elasticpress",
   "description": "Let visitors filter your content by post date.",
   "keywords": ["custom date", "facets"],
-  "textdomain": "wpprobe",
+  "textdomain": "elasticprobe",
   "attributes": {
     "displayCustomDate": {
       "type": "boolean",

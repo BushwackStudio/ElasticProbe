@@ -3,15 +3,15 @@
  * Terms feature
  *
  * @since   3.1
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Feature\Terms;
+namespace ElasticProbe\Feature\Terms;
 
-use WPProbe\Feature;
-use WPProbe\FeatureRequirementsStatus;
-use WPProbe\Indexable;
-use WPProbe\Indexables;
+use ElasticProbe\Feature;
+use ElasticProbe\FeatureRequirementsStatus;
+use ElasticProbe\Indexable;
+use ElasticProbe\Indexables;
 
 /**
  * Terms feature class
@@ -47,11 +47,11 @@ class Terms extends Feature {
 	 * @since 5.2.0
 	 */
 	public function set_i18n_strings(): void {
-		$this->title = esc_html__( 'Terms', 'wpprobe' );
+		$this->title = esc_html__( 'Terms', 'elasticprobe' );
 
-		$this->summary = '<p>' . __( 'This feature will empower your website to overcome traditional WordPress term search and query limitations that can present themselves at scale. This feature is only needed if you are using <code>WP_Term_Query</code> directly.', 'wpprobe' ) . '</p>';
+		$this->summary = '<p>' . __( 'This feature will empower your website to overcome traditional WordPress term search and query limitations that can present themselves at scale. This feature is only needed if you are using <code>WP_Term_Query</code> directly.', 'elasticprobe' ) . '</p>';
 
-		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#terms', 'wpprobe' );
+		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#terms', 'elasticprobe' );
 	}
 
 	/**
@@ -82,7 +82,7 @@ class Terms extends Feature {
 	 */
 	public function output_feature_box_long() {
 		?>
-		<p><?php esc_html_e( 'This feature will empower your website to overcome traditional WordPress term search and query limitations that can present themselves at scale.', 'wpprobe' ); ?></p>
+		<p><?php esc_html_e( 'This feature will empower your website to overcome traditional WordPress term search and query limitations that can present themselves at scale.', 'elasticprobe' ); ?></p>
 		<?php
 	}
 

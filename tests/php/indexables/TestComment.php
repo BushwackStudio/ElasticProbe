@@ -2,12 +2,12 @@
 /**
  * Test comment indexable functionality
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe;
+use ElasticProbe;
 
 /**
  * Test comment indexable class
@@ -34,16 +34,16 @@ class TestComment extends BaseTestCase {
 
 		wp_set_current_user( $admin_id );
 
-		WPProbe\Features::factory()->activate_feature( 'comments' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'comments' );
+		ElasticProbe\Features::factory()->setup_features();
 
-		WPProbe\Elasticsearch::factory()->delete_all_indices();
-		WPProbe\Indexables::factory()->get( 'comment' )->put_mapping();
+		ElasticProbe\Elasticsearch::factory()->delete_all_indices();
+		ElasticProbe\Indexables::factory()->get( 'comment' )->put_mapping();
 
-		WPProbe\Indexables::factory()->get( 'comment' )->sync_manager->reset_sync_queue();
+		ElasticProbe\Indexables::factory()->get( 'comment' )->sync_manager->reset_sync_queue();
 
 		// Need to call this since it's hooked to init.
-		WPProbe\Features::factory()->get_registered_feature( 'comments' )->search_setup();
+		ElasticProbe\Features::factory()->get_registered_feature( 'comments' )->search_setup();
 	}
 
 	/**
@@ -114,7 +114,7 @@ class TestComment extends BaseTestCase {
 			);
 		}
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		return [
 			'post_id'           => $post_id,
@@ -147,17 +147,17 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		$this->assertEquals( 1, count( WPProbe\Indexables::factory()->get( 'comment' )->sync_manager->get_sync_queue() ) );
+		$this->assertEquals( 1, count( ElasticProbe\Indexables::factory()->get( 'comment' )->sync_manager->get_sync_queue() ) );
 
-		WPProbe\Indexables::factory()->get( 'comment' )->index( $comment_id );
+		ElasticProbe\Indexables::factory()->get( 'comment' )->index( $comment_id );
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$this->assertArrayHasKey( 'ep_sync_comment_on_transition', $this->fired_actions );
 
 		$this->assertTrue( ! empty( $this->fired_actions['ep_sync_comment_on_transition'] ) );
 
-		$comment = WPProbe\Indexables::factory()->get( 'comment' )->get( $comment_id );
+		$comment = ElasticProbe\Indexables::factory()->get( 'comment' )->get( $comment_id );
 
 		$this->assertnotEmpty( $comment );
 	}
@@ -180,11 +180,11 @@ class TestComment extends BaseTestCase {
 
 		update_comment_meta( $comment_id, 'new_meta', 'test' );
 
-		WPProbe\Indexables::factory()->get( 'comment' )->index( $comment_id );
+		ElasticProbe\Indexables::factory()->get( 'comment' )->index( $comment_id );
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
-		$comment = WPProbe\Indexables::factory()->get( 'comment' )->get( $comment_id );
+		$comment = ElasticProbe\Indexables::factory()->get( 'comment' )->get( $comment_id );
 
 		$this->assertEquals( 'test', $comment['meta']['new_meta'][0]['value'] );
 	}
@@ -207,8 +207,8 @@ class TestComment extends BaseTestCase {
 
 		update_comment_meta( $comment_id, 'test_key', true );
 
-		$this->assertEquals( 1, count( WPProbe\Indexables::factory()->get( 'comment' )->sync_manager->get_sync_queue() ) );
-		$this->assertnotEmpty( WPProbe\Indexables::factory()->get( 'comment' )->sync_manager->add_to_queue( $comment_id ) );
+		$this->assertEquals( 1, count( ElasticProbe\Indexables::factory()->get( 'comment' )->sync_manager->get_sync_queue() ) );
+		$this->assertnotEmpty( ElasticProbe\Indexables::factory()->get( 'comment' )->sync_manager->add_to_queue( $comment_id ) );
 	}
 
 	/**
@@ -240,13 +240,13 @@ class TestComment extends BaseTestCase {
 			2
 		);
 
-		WPProbe\Indexables::factory()->get( 'comment' )->sync_manager->action_sync_on_update( $created_comment_id );
+		ElasticProbe\Indexables::factory()->get( 'comment' )->sync_manager->action_sync_on_update( $created_comment_id );
 
 		$this->assertArrayNotHasKey( 'ep_sync_comment_on_transition', $this->fired_actions );
 	}
 
 	/**
-	 * Test a basic comment query with and without WPProbe
+	 * Test a basic comment query with and without ElasticProbe
 	 *
 	 * @since 3.6.0
 	 * @group comment
@@ -472,7 +472,7 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$comments_query = new \WP_Comment_Query(
 			[
@@ -627,29 +627,29 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
-		$this->assertEquals( 1, count( WPProbe\Indexables::factory()->get( 'comment' )->sync_manager->get_sync_queue() ) );
+		$this->assertEquals( 1, count( ElasticProbe\Indexables::factory()->get( 'comment' )->sync_manager->get_sync_queue() ) );
 
-		WPProbe\Indexables::factory()->get( 'comment' )->index( $comment_id );
+		ElasticProbe\Indexables::factory()->get( 'comment' )->index( $comment_id );
 
 		$this->assertArrayHasKey( 'ep_sync_comment_on_transition', $this->fired_actions );
 
 		$this->assertNotEmpty( $this->fired_actions['ep_sync_comment_on_transition'] );
 
-		$comment = WPProbe\Indexables::factory()->get( 'comment' )->get( $comment_id );
+		$comment = ElasticProbe\Indexables::factory()->get( 'comment' )->get( $comment_id );
 
 		$this->assertNotEmpty( $comment );
 
 		wp_delete_comment( $comment_id, true );
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$this->assertArrayHasKey( 'deleted_comment', $this->fired_actions );
 
 		$this->assertNotEmpty( $this->fired_actions['deleted_comment'] );
 
-		$comment = WPProbe\Indexables::factory()->get( 'comment' )->get( $comment_id );
+		$comment = ElasticProbe\Indexables::factory()->get( 'comment' )->get( $comment_id );
 
 		$this->assertEmpty( $comment );
 	}
@@ -710,7 +710,7 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$comments_query = new \WP_Comment_Query(
 			[
@@ -779,7 +779,7 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$comments_query = new \WP_Comment_Query(
 			[
@@ -852,7 +852,7 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$comments_query = new \WP_Comment_Query(
 			[
@@ -915,7 +915,7 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$comments_query = new \WP_Comment_Query(
 			[
@@ -971,7 +971,7 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$comments_query = new \WP_Comment_Query(
 			[
@@ -1107,7 +1107,7 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$date_query = array(
 			'relation' => 'AND',
@@ -1213,7 +1213,7 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$comments_query = new \WP_Comment_Query(
 			[
@@ -1272,7 +1272,7 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$comments_query = new \WP_Comment_Query(
 			[
@@ -1335,7 +1335,7 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$comments_query = new \WP_Comment_Query(
 			[
@@ -1475,7 +1475,7 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$comments_query = new \WP_Comment_Query(
 			[
@@ -1630,7 +1630,7 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$comments_query = new \WP_Comment_Query(
 			[
@@ -1703,7 +1703,7 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$comments_query = new \WP_Comment_Query(
 			[
@@ -1777,7 +1777,7 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$comments_query = new \WP_Comment_Query(
 			[
@@ -1829,9 +1829,9 @@ class TestComment extends BaseTestCase {
 
 		update_comment_meta( $comment_id, 'test_meta_key', 'start here' );
 
-		WPProbe\Indexables::factory()->get( 'comment' )->index( $comment_id, true );
+		ElasticProbe\Indexables::factory()->get( 'comment' )->index( $comment_id, true );
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$comments_query = new \WP_Comment_Query(
 			[
@@ -1904,7 +1904,7 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$comments_query = new \WP_Comment_Query(
 			[
@@ -2012,7 +2012,7 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$comments_query = new \WP_Comment_Query(
 			[
@@ -2108,7 +2108,7 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$comments_query = new \WP_Comment_Query(
 			[
@@ -2135,8 +2135,8 @@ class TestComment extends BaseTestCase {
 	 * @group comment
 	 */
 	public function testWooCommerceReviewIndexing() {
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$product_id = $this->ep_factory->post->create(
 			array(
@@ -2153,7 +2153,7 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$comments_query = new \WP_Comment_Query(
 			[
@@ -2179,44 +2179,208 @@ class TestComment extends BaseTestCase {
 	 * @group comment
 	 */
 	public function testCommentIndexableQueryDb() {
-		$post_id = wp_insert_post(
-			[
-				'post_name'   => 'start-here',
-				'post_status' => 'publish',
-			]
-		);
+		ElasticProbe\Features::factory()->deactivate_feature( 'woocommerce' );
 
-		wp_insert_comment(
+		$post_id = $this->ep_factory->post->create();
+
+		$comment_1_id = $this->ep_factory->comment->create(
 			[
-				'comment_content' => 'Test comment 1',
 				'comment_post_ID' => $post_id,
 			]
 		);
 
-		$product_id = wp_insert_post(
+		$this->ep_factory->comment->create(
 			[
-				'post_content' => 'product 1',
-				'post_type'    => 'product',
-				'post_status'  => 'publish',
-			]
-		);
-
-		wp_insert_comment(
-			[
-				'comment_content' => 'Test review',
-				'comment_post_ID' => $product_id,
+				'comment_post_ID' => $this->ep_factory->product->create(),
 				'comment_type'    => 'review',
 			]
 		);
 
-		$comment_indexable = new \WPProbe\Indexable\Comment\Comment();
+		$middle_comment_id = $this->ep_factory->comment->create(
+			[
+				'comment_post_ID' => $post_id,
+			]
+		);
+
+		$this->ep_factory->comment->create_many(
+			10,
+			[
+				'comment_post_ID' => $post_id,
+			]
+		);
+
+		$comment_indexable = new \ElasticProbe\Indexable\Comment\Comment();
+
+		// Test only comments are returned.
+		$results = $comment_indexable->query_db( [] );
+		$this->assertArrayHasKey( 'objects', $results );
+		$this->assertArrayHasKey( 'total_objects', $results );
+		$this->assertEquals( 12, $results['total_objects'] );
+
+		// Test only 1 comment is returned.
+		$results = $comment_indexable->query_db( [ 'include' => $comment_1_id ] );
+		$this->assertArrayHasKey( 'objects', $results );
+		$this->assertArrayHasKey( 'total_objects', $results );
+		$this->assertEquals( 1, $results['total_objects'] );
+
+		// Test all comments are returned except the one with ID.
+		$results = $comment_indexable->query_db( [ 'exclude' => $comment_1_id ] );
+		$this->assertArrayHasKey( 'objects', $results );
+		$this->assertArrayHasKey( 'total_objects', $results );
+		$this->assertEquals( 11, $results['total_objects'] );
+
+		// Test when upper limit is set and it returns only 2 comments.
+		$results = $comment_indexable->query_db( [ 'ep_indexing_upper_limit_object_id' => $middle_comment_id ] );
+		$this->assertArrayHasKey( 'objects', $results );
+		$this->assertArrayHasKey( 'total_objects', $results );
+		$this->assertEquals( 2, $results['total_objects'] );
+
+		// Test when lower limit is set and it returns only 11 comments.
+		$results = $comment_indexable->query_db( [ 'ep_indexing_lower_limit_object_id' => $middle_comment_id ] );
+		$this->assertArrayHasKey( 'objects', $results );
+		$this->assertArrayHasKey( 'total_objects', $results );
+		$this->assertEquals( 11, $results['total_objects'] );
+	}
+
+	/**
+	 * Tests the pagination of the query_db method.
+	 *
+	 * @since 5.2.0
+	 * @group comment
+	 */
+	public function test_query_db_with_last_processed_object_id() {
+		$post_id = $this->ep_factory->post->create();
+
+		$comment_1_id = $this->ep_factory->comment->create(
+			[
+				'comment_post_ID' => $post_id,
+			]
+		);
+
+		$comment_2_id = $this->ep_factory->comment->create(
+			[
+				'comment_post_ID' => $post_id,
+			]
+		);
+
+		$comment_3_id = $this->ep_factory->comment->create(
+			[
+				'comment_post_ID' => $post_id,
+			]
+		);
+
+		$comment_indexable = new \ElasticProbe\Indexable\Comment\Comment();
+
+		$results = $comment_indexable->query_db(
+			[
+				'per_page' => 1,
+			]
+		);
+
+		$comment_ids = wp_list_pluck( $results['objects'], 'ID' );
+		$this->assertEquals( $comment_3_id, $comment_ids[0] );
+		$this->assertCount( 1, $results['objects'] );
+		$this->assertEquals( 3, $results['total_objects'] );
+
+		// Second loop.
+		$results = $comment_indexable->query_db(
+			[
+				'per_page'                             => 1,
+				'ep_indexing_last_processed_object_id' => $comment_3_id,
+			]
+		);
+
+		$comment_ids = wp_list_pluck( $results['objects'], 'ID' );
+		$this->assertEquals( $comment_2_id, $comment_ids[0] );
+		$this->assertCount( 1, $results['objects'] );
+		$this->assertEquals( 3, $results['total_objects'] );
+	}
+
+	/**
+	 * Tests that the query_db method returns results sorted by ID.
+	 *
+	 * @since 5.2.0
+	 * @group comment
+	 */
+	public function test_query_db_sort_by() {
+		$post_id = $this->ep_factory->post->create();
+
+		$comment_1_id = $this->ep_factory->comment->create(
+			[
+				'comment_post_ID' => $post_id,
+			]
+		);
+
+		$comment_2_id = $this->ep_factory->comment->create(
+			[
+				'comment_post_ID' => $post_id,
+			]
+		);
+
+		$comment_3_id = $this->ep_factory->comment->create(
+			[
+				'comment_post_ID' => $post_id,
+			]
+		);
+
+		$comment_indexable = new \ElasticProbe\Indexable\Comment\Comment();
+		$results           = $comment_indexable->query_db( [] );
+
+		$this->assertEquals( 3, $results['total_objects'] );
+		$this->assertEquals( $comment_3_id, $results['objects'][0]->ID );
+		$this->assertEquals( $comment_2_id, $results['objects'][1]->ID );
+		$this->assertEquals( $comment_1_id, $results['objects'][2]->ID );
+	}
+
+	/**
+	 * Tests that query_db always returns terms ordered by ID in descending order.
+	 *
+	 * @since 5.2.0
+	 * @group term
+	 */
+	public function test_query_db_orderby() {
+		$post_id = $this->ep_factory->post->create();
+
+		$comment_1_id = $this->ep_factory->comment->create(
+			[
+				'comment_post_ID' => $post_id,
+			]
+		);
+
+		$comment_2_id = $this->ep_factory->comment->create(
+			[
+				'comment_post_ID' => $post_id,
+			]
+		);
+
+		$comment_3_id = $this->ep_factory->comment->create(
+			[
+				'comment_post_ID' => $post_id,
+			]
+		);
+
+		$comment_indexable = new \ElasticProbe\Indexable\Comment\Comment();
+
+		// change the orderby and make sure it's still ordered by ID.
+		add_filter(
+			'comments_clauses',
+			function ( $clauses ) {
+				global $wpdb;
+
+				$clauses['orderby'] = "{$wpdb->comments}.comment_type ASC";
+				return $clauses;
+			}
+		);
 
 		$results = $comment_indexable->query_db( [] );
 
-		$this->assertArrayHasKey( 'objects', $results );
-		$this->assertArrayHasKey( 'total_objects', $results );
+		$this->assertSame( 3, $results['total_objects'] );
 
-		$this->assertEquals( 1, $results['total_objects'] );
+		$comment_ids = wp_list_pluck( $results['objects'], 'ID' );
+
+		$this->assertSame( $comment_3_id, (int) $comment_ids[0] );
+		$this->assertSame( $comment_2_id, (int) $comment_ids[1] );
+		$this->assertSame( $comment_1_id, (int) $comment_ids[2] );
 	}
 
 	/**
@@ -2226,8 +2390,8 @@ class TestComment extends BaseTestCase {
 	 * @group comment
 	 */
 	public function testCommentIndexableQueryDbWithWooCommerceFeatureEnabled() {
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$post_id = wp_insert_post(
 			[
@@ -2259,7 +2423,7 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		$comment_indexable = new \WPProbe\Indexable\Comment\Comment();
+		$comment_indexable = new \ElasticProbe\Indexable\Comment\Comment();
 
 		$results = $comment_indexable->query_db( [] );
 
@@ -2275,8 +2439,8 @@ class TestComment extends BaseTestCase {
 	 * @group comment
 	 */
 	public function testCommentIndexableQueryDbWithOrderNote() {
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$post_id = wp_insert_post(
 			[
@@ -2326,7 +2490,7 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		$comment_indexable = new \WPProbe\Indexable\Comment\Comment();
+		$comment_indexable = new \ElasticProbe\Indexable\Comment\Comment();
 
 		$results = $comment_indexable->query_db( [] );
 
@@ -2346,8 +2510,8 @@ class TestComment extends BaseTestCase {
 	 * @group comments
 	 */
 	public function testCommentSyncOrderNote() {
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$shop_order_id = $this->ep_factory->post->create(
 			[
@@ -2366,9 +2530,9 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		$this->assertEquals( 0, count( WPProbe\Indexables::factory()->get( 'comment' )->sync_manager->get_sync_queue() ) );
+		$this->assertEquals( 0, count( ElasticProbe\Indexables::factory()->get( 'comment' )->sync_manager->get_sync_queue() ) );
 
-		$shop_order_comment = WPProbe\Indexables::factory()->get( 'comment' )->get( $shop_order_id );
+		$shop_order_comment = ElasticProbe\Indexables::factory()->get( 'comment' )->get( $shop_order_id );
 
 		$this->assertEmpty( $shop_order_comment );
 	}
@@ -2383,8 +2547,8 @@ class TestComment extends BaseTestCase {
 	 * @group comments
 	 */
 	public function testCommentSyncOrderNoteWithMeta() {
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$shop_order_id = $this->ep_factory->post->create(
 			[
@@ -2406,9 +2570,9 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		$this->assertEquals( 0, count( WPProbe\Indexables::factory()->get( 'comment' )->sync_manager->get_sync_queue() ) );
+		$this->assertEquals( 0, count( ElasticProbe\Indexables::factory()->get( 'comment' )->sync_manager->get_sync_queue() ) );
 
-		$shop_order_comment = WPProbe\Indexables::factory()->get( 'comment' )->get( $shop_order_id );
+		$shop_order_comment = ElasticProbe\Indexables::factory()->get( 'comment' )->get( $shop_order_id );
 
 		$this->assertEmpty( $shop_order_comment );
 	}
@@ -2422,8 +2586,8 @@ class TestComment extends BaseTestCase {
 	 * @group comments
 	 */
 	public function testCommentIndexingWithProtectedContentEnabled() {
-		WPProbe\Features::factory()->activate_feature( 'protected_content' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$post_id = $this->ep_factory->post->create();
 
@@ -2443,7 +2607,7 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$comments_query = new \WP_Comment_Query(
 			[
@@ -2465,9 +2629,9 @@ class TestComment extends BaseTestCase {
 	 * @group comments
 	 */
 	public function test_mapping_ep_stop_filter() {
-		$indexable      = WPProbe\Indexables::factory()->get( 'comment' );
+		$indexable      = ElasticProbe\Indexables::factory()->get( 'comment' );
 		$index_name     = $indexable->get_index_name();
-		$settings       = WPProbe\Elasticsearch::factory()->get_index_settings( $index_name );
+		$settings       = ElasticProbe\Elasticsearch::factory()->get_index_settings( $index_name );
 		$index_settings = $settings[ $index_name ]['settings'];
 
 		$this->assertContains( 'ep_stop', $index_settings['index.analysis.analyzer.default.filter'] );
@@ -2478,10 +2642,10 @@ class TestComment extends BaseTestCase {
 		};
 		add_filter( 'ep_analyzer_language', $change_lang, 11, 2 );
 
-		WPProbe\Elasticsearch::factory()->delete_all_indices();
+		ElasticProbe\Elasticsearch::factory()->delete_all_indices();
 		$indexable->put_mapping();
 
-		$settings       = WPProbe\Elasticsearch::factory()->get_index_settings( $index_name );
+		$settings       = ElasticProbe\Elasticsearch::factory()->get_index_settings( $index_name );
 		$index_settings = $settings[ $index_name ]['settings'];
 		$this->assertSame( '_arabic_', $index_settings['index.analysis.filter.ep_stop.stopwords'] );
 	}

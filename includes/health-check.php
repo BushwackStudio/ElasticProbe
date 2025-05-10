@@ -2,11 +2,11 @@
 /**
  * Health check
  *
- * @package wpprobe
+ * @package elasticprobe
  * @since   3.6.0
  */
 
-namespace WPProbe;
+namespace ElasticProbe;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.

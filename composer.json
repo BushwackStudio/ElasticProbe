@@ -1,8 +1,8 @@
 {
-  "name": "bushwack/wpprobe",
+  "name": "bushwack/elasticprobe",
   "description": "Supercharge your wordPress search with ElasticSearch® precision.",
   "type": "wordpress-plugin",
-  "keywords": ["wordpress", "plugin", "elasticsearch", "wpprobe", "search"],
+  "keywords": ["wordpress", "plugin", "elasticsearch", "elasticprobe", "search"],
   "license": ["GPL-2.0-only"],
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -31,17 +31,17 @@
     "10up/phpcs-composer": "dev-trunk",
     "wpackagist-plugin/woocommerce":"*",
     "phpcompatibility/phpcompatibility-wp": "*",
-    "brianhenryie/strauss": "^0.14.0",
-    "yoast/phpunit-polyfills": "^1.0 || ^2.0 || ^3.0",
-    "phpunit/phpunit": "^9.0",
+    "brianhenryie/strauss": "^0.21.0",
+    "yoast/phpunit-polyfills": "^4.0",
+    "phpunit/phpunit": "^9.0.0",
     "php-stubs/wordpress-tests-stubs": "*"
   },
   "scripts": {
     "lint": "phpcs . -s --runtime-set testVersion 7.4-",
     "lint-fix": "phpcbf .",
-    "test": "phpunit",
-    "test-single-site": "phpunit -c single-site.xml.dist",
-    "setup-local-tests": "bash bin/install-wp-tests.sh wordpress wordpress 1234 127.0.0.1 latest true",
+    "test": "phpunit --testdox",
+    "test-single-site": "phpunit -c single-site.xml.dist --testdox",
+    "setup-local-tests": "bash bin/install-wp-tests.sh wp_test wordpress 1234 127.0.0.1 latest true",
     "strauss": [ "vendor/bin/strauss" ],
     "post-install-cmd": [
       "@strauss"
@@ -56,8 +56,8 @@
     },
     "strauss": {
       "target_directory": "vendor-prefixed",
-      "namespace_prefix": "WPProbe\\Vendor_Prefixed\\",
-      "classmap_prefix": "WPProbe_Vendor_Prefixed_",
+      "namespace_prefix": "ElasticProbe\\Vendor_Prefixed\\",
+      "classmap_prefix": "ElasticProbe_Vendor_Prefixed_",
       "constant_prefix": "WPP_VENDOR_"
     }
   },

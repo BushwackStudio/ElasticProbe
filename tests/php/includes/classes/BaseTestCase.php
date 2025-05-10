@@ -1,11 +1,11 @@
 <?php
 /**
- * WPProbe base test class
+ * ElasticProbe base test class
  *
- * @package  wpprobe
+ * @package  elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
 use WP_UnitTestCase;
 
@@ -48,7 +48,7 @@ class BaseTestCase extends WP_UnitTestCase {
 
 		$this->setup_factory();
 
-		\WPProbe\setup_roles();
+		\ElasticProbe\setup_roles();
 
 		parent::set_up();
 	}
@@ -220,11 +220,11 @@ class BaseTestCase extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Forces tests to use EP.io
+	 * Forces tests to use ElasticProbe
 	 *
 	 * @since 5.1.0
 	 */
 	protected function force_epio() {
-		update_site_option( 'ep_host', 'https://prefix.elasticpress.io/' );
+		update_site_option( 'ep_host', 'https://gateway.wpprobe.com/' );
 	}
 }

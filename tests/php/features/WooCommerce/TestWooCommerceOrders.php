@@ -3,12 +3,12 @@
  * Test woocommerce orders class
  *
  * @since 4.7.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe;
+use ElasticProbe;
 
 require_once __DIR__ . '/WooCommerceBaseTestCase.php';
 
@@ -31,7 +31,7 @@ class TestWooCommerceOrders extends WooCommerceBaseTestCase {
 	 */
 	public function set_up() {
 		parent::set_up();
-		$this->orders = WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders;
+		$this->orders = ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->orders;
 	}
 
 	/**
@@ -41,9 +41,9 @@ class TestWooCommerceOrders extends WooCommerceBaseTestCase {
 	 * @group woocommerce-orders
 	 */
 	public function testSearchOnShopOrderAdmin() {
-		WPProbe\Features::factory()->activate_feature( 'protected_content' );
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$this->ep_factory->post->create(
 			array(
@@ -52,7 +52,7 @@ class TestWooCommerceOrders extends WooCommerceBaseTestCase {
 			)
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		// mock the pagenow to bypass the search_order checks
 		global $pagenow;
@@ -80,8 +80,8 @@ class TestWooCommerceOrders extends WooCommerceBaseTestCase {
 	 * @group woocommerce-orders
 	 */
 	public function testShopOrderPostTypeQueryOn() {
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$this->ep_factory->post->create();
 		$this->ep_factory->post->create(
@@ -90,7 +90,7 @@ class TestWooCommerceOrders extends WooCommerceBaseTestCase {
 			)
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args  = array(
 			'post_type' => 'shop_order',
@@ -110,9 +110,9 @@ class TestWooCommerceOrders extends WooCommerceBaseTestCase {
 	 * @group woocommerce-orders
 	 */
 	public function testShopOrderPostTypeQueryWhenProtectedContentEnable() {
-		WPProbe\Features::factory()->activate_feature( 'protected_content' );
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$this->ep_factory->post->create();
 		$this->ep_factory->post->create(
@@ -121,7 +121,7 @@ class TestWooCommerceOrders extends WooCommerceBaseTestCase {
 			)
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args  = array(
 			'post_type' => 'shop_order',
@@ -140,9 +140,9 @@ class TestWooCommerceOrders extends WooCommerceBaseTestCase {
 	 * @group woocommerce-orders
 	 */
 	public function testShopOrderPostTypeQueryWhenEPIntegrateSetFalse() {
-		WPProbe\Features::factory()->activate_feature( 'protected_content' );
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$this->ep_factory->post->create();
 		$this->ep_factory->post->create(
@@ -151,7 +151,7 @@ class TestWooCommerceOrders extends WooCommerceBaseTestCase {
 			)
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args  = array(
 			'post_type'    => 'shop_order',
@@ -169,9 +169,9 @@ class TestWooCommerceOrders extends WooCommerceBaseTestCase {
 	 * @group woocommerce-orders
 	 */
 	public function testSearchShopOrderById() {
-		WPProbe\Features::factory()->activate_feature( 'protected_content' );
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$shop_order_id = $this->ep_factory->post->create(
 			array(
@@ -179,7 +179,7 @@ class TestWooCommerceOrders extends WooCommerceBaseTestCase {
 			)
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'         => (string) $shop_order_id,
@@ -203,23 +203,23 @@ class TestWooCommerceOrders extends WooCommerceBaseTestCase {
 	 * @group woocommerce-orders
 	 */
 	public function testSearchShopOrderByMetaFieldAndId() {
-		WPProbe\Features::factory()->activate_feature( 'protected_content' );
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$this->assertTrue( class_exists( '\WC_Order' ) );
 
 		$shop_order_1 = new \WC_Order();
 		$shop_order_1->save();
 		$shop_order_id_1 = $shop_order_1->get_id();
-		WPProbe\Indexables::factory()->get( 'post' )->index( $shop_order_id_1, true );
+		ElasticProbe\Indexables::factory()->get( 'post' )->index( $shop_order_id_1, true );
 
 		$shop_order_2 = new \WC_Order();
 		$shop_order_2->set_billing_phone( 'Phone number that matches an order ID: ' . $shop_order_id_1 );
 		$shop_order_2->save();
-		WPProbe\Indexables::factory()->get( 'post' )->index( $shop_order_2->get_id(), true );
+		ElasticProbe\Indexables::factory()->get( 'post' )->index( $shop_order_2->get_id(), true );
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'           => (string) $shop_order_id_1,
@@ -267,9 +267,9 @@ class TestWooCommerceOrders extends WooCommerceBaseTestCase {
 		$default_supported = $this->orders->get_supported_post_types();
 		$this->assertSame( $default_supported, [] );
 
-		WPProbe\Features::factory()->activate_feature( 'protected_content' );
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$default_supported = $this->orders->get_supported_post_types();
 		$this->assertSame( $default_supported, [ 'shop_order', 'shop_order_refund' ] );
@@ -297,7 +297,7 @@ class TestWooCommerceOrders extends WooCommerceBaseTestCase {
 	 * @group woocommerce-orders
 	 */
 	public function testOrdersAutosuggestMethods( $method, $args ) {
-		$this->setExpectedDeprecated( "\WPProbe\Feature\WooCommerce\WooCommerce\Orders::{$method}" );
+		$this->setExpectedDeprecated( "\ElasticProbe\Feature\WooCommerce\WooCommerce\Orders::{$method}" );
 		$this->orders->$method( ...$args );
 	}
 
@@ -345,7 +345,7 @@ class TestWooCommerceOrders extends WooCommerceBaseTestCase {
 		\set_current_screen( 'woocommerce_page_wc-orders' );
 		$this->assertCount( 1, $this->orders->hpos_compatibility_notice( $notices ) );
 
-		WPProbe\Features::factory()->activate_feature( 'protected_content' );
+		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
 		$this->assertCount( 1, $this->orders->hpos_compatibility_notice( $notices ) );
 
 		$option_name  = \Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController::CUSTOM_ORDERS_TABLE_USAGE_ENABLED_OPTION;

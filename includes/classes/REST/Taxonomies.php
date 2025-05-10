@@ -3,18 +3,18 @@
  * Taxonomies REST API Controller
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\REST;
+namespace ElasticProbe\REST;
 
-use WPProbe\Features;
+use ElasticProbe\Features;
 
 /**
  * Taxonomies API controller class.
  *
  * @since 5.0.0
- * @package wpprobe
+ * @package elasticprobe
  */
 class Taxonomies {
 

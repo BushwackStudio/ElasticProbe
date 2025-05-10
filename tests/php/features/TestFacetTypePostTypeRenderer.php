@@ -3,12 +3,12 @@
  * Test post type facet type feature
  *
  * @since 4.6.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe\Feature\Facets\Types\PostType\Renderer;
+use ElasticProbe\Feature\Facets\Types\PostType\Renderer;
 /**
  * Facets\Types\PostType\FacetType test class
  */

@@ -52,9 +52,9 @@ export default ({ clearUrl, min, max, prefix, suffix, value, ...props }) => {
 				{suffix}
 			</div>
 			<div className="ep-range-facet__action">
-				{clearUrl ? <a href={clearUrl}>{__('Clear', 'wpprobe')}</a> : null}{' '}
+				{clearUrl ? <a href={clearUrl}>{__('Clear', 'elasticprobe')}</a> : null}{' '}
 				<button className="wp-element-button" type="submit">
-					{__('Filter', 'wpprobe')}
+					{__('Filter', 'elasticprobe')}
 				</button>
 			</div>
 		</div>

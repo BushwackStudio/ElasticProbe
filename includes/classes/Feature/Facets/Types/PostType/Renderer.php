@@ -3,12 +3,12 @@
  * Class responsible for rendering the post type filters.
  *
  * @since 4.6.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Feature\Facets\Types\PostType;
+namespace ElasticProbe\Feature\Facets\Types\PostType;
 
-use WPProbe\Features;
+use ElasticProbe\Features;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Facets render class
  */
-class Renderer extends \WPProbe\Feature\Facets\Renderer {
+class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 	/**
 	 * Whether the term count should be displayed or not.
 	 *
@@ -181,9 +181,9 @@ class Renderer extends \WPProbe\Feature\Facets\Renderer {
 			'ep_facet_post_type_value_accessible_label',
 			$item['is_selected']
 				/* translators: %s: Filter term name. */
-				? sprintf( __( 'Remove filter: %s', 'wpprobe' ), $label )
+				? sprintf( __( 'Remove filter: %s', 'elasticprobe' ), $label )
 				/* translators: %s: Filter term name. */
-				: sprintf( __( 'Apply filter: %s', 'wpprobe' ), $label ),
+				: sprintf( __( 'Apply filter: %s', 'elasticprobe' ), $label ),
 			$item
 		);
 

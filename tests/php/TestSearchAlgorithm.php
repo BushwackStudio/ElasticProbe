@@ -3,12 +3,12 @@
  * Test abstract SearchAlgorithm
  *
  * @since 4.3.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe\SearchAlgorithm;
+use ElasticProbe\SearchAlgorithm;
 
 /**
  * Test abstract SearchAlgorithm class

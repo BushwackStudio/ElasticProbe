@@ -26,10 +26,10 @@ export default () => {
 	return (
 		<WrapperElement>
 			<CheckboxControl
-				label={__('Exclude from search results', 'wpprobe')}
+				label={__('Exclude from search results', 'elasticprobe')}
 				help={__(
-					"Excludes this post from the results of your site's search form while WPProbe is active.",
-					'wpprobe',
+					"Excludes this post from the results of your site's search form while ElasticProbe is active.",
+					'elasticprobe',
 				)}
 				checked={ep_exclude_from_search}
 				onChange={onChange}

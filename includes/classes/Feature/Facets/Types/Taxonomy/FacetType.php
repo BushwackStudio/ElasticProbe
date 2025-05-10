@@ -3,17 +3,17 @@
  * Taxonomy facet type
  *
  * @since 4.3.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Feature\Facets\Types\Taxonomy;
+namespace ElasticProbe\Feature\Facets\Types\Taxonomy;
 
-use WPProbe\Features;
+use ElasticProbe\Features;
 
 /**
  * Taxonomy facet type class
  */
-class FacetType extends \WPProbe\Feature\Facets\FacetType {
+class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 
 	/**
 	 * Block instance.
@@ -44,7 +44,7 @@ class FacetType extends \WPProbe\Feature\Facets\FacetType {
 		_doing_it_wrong(
 			__METHOD__,
 			esc_html( 'Aggregation filters related to facet types are now managed by the main Facets class.' ),
-			'WPProbe 0.1.0'
+			'ElasticProbe 0.1.0'
 		);
 
 		return $query_args;
@@ -134,7 +134,7 @@ class FacetType extends \WPProbe\Feature\Facets\FacetType {
 	}
 
 	/**
-	 * DEPRECATED. We enable WPProbe facet on all archive/search queries as well as non-static home pages. There is no way to know
+	 * DEPRECATED. We enable ElasticProbe facet on all archive/search queries as well as non-static home pages. There is no way to know
 	 * when a facet widget is used before the main query is executed so we enable EP
 	 * everywhere where a facet widget could be used.
 	 *
@@ -144,7 +144,7 @@ class FacetType extends \WPProbe\Feature\Facets\FacetType {
 		_doing_it_wrong(
 			__METHOD__,
 			esc_html( 'Facet selections are now applied directly to the ES Query.' ),
-			'WPProbe 0.1.0'
+			'ElasticProbe 0.1.0'
 		);
 
 		$feature = Features::factory()->get_registered_feature( 'facets' );

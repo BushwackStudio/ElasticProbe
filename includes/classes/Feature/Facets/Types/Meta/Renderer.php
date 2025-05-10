@@ -3,12 +3,12 @@
  * Class responsible for rendering the filters.
  *
  * @since 4.3.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbe\Feature\Facets\Types\Meta;
+namespace ElasticProbe\Feature\Facets\Types\Meta;
 
-use WPProbe\Features;
+use ElasticProbe\Features;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Facets render class
  */
-class Renderer extends \WPProbe\Feature\Facets\Renderer {
+class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 	/**
 	 * Holds the meta field selected.
 	 *
@@ -228,9 +228,9 @@ class Renderer extends \WPProbe\Feature\Facets\Renderer {
 			'ep_facet_meta_value_accessible_label',
 			$item['is_selected']
 				/* translators: %s: Filter term name. */
-				? sprintf( __( 'Remove filter: %s', 'wpprobe' ), $label )
+				? sprintf( __( 'Remove filter: %s', 'elasticprobe' ), $label )
 				/* translators: %s: Filter term name. */
-				: sprintf( __( 'Apply filter: %s', 'wpprobe' ), $label ),
+				: sprintf( __( 'Apply filter: %s', 'elasticprobe' ), $label ),
 			$item
 		);
 
@@ -320,7 +320,7 @@ class Renderer extends \WPProbe\Feature\Facets\Renderer {
 	 * @return string HTML for an individual facet term.
 	 */
 	public function get_meta_value_html( array $value, string $url ): string {
-		_deprecated_function( __METHOD__, '4.7.0', '\WPProbe\Feature\Facets\Types\Meta\Renderer::get_facet_item_value_html()' );
+		_deprecated_function( __METHOD__, '0.1.0', '\ElasticProbe\Feature\Facets\Types\Meta\Renderer::get_facet_item_value_html()' );
 
 		return $this->get_facet_item_value_html( $value, $url );
 	}

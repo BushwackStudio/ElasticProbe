@@ -176,7 +176,9 @@ export class Pointers extends Component {
 
 		if (!position) {
 			/* eslint-disable no-alert */
-			window.alert(__('You have added the maximum number of custom results.', 'wpprobe'));
+			window.alert(
+				__('You have added the maximum number of custom results.', 'elasticprobe'),
+			);
 			/* eslint-enable no-alert */
 			return;
 		}
@@ -252,7 +254,7 @@ export class Pointers extends Component {
 		}
 
 		if (searchResults.length === 0) {
-			return <div className="no-results">{__('No results found.', 'wpprobe')}</div>;
+			return <div className="no-results">{__('No results found.', 'elasticprobe')}</div>;
 		}
 
 		return searchResults.map((result) => {
@@ -272,7 +274,7 @@ export class Pointers extends Component {
 							this.addPointer(result);
 						}}
 					>
-						<span className="screen-reader-text">{__('Add Post', 'wpprobe')}</span>
+						<span className="screen-reader-text">{__('Add Post', 'elasticprobe')}</span>
 					</span>
 				</div>
 			);
@@ -298,7 +300,12 @@ export class Pointers extends Component {
 		if (title.length === 0) {
 			return (
 				<div className="new-post">
-					<p>{__('Enter your search query above to preview the results.', 'wpprobe')}</p>
+					<p>
+						{__(
+							'Enter your search query above to preview the results.',
+							'elasticprobe',
+						)}
+					</p>
 				</div>
 			);
 		}
@@ -307,7 +314,7 @@ export class Pointers extends Component {
 			return (
 				<div className="loading">
 					<div className="spinner is-active" />
-					<span>{__('Loading Result Preview…', 'wpprobe')}</span>
+					<span>{__('Loading Result Preview…', 'elasticprobe')}</span>
 				</div>
 			);
 		}
@@ -359,10 +366,10 @@ export class Pointers extends Component {
 									const itemType = item?.type || 'reordered';
 									const tooltipText =
 										itemType === 'reordered'
-											? __('Return to original position', 'wpprobe')
+											? __('Return to original position', 'elasticprobe')
 											: __(
 													'Remove custom result from results list',
-													'wpprobe',
+													'elasticprobe',
 												);
 
 									return (
@@ -385,7 +392,7 @@ export class Pointers extends Component {
 															<span>
 																{__(
 																	'The following posts have been displaced to the next page of search results.',
-																	'wpprobe',
+																	'elasticprobe',
 																)}
 															</span>
 														</div>
@@ -439,7 +446,7 @@ export class Pointers extends Component {
 																{...provided2.dragHandleProps}
 																title={__(
 																	'Drag post up or down to reposition',
-																	'wpprobe',
+																	'elasticprobe',
 																)}
 															/>
 														</div>
@@ -459,7 +466,7 @@ export class Pointers extends Component {
 					<div className="legend-item">
 						<span className="pointer-type">CR</span>
 						<span className="type-description">
-							{__('Custom Result (manually added to list)', 'wpprobe')}
+							{__('Custom Result (manually added to list)', 'elasticprobe')}
 						</span>
 					</div>
 					<div className="legend-item">
@@ -467,14 +474,14 @@ export class Pointers extends Component {
 						<span className="type-description">
 							{__(
 								'Reordered Default (originally in results, but repositioned)',
-								'wpprobe',
+								'elasticprobe',
 							)}
 						</span>
 					</div>
 				</div>
 
 				<div className="pointer-search">
-					<h2 className="section-title">{__('Add to results', 'wpprobe')}</h2>
+					<h2 className="section-title">{__('Add to results', 'elasticprobe')}</h2>
 
 					<div className="search-wrapper">
 						<div className="input-wrap">

@@ -49,26 +49,28 @@ export default () => {
 			<FlexItem grow="2">
 				<TextControl
 					disabled={isSyncing}
-					help={__('Sync objects with an ID of this number or higher.', 'wpprobe')}
-					label={__('Lower object ID', 'wpprobe')}
+					help={__('Sync objects with an ID of this number or higher.', 'elasticprobe')}
+					label={__('Lower object ID', 'elasticprobe')}
 					max={args.upper_limit_object_id}
 					min="0"
 					onChange={onChangeLower}
 					type="number"
 					value={args.lower_limit_object_id}
 					__nextHasNoMarginBottom
+					__next40pxDefaultSize
 				/>
 			</FlexItem>
 			<FlexItem grow="2">
 				<TextControl
 					disabled={isSyncing}
-					help={__('Sync objects with an ID of this number or lower.', 'wpprobe')}
-					label={__('Higher object ID', 'wpprobe')}
+					help={__('Sync objects with an ID of this number or lower.', 'elasticprobe')}
+					label={__('Higher object ID', 'elasticprobe')}
 					min={args.lower_limit_object_id}
 					onChange={onChangeUpper}
 					type="number"
 					value={args.upper_limit_object_id}
 					__nextHasNoMarginBottom
+					__next40pxDefaultSize
 				/>
 			</FlexItem>
 		</Flex>

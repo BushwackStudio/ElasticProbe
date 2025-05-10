@@ -3,12 +3,12 @@
  * Test woocommerce products class
  *
  * @since 4.7.0
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe;
+use ElasticProbe;
 
 require_once __DIR__ . '/WooCommerceBaseTestCase.php';
 
@@ -31,7 +31,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	 */
 	public function set_up() {
 		parent::set_up();
-		$this->products = WPProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products;
+		$this->products = ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' )->products;
 	}
 
 	/**
@@ -41,8 +41,8 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	 * @group woocommerce-products
 	 */
 	public function testProductsPostTypeQueryOn() {
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$this->ep_factory->post->create();
 		$this->ep_factory->product->create(
@@ -51,7 +51,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 			)
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			'post_type' => 'product',
@@ -71,8 +71,8 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	 * @group woocommerce-products
 	 */
 	public function testProductsPostTypeQueryProductCatTax() {
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$args = array(
 			'tax_query' => array(
@@ -103,8 +103,8 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	 * @group woocommerce-products
 	 */
 	public function testProductsPostTypeQueryProductCatTaxWhenEPIntegrateSetTrue() {
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$args = [
 			'product_cat'  => 'cat',
@@ -126,8 +126,8 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	public function testProductsPostTypeQueryProductCatTaxWhenMainQuery() {
 		global $wp_the_query;
 
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$args = [
 			'product_cat' => 'cat',
@@ -148,8 +148,8 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	public function testProductsPostTypeQueryProductWhenMainQuery() {
 		global $wp_the_query;
 
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$wp_the_query->query( [ 'post_type' => 'product' ] );
 
@@ -163,10 +163,10 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	 * @group woocommerce-products
 	 */
 	public function testSearchOnAllFrontEnd() {
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			's'         => 'findme',
@@ -185,12 +185,12 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	 * @group woocommerce-products
 	 */
 	public function testWoocommerceAttributeTaxonomiesAreSync() {
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$product_id = $this->ep_factory->product->create_variation_product();
 
-		$post     = new \WPProbe\Indexable\Post\Post();
+		$post     = new \ElasticProbe\Indexable\Post\Post();
 		$document = $post->prepare_document( $product_id );
 
 		$this->assertArrayHasKey( 'pa_size', $document['terms'] );
@@ -335,8 +335,8 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	public function testProductQueryOrder( $product_arg_key, $query_args, $query_string, $expected, $order = '', $force_type_archive = false ) {
 		global $wp_the_query;
 
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$product_1 = $this->ep_factory->product->create(
 			array(
@@ -350,7 +350,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 			)
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		if ( $query_string ) {
 			parse_str( 'orderby=' . $query_string, $_GET );
@@ -399,8 +399,8 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	 * @group woocommerce-products
 	 */
 	public function testQueryShouldNotUseElasticsearchIfPreview() {
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$args = array(
 			'post_type' => 'product',
@@ -429,9 +429,9 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 		include_once ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php';
 		include_once WC()->plugin_path() . '/includes/admin/list-tables/class-wc-admin-list-table-products.php';
 
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->activate_feature( 'protected_content' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		// mock the global variables
 		$typenow       = 'product';
@@ -476,9 +476,9 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 		include_once ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php';
 		include_once WC()->plugin_path() . '/includes/admin/list-tables/class-wc-admin-list-table-products.php';
 
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->activate_feature( 'protected_content' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		// mock the global variables
 		$typenow       = 'product';
@@ -521,8 +521,8 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	public function testPriceFilter() {
 		global $wp_the_query, $wp_query;
 
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$this->ep_factory->product->create(
 			[
@@ -543,7 +543,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 			]
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		parse_str( 'min_price=1&max_price=999', $_GET );
 
@@ -591,8 +591,8 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	public function testPriceFilterWithSearchQuery() {
 		global $wp_the_query, $wp_query;
 
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$this->ep_factory->product->create(
 			[
@@ -622,7 +622,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 			]
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		parse_str( 'min_price=1&max_price=999', $_GET );
 
@@ -651,8 +651,8 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	public function testAttributesFilterUseES() {
 		global $wp_the_query;
 
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$this->ep_factory->product->create_variation_product(
 			[
@@ -672,7 +672,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 			]
 		);
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		// mock the query as post type archive
 		add_action(
@@ -718,12 +718,12 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	 * @group woocommerce-products
 	 */
 	public function testGetPosts() {
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$this->ep_factory->product->create();
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$posts = get_posts(
 			[
@@ -742,12 +742,12 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	 * @group woocommerce-products
 	 */
 	public function testGetPostQueryDoesNotUseElasticSearchByDefault() {
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$this->ep_factory->product->create();
 
-		WPProbe\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$posts = get_posts(
 			[
@@ -765,10 +765,10 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	 * @group woocommerce
 	 */
 	public function testSkuOptionAddInWeightDashboard() {
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
-		$search = WPProbe\Features::factory()->get_registered_feature( 'search' );
+		$search = ElasticProbe\Features::factory()->get_registered_feature( 'search' );
 		$fields = $search->weighting->get_weightable_fields_for_post_type( 'product' );
 
 		$this->assertArrayHasKey( 'meta._sku.value', $fields['attributes']['children'] );
@@ -788,8 +788,8 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	 * @group woocommerce-products
 	 */
 	public function testAddVariationsSkusMeta() {
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$this->assertTrue( class_exists( '\WC_Product_Variable' ) );
 		$this->assertTrue( class_exists( '\WC_Product_Variation' ) );
@@ -809,7 +809,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 		$variation_2->save();
 
 		$main_product_as_post  = get_post( $main_product_id );
-		$product_meta_to_index = WPProbe\Features::factory()
+		$product_meta_to_index = ElasticProbe\Features::factory()
 			->get_registered_feature( 'woocommerce' )
 			->products
 			->add_variations_skus_meta( [], $main_product_as_post );
@@ -826,9 +826,9 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	 * @group woocommerce-products
 	 */
 	public function testTranslateArgsAdminProductsList() {
-		WPProbe\Features::factory()->activate_feature( 'protected_content' );
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		parse_str( 'post_type=product&s=product&product_type=downloadable&stock_status=instock', $_GET );
 
@@ -836,7 +836,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 			'ep_integrate' => true,
 		];
 
-		$woocommerce_feature = WPProbe\Features::factory()->get_registered_feature( 'woocommerce' );
+		$woocommerce_feature = ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' );
 		add_action( 'pre_get_posts', [ $woocommerce_feature->products, 'translate_args_admin_products_list' ] );
 
 		$query = new \WP_Query( $query_args );
@@ -868,9 +868,9 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	 * @group woocommerce-products
 	 */
 	public function testEPWoocommerceAdminProductsListSearchFields() {
-		WPProbe\Features::factory()->activate_feature( 'protected_content' );
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		parse_str( 'post_type=product&s=product&product_type=downloadable', $_GET );
 
@@ -878,7 +878,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 			'ep_integrate' => true,
 		];
 
-		$woocommerce_feature = WPProbe\Features::factory()->get_registered_feature( 'woocommerce' );
+		$woocommerce_feature = ElasticProbe\Features::factory()->get_registered_feature( 'woocommerce' );
 		add_action( 'pre_get_posts', [ $woocommerce_feature->products, 'translate_args_admin_products_list' ] );
 
 		$search_fields_function = function () {
@@ -905,11 +905,11 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	 * @param string       $assert    Assert method name (`assertDecayDisabled` or `assertDecayEnabled`)
 	 */
 	public function testDecayingDisabledOnProducts( $setting, $post_type, $assert ) {
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		// Test decaying for product query when disabled_only_products is enabled
-		WPProbe\Features::factory()->update_feature(
+		ElasticProbe\Features::factory()->update_feature(
 			'search',
 			[
 				'active'           => true,
@@ -922,7 +922,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 			's'         => 'test',
 			'post_type' => $post_type,
 		];
-		$formatted_args = \WPProbe\Indexables::factory()->get( 'post' )->format_args( $query_args, $query );
+		$formatted_args = \ElasticProbe\Indexables::factory()->get( 'post' )->format_args( $query_args, $query );
 
 		$this->$assert( $formatted_args['query'] );
 	}
@@ -984,9 +984,9 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 		$default_supported = $this->products->get_supported_post_types( $query );
 		$this->assertSame( $default_supported, [] );
 
-		WPProbe\Features::factory()->activate_feature( 'protected_content' );
-		WPProbe\Features::factory()->activate_feature( 'woocommerce' );
-		WPProbe\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$default_supported = $this->products->get_supported_post_types( $query );
 		$this->assertSame( $default_supported, [ 'product_variation' ] );
@@ -1110,7 +1110,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 			wc_create_attribute( $args );
 		}
 
-		$facet_feature = WPProbe\Features::factory()->get_registered_feature( 'facets' );
+		$facet_feature = ElasticProbe\Features::factory()->get_registered_feature( 'facets' );
 		$facet_type    = $facet_feature->types['taxonomy'];
 
 		parse_str( 'ep_filter_taxonomy=dolor,amet&ep_filter_my_color=red', $_GET );
@@ -1132,7 +1132,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	 * @group woocommerce-products
 	 */
 	public function test_add_weight_settings_search_schema() {
-		$settings_schema = \WPProbe\Features::factory()->get_registered_feature( 'search' )->get_settings_schema();
+		$settings_schema = \ElasticProbe\Features::factory()->get_registered_feature( 'search' )->get_settings_schema();
 
 		$settings_keys = wp_list_pluck( $settings_schema, 'key' );
 

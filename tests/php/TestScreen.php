@@ -2,12 +2,12 @@
 /**
  * Test screen class.
  *
- * @package wpprobe
+ * @package elasticprobe
  */
 
-namespace WPProbeTest;
+namespace ElasticProbeTest;
 
-use WPProbe;
+use ElasticProbe;
 
 /**
  * Screen test class
@@ -29,10 +29,10 @@ class TestScreen extends BaseTestCase {
 
 		wp_set_current_user( $admin_id );
 
-		WPProbe\Elasticsearch::factory()->delete_all_indices();
-		WPProbe\Indexables::factory()->get( 'post' )->put_mapping();
+		ElasticProbe\Elasticsearch::factory()->delete_all_indices();
+		ElasticProbe\Indexables::factory()->get( 'post' )->put_mapping();
 
-		WPProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
+		ElasticProbe\Indexables::factory()->get( 'post' )->sync_manager->reset_sync_queue();
 
 		$this->setup_test_post_type();
 
@@ -79,22 +79,22 @@ class TestScreen extends BaseTestCase {
 	public function testDetermineScreenNotEP() {
 		$_GET['page'] = '';
 
-		WPProbe\Installer::factory()->calculate_install_status();
-		WPProbe\Screen::factory()->determine_screen();
+		ElasticProbe\Installer::factory()->calculate_install_status();
+		ElasticProbe\Screen::factory()->determine_screen();
 
-		$this->assertEquals( null, WPProbe\Screen::factory()->get_current_screen() );
+		$this->assertEquals( null, ElasticProbe\Screen::factory()->get_current_screen() );
 
-		$_GET['page'] = 'wpprobe';
+		$_GET['page'] = 'elasticprobe';
 
 		set_current_screen( 'front' );
 
-		WPProbe\Installer::factory()->calculate_install_status();
-		WPProbe\Screen::factory()->determine_screen();
+		ElasticProbe\Installer::factory()->calculate_install_status();
+		ElasticProbe\Screen::factory()->determine_screen();
 
-		WPProbe\Screen::factory()->determine_screen();
+		ElasticProbe\Screen::factory()->determine_screen();
 
 		// This will be 'install' for single site, but null for multisite.
-		$this->assertSame( 'install', WPProbe\Screen::factory()->get_current_screen() );
+		$this->assertSame( 'install', ElasticProbe\Screen::factory()->get_current_screen() );
 	}
 
 	/**
@@ -110,12 +110,12 @@ class TestScreen extends BaseTestCase {
 
 		add_filter( 'ep_install_status', $set_install_status );
 
-		$_GET['page'] = 'wpprobe-settings';
+		$_GET['page'] = 'elasticprobe-settings';
 
-		WPProbe\Installer::factory()->calculate_install_status();
-		WPProbe\Screen::factory()->determine_screen();
+		ElasticProbe\Installer::factory()->calculate_install_status();
+		ElasticProbe\Screen::factory()->determine_screen();
 
-		$this->assertEquals( 'settings', WPProbe\Screen::factory()->get_current_screen() );
+		$this->assertEquals( 'settings', ElasticProbe\Screen::factory()->get_current_screen() );
 	}
 
 	/**
@@ -131,12 +131,12 @@ class TestScreen extends BaseTestCase {
 
 		add_filter( 'ep_install_status', $set_install_status );
 
-		$_GET['page'] = 'wpprobe-settings';
+		$_GET['page'] = 'elasticprobe-settings';
 
-		WPProbe\Installer::factory()->calculate_install_status();
-		WPProbe\Screen::factory()->determine_screen();
+		ElasticProbe\Installer::factory()->calculate_install_status();
+		ElasticProbe\Screen::factory()->determine_screen();
 
-		$this->assertEquals( 'install', WPProbe\Screen::factory()->get_current_screen() );
+		$this->assertEquals( 'install', ElasticProbe\Screen::factory()->get_current_screen() );
 	}
 
 	/**
@@ -152,12 +152,12 @@ class TestScreen extends BaseTestCase {
 
 		add_filter( 'ep_install_status', $set_install_status );
 
-		$_GET['page'] = 'wpprobe-settings';
+		$_GET['page'] = 'elasticprobe-settings';
 
-		WPProbe\Installer::factory()->calculate_install_status();
-		WPProbe\Screen::factory()->determine_screen();
+		ElasticProbe\Installer::factory()->calculate_install_status();
+		ElasticProbe\Screen::factory()->determine_screen();
 
-		$this->assertEquals( 'settings', WPProbe\Screen::factory()->get_current_screen() );
+		$this->assertEquals( 'settings', ElasticProbe\Screen::factory()->get_current_screen() );
 	}
 
 	/**
@@ -173,12 +173,12 @@ class TestScreen extends BaseTestCase {
 
 		add_filter( 'ep_install_status', $set_install_status );
 
-		$_GET['page'] = 'wpprobe';
+		$_GET['page'] = 'elasticprobe';
 
-		WPProbe\Installer::factory()->calculate_install_status();
-		WPProbe\Screen::factory()->determine_screen();
+		ElasticProbe\Installer::factory()->calculate_install_status();
+		ElasticProbe\Screen::factory()->determine_screen();
 
-		$this->assertEquals( 'dashboard', WPProbe\Screen::factory()->get_current_screen() );
+		$this->assertEquals( 'dashboard', ElasticProbe\Screen::factory()->get_current_screen() );
 	}
 
 	/**
@@ -194,12 +194,12 @@ class TestScreen extends BaseTestCase {
 
 		add_filter( 'ep_install_status', $set_install_status );
 
-		$_GET['page'] = 'wpprobe';
+		$_GET['page'] = 'elasticprobe';
 
-		WPProbe\Installer::factory()->calculate_install_status();
-		WPProbe\Screen::factory()->determine_screen();
+		ElasticProbe\Installer::factory()->calculate_install_status();
+		ElasticProbe\Screen::factory()->determine_screen();
 
-		$this->assertEquals( 'install', WPProbe\Screen::factory()->get_current_screen() );
+		$this->assertEquals( 'install', ElasticProbe\Screen::factory()->get_current_screen() );
 	}
 
 	/**
@@ -215,12 +215,12 @@ class TestScreen extends BaseTestCase {
 
 		add_filter( 'ep_install_status', $set_install_status );
 
-		$_GET['page'] = 'wpprobe';
+		$_GET['page'] = 'elasticprobe';
 
-		WPProbe\Installer::factory()->calculate_install_status();
-		WPProbe\Screen::factory()->determine_screen();
+		ElasticProbe\Installer::factory()->calculate_install_status();
+		ElasticProbe\Screen::factory()->determine_screen();
 
-		$this->assertEquals( 'install', WPProbe\Screen::factory()->get_current_screen() );
+		$this->assertEquals( 'install', ElasticProbe\Screen::factory()->get_current_screen() );
 	}
 
 	/**
@@ -236,13 +236,13 @@ class TestScreen extends BaseTestCase {
 
 		add_filter( 'ep_install_status', $set_install_status );
 
-		$_GET['page']             = 'wpprobe';
+		$_GET['page']             = 'elasticprobe';
 		$_GET['install_complete'] = 1;
 
-		WPProbe\Installer::factory()->calculate_install_status();
-		WPProbe\Screen::factory()->determine_screen();
+		ElasticProbe\Installer::factory()->calculate_install_status();
+		ElasticProbe\Screen::factory()->determine_screen();
 
-		$this->assertEquals( 'install', WPProbe\Screen::factory()->get_current_screen() );
+		$this->assertEquals( 'install', ElasticProbe\Screen::factory()->get_current_screen() );
 	}
 
 	/**
@@ -258,13 +258,13 @@ class TestScreen extends BaseTestCase {
 
 		add_filter( 'ep_install_status', $set_install_status );
 
-		$_GET['page']          = 'wpprobe';
+		$_GET['page']          = 'elasticprobe';
 		$_GET['do_sync']       = 1;
 		$_GET['ep_sync_nonce'] = wp_create_nonce( 'ep_sync_nonce' );
 
-		WPProbe\Installer::factory()->calculate_install_status();
-		WPProbe\Screen::factory()->determine_screen();
+		ElasticProbe\Installer::factory()->calculate_install_status();
+		ElasticProbe\Screen::factory()->determine_screen();
 
-		$this->assertEquals( 'dashboard', WPProbe\Screen::factory()->get_current_screen() );
+		$this->assertEquals( 'dashboard', ElasticProbe\Screen::factory()->get_current_screen() );
 	}
 }

@@ -55,13 +55,20 @@ export default () => {
 	};
 
 	/**
-	 * Handle a completed sync.
+	 * Display a notice when a sync is complete.
+	 */
+	const onCompleteDisplayNotice = () => {
+		if (isComplete) {
+			createNotice('success', __('Sync completed.', 'elasticprobe'));
+		}
+	};
+
+	/**
+	 * Handle logs and errors count when a sync is complete.
 	 */
 	const onComplete = () => {
 		if (isComplete) {
 			const newErrorCount = errorCounts.reduce((c, e) => c + e.count, 0);
-
-			createNotice('success', __('Sync completed.', 'wpprobe'));
 
 			if (newErrorCount > errorCount) {
 				setIsLogOpen(true);
@@ -79,7 +86,7 @@ export default () => {
 	const onInit = () => {
 		if (autoIndex) {
 			startSync({ put_mapping: true, trigger: syncTrigger });
-			logMessage(__('Starting delete and sync…', 'wpprobe'), 'info');
+			logMessage(__('Starting delete and sync…', 'elasticprobe'), 'info');
 		}
 	};
 
@@ -98,9 +105,10 @@ export default () => {
 		const syncArgs = { ...args, put_mapping: putMapping, trigger: 'manual' };
 
 		startSync(syncArgs);
-		logMessage(__('Starting sync…', 'wpprobe'), 'info');
+		logMessage(__('Starting sync…', 'elasticprobe'), 'info');
 	};
 
+	useEffect(onCompleteDisplayNotice, [createNotice, isComplete]);
 	useEffect(onComplete, [createNotice, errorCount, errorCounts, isComplete]);
 	useEffect(onInit, [autoIndex, logMessage, startSync, syncTrigger]);
 
@@ -110,17 +118,17 @@ export default () => {
 				{syncHistory.length
 					? __(
 							'If you are missing data in your search results or have recently added custom content types to your site, you should run a sync to reflect these changes.',
-							'wpprobe',
+							'elasticprobe',
 						)
 					: sprintf(
 							/* translators: %s: Index type. WPProbe.com or Elasticsearch. */
 							__(
 								'Run a sync to index your existing content %s. Once syncing finishes, your site is officially supercharged.',
-								'wpprobe',
+								'elasticprobe',
 							),
 							isEpio
-								? __('on WPProbe.com', 'wpprobe')
-								: __('in Elasticsearch', 'wpprobe'),
+								? __('on WPProbe.com', 'elasticprobe')
+								: __('in Elasticsearch', 'elasticprobe'),
 						)}
 			</p>
 			<Panel className="ep-sync-panel">
@@ -137,12 +145,12 @@ export default () => {
 						<PanelBody
 							className="ep-sync-panel__advanced"
 							initialOpen={false}
-							title={__('Advanced options', 'wpprobe')}
+							title={__('Advanced options', 'elasticprobe')}
 						>
 							<Indexables />
 							<Objects />
 						</PanelBody>
-						<PanelBody title={__('Sync history', 'wpprobe')}>
+						<PanelBody title={__('Sync history', 'elasticprobe')}>
 							<SyncHistory />
 						</PanelBody>
 					</>

@@ -1,7 +1,7 @@
 /**
  * External dependencies.
  */
-import FocusTrap from 'focus-trap-react';
+import { FocusTrap } from 'focus-trap-react';
 
 /**
  * WordPress dependencies.
@@ -87,7 +87,7 @@ export default ({ children, isOpen, onClose, ...props }) => {
 							ref={closeRef}
 						>
 							<Icon icon={closeSmall} />
-							{__('Close', 'wpprobe')}
+							{__('Close', 'elasticprobe')}
 						</button>
 						{children}
 					</div>
