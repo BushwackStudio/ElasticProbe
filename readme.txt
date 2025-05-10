@@ -2,7 +2,7 @@
 Contributors: elasticprobe, nshayanfar
 Tags:         performance, search, elasticsearch, fuzzy, related posts
 Tested up to: 6.8
-Stable tag:   0.1.1
+Stable tag:   0.2.0
 License:      GPLv2 or later
 License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,15 +13,13 @@ ElasticProbe, a fast and flexible search and query engine for WordPress, enables
 
 Here is a list of the amazing ElasticProbe features included in the plugin:
 
-__Search__: Instantly find the content you’re looking for. The first time.
+__Search__: Instantly find the content you’re looking for. Even when you misspell.
 
 __WooCommerce__: With ElasticProbe, filtering WooCommerce product results is fast and easy. Your customers can find and buy exactly what they're looking for, even if you have a large or complex product catalog.
 
 __Related Posts__: ElasticProbe understands data in real time, so it can instantly deliver engaging and precise related content with no impact on site performance.
 
 __Protected Content__: Optionally index all of your content, including private and unpublished content, to speed up searches and queries in places like the administrative dashboard.
-
-__Autosuggest__: Suggest relevant content as text is entered into the search field.
 
 __Filters__: Add controls to your website to filter content by one or more taxonomies.
 
@@ -64,6 +62,27 @@ For sure! Feel free to submit ideas or feedback in general to our [GitHub repo](
 5. Instant Results modal
 
 == Changelog ==
+
+= 0.2.0 - 2024-05-10 =
+
+__Added:__
+
+* Cloned tests of ES for the hosted service
+
+__Changed:__
+
+* Plugin name
+
+__Fixed:__
+
+* Some tests which failed when running against the hosted service
+
+
+__Security:__
+
+
+__Developer:__
+
 
 = 0.1.1 - 2024-04-26 =
 
