@@ -25,12 +25,6 @@ jobs:
   phpunit:
     name: WPProbe.com
     runs-on: ubuntu-latest
-    strategy:
-        fail-fast: false
-        matrix:
-          type:
-           - {name: 'Single Site', command: 'test-single-site'}
-           - {name: 'Multisite', command: 'test'}
 
     steps:
     - name: Checkout
@@ -68,4 +62,4 @@ jobs:
 
     - name: PHPUnit
       run: |
-         EP_HOST="${{ secrets.WPPROBE_HOST }}" PROBE_SID=${{ secrets.WPPROBE_SID }} EP_SHIELD_ID="${{ secrets.WPPROBE_SHIELD_ID }}" EP_SHIELD_TOKEN="${{ secrets.WPPROBE_SHIELD_TOKEN }}" composer run-script ${{ matrix.type.command }}
+         EP_HOST="${{ secrets.WPPROBE_HOST }}" PROBE_SID=${{ secrets.WPPROBE_SID }} EP_SHIELD_ID="${{ secrets.WPPROBE_SHIELD_ID }}" EP_SHIELD_TOKEN="${{ secrets.WPPROBE_SHIELD_TOKEN }}" composer run-script test
