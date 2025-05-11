@@ -1115,7 +1115,7 @@ class TestCommands extends BaseTestCase {
 	 */
 	public function testGetIndexSettings() {
 		if ( Utils\is_epio() ) {
-			$this->command->get_index_settings( [ Utils\get_index_prefix() . '--exampleorg-post-1' ], [] );
+			$this->command->get_index_settings( [ Utils\get_index_prefix() . '-exampleorg-post-1' ], [] );
 		} else {
 			$this->command->get_index_settings( [ 'exampleorg-post-1' ], [] );
 		}

@@ -435,6 +435,10 @@ class TestWooCommerceOrdersAutosuggest extends BaseTestCase {
 	 * @group woocommerce-orders-autosuggest
 	 */
 	public function test_get_setting_help_message_feature_not_available() {
+		if ( ElasticProbe\Utils\is_epio() ) {
+			$this->markTestSkipped( 'This test is not applicable for WPProbe.com' );
+		}
+
 		$new_settings_schema = $this->orders_autosuggest->add_settings_schema( [] );
 		$this->assertStringContainsString( 'Due to the sensitive nature of orders', $new_settings_schema[0]['help'] );
 	}
