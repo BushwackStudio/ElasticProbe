@@ -104,7 +104,7 @@ class TestStats extends BaseTestCase {
 		if ( Utils\is_epio() ) {
 			$this->assertEquals( Utils\get_index_prefix() . 'exampleorg-post-1', array_keys( $health )[0] );
 		} else {
-			$this->assertEquals( 'exampleorg_post_1', array_keys( $health )[0] );
+			$this->assertEquals( 'exampleorg-post-1', array_keys( $health )[0] );
 		}
 	}
 

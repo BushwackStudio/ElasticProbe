@@ -129,7 +129,7 @@ class TestElasticsearchErrorInterpreter extends BaseTestCase {
 		if ( Utils\is_epio() ) {
 			$solution = 'Your website content has more public custom fields than WPProbe.com is able to store. Check our articles about <a href="https://www.elasticpress.io/documentation/article/i-get-the-error-limit-of-total-fields-in-index-has-been-exceeded/">Elasticsearch field limitations</a> and <a href="https://www.elasticpress.io/documentation/article/how-to-exclude-metadata-from-indexing/">how to index just the custom fields you need</a> and sync again.';
 		} else {
-			$solution = 'Your website content has more public custom fields than Elasticsearch is able to store. Check our articles about <a href="https://www.elasticpress.io/documentation/article/i-get-the-error-limit-of-total-fields-in-index-has-been-exceeded/">Elasticsearch field limitations</a> and <a href="https://www.elasticpress.io/documentation/article/how-to-exclude-metadata-from-indexing/">how to index just the custom fields you need</a> and run <a href="' . $sync_url . '">a new sync</a> to fix the issue.';
+			$solution = 'Your website content has more public custom fields than Elasticsearch is able to store. Check our articles about <a href="https://www.elasticpress.io/documentation/article/i-get-the-error-limit-of-total-fields-in-index-has-been-exceeded/">Elasticsearch field limitations</a> and <a href="https://www.elasticpress.io/documentation/article/how-to-exclude-metadata-from-indexing/">how to index just the custom fields you need</a> and run sync again.';
 		}
 
 		$suggested = $error_interpreter->maybe_suggest_solution_for_es( $error );

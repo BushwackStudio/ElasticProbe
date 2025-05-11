@@ -295,7 +295,7 @@ class TestElasticsearch extends BaseTestCase {
 		define( 'EP_API_KEY', 'custom_key' );
 		$new_headers = ElasticProbe\Elasticsearch::factory()->format_request_headers();
 
-		$this->assertCount( 3, $new_headers );
+		$this->assertCount( Utils\is_epio() ? 4 : 3, $new_headers );
 		$this->assertSame( 'custom_key', $new_headers['X-ElasticPress-API-Key'] );
 
 		/**
