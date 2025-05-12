@@ -62,6 +62,26 @@ For sure! Feel free to submit ideas or feedback in general to our [GitHub repo](
 
 == Changelog ==
 
+= 0.2.1 - 2024-05-12 =
+
+__Added:__
+
+
+__Changed:__
+
+* Wordpress screenshots
+
+__Fixed:__
+
+* Some hosted PHP tests
+
+
+__Security:__
+
+
+__Developer:__
+
+
 = 0.2.0 - 2024-05-10 =
 
 __Added:__
