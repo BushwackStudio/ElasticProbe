@@ -11,6 +11,7 @@ use ElasticProbe;
 use ElasticProbe\Elasticsearch;
 use ElasticProbe\Indexables;
 use ElasticProbe\Stats;
+use ElasticProbe\Utils;
 
 /**
  * Stats test class
@@ -100,7 +101,11 @@ class TestStats extends BaseTestCase {
 		$health = Stats::factory()->get_health();
 
 		$this->assertEquals( 1, count( $health ) );
-		$this->assertEquals( 'exampleorg-post-1', array_keys( $health )[0] );
+		if ( Utils\is_epio() ) {
+			$this->assertEquals( Utils\get_index_prefix() . 'exampleorg-post-1', array_keys( $health )[0] );
+		} else {
+			$this->assertEquals( 'exampleorg-post-1', array_keys( $health )[0] );
+		}
 	}
 
 	/**

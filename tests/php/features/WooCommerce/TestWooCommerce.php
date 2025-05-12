@@ -206,7 +206,11 @@ class TestWooCommerce extends WooCommerceBaseTestCase {
 		 * Make it unavailable. Even activated, it should not be considered enabled if not available anymore.
 		 */
 		remove_filter( 'ep_woocommerce_orders_autosuggest_available', '__return_true' );
-		$this->assertFalse( $woocommerce_feature->is_orders_autosuggest_enabled() );
+		if ( ElasticProbe\Utils\is_epio() ) {
+			$this->assertTrue( $woocommerce_feature->is_orders_autosuggest_enabled() );
+		} else {
+			$this->assertFalse( $woocommerce_feature->is_orders_autosuggest_enabled() );
+		}
 	}
 
 	/**

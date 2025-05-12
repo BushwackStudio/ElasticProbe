@@ -14,6 +14,8 @@ use ElasticProbe\Indexables;
 use ElasticProbe\Utils;
 use ElasticProbe\Command\Utility;
 
+use function ElasticProbe\Utils\get_index_prefix;
+
 /**
  * Commands test class
  */
@@ -360,7 +362,7 @@ class TestCommands extends BaseTestCase {
 
 		$output = $this->getActualOutputForAssertion();
 		if ( Utils\is_epio() ) {
-			$this->assertEquals( "[\"{$this->ep_factory->get_index_prefix()}exampleorg-post-1\",\"{$this->ep_factory->get_index_prefix()}exampleorg-comment-1\",\"{$this->ep_factory->get_index_prefix()}exampleorg-term-1\",\"{$this->ep_factory->get_index_prefix()}exampleorg-global\"]\n", $output );
+			$this->assertEquals( '["' . Utils\get_index_prefix() . '-exampleorg-post-1","' . Utils\get_index_prefix() . '-exampleorg-comment-1","' . Utils\get_index_prefix() . '-exampleorg-term-1","' . Utils\get_index_prefix() . "-exampleorg-global\"]\n", $output );
 		} else {
 			$this->assertEquals( "[\"exampleorg-post-1\",\"exampleorg-comment-1\",\"exampleorg-term-1\",\"exampleorg-global\"]\n", $output );
 		}
@@ -1115,7 +1117,7 @@ class TestCommands extends BaseTestCase {
 	 */
 	public function testGetIndexSettings() {
 		if ( Utils\is_epio() ) {
-			$this->command->get_index_settings( [ Utils\get_index_prefix() . '--exampleorg-post-1' ], [] );
+			$this->command->get_index_settings( [ Utils\get_index_prefix() . '-exampleorg-post-1' ], [] );
 		} else {
 			$this->command->get_index_settings( [ 'exampleorg-post-1' ], [] );
 		}

@@ -279,10 +279,13 @@ class TestElasticsearch extends BaseTestCase {
 		/**
 		 * Test the default behavior
 		 */
-		// TODO: Change the api key header
 		$default_headers = ElasticProbe\Elasticsearch::factory()->format_request_headers();
 
-		$this->assertCount( 2, $default_headers );
+		if ( is_epio() ) {
+			$this->assertCount( 3, $default_headers );
+		} else {
+			$this->assertCount( 2, $default_headers );
+		}
 		$this->assertSame( 'application/json', $default_headers['Content-Type'] );
 		$this->assertNotEmpty( $default_headers['X-ElasticProbe-Request-ID'] );
 
@@ -292,7 +295,7 @@ class TestElasticsearch extends BaseTestCase {
 		define( 'EP_API_KEY', 'custom_key' );
 		$new_headers = ElasticProbe\Elasticsearch::factory()->format_request_headers();
 
-		$this->assertCount( 3, $new_headers );
+		$this->assertCount( Utils\is_epio() ? 4 : 3, $new_headers );
 		$this->assertSame( 'custom_key', $new_headers['X-ElasticPress-API-Key'] );
 
 		/**

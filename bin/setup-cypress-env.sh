@@ -67,7 +67,7 @@ fi
 ./bin/wp-env-cli tests-wordpress "wp --allow-root theme activate twentytwentyone"
 
 # Fix the debug-bar-elasticprobe dependency of ElasticProbe
-./bin/wp-env-cli tests-wordpress "wp --allow-root plugin install https://github.com/BushwackStudio/debug-bar-elasticprobe/archive/refs/tags/0.1.0.zip"
+./bin/wp-env-cli tests-wordpress "wp --allow-root plugin install https://github.com/BushwackStudio/debug-bar-elasticprobe/archive/refs/tags/0.2.0.zip"
 ./bin/wp-env-cli tests-wordpress "sed -i \"s/Requires Plugins:  elasticprobe/Requires Plugins:  $PLUGIN_NAME/\" /var/www/html/wp-content/plugins/debug-bar-elasticprobe/debug-bar-elasticprobe.php"
 ./bin/wp-env-cli tests-wordpress "wp --allow-root plugin activate debug-bar-elasticprobe"
 

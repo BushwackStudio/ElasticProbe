@@ -3,7 +3,7 @@
  * Plugin Name:       ElasticProbe
  * Plugin URI:        https://github.com/BushwackStudio/ElasticProbe
  * Description:       Supercharge your WordPress search with ElasticSearch® precision.
- * Version:           0.2.0
+ * Version:           0.2.1
  * Requires at least: 6.2
  * Requires PHP:      7.4
  * Author:            BushwackStudio
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'EP_URL', plugin_dir_url( __FILE__ ) );
 define( 'EP_PATH', plugin_dir_path( __FILE__ ) );
 define( 'EP_FILE', plugin_basename( __FILE__ ) );
-define( 'EP_VERSION', '0.2.0' );
+define( 'EP_VERSION', '0.2.1' );
 
 define( 'EP_PHP_VERSION_MIN', '7.4' );
 

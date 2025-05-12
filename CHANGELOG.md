@@ -14,6 +14,14 @@ All notable changes to this project will be documented in this file, per [the Ke
 ### Developer
 -->
 
+## [0.2.1] - 2025-05-12
+
+### Changed
+* Wordpress banner and icon files
+
+### Fixed
+* Some of the hosted PHP tests which failed.
+
 ## [0.2.0] - 2025-05-10
 
 ### Added
