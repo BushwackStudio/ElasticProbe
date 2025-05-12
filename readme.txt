@@ -1,5 +1,5 @@
 === ElasticProbe ===
-Contributors: elasticprobe, nshayanfar
+Contributors: bushwackstudio, nshayanfar
 Tags:         performance, search, elasticsearch, fuzzy, related posts
 Tested up to: 6.8
 Stable tag:   0.2.0
@@ -59,7 +59,6 @@ For sure! Feel free to submit ideas or feedback in general to our [GitHub repo](
 2. Search Fields & Weighting Dashboard
 3. Sync Page
 4. Synonyms Dashboard
-5. Instant Results modal
 
 == Changelog ==
 
