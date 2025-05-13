@@ -49,7 +49,7 @@ class Post extends Indexable {
 	 */
 	public function setup() {
 		$this->labels = [
-			'plural'   => esc_html__( 'Posts', 'wppelasticproberobe' ),
+			'plural'   => esc_html__( 'Posts', 'elasticprobe' ),
 			'singular' => esc_html__( 'Post', 'elasticprobe' ),
 		];
 
@@ -2726,7 +2726,7 @@ class Post extends Indexable {
 		if ( ! apply_filters( 'ep_post_meta_keys_db_per_post_type_allowed_screen', $allowed_screen ) ) {
 			_doing_it_wrong(
 				__METHOD__,
-				esc_html__( 'This method should not be called outside specific pages. Use the `ep_post_meta_keys_db_per_post_type_allowed_screen` filter if you need to use it in your custom screen.' ),
+				esc_html__( 'This method should not be called outside specific pages. Use the `ep_post_meta_keys_db_per_post_type_allowed_screen` filter if you need to use it in your custom screen.', 'elasticprobe' ),
 				'ElasticProbe 0.1.0'
 			);
 			return [];

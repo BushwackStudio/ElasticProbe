@@ -207,7 +207,7 @@ $bulk_setting = Utils\get_option( 'ep_bulk_setting', 350 );
 						</th>
 						<td>
 							<?php if ( $is_epio ) : ?>
-								<?php esc_html_e( 'WPProbe.com Managed Platform' ); ?>
+								<?php esc_html_e( 'WPProbe.com Managed Platform', 'elasticprobe' ); ?>
 							<?php else : ?>
 								<?php if ( ! empty( $version ) ) : ?>
 									<?php echo esc_html( $version ); ?>

@@ -854,7 +854,7 @@ class InstantResults extends Feature {
 
 			$admin_label = sprintf(
 				/* translators: $1$s: Taxonomy name. %2$s: Taxonomy slug. */
-				esc_html__( '%1$s (%2$s)' ),
+				esc_html__( '%1$s (%2$s)', 'elasticprobe' ),
 				$labels->singular_name,
 				$slug
 			);

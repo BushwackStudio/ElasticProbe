@@ -658,7 +658,7 @@ class Search extends Feature {
 			<div class="input-wrap">
 				<label><input name="settings[highlight_enabled]" type="radio" <?php checked( $settings['highlight_enabled'], '1' ); ?> value="1"><?php esc_html_e( 'Enabled', 'elasticprobe' ); ?></label><br>
 				<label><input name="settings[highlight_enabled]" type="radio" <?php checked( $settings['highlight_enabled'], '0' ); ?> value="0"><?php esc_html_e( 'Disabled', 'elasticprobe' ); ?></label>
-				<p class="field-description"><?php esc_html_e( 'Wrap search terms in HTML tags in results for custom styling. The wrapping HTML tag comes with the "ep-highlight" class for easy styling.' ); ?></p>
+				<p class="field-description"><?php esc_html_e( 'Wrap search terms in HTML tags in results for custom styling. The wrapping HTML tag comes with the "ep-highlight" class for easy styling.', 'elasticprobe' ); ?></p>
 			</div>
 		</div>
 		<div class="field">
@@ -893,7 +893,7 @@ class Search extends Feature {
 			],
 			[
 				'default' => '0',
-				'help'    => __( 'Enable to wrap search terms in HTML tags in results for custom styling. The wrapping HTML tag comes with the <code>ep-highlight</code> class for easy styling.' ),
+				'help'    => __( 'Enable to wrap search terms in HTML tags in results for custom styling. The wrapping HTML tag comes with the <code>ep-highlight</code> class for easy styling.', 'elasticprobe' ),
 				'key'     => 'highlight_enabled',
 				'label'   => __( 'Highlight search terms', 'elasticprobe' ),
 				'type'    => 'checkbox',

@@ -75,7 +75,7 @@ class IndexableContent extends AjaxReport {
 		return [
 			'title'  => sprintf(
 				/* translators: %1%s: Site name. %2$s: Site URL. */
-				__( '%1$s &mdash; %2$s', 'ep' ),
+				__( '%1$s &mdash; %2$s', 'elasticprobe' ),
 				get_option( 'blogname' ),
 				site_url()
 			),
@@ -163,7 +163,7 @@ class IndexableContent extends AjaxReport {
 					),
 					number_format_i18n( $post_count_limit ),
 					// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralSingle,WordPress.WP.I18n.NonSingularStringLiteralPlural
-					_n( $post_type_obj->labels->singular_name, $post_type_obj->labels->name, $post_count_limit )
+					_n( $post_type_obj->labels->singular_name, $post_type_obj->labels->name, $post_count_limit, 'elasticprobe' )
 				) : '';
 
 			$fields[ $post_type . '_meta_keys' ] = [

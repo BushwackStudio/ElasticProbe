@@ -1418,7 +1418,7 @@ class Elasticsearch {
 
 			return array(
 				'status' => false,
-				'msg'    => esc_html__( 'Invalid response from ElasticProbe server. Please contact your administrator.' ),
+				'msg'    => esc_html__( 'Invalid response from ElasticProbe server. Please contact your administrator.', 'elasticprobe' ),
 			);
 		} elseif (
 			isset( $response->error ) &&

@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+### Added
+* Privacy policy and terms of use to readme.txt
+
+### Fixed
+* Translation domain for various strings
+
+### Changed
+* Bump stable tag to 0.2.1
+
+
 <!--
 ### Added
 ### Changed
@@ -50,5 +60,6 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 
 [Unreleased]: https://github.com/BushwackStudio/ElasticProbe/compare/trunk...dev
+[0.2.1]: https://github.com/BushwackStudio/ElasticProbe/compare/0.2.1...0.2.0
 [0.2.0]: https://github.com/BushwackStudio/ElasticProbe/compare/0.2.0...0.1.1
 [0.1.1]: https://github.com/BushwackStudio/ElasticProbe/releases/tag/0.1.1

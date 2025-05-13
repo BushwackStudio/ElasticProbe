@@ -2,7 +2,7 @@
 Contributors: bushwackstudio, nshayanfar
 Tags:         performance, search, elasticsearch, fuzzy, related posts
 Tested up to: 6.8
-Stable tag:   0.2.0
+Stable tag:   0.2.1
 License:      GPLv2 or later
 License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,7 +29,7 @@ __Comments__: Indexes your comments and provides a widget with type-ahead search
 
 = How does ElasticProbe work? =
 
-The ElasticProbe plugin enables you to connect your WordPress site to the WPProbe.com service, a SaaS solution that provides an enhanced search experience while reducing load on your WordPress site.
+The ElasticProbe plugin enables you to connect your WordPress site to the WPProbe.com service, a SaaS solution that provides an enhanced search experience while reducing load on your WordPress site. Check out our [privacy policy](https://wpprobe.com/privacy-policy/) and [terms of use](https://wpprobe.com/terms-and-conditions) for the hosted WPProbe.com.
 
 = Where can I find ElasticProbe documentation and user guides? =
 
