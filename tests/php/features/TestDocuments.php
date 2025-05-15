@@ -288,7 +288,7 @@ class TestDocuments extends BaseTestCase {
 
 
 	/**
-	 * Test the `ep_allowed_documents_ingest_mime_types` filter.
+	 * Test the `eprobe_allowed_documents_ingest_mime_types` filter.
 	 *
 	 * @since 5.1.0
 	 * @group documents
@@ -300,7 +300,7 @@ class TestDocuments extends BaseTestCase {
 			$allowed_mime_types['test'] = 'text/test';
 			return $allowed_mime_types;
 		};
-		add_filter( 'ep_allowed_documents_ingest_mime_types', $change_filter );
+		add_filter( 'eprobe_allowed_documents_ingest_mime_types', $change_filter );
 
 		$this->assertSame( 'text/test', $feature->get_allowed_ingest_mime_types()['test'] );
 	}

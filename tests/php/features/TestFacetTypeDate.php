@@ -48,12 +48,12 @@ class TestFacetTypeDate extends BaseTestCase {
 		$this->assertEquals( 'ep_date_filter', $this->facet_type->get_filter_name() );
 
 		/**
-		 * Test the `ep_facet_date_filter_name` filter
+		 * Test the `eprobe_facet_date_filter_name` filter
 		 */
 		$change_filter_name = function ( $filter_name ) {
 			return $filter_name . '_';
 		};
-		add_filter( 'ep_facet_date_filter_name', $change_filter_name );
+		add_filter( 'eprobe_facet_date_filter_name', $change_filter_name );
 		$this->assertEquals( 'ep_date_filter_', $this->facet_type->get_filter_name() );
 	}
 
@@ -69,12 +69,12 @@ class TestFacetTypeDate extends BaseTestCase {
 		$this->assertEquals( 'ep_date', $this->facet_type->get_filter_type() );
 
 		/**
-		 * Test the `ep_facet_date_filter_type` filter
+		 * Test the `eprobe_facet_date_filter_type` filter
 		 */
 		$change_filter_type = function ( $filter_type ) {
 			return $filter_type . '_';
 		};
-		add_filter( 'ep_facet_date_filter_type', $change_filter_type );
+		add_filter( 'eprobe_facet_date_filter_type', $change_filter_type );
 		$this->assertEquals( 'ep_date_', $this->facet_type->get_filter_type() );
 	}
 
@@ -239,7 +239,7 @@ class TestFacetTypeDate extends BaseTestCase {
 		$this->assertSame( $expected_result, $this->facet_type->get_facet_options() );
 
 		/**
-		 * Test the `ep_facet_date_options` filter
+		 * Test the `eprobe_facet_date_options` filter
 		 */
 		$modified_options = [
 			[
@@ -258,7 +258,7 @@ class TestFacetTypeDate extends BaseTestCase {
 			return $modified_options;
 		};
 
-		add_filter( 'ep_facet_date_options', $change_filter_type );
+		add_filter( 'eprobe_facet_date_options', $change_filter_type );
 		$this->assertSame( $modified_options, $this->facet_type->get_facet_options() );
 	}
 
@@ -327,7 +327,7 @@ class TestFacetTypeDate extends BaseTestCase {
 
 		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
-		add_filter( 'ep_is_facetable', '__return_true' );
+		add_filter( 'eprobe_is_facetable', '__return_true' );
 
 		// get all the post between 2022-01-01 and 2022-12-31
 		parse_str( 'ep_date_filter=2022-01-01,2022-12-31', $_GET );

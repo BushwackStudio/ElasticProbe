@@ -63,14 +63,14 @@ describe('Post Search Feature - Synonyms Functionality', () => {
 		cy.login();
 		cy.wpCliEval(
 			`
-			$ep_synonyms = get_posts(
+			$eprobe_synonyms = get_posts(
 				[
 					'post_type'   => 'ep-synonym',
 					'post_status' => 'any',
 					'numberposts' => 999,
 				]
 			);
-			foreach( $ep_synonyms as $synonym ) {
+			foreach( $eprobe_synonyms as $synonym ) {
 				wp_delete_post( $synonym->ID, true );
 			}`,
 		);

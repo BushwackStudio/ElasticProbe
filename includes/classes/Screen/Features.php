@@ -45,7 +45,7 @@ class Features {
 
 		wp_enqueue_script(
 			'ep_features_script',
-			EP_URL . 'dist/js/features-script.js',
+			EPROBE_URL . 'dist/js/features-script.js',
 			Utils\get_asset_info( 'features-script', 'dependencies' ),
 			Utils\get_asset_info( 'features-script', 'version' ),
 			true
@@ -55,7 +55,7 @@ class Features {
 
 		wp_enqueue_style(
 			'ep_features_script',
-			EP_URL . 'dist/css/features-script.css',
+			EPROBE_URL . 'dist/css/features-script.css',
 			[ 'wp-components', 'wp-edit-post' ],
 			Utils\get_asset_info( 'features-script', 'version' )
 		);
@@ -66,13 +66,13 @@ class Features {
 		$features = array_map( fn( $f ) => $f->get_json(), $features );
 		$features = array_values( $features );
 
-		$sync_url = ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) ?
+		$sync_url = ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) ?
 				network_admin_url( 'admin.php?page=elasticprobe-sync' ) :
 				admin_url( 'admin.php?page=elasticprobe-sync' );
 
 		$data = [
 			'apiUrl'        => rest_url( 'elasticpress/v1/features' ),
-			'epioLogoUrl'   => esc_url( plugins_url( '/images/logo-wpprobe-com.svg', EP_FILE ) ),
+			'epioLogoUrl'   => esc_url( plugins_url( '/images/logo-wpprobe-com.svg', EPROBE_FILE ) ),
 			'features'      => $features,
 			'indexMeta'     => Utils\get_indexing_status(),
 			'settings'      => $store->get_feature_settings(),

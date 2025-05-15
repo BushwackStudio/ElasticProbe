@@ -203,7 +203,7 @@ class TestWooCommerceOrdersAutosuggest extends BaseTestCase {
 		$change_es_version = function () {
 			return '5.6';
 		};
-		add_filter( 'ep_elasticsearch_version', $change_es_version );
+		add_filter( 'eprobe_elasticsearch_version', $change_es_version );
 
 		$original_mapping = [
 			'mappings' => [
@@ -306,12 +306,12 @@ class TestWooCommerceOrdersAutosuggest extends BaseTestCase {
 		$this->assertSame( $this->orders_autosuggest->is_available(), \ElasticProbe\Utils\is_epio() );
 
 		/**
-		 * Test the `ep_woocommerce_orders_autosuggest_available` filter
+		 * Test the `eprobe_woocommerce_orders_autosuggest_available` filter
 		 */
-		add_filter( 'ep_woocommerce_orders_autosuggest_available', '__return_true' );
+		add_filter( 'eprobe_woocommerce_orders_autosuggest_available', '__return_true' );
 		$this->assertTrue( $this->orders_autosuggest->is_available() );
 
-		add_filter( 'ep_woocommerce_orders_autosuggest_available', '__return_false' );
+		add_filter( 'eprobe_woocommerce_orders_autosuggest_available', '__return_false' );
 		$this->assertFalse( $this->orders_autosuggest->is_available() );
 	}
 
@@ -328,7 +328,7 @@ class TestWooCommerceOrdersAutosuggest extends BaseTestCase {
 		/**
 		 * Make it available but it won't be enabled
 		 */
-		add_filter( 'ep_woocommerce_orders_autosuggest_available', '__return_true' );
+		add_filter( 'eprobe_woocommerce_orders_autosuggest_available', '__return_true' );
 		$this->assertFalse( $this->orders_autosuggest->is_enabled() );
 
 		/**
@@ -341,14 +341,14 @@ class TestWooCommerceOrdersAutosuggest extends BaseTestCase {
 				],
 			];
 		};
-		add_filter( 'pre_site_option_ep_feature_settings', $filter );
-		add_filter( 'pre_option_ep_feature_settings', $filter );
+		add_filter( 'pre_site_option_eprobe_feature_settings', $filter );
+		add_filter( 'pre_option_eprobe_feature_settings', $filter );
 		$this->assertTrue( $this->orders_autosuggest->is_enabled() );
 
 		/**
 		 * Make it unavailable. Even activated, it should not be considered enabled if not available anymore.
 		 */
-		remove_filter( 'ep_woocommerce_orders_autosuggest_available', '__return_true' );
+		remove_filter( 'eprobe_woocommerce_orders_autosuggest_available', '__return_true' );
 		$this->assertFalse( $this->orders_autosuggest->is_enabled() );
 	}
 
@@ -402,7 +402,7 @@ class TestWooCommerceOrdersAutosuggest extends BaseTestCase {
 		/**
 		 * Make it available but it won't be enabled
 		 */
-		add_filter( 'ep_woocommerce_orders_autosuggest_available', '__return_true' );
+		add_filter( 'eprobe_woocommerce_orders_autosuggest_available', '__return_true' );
 
 		$new_settings_schema = $this->orders_autosuggest->add_settings_schema( [] );
 		$this->assertStringContainsString( 'You are directly connected to', $new_settings_schema[0]['help'] );

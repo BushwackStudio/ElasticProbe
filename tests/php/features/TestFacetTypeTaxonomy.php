@@ -30,12 +30,12 @@ class TestFacetTypeTaxonomy extends BaseTestCase {
 		$this->assertEquals( 'ep_filter_', $facet_type->get_filter_name() );
 
 		/**
-		 * Test the `ep_facet_filter_name` filter
+		 * Test the `eprobe_facet_filter_name` filter
 		 */
 		$change_filter_name = function ( $filter_name ) {
 			return $filter_name . '_';
 		};
-		add_filter( 'ep_facet_filter_name', $change_filter_name );
+		add_filter( 'eprobe_facet_filter_name', $change_filter_name );
 		$this->assertEquals( 'ep_filter__', $facet_type->get_filter_name() );
 	}
 
@@ -55,12 +55,12 @@ class TestFacetTypeTaxonomy extends BaseTestCase {
 		$this->assertEquals( 'taxonomies', $facet_type->get_filter_type() );
 
 		/**
-		 * Test the `ep_facet_filter_type` filter
+		 * Test the `eprobe_facet_filter_type` filter
 		 */
 		$change_filter_type = function ( $filter_type ) {
 			return $filter_type . '_';
 		};
-		add_filter( 'ep_facet_filter_type', $change_filter_type );
+		add_filter( 'eprobe_facet_filter_type', $change_filter_type );
 		$this->assertEquals( 'taxonomies_', $facet_type->get_filter_type() );
 	}
 
@@ -92,13 +92,13 @@ class TestFacetTypeTaxonomy extends BaseTestCase {
 		$this->assertContains( 'category', $facetable_taxonomies );
 
 		/**
-		 * Test the `ep_facet_include_taxonomies` filter
+		 * Test the `eprobe_facet_include_taxonomies` filter
 		 */
 		$change_facetable_taxonomies = function ( $taxonomies ) {
 			unset( $taxonomies['category'] );
 			return $taxonomies;
 		};
-		add_filter( 'ep_facet_include_taxonomies', $change_facetable_taxonomies );
+		add_filter( 'eprobe_facet_include_taxonomies', $change_facetable_taxonomies );
 
 		$facetable_taxonomies = array_keys( $facet_type->get_facetable_taxonomies() );
 		$this->assertNotContains( 'category', $facetable_taxonomies );
@@ -128,28 +128,28 @@ class TestFacetTypeTaxonomy extends BaseTestCase {
 		$this->assertSame( $with_aggs['category'], $default_cat_agg );
 
 		/**
-		 * Test the `ep_facet_use_field` filter
+		 * Test the `eprobe_facet_use_field` filter
 		 */
 		$change_cat_facet_field = function ( $field, $taxonomy ) {
 			return ( 'category' === $taxonomy->name ) ? 'term_id' : $field;
 		};
 
-		add_filter( 'ep_facet_use_field', $change_cat_facet_field, 10, 2 );
+		add_filter( 'eprobe_facet_use_field', $change_cat_facet_field, 10, 2 );
 
 		$with_aggs = $facet_type->set_wp_query_aggs( [] );
 		$this->assertSame( 'terms.category.term_id', $with_aggs['category']['terms']['field'] );
 		$this->assertSame( 'terms.post_tag.slug', $with_aggs['post_tag']['terms']['field'] );
 
-		remove_filter( 'ep_facet_use_field', $change_cat_facet_field );
+		remove_filter( 'eprobe_facet_use_field', $change_cat_facet_field );
 
 		/**
-		 * Test the `ep_facet_taxonomies_size` filter
+		 * Test the `eprobe_facet_taxonomies_size` filter
 		 */
 		$change_tax_bucket_size = function ( $size, $taxonomy ) {
 			return ( 'category' === $taxonomy->name ) ? 5 : $size;
 		};
 
-		add_filter( 'ep_facet_taxonomies_size', $change_tax_bucket_size, 10, 2 );
+		add_filter( 'eprobe_facet_taxonomies_size', $change_tax_bucket_size, 10, 2 );
 
 		$with_aggs = $facet_type->set_wp_query_aggs( [] );
 		$this->assertSame( 5, $with_aggs['category']['terms']['size'] );
@@ -189,7 +189,7 @@ class TestFacetTypeTaxonomy extends BaseTestCase {
 		$change_match_type = function () {
 			return 'any';
 		};
-		add_filter( 'ep_facet_match_type', $change_match_type );
+		add_filter( 'eprobe_facet_match_type', $change_match_type );
 
 		$new_filters = $facet_type->add_query_filters( [] );
 		$expected    = [
@@ -227,7 +227,7 @@ class TestFacetTypeTaxonomy extends BaseTestCase {
 		};
 
 		// modify the sanitize callback.
-		add_filter( 'ep_facet_sanitize_callback', $sanitize_function );
+		add_filter( 'eprobe_facet_sanitize_callback', $sanitize_function );
 
 		$selected = $facet_feature->get_selected();
 
@@ -324,14 +324,14 @@ class TestFacetTypeTaxonomy extends BaseTestCase {
 	}
 
 	/**
-	 * Test the ep_facet_tax_special_slug_taxonomies filter runs.
+	 * Test the eprobe_facet_tax_special_slug_taxonomies filter runs.
 	 *
 	 * @since 4.7.0
 	 * @return void
 	 */
 	public function test_ep_facet_special_slug_taxonomies_filter() {
 		add_filter(
-			'ep_facet_tax_special_slug_taxonomies',
+			'eprobe_facet_tax_special_slug_taxonomies',
 			function ( $special_slug_taxonomies ) {
 				$special_slug_taxonomies['testmyfilter'] = 'testmyfilterchangedfilter';
 				return $special_slug_taxonomies;
@@ -352,6 +352,6 @@ class TestFacetTypeTaxonomy extends BaseTestCase {
 		$sample_test[3]['term']['terms.testmyfilterchangedfilter.slug'] = 'amet';
 
 		$this->assertEquals( $sample_test, $query_filters );
-		$this->assertGreaterThanOrEqual( 1, did_filter( 'ep_facet_tax_special_slug_taxonomies' ) );
+		$this->assertGreaterThanOrEqual( 1, did_filter( 'eprobe_facet_tax_special_slug_taxonomies' ) );
 	}
 }

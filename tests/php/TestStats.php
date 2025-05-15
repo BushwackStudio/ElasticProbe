@@ -40,7 +40,7 @@ class TestStats extends BaseTestCase {
 
 		$this->setup_test_post_type();
 
-		$this->current_host = get_option( 'ep_host' );
+		$this->current_host = get_option( 'eprobe_host' );
 
 		global $hook_suffix;
 		$hook_suffix = 'sites.php';
@@ -58,7 +58,7 @@ class TestStats extends BaseTestCase {
 		parent::tear_down();
 
 		// Update since we are deleting to test notifications
-		update_site_option( 'ep_host', $this->current_host );
+		update_site_option( 'eprobe_host', $this->current_host );
 
 		ElasticProbe\Screen::factory()->set_current_screen( null );
 	}
@@ -115,12 +115,12 @@ class TestStats extends BaseTestCase {
 	 * @group stats
 	 */
 	public function test_failed_queries_wp_error() {
-		add_filter( 'ep_intercept_remote_request', '__return_true' );
+		add_filter( 'eprobe_intercept_remote_request', '__return_true' );
 
 		$return_wp_error = function () {
 			return new \WP_Error( 'code', 'Message' );
 		};
-		add_filter( 'ep_do_intercept_request', $return_wp_error );
+		add_filter( 'eprobe_do_intercept_request', $return_wp_error );
 
 		Stats::factory()->build_stats( true );
 		$failed_queries = Stats::factory()->get_failed_queries();
@@ -143,14 +143,14 @@ class TestStats extends BaseTestCase {
 	 * @group stats
 	 */
 	public function test_failed_queries_es_error() {
-		add_filter( 'ep_intercept_remote_request', '__return_true' );
+		add_filter( 'eprobe_intercept_remote_request', '__return_true' );
 
 		$return_es_error = function () {
 			return [
 				'body' => wp_json_encode( [ 'errors' => [ 'some error data' ] ] ),
 			];
 		};
-		add_filter( 'ep_do_intercept_request', $return_es_error );
+		add_filter( 'eprobe_do_intercept_request', $return_es_error );
 
 		Stats::factory()->build_stats( true );
 		$failed_queries = Stats::factory()->get_failed_queries();

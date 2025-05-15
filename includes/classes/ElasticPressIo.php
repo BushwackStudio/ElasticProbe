@@ -21,7 +21,7 @@ class ElasticPressIo {
 	/**
 	 * Name of the transient that stores WPProbe.com messages
 	 */
-	const MESSAGES_TRANSIENT_NAME = 'ep_elasticpress_io_messages';
+	const MESSAGES_TRANSIENT_NAME = 'eprobe_elasticpress_io_messages';
 
 	/**
 	 * Return singleton instance of class
@@ -49,7 +49,7 @@ class ElasticPressIo {
 			return [];
 		}
 
-		$transient = 'ep_elasticpress_io_messages';
+		$transient = 'eprobe_elasticpress_io_messages';
 		$messages  = get_transient( $transient );
 		if ( ! $skip_cache && false !== $messages ) {
 			return $messages;

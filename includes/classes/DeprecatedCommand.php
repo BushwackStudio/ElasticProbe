@@ -227,7 +227,7 @@ trait DeprecatedCommand {
 	 * ## OPTIONS
 	 *
 	 * [--clear]
-	 * : Clear the `ep_last_cli_index` option.
+	 * : Clear the `eprobe_last_cli_index` option.
 	 *
 	 * [--pretty]
 	 * : Use this flag to render a pretty-printed version of the JSON response.

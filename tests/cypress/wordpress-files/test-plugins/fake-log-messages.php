@@ -13,7 +13,7 @@
  * Add log message for index command with --static-bulk flag.
  */
 add_action(
-	'ep_after_bulk_index',
+	'eprobe_after_bulk_index',
 	function () {
 		WP_CLI::log( 'Index command with --static-bulk flag completed.' );
 	}

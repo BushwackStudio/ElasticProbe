@@ -70,4 +70,4 @@ jobs:
 
     - name: PHPUnit
       run: |
-         EP_HOST=http://127.0.0.1:8890/ composer run-script ${{ matrix.type.command }}
+         EPROBE_HOST=http://127.0.0.1:8890/ composer run-script ${{ matrix.type.command }}

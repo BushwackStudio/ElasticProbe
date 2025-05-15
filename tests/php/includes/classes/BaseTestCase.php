@@ -59,7 +59,7 @@ class BaseTestCase extends WP_UnitTestCase {
 	 * @since 1.0
 	 */
 	public function action_sync_on_transition() {
-		$this->fired_actions['ep_sync_on_transition'] = true;
+		$this->fired_actions['eprobe_sync_on_transition'] = true;
 	}
 
 	/**
@@ -68,7 +68,7 @@ class BaseTestCase extends WP_UnitTestCase {
 	 * @since 1.0
 	 */
 	public function action_delete_post() {
-		$this->fired_actions['ep_delete_post'] = true;
+		$this->fired_actions['eprobe_delete_post'] = true;
 	}
 
 	/**
@@ -78,7 +78,7 @@ class BaseTestCase extends WP_UnitTestCase {
 	 * @since 1.0
 	 */
 	public function filter_post_sync_args( $post_args ) {
-		$this->applied_filters['ep_post_sync_args'] = $post_args;
+		$this->applied_filters['eprobe_post_sync_args'] = $post_args;
 
 		return $post_args;
 	}
@@ -89,7 +89,7 @@ class BaseTestCase extends WP_UnitTestCase {
 	 * @since 2.0
 	 */
 	public function action_sync_on_meta_update() {
-		$this->fired_actions['ep_sync_on_meta_update'] = true;
+		$this->fired_actions['eprobe_sync_on_meta_update'] = true;
 	}
 
 	/**
@@ -129,7 +129,7 @@ class BaseTestCase extends WP_UnitTestCase {
 	 * @return boolean
 	 */
 	public function is_network_activate() {
-		return defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK;
+		return defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK;
 	}
 
 	/**
@@ -163,7 +163,7 @@ class BaseTestCase extends WP_UnitTestCase {
 	 * @param array $args ES query args.
 	 */
 	public function catch_ep_formatted_args( $args ) {
-		$this->fired_actions['ep_formatted_args'] = $args;
+		$this->fired_actions['eprobe_formatted_args'] = $args;
 		return $args;
 	}
 
@@ -225,6 +225,6 @@ class BaseTestCase extends WP_UnitTestCase {
 	 * @since 5.1.0
 	 */
 	protected function force_epio() {
-		update_site_option( 'ep_host', 'https://gateway.wpprobe.com/' );
+		update_site_option( 'eprobe_host', 'https://gateway.wpprobe.com/' );
 	}
 }

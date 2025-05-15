@@ -53,10 +53,10 @@ class Token {
 		 * Filters the capability required to use the token API.
 		 *
 		 * @since 4.5.0
-		 * @hook ep_token_capability
+		 * @hook eprobe_token_capability
 		 * @param {string} $capability Required capability.
 		 */
-		$capability = apply_filters( 'ep_token_capability', 'edit_others_shop_orders' );
+		$capability = apply_filters( 'eprobe_token_capability', 'edit_others_shop_orders' );
 
 		return current_user_can( $capability );
 	}
@@ -114,10 +114,10 @@ class Token {
 		 * Filters the temporary token API endpoint.
 		 *
 		 * @since 4.5.0
-		 * @hook ep_token_endpoint
+		 * @hook eprobe_token_endpoint
 		 * @param {string} $endpoint Endpoint path.
 		 * @returns {string} Token API endpoint.
 		 */
-		return apply_filters( 'ep_token_endpoint', 'api/v1/token' );
+		return apply_filters( 'eprobe_token_endpoint', 'api/v1/token' );
 	}
 }

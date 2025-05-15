@@ -53,7 +53,7 @@ class TestPost extends BaseTestCase {
 
 		// Allow some meta fields to be indexed.
 		add_filter(
-			'ep_prepare_meta_allowed_keys',
+			'eprobe_prepare_meta_allowed_keys',
 			function ( $allowed_metakeys ) {
 				return array_merge(
 					$allowed_metakeys,
@@ -117,7 +117,7 @@ class TestPost extends BaseTestCase {
 		}
 
 		// make sure no one attached to this
-		remove_filter( 'ep_sync_terms_allow_hierarchy', array( $this, 'ep_allow_multiple_level_terms_sync' ), 100 );
+		remove_filter( 'eprobe_sync_terms_allow_hierarchy', array( $this, 'ep_allow_multiple_level_terms_sync' ), 100 );
 		$this->fired_actions = array();
 	}
 
@@ -128,13 +128,13 @@ class TestPost extends BaseTestCase {
 	 * @group post
 	 */
 	public function testPostSync() {
-		add_action( 'ep_sync_on_transition', array( $this, 'action_sync_on_transition' ), 10, 0 );
+		add_action( 'eprobe_sync_on_transition', array( $this, 'action_sync_on_transition' ), 10, 0 );
 
 		$post_id = $this->ep_factory->post->create();
 
 		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
-		$this->assertTrue( ! empty( $this->fired_actions['ep_sync_on_transition'] ) );
+		$this->assertTrue( ! empty( $this->fired_actions['eprobe_sync_on_transition'] ) );
 
 		$post = ElasticProbe\Indexables::factory()->get( 'post' )->get( $post_id );
 		$this->assertTrue( ! empty( $post ) );
@@ -147,7 +147,7 @@ class TestPost extends BaseTestCase {
 	 * @group post
 	 */
 	public function testPostSyncOnMetaAdd() {
-		add_action( 'ep_sync_on_meta_update', array( $this, 'action_sync_on_meta_update' ), 10, 0 );
+		add_action( 'eprobe_sync_on_meta_update', array( $this, 'action_sync_on_meta_update' ), 10, 0 );
 
 		$post_id = $this->ep_factory->post->create();
 
@@ -159,7 +159,7 @@ class TestPost extends BaseTestCase {
 
 		ElasticProbe\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
 
-		$this->assertTrue( ! empty( $this->fired_actions['ep_sync_on_meta_update'] ) );
+		$this->assertTrue( ! empty( $this->fired_actions['eprobe_sync_on_meta_update'] ) );
 
 		$post = ElasticProbe\Indexables::factory()->get( 'post' )->get( $post_id );
 		$this->assertTrue( ! empty( $post ) );
@@ -172,7 +172,7 @@ class TestPost extends BaseTestCase {
 	 * @group post
 	 */
 	public function testPostSyncOnMetaUpdate() {
-		add_action( 'ep_sync_on_meta_update', array( $this, 'action_sync_on_meta_update' ), 10, 0 );
+		add_action( 'eprobe_sync_on_meta_update', array( $this, 'action_sync_on_meta_update' ), 10, 0 );
 
 		$post_id = $this->ep_factory->post->create();
 
@@ -186,7 +186,7 @@ class TestPost extends BaseTestCase {
 
 		ElasticProbe\Indexables::factory()->get( 'post' )->sync_manager->index_sync_queue();
 
-		$this->assertTrue( ! empty( $this->fired_actions['ep_sync_on_meta_update'] ) );
+		$this->assertTrue( ! empty( $this->fired_actions['eprobe_sync_on_meta_update'] ) );
 
 		$post = ElasticProbe\Indexables::factory()->get( 'post' )->get( $post_id );
 		$this->assertTrue( ! empty( $post ) );
@@ -307,7 +307,7 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testPostTermSync() {
 
-		add_filter( 'ep_post_sync_args', array( $this, 'filter_post_sync_args' ), 10, 1 );
+		add_filter( 'eprobe_post_sync_args', array( $this, 'filter_post_sync_args' ), 10, 1 );
 
 		$post_id = $this->ep_factory->post->create(
 			array(
@@ -318,7 +318,7 @@ class TestPost extends BaseTestCase {
 		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		// Check if ES post sync filter has been triggered
-		$this->assertTrue( ! empty( $this->applied_filters['ep_post_sync_args'] ) );
+		$this->assertTrue( ! empty( $this->applied_filters['eprobe_post_sync_args'] ) );
 
 		// Check if tag was synced
 		$post = ElasticProbe\Indexables::factory()->get( 'post' )->get( $post_id );
@@ -326,13 +326,13 @@ class TestPost extends BaseTestCase {
 	}
 
 	/**
-	 * Make sure proper non-hierarchical taxonomies are synced with post when ep_sync_terms_allow_hierarchy is
+	 * Make sure proper non-hierarchical taxonomies are synced with post when eprobe_sync_terms_allow_hierarchy is
 	 * set to false.
 	 *
 	 * @group post
 	 */
 	public function testPostTermSyncSingleLevel() {
-		add_filter( 'ep_sync_terms_allow_hierarchy', array( $this, 'ep_disallow_multiple_level_terms_sync' ), 100, 1 );
+		add_filter( 'eprobe_sync_terms_allow_hierarchy', array( $this, 'ep_disallow_multiple_level_terms_sync' ), 100, 1 );
 
 		$post = $this->ep_factory->post->create_and_get();
 
@@ -426,7 +426,7 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testPostTermSyncHierarchyMultipleLevelQuery() {
 
-		add_filter( 'ep_sync_terms_allow_hierarchy', array( $this, 'ep_disallow_multiple_level_terms_sync' ), 100, 1 );
+		add_filter( 'eprobe_sync_terms_allow_hierarchy', array( $this, 'ep_disallow_multiple_level_terms_sync' ), 100, 1 );
 		$post = $this->ep_factory->post->create_and_get( array( 'post_title' => '#findme' ) );
 
 		$tax_name = rand_str( 32 );
@@ -1444,7 +1444,7 @@ class TestPost extends BaseTestCase {
 	 * @group post
 	 */
 	public function testPostStatusQueryDraft() {
-		add_filter( 'ep_indexable_post_status', array( $this, 'mock_indexable_post_status' ), 10, 1 );
+		add_filter( 'eprobe_indexable_post_status', array( $this, 'mock_indexable_post_status' ), 10, 1 );
 
 		$this->ep_factory->post->create(
 			array(
@@ -1481,7 +1481,7 @@ class TestPost extends BaseTestCase {
 	 * @group post
 	 */
 	public function testPostStatusQueryMulti() {
-		add_filter( 'ep_indexable_post_status', array( $this, 'mock_indexable_post_status' ), 10, 1 );
+		add_filter( 'eprobe_indexable_post_status', array( $this, 'mock_indexable_post_status' ), 10, 1 );
 
 		$this->ep_factory->post->create(
 			array(
@@ -1545,8 +1545,8 @@ class TestPost extends BaseTestCase {
 	 * @group post
 	 */
 	public function testAttachmentQuery() {
-		add_filter( 'ep_indexable_post_types', array( $this, 'addAttachmentPostType' ) );
-		add_filter( 'ep_indexable_post_status', array( $this, 'addAttachmentPostStatus' ) );
+		add_filter( 'eprobe_indexable_post_types', array( $this, 'addAttachmentPostType' ) );
+		add_filter( 'eprobe_indexable_post_status', array( $this, 'addAttachmentPostStatus' ) );
 
 		$this->ep_factory->post->create(
 			array(
@@ -1725,7 +1725,7 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testSearchTaxQuery() {
 		// TODO write a new test to match the 3.5 functionality.
-		add_filter( 'ep_search_algorithm_version', array( $this, 'set_algorithm_34' ) );
+		add_filter( 'eprobe_search_algorithm_version', array( $this, 'set_algorithm_34' ) );
 
 		$post_id_0 = $this->ep_factory->post->create( array( 'post_content' => 'the post content' ) );
 		$post_id_1 = $this->ep_factory->post->create( array( 'post_content' => 'the post content findme' ) );
@@ -1769,7 +1769,7 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testSearchAuthorQuery() {
 
-		add_filter( 'ep_search_algorithm_version', array( $this, 'set_algorithm_34' ) );
+		add_filter( 'eprobe_search_algorithm_version', array( $this, 'set_algorithm_34' ) );
 
 		$user_id = $this->factory->user->create(
 			array(
@@ -2404,7 +2404,7 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testSearchPostDateOrderbyQuery() {
 
-		add_filter( 'ep_search_algorithm_version', array( $this, 'set_algorithm_34' ) );
+		add_filter( 'eprobe_search_algorithm_version', array( $this, 'set_algorithm_34' ) );
 
 		$this->ep_factory->post->create( array( 'post_title' => 'ordertesr' ) );
 		sleep( 3 );
@@ -2472,7 +2472,7 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testSearchRelevanceOrderbyQueryAdvanced() {
 
-		add_filter( 'ep_search_algorithm_version', array( $this, 'set_algorithm_34' ) );
+		add_filter( 'eprobe_search_algorithm_version', array( $this, 'set_algorithm_34' ) );
 
 		$posts = array();
 
@@ -2530,7 +2530,7 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testSearchRelevanceOrderbyQuery() {
 
-		add_filter( 'ep_search_algorithm_version', array( $this, 'set_algorithm_34' ) );
+		add_filter( 'eprobe_search_algorithm_version', array( $this, 'set_algorithm_34' ) );
 
 		$this->ep_factory->post->create();
 		$this->ep_factory->post->create( array( 'post_title' => 'ordertet' ) );
@@ -2591,7 +2591,7 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testSearchDefaultOrderbyQuery() {
 
-		add_filter( 'ep_search_algorithm_version', array( $this, 'set_algorithm_34' ) );
+		add_filter( 'eprobe_search_algorithm_version', array( $this, 'set_algorithm_34' ) );
 
 		$this->ep_factory->post->create();
 		$this->ep_factory->post->create( array( 'post_title' => 'Ordertet' ) );
@@ -2622,7 +2622,7 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testSearchDefaultOrderbyASCOrderQuery() {
 
-		add_filter( 'ep_search_algorithm_version', array( $this, 'set_algorithm_34' ) );
+		add_filter( 'eprobe_search_algorithm_version', array( $this, 'set_algorithm_34' ) );
 
 		$this->ep_factory->post->create();
 		$this->ep_factory->post->create( array( 'post_title' => 'Ordertest' ) );
@@ -2746,7 +2746,7 @@ class TestPost extends BaseTestCase {
 	 * @group post
 	 */
 	public function testPostForceDelete() {
-		add_action( 'ep_delete_post', array( $this, 'action_delete_post' ), 10, 0 );
+		add_action( 'eprobe_delete_post', array( $this, 'action_delete_post' ), 10, 0 );
 		$post_id = $this->ep_factory->post->create();
 
 		ElasticProbe\Elasticsearch::factory()->refresh_indices();
@@ -2761,7 +2761,7 @@ class TestPost extends BaseTestCase {
 
 		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
-		$this->assertTrue( ! empty( $this->fired_actions['ep_delete_post'] ) );
+		$this->assertTrue( ! empty( $this->fired_actions['eprobe_delete_post'] ) );
 
 		$post = ElasticProbe\Indexables::factory()->get( 'post' )->get( $post_id );
 
@@ -3755,7 +3755,7 @@ class TestPost extends BaseTestCase {
 	 * @group post
 	 */
 	public function testPostInvalidDateTime() {
-		add_filter( 'ep_indexable_post_status', array( $this, 'mock_indexable_post_status' ), 10, 1 );
+		add_filter( 'eprobe_indexable_post_status', array( $this, 'mock_indexable_post_status' ), 10, 1 );
 		$post_id = $this->ep_factory->post->create( array( 'post_status' => 'draft' ) );
 
 		ElasticProbe\Elasticsearch::factory()->refresh_indices();
@@ -3864,17 +3864,17 @@ class TestPost extends BaseTestCase {
 
 		$meta_1 = ElasticProbe\Indexables::factory()->get( 'post' )->prepare_meta( $post );
 
-		add_filter( 'ep_prepare_meta_allowed_protected_keys', array( $this, 'filter_ep_prepare_meta_allowed_protected_keys' ) );
+		add_filter( 'eprobe_prepare_meta_allowed_protected_keys', array( $this, 'filter_ep_prepare_meta_allowed_protected_keys' ) );
 
 		$meta_2 = ElasticProbe\Indexables::factory()->get( 'post' )->prepare_meta( $post );
 
 		add_filter(
-			'ep_meta_mode',
+			'eprobe_meta_mode',
 			function () {
 				return 'auto';
 			}
 		);
-		add_filter( 'ep_prepare_meta_excluded_public_keys', array( $this, 'filter_ep_prepare_meta_excluded_public_keys' ) );
+		add_filter( 'eprobe_prepare_meta_excluded_public_keys', array( $this, 'filter_ep_prepare_meta_excluded_public_keys' ) );
 
 		$meta_3 = ElasticProbe\Indexables::factory()->get( 'post' )->prepare_meta( $post );
 
@@ -3900,7 +3900,7 @@ class TestPost extends BaseTestCase {
 		$change_meta_mode = function () {
 			return 'manual';
 		};
-		add_filter( 'ep_meta_mode', $change_meta_mode );
+		add_filter( 'eprobe_meta_mode', $change_meta_mode );
 
 		$weighting = ElasticProbe\Features::factory()->get_registered_feature( 'search' )->weighting;
 		$this->assertSame( $weighting->get_meta_mode(), 'manual' );
@@ -3912,7 +3912,7 @@ class TestPost extends BaseTestCase {
 			return $weighting_default;
 		};
 
-		add_filter( 'ep_weighting_configuration', $set_default_weighting );
+		add_filter( 'eprobe_weighting_configuration', $set_default_weighting );
 
 		$post_id = $this->ep_factory->post->create(
 			[
@@ -3931,20 +3931,20 @@ class TestPost extends BaseTestCase {
 		$this->assertEmpty( $prepared_meta );
 
 		/**
-		 * Test addition via the ep_prepare_meta_allowed_protected_keys filter.
+		 * Test addition via the eprobe_prepare_meta_allowed_protected_keys filter.
 		 */
 		$add_meta_via_allowed_protected = function ( $fields, $post ) {
 			$this->assertInstanceOf( '\WP_Post', $post );
 			$this->assertIsArray( $fields );
 			return [ '_test_private_meta_1' ];
 		};
-		add_filter( 'ep_prepare_meta_allowed_protected_keys', $add_meta_via_allowed_protected, 10, 2 );
+		add_filter( 'eprobe_prepare_meta_allowed_protected_keys', $add_meta_via_allowed_protected, 10, 2 );
 
 		$prepared_meta = ElasticProbe\Indexables::factory()->get( 'post' )->prepare_meta( $post );
 		$this->assertSame( [ '_test_private_meta_1' ], array_keys( $prepared_meta ) );
 
 		/**
-		 * Test addition via the ep_prepare_meta_allowed_keys filter.
+		 * Test addition via the eprobe_prepare_meta_allowed_keys filter.
 		 */
 		$add_meta_via_allowed = function ( $fields, $post ) {
 			$this->assertInstanceOf( '\WP_Post', $post );
@@ -3953,13 +3953,13 @@ class TestPost extends BaseTestCase {
 			$fields[] = 'not_allowed_key1';
 			return $fields;
 		};
-		add_filter( 'ep_prepare_meta_allowed_keys', $add_meta_via_allowed, 10, 2 );
+		add_filter( 'eprobe_prepare_meta_allowed_keys', $add_meta_via_allowed, 10, 2 );
 
 		$prepared_meta = ElasticProbe\Indexables::factory()->get( 'post' )->prepare_meta( $post );
 		$this->assertSame( [ 'not_allowed_key1', '_test_private_meta_1' ], array_keys( $prepared_meta ) );
 
 		// Set changed weighting
-		remove_filter( 'ep_weighting_configuration', $set_default_weighting );
+		remove_filter( 'eprobe_weighting_configuration', $set_default_weighting );
 		$set_changed_weighting = function () use ( $weighting_default ) {
 			$weighting_default['post']['meta.test_key2.value']            = [
 				'enabled' => true,
@@ -3971,7 +3971,7 @@ class TestPost extends BaseTestCase {
 			];
 			return $weighting_default;
 		};
-		add_filter( 'ep_weighting_configuration', $set_changed_weighting );
+		add_filter( 'eprobe_weighting_configuration', $set_changed_weighting );
 
 		$prepared_meta = ElasticProbe\Indexables::factory()->get( 'post' )->prepare_meta( $post );
 		$this->assertSame(
@@ -6194,7 +6194,7 @@ class TestPost extends BaseTestCase {
 	 * @group post
 	 */
 	public function testHttpRequestArgsFilter() {
-		add_action( 'ep_sync_on_transition', array( $this, 'action_sync_on_transition' ), 10, 0 );
+		add_action( 'eprobe_sync_on_transition', array( $this, 'action_sync_on_transition' ), 10, 0 );
 
 		add_filter(
 			'http_request_args',
@@ -6436,11 +6436,11 @@ class TestPost extends BaseTestCase {
 
 		wp_set_post_terms( $post_id, 'testPrepareDocumentFallbacks', 'category', true );
 
-		add_filter( 'ep_sync_taxonomies', '__return_false' );
+		add_filter( 'eprobe_sync_taxonomies', '__return_false' );
 
 		$post_args = $post->prepare_document( $post_id );
 
-		remove_filter( 'ep_sync_taxonomies', '__return_false' );
+		remove_filter( 'eprobe_sync_taxonomies', '__return_false' );
 
 		$this->assertTrue( is_array( $post_args ) );
 		$this->assertTrue( is_array( $post_args['terms'] ) );
@@ -6464,11 +6464,11 @@ class TestPost extends BaseTestCase {
 
 		$wp_taxonomies['testPrepareDocumentFallbacks'] = $invalid_taxonomy;
 
-		add_filter( 'ep_sync_taxonomies', $terms_callback );
+		add_filter( 'eprobe_sync_taxonomies', $terms_callback );
 
 		$post_args = $post->prepare_document( $post_id );
 
-		remove_filter( 'ep_sync_taxonomies', $terms_callback );
+		remove_filter( 'eprobe_sync_taxonomies', $terms_callback );
 
 		$this->assertTrue( is_array( $post_args['terms'] ) );
 		$this->assertEmpty( $post_args['terms'] );
@@ -6851,7 +6851,7 @@ class TestPost extends BaseTestCase {
 	}
 
 	/**
-	 * Tests the `ep_post_filters` filter
+	 * Tests the `eprobe_post_filters` filter
 	 *
 	 * @return void
 	 * @group post
@@ -6875,7 +6875,7 @@ class TestPost extends BaseTestCase {
 
 			return $filters;
 		};
-		add_filter( 'ep_post_filters', $add_es_filter, 10, 3 );
+		add_filter( 'eprobe_post_filters', $add_es_filter, 10, 3 );
 
 		$args = $post->format_args( $test_args, $test_query );
 
@@ -6929,12 +6929,12 @@ class TestPost extends BaseTestCase {
 		};
 
 		// Run the tests.
-		add_filter( 'ep_formatted_args', $assert_callback );
+		add_filter( 'eprobe_formatted_args', $assert_callback );
 		$query = new \WP_Query( $query_args );
-		remove_filter( 'ep_formatted_args', $assert_callback );
+		remove_filter( 'eprobe_formatted_args', $assert_callback );
 
 		$this->assertTrue( $method_executed );
-		$this->assertGreaterThanOrEqual( 1, did_filter( 'ep_formatted_args' ) );
+		$this->assertGreaterThanOrEqual( 1, did_filter( 'eprobe_formatted_args' ) );
 	}
 
 	/**
@@ -7013,9 +7013,9 @@ class TestPost extends BaseTestCase {
 		};
 
 		// Run the tests.
-		add_filter( 'ep_formatted_args', $assert_callback );
+		add_filter( 'eprobe_formatted_args', $assert_callback );
 		$query = new \WP_Query( $query_args );
-		remove_filter( 'ep_formatted_args', $assert_callback );
+		remove_filter( 'eprobe_formatted_args', $assert_callback );
 
 		$this->assertTrue( $method_executed );
 		$this->assertTrue( $query->elasticsearch_success );
@@ -7058,12 +7058,12 @@ class TestPost extends BaseTestCase {
 		};
 
 		// Run the tests.
-		add_filter( 'ep_formatted_args', $assert_callback );
+		add_filter( 'eprobe_formatted_args', $assert_callback );
 		$query = new \WP_Query( $query_args );
-		remove_filter( 'ep_formatted_args', $assert_callback );
+		remove_filter( 'eprobe_formatted_args', $assert_callback );
 
 		$this->assertTrue( $method_executed );
-		$this->assertGreaterThanOrEqual( 1, did_filter( 'ep_formatted_args' ) );
+		$this->assertGreaterThanOrEqual( 1, did_filter( 'eprobe_formatted_args' ) );
 	}
 
 	/**
@@ -7104,12 +7104,12 @@ class TestPost extends BaseTestCase {
 		};
 
 		// Run the tests.
-		add_filter( 'ep_formatted_args', $assert_callback );
+		add_filter( 'eprobe_formatted_args', $assert_callback );
 		$query = new \WP_Query( $query_args );
-		remove_filter( 'ep_formatted_args', $assert_callback );
+		remove_filter( 'eprobe_formatted_args', $assert_callback );
 
 		$this->assertTrue( $method_executed );
-		$this->assertGreaterThanOrEqual( 1, did_filter( 'ep_formatted_args' ) );
+		$this->assertGreaterThanOrEqual( 1, did_filter( 'eprobe_formatted_args' ) );
 	}
 
 	/**
@@ -7153,12 +7153,12 @@ class TestPost extends BaseTestCase {
 		};
 
 		// Run the tests.
-		add_filter( 'ep_formatted_args', $assert_callback );
+		add_filter( 'eprobe_formatted_args', $assert_callback );
 		$query = new \WP_Query( $query_args );
-		remove_filter( 'ep_formatted_args', $assert_callback );
+		remove_filter( 'eprobe_formatted_args', $assert_callback );
 
 		$this->assertTrue( $method_executed );
-		$this->assertGreaterThanOrEqual( 1, did_filter( 'ep_formatted_args' ) );
+		$this->assertGreaterThanOrEqual( 1, did_filter( 'eprobe_formatted_args' ) );
 	}
 
 	/**
@@ -7205,9 +7205,9 @@ class TestPost extends BaseTestCase {
 		};
 
 		// Run the tests.
-		add_filter( 'ep_formatted_args', $assert_callback );
+		add_filter( 'eprobe_formatted_args', $assert_callback );
 		$query = new \WP_Query( $query_args );
-		remove_filter( 'ep_formatted_args', $assert_callback );
+		remove_filter( 'eprobe_formatted_args', $assert_callback );
 	}
 
 	/**
@@ -7218,8 +7218,8 @@ class TestPost extends BaseTestCase {
 	 */
 	public function testPutMapping() {
 
-		// This lets us trigger the ep_fallback_elasticsearch_version filter.
-		add_filter( 'ep_elasticsearch_version', '__return_false' );
+		// This lets us trigger the eprobe_fallback_elasticsearch_version filter.
+		add_filter( 'eprobe_elasticsearch_version', '__return_false' );
 
 		$post = new \ElasticProbe\Indexable\Post\Post();
 
@@ -7242,17 +7242,17 @@ class TestPost extends BaseTestCase {
 			};
 
 			// Tell EP that we're running a specific ES version.
-			add_filter( 'ep_fallback_elasticsearch_version', $version_callback );
+			add_filter( 'eprobe_fallback_elasticsearch_version', $version_callback );
 
 			// Turn on the test for the mapping file.
-			add_filter( 'ep_post_mapping_file', $assert_callback );
+			add_filter( 'eprobe_post_mapping_file', $assert_callback );
 
 			// Run put_mapping(), which will trigger these filters above
 			// and run the tests.
 			$post->put_mapping();
 
-			remove_filter( 'ep_fallback_elasticsearch_version', $version_callback );
-			remove_filter( 'ep_post_mapping_file', $assert_callback );
+			remove_filter( 'eprobe_fallback_elasticsearch_version', $version_callback );
+			remove_filter( 'eprobe_post_mapping_file', $assert_callback );
 		}
 	}
 
@@ -7265,7 +7265,7 @@ class TestPost extends BaseTestCase {
 	public function testQueryIntegrationConstructor() {
 
 		// Pretend we're indexing.
-		add_filter( 'ep_is_full_reindexing_post', '__return_true' );
+		add_filter( 'eprobe_is_full_reindexing_post', '__return_true' );
 
 		$query_integration = new \ElasticProbe\Indexable\Post\QueryIntegration();
 
@@ -7282,7 +7282,7 @@ class TestPost extends BaseTestCase {
 			$this->assertFalse( has_filter( $action, [ $query_integration, $function[0] ] ) );
 		}
 
-		remove_filter( 'ep_is_full_reindexing_post', '__return_true' );
+		remove_filter( 'eprobe_is_full_reindexing_post', '__return_true' );
 
 		$query_integration = new \ElasticProbe\Indexable\Post\QueryIntegration();
 
@@ -7329,7 +7329,7 @@ class TestPost extends BaseTestCase {
 
 		// Add the tests in the filter and run the query to perform the
 		// tests.
-		add_filter( 'ep_formatted_args', $assert_callback, 10, 2 );
+		add_filter( 'eprobe_formatted_args', $assert_callback, 10, 2 );
 
 		// This will default to 'post' by QueryIntegration when 'any' is
 		// passed in.
@@ -7340,7 +7340,7 @@ class TestPost extends BaseTestCase {
 			]
 		);
 
-		remove_filter( 'ep_formatted_args', $assert_callback, 10, 2 );
+		remove_filter( 'eprobe_formatted_args', $assert_callback, 10, 2 );
 
 		$post_ids   = [];
 		$post_ids[] = $this->ep_factory->post->create();
@@ -7359,7 +7359,7 @@ class TestPost extends BaseTestCase {
 			return $new_posts;
 		};
 
-		add_filter( 'ep_wp_query', $assert_callback );
+		add_filter( 'eprobe_wp_query', $assert_callback );
 
 		$query = new \WP_Query(
 			[
@@ -7369,7 +7369,7 @@ class TestPost extends BaseTestCase {
 			]
 		);
 
-		remove_filter( 'ep_wp_query', $assert_callback );
+		remove_filter( 'eprobe_wp_query', $assert_callback );
 
 		// Test the id=>parent parameter.
 		$assert_callback = function ( $new_posts ) use ( $post_ids ) {
@@ -7388,7 +7388,7 @@ class TestPost extends BaseTestCase {
 			return $new_posts;
 		};
 
-		add_filter( 'ep_wp_query', $assert_callback );
+		add_filter( 'eprobe_wp_query', $assert_callback );
 
 		$query = new \WP_Query(
 			[
@@ -7400,7 +7400,7 @@ class TestPost extends BaseTestCase {
 			]
 		);
 
-		remove_filter( 'ep_wp_query', $assert_callback );
+		remove_filter( 'eprobe_wp_query', $assert_callback );
 	}
 
 	/**
@@ -7537,7 +7537,7 @@ class TestPost extends BaseTestCase {
 		$this->assertEmpty( ElasticProbe\Indexables::factory()->get( 'post' )->sync_manager->get_sync_queue() );
 
 		// Turn on the filter to kill syncing.
-		add_filter( 'ep_post_sync_kill', '__return_true' );
+		add_filter( 'eprobe_post_sync_kill', '__return_true' );
 
 		update_post_meta( $post_id, 'test_key', 123 );
 
@@ -7555,7 +7555,7 @@ class TestPost extends BaseTestCase {
 		// Make sure sync queue is still empty when a new post is added.
 		$this->assertEmpty( ElasticProbe\Indexables::factory()->get( 'post' )->sync_manager->get_sync_queue() );
 
-		remove_filter( 'ep_post_sync_kill', '__return_true' );
+		remove_filter( 'eprobe_post_sync_kill', '__return_true' );
 
 		// Now verify the queue when this filter is not enabled.
 		update_post_meta( $post_id, 'test_key', 456 );
@@ -8062,7 +8062,7 @@ class TestPost extends BaseTestCase {
 		$this->assertSame( $version_40, $search_algorithm );
 
 		/**
-		 * Test setting a different algorithm through the `ep_search_algorithm_version` filter
+		 * Test setting a different algorithm through the `eprobe_search_algorithm_version` filter
 		 */
 		$version_35 = \ElasticProbe\SearchAlgorithms::factory()->get( '3.5' );
 
@@ -8070,15 +8070,15 @@ class TestPost extends BaseTestCase {
 			return '3.5';
 		};
 
-		add_filter( 'ep_search_algorithm_version', $set_version_35 );
+		add_filter( 'eprobe_search_algorithm_version', $set_version_35 );
 
 		$search_algorithm = $post_indexable->get_search_algorithm( '', [], [] );
 		$this->assertSame( $version_35, $search_algorithm );
 
-		remove_filter( 'ep_search_algorithm_version', $set_version_35 );
+		remove_filter( 'eprobe_search_algorithm_version', $set_version_35 );
 
 		/**
-		 * Test setting a non-existent algorithm through the `ep_search_algorithm_version` filter
+		 * Test setting a non-existent algorithm through the `eprobe_search_algorithm_version` filter
 		 * It should use `basic`
 		 */
 		$basic = \ElasticProbe\SearchAlgorithms::factory()->get( 'basic' );
@@ -8087,17 +8087,17 @@ class TestPost extends BaseTestCase {
 			return 'foobar';
 		};
 
-		add_filter( 'ep_search_algorithm_version', $set_non_existent_version );
+		add_filter( 'eprobe_search_algorithm_version', $set_non_existent_version );
 
 		$search_algorithm = $post_indexable->get_search_algorithm( '', [], [] );
 		$this->assertSame( $basic, $search_algorithm );
 
-		remove_filter( 'ep_search_algorithm_version', $set_non_existent_version );
+		remove_filter( 'eprobe_search_algorithm_version', $set_non_existent_version );
 
 		/**
-		 * Test the `ep_{$indexable_slug}_search_algorithm` filter
+		 * Test the `eprobe_{$indexable_slug}_search_algorithm` filter
 		 */
-		add_filter( 'ep_post_search_algorithm', $set_version_35 );
+		add_filter( 'eprobe_post_search_algorithm', $set_version_35 );
 
 		$search_algorithm = $post_indexable->get_search_algorithm( '', [], [] );
 		$this->assertSame( $version_35, $search_algorithm );
@@ -8116,19 +8116,19 @@ class TestPost extends BaseTestCase {
 		$meta_protected_allowed      = '_meta_allowed';
 
 		add_filter(
-			'ep_prepare_meta_allowed_keys',
+			'eprobe_prepare_meta_allowed_keys',
 			function ( $allowed_metakeys ) {
 				return array_merge( $allowed_metakeys, [ 'meta' ] );
 			}
 		);
 		add_filter(
-			'ep_prepare_meta_allowed_protected_keys',
+			'eprobe_prepare_meta_allowed_protected_keys',
 			function () use ( $meta_protected_allowed ) {
 				return [ $meta_protected_allowed ];
 			}
 		);
 		add_filter(
-			'ep_prepare_meta_excluded_public_keys',
+			'eprobe_prepare_meta_excluded_public_keys',
 			function () use ( $meta_not_protected_excluded ) {
 				return [ $meta_not_protected_excluded ];
 			}
@@ -8197,7 +8197,7 @@ class TestPost extends BaseTestCase {
 		$change_bucket_size = function ( $count, $field ) {
 			return ( 'meta.test_key1.raw' === $field ) ? 1 : $count;
 		};
-		add_filter( 'ep_post_all_distinct_values', $change_bucket_size, 10, 2 );
+		add_filter( 'eprobe_post_all_distinct_values', $change_bucket_size, 10, 2 );
 
 		$distinct_values_1 = $indexable->get_all_distinct_values( 'meta.test_key1.raw' );
 		$this->assertCount( 1, $distinct_values_1 );
@@ -8240,7 +8240,7 @@ class TestPost extends BaseTestCase {
 		$this->assertStringContainsString( '<mark class=\'ep-highlight\'>test</mark>', $query->posts[0]->post_title );
 
 		// bypass the highlighting the search term
-		add_filter( 'ep_highlight_should_add_clause', '__return_false' );
+		add_filter( 'eprobe_highlight_should_add_clause', '__return_false' );
 
 		$query = new \WP_Query( $args );
 
@@ -8249,7 +8249,7 @@ class TestPost extends BaseTestCase {
 	}
 
 	/**
-	 * Tests the `ep_bypass_exclusion_from_search` filter
+	 * Tests the `eprobe_bypass_exclusion_from_search` filter
 	 */
 	public function testExcludeFromSearchQueryBypassFilter() {
 		$this->ep_factory->post->create_many(
@@ -8272,7 +8272,7 @@ class TestPost extends BaseTestCase {
 			$this->assertInstanceOf( \WP_Query::class, $query );
 			return true;
 		};
-		add_filter( 'ep_bypass_exclusion_from_search', $bypass, 10, 2 );
+		add_filter( 'eprobe_bypass_exclusion_from_search', $bypass, 10, 2 );
 
 		$args  = array(
 			's' => 'search',
@@ -8282,7 +8282,7 @@ class TestPost extends BaseTestCase {
 		$this->assertTrue( $query->elasticsearch_success );
 		$this->assertEquals( 3, $query->post_count );
 
-		remove_filter( 'ep_bypass_exclusion_from_search', $bypass, 10, 2 );
+		remove_filter( 'eprobe_bypass_exclusion_from_search', $bypass, 10, 2 );
 
 		$args  = array(
 			's' => 'search',
@@ -8336,7 +8336,7 @@ class TestPost extends BaseTestCase {
 		$this->assertTrue( is_admin() );
 		$this->assertTrue( wp_doing_ajax() );
 
-		add_filter( 'ep_ajax_wp_query_integration', '__return_true' );
+		add_filter( 'eprobe_ajax_wp_query_integration', '__return_true' );
 
 		$this->ep_factory->post->create_many(
 			2,
@@ -8410,7 +8410,7 @@ class TestPost extends BaseTestCase {
 		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		add_filter(
-			'ep_highlighting_class',
+			'eprobe_highlighting_class',
 			function ( $highlight_class ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 				return 'my-custom-class';
 			}
@@ -8448,7 +8448,7 @@ class TestPost extends BaseTestCase {
 		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		add_filter(
-			'ep_highlighting_fields',
+			'eprobe_highlighting_fields',
 			function ( $fields ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 				return array( 'post_title' );
 			}
@@ -8662,18 +8662,18 @@ class TestPost extends BaseTestCase {
 		$this->assertSame( $meta_keys, $indexable->get_distinct_meta_field_keys_db( true ) );
 
 		// Make sure it works if no allowed protected key is found
-		add_filter( 'ep_prepare_meta_allowed_protected_keys', '__return_empty_array' );
+		add_filter( 'eprobe_prepare_meta_allowed_protected_keys', '__return_empty_array' );
 		$this->assertSame( $meta_keys, $indexable->get_distinct_meta_field_keys_db( true ) );
 		$this->assertEmpty( $wpdb->last_error );
-		remove_filter( 'ep_prepare_meta_allowed_protected_keys', '__return_empty_array' );
+		remove_filter( 'eprobe_prepare_meta_allowed_protected_keys', '__return_empty_array' );
 
 		/**
-		 * Test the `ep_post_pre_meta_keys_db` filter
+		 * Test the `eprobe_post_pre_meta_keys_db` filter
 		 */
 		$return_custom_array = function () {
 			return [ 'totally_custom_key' ];
 		};
-		add_filter( 'ep_post_pre_meta_keys_db', $return_custom_array );
+		add_filter( 'eprobe_post_pre_meta_keys_db', $return_custom_array );
 
 		// It should not send any new SQL query
 		$num_queries = $wpdb->num_queries;
@@ -8682,15 +8682,15 @@ class TestPost extends BaseTestCase {
 		$this->assertSame( [ 'totally_custom_key' ], $indexable->get_distinct_meta_field_keys_db( true ) );
 		$this->assertSame( $num_queries, $wpdb->num_queries );
 
-		remove_filter( 'ep_post_pre_meta_keys_db', $return_custom_array );
+		remove_filter( 'eprobe_post_pre_meta_keys_db', $return_custom_array );
 
 		/**
-		 * Test the `ep_post_pre_meta_keys_db` filter
+		 * Test the `eprobe_post_pre_meta_keys_db` filter
 		 */
 		$return_custom_array = function ( $meta_keys ) {
 			return array_merge( $meta_keys, [ 'custom_key' ] );
 		};
-		add_filter( 'ep_post_meta_keys_db', $return_custom_array );
+		add_filter( 'eprobe_post_meta_keys_db', $return_custom_array );
 
 		$this->assertSame( array_merge( $meta_keys, [ 'custom_key' ] ), $indexable->get_distinct_meta_field_keys_db( true ) );
 	}
@@ -8716,13 +8716,13 @@ class TestPost extends BaseTestCase {
 		$this->assertSame( $meta_keys, $indexable->get_distinct_meta_field_keys_db_per_post_type( 'ep_test' ) );
 
 		/**
-		 * Test the `ep_post_pre_meta_keys_db_per_post_type` filter
+		 * Test the `eprobe_post_pre_meta_keys_db_per_post_type` filter
 		 */
 		$return_custom_array = function ( $meta_keys, $post_type ) {
 			$this->assertSame( $post_type, 'ep_test' );
 			return [ 'totally_custom_key' ];
 		};
-		add_filter( 'ep_post_pre_meta_keys_db_per_post_type', $return_custom_array, 10, 2 );
+		add_filter( 'eprobe_post_pre_meta_keys_db_per_post_type', $return_custom_array, 10, 2 );
 
 		// It should not send any new SQL query
 		$num_queries = $wpdb->num_queries;
@@ -8731,16 +8731,16 @@ class TestPost extends BaseTestCase {
 		$this->assertSame( [ 'totally_custom_key' ], $indexable->get_distinct_meta_field_keys_db_per_post_type( 'ep_test' ) );
 		$this->assertSame( $num_queries, $wpdb->num_queries );
 
-		remove_filter( 'ep_post_pre_meta_keys_db_per_post_type', $return_custom_array );
+		remove_filter( 'eprobe_post_pre_meta_keys_db_per_post_type', $return_custom_array );
 
 		/**
-		 * Test the `ep_post_meta_keys_db_per_post_type` filter
+		 * Test the `eprobe_post_meta_keys_db_per_post_type` filter
 		 */
 		$return_custom_array = function ( $meta_keys, $post_type ) {
 			$this->assertSame( $post_type, 'ep_test' );
 			return array_merge( $meta_keys, [ 'custom_key' ] );
 		};
-		add_filter( 'ep_post_meta_keys_db_per_post_type', $return_custom_array, 10, 2 );
+		add_filter( 'eprobe_post_meta_keys_db_per_post_type', $return_custom_array, 10, 2 );
 
 		$this->assertSame( array_merge( $meta_keys, [ 'custom_key' ] ), $indexable->get_distinct_meta_field_keys_db_per_post_type( 'ep_test' ) );
 	}
@@ -8758,21 +8758,21 @@ class TestPost extends BaseTestCase {
 		$this->setupDistinctMetaFieldKeysDbPerPostType();
 
 		/**
-		 * Test the `ep_post_meta_by_type_ids_per_page` and `ep_post_meta_by_type_number_of_pages` filters
+		 * Test the `eprobe_post_meta_by_type_ids_per_page` and `eprobe_post_meta_by_type_number_of_pages` filters
 		 */
 		$custom_number_of_ids = function ( $per_page, $post_type ) {
 			$this->assertSame( 11000, $per_page );
 			$this->assertSame( $post_type, 'ep_test' );
 			return 1;
 		};
-		add_filter( 'ep_post_meta_by_type_ids_per_page', $custom_number_of_ids, 10, 2 );
+		add_filter( 'eprobe_post_meta_by_type_ids_per_page', $custom_number_of_ids, 10, 2 );
 
 		$custom_number_of_pages = function ( $pages, $per_page, $post_type ) {
 			$this->assertSame( 1, $per_page );
 			$this->assertSame( $post_type, 'ep_test' );
 			return 1;
 		};
-		add_filter( 'ep_post_meta_by_type_number_of_pages', $custom_number_of_pages, 10, 3 );
+		add_filter( 'eprobe_post_meta_by_type_number_of_pages', $custom_number_of_pages, 10, 3 );
 
 		// All meta keys from the first post
 		$this->assertCount( 3, $indexable->get_distinct_meta_field_keys_db_per_post_type( 'ep_test' ) );
@@ -8815,7 +8815,7 @@ class TestPost extends BaseTestCase {
 		$change_allowed_meta = function () {
 			return [ 'test_key1' => 'meta value 1' ];
 		};
-		add_filter( 'ep_prepare_meta_data', $change_allowed_meta );
+		add_filter( 'eprobe_prepare_meta_data', $change_allowed_meta );
 
 		$meta_keys = [ 'test_key1' ];
 		$this->assertEqualsCanonicalizing( $meta_keys, $indexable->get_indexable_meta_keys_per_post_type( 'ep_test' ) );
@@ -8856,7 +8856,7 @@ class TestPost extends BaseTestCase {
 		$change_allowed_meta = function () {
 			return [ 'test_key1' => 'meta value 1' ];
 		};
-		add_filter( 'ep_prepare_meta_data', $change_allowed_meta );
+		add_filter( 'eprobe_prepare_meta_data', $change_allowed_meta );
 
 		$meta_keys = [ 'test_key1' ];
 		$this->assertEqualsCanonicalizing( $meta_keys, $indexable->get_predicted_indexable_meta_keys() );
@@ -8883,12 +8883,12 @@ class TestPost extends BaseTestCase {
 		$this->assertEquals( 400, $mapping->get_error_code() );
 
 		// Try to put mapping again to trigger WP_Error by providing an empty host.
-		add_filter( 'ep_pre_request_host', '__return_empty_string' );
+		add_filter( 'eprobe_pre_request_host', '__return_empty_string' );
 		$mapping = ElasticProbe\Indexables::factory()->get( 'post' )->put_mapping( 'raw' );
 
 		$this->assertInstanceOf( 'WP_Error', $mapping );
 		$this->assertEquals( 'http_request_failed', $mapping->get_error_code() );
-		remove_filter( 'ep_pre_request_host', '__return_empty_string' );
+		remove_filter( 'eprobe_pre_request_host', '__return_empty_string' );
 	}
 
 	/**
@@ -8988,7 +8988,7 @@ class TestPost extends BaseTestCase {
 
 		// Remove product from indexable post types.
 		add_filter(
-			'ep_indexable_post_types',
+			'eprobe_indexable_post_types',
 			function ( $post_types ) {
 				unset( $post_types['product'] );
 				return $post_types;
@@ -9149,7 +9149,7 @@ class TestPost extends BaseTestCase {
 		$change_es_version = function () {
 			return '5.6';
 		};
-		add_filter( 'ep_elasticsearch_version', $change_es_version );
+		add_filter( 'eprobe_elasticsearch_version', $change_es_version );
 
 		$post_indexable = ElasticProbe\Indexables::factory()->get( 'post' );
 
@@ -9229,7 +9229,7 @@ class TestPost extends BaseTestCase {
 		$this->assertFalse( $sync_manager->kill_sync_for_password_protected( false, $no_pw_post ) );
 
 		/**
-		 * Test the `ep_pre_kill_sync_for_password_protected` filter
+		 * Test the `eprobe_pre_kill_sync_for_password_protected` filter
 		 */
 		$dont_kill_pw_post = function ( $short_circuit, $skip, $object_id ) use ( $pw_post ) {
 			$this->assertNull( $short_circuit );
@@ -9237,7 +9237,7 @@ class TestPost extends BaseTestCase {
 			$this->assertSame( $pw_post, $object_id );
 			return false;
 		};
-		add_filter( 'ep_pre_kill_sync_for_password_protected', $dont_kill_pw_post, 10, 3 );
+		add_filter( 'eprobe_pre_kill_sync_for_password_protected', $dont_kill_pw_post, 10, 3 );
 		$this->assertFalse( $sync_manager->kill_sync_for_password_protected( false, $pw_post ) );
 	}
 
@@ -9259,7 +9259,7 @@ class TestPost extends BaseTestCase {
 		$change_lang = function ( $lang, $context ) {
 			return 'filter_ep_stop' === $context ? '_arabic_' : $lang;
 		};
-		add_filter( 'ep_analyzer_language', $change_lang, 11, 2 );
+		add_filter( 'eprobe_analyzer_language', $change_lang, 11, 2 );
 
 		ElasticProbe\Elasticsearch::factory()->delete_all_indices();
 		$indexable->put_mapping();
@@ -9316,12 +9316,12 @@ class TestPost extends BaseTestCase {
 			];
 			return $weighting_default;
 		};
-		add_filter( 'ep_weighting_configuration', $set_changed_weighting );
+		add_filter( 'eprobe_weighting_configuration', $set_changed_weighting );
 
 		$allowed_metas_manual = ElasticProbe\Indexables::factory()->get( 'post' )->get_all_allowed_metas_manual();
 
 		$this->assertContains( 'allowed_weighting_dashboard', $allowed_metas_manual );
-		// Added using the `ep_prepare_meta_allowed_keys` in the test set_up method.
+		// Added using the `eprobe_prepare_meta_allowed_keys` in the test set_up method.
 		$this->assertContains( 'test_key6', $allowed_metas_manual );
 	}
 
@@ -9351,7 +9351,7 @@ class TestPost extends BaseTestCase {
 			$this->assertSame( $post_id, $indexable_post_id_2 );
 			return true;
 		};
-		add_filter( 'ep_post_sync_kill', $callback, 10, 3 );
+		add_filter( 'eprobe_post_sync_kill', $callback, 10, 3 );
 		$this->assertFalse( $sync_manager->is_post_indexable( $post_id ) );
 	}
 
@@ -9393,7 +9393,7 @@ class TestPost extends BaseTestCase {
 		$this->assertArrayHasKey( 'ep-doc-status', $admin_bar->get_nodes() );
 
 		// Not displaying. No status.
-		add_filter( 'ep_doc_status', '__return_empty_array' );
+		add_filter( 'eprobe_doc_status', '__return_empty_array' );
 		$admin_bar = new \WP_Admin_Bar();
 		$sync_manager->add_admin_bar_status( $admin_bar );
 		$this->assertNull( $admin_bar->get_nodes() );
@@ -9444,7 +9444,7 @@ class TestPost extends BaseTestCase {
 		$this->assertSame( $status['message'], 'Sync required' );
 		$this->assertSame( $status['explanation'], 'Content not found in Elasticsearch.' );
 
-		// Custom status using the ep_doc_status filter
+		// Custom status using the eprobe_doc_status filter
 		$custom_status = [
 			'status'      => 'custom',
 			'message'     => 'Custom message',
@@ -9457,7 +9457,7 @@ class TestPost extends BaseTestCase {
 
 			return $custom_status;
 		};
-		add_filter( 'ep_doc_status', $callback, 10, 3 );
+		add_filter( 'eprobe_doc_status', $callback, 10, 3 );
 		$status = $method->invokeArgs( $sync_manager, [ $post_id ] );
 		$this->assertSame( $status, $custom_status );
 	}
@@ -9495,7 +9495,7 @@ class TestPost extends BaseTestCase {
 
 			return 'Custom message';
 		};
-		add_filter( 'ep_formatted_doc_status', $callback, 10, 4 );
+		add_filter( 'eprobe_formatted_doc_status', $callback, 10, 4 );
 		$formatted_doc_status = $method->invokeArgs( $sync_manager, [ $custom_status ] );
 		$this->assertSame( $formatted_doc_status, 'Custom message' );
 	}

@@ -96,7 +96,7 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 		 * If you need to display a value with a different label:
 		 * ```
 		 * add_filter(
-		 *     'ep_facet_meta_all_values',
+		 *     'eprobe_facet_meta_all_values',
 		 *     function( $values, $meta_field ) {
 		 *         if ( 'my_field' !== $meta_field ) {
 		 *             return $values;
@@ -118,7 +118,7 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 		 * @param {array}  $instance   Block info
 		 * @return {array} New values
 		 */
-		$values = apply_filters( 'ep_facet_meta_all_values', $values, $this->meta_field, $instance );
+		$values = apply_filters( 'eprobe_facet_meta_all_values', $values, $this->meta_field, $instance );
 
 		if ( empty( $values ) ) {
 			return;
@@ -133,14 +133,14 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 		/**
 		 * Filter facet search threshold
 		 *
-		 * @hook ep_facet_search_threshold
+		 * @hook eprobe_facet_search_threshold
 		 * @param  {int}    $search_threshold Search threshold
 		 * @param  {string} $taxonomy         Current taxonomy
 		 * @param  {string} $context          Hint about where the value will be used
 		 * @param  {array}  $instance         Block instance
 		 * @return  {int} New threshold
 		 */
-		$search_threshold = apply_filters( 'ep_facet_search_threshold', 15, $this->meta_field, 'meta', $instance );
+		$search_threshold = apply_filters( 'eprobe_facet_search_threshold', 15, $this->meta_field, 'meta', $instance );
 		?>
 		<div class="terms <?php if ( count( $values ) > $search_threshold ) : ?>searchable<?php endif; ?>">
 			<?php if ( count( $values ) > $search_threshold ) : ?>
@@ -203,12 +203,12 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 		 * Filter the label for an individual meta value.
 		 *
 		 * @since 4.3.0
-		 * @hook ep_facet_meta_value_label
+		 * @hook eprobe_facet_meta_value_label
 		 * @param {string} $label Facet meta value label.
 		 * @param {array}  $item Value array. It contains `value`, `name`, `count`, and `is_selected`.
 		 * @return {string} Individual facet meta value label.
 		 */
-		$label = apply_filters( 'ep_facet_meta_value_label', $label, $item );
+		$label = apply_filters( 'eprobe_facet_meta_value_label', $label, $item );
 
 		/**
 		 * Filter the accessible label for an individual facet meta value link.
@@ -219,13 +219,13 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 		 * added or removed.
 		 *
 		 * @since 4.3.0
-		 * @hook ep_facet_meta_value_accessible_label
+		 * @hook eprobe_facet_meta_value_accessible_label
 		 * @param {string}  $label Facet meta value accessible label.
 		 * @param {array}   $item Value array. It contains `value`, `name`, `count`, and `is_selected`.
 		 * @return {string} Individual facet term accessible label.
 		 */
 		$accessible_label = apply_filters(
-			'ep_facet_meta_value_accessible_label',
+			'eprobe_facet_meta_value_accessible_label',
 			$item['is_selected']
 				/* translators: %s: Filter term name. */
 				? sprintf( __( 'Remove filter: %s', 'elasticprobe' ), $label )
@@ -260,13 +260,13 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 		 * lowercase versions of the term name and slug respectively.
 		 *
 		 * @since 4.3.0
-		 * @hook ep_facet_meta_value_html
+		 * @hook eprobe_facet_meta_value_html
 		 * @param {string} $html  Facet meta value HTML.
 		 * @param {array}  $item Value array. It contains `value`, `name`, `count`, and `is_selected`.
 		 * @param {string} $url   Filter URL.
 		 * @return {string} Individual facet meta value HTML.
 		 */
-		return apply_filters( 'ep_facet_meta_value_html', $html, $item, $url );
+		return apply_filters( 'eprobe_facet_meta_value_html', $html, $item, $url );
 	}
 
 	/**

@@ -230,14 +230,14 @@ class TestProtectedContent extends BaseTestCase {
 	 * @group protected-content
 	 */
 	public function testNoSyncPasswordedPost() {
-		add_filter( 'ep_post_sync_args', array( $this, 'filter_post_sync_args' ), 10, 1 );
+		add_filter( 'eprobe_post_sync_args', array( $this, 'filter_post_sync_args' ), 10, 1 );
 
 		$post_id = $this->ep_factory->post->create( array( 'post_password' => 'test' ) );
 
 		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		// Check if ES post sync filter has been triggered
-		$this->assertNotEmpty( $this->applied_filters['ep_post_sync_args'] );
+		$this->assertNotEmpty( $this->applied_filters['eprobe_post_sync_args'] );
 
 		// Check if password was synced
 		$post = ElasticProbe\Indexables::factory()->get( 'post' )->get( $post_id );
@@ -255,14 +255,14 @@ class TestProtectedContent extends BaseTestCase {
 		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
 		ElasticProbe\Features::factory()->setup_features();
 
-		add_filter( 'ep_post_sync_args', array( $this, 'filter_post_sync_args' ), 10, 1 );
+		add_filter( 'eprobe_post_sync_args', array( $this, 'filter_post_sync_args' ), 10, 1 );
 
 		$post_id = $this->ep_factory->post->create( array( 'post_password' => 'test' ) );
 
 		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		// Check if ES post sync filter has been triggered
-		$this->assertNotEmpty( $this->applied_filters['ep_post_sync_args'] );
+		$this->assertNotEmpty( $this->applied_filters['eprobe_post_sync_args'] );
 
 		// Check if password was synced
 		$post = ElasticProbe\Indexables::factory()->get( 'post' )->get( $post_id );

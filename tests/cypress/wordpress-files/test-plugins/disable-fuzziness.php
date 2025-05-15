@@ -8,4 +8,4 @@
  * @package ElasticPress_Tests_E2e
  */
 
-add_filter( 'ep_post_match_fuzziness', '__return_zero' );
+add_filter( 'eprobe_post_match_fuzziness', '__return_zero' );

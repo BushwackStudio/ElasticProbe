@@ -64,7 +64,7 @@ class Version_400 extends \ElasticProbe\SearchAlgorithm {
 							'type'   => 'phrase',
 							'fields' => $search_fields,
 							/** This filter is documented in /includes/classes/SearchAlgorithm/Basic.php */
-							'boost'  => apply_filters( "ep_{$indexable_slug}_match_phrase_boost", 3, $search_fields, $query_vars ),
+							'boost'  => apply_filters( "eprobe_{$indexable_slug}_match_phrase_boost", 3, $search_fields, $query_vars ),
 						],
 					],
 					[
@@ -73,18 +73,18 @@ class Version_400 extends \ElasticProbe\SearchAlgorithm {
 							'fields'    => $search_fields,
 							'operator'  => 'and',
 							/** This filter is documented in /includes/classes/SearchAlgorithm/Basic.php */
-							'boost'     => apply_filters( "ep_{$indexable_slug}_match_boost", 1, $search_fields, $query_vars ),
+							'boost'     => apply_filters( "eprobe_{$indexable_slug}_match_boost", 1, $search_fields, $query_vars ),
 							/**
 							 * Filter fuzziness for match query
 							 *
-							 * @hook ep_{$indexable_slug}_match_fuzziness
+							 * @hook eprobe_{$indexable_slug}_match_fuzziness
 							 * @since 4.3.0
 							 * @param {string|int} $fuzziness      Fuzziness
 							 * @param {array}      $search_fields  Search fields
 							 * @param {array}      $query_vars     Query variables
 							 * @return {string} New fuzziness
 							 */
-							'fuzziness' => apply_filters( "ep_{$indexable_slug}_match_fuzziness", 'auto', $search_fields, $query_vars ),
+							'fuzziness' => apply_filters( "eprobe_{$indexable_slug}_match_fuzziness", 'auto', $search_fields, $query_vars ),
 						],
 					],
 					[
@@ -95,14 +95,14 @@ class Version_400 extends \ElasticProbe\SearchAlgorithm {
 							/**
 							 * Filter boost for match cross_fields query
 							 *
-							 * @hook ep_{$indexable_slug}_match_cross_fields_boost
+							 * @hook eprobe_{$indexable_slug}_match_cross_fields_boost
 							 * @since 4.3.0
 							 * @param {int}   $boost         Boost
 							 * @param {array} $search_fields Search fields
 							 * @param {array} $query_vars    Query variables
 							 * @return  {int} New boost
 							 */
-							'boost'       => apply_filters( "ep_{$indexable_slug}_match_cross_fields_boost", 1, $search_fields, $query_vars ),
+							'boost'       => apply_filters( "eprobe_{$indexable_slug}_match_cross_fields_boost", 1, $search_fields, $query_vars ),
 							'analyzer'    => 'standard',
 							'tie_breaker' => 0.5,
 							'operator'    => 'and',
@@ -133,26 +133,26 @@ class Version_400 extends \ElasticProbe\SearchAlgorithm {
 
 		/** This filter is documented in /includes/classes/SearchAlgorithm/Basic.php */
 		$query['bool']['should'][0]['multi_match']['boost'] = apply_filters_deprecated(
-			'ep_match_phrase_boost',
+			'eprobe_match_phrase_boost',
 			[ $query['bool']['should'][0]['multi_match']['boost'], $search_fields, $query_vars ],
 			'0.1.0',
-			'ep_post_match_phrase_boost'
+			'eprobe_post_match_phrase_boost'
 		);
 
 		/** This filter is documented in /includes/classes/SearchAlgorithm/Basic.php */
 		$query['bool']['should'][1]['multi_match']['boost'] = apply_filters_deprecated(
-			'ep_match_boost',
+			'eprobe_match_boost',
 			[ $query['bool']['should'][1]['multi_match']['boost'], $search_fields, $query_vars ],
 			'0.1.0',
-			'ep_post_match_boost'
+			'eprobe_post_match_boost'
 		);
 
 		/**
 		 * Filter fuzziness for post match query
 		 *
-		 * This filter exists to keep backwards-compatibility. Newer implementations should use `ep_post_match_fuzziness`.
+		 * This filter exists to keep backwards-compatibility. Newer implementations should use `eprobe_post_match_fuzziness`.
 		 *
-		 * @hook ep_match_fuzziness
+		 * @hook eprobe_match_fuzziness
 		 * @since 4.0.0
 		 * @param {string|int} $fuzziness     Fuzziness
 		 * @param {array}      $search_fields Search fields
@@ -160,18 +160,18 @@ class Version_400 extends \ElasticProbe\SearchAlgorithm {
 		 * @return {string} New fuzziness
 		 */
 		$query['bool']['should'][1]['multi_match']['fuzziness'] = apply_filters_deprecated(
-			'ep_match_fuzziness',
+			'eprobe_match_fuzziness',
 			[ $query['bool']['should'][1]['multi_match']['fuzziness'], $search_fields, $query_vars ],
 			'0.1.0',
-			'ep_post_match_fuzziness'
+			'eprobe_post_match_fuzziness'
 		);
 
 		/**
 		 * Filter boost for post match cross_fields query
 		 *
-		 * This filter exists to keep backwards-compatibility. Newer implementations should use `ep_post_match_cross_fields_boost`.
+		 * This filter exists to keep backwards-compatibility. Newer implementations should use `eprobe_post_match_cross_fields_boost`.
 		 *
-		 * @hook ep_{$indexable_slug}_match_cross_fields_boost
+		 * @hook eprobe_{$indexable_slug}_match_cross_fields_boost
 		 * @since 4.0.0
 		 * @param {int}   $boost         Boost
 		 * @param {array} $search_fields Search fields
@@ -179,10 +179,10 @@ class Version_400 extends \ElasticProbe\SearchAlgorithm {
 		 * @return  {int} New boost
 		 */
 		$query['bool']['should'][2]['multi_match']['boost'] = apply_filters_deprecated(
-			'ep_match_cross_fields_boost',
+			'eprobe_match_cross_fields_boost',
 			[ $query['bool']['should'][2]['multi_match']['boost'], $search_fields, $query_vars ],
 			'0.1.0',
-			'ep_post_match_cross_fields_boost'
+			'eprobe_post_match_cross_fields_boost'
 		);
 
 		return $query;

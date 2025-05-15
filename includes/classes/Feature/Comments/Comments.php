@@ -79,17 +79,17 @@ class Comments extends Feature {
 	 * @since 3.6.0
 	 */
 	public function search_setup() {
-		$admin_integration = apply_filters( 'ep_admin_wp_query_integration', false );
+		$admin_integration = apply_filters( 'eprobe_admin_wp_query_integration', false );
 
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			/**
 			 * Filter to integrate with admin ajax queries
 			 *
-			 * @hook ep_ajax_wp_query_integration
+			 * @hook eprobe_ajax_wp_query_integration
 			 * @param  {bool} $integrate True to integrate
 			 * @return  {bool} New value
 			 */
-			if ( ! apply_filters( 'ep_ajax_wp_query_integration', false ) ) {
+			if ( ! apply_filters( 'eprobe_ajax_wp_query_integration', false ) ) {
 				return;
 			} else {
 				$admin_integration = true;
@@ -100,7 +100,7 @@ class Comments extends Feature {
 			return;
 		}
 
-		add_filter( 'ep_elasticpress_enabled', [ $this, 'integrate_search_queries' ], 10, 2 );
+		add_filter( 'eprobe_elasticpress_enabled', [ $this, 'integrate_search_queries' ], 10, 2 );
 	}
 
 	/**
@@ -202,7 +202,7 @@ class Comments extends Feature {
 	public function frontend_scripts() {
 		wp_register_script(
 			'elasticpress-comments',
-			EP_URL . 'dist/js/comments-script.js',
+			EPROBE_URL . 'dist/js/comments-script.js',
 			Utils\get_asset_info( 'comments-script', 'dependencies' ),
 			Utils\get_asset_info( 'comments-script', 'version' ),
 			true
@@ -212,7 +212,7 @@ class Comments extends Feature {
 
 		wp_register_style(
 			'elasticpress-comments',
-			EP_URL . 'dist/css/comments-styles.css',
+			EPROBE_URL . 'dist/css/comments-styles.css',
 			Utils\get_asset_info( 'comments-styles', 'dependencies' ),
 			Utils\get_asset_info( 'comments-styles', 'version' )
 		);
@@ -227,11 +227,11 @@ class Comments extends Feature {
 		 * Filter the l10n data attached to the Widget Search Comments script
 		 *
 		 * @since  3.6.0
-		 * @hook ep_comment_search_widget_l10n_data_script
+		 * @hook eprobe_comment_search_widget_l10n_data_script
 		 * @param  {array} $default_script_data Default data attached to the script
 		 * @return  {array} New l10n data to be attached
 		 */
-		$script_data = apply_filters( 'ep_comment_search_widget_l10n_data_script', $default_script_data );
+		$script_data = apply_filters( 'eprobe_comment_search_widget_l10n_data_script', $default_script_data );
 
 		wp_localize_script(
 			'elasticpress-comments',
@@ -253,7 +253,7 @@ class Comments extends Feature {
 		 */
 		wp_register_script(
 			'elasticpress-comments-editor-script',
-			EP_URL . 'dist/js/comments-block-script.js',
+			EPROBE_URL . 'dist/js/comments-block-script.js',
 			Utils\get_asset_info( 'comments-block-script', 'dependencies' ),
 			Utils\get_asset_info( 'comments-block-script', 'version' ),
 			true
@@ -270,7 +270,7 @@ class Comments extends Feature {
 		);
 
 		register_block_type_from_metadata(
-			EP_PATH . 'assets/js/blocks/comments',
+			EPROBE_PATH . 'assets/js/blocks/comments',
 			[
 				'render_callback' => [ $this, 'render_block' ],
 			]

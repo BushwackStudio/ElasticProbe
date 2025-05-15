@@ -38,14 +38,14 @@ class Orders {
 	 * Setup order related hooks
 	 */
 	public function setup() {
-		add_filter( 'ep_sync_insert_permissions_bypass', [ $this, 'bypass_order_permissions_check' ], 10, 2 );
-		add_filter( 'ep_prepare_meta_allowed_protected_keys', [ $this, 'allow_meta_keys' ], 10, 2 );
-		add_filter( 'ep_post_sync_args_post_prepare_meta', [ $this, 'add_order_items_search' ], 20, 2 );
-		add_filter( 'ep_pc_skip_post_content_cleanup', [ $this, 'keep_order_fields' ], 20, 2 );
+		add_filter( 'eprobe_sync_insert_permissions_bypass', [ $this, 'bypass_order_permissions_check' ], 10, 2 );
+		add_filter( 'eprobe_prepare_meta_allowed_protected_keys', [ $this, 'allow_meta_keys' ], 10, 2 );
+		add_filter( 'eprobe_post_sync_args_post_prepare_meta', [ $this, 'add_order_items_search' ], 20, 2 );
+		add_filter( 'eprobe_pc_skip_post_content_cleanup', [ $this, 'keep_order_fields' ], 20, 2 );
 		add_action( 'parse_query', [ $this, 'maybe_hook_woocommerce_search_fields' ], 1 );
 		add_action( 'parse_query', [ $this, 'search_order' ], 11 );
 		add_action( 'pre_get_posts', [ $this, 'translate_args' ], 11, 1 );
-		add_filter( 'ep_admin_notices', [ $this, 'hpos_compatibility_notice' ] );
+		add_filter( 'eprobe_admin_notices', [ $this, 'hpos_compatibility_notice' ] );
 	}
 
 	/**
@@ -54,10 +54,10 @@ class Orders {
 	 * @since 5.0.0
 	 */
 	public function tear_down() {
-		remove_filter( 'ep_sync_insert_permissions_bypass', [ $this, 'bypass_order_permissions_check' ] );
-		remove_filter( 'ep_prepare_meta_allowed_protected_keys', [ $this, 'allow_meta_keys' ] );
-		remove_filter( 'ep_post_sync_args_post_prepare_meta', [ $this, 'add_order_items_search' ], 20 );
-		remove_filter( 'ep_pc_skip_post_content_cleanup', [ $this, 'keep_order_fields' ], 20 );
+		remove_filter( 'eprobe_sync_insert_permissions_bypass', [ $this, 'bypass_order_permissions_check' ] );
+		remove_filter( 'eprobe_prepare_meta_allowed_protected_keys', [ $this, 'allow_meta_keys' ] );
+		remove_filter( 'eprobe_post_sync_args_post_prepare_meta', [ $this, 'add_order_items_search' ], 20 );
+		remove_filter( 'eprobe_pc_skip_post_content_cleanup', [ $this, 'keep_order_fields' ], 20 );
 		remove_action( 'parse_query', [ $this, 'maybe_hook_woocommerce_search_fields' ], 1 );
 		remove_action( 'parse_query', [ $this, 'search_order' ], 11 );
 		remove_action( 'pre_get_posts', [ $this, 'translate_args' ], 11 );
@@ -91,12 +91,12 @@ class Orders {
 		/**
 		 * Filter admin searchable WooCommerce post types
 		 *
-		 * @hook ep_woocommerce_admin_searchable_post_types
+		 * @hook eprobe_woocommerce_admin_searchable_post_types
 		 * @since 4.4.0
 		 * @param {array} $post_types Post types
 		 * @return {array} New post types
 		 */
-		return apply_filters( 'ep_woocommerce_admin_searchable_post_types', $searchable_post_types );
+		return apply_filters( 'eprobe_woocommerce_admin_searchable_post_types', $searchable_post_types );
 	}
 
 	/**
@@ -229,10 +229,10 @@ class Orders {
 		/**
 		 * Determines actions to be applied, or removed, if doing a WooCommerce serarch
 		 *
-		 * @hook ep_woocommerce_hook_search_fields
+		 * @hook eprobe_woocommerce_hook_search_fields
 		 * @since  4.4.0
 		 */
-		do_action( 'ep_woocommerce_hook_search_fields' );
+		do_action( 'eprobe_woocommerce_hook_search_fields' );
 
 		if ( 'edit.php' !== $pagenow || empty( $wp->query_vars['s'] ) || 'shop_order' !== $wp->query_vars['post_type'] || ! isset( $_GET['s'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			return;
@@ -306,27 +306,27 @@ class Orders {
 		/**
 		 * DEPRECATED. Expands or contracts the post_types eligible for indexing.
 		 *
-		 * @hook ep_woocommerce_default_supported_post_types
+		 * @hook eprobe_woocommerce_default_supported_post_types
 		 * @since 4.4.0
 		 * @param  {array} $post_types Post types
 		 * @return  {array} New post types
 		 */
 		$supported_post_types = apply_filters_deprecated(
-			'ep_woocommerce_default_supported_post_types',
+			'eprobe_woocommerce_default_supported_post_types',
 			[ $post_types ],
 			'0.1.0',
-			'ep_woocommerce_orders_supported_post_types'
+			'eprobe_woocommerce_orders_supported_post_types'
 		);
 
 		/**
 		 * Expands or contracts the post_types related to orders eligible for indexing.
 		 *
-		 * @hook ep_woocommerce_orders_supported_post_types
+		 * @hook eprobe_woocommerce_orders_supported_post_types
 		 * @since 4.7.0
 		 * @param {array} $supported_post_types Post types
 		 * @return {array} New post types
 		 */
-		$supported_post_types = apply_filters( 'ep_woocommerce_orders_supported_post_types', $supported_post_types );
+		$supported_post_types = apply_filters( 'eprobe_woocommerce_orders_supported_post_types', $supported_post_types );
 
 		$supported_post_types = array_intersect(
 			$supported_post_types,
@@ -350,7 +350,7 @@ class Orders {
 			return $notices;
 		}
 
-		if ( \ElasticProbe\Utils\get_option( 'ep_hide_wc_orders_incompatible_notice' ) ) {
+		if ( \ElasticProbe\Utils\get_option( 'eprobe_hide_wc_orders_incompatible_notice' ) ) {
 			return $notices;
 		}
 
@@ -446,13 +446,13 @@ class Orders {
 			/**
 			 * Filter all the shop order fields to search for WooCommerce
 			 *
-			 * @hook ep_woocommerce_shop_order_search_fields
+			 * @hook eprobe_woocommerce_shop_order_search_fields
 			 * @since 4.0.0
 			 * @param {array}    $fields Shop order fields
 			 * @param {WP_Query} $query  WP Query
 			 * @return {array} New fields
 			 */
-			apply_filters( 'ep_woocommerce_shop_order_search_fields', $search_fields, $query )
+			apply_filters( 'eprobe_woocommerce_shop_order_search_fields', $search_fields, $query )
 		);
 	}
 

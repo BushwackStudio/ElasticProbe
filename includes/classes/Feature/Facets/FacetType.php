@@ -45,12 +45,12 @@ abstract class FacetType {
 		/**
 		 * Filter the facet filter sanitize callback.
 		 *
-		 * @hook ep_facet_default_sanitize_callback
+		 * @hook eprobe_facet_default_sanitize_callback
 		 * @since 4.4.0
 		 * @param   {string} Facet filter sanitize callback
 		 * @return  {string} New facet filter sanitize callback
 		 */
-		return apply_filters( 'ep_facet_default_sanitize_callback', 'sanitize_text_field' );
+		return apply_filters( 'eprobe_facet_default_sanitize_callback', 'sanitize_text_field' );
 	}
 
 	/**

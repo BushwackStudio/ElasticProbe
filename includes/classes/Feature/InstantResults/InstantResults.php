@@ -233,10 +233,10 @@ class InstantResults extends Feature {
 			 * handling search requests before making the feature available.
 			 *
 			 * @since 4.0.0
-			 * @hook ep_instant_results_available
+			 * @hook eprobe_instant_results_available
 			 * @param {string} $available Whether the feature is available.
 			 */
-		} elseif ( apply_filters( 'ep_instant_results_available', false ) ) {
+		} elseif ( apply_filters( 'eprobe_instant_results_available', false ) ) {
 			$status->code      = 1;
 			$status->message[] = esc_html__( 'You are using a custom proxy. Make sure you implement all security measures needed.', 'elasticprobe' );
 		} else {
@@ -246,7 +246,7 @@ class InstantResults extends Feature {
 		/**
 		 * Display a warning if ElasticProbe is network activated.
 		 */
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 			$status->message[] = wp_kses_post(
 				sprintf(
 					/* translators: Article URL */
@@ -269,13 +269,13 @@ class InstantResults extends Feature {
 	 */
 	public function setup() {
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
-		add_filter( 'ep_after_update_feature', [ $this, 'after_update_feature' ], 10, 3 );
-		add_filter( 'ep_formatted_args', [ $this, 'maybe_apply_aggs_args' ], 10, 3 );
-		add_filter( 'ep_post_mapping', [ $this, 'add_mapping_properties' ] );
-		add_filter( 'ep_post_sync_args', [ $this, 'add_post_sync_args' ], 10, 2 );
-		add_filter( 'ep_after_sync_index', [ $this, 'epio_save_search_template' ] );
-		add_filter( 'ep_saved_weighting_configuration', [ $this, 'epio_save_search_template' ] );
-		add_filter( 'ep_bypass_exclusion_from_search', [ $this, 'maybe_bypass_post_exclusion' ], 10, 2 );
+		add_filter( 'eprobe_after_update_feature', [ $this, 'after_update_feature' ], 10, 3 );
+		add_filter( 'eprobe_formatted_args', [ $this, 'maybe_apply_aggs_args' ], 10, 3 );
+		add_filter( 'eprobe_post_mapping', [ $this, 'add_mapping_properties' ] );
+		add_filter( 'eprobe_post_sync_args', [ $this, 'add_post_sync_args' ], 10, 2 );
+		add_filter( 'eprobe_after_sync_index', [ $this, 'epio_save_search_template' ] );
+		add_filter( 'eprobe_saved_weighting_configuration', [ $this, 'epio_save_search_template' ] );
+		add_filter( 'eprobe_bypass_exclusion_from_search', [ $this, 'maybe_bypass_post_exclusion' ], 10, 2 );
 		add_action( 'pre_get_posts', [ $this, 'maybe_apply_product_visibility' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_frontend_assets' ] );
 		add_action( 'wp_footer', [ $this, 'render' ] );
@@ -298,14 +298,14 @@ class InstantResults extends Feature {
 
 		wp_enqueue_style(
 			'elasticpress-instant-results',
-			EP_URL . 'dist/css/instant-results-styles.css',
+			EPROBE_URL . 'dist/css/instant-results-styles.css',
 			Utils\get_asset_info( 'instant-results-styles', 'dependencies' ),
 			Utils\get_asset_info( 'instant-results-styles', 'version' )
 		);
 
 		wp_enqueue_script(
 			'elasticpress-instant-results',
-			EP_URL . 'dist/js/instant-results-script.js',
+			EPROBE_URL . 'dist/js/instant-results-script.js',
 			Utils\get_asset_info( 'instant-results-script', 'dependencies' ),
 			Utils\get_asset_info( 'instant-results-script', 'version' ),
 			true
@@ -317,11 +317,11 @@ class InstantResults extends Feature {
 		 * The search API endpoint.
 		 *
 		 * @since 4.0.0
-		 * @hook ep_instant_results_search_endpoint
+		 * @hook eprobe_instant_results_search_endpoint
 		 * @param {string} $endpoint Endpoint path.
 		 * @param {string} $index Elasticsearch index.
 		 */
-		$api_endpoint = apply_filters( 'ep_instant_results_search_endpoint', "api/v1/search/posts/{$this->index}", $this->index );
+		$api_endpoint = apply_filters( 'eprobe_instant_results_search_endpoint', "api/v1/search/posts/{$this->index}", $this->index );
 
 		wp_localize_script(
 			'elasticpress-instant-results',
@@ -360,7 +360,7 @@ class InstantResults extends Feature {
 
 		wp_enqueue_script(
 			'elasticpress-instant-results-admin',
-			EP_URL . 'dist/js/instant-results-admin-script.js',
+			EPROBE_URL . 'dist/js/instant-results-admin-script.js',
 			Utils\get_asset_info( 'instant-results-admin-script', 'dependencies' ),
 			Utils\get_asset_info( 'instant-results-admin-script', 'version' ),
 			true
@@ -411,12 +411,12 @@ class InstantResults extends Feature {
 		 * Filters the search template API endpoint.
 		 *
 		 * @since 4.0.0
-		 * @hook ep_instant_results_template_endpoint
+		 * @hook eprobe_instant_results_template_endpoint
 		 * @param {string} $endpoint Endpoint path.
 		 * @param {string} $index Elasticsearch index.
 		 * @returns {string} Search template API endpoint.
 		 */
-		return apply_filters( 'ep_instant_results_template_endpoint', "api/v1/search/posts/{$this->index}/template/", $this->index );
+		return apply_filters( 'eprobe_instant_results_template_endpoint', "api/v1/search/posts/{$this->index}/template/", $this->index );
 	}
 
 	/**
@@ -441,11 +441,11 @@ class InstantResults extends Feature {
 		 * Fires after the request is sent the search template API endpoint.
 		 *
 		 * @since 4.0.0
-		 * @hook ep_instant_results_template_saved
+		 * @hook eprobe_instant_results_template_saved
 		 * @param {string} $template The search template (JSON).
 		 * @param {string} $index Index name.
 		 */
-		do_action( 'ep_instant_results_template_saved', $template, $this->index );
+		do_action( 'eprobe_instant_results_template_saved', $template, $this->index );
 	}
 
 	/**
@@ -470,10 +470,10 @@ class InstantResults extends Feature {
 		 * Fires after the request is sent the search template API endpoint.
 		 *
 		 * @since 4.3.0
-		 * @hook ep_instant_results_template_deleted
+		 * @hook eprobe_instant_results_template_deleted
 		 * @param {string} $index Index name.
 		 */
-		do_action( 'ep_instant_results_template_deleted', $this->index );
+		do_action( 'eprobe_instant_results_template_deleted', $this->index );
 	}
 
 	/**
@@ -526,18 +526,18 @@ class InstantResults extends Feature {
 		 * current user while the template is generated.
 		 *
 		 * @since 4.1.0
-		 * @hook ep_search_template_user_id
+		 * @hook eprobe_search_template_user_id
 		 * @param {int} $user_id User ID to use.
 		 * @return {int} New user ID to use.
 		 */
-		$template_user_id = apply_filters( 'ep_search_template_user_id', 0 );
+		$template_user_id = apply_filters( 'eprobe_search_template_user_id', 0 );
 		$original_user_id = get_current_user_id();
 
 		wp_set_current_user( $template_user_id );
 
-		add_filter( 'ep_intercept_remote_request', '__return_true' );
-		add_filter( 'ep_do_intercept_request', [ $this, 'intercept_search_request' ], 10, 4 );
-		add_filter( 'ep_is_integrated_request', [ $this, 'is_integrated_request' ], 10, 2 );
+		add_filter( 'eprobe_intercept_remote_request', '__return_true' );
+		add_filter( 'eprobe_do_intercept_request', [ $this, 'intercept_search_request' ], 10, 4 );
+		add_filter( 'eprobe_is_integrated_request', [ $this, 'is_integrated_request' ], 10, 2 );
 
 		$query = new \WP_Query(
 			array(
@@ -549,9 +549,9 @@ class InstantResults extends Feature {
 			)
 		);
 
-		remove_filter( 'ep_intercept_remote_request', '__return_true' );
-		remove_filter( 'ep_do_intercept_request', [ $this, 'intercept_search_request' ], 10 );
-		remove_filter( 'ep_is_integrated_request', [ $this, 'is_integrated_request' ], 10 );
+		remove_filter( 'eprobe_intercept_remote_request', '__return_true' );
+		remove_filter( 'eprobe_do_intercept_request', [ $this, 'intercept_search_request' ], 10 );
+		remove_filter( 'eprobe_is_integrated_request', [ $this, 'is_integrated_request' ], 10 );
 
 		wp_set_current_user( $original_user_id );
 
@@ -846,7 +846,7 @@ class InstantResults extends Feature {
 		 * Taxonomy facets.
 		 */
 		$taxonomies = get_taxonomies( array( 'public' => true ), 'object' );
-		$taxonomies = apply_filters( 'ep_facet_include_taxonomies', $taxonomies );
+		$taxonomies = apply_filters( 'eprobe_facet_include_taxonomies', $taxonomies );
 
 		foreach ( $taxonomies as $slug => $taxonomy ) {
 			$name   = 'tax-' . $slug;
@@ -874,7 +874,7 @@ class InstantResults extends Feature {
 					$name => array(
 						'terms' => array(
 							'field' => 'terms.' . $slug . '.facet',
-							'size'  => apply_filters( 'ep_facet_taxonomies_size', 10000, $taxonomy ),
+							'size'  => apply_filters( 'eprobe_facet_taxonomies_size', 10000, $taxonomy ),
 						),
 					),
 				),
@@ -980,10 +980,10 @@ class InstantResults extends Feature {
 		 * The number of results per page for Instant Results.
 		 *
 		 * @since 4.5.0
-		 * @hook ep_instant_results_per_page
+		 * @hook eprobe_instant_results_per_page
 		 * @param {int} $per_page Results per page.
 		 */
-		$per_page = apply_filters( 'ep_instant_results_per_page', $this->settings['per_page'] );
+		$per_page = apply_filters( 'eprobe_instant_results_per_page', $this->settings['per_page'] );
 
 		$args_schema = array(
 			'highlight' => array(
@@ -1042,10 +1042,10 @@ class InstantResults extends Feature {
 		 * when adding or removing arguments.
 		 *
 		 * @since 4.5.1
-		 * @hook ep_instant_results_args_schema
+		 * @hook eprobe_instant_results_args_schema
 		 * @param {array} $args_schema Results per page.
 		 */
-		return apply_filters( 'ep_instant_results_args_schema', $args_schema );
+		return apply_filters( 'eprobe_instant_results_args_schema', $args_schema );
 	}
 
 	/**

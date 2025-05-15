@@ -131,7 +131,7 @@ describe('WP-CLI Commands', { tags: '@slow' }, () => {
 		it('Can stop ongoing syncs with the --force flag', () => {
 			// mock the sync process
 			cy.wpCliEval(
-				`update_option('ep_index_meta', [ 'indexing' => true ] ); set_transient('ep_sync_interrupted', true);`,
+				`update_option('eprobe_index_meta', [ 'indexing' => true ] ); set_transient('eprobe_sync_interrupted', true);`,
 			);
 
 			cy.wpCli('wp elasticprobe sync --force --yes')
@@ -361,7 +361,7 @@ describe('WP-CLI Commands', { tags: '@slow' }, () => {
 
 		// mock the sync process
 		cy.wpCliEval(
-			`update_option('ep_index_meta', [ 'indexing' => true ] ); set_transient('ep_sync_interrupted', true);`,
+			`update_option('eprobe_index_meta', [ 'indexing' => true ] ); set_transient('eprobe_sync_interrupted', true);`,
 		);
 
 		cy.wpCli('wp elasticprobe stop-sync').its('stdout').should('contain', 'Done');

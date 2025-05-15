@@ -29,8 +29,8 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 	 * Setup hooks and filters for feature
 	 */
 	public function setup() {
-		add_filter( 'ep_facet_query_filters', [ $this, 'add_query_filters' ] );
-		add_filter( 'ep_facet_wp_query_aggs_facet', [ $this, 'set_wp_query_aggs' ] );
+		add_filter( 'eprobe_facet_query_filters', [ $this, 'add_query_filters' ] );
+		add_filter( 'eprobe_facet_wp_query_aggs_facet', [ $this, 'set_wp_query_aggs' ] );
 
 		$this->block = new Block();
 		$this->block->setup();
@@ -45,12 +45,12 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 		/**
 		 * Filter the facet filter name that's added to the URL
 		 *
-		 * @hook ep_facet_post_type_filter_name
+		 * @hook eprobe_facet_post_type_filter_name
 		 * @since 4.6.0
 		 * @param   {string} Facet filter name
 		 * @return  {string} New facet filter name
 		 */
-		return apply_filters( 'ep_facet_post_type_filter_name', 'ep_post_type_filter' );
+		return apply_filters( 'eprobe_facet_post_type_filter_name', 'ep_post_type_filter' );
 	}
 
 	/**
@@ -64,12 +64,12 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 		 *
 		 * Note: Do not set is as `post_type`, as it will conflict with the post_type query parameter if set.
 		 *
-		 * @hook ep_facet_post_type_filter_type
+		 * @hook eprobe_facet_post_type_filter_type
 		 * @since 4.6.0
 		 * @param   {string} Facet filter type
 		 * @return  {string} New facet filter type
 		 */
-		return apply_filters( 'ep_facet_post_type_filter_type', 'ep_post_type' );
+		return apply_filters( 'eprobe_facet_post_type_filter_type', 'ep_post_type' );
 	}
 
 	/**
@@ -91,12 +91,12 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 				 * Filter the number of different values (and their count) for post types returned by Elasticsearch.
 				 *
 				 * @since 4.6.0
-				 * @hook ep_facet_post_type_size
+				 * @hook eprobe_facet_post_type_size
 				 * @param {int}    $size       The number of different values. Default: 10000
 				 * @param {array} $post_types Post types
 				 * @return {int} The new number of different values
 				 */
-				'size'  => apply_filters( 'ep_facet_post_type_size', 10000, $post_types ),
+				'size'  => apply_filters( 'eprobe_facet_post_type_size', 10000, $post_types ),
 				'field' => 'post_type.raw',
 			),
 		);
@@ -153,11 +153,11 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 		 * Filter post types that are facetable.
 		 *
 		 * @since 4.6.0
-		 * @hook ep_facetable_post_types
+		 * @hook eprobe_facetable_post_types
 		 * @param {array} $searchable_post_types Array of searchable post types.
 		 * @return {array} The array of facetable post types.
 		 */
-		return apply_filters( 'ep_facetable_post_types', $searchable_post_types );
+		return apply_filters( 'eprobe_facetable_post_types', $searchable_post_types );
 	}
 
 	/**

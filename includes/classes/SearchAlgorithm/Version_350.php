@@ -64,7 +64,7 @@ class Version_350 extends \ElasticProbe\SearchAlgorithm {
 							'type'   => 'phrase',
 							'fields' => $search_fields,
 							/** This filter is documented in /includes/classes/SearchAlgorithm/Basic.php */
-							'boost'  => apply_filters( "ep_{$indexable_slug}_match_phrase_boost", 3, $search_fields, $query_vars ),
+							'boost'  => apply_filters( "eprobe_{$indexable_slug}_match_phrase_boost", 3, $search_fields, $query_vars ),
 						],
 					],
 					[
@@ -100,10 +100,10 @@ class Version_350 extends \ElasticProbe\SearchAlgorithm {
 
 		/** This filter is documented in /includes/classes/SearchAlgorithm/Basic.php */
 		$query['bool']['should'][0]['multi_match']['boost'] = apply_filters_deprecated(
-			'ep_match_phrase_boost',
+			'eprobe_match_phrase_boost',
 			[ $query['bool']['should'][0]['multi_match']['boost'], $search_fields, $query_vars ],
 			'0.1.0',
-			'ep_post_match_phrase_boost'
+			'eprobe_post_match_phrase_boost'
 		);
 
 		return $query;

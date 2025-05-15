@@ -23,9 +23,9 @@ $host        = Utils\get_host();
 $is_epio     = Utils\is_epio();
 $credentials = Utils\get_epio_credentials();
 $sid         = Utils\get_subscription_id();
-$wpconfig    = defined( 'EP_HOST' ) && EP_HOST;
+$wpconfig    = defined( 'EPROBE_HOST' ) && EPROBE_HOST;
 
-$bulk_setting = Utils\get_option( 'ep_bulk_setting', 350 );
+$bulk_setting = Utils\get_option( 'eprobe_bulk_setting', 350 );
 ?>
 
 <?php require_once __DIR__ . '/header.php'; ?>
@@ -60,7 +60,7 @@ $bulk_setting = Utils\get_option( 'ep_bulk_setting', 350 );
 					<tbody>
 						<tr class="ep-host-row">
 							<th scope="row">
-								<label for="ep_host">
+								<label for="eprobe_host">
 									<?php if ( $is_epio ) : ?>
 										<?php esc_html_e( 'WPProbe.com Host URL', 'elasticprobe' ); ?>
 									<?php else : ?>
@@ -73,15 +73,15 @@ $bulk_setting = Utils\get_option( 'ep_bulk_setting', 350 );
 								/**
 								 * Filter whether to show host field in admin UI or not
 								 *
-								 * @hook ep_admin_show_host
+								 * @hook eprobe_admin_show_host
 								 * @param  {boolean} $show True to show
 								 * @return {boolean} New value
 								 */
-								$show_host = apply_filters( 'ep_admin_show_host', true );
+								$show_host = apply_filters( 'eprobe_admin_show_host', true );
 								$disabled  = $wpconfig || ! $show_host;
 								$value     = $show_host ? esc_url( $host ) : __( '••••••••••••••••', 'elasticprobe' );
 								?>
-								<input <?php disabled( $disabled, true, true ); ?> placeholder="https://" type="text" value="<?php echo esc_attr( $value ); ?>" name="ep_host" id="ep_host">
+								<input <?php disabled( $disabled, true, true ); ?> placeholder="https://" type="text" value="<?php echo esc_attr( $value ); ?>" name="eprobe_host" id="eprobe_host">
 								<?php if ( $show_host ) : ?>
 									<?php if ( $wpconfig ) : ?>
 										<p class="description ep-host-legend"><?php esc_html_e( 'Host already defined in wp-config.php.', 'elasticprobe' ); ?></p>
@@ -104,15 +104,15 @@ $bulk_setting = Utils\get_option( 'ep_bulk_setting', 350 );
 									/**
 									 * Filter whether to show epio credentials fields in admin UI or not
 									 *
-									 * @hook ep_admin_show_credentials
+									 * @hook eprobe_admin_show_credentials
 									 * @param  {boolean} $show True to show
 									 * @return {boolean} New value
 									 */
-									if ( apply_filters( 'ep_admin_show_credentials', true ) ) :
+									if ( apply_filters( 'eprobe_admin_show_credentials', true ) ) :
 										?>
-										<input <?php if ( defined( 'EP_CREDENTIALS' ) && EP_CREDENTIALS ) : ?>disabled<?php endif; ?> type="text" value="<?php echo esc_attr( $credentials['username'] ); ?>" name="ep_credentials[username]" id="ep_username">
+										<input <?php if ( defined( 'EPROBE_CREDENTIALS' ) && EPROBE_CREDENTIALS ) : ?>disabled<?php endif; ?> type="text" value="<?php echo esc_attr( $credentials['username'] ); ?>" name="eprobe_credentials[username]" id="ep_username">
 									<?php endif ?>
-									<?php if ( defined( 'EP_CREDENTIALS' ) && EP_CREDENTIALS ) : ?>
+									<?php if ( defined( 'EPROBE_CREDENTIALS' ) && EPROBE_CREDENTIALS ) : ?>
 										<p class="description"><?php esc_html_e( 'Your API key ID is set in wp-config.php', 'elasticprobe' ); ?></p>
 									<?php else : ?>
 										<p class="description"><?php esc_html_e( 'Plug in your API key ID here.', 'elasticprobe' ); ?></p>
@@ -129,15 +129,15 @@ $bulk_setting = Utils\get_option( 'ep_bulk_setting', 350 );
 									/**
 									 * Filter whether to show epio credentials fields in admin UI or not
 									 *
-									 * @hook ep_admin_show_credentials
+									 * @hook eprobe_admin_show_credentials
 									 * @param  {boolean} $show True to show
 									 * @return {boolean} New value
 									 */
-									if ( apply_filters( 'ep_admin_show_credentials', true ) ) :
+									if ( apply_filters( 'eprobe_admin_show_credentials', true ) ) :
 										?>
-										<input <?php if ( defined( 'EP_CREDENTIALS' ) && EP_CREDENTIALS ) : ?>disabled<?php endif; ?> type="text" value="<?php echo esc_attr( $credentials['token'] ); ?>" name="ep_credentials[token]" id="ep_token">
+										<input <?php if ( defined( 'EPROBE_CREDENTIALS' ) && EPROBE_CREDENTIALS ) : ?>disabled<?php endif; ?> type="text" value="<?php echo esc_attr( $credentials['token'] ); ?>" name="eprobe_credentials[token]" id="ep_token">
 									<?php endif ?>
-									<?php if ( defined( 'EP_CREDENTIALS' ) && EP_CREDENTIALS ) : ?>
+									<?php if ( defined( 'EPROBE_CREDENTIALS' ) && EPROBE_CREDENTIALS ) : ?>
 										<p class="description"><?php esc_html_e( 'Your API key is set in wp-config.php', 'elasticprobe' ); ?></p>
 									<?php else : ?>
 										<p class="description"><?php esc_html_e( 'Plug in your API key here.', 'elasticprobe' ); ?></p>
@@ -154,15 +154,15 @@ $bulk_setting = Utils\get_option( 'ep_bulk_setting', 350 );
 									/**
 									 * Filter whether to show epio credentials fields in admin UI or not
 									 *
-									 * @hook ep_admin_show_credentials
+									 * @hook eprobe_admin_show_credentials
 									 * @param  {boolean} $show True to show
 									 * @return {boolean} New value
 									 */
-									if ( apply_filters( 'ep_admin_show_credentials', true ) ) :
+									if ( apply_filters( 'eprobe_admin_show_credentials', true ) ) :
 										?>
-										<input <?php if ( defined( 'PROBE_SID' ) && PROBE_SID ) : ?>disabled<?php endif; ?> type="text" value="<?php echo esc_attr( $sid ); ?>" name="sid" id="probe_sid">
+										<input <?php if ( defined( 'EPROBE_SID' ) && EPROBE_SID ) : ?>disabled<?php endif; ?> type="text" value="<?php echo esc_attr( $sid ); ?>" name="sid" id="probe_sid">
 									<?php endif ?>
-									<?php if ( defined( 'PROBE_SID' ) && PROBE_SID ) : ?>
+									<?php if ( defined( 'EPROBE_SID' ) && EPROBE_SID ) : ?>
 										<p class="description"><?php esc_html_e( 'Your Subscription ID is set in wp-config.php', 'elasticprobe' ); ?></p>
 									<?php else : ?>
 										<p class="description"><?php esc_html_e( 'Plug in your subscription ID here.', 'elasticprobe' ); ?></p>
@@ -180,17 +180,17 @@ $bulk_setting = Utils\get_option( 'ep_bulk_setting', 350 );
 				<tbody>
 					<tr>
 						<th scope="row">
-							<label for="ep_language"><?php esc_html_e( 'Elasticsearch Language', 'elasticprobe' ); ?></label>
+							<label for="eprobe_language"><?php esc_html_e( 'Elasticsearch Language', 'elasticprobe' ); ?></label>
 						</th>
 						<td>
 							<?php
-							$ep_language = Utils\get_language();
+							$eprobe_language = Utils\get_language();
 
 							wp_dropdown_languages(
 								[
-									'id'        => 'ep_language',
-									'name'      => 'ep_language',
-									'selected'  => $ep_language,
+									'id'        => 'eprobe_language',
+									'name'      => 'eprobe_language',
+									'selected'  => $eprobe_language,
 									'languages' => Dashboard\get_available_languages( 'locales' ),
 									'show_option_site_default' => true,
 									'explicit_option_en_us' => true,
@@ -217,13 +217,13 @@ $bulk_setting = Utils\get_option( 'ep_bulk_setting', 350 );
 							<?php endif; ?>
 						</td>
 					</tr>
-					<?php if ( ! empty( $host ) && ! has_filter( 'ep_index_posts_per_page' ) ) : ?>
+					<?php if ( ! empty( $host ) && ! has_filter( 'eprobe_index_posts_per_page' ) ) : ?>
 						<tr>
 							<th scope="row">
-								<label for="ep_bulk_setting"><?php esc_html_e( 'Content Items per Index Cycle ', 'elasticprobe' ); ?></label>
+								<label for="eprobe_bulk_setting"><?php esc_html_e( 'Content Items per Index Cycle ', 'elasticprobe' ); ?></label>
 							</th>
 							<td>
-								<input type="text" name="ep_bulk_setting" id="ep_bulk_setting" value="<?php echo absint( $bulk_setting ); ?>">
+								<input type="text" name="eprobe_bulk_setting" id="eprobe_bulk_setting" value="<?php echo absint( $bulk_setting ); ?>">
 							</td>
 						</tr>
 					<?php endif; ?>
@@ -235,9 +235,9 @@ $bulk_setting = Utils\get_option( 'ep_bulk_setting', 350 );
 		/**
 		 * Fires after settings table is displayed for inserting custom settings.
 		 *
-		 * @hook ep_settings_custom
+		 * @hook eprobe_settings_custom
 		 */
-		do_action( 'ep_settings_custom' );
+		do_action( 'eprobe_settings_custom' );
 		?>
 
 		<input type="submit" <?php if ( ! empty( $index_meta ) ) : ?>disabled<?php endif; ?> name="submit" id="submit" class="button button-primary" value="<?php esc_attr_e( 'Save Changes', 'elasticprobe' ); ?>">

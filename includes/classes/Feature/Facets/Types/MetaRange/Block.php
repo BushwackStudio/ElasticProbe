@@ -32,7 +32,7 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 	 */
 	public function register_block() {
 		register_block_type_from_metadata(
-			EP_PATH . 'assets/js/blocks/facets/meta-range',
+			EPROBE_PATH . 'assets/js/blocks/facets/meta-range',
 			[
 				'render_callback' => [ $this, 'render_block' ],
 			]
@@ -50,7 +50,7 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 	public function enqueue_editor_assets() {
 		wp_register_script(
 			'ep-facets-meta-range-block-script',
-			EP_URL . 'dist/js/facets-meta-range-block-script.js',
+			EPROBE_URL . 'dist/js/facets-meta-range-block-script.js',
 			Utils\get_asset_info( 'facets-meta-block-script', 'dependencies' ),
 			Utils\get_asset_info( 'facets-meta-block-script', 'version' ),
 			true
@@ -67,7 +67,7 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 	public function enqueue_assets() {
 		wp_register_script(
 			'ep-facets-meta-range-block-view-script',
-			EP_URL . 'dist/js/facets-meta-range-block-view-script.js',
+			EPROBE_URL . 'dist/js/facets-meta-range-block-view-script.js',
 			Utils\get_asset_info( 'facets-meta-range-block-view-script', 'dependencies' ),
 			Utils\get_asset_info( 'facets-meta-range-block-view-script', 'version' ),
 			true
@@ -82,7 +82,7 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 	 */
 	public function render_block( $attributes ) {
 		/** This filter is documented in includes/classes/Feature/Facets/Types/Taxonomy/Block.php */
-		$renderer_class = apply_filters( 'ep_facet_renderer_class', __NAMESPACE__ . '\Renderer', 'meta-range', 'block', $attributes );
+		$renderer_class = apply_filters( 'eprobe_facet_renderer_class', __NAMESPACE__ . '\Renderer', 'meta-range', 'block', $attributes );
 		$renderer       = new $renderer_class();
 
 		/**

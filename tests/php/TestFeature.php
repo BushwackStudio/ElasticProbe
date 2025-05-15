@@ -28,7 +28,7 @@ class TestFeature extends BaseTestCase {
 		$stub->order            = 1;
 
 		add_filter(
-			'ep_feature_requirements_status',
+			'eprobe_feature_requirements_status',
 			function () {
 				return new \ElasticProbe\FeatureRequirementsStatus( 2, 'Testing' );
 			}
@@ -97,7 +97,7 @@ class TestFeature extends BaseTestCase {
 	}
 
 	/**
-	 * Test the ep_feature_settings_schema filter.
+	 * Test the eprobe_feature_settings_schema filter.
 	 *
 	 * @group feature
 	 */
@@ -111,7 +111,7 @@ class TestFeature extends BaseTestCase {
 			$settings_schema[] = [ 'key' => 'new_field' ];
 			return $settings_schema;
 		};
-		add_filter( 'ep_feature_settings_schema', $change_settings_schema, 10, 3 );
+		add_filter( 'eprobe_feature_settings_schema', $change_settings_schema, 10, 3 );
 
 		$settings_schema = $stub->get_settings_schema();
 		$this->assertSame(

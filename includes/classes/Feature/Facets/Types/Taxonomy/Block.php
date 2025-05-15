@@ -34,7 +34,7 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 	 */
 	public function register_block() {
 		register_block_type_from_metadata(
-			EP_PATH . 'assets/js/blocks/facets/taxonomy',
+			EPROBE_PATH . 'assets/js/blocks/facets/taxonomy',
 			[
 				'render_callback' => [ $this, 'render_block' ],
 			]
@@ -52,7 +52,7 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 	public function enqueue_editor_assets() {
 		wp_register_script(
 			'ep-facets-block-script',
-			EP_URL . 'dist/js/facets-block-script.js',
+			EPROBE_URL . 'dist/js/facets-block-script.js',
 			Utils\get_asset_info( 'facets-block-script', 'dependencies' ),
 			Utils\get_asset_info( 'facets-block-script', 'version' ),
 			true
@@ -71,7 +71,7 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 		global $wp_query;
 
 		if ( $attributes['isPreview'] ) {
-			add_filter( 'ep_is_facetable', '__return_true' );
+			add_filter( 'eprobe_is_facetable', '__return_true' );
 
 			$search = Features::factory()->get_registered_feature( 'search' );
 
@@ -87,14 +87,14 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 		 * Filter the class name to be used to render the Facet.
 		 *
 		 * @since 4.3.0
-		 * @hook ep_facet_renderer_class
+		 * @hook eprobe_facet_renderer_class
 		 * @param {string} $classname  The name of the class to be instantiated and used as a renderer.
 		 * @param {string} $facet_type The type of the facet.
 		 * @param {string} $context    Context where the renderer will be used: `block` or `widget`, for example.
 		 * @param {array} $attributes Element attributes.
 		 * @return {string} The name of the class
 		 */
-		$renderer_class = apply_filters( 'ep_facet_renderer_class', __NAMESPACE__ . '\Renderer', 'taxonomy', 'block', $attributes );
+		$renderer_class = apply_filters( 'eprobe_facet_renderer_class', __NAMESPACE__ . '\Renderer', 'taxonomy', 'block', $attributes );
 		$renderer       = new $renderer_class();
 
 		ob_start();

@@ -176,11 +176,11 @@ abstract class Feature {
 		/**
 		 * Fires when Feature object is created
 		 *
-		 * @hook ep_feature_create
+		 * @hook eprobe_feature_create
 		 * @param {Feature} $feature Current feature
 		 * @since  3.0
 		 */
-		do_action( 'ep_feature_create', $this );
+		do_action( 'eprobe_feature_create', $this );
 	}
 
 	/**
@@ -195,13 +195,13 @@ abstract class Feature {
 		/**
 		 * Filter feature requirement status
 		 *
-		 * @hook ep_{indexable_slug}_index_kill
+		 * @hook eprobe_{indexable_slug}_index_kill
 		 * @param  {FeatureRequirementStatus} $status Current feature requirement status
 		 * @param {Feature} $feature Current feature
 		 * @since  2.2
 		 * @return {FeatureRequirementStatus}  New status
 		 */
-		return apply_filters( 'ep_feature_requirements_status', $status, $this );
+		return apply_filters( 'eprobe_feature_requirements_status', $status, $this );
 	}
 
 	/**
@@ -211,7 +211,7 @@ abstract class Feature {
 	 * @return array
 	 */
 	public function get_settings() {
-		$all_settings = Utils\get_option( 'ep_feature_settings', [] );
+		$all_settings = Utils\get_option( 'eprobe_feature_settings', [] );
 
 		$feature_settings = ( ! empty( $all_settings[ $this->slug ] ) ) ? (array) $all_settings[ $this->slug ] : [];
 
@@ -240,7 +240,7 @@ abstract class Feature {
 	 * @return boolean
 	 */
 	public function is_active() {
-		$feature_settings = Utils\get_option( 'ep_feature_settings', [] );
+		$feature_settings = Utils\get_option( 'eprobe_feature_settings', [] );
 
 		$active = false;
 
@@ -251,14 +251,14 @@ abstract class Feature {
 		/**
 		 * Filter whether a feature is active or not
 		 *
-		 * @hook ep_feature_active
+		 * @hook eprobe_feature_active
 		 * @param  {bool} $active Whether feature is active or not
 		 * @param {array} $feature_settings Current feature settings
 		 * @param  {Feature} $feature Current feature
 		 * @since  2.2
 		 * @return {bool}  New active value
 		 */
-		return apply_filters( 'ep_feature_active', $active, $feature_settings, $this );
+		return apply_filters( 'eprobe_feature_active', $active, $feature_settings, $this );
 	}
 
 	/**
@@ -285,12 +285,12 @@ abstract class Feature {
 		/**
 		 * Fires after feature is activated
 		 *
-		 * @hook ep_feature_post_activation
+		 * @hook eprobe_feature_post_activation
 		 * @param  {string} $slug Feature slug
 		 * @param {Feature} $feature Current feature
 		 * @since  2.1
 		 */
-		do_action( 'ep_feature_post_activation', $this->slug, $this );
+		do_action( 'eprobe_feature_post_activation', $this->slug, $this );
 	}
 
 	/**
@@ -304,12 +304,12 @@ abstract class Feature {
 		/**
 		 * Fires before feature box summary is shown
 		 *
-		 * @hook ep_feature_box_summary
+		 * @hook eprobe_feature_box_summary
 		 * @param  {string} $slug Feature slug
 		 * @param {Feature} $feature Current feature
 		 * @since  2.1
 		 */
-		do_action( 'ep_feature_box_summary', $this->slug, $this );
+		do_action( 'eprobe_feature_box_summary', $this->slug, $this );
 		?>
 
 		<button aria-expanded="false" class="learn-more button button-secondary button-small" type="button"><?php esc_html_e( 'Learn more', 'elasticprobe' ); ?></button>
@@ -323,12 +323,12 @@ abstract class Feature {
 			/**
 			 * Fires after feature long description
 			 *
-			 * @hook ep_feature_box_long
+			 * @hook eprobe_feature_box_long
 			 * @param  {string} $slug Feature slug
 			 * @param {Feature} $feature Current feature
 			 * @since  2.1
 			 */
-			do_action( 'ep_feature_box_long', $this->slug, $this );
+			do_action( 'eprobe_feature_box_long', $this->slug, $this );
 			?>
 
 		</div>
@@ -355,7 +355,7 @@ abstract class Feature {
 	 */
 	public function output_settings_box() {
 		$requirements_status = $this->requirements_status();
-		$sync_url            = ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK )
+		$sync_url            = ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK )
 			? network_admin_url( 'admin.php?page=elasticprobe-sync' )
 			: admin_url( 'admin.php?page=elasticprobe-sync' );
 		?>
@@ -418,7 +418,7 @@ abstract class Feature {
 				<input type="hidden" name="setting_requires_reindex_was" value="<?php echo esc_attr( $this->get_reindex_setting() ); ?>">
 				<?php wp_nonce_field( 'ep_dashboard_nonce', 'nonce' ); ?>
 
-				<button name="submit" <?php disabled( 2 === $requirements_status->code || ( $this->requires_install_reindex && defined( 'EP_DASHBOARD_SYNC' ) && ! EP_DASHBOARD_SYNC ) ); ?> class="button button-primary" type="submit">
+				<button name="submit" <?php disabled( 2 === $requirements_status->code || ( $this->requires_install_reindex && defined( 'EPROBE_DASHBOARD_SYNC' ) && ! EPROBE_DASHBOARD_SYNC ) ); ?> class="button button-primary" type="submit">
 					<?php esc_html_e( 'Save', 'elasticprobe' ); ?>
 				</button>
 			</div>
@@ -434,7 +434,7 @@ abstract class Feature {
 	 * @return string
 	 */
 	public function get_epio_logo(): string {
-		return sprintf( '<img class="feature-epio-logo" alt="WPProbe.com logo" src="%s" width="110" height="20">', esc_url( plugins_url( '/images/logo-wpprobe-com.svg', EP_FILE ) ) );
+		return sprintf( '<img class="feature-epio-logo" alt="WPProbe.com logo" src="%s" width="110" height="20">', esc_url( plugins_url( '/images/logo-wpprobe-com.svg', EPROBE_FILE ) ) );
 	}
 
 	/**
@@ -476,7 +476,7 @@ abstract class Feature {
 		 * Example:
 		 * ```
 		 * add_filter(
-		 *     'ep_feature_is_visible',
+		 *     'eprobe_feature_is_visible',
 		 *     function ( $is_visible, $feature_slug ) {
 		 *         return 'terms' === $feature_slug ? true : $is_visible;
 		 *     },
@@ -485,14 +485,14 @@ abstract class Feature {
 		 * );
 		 * ```
 		 *
-		 * @hook ep_feature_is_visible
+		 * @hook eprobe_feature_is_visible
 		 * @param {bool}    $is_visible   True to display the feature
 		 * @param {string}  $feature_slug Feature slug
 		 * @param {Feature} $feature      Feature object
 		 * @since 4.5.0
 		 * @return {bool} New $is_visible value
 		 */
-		return apply_filters( 'ep_feature_is_visible', $this->is_visible || $this->is_active(), $this->slug, $this );
+		return apply_filters( 'eprobe_feature_is_visible', $this->is_visible || $this->is_active(), $this->slug, $this );
 	}
 
 	/**
@@ -509,7 +509,7 @@ abstract class Feature {
 		 * Example:
 		 * ```
 		 * add_filter(
-		 *     'ep_feature_is_available',
+		 *     'eprobe_feature_is_available',
 		 *     function ( $is_available, $feature_slug ) {
 		 *         return 'terms' === $feature_slug ? true : $is_available;
 		 *     },
@@ -518,14 +518,14 @@ abstract class Feature {
 		 * );
 		 * ```
 		 *
-		 * @hook ep_feature_is_available
+		 * @hook eprobe_feature_is_available
 		 * @param {bool}    $is_available True if the feature is available
 		 * @param {string}  $feature_slug Feature slug
 		 * @param {Feature} $feature      Feature object
 		 * @since 4.5.0
 		 * @return {bool} New $is_available value
 		 */
-		return apply_filters( 'ep_feature_is_available', $this->is_visible() && 2 !== $requirements_status->code, $this->slug, $this );
+		return apply_filters( 'eprobe_feature_is_available', $this->is_visible() && 2 !== $requirements_status->code, $this->slug, $this );
 	}
 
 	/**
@@ -585,14 +585,14 @@ abstract class Feature {
 		/**
 		 * Filter the settings schema of a feature
 		 *
-		 * @hook ep_feature_is_available
+		 * @hook eprobe_feature_is_available
 		 * @since 5.0.0
 		 * @param {array}   $settings_schema True if the feature is available
 		 * @param {string}  $feature_slug    Feature slug
 		 * @param {Feature} $feature         Feature object
 		 * @return {array} New $settings_schema value
 		 */
-		return apply_filters( 'ep_feature_settings_schema', $settings_schema, $this->slug, $this );
+		return apply_filters( 'eprobe_feature_settings_schema', $settings_schema, $this->slug, $this );
 	}
 
 	/**

@@ -31,14 +31,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-define( 'EP_URL', plugin_dir_url( __FILE__ ) );
-define( 'EP_PATH', plugin_dir_path( __FILE__ ) );
-define( 'EP_FILE', plugin_basename( __FILE__ ) );
-define( 'EP_VERSION', '0.2.1' );
+define( 'EPROBE_URL', plugin_dir_url( __FILE__ ) );
+define( 'EPROBE_PATH', plugin_dir_path( __FILE__ ) );
+define( 'EPROBE_FILE', plugin_basename( __FILE__ ) );
+define( 'EPROBE_VERSION', '0.2.1' );
 
-define( 'EP_PHP_VERSION_MIN', '7.4' );
+define( 'EPROBE_PHP_VERSION_MIN', '7.4' );
 
-if ( ! version_compare( phpversion(), EP_PHP_VERSION_MIN, '>=' ) ) {
+if ( ! version_compare( phpversion(), EPROBE_PHP_VERSION_MIN, '>=' ) ) {
 	add_action(
 		'admin_notices',
 		function () {
@@ -50,7 +50,7 @@ if ( ! version_compare( phpversion(), EP_PHP_VERSION_MIN, '>=' ) ) {
 						sprintf(
 							/* translators: %s: Minimum required PHP version */
 							__( 'ElasticProbe requires PHP version %s or later. Please upgrade PHP or disable the plugin.', 'elasticprobe' ),
-							EP_PHP_VERSION_MIN
+							EPROBE_PHP_VERSION_MIN
 						)
 					);
 					?>
@@ -101,24 +101,24 @@ spl_autoload_register(
 /**
  * We compare the current ES version to this compatibility version number. Compatibility is true when:
  *
- * EP_ES_VERSION_MIN <= YOUR ES VERSION <= EP_ES_VERSION_MAX
+ * EPROBE_ES_VERSION_MIN <= YOUR ES VERSION <= EPROBE_ES_VERSION_MAX
  *
  * We don't check minor releases so if your ES version if 7.10.1, we consider that 7.10 in our comparison.
  *
  * @since  2.2
  */
-define( 'EP_ES_VERSION_MAX', '8.99' );
-define( 'EP_ES_VERSION_MIN', '7.0' );
+define( 'EPROBE_ES_VERSION_MAX', '8.99' );
+define( 'EPROBE_ES_VERSION_MIN', '7.0' );
 
 require_once __DIR__ . '/includes/compat.php';
 require_once __DIR__ . '/includes/utils.php';
 require_once __DIR__ . '/includes/health-check.php';
 
 // Define a constant if we're network activated to allow plugin to respond accordingly.
-$network_activated = Utils\is_network_activated( EP_FILE );
+$network_activated = Utils\is_network_activated( EPROBE_FILE );
 
 if ( $network_activated ) {
-	define( 'EP_IS_NETWORK', true );
+	define( 'EPROBE_IS_NETWORK', true );
 }
 
 /**
@@ -217,11 +217,11 @@ function register_indexable_posts() {
 	 * Filter the query logger object
 	 *
 	 * @since 4.4.0
-	 * @hook ep_query_logger
+	 * @hook eprobe_query_logger
 	 * @param {QueryLogger} $query_logger Default query logger
 	 * @return {QueryLogger} New query logger
 	 */
-	$query_logger = apply_filters( 'ep_query_logger', new \ElasticProbe\QueryLogger() );
+	$query_logger = apply_filters( 'eprobe_query_logger', new \ElasticProbe\QueryLogger() );
 	get_container()->set( '\ElasticProbe\QueryLogger', $query_logger, true );
 
 	get_container()->set( '\ElasticProbe\BlockTemplateUtils', new \ElasticProbe\BlockTemplateUtils(), true );
@@ -231,13 +231,13 @@ add_action( 'plugins_loaded', __NAMESPACE__ . '\register_indexable_posts' );
 /**
  * Set the availability of dashboard sync functionality. Defaults to true (enabled).
  *
- * Sync can be disabled by defining EP_DASHBOARD_SYNC as false in wp-config.php.
+ * Sync can be disabled by defining EPROBE_DASHBOARD_SYNC as false in wp-config.php.
  * NOTE: Must be defined BEFORE `require_once(ABSPATH . 'wp-settings.php');` in wp-config.php.
  *
  * @since  2.3
  */
-if ( ! defined( 'EP_DASHBOARD_SYNC' ) ) {
-	define( 'EP_DASHBOARD_SYNC', true );
+if ( ! defined( 'EPROBE_DASHBOARD_SYNC' ) ) {
+	define( 'EPROBE_DASHBOARD_SYNC', true );
 }
 
 /**
@@ -316,6 +316,6 @@ register_activation_hook( __FILE__, __NAMESPACE__ . '\setup_roles' );
  * Fires after ElasticProbe plugin is loaded
  *
  * @since  2.0
- * @hook elasticpress_loaded
+ * @hook elasticprobe_loaded
  */
-do_action( 'elasticpress_loaded' );
+do_action( 'elasticprobe_loaded' );

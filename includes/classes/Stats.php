@@ -158,7 +158,7 @@ class Stats {
 	 * @since 3.x
 	 */
 	private function populate_indices_stats() {
-		$network_activated = defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK;
+		$network_activated = defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK;
 		$blog_id           = get_current_blog_id();
 		$site_indices      = $this->get_indices_for_site( $blog_id );
 
@@ -194,9 +194,9 @@ class Stats {
 		 * @return  {array} List of indices to use
 		 *
 		 * @since   3.x
-		 * @hook    ep_index_health_stats_indices
+		 * @hook    eprobe_index_health_stats_indices
 		 */
-		$filtered_indices = apply_filters( 'ep_index_health_stats_indices', $filtered_indices, $indices );
+		$filtered_indices = apply_filters( 'eprobe_index_health_stats_indices', $filtered_indices, $indices );
 
 		foreach ( $filtered_indices as $index ) {
 			$this->populate_index_stats( $index['index'], $index['health'] );

@@ -37,7 +37,7 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 		 */
 		wp_register_script(
 			'ep-facets-post-type-block-script',
-			EP_URL . 'dist/js/facets-post-type-block-script.js',
+			EPROBE_URL . 'dist/js/facets-post-type-block-script.js',
 			Utils\get_asset_info( 'facets-post-type-block-script', 'dependencies' ),
 			Utils\get_asset_info( 'facets-post-type-block-script', 'version' ),
 			true
@@ -46,7 +46,7 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 		wp_set_script_translations( 'ep-facets-post-type-block-script', 'elasticprobe' );
 
 		register_block_type_from_metadata(
-			EP_PATH . 'assets/js/blocks/facets/post-type',
+			EPROBE_PATH . 'assets/js/blocks/facets/post-type',
 			[
 				'render_callback' => [ $this, 'render_block' ],
 			]
@@ -63,7 +63,7 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 		global $wp_query;
 
 		if ( $attributes['isPreview'] ) {
-			add_filter( 'ep_is_facetable', '__return_true' );
+			add_filter( 'eprobe_is_facetable', '__return_true' );
 
 			$search = Features::factory()->get_registered_feature( 'search' );
 
@@ -76,7 +76,7 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 		}
 
 		/** This filter is documented in includes/classes/Feature/Facets/Types/Taxonomy/Block.php */
-		$renderer_class = apply_filters( 'ep_facet_renderer_class', __NAMESPACE__ . '\Renderer', 'post-type', 'block', $attributes );
+		$renderer_class = apply_filters( 'eprobe_facet_renderer_class', __NAMESPACE__ . '\Renderer', 'post-type', 'block', $attributes );
 		$renderer       = new $renderer_class();
 
 		ob_start();

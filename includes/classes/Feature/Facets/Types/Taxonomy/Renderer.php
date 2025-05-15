@@ -94,14 +94,14 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 			 * Filter arguments passed to get_terms() while getting all possible terms for the facet widget.
 			 *
 			 * @since  3.5.0
-			 * @hook ep_facet_search_get_terms_args
+			 * @hook eprobe_facet_search_get_terms_args
 			 * @param  {array} $terms_args Array of arguments passed to get_terms()
 			 * @param  {array} $args Widget args
 			 * @param  {array} $instance Instance settings
 			 * @return  {array} New terms args
 			 */
 			apply_filters(
-				'ep_facet_search_get_terms_args',
+				'eprobe_facet_search_get_terms_args',
 				[
 					'taxonomy'               => $taxonomy,
 					'hide_empty'             => true,
@@ -137,7 +137,7 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 		 * Example of usage, to hide unavailable category terms:
 		 * ```
 		 * add_filter(
-		 *     'ep_facet_taxonomy_terms',
+		 *     'eprobe_facet_taxonomy_terms',
 		 *     function ( $terms, $taxonomy ) {
 		 *         if ( 'category' !== $taxonomy ) {
 		 *             return $terms;
@@ -156,12 +156,12 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 		 * ```
 		 *
 		 * @since 4.3.1
-		 * @hook ep_facet_taxonomy_terms
+		 * @hook eprobe_facet_taxonomy_terms
 		 * @param {array} $terms Terms
 		 * @param {string} $taxonomy Taxonomy name
 		 * @return {array} New terms
 		 */
-		$terms_by_slug = apply_filters( 'ep_facet_taxonomy_terms', $terms_by_slug, $taxonomy );
+		$terms_by_slug = apply_filters( 'eprobe_facet_taxonomy_terms', $terms_by_slug, $taxonomy );
 
 		if ( empty( $terms_by_slug ) ) {
 			return;
@@ -199,13 +199,13 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 		/**
 		 * Filter facet search threshold
 		 *
-		 * @hook ep_facet_search_threshold
+		 * @hook eprobe_facet_search_threshold
 		 * @param  {int} $search_threshold Search threshold
 		 * @param  {string} $taxonomy Current taxonomy
 		 * @param  {string} $context Hint about where the value will be used
 		 * @return  {int} New threshold
 		 */
-		$search_threshold = apply_filters( 'ep_facet_search_threshold', 15, $taxonomy, 'taxonomy' );
+		$search_threshold = apply_filters( 'eprobe_facet_search_threshold', 15, $taxonomy, 'taxonomy' );
 		?>
 
 		<div class="terms <?php if ( count( $terms_by_slug ) > $search_threshold ) : ?>searchable<?php endif; ?>">
@@ -345,7 +345,7 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 			/**
 			 * Filter facet search widget HTML
 			 *
-			 * @hook ep_facet_search_widget
+			 * @hook eprobe_facet_search_widget
 			 * @param  {string} $facet_html Widget HTML
 			 * @param  {array} $selected_filters Selected filters
 			 * @param  {array} $terms_by_slug Terms by slug
@@ -353,7 +353,7 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 			 * @param  {string} $title Widget title
 			 * @return  {string} New HTML
 			 */
-			echo apply_filters( 'ep_facet_search_widget', $facet_html, $selected_filters, $terms_by_slug, $outputted_terms, $instance['title'] );
+			echo apply_filters( 'eprobe_facet_search_widget', $facet_html, $selected_filters, $terms_by_slug, $outputted_terms, $instance['title'] );
 			// phpcs:enable
 			?>
 		</div>
@@ -404,13 +404,13 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 		 * Filter the label for an individual facet term.
 		 *
 		 * @since 3.6.3
-		 * @hook ep_facet_widget_term_label
+		 * @hook eprobe_facet_widget_term_label
 		 * @param {string} $label Facet term label.
 		 * @param {WP_Term} $item Term object.
 		 * @param {boolean} $selected Whether the term is selected.
 		 * @return {string} Individual facet term label.
 		 */
-		$label = apply_filters( 'ep_facet_widget_term_label', $label, $item, $item->is_selected );
+		$label = apply_filters( 'eprobe_facet_widget_term_label', $label, $item, $item->is_selected );
 
 		/**
 		 * Filter the accessible label for an individual facet term link.
@@ -421,14 +421,14 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 		 * added or removed.
 		 *
 		 * @since 4.0.0
-		 * @hook ep_facet_widget_term_accessible_label
+		 * @hook eprobe_facet_widget_term_accessible_label
 		 * @param {string} $label Facet term accessible label.
 		 * @param {WP_Term} $item Term object.
 		 * @param {boolean} $selected Whether the term is selected.
 		 * @return {string} Individual facet term accessible label.
 		 */
 		$accessible_label = apply_filters(
-			'ep_facet_widget_term_accessible_label',
+			'eprobe_facet_widget_term_accessible_label',
 			$item->is_selected
 				/* translators: %s: Filter term name. */
 				? sprintf( __( 'Remove filter: %s', 'elasticprobe' ), $item->name )
@@ -467,14 +467,14 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 		 *
 		 * @since 3.6.3
 		 * @deprecated 4.7.0
-		 * @hook ep_facet_widget_term_html
+		 * @hook eprobe_facet_widget_term_html
 		 * @param {string} $html Facet term HTML.
 		 * @param {WP_Term} $term Term object.
 		 * @param {string} $url Filter URL.
 		 * @param {boolean} $selected Whether the term is selected.
 		 * @return {string} Individual facet term HTML.
 		 */
-		$html = apply_filters_deprecated( 'ep_facet_widget_term_html', array( $html, $item, $url, $item->is_selected ), '4.7.0', 'ep_facet_taxonomy_value_html' );
+		$html = apply_filters_deprecated( 'eprobe_facet_widget_term_html', array( $html, $item, $url, $item->is_selected ), '4.7.0', 'eprobe_facet_taxonomy_value_html' );
 
 		/**
 		 * Filter the HTML for an individual facet post-type value.
@@ -484,13 +484,13 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 		 * lowercase versions of the term name and slug respectively.
 		 *
 		 * @since 4.7.0
-		 * @hook ep_facet_taxonomy_value_html
+		 * @hook eprobe_facet_taxonomy_value_html
 		 * @param {string} $html  Facet post-type value HTML.
 		 * @param {array}  $item Value array. It contains `value`, `name`, `count`, and `is_selected`.
 		 * @param {string} $url   Filter URL.
 		 * @return {string} Individual facet taxonomy value HTML.
 		 */
-		return apply_filters( 'ep_facet_taxonomy_value_html', $html, $item, $url );
+		return apply_filters( 'eprobe_facet_taxonomy_value_html', $html, $item, $url );
 	}
 
 	/**

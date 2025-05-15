@@ -47,13 +47,13 @@ class QueryIntegration {
 		 * Filter whether to enable query integration during indexing
 		 *
 		 * @since 4.5.2
-		 * @hook ep_enable_query_integration_during_indexing
+		 * @hook eprobe_enable_query_integration_during_indexing
 		 *
 		 * @param {bool} $enable To allow query integration during indexing
 		 * @param {string} $indexable_slug Indexable slug
 		 * @return {bool} New value
 		 */
-		$allow_query_integration_during_indexing = apply_filters( 'ep_enable_query_integration_during_indexing', false, $indexable_slug );
+		$allow_query_integration_during_indexing = apply_filters( 'eprobe_enable_query_integration_during_indexing', false, $indexable_slug );
 
 		// Check if we are currently indexing
 		if ( Utils\is_indexing() && ! $allow_query_integration_during_indexing ) {
@@ -78,13 +78,13 @@ class QueryIntegration {
 		/**
 		 * Filter to skip WP_Comment_Query integration
 		 *
-		 * @hook ep_skip_comment_query_integration
+		 * @hook eprobe_skip_comment_query_integration
 		 * @since 3.6.0
 		 * @param  {bool} $skip True to skip
 		 * @param  {WP_Comment_Query} $query WP_Comment_Query to evaluate
 		 * @return {bool} New skip value
 		 */
-		if ( ! Indexables::factory()->get( 'comment' )->elasticpress_enabled( $query ) || apply_filters( 'ep_skip_comment_query_integration', false, $query ) ) {
+		if ( ! Indexables::factory()->get( 'comment' )->elasticpress_enabled( $query ) || apply_filters( 'eprobe_skip_comment_query_integration', false, $query ) ) {
 			return;
 		}
 
@@ -108,20 +108,20 @@ class QueryIntegration {
 	public function maybe_filter_query( $results, WP_Comment_Query $query ) {
 		$this->indexable = Indexables::factory()->get( 'comment' );
 
-		if ( ! $this->indexable->elasticpress_enabled( $query ) || apply_filters( 'ep_skip_comment_query_integration', false, $query ) ) {
+		if ( ! $this->indexable->elasticpress_enabled( $query ) || apply_filters( 'eprobe_skip_comment_query_integration', false, $query ) ) {
 			return $results;
 		}
 
 		/**
 		 * Filter cached comments pre-post query
 		 *
-		 * @hook ep_wp_query_cached_comments
+		 * @hook eprobe_wp_query_cached_comments
 		 * @since 3.6.0
 		 * @param  {mixed} $comments Comments or null
 		 * @param  {WP_Comment_Query} $query WP_Comment_Query object
 		 * @return {array} New cached comments
 		 */
-		$new_comments = apply_filters( 'ep_wp_query_cached_comments', null, $query );
+		$new_comments = apply_filters( 'eprobe_wp_query_cached_comments', null, $query );
 
 		if ( null !== $new_comments ) {
 			return $new_comments;
@@ -162,9 +162,9 @@ class QueryIntegration {
 		 * @param mixed $scope The search scope. Accepts `all` (string), a single
 		 *                     site id (int or string), or an array of site ids (array).
 		 */
-		$scope = apply_filters( 'ep_comment_search_scope', $scope );
+		$scope = apply_filters( 'eprobe_comment_search_scope', $scope );
 
-		if ( ! defined( 'EP_IS_NETWORK' ) || ! EP_IS_NETWORK ) {
+		if ( ! defined( 'EPROBE_IS_NETWORK' ) || ! EPROBE_IS_NETWORK ) {
 			$scope = 'current';
 		}
 

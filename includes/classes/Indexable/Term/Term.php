@@ -84,13 +84,13 @@ class Term extends Indexable {
 		/**
 		 * Filter full Elasticsearch query for Terms indexable
 		 *
-		 * @hook ep_term_formatted_args
+		 * @hook eprobe_term_formatted_args
 		 * @param  {array} $query Elasticsearch query
 		 * @param  {array} $query_vars Query variables
 		 * @since  3.4
 		 * @return {array} New query
 		 */
-		return apply_filters( 'ep_term_formatted_args', $formatted_args, $query_vars );
+		return apply_filters( 'eprobe_term_formatted_args', $formatted_args, $query_vars );
 	}
 
 	/**
@@ -103,7 +103,7 @@ class Term extends Indexable {
 		$es_version = Elasticsearch::factory()->get_elasticsearch_version();
 
 		if ( empty( $es_version ) ) {
-			$es_version = apply_filters( 'ep_fallback_elasticsearch_version', '2.0' );
+			$es_version = apply_filters( 'eprobe_fallback_elasticsearch_version', '2.0' );
 		}
 		$es_version = (string) $es_version;
 
@@ -116,22 +116,22 @@ class Term extends Indexable {
 		/**
 		 * Filter mapping file for Terms indexable
 		 *
-		 * @hook ep_term_mapping_file
+		 * @hook eprobe_term_mapping_file
 		 * @param  {string} $file File name
 		 * @since  3.4
 		 * @return {string} New file name
 		 */
-		$mapping = require apply_filters( 'ep_term_mapping_file', __DIR__ . '/../../../mappings/term/' . $mapping_file );
+		$mapping = require apply_filters( 'eprobe_term_mapping_file', __DIR__ . '/../../../mappings/term/' . $mapping_file );
 
 		/**
 		 * Filter full Elasticsearch query for Terms indexable
 		 *
-		 * @hook ep_term_mapping
+		 * @hook eprobe_term_mapping
 		 * @param  {array} $mapping Elasticsearch mapping
 		 * @since  3.4
 		 * @return {array} New mapping
 		 */
-		$mapping = apply_filters( 'ep_term_mapping', $mapping );
+		$mapping = apply_filters( 'eprobe_term_mapping', $mapping );
 
 		return $mapping;
 	}
@@ -169,13 +169,13 @@ class Term extends Indexable {
 		/**
 		 * Filter term fields pre-sync
 		 *
-		 * @hook ep_term_sync_args
+		 * @hook eprobe_term_sync_args
 		 * @param  {array} $term_args Current term fields
 		 * @param  {int} $term_id Term ID
 		 * @since  3.4
 		 * @return {array} New fields
 		 */
-		$term_args = apply_filters( 'ep_term_sync_args', $term_args, $term_id );
+		$term_args = apply_filters( 'eprobe_term_sync_args', $term_args, $term_id );
 
 		return $term_args;
 	}
@@ -216,12 +216,12 @@ class Term extends Indexable {
 		/**
 		 * Filter database arguments for term query
 		 *
-		 * @hook ep_term_query_db_args
+		 * @hook eprobe_term_query_db_args
 		 * @param  {array} $args Query arguments based to WP_Term_Query
 		 * @since  3.4
 		 * @return {array} New arguments
 		 */
-		$args = apply_filters( 'ep_term_query_db_args', wp_parse_args( $args, $defaults ) );
+		$args = apply_filters( 'eprobe_term_query_db_args', wp_parse_args( $args, $defaults ) );
 
 		$all_query_args = $args;
 
@@ -260,12 +260,12 @@ class Term extends Indexable {
 			/**
 			 * Filter database arguments for term count query
 			 *
-			 * @hook ep_term_all_query_db_args
+			 * @hook eprobe_term_all_query_db_args
 			 * @param  {array} $args Query arguments based to `wp_count_terms()`
 			 * @since  3.4
 			 * @return {array} New arguments
 			 */
-			$total_objects = wp_count_terms( apply_filters( 'ep_term_all_query_db_args', $all_query_args, $args ) );
+			$total_objects = wp_count_terms( apply_filters( 'eprobe_term_all_query_db_args', $all_query_args, $args ) );
 			$total_objects = ! is_wp_error( $total_objects ) ? (int) $total_objects : 0;
 
 			if ( ! empty( $args['offset'] ) ) {
@@ -382,12 +382,12 @@ class Term extends Indexable {
 		/**
 		 * Filter indexable taxonomies for Terms indexable
 		 *
-		 * @hook ep_indexable_taxonomies
+		 * @hook eprobe_indexable_taxonomies
 		 * @param  {array} $public_taxonomies Taxonomies
 		 * @since  3.4
 		 * @return {array} New taxonomies array
 		 */
-		return apply_filters( 'ep_indexable_taxonomies', $public_taxonomies );
+		return apply_filters( 'eprobe_indexable_taxonomies', $public_taxonomies );
 	}
 
 	/**
@@ -438,12 +438,12 @@ class Term extends Indexable {
 		 * Allows for specifying private meta keys that may be indexed in the same manner as public meta keys.
 		 *
 		 * @since 3.4
-		 * @hook ep_prepare_term_meta_allowed_protected_keys
+		 * @hook eprobe_prepare_term_meta_allowed_protected_keys
 		 * @param {array} $allowed_protected_keys Array of index-able private meta keys.
 		 * @param {int} $term_id Term ID.
 		 * @return {array} New meta keys
 		 */
-		$allowed_protected_keys = apply_filters( 'ep_prepare_term_meta_allowed_protected_keys', [], $term_id );
+		$allowed_protected_keys = apply_filters( 'eprobe_prepare_term_meta_allowed_protected_keys', [], $term_id );
 
 		/**
 		 * Filter non-indexed public meta
@@ -451,13 +451,13 @@ class Term extends Indexable {
 		 * Allows for specifying public meta keys that should be excluded from the ElasticProbe index.
 		 *
 		 * @since 3.4
-		 * @hook ep_prepare_term_meta_excluded_public_keys
+		 * @hook eprobe_prepare_term_meta_excluded_public_keys
 		 * @param {array} $public_keys  Array of public meta keys to exclude from index.
 		 * @param {int} $term_id Term ID.
 		 * @return {array} New keys
 		 */
 		$excluded_public_keys = apply_filters(
-			'ep_prepare_term_meta_excluded_public_keys',
+			'eprobe_prepare_term_meta_excluded_public_keys',
 			[
 				'session_tokens',
 			],
@@ -482,13 +482,13 @@ class Term extends Indexable {
 			 * Filter kill switch for any term meta
 			 *
 			 * @since 3.4
-			 * @hook ep_prepare_term_meta_whitelist_key
+			 * @hook eprobe_prepare_term_meta_whitelist_key
 			 * @param  {boolean} $index_key Whether to index key or not
 			 * @param {string} $key Key name
 			 * @param {int} $term_id Term ID.
 			 * @return {boolean} New index value
 			 */
-			if ( true === $allow_index || apply_filters( 'ep_prepare_term_meta_whitelist_key', false, $key, $term_id ) ) {
+			if ( true === $allow_index || apply_filters( 'eprobe_prepare_term_meta_whitelist_key', false, $key, $term_id ) ) {
 				$prepared_meta[ $key ] = maybe_unserialize( $value );
 			}
 		}
@@ -680,7 +680,7 @@ class Term extends Indexable {
 			 *
 			 * @since 2.3.0
 			 */
-			$number = apply_filters( 'ep_max_results_window', 10000 );
+			$number = apply_filters( 'eprobe_max_results_window', 10000 );
 		}
 
 		return $number;
@@ -1173,13 +1173,13 @@ class Term extends Indexable {
 		/**
 		 * Filter fields to search on Term query
 		 *
-		 * @hook ep_term_search_fields
+		 * @hook eprobe_term_search_fields
 		 * @param  {array} $search_fields Search fields
 		 * @param  {array} $query_vars Query variables
 		 * @since  3.4
 		 * @return {array} New search fields
 		 */
-		$prepared_search_fields = apply_filters( 'ep_term_search_fields', $prepared_search_fields, $query_vars );
+		$prepared_search_fields = apply_filters( 'eprobe_term_search_fields', $prepared_search_fields, $query_vars );
 
 		$search_algorithm        = $this->get_search_algorithm( $search, $prepared_search_fields, $query_vars );
 		$formatted_args['query'] = $search_algorithm->get_query( 'term', $search, $prepared_search_fields, $query_vars );

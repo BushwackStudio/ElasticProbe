@@ -51,9 +51,9 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		add_action( 'set_object_terms', [ $this, 'action_sync_on_object_update' ], 10, 2 );
 
 		// Clear index settings cache
-		add_action( 'ep_update_index_settings', [ $this, 'clear_index_settings_cache' ] );
-		add_action( 'ep_after_put_mapping', [ $this, 'clear_index_settings_cache' ] );
-		add_action( 'ep_saved_weighting_configuration', [ $this, 'clear_index_settings_cache' ] );
+		add_action( 'eprobe_update_index_settings', [ $this, 'clear_index_settings_cache' ] );
+		add_action( 'eprobe_after_put_mapping', [ $this, 'clear_index_settings_cache' ] );
+		add_action( 'eprobe_saved_weighting_configuration', [ $this, 'clear_index_settings_cache' ] );
 	}
 
 	/**
@@ -72,9 +72,9 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		remove_action( 'set_object_terms', [ $this, 'action_sync_on_object_update' ] );
 
 		// Clear index settings cache
-		remove_action( 'ep_update_index_settings', [ $this, 'clear_index_settings_cache' ] );
-		remove_action( 'ep_after_put_mapping', [ $this, 'clear_index_settings_cache' ] );
-		remove_action( 'ep_saved_weighting_configuration', [ $this, 'clear_index_settings_cache' ] );
+		remove_action( 'eprobe_update_index_settings', [ $this, 'clear_index_settings_cache' ] );
+		remove_action( 'eprobe_after_put_mapping', [ $this, 'clear_index_settings_cache' ] );
+		remove_action( 'eprobe_saved_weighting_configuration', [ $this, 'clear_index_settings_cache' ] );
 	}
 
 	/**
@@ -92,11 +92,11 @@ class SyncManager extends \ElasticProbe\SyncManager {
 			return;
 		}
 
-		if ( apply_filters( 'ep_term_sync_kill', false, $term_id ) ) {
+		if ( apply_filters( 'eprobe_term_sync_kill', false, $term_id ) ) {
 			return;
 		}
 
-		do_action( 'ep_sync_term_on_transition', $term_id );
+		do_action( 'eprobe_sync_term_on_transition', $term_id );
 
 		$this->add_to_queue( $term_id );
 
@@ -111,11 +111,11 @@ class SyncManager extends \ElasticProbe\SyncManager {
 				return;
 			}
 
-			if ( apply_filters( 'ep_term_sync_kill', false, $hierarchy_term_id ) ) {
+			if ( apply_filters( 'eprobe_term_sync_kill', false, $hierarchy_term_id ) ) {
 				return;
 			}
 
-			do_action( 'ep_sync_term_on_transition', $hierarchy_term_id );
+			do_action( 'eprobe_sync_term_on_transition', $hierarchy_term_id );
 
 			$this->add_to_queue( $hierarchy_term_id );
 		}
@@ -150,11 +150,11 @@ class SyncManager extends \ElasticProbe\SyncManager {
 				return;
 			}
 
-			if ( apply_filters( 'ep_term_sync_kill', false, $term->term_id ) ) {
+			if ( apply_filters( 'eprobe_term_sync_kill', false, $term->term_id ) ) {
 				return;
 			}
 
-			do_action( 'ep_sync_term_on_transition', $term->term_id );
+			do_action( 'eprobe_sync_term_on_transition', $term->term_id );
 
 			$this->add_to_queue( $term->term_id );
 
@@ -168,11 +168,11 @@ class SyncManager extends \ElasticProbe\SyncManager {
 					return;
 				}
 
-				if ( apply_filters( 'ep_term_sync_kill', false, $hierarchy_term_id ) ) {
+				if ( apply_filters( 'eprobe_term_sync_kill', false, $hierarchy_term_id ) ) {
 					return;
 				}
 
-				do_action( 'ep_sync_term_on_transition', $hierarchy_term_id );
+				do_action( 'eprobe_sync_term_on_transition', $hierarchy_term_id );
 
 				$this->add_to_queue( $hierarchy_term_id );
 			}
@@ -231,15 +231,15 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		$hierarchy = array_merge( $ancestors, $children );
 
 		foreach ( $hierarchy as $hierarchy_term_id ) {
-			if ( apply_filters( 'ep_term_sync_kill', false, $hierarchy_term_id ) ) {
+			if ( apply_filters( 'eprobe_term_sync_kill', false, $hierarchy_term_id ) ) {
 				return;
 			}
 
-			if ( ! current_user_can( 'edit_term', $term_id ) && ! apply_filters( 'ep_sync_insert_permissions_bypass', false, $term_id, 'term' ) ) {
+			if ( ! current_user_can( 'edit_term', $term_id ) && ! apply_filters( 'eprobe_sync_insert_permissions_bypass', false, $term_id, 'term' ) ) {
 				continue;
 			}
 
-			do_action( 'ep_sync_term_on_transition', $hierarchy_term_id );
+			do_action( 'eprobe_sync_term_on_transition', $hierarchy_term_id );
 
 			$this->add_to_queue( $hierarchy_term_id );
 		}

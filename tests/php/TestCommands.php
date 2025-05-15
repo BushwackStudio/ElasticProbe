@@ -229,7 +229,7 @@ class TestCommands extends BaseTestCase {
 		$this->expectExceptionMessage( 'Mapping failed: This was forced to fail' );
 
 		add_filter(
-			'ep_config_mapping_request',
+			'eprobe_config_mapping_request',
 			function () {
 				return new \WP_Error( 'test', 'This was forced to fail' );
 			}
@@ -246,7 +246,7 @@ class TestCommands extends BaseTestCase {
 		$this->expectExceptionMessage( 'Mapping failed: This was forced to fail' );
 
 		add_filter(
-			'ep_config_mapping_request',
+			'eprobe_config_mapping_request',
 			function () {
 				return new \WP_Error( 'test', 'This was forced to fail' );
 			}
@@ -646,7 +646,7 @@ class TestCommands extends BaseTestCase {
 
 		// mock the mapping request to return the error
 		add_filter(
-			'ep_config_mapping_request',
+			'eprobe_config_mapping_request',
 			function () {
 				return new \WP_Error( 'test', 'This was forced to fail' );
 			}
@@ -668,7 +668,7 @@ class TestCommands extends BaseTestCase {
 	 */
 	public function testSyncWithForceFlag() {
 		// mock indexing
-		add_filter( 'ep_is_indexing', '__return_true' );
+		add_filter( 'eprobe_is_indexing', '__return_true' );
 
 		$this->command->sync(
 			[],
@@ -837,10 +837,10 @@ class TestCommands extends BaseTestCase {
 		$this->assertJson( $output );
 
 		// test clear option deletes the option.
-		Utils\update_option( 'ep_last_cli_index', 'test_value' );
+		Utils\update_option( 'eprobe_last_cli_index', 'test_value' );
 		$this->command->get_last_cli_sync( [], [ 'clear' => true ] );
 
-		$this->assertFalse( Utils\get_option( 'ep_last_cli_index' ) );
+		$this->assertFalse( Utils\get_option( 'eprobe_last_cli_index' ) );
 	}
 
 	/**
@@ -854,7 +854,7 @@ class TestCommands extends BaseTestCase {
 		$this->assertStringContainsString( 'There is no indexing operation running.', $output );
 
 		// mock sync option
-		ElasticProbe\Utils\update_option( 'ep_index_meta', [ 'indexing' => true ] );
+		ElasticProbe\Utils\update_option( 'eprobe_index_meta', [ 'indexing' => true ] );
 
 		$this->command->stop_sync( [], [] );
 
@@ -872,7 +872,7 @@ class TestCommands extends BaseTestCase {
 
 		$output = $this->getActualOutputForAssertion();
 		$this->assertStringContainsString( 'Done', $output );
-		$this->assertEquals( 1, ElasticProbe\Utils\get_option( 'ep_search_algorithm_version' ) );
+		$this->assertEquals( 1, ElasticProbe\Utils\get_option( 'eprobe_search_algorithm_version' ) );
 
 		// clean output buffer
 		ob_clean();
@@ -882,7 +882,7 @@ class TestCommands extends BaseTestCase {
 
 		$output = $this->getActualOutputForAssertion();
 		$this->assertStringContainsString( 'Done', $output );
-		$this->assertEmpty( ElasticProbe\Utils\get_option( 'ep_search_algorithm_version' ) );
+		$this->assertEmpty( ElasticProbe\Utils\get_option( 'eprobe_search_algorithm_version' ) );
 	}
 
 	/**
@@ -901,7 +901,7 @@ class TestCommands extends BaseTestCase {
 	public function testGetSearchAlgorithmVersion() {
 
 		// set default version.
-		Utils\update_option( 'ep_search_algorithm_version', '' );
+		Utils\update_option( 'eprobe_search_algorithm_version', '' );
 		$this->command->get_search_algorithm_version( [], [] );
 
 		$output = $this->getActualOutputForAssertion();
@@ -911,7 +911,7 @@ class TestCommands extends BaseTestCase {
 		ob_clean();
 
 		// set version 1.
-		Utils\update_option( 'ep_search_algorithm_version', '1' );
+		Utils\update_option( 'eprobe_search_algorithm_version', '1' );
 		$this->command->get_search_algorithm_version( [], [] );
 
 		$output = $this->getActualOutputForAssertion();
@@ -1014,9 +1014,9 @@ class TestCommands extends BaseTestCase {
 		$this->expectExceptionMessage( 'Error: Request failed.' );
 
 		// mock request
-		add_filter( 'ep_intercept_remote_request', '__return_true' );
+		add_filter( 'eprobe_intercept_remote_request', '__return_true' );
 		add_filter(
-			'ep_do_intercept_request',
+			'eprobe_do_intercept_request',
 			function () {
 				return new \WP_Error( 400, 'Error: Request failed.' );
 			}
@@ -1088,7 +1088,7 @@ class TestCommands extends BaseTestCase {
 	 */
 	public function testShouldInterruptSync() {
 
-		set_transient( 'ep_wpcli_sync_interrupted', true );
+		set_transient( 'eprobe_wpcli_sync_interrupted', true );
 
 		Utility::should_interrupt_sync();
 
@@ -1105,7 +1105,7 @@ class TestCommands extends BaseTestCase {
 		$this->expectExceptionMessage( 'Elasticsearch host is not set.' );
 
 		// set host to empty string
-		add_filter( 'ep_host', '__return_empty_string' );
+		add_filter( 'eprobe_host', '__return_empty_string' );
 
 		$this->command->sync( [], [] );
 	}
@@ -1216,7 +1216,7 @@ class TestCommands extends BaseTestCase {
 		$this->expectExceptionMessage( 'An index is already occurring. Try again later.' );
 
 		// mock indexing
-		add_filter( 'ep_is_indexing', '__return_true' );
+		add_filter( 'eprobe_is_indexing', '__return_true' );
 
 		$this->command->sync( [], [] );
 	}

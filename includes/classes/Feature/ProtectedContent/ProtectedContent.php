@@ -58,25 +58,25 @@ class ProtectedContent extends Feature {
 	 * @since  2.1
 	 */
 	public function setup() {
-		add_filter( 'ep_indexable_post_status', [ $this, 'get_statuses' ] );
-		add_filter( 'ep_indexable_post_types', [ $this, 'post_types' ], 10, 1 );
-		add_filter( 'ep_post_formatted_args', [ $this, 'exclude_protected_posts' ], 10, 2 );
-		add_filter( 'ep_index_posts_args', [ $this, 'query_password_protected_posts' ] );
-		add_filter( 'ep_post_sync_args', [ $this, 'include_post_password' ], 10, 2 );
-		add_filter( 'ep_post_sync_args', [ $this, 'remove_fields_from_password_protected' ], 11, 2 );
-		add_filter( 'ep_search_post_return_args', [ $this, 'return_post_password' ] );
-		add_filter( 'ep_skip_autosave_sync', '__return_false' );
-		add_filter( 'ep_pre_kill_sync_for_password_protected', [ $this, 'sync_password_protected' ], 10, 2 );
+		add_filter( 'eprobe_indexable_post_status', [ $this, 'get_statuses' ] );
+		add_filter( 'eprobe_indexable_post_types', [ $this, 'post_types' ], 10, 1 );
+		add_filter( 'eprobe_post_formatted_args', [ $this, 'exclude_protected_posts' ], 10, 2 );
+		add_filter( 'eprobe_index_posts_args', [ $this, 'query_password_protected_posts' ] );
+		add_filter( 'eprobe_post_sync_args', [ $this, 'include_post_password' ], 10, 2 );
+		add_filter( 'eprobe_post_sync_args', [ $this, 'remove_fields_from_password_protected' ], 11, 2 );
+		add_filter( 'eprobe_search_post_return_args', [ $this, 'return_post_password' ] );
+		add_filter( 'eprobe_skip_autosave_sync', '__return_false' );
+		add_filter( 'eprobe_pre_kill_sync_for_password_protected', [ $this, 'sync_password_protected' ], 10, 2 );
 
 		if ( is_admin() ) {
-			add_filter( 'ep_admin_wp_query_integration', '__return_true' );
+			add_filter( 'eprobe_admin_wp_query_integration', '__return_true' );
 			add_action( 'pre_get_posts', [ $this, 'integrate' ] );
-			add_filter( 'ep_post_query_db_args', [ $this, 'query_password_protected_posts' ] );
-			add_filter( 'ep_set_sort', [ $this, 'maybe_change_sort' ] );
+			add_filter( 'eprobe_post_query_db_args', [ $this, 'query_password_protected_posts' ] );
+			add_filter( 'eprobe_set_sort', [ $this, 'maybe_change_sort' ] );
 		}
 
 		if ( Features::factory()->get_registered_feature( 'comments' )->is_active() ) {
-			add_filter( 'ep_indexable_comment_status', [ $this, 'get_comment_statuses' ] );
+			add_filter( 'eprobe_indexable_comment_status', [ $this, 'get_comment_statuses' ] );
 			add_action( 'pre_get_comments', [ $this, 'integrate_comments_query' ] );
 		}
 	}
@@ -153,20 +153,20 @@ class ProtectedContent extends Feature {
 		/**
 		 * Filter protected content supported post types. For backwards compatibility.
 		 *
-		 * @hook ep_admin_supported_post_types
+		 * @hook eprobe_admin_supported_post_types
 		 * @param  {array} $post_types Post types
 		 * @return  {array} New post types
 		 */
-		$supported_post_types = apply_filters( 'ep_admin_supported_post_types', $post_types );
+		$supported_post_types = apply_filters( 'eprobe_admin_supported_post_types', $post_types );
 
 		/**
 		 * Filter protected content supported post types.
 		 *
-		 * @hook ep_pc_supported_post_types
+		 * @hook eprobe_pc_supported_post_types
 		 * @param  {array} $supported_post_types Supported post types
 		 * @return  {array} New post types
 		 */
-		$supported_post_types = apply_filters( 'ep_pc_supported_post_types', $supported_post_types );
+		$supported_post_types = apply_filters( 'eprobe_pc_supported_post_types', $supported_post_types );
 
 		$post_type = $query->get( 'post_type' );
 
@@ -193,7 +193,7 @@ class ProtectedContent extends Feature {
 		 */
 		$search_feature = Features::factory()->get_registered_feature( 'search' );
 
-		remove_filter( 'ep_formatted_args', [ $search_feature, 'weight_recent' ], 10 );
+		remove_filter( 'eprobe_formatted_args', [ $search_feature, 'weight_recent' ], 10 );
 	}
 
 	/**
@@ -233,7 +233,7 @@ class ProtectedContent extends Feature {
 	 *
 	 * As some solutions publicly expose full post contents, this method prevents password
 	 * protected posts to have their full content and their meta fields indexed. Developers
-	 * wanting to bypass this behavior can use the `ep_pc_skip_post_content_cleanup` filter.
+	 * wanting to bypass this behavior can use the `eprobe_pc_skip_post_content_cleanup` filter.
 	 *
 	 * @param array $post_args Post arguments
 	 * @param int   $post_id   Post ID
@@ -247,14 +247,14 @@ class ProtectedContent extends Feature {
 		/**
 		 * Filter to skip the password protected content clean up.
 		 *
-		 * @hook ep_pc_skip_post_content_cleanup
+		 * @hook eprobe_pc_skip_post_content_cleanup
 		 * @since 4.0.0, 4.2.0 added $post_args and $post_id
 		 * @param  {bool}  $skip      Whether the password protected content should have their content, and meta removed
 		 * @param  {array} $post_args Post arguments
 		 * @param  {int}   $post_id   Post ID
 		 * @return {bool}
 		 */
-		if ( apply_filters( 'ep_pc_skip_post_content_cleanup', false, $post_args, $post_id ) ) {
+		if ( apply_filters( 'eprobe_pc_skip_post_content_cleanup', false, $post_args, $post_id ) ) {
 			return $post_args;
 		}
 
@@ -294,12 +294,12 @@ class ProtectedContent extends Feature {
 			/**
 			 * Filter to exclude protected posts from search.
 			 *
-			 * @hook ep_exclude_password_protected_from_search
+			 * @hook eprobe_exclude_password_protected_from_search
 			 * @since 4.0.0
 			 * @param  {bool} $exclude Exclude post from search.
 			 * @return {bool}
 			 */
-			if ( ( ! is_user_logged_in() && ! empty( $args['s'] ) ) || apply_filters( 'ep_exclude_password_protected_from_search', false ) ) {
+			if ( ( ! is_user_logged_in() && ! empty( $args['s'] ) ) || apply_filters( 'eprobe_exclude_password_protected_from_search', false ) ) {
 				$formatted_args['post_filter']['bool']['must_not'][] = array(
 					'exists' => array(
 						'field' => 'post_password',
@@ -345,12 +345,12 @@ class ProtectedContent extends Feature {
 		/**
 		 * Filter protected content supported comment types.
 		 *
-		 * @hook ep_pc_supported_comment_types
+		 * @hook eprobe_pc_supported_comment_types
 		 * @since 3.6.0
 		 * @param  {array} $comment_types Comment types
 		 * @return  {array} New comment types
 		 */
-		$supported_comment_types = apply_filters( 'ep_pc_supported_comment_types', $comment_types );
+		$supported_comment_types = apply_filters( 'eprobe_pc_supported_comment_types', $comment_types );
 
 		$comment_type = $comment_query->query_vars['type'];
 
@@ -440,7 +440,7 @@ class ProtectedContent extends Feature {
 	 *
 	 * @since 5.1.4
 	 *
-	 * @param array $default_sort The previous value of the `ep_set_sort` filter
+	 * @param array $default_sort The previous value of the `eprobe_set_sort` filter
 	 * @return array
 	 */
 	public function maybe_change_sort( $default_sort ) {

@@ -369,7 +369,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 		$args = array_merge( [ 'post_type' => 'product' ], $query_args );
 
 		add_filter(
-			'ep_post_formatted_args',
+			'eprobe_post_formatted_args',
 			function ( $formatted_args ) use ( $expected ) {
 				$this->assertEquals( $expected, $formatted_args['sort'] );
 				return $formatted_args;
@@ -438,7 +438,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 		$wc_list_table = new \WC_Admin_List_Table_Products();
 
 		add_filter(
-			'ep_post_filters',
+			'eprobe_post_filters',
 			function ( $filters ) {
 				$expected_result = array(
 					'terms' => array(
@@ -485,7 +485,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 		$wc_list_table = new \WC_Admin_List_Table_Products();
 
 		add_filter(
-			'ep_post_formatted_args',
+			'eprobe_post_formatted_args',
 			function ( $formatted_args, ) {
 				$this->assertEquals( 'findme', $formatted_args['query']['function_score']['query']['bool']['should'][0]['multi_match']['query'] );
 				$this->assertEquals(
@@ -557,7 +557,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 		$wp_query->is_search = true;
 
 		add_filter(
-			'ep_post_formatted_args',
+			'eprobe_post_formatted_args',
 			function ( $formatted_args ) {
 
 				$expected_result = array(
@@ -862,7 +862,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	}
 
 	/**
-	 * Test the ep_woocommerce_admin_products_list_search_fields filter
+	 * Test the eprobe_woocommerce_admin_products_list_search_fields filter
 	 *
 	 * @group woocommerce
 	 * @group woocommerce-products
@@ -884,7 +884,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 		$search_fields_function = function () {
 			return [ 'post_title', 'post_content' ];
 		};
-		add_filter( 'ep_woocommerce_admin_products_list_search_fields', $search_fields_function );
+		add_filter( 'eprobe_woocommerce_admin_products_list_search_fields', $search_fields_function );
 
 		$query = new \WP_Query( $query_args );
 		$this->assertEquals(
@@ -992,14 +992,14 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 		$this->assertSame( $default_supported, [ 'product_variation' ] );
 
 		/**
-		 * Test the `ep_woocommerce_products_supported_post_types` filter
+		 * Test the `eprobe_woocommerce_products_supported_post_types` filter
 		 */
 		$add_post_type = function ( $post_types, $filter_query ) use ( $query ) {
 			$this->assertSame( $filter_query, $query );
 			$post_types[] = 'post';
 			return $post_types;
 		};
-		add_filter( 'ep_woocommerce_products_supported_post_types', $add_post_type, 10, 2 );
+		add_filter( 'eprobe_woocommerce_products_supported_post_types', $add_post_type, 10, 2 );
 
 		$custom_supported = $this->products->get_supported_post_types( $query );
 		$this->assertSame( $custom_supported, [ 'product_variation', 'post' ] );
@@ -1025,13 +1025,13 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 		$this->assertSame( $default_supported, $expected );
 
 		/**
-		 * Test the `ep_woocommerce_products_supported_taxonomies` filter
+		 * Test the `eprobe_woocommerce_products_supported_taxonomies` filter
 		 */
 		$add_taxonomy = function ( $taxonomies ) {
 			$taxonomies[] = 'custom_category';
 			return $taxonomies;
 		};
-		add_filter( 'ep_woocommerce_products_supported_taxonomies', $add_taxonomy );
+		add_filter( 'eprobe_woocommerce_products_supported_taxonomies', $add_taxonomy );
 
 		$custom_supported = $this->products->get_supported_taxonomies();
 		$this->assertSame( $custom_supported, array_merge( $expected, [ 'custom_category' ] ) );

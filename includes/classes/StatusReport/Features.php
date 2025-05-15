@@ -35,7 +35,7 @@ class Features extends Report {
 	 * @return array
 	 */
 	public function get_groups(): array {
-		$features_settings = \ElasticProbe\Utils\get_option( 'ep_feature_settings', [] );
+		$features_settings = \ElasticProbe\Utils\get_option( 'eprobe_feature_settings', [] );
 
 		$features = array_filter(
 			EP_Features::factory()->registered_features,
@@ -80,7 +80,7 @@ class Features extends Report {
 	 * @return array New fields
 	 */
 	protected function get_search_extra_fields( array $fields, Search $feature ): array {
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 			return $fields;
 		}
 

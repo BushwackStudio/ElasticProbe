@@ -89,13 +89,13 @@ class Autosuggest extends Feature {
 	 */
 	public function setup() {
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
-		add_filter( 'ep_post_mapping', [ $this, 'mapping' ] );
-		add_filter( 'ep_post_sync_args', [ $this, 'filter_term_suggest' ], 10 );
-		add_filter( 'ep_post_fuzziness_arg', [ $this, 'set_fuzziness' ], 10, 3 );
-		add_filter( 'ep_weighted_query_for_post_type', [ $this, 'adjust_fuzzy_fields' ], 10, 3 );
-		add_filter( 'ep_saved_weighting_configuration', [ $this, 'epio_send_autosuggest_public_request' ] );
+		add_filter( 'eprobe_post_mapping', [ $this, 'mapping' ] );
+		add_filter( 'eprobe_post_sync_args', [ $this, 'filter_term_suggest' ], 10 );
+		add_filter( 'eprobe_post_fuzziness_arg', [ $this, 'set_fuzziness' ], 10, 3 );
+		add_filter( 'eprobe_weighted_query_for_post_type', [ $this, 'adjust_fuzzy_fields' ], 10, 3 );
+		add_filter( 'eprobe_saved_weighting_configuration', [ $this, 'epio_send_autosuggest_public_request' ] );
 		add_filter( 'wp', [ $this, 'epio_send_autosuggest_allowed' ] );
-		add_filter( 'ep_pre_sync_index', [ $this, 'epio_send_autosuggest_public_request' ] );
+		add_filter( 'eprobe_pre_sync_index', [ $this, 'epio_send_autosuggest_public_request' ] );
 	}
 
 	/**
@@ -129,15 +129,15 @@ class Autosuggest extends Feature {
 			return;
 		}
 
-		$endpoint_url = ( defined( 'EP_AUTOSUGGEST_ENDPOINT' ) && EP_AUTOSUGGEST_ENDPOINT ) ? EP_AUTOSUGGEST_ENDPOINT : $settings['endpoint_url'];
+		$endpoint_url = ( defined( 'EPROBE_AUTOSUGGEST_ENDPOINT' ) && EPROBE_AUTOSUGGEST_ENDPOINT ) ? EPROBE_AUTOSUGGEST_ENDPOINT : $settings['endpoint_url'];
 		?>
 
 		<div class="field">
 			<div class="field-name status"><label for="feature_autosuggest_endpoint_url"><?php esc_html_e( 'Endpoint URL', 'elasticprobe' ); ?></label></div>
 			<div class="input-wrap">
-				<input <?php disabled( defined( 'EP_AUTOSUGGEST_ENDPOINT' ) && EP_AUTOSUGGEST_ENDPOINT ); ?> value="<?php echo esc_url( $endpoint_url ); ?>" type="text" name="settings[endpoint_url]" id="feature_autosuggest_endpoint_url">
+				<input <?php disabled( defined( 'EPROBE_AUTOSUGGEST_ENDPOINT' ) && EPROBE_AUTOSUGGEST_ENDPOINT ); ?> value="<?php echo esc_url( $endpoint_url ); ?>" type="text" name="settings[endpoint_url]" id="feature_autosuggest_endpoint_url">
 
-				<?php if ( defined( 'EP_AUTOSUGGEST_ENDPOINT' ) && EP_AUTOSUGGEST_ENDPOINT ) : ?>
+				<?php if ( defined( 'EPROBE_AUTOSUGGEST_ENDPOINT' ) && EPROBE_AUTOSUGGEST_ENDPOINT ) : ?>
 					<p class="field-description"><?php esc_html_e( 'Your autosuggest endpoint is set in wp-config.php', 'elasticprobe' ); ?></p>
 				<?php endif; ?>
 
@@ -214,12 +214,12 @@ class Autosuggest extends Feature {
 		/**
 		 * Filter autosuggest ngram fields
 		 *
-		 * @hook ep_autosuggest_ngram_fields
+		 * @hook eprobe_autosuggest_ngram_fields
 		 * @param  {array} $fields Fields available to ngram
 		 * @return  {array} New fields array
 		 */
 		$ngram_fields = apply_filters(
-			'ep_autosuggest_ngram_fields',
+			'eprobe_autosuggest_ngram_fields',
 			[
 				'post_title'        => 'post_title.suggest',
 				'terms\.(.+)\.name' => 'term_suggest',
@@ -355,8 +355,8 @@ class Autosuggest extends Feature {
 		$host     = Utils\get_host();
 		$settings = $this->get_settings();
 
-		if ( defined( 'EP_AUTOSUGGEST_ENDPOINT' ) && EP_AUTOSUGGEST_ENDPOINT ) {
-			$endpoint_url = EP_AUTOSUGGEST_ENDPOINT;
+		if ( defined( 'EPROBE_AUTOSUGGEST_ENDPOINT' ) && EPROBE_AUTOSUGGEST_ENDPOINT ) {
+			$endpoint_url = EPROBE_AUTOSUGGEST_ENDPOINT;
 		} elseif ( Utils\is_epio() ) {
 				$endpoint_url = trailingslashit( $host ) . Indexables::factory()->get( 'post' )->get_index_name() . '/autosuggest';
 		} else {
@@ -369,7 +369,7 @@ class Autosuggest extends Feature {
 
 		wp_enqueue_script(
 			'elasticpress-autosuggest',
-			EP_URL . 'dist/js/autosuggest-script.js',
+			EPROBE_URL . 'dist/js/autosuggest-script.js',
 			Utils\get_asset_info( 'autosuggest-script', 'dependencies' ),
 			Utils\get_asset_info( 'autosuggest-script', 'version' ),
 			true
@@ -379,7 +379,7 @@ class Autosuggest extends Feature {
 
 		wp_enqueue_style(
 			'elasticpress-autosuggest',
-			EP_URL . 'dist/css/autosuggest-styles.css',
+			EPROBE_URL . 'dist/css/autosuggest-styles.css',
 			Utils\get_asset_info( 'autosuggest-styles', 'dependencies' ),
 			Utils\get_asset_info( 'autosuggest-styles', 'version' )
 		);
@@ -400,22 +400,22 @@ class Autosuggest extends Feature {
 			/**
 			 * Filter autosuggest default selectors.
 			 *
-			 * @hook ep_autosuggest_default_selectors
+			 * @hook eprobe_autosuggest_default_selectors
 			 * @since 3.6.0
 			 * @param {string} $selectors Default selectors used to attach autosuggest.
 			 * @return {string} Selectors used to attach autosuggest.
 			 */
-			'defaultSelectors'    => apply_filters( 'ep_autosuggest_default_selectors', '.ep-autosuggest, input[type="search"], .search-field' ),
+			'defaultSelectors'    => apply_filters( 'eprobe_autosuggest_default_selectors', '.ep-autosuggest, input[type="search"], .search-field' ),
 			'action'              => 'navigate',
 			'mimeTypes'           => [],
 			/**
 			 * Filter autosuggest HTTP headers
 			 *
-			 * @hook ep_autosuggest_http_headers
+			 * @hook eprobe_autosuggest_http_headers
 			 * @param  {array} $headers Autosuggest HTTP headers in name => value format
 			 * @return  {array} HTTP headers
 			 */
-			'http_headers'        => apply_filters( 'ep_autosuggest_http_headers', [] ),
+			'http_headers'        => apply_filters( 'eprobe_autosuggest_http_headers', [] ),
 			'triggerAnalytics'    => ! empty( $settings['trigger_ga_event'] ),
 			'addSearchTermHeader' => false,
 			'requestIdBase'       => Utils\get_request_id_base(),
@@ -435,8 +435,8 @@ class Autosuggest extends Feature {
 
 		if ( ! empty( $search_settings ) && $search_settings['highlight_enabled'] ) {
 			$epas_options['highlightingEnabled'] = true;
-			$epas_options['highlightingTag']     = apply_filters( 'ep_highlighting_tag', $search_settings['highlight_tag'] );
-			$epas_options['highlightingClass']   = apply_filters( 'ep_highlighting_class', 'ep-highlight' );
+			$epas_options['highlightingTag']     = apply_filters( 'eprobe_highlighting_tag', $search_settings['highlight_tag'] );
+			$epas_options['highlightingClass']   = apply_filters( 'eprobe_highlighting_class', 'ep-highlight' );
 		}
 
 		/**
@@ -452,12 +452,12 @@ class Autosuggest extends Feature {
 			/**
 			 * Filter autosuggest JavaScript options
 			 *
-			 * @hook ep_autosuggest_options
+			 * @hook eprobe_autosuggest_options
 			 * @param  {array} $options Autosuggest options to be localized
 			 * @return  {array} New options
 			 */
 			apply_filters(
-				'ep_autosuggest_options',
+				'eprobe_autosuggest_options',
 				$epas_options
 			)
 		);
@@ -474,11 +474,11 @@ class Autosuggest extends Feature {
 		/**
 		 * Filter autosuggest query placeholder
 		 *
-		 * @hook ep_autosuggest_query_placeholder
+		 * @hook eprobe_autosuggest_query_placeholder
 		 * @param  {string} $placeholder Autosuggest placeholder to be replaced later
 		 * @return  {string} New placeholder
 		 */
-		$placeholder = apply_filters( 'ep_autosuggest_query_placeholder', 'ep_autosuggest_placeholder' );
+		$placeholder = apply_filters( 'eprobe_autosuggest_query_placeholder', 'ep_autosuggest_placeholder' );
 
 		/** Features Class @var Features $features */
 		$features = Features::factory();
@@ -488,11 +488,11 @@ class Autosuggest extends Feature {
 		/**
 		 * Filter post types available to autosuggest
 		 *
-		 * @hook ep_term_suggest_post_type
+		 * @hook eprobe_term_suggest_post_type
 		 * @param  {array} $post_types Post types
 		 * @return  {array} New post types
 		 */
-		$post_type = apply_filters( 'ep_term_suggest_post_type', array_values( $post_type ) );
+		$post_type = apply_filters( 'eprobe_term_suggest_post_type', array_values( $post_type ) );
 
 		$post_status = get_post_stati(
 			[
@@ -504,16 +504,16 @@ class Autosuggest extends Feature {
 		/**
 		 * Filter post statuses available to autosuggest
 		 *
-		 * @hook ep_term_suggest_post_status
+		 * @hook eprobe_term_suggest_post_status
 		 * @param  {array} $post_statuses Post statuses
 		 * @return  {array} New post statuses
 		 */
-		$post_status = apply_filters( 'ep_term_suggest_post_status', array_values( $post_status ) );
+		$post_status = apply_filters( 'eprobe_term_suggest_post_status', array_values( $post_status ) );
 
-		add_filter( 'ep_intercept_remote_request', [ $this, 'intercept_remote_request' ] );
-		add_filter( 'ep_weighting_configuration', [ $features->get_registered_feature( $this->slug ), 'apply_autosuggest_weighting' ] );
+		add_filter( 'eprobe_intercept_remote_request', [ $this, 'intercept_remote_request' ] );
+		add_filter( 'eprobe_weighting_configuration', [ $features->get_registered_feature( $this->slug ), 'apply_autosuggest_weighting' ] );
 
-		add_filter( 'ep_do_intercept_request', [ $features->get_registered_feature( $this->slug ), 'intercept_search_request' ], 10, 2 );
+		add_filter( 'eprobe_do_intercept_request', [ $features->get_registered_feature( $this->slug ), 'intercept_search_request' ], 10, 2 );
 
 		add_filter( 'posts_pre_query', [ $features->get_registered_feature( $this->slug ), 'return_empty_posts' ], 100, 1 ); // after ES Query to ensure we are not falling back to DB in any case
 
@@ -525,7 +525,7 @@ class Autosuggest extends Feature {
 			 *
 			 * ```
 			 * add_filter(
-			 *     'ep_autosuggest_query_args',
+			 *     'eprobe_autosuggest_query_args',
 			 *     function( $args ) {
 			 *         $args['posts_per_page'] = 20;
 			 *         return $args;
@@ -534,12 +534,12 @@ class Autosuggest extends Feature {
 			 * ```
 			 *
 			 * @since 4.4.0
-			 * @hook ep_autosuggest_query_args
+			 * @hook eprobe_autosuggest_query_args
 			 * @param {array} $args Query args
 			 * @return {array} New query args
 			 */
 			apply_filters(
-				'ep_autosuggest_query_args',
+				'eprobe_autosuggest_query_args',
 				[
 					'post_type'    => $post_type,
 					'post_status'  => $post_status,
@@ -551,11 +551,11 @@ class Autosuggest extends Feature {
 
 		remove_filter( 'posts_pre_query', [ $features->get_registered_feature( $this->slug ), 'return_empty_posts' ], 100 );
 
-		remove_filter( 'ep_do_intercept_request', [ $features->get_registered_feature( $this->slug ), 'intercept_search_request' ] );
+		remove_filter( 'eprobe_do_intercept_request', [ $features->get_registered_feature( $this->slug ), 'intercept_search_request' ] );
 
-		remove_filter( 'ep_weighting_configuration', [ $features->get_registered_feature( $this->slug ), 'apply_autosuggest_weighting' ] );
+		remove_filter( 'eprobe_weighting_configuration', [ $features->get_registered_feature( $this->slug ), 'apply_autosuggest_weighting' ] );
 
-		remove_filter( 'ep_intercept_remote_request', [ $this, 'intercept_remote_request' ] );
+		remove_filter( 'eprobe_intercept_remote_request', [ $this, 'intercept_remote_request' ] );
 
 		return [
 			'body'        => $this->autosuggest_query,
@@ -583,11 +583,11 @@ class Autosuggest extends Feature {
 		/**
 		 * Filter autosuggest weighting configuration
 		 *
-		 * @hook ep_weighting_configuration_for_autosuggest
+		 * @hook eprobe_weighting_configuration_for_autosuggest
 		 * @param  {array} $config Configuration
 		 * @return  {array} New config
 		 */
-		$config = apply_filters( 'ep_weighting_configuration_for_autosuggest', $config );
+		$config = apply_filters( 'eprobe_weighting_configuration_for_autosuggest', $config );
 		return $config;
 	}
 
@@ -700,10 +700,10 @@ class Autosuggest extends Feature {
 		/**
 		 * Fires before the request is sent to EP.io to set Autosuggest allowed values.
 		 *
-		 * @hook ep_epio_pre_send_autosuggest_allowed
+		 * @hook eprobe_epio_pre_send_autosuggest_allowed
 		 * @since  3.5.x
 		 */
-		do_action( 'ep_epio_pre_send_autosuggest_allowed' );
+		do_action( 'eprobe_epio_pre_send_autosuggest_allowed' );
 
 		/**
 		 * The same ES query sent by autosuggest.
@@ -717,10 +717,10 @@ class Autosuggest extends Feature {
 		 * Filter autosuggest ES query
 		 *
 		 * @since  3.5.x
-		 * @hook ep_epio_autosuggest_es_query
+		 * @hook eprobe_epio_autosuggest_es_query
 		 * @param  {array} The ES Query.
 		 */
-		$es_search_query = apply_filters( 'ep_epio_autosuggest_es_query', $es_search_query );
+		$es_search_query = apply_filters( 'eprobe_epio_autosuggest_es_query', $es_search_query );
 
 		/**
 		 * Here is a chance to short-circuit the execution. Also, during the sync
@@ -732,19 +732,19 @@ class Autosuggest extends Feature {
 
 		$index = Indexables::factory()->get( 'post' )->get_index_name();
 
-		add_filter( 'ep_format_request_headers', [ $this, 'add_ep_set_autosuggest_header' ] );
+		add_filter( 'eprobe_format_request_headers', [ $this, 'add_ep_set_autosuggest_header' ] );
 
 		Elasticsearch::factory()->query( $index, 'post', $es_search_query, [] );
 
-		remove_filter( 'ep_format_request_headers', [ $this, 'add_ep_set_autosuggest_header' ] );
+		remove_filter( 'eprobe_format_request_headers', [ $this, 'add_ep_set_autosuggest_header' ] );
 
 		/**
 		 * Fires after the request is sent to EP.io to set Autosuggest allowed values.
 		 *
-		 * @hook ep_epio_sent_autosuggest_allowed
+		 * @hook eprobe_epio_sent_autosuggest_allowed
 		 * @since  3.5.x
 		 */
-		do_action( 'ep_epio_sent_autosuggest_allowed' );
+		do_action( 'eprobe_epio_sent_autosuggest_allowed' );
 	}
 
 	/**
@@ -791,7 +791,7 @@ class Autosuggest extends Feature {
 			<?php
 			$epio_link                = 'https://wpprobe.com';
 			$epio_autosuggest_kb_link = 'https://www.elasticpress.io/documentation/article/elasticpress-io-autosuggest/';
-			$status_report_link       = defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ? network_admin_url( 'admin.php?page=elasticprobe-status-report' ) : admin_url( 'admin.php?page=elasticprobe-status-report' );
+			$status_report_link       = defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ? network_admin_url( 'admin.php?page=elasticprobe-status-report' ) : admin_url( 'admin.php?page=elasticprobe-status-report' );
 
 			printf(
 				/* translators: 1: <a> tag (WPProbe.com); 2. </a>; 3: <a> tag (KB article); 4. </a>; 5: <a> tag (Site Health Debug Section); 6. </a>; */
@@ -841,7 +841,7 @@ class Autosuggest extends Feature {
 	/**
 	 * Return true, so EP knows we want to intercept the remote request
 	 *
-	 * As we add and remove this function from `ep_intercept_remote_request`,
+	 * As we add and remove this function from `eprobe_intercept_remote_request`,
 	 * using `__return_true` could remove a *real* `__return_true` added by someone else.
 	 *
 	 * @since 4.7.0
@@ -864,7 +864,7 @@ class Autosuggest extends Feature {
 
 		$epio_link                = 'https://wpprobe.com';
 		$epio_autosuggest_kb_link = 'https://www.elasticpress.io/documentation/article/elasticpress-io-autosuggest/';
-		$status_report_link       = defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ? network_admin_url( 'admin.php?page=elasticprobe-status-report' ) : admin_url( 'admin.php?page=elasticprobe-status-report' );
+		$status_report_link       = defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ? network_admin_url( 'admin.php?page=elasticprobe-status-report' ) : admin_url( 'admin.php?page=elasticprobe-status-report' );
 
 		$this->settings_schema[] = [
 			'key'   => 'epio',
@@ -908,7 +908,7 @@ class Autosuggest extends Feature {
 		$this->maybe_add_epio_settings_schema();
 
 		if ( ! Utils\is_epio() ) {
-			$set_in_wp_config = defined( 'EP_AUTOSUGGEST_ENDPOINT' ) && EP_AUTOSUGGEST_ENDPOINT;
+			$set_in_wp_config = defined( 'EPROBE_AUTOSUGGEST_ENDPOINT' ) && EPROBE_AUTOSUGGEST_ENDPOINT;
 
 			$this->settings_schema[] = [
 				'disabled' => $set_in_wp_config,
@@ -943,11 +943,11 @@ class Autosuggest extends Feature {
 		/**
 		 * Filter contexts for autosuggest.
 		 *
-		 * @hook ep_autosuggest_contexts
+		 * @hook eprobe_autosuggest_contexts
 		 * @since 5.1.0
 		 * @param {array} $contexts Contexts for autosuggest
 		 * @return {array} New contexts
 		 */
-		return apply_filters( 'ep_autosuggest_contexts', [ 'public', 'ajax' ] );
+		return apply_filters( 'eprobe_autosuggest_contexts', [ 'public', 'ajax' ] );
 	}
 }

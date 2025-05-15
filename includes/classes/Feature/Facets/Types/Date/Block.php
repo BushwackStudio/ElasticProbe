@@ -37,7 +37,7 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 		 */
 		wp_register_script(
 			'ep-facets-date-block-script',
-			EP_URL . 'dist/js/facets-date-block-script.js',
+			EPROBE_URL . 'dist/js/facets-date-block-script.js',
 			Utils\get_asset_info( 'facets-date-block-script', 'dependencies' ),
 			Utils\get_asset_info( 'facets-date-block-script', 'version' ),
 			true
@@ -46,7 +46,7 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 		wp_set_script_translations( 'ep-facets-date-block-script', 'elasticprobe' );
 
 		register_block_type_from_metadata(
-			EP_PATH . 'assets/js/blocks/facets/date',
+			EPROBE_PATH . 'assets/js/blocks/facets/date',
 			[
 				'render_callback' => [ $this, 'render_block' ],
 			]
@@ -61,7 +61,7 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 	public function enqueue_assets() {
 		wp_register_script(
 			'ep-facets-date-block-view-script',
-			EP_URL . 'dist/js/facets-date-block-view-script.js',
+			EPROBE_URL . 'dist/js/facets-date-block-view-script.js',
 			Utils\get_asset_info( 'facets-date-block-view-script', 'dependencies' ),
 			Utils\get_asset_info( 'facets-date-block-view-script', 'version' ),
 			true
@@ -70,12 +70,12 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 		/**
 		 * Filter the data passed to the date facet script.
 		 *
-		 * @hook ep_facets_date_script_data
+		 * @hook eprobe_facets_date_script_data
 		 * @since 5.0.0
 		 * @param  {array} $data Data passed to the script.
 		 * $return {array} New data passed to the script.
 		 */
-		$data = apply_filters( 'ep_facets_date_script_data', [] );
+		$data = apply_filters( 'eprobe_facets_date_script_data', [] );
 
 		wp_localize_script( 'ep-facets-date-block-view-script', 'epFacetDate', $data );
 	}
@@ -88,7 +88,7 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 	 */
 	public function render_block( $attributes ) {
 		/** This filter is documented in includes/classes/Feature/Facets/Types/Taxonomy/Block.php */
-		$renderer_class = apply_filters( 'ep_facet_renderer_class', __NAMESPACE__ . '\Renderer', 'post-type', 'block', $attributes );
+		$renderer_class = apply_filters( 'eprobe_facet_renderer_class', __NAMESPACE__ . '\Renderer', 'post-type', 'block', $attributes );
 		$renderer       = new $renderer_class();
 
 		/**

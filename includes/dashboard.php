@@ -26,23 +26,23 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since  2.1
  */
 function setup() {
-	if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) { // Must be network admin in multisite.
+	if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) { // Must be network admin in multisite.
 		add_action( 'network_admin_menu', __NAMESPACE__ . '\action_admin_menu' );
 		add_action( 'admin_bar_menu', __NAMESPACE__ . '\action_network_admin_bar_menu', 50 );
 	}
 
 	add_action( 'admin_menu', __NAMESPACE__ . '\action_admin_menu' );
-	add_action( 'wp_ajax_ep_save_feature', __NAMESPACE__ . '\action_wp_ajax_ep_save_feature' );
+	add_action( 'wp_ajax_eprobe_save_feature', __NAMESPACE__ . '\action_wp_ajax_ep_save_feature' );
 	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\action_admin_enqueue_dashboard_scripts' );
 	add_action( 'admin_init', __NAMESPACE__ . '\maybe_clear_es_info_cache' );
 	add_action( 'admin_init', __NAMESPACE__ . '\maybe_skip_install' );
-	add_action( 'wp_ajax_ep_notice_dismiss', __NAMESPACE__ . '\action_wp_ajax_ep_notice_dismiss' );
+	add_action( 'wp_ajax_eprobe_notice_dismiss', __NAMESPACE__ . '\action_wp_ajax_ep_notice_dismiss' );
 	add_action( 'admin_notices', __NAMESPACE__ . '\maybe_notice' );
 	add_action( 'network_admin_notices', __NAMESPACE__ . '\maybe_notice' );
 	add_filter( 'plugin_action_links', __NAMESPACE__ . '\filter_plugin_action_links', 10, 2 );
 	add_filter( 'network_admin_plugin_action_links', __NAMESPACE__ . '\filter_plugin_action_links', 10, 2 );
-	add_action( 'ep_add_query_log', __NAMESPACE__ . '\log_version_query_error' );
-	add_filter( 'ep_analyzer_language', __NAMESPACE__ . '\use_language_in_setting', 10, 2 );
+	add_action( 'eprobe_add_query_log', __NAMESPACE__ . '\log_version_query_error' );
+	add_filter( 'eprobe_analyzer_language', __NAMESPACE__ . '\use_language_in_setting', 10, 2 );
 	add_filter( 'wp_kses_allowed_html', __NAMESPACE__ . '\filter_allowed_html', 10, 2 );
 	add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\block_assets' );
 
@@ -56,16 +56,16 @@ function setup() {
 	 * Filter whether to show 'ElasticProbe Indexing' option on Multisite in admin UI or not.
 	 *
 	 * @since  3.6.0
-	 * @hook ep_show_indexing_option_on_multisite
+	 * @hook eprobe_show_indexing_option_on_multisite
 	 * @param  {bool}  $show True to show.
 	 * @return {bool}  New value
 	 */
-	$show_indexing_option_on_multisite = apply_filters( 'ep_show_indexing_option_on_multisite', defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK );
+	$show_indexing_option_on_multisite = apply_filters( 'eprobe_show_indexing_option_on_multisite', defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK );
 
 	if ( $show_indexing_option_on_multisite ) {
 		add_filter( 'wpmu_blogs_columns', __NAMESPACE__ . '\filter_blogs_columns', 10, 1 );
 		add_action( 'manage_sites_custom_column', __NAMESPACE__ . '\add_blogs_column', 10, 2 );
-		add_action( 'wp_ajax_ep_site_admin', __NAMESPACE__ . '\action_wp_ajax_ep_site_admin' );
+		add_action( 'wp_ajax_eprobe_site_admin', __NAMESPACE__ . '\action_wp_ajax_ep_site_admin' );
 	}
 }
 
@@ -140,7 +140,7 @@ function log_version_query_error( $query ) {
 		return;
 	}
 
-	$logging_key = 'logging_ep_es_info';
+	$logging_key = 'logging_eprobe_es_info';
 
 	$logging = Utils\get_transient( $logging_key );
 
@@ -150,13 +150,13 @@ function log_version_query_error( $query ) {
 		 * Filter how long results of Elasticsearch version query are stored
 		 *
 		 * @since  23.0
-		 * @hook ep_es_info_cache_expiration
+		 * @hook eprobe_es_info_cache_expiration
 		 * @param  {int} Time in seconds
 		 * @return  {int} New time in seconds
 		 */
-		$cache_time         = apply_filters( 'ep_es_info_cache_expiration', ( 5 * MINUTE_IN_SECONDS ) );
-		$response_code_key  = 'ep_es_info_response_code';
-		$response_error_key = 'ep_es_info_response_error';
+		$cache_time         = apply_filters( 'eprobe_es_info_cache_expiration', ( 5 * MINUTE_IN_SECONDS ) );
+		$response_code_key  = 'eprobe_es_info_response_code';
+		$response_error_key = 'eprobe_es_info_response_error';
 		$response_code      = 0;
 		$response_error     = '';
 
@@ -199,12 +199,12 @@ function maybe_skip_install() {
 		}
 	}
 
-	if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+	if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 		$redirect_url = network_admin_url( 'admin.php?page=elasticprobe' );
 	} else {
 		$redirect_url = admin_url( 'admin.php?page=elasticprobe' );
 	}
-	Utils\update_option( 'ep_skip_install', true );
+	Utils\update_option( 'eprobe_skip_install', true );
 
 	wp_safe_redirect( $redirect_url );
 	exit;
@@ -229,10 +229,10 @@ function maybe_clear_es_info_cache() {
 		return;
 	}
 
-	if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
-		delete_site_transient( 'ep_es_info' );
+	if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
+		delete_site_transient( 'eprobe_es_info' );
 	} else {
-		delete_transient( 'ep_es_info' );
+		delete_transient( 'eprobe_es_info' );
 	}
 
 	if ( $isset_retry ) {
@@ -271,20 +271,20 @@ function filter_plugin_action_links( $plugin_actions, $plugin_file ) {
 	if ( is_network_admin() ) {
 		$url = admin_url( 'network/admin.php?page=elasticprobe' );
 
-		if ( ! defined( 'EP_IS_NETWORK' ) || ! EP_IS_NETWORK ) {
+		if ( ! defined( 'EPROBE_IS_NETWORK' ) || ! EPROBE_IS_NETWORK ) {
 			return $plugin_actions;
 		}
 	} else {
 		$url = admin_url( 'admin.php?page=elasticprobe' );
 
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 			return $plugin_actions;
 		}
 	}
 
 	$new_actions = [];
 
-	if ( basename( EP_PATH ) . '/elasticprobe.php' === $plugin_file ) {
+	if ( basename( EPROBE_PATH ) . '/elasticprobe.php' === $plugin_file ) {
 		$new_actions['ep_dashboard'] = sprintf( '<a href="%s">%s</a>', esc_url( $url ), __( 'Dashboard', 'elasticprobe' ) );
 	}
 
@@ -306,14 +306,14 @@ function maybe_notice( $force = false ) {
 	 * Filter how long results of Elasticsearch version query are stored
 	 *
 	 * @since  23.0
-	 * @hook ep_es_info_cache_expiration
+	 * @hook eprobe_es_info_cache_expiration
 	 * @param  {int} Time in seconds
 	 * @return  {int} New time in seconds
 	 */
-	$cache_time = apply_filters( 'ep_es_info_cache_expiration', ( 5 * MINUTE_IN_SECONDS ) );
+	$cache_time = apply_filters( 'eprobe_es_info_cache_expiration', ( 5 * MINUTE_IN_SECONDS ) );
 
 	Utils\set_transient(
-		'logging_ep_es_info',
+		'logging_eprobe_es_info',
 		'1',
 		$cache_time
 	);
@@ -417,7 +417,7 @@ function action_wp_ajax_ep_save_feature() {
 
 	// Since we deactivated, delete auto activate notice.
 	if ( empty( $post['settings']['active'] ) ) {
-		Utils\delete_option( 'ep_feature_auto_activated_sync' );
+		Utils\delete_option( 'eprobe_feature_auto_activated_sync' );
 	}
 
 	wp_send_json_success( $data );
@@ -434,7 +434,7 @@ function action_admin_enqueue_dashboard_scripts() {
 
 		wp_enqueue_script(
 			'ep_admin_sites_scripts',
-			EP_URL . 'dist/js/sites-admin-script.js',
+			EPROBE_URL . 'dist/js/sites-admin-script.js',
 			Utils\get_asset_info( 'sites-admin-script', 'dependencies' ),
 			Utils\get_asset_info( 'sites-admin-script', 'version' ),
 			true
@@ -453,13 +453,13 @@ function action_admin_enqueue_dashboard_scripts() {
 	if ( in_array( Screen::factory()->get_current_screen(), [ 'dashboard', 'settings', 'install', 'health', 'weighting', 'synonyms', 'sync', 'status-report' ], true ) ) {
 		wp_enqueue_style(
 			'ep_admin_styles',
-			EP_URL . 'dist/css/dashboard-styles.css',
+			EPROBE_URL . 'dist/css/dashboard-styles.css',
 			Utils\get_asset_info( 'dashboard-styles', 'dependencies' ),
 			Utils\get_asset_info( 'dashboard-styles', 'version' )
 		);
 		wp_enqueue_script(
 			'ep_admin_script',
-			EP_URL . 'dist/js/admin-script.js',
+			EPROBE_URL . 'dist/js/admin-script.js',
 			Utils\get_asset_info( 'admin-script', 'dependencies' ),
 			Utils\get_asset_info( 'admin-script', 'version' ),
 			true
@@ -472,14 +472,14 @@ function action_admin_enqueue_dashboard_scripts() {
 
 		wp_enqueue_style(
 			'ep_weighting_styles',
-			EP_URL . 'dist/css/weighting-script.css',
+			EPROBE_URL . 'dist/css/weighting-script.css',
 			[ 'wp-components', 'wp-edit-post' ],
 			Utils\get_asset_info( 'weighting-script', 'version' )
 		);
 
 		wp_enqueue_script(
 			'ep_weighting_script',
-			EP_URL . 'dist/js/weighting-script.js',
+			EPROBE_URL . 'dist/js/weighting-script.js',
 			Utils\get_asset_info( 'weighting-script', 'dependencies' ),
 			Utils\get_asset_info( 'weighting-script', 'version' ),
 			true
@@ -495,13 +495,13 @@ function action_admin_enqueue_dashboard_scripts() {
 		/**
 		 * Filter weighting dashboard options.
 		 *
-		 * @hook ep_weighting_options
+		 * @hook eprobe_weighting_options
 		 * @param  {array} $data Weighting dashboard options
 		 * @return  {array} New options array
 		 * @since 5.1.0
 		 */
 		$data = apply_filters(
-			'ep_weighting_options',
+			'eprobe_weighting_options',
 			[
 				'apiUrl'                 => $api_url,
 				'metaMode'               => $meta_mode,
@@ -522,7 +522,7 @@ function action_admin_enqueue_dashboard_scripts() {
 	if ( in_array( Screen::factory()->get_current_screen(), [ 'dashboard', 'install' ], true ) ) {
 		wp_enqueue_script(
 			'ep_dashboard_scripts',
-			EP_URL . 'dist/js/dashboard-script.js',
+			EPROBE_URL . 'dist/js/dashboard-script.js',
 			Utils\get_asset_info( 'dashboard-script', 'dependencies' ),
 			Utils\get_asset_info( 'dashboard-script', 'version' ),
 			true
@@ -532,7 +532,7 @@ function action_admin_enqueue_dashboard_scripts() {
 
 		$sync_url = Utils\get_sync_url( true );
 
-		$skip_url = ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) ?
+		$skip_url = ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) ?
 				network_admin_url( 'admin.php?page=elasticprobe' ) :
 				admin_url( 'admin.php?page=elasticprobe' );
 
@@ -558,7 +558,7 @@ function action_admin_enqueue_dashboard_scripts() {
 
 		wp_enqueue_script(
 			'ep_stats',
-			EP_URL . 'dist/js/stats-script.js',
+			EPROBE_URL . 'dist/js/stats-script.js',
 			Utils\get_asset_info( 'stats-script', 'dependencies' ),
 			Utils\get_asset_info( 'stats-script', 'version' ),
 			true
@@ -571,7 +571,7 @@ function action_admin_enqueue_dashboard_scripts() {
 
 	wp_register_script(
 		'ep_notice_script',
-		EP_URL . 'dist/js/notice-script.js',
+		EPROBE_URL . 'dist/js/notice-script.js',
 		Utils\get_asset_info( 'notice-script', 'dependencies' ),
 		Utils\get_asset_info( 'notice-script', 'version' ),
 		true
@@ -589,7 +589,7 @@ function action_admin_enqueue_dashboard_scripts() {
 
 	wp_enqueue_style(
 		'ep_general_styles',
-		EP_URL . 'dist/css/general-styles.css',
+		EPROBE_URL . 'dist/css/general-styles.css',
 		Utils\get_asset_info( 'general-styles', 'dependencies' ),
 		Utils\get_asset_info( 'general-styles', 'version' )
 	);
@@ -622,7 +622,7 @@ function action_admin_menu() {
 		return;
 	}
 
-	$capability = ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) ? Utils\get_network_capability() : Utils\get_capability();
+	$capability = ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) ? Utils\get_network_capability() : Utils\get_capability();
 
 	add_menu_page(
 		'ElasticProbe',
@@ -700,12 +700,12 @@ function get_available_languages( string $format = 'elasticsearch' ): array {
 	 * The returned array should follow the format `Elasticsearch analyzer name => [ WordPress language package names ]`.
 	 *
 	 * @since 4.7.0
-	 * @hook ep_available_languages
+	 * @hook eprobe_available_languages
 	 * @param  {bool} $available_languages List of available languages
 	 * @return {bool} New list
 	 */
 	$es_languages = apply_filters(
-		'ep_available_languages',
+		'eprobe_available_languages',
 		[
 			'arabic'     => [ 'ar', 'ary' ],
 			'armenian'   => [ 'hy' ],
@@ -778,10 +778,10 @@ function use_language_in_setting( $language = 'english', $context = '' ) {
 	global $locale, $wp_local_package;
 
 	// Get the currently set language.
-	$ep_language = Utils\get_language();
+	$eprobe_language = Utils\get_language();
 
 	// Bail early if no EP language is set.
-	if ( empty( $ep_language ) ) {
+	if ( empty( $eprobe_language ) ) {
 		return $language;
 	}
 
@@ -790,18 +790,18 @@ function use_language_in_setting( $language = 'english', $context = '' ) {
 	 *
 	 * @see https://core.trac.wordpress.org/ticket/49263
 	 */
-	if ( 'site-default' === $ep_language ) {
+	if ( 'site-default' === $eprobe_language ) {
 		$locale           = null;
 		$wp_local_package = null;
-		$ep_language      = get_locale();
+		$eprobe_language      = get_locale();
 	}
 
 	require_once ABSPATH . 'wp-admin/includes/translation-install.php';
 	$translations = wp_get_available_translations();
 
 	// Default to en_US if not in the array of available translations.
-	if ( ! empty( $translations[ $ep_language ]['english_name'] ) ) {
-		$wp_language = $translations[ $ep_language ]['language'];
+	if ( ! empty( $translations[ $eprobe_language ]['english_name'] ) ) {
+		$wp_language = $translations[ $eprobe_language ]['language'];
 	} else {
 		$wp_language = 'en_US';
 	}
@@ -985,7 +985,7 @@ function block_categories( $block_categories ) {
 function block_assets() {
 	wp_enqueue_script(
 		'elasticprobe-blocks',
-		EP_URL . 'dist/js/blocks-script.js',
+		EPROBE_URL . 'dist/js/blocks-script.js',
 		Utils\get_asset_info( 'blocks-script', 'dependencies' ),
 		Utils\get_asset_info( 'blocks-script', 'version' ),
 		true

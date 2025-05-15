@@ -82,7 +82,7 @@ class TestRelatedPosts extends BaseTestCase {
 		$this->assertEquals( 1, count( $related ) );
 		$this->assertTrue( isset( $related[0] ) && isset( $related[0]->elasticsearch ) );
 
-		add_filter( 'ep_find_related_args', array( $this, 'find_related_posts_filter' ), 10, 1 );
+		add_filter( 'eprobe_find_related_args', array( $this, 'find_related_posts_filter' ), 10, 1 );
 		$related = ElasticProbe\Features::factory()->get_registered_feature( 'related_posts' )->find_related( $post_id );
 		$this->assertEquals( 2, count( $related ) );
 		$this->assertTrue( isset( $related[0] ) && isset( $related[0]->elasticsearch ) );

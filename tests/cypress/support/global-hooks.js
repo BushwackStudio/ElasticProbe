@@ -22,7 +22,7 @@ before(() => {
 			$features['autosuggest']['endpoint_url'] = $as_endpoint_url;
 		}
 
-		update_option( 'ep_feature_settings', $features );
+		update_option( 'eprobe_feature_settings', $features );
 
 		$index_names = \\ElasticProbe\\Elasticsearch::factory()->get_index_names( 'active' );
 		echo wp_json_encode(

@@ -10,7 +10,7 @@
  */
 
 add_filter(
-	'ep_meta_mode',
+	'eprobe_meta_mode',
 	function () {
 		return 'auto';
 	}

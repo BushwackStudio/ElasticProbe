@@ -13,10 +13,10 @@ namespace ElasticProbe\Tests\E2E\SyncError;
 
 const META_COUNT = 100;
 
-add_filter( 'ep_total_field_limit', fn() => META_COUNT );
+add_filter( 'eprobe_total_field_limit', fn() => META_COUNT );
 
 add_filter(
-	'ep_prepare_meta_data',
+	'eprobe_prepare_meta_data',
 	function ( $post_meta, $post ) {
 		if ( 0 === $post->ID % 2 ) {
 			for ( $i = 0; $i < META_COUNT; $i++ ) {
@@ -31,7 +31,7 @@ add_filter(
 );
 
 add_filter(
-	'ep_prepare_meta_allowed_protected_keys',
+	'eprobe_prepare_meta_allowed_protected_keys',
 	function ( $allowed_meta, $post ) {
 		for ( $i = 0; $i < META_COUNT; $i++ ) {
 			$allowed_meta[] = "test_meta_{$i}_title_{$post->ID}";

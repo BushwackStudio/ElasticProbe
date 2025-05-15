@@ -27,10 +27,10 @@ class QueryLogger {
 	 * Setup the logging functionality
 	 */
 	public function setup() {
-		add_action( 'ep_remote_request', [ $this, 'log_query' ], 10, 2 );
-		add_filter( 'ep_admin_notices', [ $this, 'maybe_add_notice' ] );
+		add_action( 'eprobe_remote_request', [ $this, 'log_query' ], 10, 2 );
+		add_filter( 'eprobe_admin_notices', [ $this, 'maybe_add_notice' ] );
 
-		add_action( 'ep_sync_start_index', [ $this, 'clear_logs' ] );
+		add_action( 'eprobe_sync_start_index', [ $this, 'clear_logs' ] );
 	}
 
 	/**
@@ -40,7 +40,7 @@ class QueryLogger {
 	 * @param string $type  Request type
 	 */
 	public function log_query( $query, $type ) {
-		$last_sync = Utils\get_option( 'ep_last_sync', false );
+		$last_sync = Utils\get_option( 'eprobe_last_sync', false );
 		if ( empty( $last_sync ) ) {
 			return;
 		}
@@ -51,13 +51,13 @@ class QueryLogger {
 		 * Filter the number of queries to keep in the log
 		 *
 		 * @since 4.4.0
-		 * @hook ep_query_logger_queries_to_keep
+		 * @hook eprobe_query_logger_queries_to_keep
 		 * @param {int}    $keep  Number of queries to keep in the log
 		 * @param {array}  $query Remote request arguments
 		 * @param {string} $type  Request type
 		 * @return {int} New number
 		 */
-		$keep = apply_filters( 'ep_query_logger_queries_to_keep', 5, $query, $type );
+		$keep = apply_filters( 'eprobe_query_logger_queries_to_keep', 5, $query, $type );
 
 		if ( $keep > 0 && count( $logs ) >= $keep ) {
 			return;
@@ -74,13 +74,13 @@ class QueryLogger {
 		/**
 		 * Perform actions after a new query is logged
 		 *
-		 * @hook ep_query_logger_logged_query
+		 * @hook eprobe_query_logger_logged_query
 		 * @since 4.4.0
 		 * @param {string} $logs_json_str  The JSON string as stored in the transient
 		 * @param {array}  $query          Remote request arguments
 		 * @param {string} $type           Request type
 		 */
-		do_action( 'ep_query_logger_logged_query', $logs_json_str, $query, $type );
+		do_action( 'eprobe_query_logger_logged_query', $logs_json_str, $query, $type );
 	}
 
 	/**
@@ -90,7 +90,7 @@ class QueryLogger {
 	 * @return array
 	 */
 	public function get_logs( bool $should_filter_old = true ): array {
-		$logs = ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) ?
+		$logs = ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) ?
 			get_site_transient( self::CACHE_KEY, [] ) :
 			get_transient( self::CACHE_KEY, [] );
 
@@ -103,11 +103,11 @@ class QueryLogger {
 			 * Filter the period to keep queried logs. Defaults to DAY_IN_SECONDS
 			 *
 			 * @since 4.4.0
-			 * @hook ep_query_logger_time_to_keep
+			 * @hook eprobe_query_logger_time_to_keep
 			 * @param {int} $period_to_keep The period to keep queried logs, in seconds
 			 * @return {int} New period
 			 */
-			$period_to_keep = apply_filters( 'ep_query_logger_time_to_keep', DAY_IN_SECONDS );
+			$period_to_keep = apply_filters( 'eprobe_query_logger_time_to_keep', DAY_IN_SECONDS );
 
 			$time_limit = $current_time - $period_to_keep;
 
@@ -123,11 +123,11 @@ class QueryLogger {
 		 * Filter the logs
 		 *
 		 * @since 4.4.0
-		 * @hook ep_query_logger_logs
+		 * @hook eprobe_query_logger_logs
 		 * @param {int} $logs The logs array
 		 * @return {int} New array
 		 */
-		$logs = apply_filters( 'ep_query_logger_logs', $logs );
+		$logs = apply_filters( 'eprobe_query_logger_logs', $logs );
 
 		return $logs;
 	}
@@ -142,11 +142,11 @@ class QueryLogger {
 		 * Filter the max cache size. Defaults to MB_IN_BYTES
 		 *
 		 * @since 4.4.0
-		 * @hook ep_query_logger_max_cache_size
+		 * @hook eprobe_query_logger_max_cache_size
 		 * @param {int} $max_cache_size The max cache size in bytes
 		 * @return {int} New size
 		 */
-		$max_cache_size = apply_filters( 'ep_query_logger_max_cache_size', MB_IN_BYTES );
+		$max_cache_size = apply_filters( 'eprobe_query_logger_max_cache_size', MB_IN_BYTES );
 
 		$logs_json_str      = wp_json_encode( $logs );
 		$logs_json_str_size = strlen( $logs_json_str );
@@ -178,9 +178,9 @@ class QueryLogger {
 			}
 		}
 
-		\ElasticProbe\Utils\delete_option( 'ep_hide_has_failed_queries_notice' );
+		\ElasticProbe\Utils\delete_option( 'eprobe_hide_has_failed_queries_notice' );
 
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 			set_site_transient( self::CACHE_KEY, $logs_json_str, DAY_IN_SECONDS );
 		} else {
 			set_transient( self::CACHE_KEY, $logs_json_str, DAY_IN_SECONDS );
@@ -193,7 +193,7 @@ class QueryLogger {
 	 * Clear the stored logs
 	 */
 	public function clear_logs() {
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 			delete_site_transient( self::CACHE_KEY );
 		} else {
 			delete_transient( self::CACHE_KEY );
@@ -202,10 +202,10 @@ class QueryLogger {
 		/**
 		 * Perform actions after clearing the logs
 		 *
-		 * @hook ep_query_logger_cleared_logs
+		 * @hook eprobe_query_logger_cleared_logs
 		 * @since 4.4.0
 		 */
-		do_action( 'ep_query_logger_cleared_logs' );
+		do_action( 'eprobe_query_logger_cleared_logs' );
 	}
 
 	/**
@@ -224,7 +224,7 @@ class QueryLogger {
 			return $notices;
 		}
 
-		if ( \ElasticProbe\Utils\get_option( 'ep_hide_has_failed_queries_notice' ) ) {
+		if ( \ElasticProbe\Utils\get_option( 'eprobe_hide_has_failed_queries_notice' ) ) {
 			return $notices;
 		}
 
@@ -250,7 +250,7 @@ class QueryLogger {
 		} else {
 			$page = 'admin.php?page=elasticprobe-status-report';
 
-			$status_report_url = ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) ?
+			$status_report_url = ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) ?
 				network_admin_url( $page ) :
 				admin_url( $page );
 
@@ -328,13 +328,13 @@ class QueryLogger {
 		 * Filter the formatted query log
 		 *
 		 * @since 4.4.0
-		 * @hook ep_query_logger_formatted_query
+		 * @hook eprobe_query_logger_formatted_query
 		 * @param {array}  $formatted_log The log entry
 		 * @param {array}  $query         The failed query
 		 * @param {string} $type          The query type
 		 * @return {array} Changed log entry
 		 */
-		return apply_filters( 'ep_query_logger_formatted_query', $formatted_log, $query, $type );
+		return apply_filters( 'eprobe_query_logger_formatted_query', $formatted_log, $query, $type );
 	}
 
 	/**
@@ -350,14 +350,14 @@ class QueryLogger {
 		 * the query will be logged.
 		 *
 		 * @since 4.4.0
-		 * @hook ep_query_logger_allowed_log_types
+		 * @hook eprobe_query_logger_allowed_log_types
 		 * @param {array}  $callable_map Array indexed by type and valued by a callable that returns a boolean
 		 * @param {array}  $query        Remote request arguments
 		 * @param {string} $type         Request type
 		 * @return {array} New array
 		 */
 		$allowed_log_types = apply_filters(
-			'ep_query_logger_allowed_log_types',
+			'eprobe_query_logger_allowed_log_types',
 			array(
 				'put_mapping'          => array( $this, 'is_query_error' ),
 				'delete_network_alias' => array( $this, 'is_query_error' ),
@@ -380,13 +380,13 @@ class QueryLogger {
 		 * Filter the formatted query log
 		 *
 		 * @since 4.4.0
-		 * @hook ep_query_logger_should_log_query
+		 * @hook eprobe_query_logger_should_log_query
 		 * @param {bool}   $should_log Whether the query should be logged or not
 		 * @param {array}  $query      The failed query
 		 * @param {string} $type       The query type
 		 * @return {bool} New value of $should_log
 		 */
-		return apply_filters( 'ep_query_logger_should_log_query', $should_log, $query, $type );
+		return apply_filters( 'eprobe_query_logger_should_log_query', $should_log, $query, $type );
 	}
 
 	/**

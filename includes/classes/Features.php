@@ -144,16 +144,16 @@ class Features {
 		 * Save the settings.
 		 */
 		$new_settings = wp_parse_args( [ $slug => $new_feature_settings ], $saved_settings );
-		$new_settings = apply_filters( 'ep_sanitize_feature_settings', $new_settings, $feature );
+		$new_settings = apply_filters( 'eprobe_sanitize_feature_settings', $new_settings, $feature );
 
-		Utils\update_option( 'ep_feature_settings_draft', $new_settings );
+		Utils\update_option( 'eprobe_feature_settings_draft', $new_settings );
 
 		// This is as far as we go if saving just a draft
 		if ( 'draft' === $target ) {
 			return true;
 		}
 
-		Utils\update_option( 'ep_feature_settings', $new_settings );
+		Utils\update_option( 'eprobe_feature_settings', $new_settings );
 
 		/**
 		 * Prepare response.
@@ -202,7 +202,7 @@ class Features {
 		/**
 		 * Fires after activating, inactivating, or just updating a feature.
 		 *
-		 * @hook ep_after_update_feature
+		 * @hook eprobe_after_update_feature
 		 * @param  {string} $feature Feature slug
 		 * @param  {array} $settings Feature settings
 		 * @param  {array} $data Feature activation data
@@ -210,7 +210,7 @@ class Features {
 		 * @since 3.5.5
 		 */
 		do_action(
-			'ep_after_update_feature',
+			'eprobe_after_update_feature',
 			$slug,
 			$settings,
 			$data
@@ -229,7 +229,7 @@ class Features {
 		 * Save our current requirement statuses for later
 		 */
 
-		$old_requirement_statuses = Utils\get_option( 'ep_feature_requirement_statuses', false );
+		$old_requirement_statuses = Utils\get_option( 'eprobe_feature_requirement_statuses', false );
 
 		$new_requirement_statuses = [];
 
@@ -241,14 +241,14 @@ class Features {
 		$is_wp_cli = defined( 'WP_CLI' ) && \WP_CLI;
 
 		if ( $is_wp_cli || is_admin() ) {
-			Utils\update_option( 'ep_feature_requirement_statuses', $new_requirement_statuses );
+			Utils\update_option( 'eprobe_feature_requirement_statuses', $new_requirement_statuses );
 		}
 
 		/**
 		 * If feature settings aren't created, let's create them and finish
 		 */
 
-		$feature_settings = Utils\get_option( 'ep_feature_settings', false );
+		$feature_settings = Utils\get_option( 'eprobe_feature_settings', false );
 
 		if ( false === $feature_settings ) {
 			$registered_features = $this->registered_features;
@@ -290,7 +290,7 @@ class Features {
 				if ( 0 === $code ) {
 					if ( $feature->requires_install_reindex ) {
 						$activate_feature_target = 'draft';
-						Utils\update_option( 'ep_feature_auto_activated_sync', sanitize_text_field( $slug ) );
+						Utils\update_option( 'eprobe_feature_auto_activated_sync', sanitize_text_field( $slug ) );
 					}
 
 					$this->activate_feature( $slug, $activate_feature_target );
@@ -303,7 +303,7 @@ class Features {
 					// Need to activate and maybe set a sync notice
 					if ( $feature->requires_install_reindex ) {
 						$activate_feature_target = 'draft';
-						Utils\update_option( 'ep_feature_auto_activated_sync', sanitize_text_field( $slug ) );
+						Utils\update_option( 'eprobe_feature_auto_activated_sync', sanitize_text_field( $slug ) );
 					}
 
 					$this->activate_feature( $slug, $activate_feature_target );
@@ -324,10 +324,10 @@ class Features {
 		/**
 		 * Fires before features are setup
 		 *
-		 * @hook ep_setup_features
+		 * @hook eprobe_setup_features
 		 * @since  2.1
 		 */
-		do_action( 'ep_setup_features' );
+		do_action( 'eprobe_setup_features' );
 
 		foreach ( $this->registered_features as $feature_slug => $feature ) {
 			$feature->set_i18n_strings();
@@ -350,7 +350,7 @@ class Features {
 	 * @return false|array
 	 */
 	public function get_feature_settings() {
-		return Utils\get_option( 'ep_feature_settings', false );
+		return Utils\get_option( 'eprobe_feature_settings', false );
 	}
 
 	/**
@@ -360,7 +360,7 @@ class Features {
 	 * @return false|array
 	 */
 	public function get_feature_settings_draft() {
-		return Utils\get_option( 'ep_feature_settings_draft', false );
+		return Utils\get_option( 'eprobe_feature_settings_draft', false );
 	}
 
 	/**
@@ -369,7 +369,7 @@ class Features {
 	 * @since 5.0.0
 	 */
 	public function apply_draft_feature_settings() {
-		$draft_settings = Utils\get_option( 'ep_feature_settings_draft', false );
+		$draft_settings = Utils\get_option( 'eprobe_feature_settings_draft', false );
 		if ( ! $draft_settings ) {
 			return;
 		}
@@ -379,7 +379,7 @@ class Features {
 		}
 		$this->setup_features();
 
-		Utils\delete_option( 'ep_feature_settings_draft' );
+		Utils\delete_option( 'eprobe_feature_settings_draft' );
 	}
 
 	/**

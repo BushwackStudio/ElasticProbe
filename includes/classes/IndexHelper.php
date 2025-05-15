@@ -77,12 +77,12 @@ class IndexHelper {
 		 * Filter the sync arguments
 		 *
 		 * @since 4.5.0
-		 * @hook ep_sync_args
+		 * @hook eprobe_sync_args
 		 * @param {array} $args Sync arguments
 		 * @param {array} $index_meta Current index meta
 		 * @return {array} New sync arguments
 		 */
-		$this->args = apply_filters( 'ep_sync_args', $args, $this->index_meta );
+		$this->args = apply_filters( 'eprobe_sync_args', $args, $this->index_meta );
 
 		if ( false === $this->index_meta ) {
 			$this->maybe_apply_feature_settings();
@@ -109,10 +109,10 @@ class IndexHelper {
 	 * @since 4.0.0
 	 */
 	protected function build_index_meta() {
-		Utils\update_option( 'ep_last_sync', time() );
-		Utils\delete_option( 'ep_need_upgrade_sync' );
-		Utils\delete_option( 'ep_feature_auto_activated_sync' );
-		delete_transient( 'ep_sync_interrupted' );
+		Utils\update_option( 'eprobe_last_sync', time() );
+		Utils\delete_option( 'eprobe_need_upgrade_sync' );
+		Utils\delete_option( 'eprobe_feature_auto_activated_sync' );
+		delete_transient( 'eprobe_sync_interrupted' );
 
 		$start_date_time = date_create( 'now', wp_timezone() );
 
@@ -161,7 +161,7 @@ class IndexHelper {
 
 		$is_network_wide = isset( $this->args['network_wide'] ) && ! is_null( $this->args['network_wide'] );
 
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK && $is_network_wide ) {
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK && $is_network_wide ) {
 			if ( ! is_numeric( $this->args['network_wide'] ) ) {
 				$this->args['network_wide'] = 0;
 			}
@@ -213,31 +213,31 @@ class IndexHelper {
 		 *
 		 * @since 4.0.0
 		 *
-		 * @hook ep_sync_start_index
+		 * @hook eprobe_sync_start_index
 		 * @param  {array} $index_meta Index meta information
 		 */
-		do_action( 'ep_sync_start_index', $this->index_meta );
+		do_action( 'eprobe_sync_start_index', $this->index_meta );
 
 		/**
 		 * Fires at start of new index
 		 *
-		 * @since 2.1 Previously called only as 'ep_dashboard_start_index'
+		 * @since 2.1 Previously called only as 'eprobe_dashboard_start_index'
 		 * @since 4.0.0 Made available for all methods
 		 *
-		 * @hook ep_{$index_method}_start_index
+		 * @hook eprobe_{$index_method}_start_index
 		 * @param  {array} $index_meta Index meta information
 		 */
-		do_action( "ep_{$this->args['method']}_start_index", $this->index_meta );
+		do_action( "eprobe_{$this->args['method']}_start_index", $this->index_meta );
 
 		/**
 		 * Filter index meta during dashboard sync
 		 *
 		 * @since  3.0
-		 * @hook ep_index_meta
+		 * @hook eprobe_index_meta
 		 * @param  {array} $index_meta Current index meta
 		 * @return  {array} New index meta
 		 */
-		$this->index_meta = apply_filters( 'ep_index_meta', $this->index_meta );
+		$this->index_meta = apply_filters( 'eprobe_index_meta', $this->index_meta );
 	}
 
 	/**
@@ -289,7 +289,7 @@ class IndexHelper {
 
 			if ( ! Indexables::factory()->is_active( $indexable_slug ) ) {
 				return $this->process_not_active_indexable_sync_item();
-			} elseif ( ! empty( $this->index_meta['current_sync_item']['blog_id'] ) && defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+			} elseif ( ! empty( $this->index_meta['current_sync_item']['blog_id'] ) && defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 				$this->output_success(
 					sprintf(
 						/* translators: 1: Indexable name, 2: Site ID */
@@ -315,7 +315,7 @@ class IndexHelper {
 			}
 		}
 
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK && ! empty( $this->index_meta['current_sync_item']['blog_id'] ) ) {
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK && ! empty( $this->index_meta['current_sync_item']['blog_id'] ) ) {
 			switch_to_blog( $this->index_meta['current_sync_item']['blog_id'] );
 		}
 
@@ -325,7 +325,7 @@ class IndexHelper {
 
 		$this->index_objects();
 
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK && ! empty( $this->index_meta['current_sync_item']['blog_id'] ) ) {
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK && ! empty( $this->index_meta['current_sync_item']['blog_id'] ) ) {
 			restore_current_blog();
 		}
 	}
@@ -342,12 +342,12 @@ class IndexHelper {
 		 * Filter whether we should delete index and send new mapping at the start of the sync
 		 *
 		 * @since  2.1
-		 * @hook ep_skip_index_reset
+		 * @hook eprobe_skip_index_reset
 		 * @param  {bool} $skip True means skip
 		 * @param  {array} $index_meta Current index meta
 		 * @return  {bool} New skip value
 		 */
-		if ( apply_filters( 'ep_skip_index_reset', false, $this->index_meta ) ) {
+		if ( apply_filters( 'eprobe_skip_index_reset', false, $this->index_meta ) ) {
 			return;
 		}
 
@@ -361,28 +361,28 @@ class IndexHelper {
 		 *
 		 * @since 4.0.0
 		 *
-		 * @hook ep_sync_put_mapping
+		 * @hook eprobe_sync_put_mapping
 		 * @param  {array} $index_meta Index meta information
 		 * @param  {Indexable} $indexable Indexable object
 		 * @param  {bool} $result Whether the request was successful or not
 		 */
-		do_action( 'ep_sync_put_mapping', $this->index_meta, $indexable, $result );
+		do_action( 'eprobe_sync_put_mapping', $this->index_meta, $indexable, $result );
 
 		/**
 		 * Fires after dashboard put mapping is completed
 		 *
 		 * In this particular case, developer aiming a specific method should rely on
-		 * `$index_meta['method']`, as historically `ep_dashboard_put_mapping` and
-		 * `ep_cli_put_mapping` receive different parameters.
+		 * `$index_meta['method']`, as historically `eprobe_dashboard_put_mapping` and
+		 * `eprobe_cli_put_mapping` receive different parameters.
 		 *
-		 * @see Command::call_ep_cli_put_mapping()
+		 * @see Command::call_eprobe_cli_put_mapping()
 		 *
 		 * @since  2.1
-		 * @hook ep_dashboard_put_mapping
+		 * @hook eprobe_dashboard_put_mapping
 		 * @param  {array} $index_meta Index meta information
 		 * @param  {string} $status Current indexing status
 		 */
-		do_action( 'ep_dashboard_put_mapping', $this->index_meta, 'start' );
+		do_action( 'eprobe_dashboard_put_mapping', $this->index_meta, 'start' );
 
 		if ( is_wp_error( $result ) ) {
 			$this->on_error_update_and_clean( array( 'message' => $result->get_error_message() ), 'mapping' );
@@ -460,21 +460,21 @@ class IndexHelper {
 		 *
 		 * @since 4.0.0
 		 *
-		 * @hook ep_pre_sync_index
+		 * @hook eprobe_pre_sync_index
 		 * @param  {array} $args Args to query content with
 		 */
-		do_action( 'ep_pre_sync_index', $this->index_meta, ( $this->index_meta['start'] ? 'start' : false ), $indexable );
+		do_action( 'eprobe_pre_sync_index', $this->index_meta, ( $this->index_meta['start'] ? 'start' : false ), $indexable );
 
 		/**
 		 * Fires right before entries are about to be indexed.
 		 *
-		 * @since 2.1 Previously called only as 'ep_pre_dashboard_index'
+		 * @since 2.1 Previously called only as 'eprobe_pre_dashboard_index'
 		 * @since 4.0.0 Made available for all methods
 		 *
-		 * @hook ep_pre_{$index_method}_index
+		 * @hook eprobe_pre_{$index_method}_index
 		 * @param  {array} $args Args to query content with
 		 */
-		do_action( "ep_pre_{$this->args['method']}_index", $this->index_meta, ( $this->index_meta['start'] ? 'start' : false ), $indexable );
+		do_action( "eprobe_pre_{$this->args['method']}_index", $this->index_meta, ( $this->index_meta['start'] ? 'start' : false ), $indexable );
 
 		$per_page = $this->get_index_default_per_page();
 
@@ -531,22 +531,22 @@ class IndexHelper {
 		 *
 		 * @since 4.0.0
 		 *
-		 * @hook ep_sync_index_args
+		 * @hook eprobe_sync_index_args
 		 * @param  {array} $args Args to query content with
 		 * @return  {array} New query args
 		 */
-		$args = apply_filters( 'ep_sync_index_args', $args );
+		$args = apply_filters( 'eprobe_sync_index_args', $args );
 
 		/**
 		 * Filters arguments used to query for content for each indexable
 		 *
-		 * @since  3.0 Previously called only as 'ep_dashboard_index_args'
+		 * @since  3.0 Previously called only as 'eprobe_dashboard_index_args'
 		 *
-		 * @hook ep_{$index_method}_index_args
+		 * @hook eprobe_{$index_method}_index_args
 		 * @param  {array} $args Args to query content with
 		 * @return  {array} New query args
 		 */
-		$args = apply_filters( "ep_{$this->args['method']}_index_args", $args );
+		$args = apply_filters( "eprobe_{$this->args['method']}_index_args", $args );
 
 		return $indexable->query_db( $args );
 	}
@@ -563,10 +563,10 @@ class IndexHelper {
 		 * Fires right before entries are about to be indexed in a dashboard sync
 		 *
 		 * @since  4.0.0
-		 * @hook ep_pre_index_batch
+		 * @hook eprobe_pre_index_batch
 		 * @param  {array} $index_meta Index meta
 		 */
-		do_action( 'ep_pre_index_batch', $this->index_meta );
+		do_action( 'eprobe_pre_index_batch', $this->index_meta );
 
 		$queued_items = [];
 
@@ -588,11 +588,11 @@ class IndexHelper {
 			 * Filters the number of times the index will try before failing.
 			 *
 			 * @since  3.0
-			 * @hook ep_index_batch_attempts_number
+			 * @hook eprobe_index_batch_attempts_number
 			 * @param  {int} $total_attempts Number of attempts
 			 * @return  {int} New number of attempts
 			 */
-			$total_attempts = apply_filters( 'ep_index_batch_attempts_number', $total_attempts );
+			$total_attempts = apply_filters( 'eprobe_index_batch_attempts_number', $total_attempts );
 
 			for ( $attempts = 1; $attempts <= $total_attempts; $attempts++ ) {
 				$nobulk         = ! empty( $this->args['nobulk'] );
@@ -601,11 +601,11 @@ class IndexHelper {
 				/**
 				 * Fires before each attempt of indexing objects
 				 *
-				 * @hook ep_index_batch_new_attempt
+				 * @hook eprobe_index_batch_new_attempt
 				 * @param {int} $attempts Current attempt
 				 * @param {int} $total_attempts Total number of attempts
 				 */
-				do_action( 'ep_index_batch_new_attempt', $attempts, $total_attempts );
+				do_action( 'eprobe_index_batch_new_attempt', $attempts, $total_attempts );
 
 				$should_retry = false;
 
@@ -618,25 +618,25 @@ class IndexHelper {
 					 *
 					 * @since 4.0.0
 					 *
-					 * @hook ep_sync_object_index
+					 * @hook eprobe_sync_object_index
 					 * @param  {int} $object_id Object to index
 					 * @param {Indexable} $indexable Current indexable
 					 * @param {mixed} $return Return of the index() call
 					 */
-					do_action( 'ep_sync_object_index', $object_id, $indexable, $return );
+					do_action( 'eprobe_sync_object_index', $object_id, $indexable, $return );
 
 					/**
 					 * Fires after one by one indexing an object
 					 *
-					 * @since 3.0 Previously called only as 'ep_cli_object_index'
+					 * @since 3.0 Previously called only as 'eprobe_cli_object_index'
 					 * @since 4.0.0 Made available for all methods
 					 *
-					 * @hook ep_{$index_method}_object_index
+					 * @hook eprobe_{$index_method}_object_index
 					 * @param  {int} $object_id Object to index
 					 * @param {Indexable} $indexable Current indexable
 					 * @param {mixed} $return Return of the index() call
 					 */
-					do_action( "ep_{$this->args['method']}_object_index", $object_id, $indexable, $return );
+					do_action( "eprobe_{$this->args['method']}_object_index", $object_id, $indexable, $return );
 
 					if ( is_object( $return ) && ! empty( $return->error ) ) {
 						if ( ! empty( $return->error->reason ) ) {
@@ -661,11 +661,11 @@ class IndexHelper {
 						/**
 						 * Fires after bulk indexing
 						 *
-						 * @hook ep_cli_{indexable_slug}_bulk_index
+						 * @hook eprobe_cli_{indexable_slug}_bulk_index
 						 * @param  {array} $objects Objects being indexed
 						 * @param  {array} response Elasticsearch bulk index response
 						 */
-						do_action( "ep_cli_{$indexable->slug}_bulk_index", $queued_items, $return );
+						do_action( "eprobe_cli_{$indexable->slug}_bulk_index", $queued_items, $return );
 
 						if ( is_wp_error( $return ) ) {
 							$should_retry = true;
@@ -755,11 +755,11 @@ class IndexHelper {
 		 * Filter the number of errors of a current sync that should be stored.
 		 *
 		 * @since  4.5.1
-		 * @hook ep_current_sync_number_of_errors_stored
+		 * @hook eprobe_current_sync_number_of_errors_stored
 		 * @param  {int} $number Number of errors to be logged.
 		 * @return {int} New value
 		 */
-		$limit = (int) apply_filters( 'ep_current_sync_number_of_errors_stored', 50 );
+		$limit = (int) apply_filters( 'eprobe_current_sync_number_of_errors_stored', 50 );
 
 		if ( $limit > 0 && $count > $limit ) {
 			$diff = $limit - $num;
@@ -793,11 +793,11 @@ class IndexHelper {
 		 * Filter the number of errors of a sync that should be stored.
 		 *
 		 * @since  4.2.0
-		 * @hook ep_sync_number_of_errors_stored
+		 * @hook eprobe_sync_number_of_errors_stored
 		 * @param  {int} $number Number of errors to be logged.
 		 * @return {int} New value
 		 */
-		$logged_errors = (int) apply_filters( 'ep_sync_number_of_errors_stored', 50 );
+		$logged_errors = (int) apply_filters( 'eprobe_sync_number_of_errors_stored', 50 );
 
 		$this->index_meta['totals']['total']   += $current_sync_item['total'];
 		$this->index_meta['totals']['synced']  += $current_sync_item['synced'];
@@ -825,7 +825,7 @@ class IndexHelper {
 		$this->index_meta['offset']            = 0;
 
 		if ( $current_sync_item['failed'] ) {
-			if ( ! empty( $current_sync_item['blog_id'] ) && defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+			if ( ! empty( $current_sync_item['blog_id'] ) && defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 				$message = sprintf(
 					/* translators: 1: indexable (plural), 2: Blog ID, 3: number of failed objects */
 					esc_html__( 'Number of %1$s index errors on site %2$d: %3$d', 'elasticprobe' ),
@@ -845,7 +845,7 @@ class IndexHelper {
 			$this->output( $message, 'warning' );
 		}
 
-		if ( ! empty( $current_sync_item['blog_id'] ) && defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+		if ( ! empty( $current_sync_item['blog_id'] ) && defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 			$message = sprintf(
 				/* translators: 1: indexable (plural), 2: Blog ID, 3: number of synced objects */
 				esc_html__( 'Number of %1$s indexed on site %2$d: %3$d', 'elasticprobe' ),
@@ -903,7 +903,7 @@ class IndexHelper {
 			$totals['final_status'] = 'success';
 		}
 
-		Utils\update_option( 'ep_last_cli_index', $totals, false );
+		Utils\update_option( 'eprobe_last_cli_index', $totals, false );
 
 		$this->add_last_sync( $totals );
 	}
@@ -929,16 +929,16 @@ class IndexHelper {
 		 * Filter the number of past syncs to keep info
 		 *
 		 * @since  5.0.0
-		 * @hook ep_syncs_to_keep_info
+		 * @hook eprobe_syncs_to_keep_info
 		 * @param {int} $number Number of past syncs to keep info
 		 * @return {int} New number
 		 */
-		$syncs_to_keep = (int) apply_filters( 'ep_syncs_to_keep_info', 5 );
+		$syncs_to_keep = (int) apply_filters( 'eprobe_syncs_to_keep_info', 5 );
 
 		$last_syncs = array_slice( $last_syncs, 0, $syncs_to_keep - 1 );
 		array_unshift( $last_syncs, $last_sync_info );
 
-		Utils\update_option( 'ep_sync_history', $last_syncs, false );
+		Utils\update_option( 'eprobe_sync_history', $last_syncs, false );
 	}
 
 	/**
@@ -953,18 +953,18 @@ class IndexHelper {
 		 * Fires after executing a reindex
 		 *
 		 * @since 4.0.0
-		 * @hook ep_after_sync_index
+		 * @hook eprobe_after_sync_index
 		 */
-		do_action( 'ep_after_sync_index' );
+		do_action( 'eprobe_after_sync_index' );
 
 		/**
 		 * Fires after executing a reindex
 		 *
-		 * @since 3.5.5 Previously called only as 'ep_after_dashboard_index'
+		 * @since 3.5.5 Previously called only as 'eprobe_after_dashboard_index'
 		 * @since 4.0.0 Made available for all methods
-		 * @hook ep_after_{$index_method}_index
+		 * @hook eprobe_after_{$index_method}_index
 		 */
-		do_action( "ep_after_{$this->args['method']}_index" );
+		do_action( "eprobe_after_{$this->args['method']}_index" );
 
 		$this->output_success( esc_html__( 'Sync complete', 'elasticprobe' ) );
 	}
@@ -1028,9 +1028,9 @@ class IndexHelper {
 	 */
 	protected function output( $message_text, $type = 'info', $context = '' ) {
 		if ( $this->index_meta ) {
-			Utils\update_option( 'ep_index_meta', $this->index_meta );
+			Utils\update_option( 'eprobe_index_meta', $this->index_meta );
 		} else {
-			Utils\delete_option( 'ep_index_meta' );
+			Utils\delete_option( 'eprobe_index_meta' );
 			$totals = $this->get_last_sync();
 		}
 
@@ -1104,11 +1104,11 @@ class IndexHelper {
 			 * Filter if a fully reindex is being done to an indexable
 			 *
 			 * @since  4.0.0
-			 * @hook ep_is_full_reindexing_{$indexable_slug}
+			 * @hook eprobe_is_full_reindexing_{$indexable_slug}
 			 * @param  {bool} $is_full_reindexing If is fully reindexing
 			 * @return  {bool} New value
 			 */
-			return apply_filters( "ep_is_full_reindexing_{$indexable_slug}", false );
+			return apply_filters( "eprobe_is_full_reindexing_{$indexable_slug}", false );
 		}
 
 		$sync_stack        = ( ! empty( $this->index_meta['sync_stack'] ) ) ? $this->index_meta['sync_stack'] : [];
@@ -1135,7 +1135,7 @@ class IndexHelper {
 		}
 
 		/* this filter is documented above */
-		return apply_filters( "ep_is_full_reindexing_{$indexable_slug}", $is_full_reindexing );
+		return apply_filters( "eprobe_is_full_reindexing_{$indexable_slug}", $is_full_reindexing );
 	}
 
 	/**
@@ -1145,7 +1145,7 @@ class IndexHelper {
 	 * @return array
 	 */
 	public function get_sync_history(): array {
-		return Utils\get_option( 'ep_sync_history', [] );
+		return Utils\get_option( 'eprobe_sync_history', [] );
 	}
 
 	/**
@@ -1177,24 +1177,24 @@ class IndexHelper {
 		 * Filter whether to not sync specific item in dashboard or not
 		 *
 		 * @since  2.1
-		 * @hook ep_item_sync_kill
+		 * @hook eprobe_item_sync_kill
 		 * @param  {boolean} $kill False means dont sync
 		 * @param  {array} $indexable_object Object to sync
 		 * @return {Indexable} Indexable that object belongs to
 		 */
-		$ep_item_sync_kill = apply_filters( 'ep_item_sync_kill', false, $indexable_object, $indexable );
+		$eprobe_item_sync_kill = apply_filters( 'eprobe_item_sync_kill', false, $indexable_object, $indexable );
 
 		/**
 		 * Conditionally kill indexing for a post
 		 *
-		 * @hook ep_{indexable_slug}_index_kill
+		 * @hook eprobe_{indexable_slug}_index_kill
 		 * @param  {bool} $index True means dont index
 		 * @param  {int} $object_id Object ID
 		 * @return {bool} New value
 		 */
-		$ep_indexable_sync_kill = apply_filters( 'ep_' . $indexable->slug . '_index_kill', false, $indexable_object->ID );
+		$ep_indexable_sync_kill = apply_filters( 'eprobe_' . $indexable->slug . '_index_kill', false, $indexable_object->ID );
 
-		return $ep_item_sync_kill || $ep_indexable_sync_kill;
+		return $eprobe_item_sync_kill || $ep_indexable_sync_kill;
 	}
 
 	/**
@@ -1319,9 +1319,9 @@ class IndexHelper {
 		 * Fires after reducing the memory footprint
 		 *
 		 * @since 4.3.0
-		 * @hook ep_stop_the_insanity
+		 * @hook eprobe_stop_the_insanity
 		 */
-		do_action( 'ep_stop_the_insanity' );
+		do_action( 'eprobe_stop_the_insanity' );
 	}
 
 	/**
@@ -1334,7 +1334,7 @@ class IndexHelper {
 			$this->update_last_index( 'aborted' );
 		}
 		$this->index_meta = false;
-		Utils\delete_option( 'ep_index_meta', false );
+		Utils\delete_option( 'eprobe_index_meta', false );
 	}
 
 	/**
@@ -1344,7 +1344,7 @@ class IndexHelper {
 	 * @since 4.0.0
 	 */
 	public function get_index_meta() {
-		return Utils\get_option( 'ep_index_meta', [] );
+		return Utils\get_option( 'eprobe_index_meta', [] );
 	}
 
 	/**
@@ -1398,10 +1398,10 @@ class IndexHelper {
 		 * Fires after a sync failed due to a PHP fatal error.
 		 *
 		 * @since 4.2.0
-		 * @hook ep_after_sync_error
+		 * @hook eprobe_after_sync_error
 		 * @param {array} $error The error
 		 */
-		do_action( 'ep_after_sync_error', $error );
+		do_action( 'eprobe_after_sync_error', $error );
 
 		switch ( $context ) {
 			case 'mapping':
@@ -1435,11 +1435,11 @@ class IndexHelper {
 		 * Filter number of items to index per cycle in the dashboard
 		 *
 		 * @since  2.1
-		 * @hook ep_index_default_per_page
+		 * @hook eprobe_index_default_per_page
 		 * @param  {int} Entries per cycle
 		 * @return  {int} New number of entries
 		 */
-		return (int) apply_filters( 'ep_index_default_per_page', Utils\get_option( 'ep_bulk_setting', 350 ) );
+		return (int) apply_filters( 'eprobe_index_default_per_page', Utils\get_option( 'eprobe_bulk_setting', 350 ) );
 	}
 
 	/**

@@ -58,7 +58,7 @@ class Installer {
 	 * @since 3.0
 	 */
 	public function calculate_install_status() {
-		$skip_install = Utils\get_option( 'ep_skip_install', false );
+		$skip_install = Utils\get_option( 'eprobe_skip_install', false );
 
 		if ( $skip_install ) {
 			$this->install_status = true;
@@ -66,7 +66,7 @@ class Installer {
 			return;
 		}
 
-		$last_sync = Utils\get_option( 'ep_last_sync', false );
+		$last_sync = Utils\get_option( 'eprobe_last_sync', false );
 		if ( ! empty( $last_sync ) ) {
 			$this->install_status = true;
 
@@ -75,7 +75,7 @@ class Installer {
 
 		$host = Utils\get_host();
 
-		if ( empty( $host ) && empty( $_POST['ep_host'] ) ) {
+		if ( empty( $host ) && empty( $_POST['eprobe_host'] ) ) {
 			$this->install_status = 2;
 
 			return;
@@ -100,12 +100,12 @@ class Installer {
 		/**
 		 * Filter install status
 		 *
-		 * @hook ep_install_status
+		 * @hook eprobe_install_status
 		 * @param  {string} $install_status Current install status
 		 * @return {string} New install status
 		 * @since  3.0
 		 */
-		return apply_filters( 'ep_install_status', $this->install_status );
+		return apply_filters( 'eprobe_install_status', $this->install_status );
 	}
 
 	/**

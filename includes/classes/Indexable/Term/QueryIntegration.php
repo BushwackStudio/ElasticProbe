@@ -34,13 +34,13 @@ class QueryIntegration {
 		 * Filter whether to enable query integration during indexing
 		 *
 		 * @since 4.5.2
-		 * @hook ep_enable_query_integration_during_indexing
+		 * @hook eprobe_enable_query_integration_during_indexing
 		 *
 		 * @param {bool} $enable To allow query integration during indexing
 		 * @param {string} $indexable_slug Indexable slug
 		 * @return {bool} New value
 		 */
-		$allow_query_integration_during_indexing = apply_filters( 'ep_enable_query_integration_during_indexing', false, $indexable_slug );
+		$allow_query_integration_during_indexing = apply_filters( 'eprobe_enable_query_integration_during_indexing', false, $indexable_slug );
 
 		// Ensure that we are currently allowing ElasticProbe to override the normal WP_Query
 		// Indexable->is_full_reindexing() is not available at this point yet, so using the IndexHelper version of it.
@@ -65,7 +65,7 @@ class QueryIntegration {
 	 * @return void
 	 */
 	public function action_pre_get_terms( WP_Term_Query $query ) {
-		if ( ! Indexables::factory()->get( 'term' )->elasticpress_enabled( $query ) || apply_filters( 'ep_skip_term_query_integration', false, $query ) ) {
+		if ( ! Indexables::factory()->get( 'term' )->elasticpress_enabled( $query ) || apply_filters( 'eprobe_skip_term_query_integration', false, $query ) ) {
 			return;
 		}
 
@@ -89,7 +89,7 @@ class QueryIntegration {
 	public function maybe_filter_query( $results, WP_Term_Query $query ) {
 		$indexable = Indexables::factory()->get( 'term' );
 
-		if ( ! $indexable->elasticpress_enabled( $query ) || apply_filters( 'ep_skip_term_query_integration', false, $query ) ) {
+		if ( ! $indexable->elasticpress_enabled( $query ) || apply_filters( 'eprobe_skip_term_query_integration', false, $query ) ) {
 			return $results;
 		}
 
@@ -97,7 +97,7 @@ class QueryIntegration {
 			return $results;
 		}
 
-		$new_terms = apply_filters( 'ep_wp_query_cached_terms', null, $query );
+		$new_terms = apply_filters( 'eprobe_wp_query_cached_terms', null, $query );
 
 		if ( null === $new_terms ) {
 			$formatted_args = $indexable->format_args( $query->query_vars );
@@ -133,9 +133,9 @@ class QueryIntegration {
 			 * @param mixed $scope The search scope. Accepts `all` (string), a single
 			 *                     site id (int or string), or an array of site ids (array).
 			 */
-			$scope = apply_filters( 'ep_term_search_scope', $scope );
+			$scope = apply_filters( 'eprobe_term_search_scope', $scope );
 
-			if ( ! defined( 'EP_IS_NETWORK' ) || ! EP_IS_NETWORK ) {
+			if ( ! defined( 'EPROBE_IS_NETWORK' ) || ! EPROBE_IS_NETWORK ) {
 				$scope = 'current';
 			}
 
@@ -285,7 +285,7 @@ class QueryIntegration {
 			}
 
 			$term_return_args = apply_filters(
-				'ep_search_term_return_args',
+				'eprobe_search_term_return_args',
 				array(
 					'term_id',
 					'name',

@@ -97,7 +97,7 @@ class WooCommerce extends Feature {
 
 		add_action( 'switch_blog', [ $this, 'setup_or_tear_down' ] );
 
-		add_filter( 'ep_integrate_search_queries', [ $this, 'disallow_coupons' ], 10, 2 );
+		add_filter( 'eprobe_integrate_search_queries', [ $this, 'disallow_coupons' ], 10, 2 );
 
 		$this->products->setup();
 		$this->orders->setup();
@@ -128,7 +128,7 @@ class WooCommerce extends Feature {
 	 * @since 5.0.0
 	 */
 	public function tear_down() {
-		remove_filter( 'ep_integrate_search_queries', [ $this, 'disallow_coupons' ] );
+		remove_filter( 'eprobe_integrate_search_queries', [ $this, 'disallow_coupons' ] );
 
 		$this->products->tear_down();
 		$this->orders->tear_down();
@@ -221,12 +221,12 @@ class WooCommerce extends Feature {
 		/**
 		 * Filter to skip WP Query integration
 		 *
-		 * @hook ep_skip_query_integration
+		 * @hook eprobe_skip_query_integration
 		 * @param  {bool} $skip True to skip
 		 * @param  {WP_Query} $query WP Query to evaluate
 		 * @return  {bool} New skip value
 		 */
-		if ( apply_filters( 'ep_skip_query_integration', false, $query ) ) {
+		if ( apply_filters( 'eprobe_skip_query_integration', false, $query ) ) {
 			return false;
 		}
 
@@ -270,11 +270,11 @@ class WooCommerce extends Feature {
 		 * Filters the WooCommerce Settings schema.
 		 *
 		 * @since 5.1.0
-		 * @hook ep_woocommerce_settings_schema
+		 * @hook eprobe_woocommerce_settings_schema
 		 * @param {array} $settings_schema WooCommerce feature settings schema
 		 * @return {array} $settings_schema
 		 */
-		$this->settings_schema = apply_filters( 'ep_woocommerce_settings_schema', $this->settings_schema );
+		$this->settings_schema = apply_filters( 'eprobe_woocommerce_settings_schema', $this->settings_schema );
 	}
 
 	/**

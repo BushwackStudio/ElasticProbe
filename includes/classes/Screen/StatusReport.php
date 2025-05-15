@@ -47,7 +47,7 @@ class StatusReport {
 
 		wp_enqueue_script(
 			'ep_admin_status_report_scripts',
-			EP_URL . 'dist/js/status-report-script.js',
+			EPROBE_URL . 'dist/js/status-report-script.js',
 			Utils\get_asset_info( 'status-report-script', 'dependencies' ),
 			Utils\get_asset_info( 'status-report-script', 'version' ),
 			true
@@ -77,7 +77,7 @@ class StatusReport {
 
 		wp_enqueue_style(
 			'ep_status_report_styles',
-			EP_URL . 'dist/css/status-report-script.css',
+			EPROBE_URL . 'dist/css/status-report-script.css',
 			[ 'wp-components', 'wp-edit-post' ],
 			Utils\get_asset_info( 'status-report-script', 'version' )
 		);
@@ -149,11 +149,11 @@ class StatusReport {
 		 * Filter the reports executed in the Status Report page.
 		 *
 		 * @since 4.4.0
-		 * @hook ep_status_report_reports
+		 * @hook eprobe_status_report_reports
 		 * @param {array<Report>} $reports Array of reports
 		 * @return {array<Report>} New array of reports
 		 */
-		$filtered_reports = apply_filters( 'ep_status_report_reports', $reports );
+		$filtered_reports = apply_filters( 'eprobe_status_report_reports', $reports );
 
 		// phpcs:disable WordPress.Security.NonceVerification
 		$skipped_reports = isset( $_GET['ep-skip-reports'] ) ?

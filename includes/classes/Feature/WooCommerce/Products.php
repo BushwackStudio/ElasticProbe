@@ -40,26 +40,26 @@ class Products {
 	 * Setup product related hooks
 	 */
 	public function setup() {
-		add_action( 'ep_formatted_args', [ $this, 'price_filter' ], 10, 3 );
-		add_filter( 'ep_prepare_meta_allowed_protected_keys', [ $this, 'allow_meta_keys' ], 10, 2 );
-		add_filter( 'ep_sync_taxonomies', [ $this, 'sync_taxonomies' ] );
-		add_filter( 'ep_term_suggest_post_type', [ $this, 'suggest_wc_add_post_type' ] );
-		add_filter( 'ep_facet_include_taxonomies', [ $this, 'add_product_attributes' ] );
-		add_filter( 'ep_weighting_fields_for_post_type', [ $this, 'add_product_attributes_to_weighting' ], 10, 2 );
-		add_filter( 'ep_weighting_default_post_type_weights', [ $this, 'add_product_default_post_type_weights' ], 10, 2 );
-		add_filter( 'ep_prepare_meta_data', [ $this, 'add_variations_skus_meta' ], 10, 2 );
+		add_action( 'eprobe_formatted_args', [ $this, 'price_filter' ], 10, 3 );
+		add_filter( 'eprobe_prepare_meta_allowed_protected_keys', [ $this, 'allow_meta_keys' ], 10, 2 );
+		add_filter( 'eprobe_sync_taxonomies', [ $this, 'sync_taxonomies' ] );
+		add_filter( 'eprobe_term_suggest_post_type', [ $this, 'suggest_wc_add_post_type' ] );
+		add_filter( 'eprobe_facet_include_taxonomies', [ $this, 'add_product_attributes' ] );
+		add_filter( 'eprobe_weighting_fields_for_post_type', [ $this, 'add_product_attributes_to_weighting' ], 10, 2 );
+		add_filter( 'eprobe_weighting_default_post_type_weights', [ $this, 'add_product_default_post_type_weights' ], 10, 2 );
+		add_filter( 'eprobe_prepare_meta_data', [ $this, 'add_variations_skus_meta' ], 10, 2 );
 		add_filter( 'request', [ $this, 'admin_product_list_request_query' ], 9 );
 		add_action( 'pre_get_posts', [ $this, 'translate_args' ], 11, 1 );
-		add_filter( 'ep_facet_tax_special_slug_taxonomies', [ $this, 'add_taxonomy_attributes' ] );
+		add_filter( 'eprobe_facet_tax_special_slug_taxonomies', [ $this, 'add_taxonomy_attributes' ] );
 
 		// Custom product ordering
-		add_action( 'ep_admin_notices', [ $this, 'maybe_display_notice_about_product_ordering' ] );
+		add_action( 'eprobe_admin_notices', [ $this, 'maybe_display_notice_about_product_ordering' ] );
 		add_action( 'woocommerce_after_product_ordering', [ $this, 'action_sync_on_woocommerce_sort_single' ], 10, 2 );
 
 		// Settings for Weight results by date
-		add_action( 'ep_weight_settings_after_search', [ $this, 'add_weight_settings_search' ] );
-		add_filter( 'ep_feature_settings_schema', [ $this, 'add_weight_settings_search_schema' ], 10, 2 );
-		add_filter( 'ep_is_decaying_enabled', [ $this, 'maybe_disable_decaying' ], 10, 3 );
+		add_action( 'eprobe_weight_settings_after_search', [ $this, 'add_weight_settings_search' ] );
+		add_filter( 'eprobe_feature_settings_schema', [ $this, 'add_weight_settings_search_schema' ], 10, 2 );
+		add_filter( 'eprobe_is_decaying_enabled', [ $this, 'maybe_disable_decaying' ], 10, 3 );
 	}
 
 	/**
@@ -68,26 +68,26 @@ class Products {
 	 * @since 5.0.0
 	 */
 	public function tear_down() {
-		remove_action( 'ep_formatted_args', [ $this, 'price_filter' ] );
-		remove_filter( 'ep_prepare_meta_allowed_protected_keys', [ $this, 'allow_meta_keys' ] );
-		remove_filter( 'ep_sync_taxonomies', [ $this, 'sync_taxonomies' ] );
-		remove_filter( 'ep_term_suggest_post_type', [ $this, 'suggest_wc_add_post_type' ] );
-		remove_filter( 'ep_facet_include_taxonomies', [ $this, 'add_product_attributes' ] );
-		remove_filter( 'ep_weighting_fields_for_post_type', [ $this, 'add_product_attributes_to_weighting' ] );
-		remove_filter( 'ep_weighting_default_post_type_weights', [ $this, 'add_product_default_post_type_weights' ] );
-		remove_filter( 'ep_prepare_meta_data', [ $this, 'add_variations_skus_meta' ] );
+		remove_action( 'eprobe_formatted_args', [ $this, 'price_filter' ] );
+		remove_filter( 'eprobe_prepare_meta_allowed_protected_keys', [ $this, 'allow_meta_keys' ] );
+		remove_filter( 'eprobe_sync_taxonomies', [ $this, 'sync_taxonomies' ] );
+		remove_filter( 'eprobe_term_suggest_post_type', [ $this, 'suggest_wc_add_post_type' ] );
+		remove_filter( 'eprobe_facet_include_taxonomies', [ $this, 'add_product_attributes' ] );
+		remove_filter( 'eprobe_weighting_fields_for_post_type', [ $this, 'add_product_attributes_to_weighting' ] );
+		remove_filter( 'eprobe_weighting_default_post_type_weights', [ $this, 'add_product_default_post_type_weights' ] );
+		remove_filter( 'eprobe_prepare_meta_data', [ $this, 'add_variations_skus_meta' ] );
 		remove_filter( 'request', [ $this, 'admin_product_list_request_query' ], 9 );
 		remove_action( 'pre_get_posts', [ $this, 'translate_args' ], 11 );
-		remove_filter( 'ep_facet_tax_special_slug_taxonomies', [ $this, 'add_taxonomy_attributes' ] );
+		remove_filter( 'eprobe_facet_tax_special_slug_taxonomies', [ $this, 'add_taxonomy_attributes' ] );
 
 		// Custom product ordering
-		remove_action( 'ep_admin_notices', [ $this, 'maybe_display_notice_about_product_ordering' ] );
+		remove_action( 'eprobe_admin_notices', [ $this, 'maybe_display_notice_about_product_ordering' ] );
 		remove_action( 'woocommerce_after_product_ordering', [ $this, 'action_sync_on_woocommerce_sort_single' ] );
 
 		// Settings for Weight results by date
-		remove_action( 'ep_weight_settings_after_search', [ $this, 'add_weight_settings_search' ] );
-		remove_filter( 'ep_feature_settings_schema', [ $this, 'add_weight_settings_search_schema' ] );
-		remove_filter( 'ep_is_decaying_enabled', [ $this, 'maybe_disable_decaying' ] );
+		remove_action( 'eprobe_weight_settings_after_search', [ $this, 'add_weight_settings_search' ] );
+		remove_filter( 'eprobe_feature_settings_schema', [ $this, 'add_weight_settings_search_schema' ] );
+		remove_filter( 'eprobe_is_decaying_enabled', [ $this, 'maybe_disable_decaying' ] );
 	}
 
 	/**
@@ -427,20 +427,20 @@ class Products {
 		}
 
 		// Return if admin WP_Query integration is not turned on, i.e., Protect Content is not enabled.
-		if ( ! has_filter( 'ep_admin_wp_query_integration', '__return_true' ) ) {
+		if ( ! has_filter( 'eprobe_admin_wp_query_integration', '__return_true' ) ) {
 			return $query_vars;
 		}
 
 		/**
 		 * Filter to skip integration with WooCommerce Admin Product List.
 		 *
-		 * @hook ep_woocommerce_integrate_admin_products_list
+		 * @hook eprobe_woocommerce_integrate_admin_products_list
 		 * @since 4.2.0
 		 * @param {bool}  $integrate  True to integrate, false to preserve original behavior. Defaults to true.
 		 * @param {array} $query_vars Query vars.
 		 * @return {bool} New integrate value
 		 */
-		if ( ! apply_filters( 'ep_woocommerce_integrate_admin_products_list', true, $query_vars ) ) {
+		if ( ! apply_filters( 'eprobe_woocommerce_integrate_admin_products_list', true, $query_vars ) ) {
 			return $query_vars;
 		}
 
@@ -473,7 +473,7 @@ class Products {
 			 *
 			 * ```
 			 * add_filter(
-			 *     'ep_woocommerce_admin_products_list_search_fields',
+			 *     'eprobe_woocommerce_admin_products_list_search_fields',
 			 *     function ( $wc_admin_search_fields ) {
 			 *         $wc_admin_search_fields['meta'][] = 'custom_field';
 			 *         return $wc_admin_search_fields;
@@ -481,13 +481,13 @@ class Products {
 			 * );
 			 * ```
 			 *
-			 * @hook ep_woocommerce_admin_products_list_search_fields
+			 * @hook eprobe_woocommerce_admin_products_list_search_fields
 			 * @since 4.2.0
 			 * @param {array} $wc_admin_search_fields Fields to be used in the WooCommerce Admin Product Search
 			 * @return {array} New fields
 			 */
 			$search_fields = apply_filters(
-				'ep_woocommerce_admin_products_list_search_fields',
+				'eprobe_woocommerce_admin_products_list_search_fields',
 				[
 					'post_title',
 					'post_content',
@@ -721,26 +721,26 @@ class Products {
 		 * DEPRECATED. Filter supported custom taxonomies for WooCommerce integration.
 		 *
 		 * @param {array} $supported_taxonomies An array of default taxonomies.
-		 * @hook ep_woocommerce_supported_taxonomies
+		 * @hook eprobe_woocommerce_supported_taxonomies
 		 * @since 2.3.0
 		 * @return  {array} New taxonomies
 		 */
 		$supported_taxonomies = apply_filters_deprecated(
-			'ep_woocommerce_supported_taxonomies',
+			'eprobe_woocommerce_supported_taxonomies',
 			[ $supported_taxonomies ],
 			'0.1.0',
-			'ep_woocommerce_products_supported_taxonomies'
+			'eprobe_woocommerce_products_supported_taxonomies'
 		);
 
 		/**
 		 * Filter supported custom taxonomies for WooCommerce product queries integration
 		 *
 		 * @param {array} $supported_taxonomies An array of default taxonomies.
-		 * @hook ep_woocommerce_products_supported_taxonomies
+		 * @hook eprobe_woocommerce_products_supported_taxonomies
 		 * @since 4.7.0
 		 * @return  {array} New taxonomies
 		 */
-		return apply_filters( 'ep_woocommerce_products_supported_taxonomies', $supported_taxonomies );
+		return apply_filters( 'eprobe_woocommerce_products_supported_taxonomies', $supported_taxonomies );
 	}
 
 	/**
@@ -761,28 +761,28 @@ class Products {
 		/**
 		 * DEPRECATED. Expands or contracts the post_types eligible for indexing.
 		 *
-		 * @hook ep_woocommerce_default_supported_post_types
+		 * @hook eprobe_woocommerce_default_supported_post_types
 		 * @since 4.4.0
 		 * @param {array} $post_types Post types
 		 * @return {array} New post types
 		 */
 		$supported_post_types = apply_filters_deprecated(
-			'ep_woocommerce_default_supported_post_types',
+			'eprobe_woocommerce_default_supported_post_types',
 			[ $post_types ],
 			'4.7.0',
-			'ep_woocommerce_products_supported_post_types'
+			'eprobe_woocommerce_products_supported_post_types'
 		);
 
 		/**
 		 * Expands or contracts the post_types related to products eligible for indexing.
 		 *
-		 * @hook ep_woocommerce_products_supported_post_types
+		 * @hook eprobe_woocommerce_products_supported_post_types
 		 * @since 4.7.0
 		 * @param {array}    $supported_post_types Post types
 		 * @param {WP_Query} $query                The WP_Query object
 		 * @return {array} New post types
 		 */
-		$supported_post_types = apply_filters( 'ep_woocommerce_products_supported_post_types', $supported_post_types, $query );
+		$supported_post_types = apply_filters( 'eprobe_woocommerce_products_supported_post_types', $supported_post_types, $query );
 
 		$supported_post_types = array_intersect(
 			$supported_post_types,
@@ -911,7 +911,7 @@ class Products {
 		}
 
 		$post_type = $query->get( 'post_type', false );
-		if ( 'product' !== $post_type || ! defined( 'EP_IS_NETWORK' ) || ! EP_IS_NETWORK ) {
+		if ( 'product' !== $post_type || ! defined( 'EPROBE_IS_NETWORK' ) || ! EPROBE_IS_NETWORK ) {
 			return;
 		}
 

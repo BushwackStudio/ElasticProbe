@@ -11,7 +11,7 @@ import { __ } from '@wordpress/i18n';
  */
 const init = () => {
 	const tabs = document.querySelectorAll('.ep-credentials-tab');
-	const host = document.getElementById('ep_host');
+	const host = document.getElementById('eprobe_host');
 	const hostLabel = host.labels[0];
 	const hostDescription = host.nextElementSibling;
 	const additionalFields = document.getElementsByClassName('ep-additional-fields');

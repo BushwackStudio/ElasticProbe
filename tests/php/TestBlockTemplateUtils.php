@@ -58,7 +58,7 @@ class TestBlockTemplateUtils extends BaseTestCase {
 		$set_blocks = function () use ( $blocks ) {
 			return $blocks;
 		};
-		add_filter( 'ep_blocks_pre_all_blocks', $set_blocks );
+		add_filter( 'eprobe_blocks_pre_all_blocks', $set_blocks );
 
 		$this->assertEqualsCanonicalizing(
 			[ $meta_block ],
@@ -80,7 +80,7 @@ class TestBlockTemplateUtils extends BaseTestCase {
 	}
 
 	/**
-	 * Test the `ep_blocks_pre_all_blocks` filter
+	 * Test the `eprobe_blocks_pre_all_blocks` filter
 	 *
 	 * @group block_template_utils
 	 */
@@ -93,7 +93,7 @@ class TestBlockTemplateUtils extends BaseTestCase {
 			$this->assertNull( $pre_all_blocks );
 			return [ 'test' ];
 		};
-		add_filter( 'ep_blocks_pre_all_blocks', $set_blocks );
+		add_filter( 'eprobe_blocks_pre_all_blocks', $set_blocks );
 
 		$this->assertSame( [ 'test' ], $block_template_utils->get_all_blocks_in_all_templates() );
 

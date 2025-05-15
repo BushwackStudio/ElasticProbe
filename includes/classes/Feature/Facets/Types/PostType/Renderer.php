@@ -89,14 +89,14 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 		/**
 		 * Filter facet search threshold
 		 *
-		 * @hook ep_facet_search_threshold
+		 * @hook eprobe_facet_search_threshold
 		 * @param  {int}    $search_threshold Search threshold
 		 * @param  {string} $type             Facet type
 		 * @param  {string} $context          Hint about where the value will be used
 		 * @param  {array}  $instance         Block instance
 		 * @return  {int} New threshold
 		 */
-		$search_threshold = apply_filters( 'ep_facet_search_threshold', 15, 'post-type', 'post-type', $instance );
+		$search_threshold = apply_filters( 'eprobe_facet_search_threshold', 15, 'post-type', 'post-type', $instance );
 		?>
 		<div class="terms <?php if ( count( $values ) > $search_threshold ) : ?>searchable<?php endif; ?>">
 			<?php if ( count( $values ) > $search_threshold ) : ?>
@@ -156,12 +156,12 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 		 * Filter the label for an individual post-type value.
 		 *
 		* @since 4.6.0
-		 * @hook ep_facet_post_type_value_label
+		 * @hook eprobe_facet_post_type_value_label
 		 * @param {string} $label Facet post-type value label.
 		 * @param {array}  $item Value array. It contains `value`, `name`, `count`, and `is_selected`.
 		 * @return {string} Individual facet post-type value label.
 		 */
-		$label = apply_filters( 'ep_facet_post_type_value_label', $label, $item );
+		$label = apply_filters( 'eprobe_facet_post_type_value_label', $label, $item );
 
 		/**
 		 * Filter the accessible label for an individual facet post-type value link.
@@ -172,13 +172,13 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 		 * added or removed.
 		 *
 		 * @since 4.6.0
-		 * @hook ep_facet_post_type_value_accessible_label
+		 * @hook eprobe_facet_post_type_value_accessible_label
 		 * @param {string}  $label Facet post-type value accessible label.
 		 * @param {array}   $item Value array. It contains `value`, `name`, `count`, and `is_selected`.
 		 * @return {string} Individual facet term accessible label.
 		 */
 		$accessible_label = apply_filters(
-			'ep_facet_post_type_value_accessible_label',
+			'eprobe_facet_post_type_value_accessible_label',
 			$item['is_selected']
 				/* translators: %s: Filter term name. */
 				? sprintf( __( 'Remove filter: %s', 'elasticprobe' ), $label )
@@ -213,13 +213,13 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 		 * lowercase versions of the term name and slug respectively.
 		 *
 		 * @since 4.6.0
-		 * @hook ep_facet_post_type_value_html
+		 * @hook eprobe_facet_post_type_value_html
 		 * @param {string} $html  Facet post-type value HTML.
 		 * @param {array}  $item Value array. It contains `value`, `name`, `count`, and `is_selected`.
 		 * @param {string} $url   Filter URL.
 		 * @return {string} Individual facet post-typ value HTML.
 		 */
-		return apply_filters( 'ep_facet_post_type_value_html', $html, $item, $url );
+		return apply_filters( 'eprobe_facet_post_type_value_html', $html, $item, $url );
 	}
 
 	/**

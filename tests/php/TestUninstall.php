@@ -13,9 +13,9 @@ namespace ElasticProbeTest;
  */
 class TestUninstall extends BaseTestCase {
 	/**
-	 * Holds the EP_Uninstaller class instance.
+	 * Holds the EPROBE_Uninstaller class instance.
 	 *
-	 * @var EP_Uninstaller
+	 * @var EPROBE_Uninstaller
 	 */
 	protected $uninstaller;
 
@@ -25,7 +25,7 @@ class TestUninstall extends BaseTestCase {
 	public function set_up() {
 		require_once __DIR__ . '/../../uninstall.php';
 
-		$this->uninstaller = new \EP_Uninstaller();
+		$this->uninstaller = new \EPROBE_Uninstaller();
 
 		parent::set_up();
 	}
@@ -94,7 +94,7 @@ class TestUninstall extends BaseTestCase {
 	 * @return \ReflectionMethod
 	 */
 	protected function get_protected_method( string $method_name ): \ReflectionMethod {
-		$reflection = new \ReflectionClass( '\EP_Uninstaller' );
+		$reflection = new \ReflectionClass( '\EPROBE_Uninstaller' );
 		$method     = $reflection->getMethod( $method_name );
 		$method->setAccessible( true );
 

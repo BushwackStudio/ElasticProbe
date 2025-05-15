@@ -30,8 +30,8 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 	 * Setup hooks and filters for feature
 	 */
 	public function setup() {
-		add_filter( 'ep_facet_query_filters', [ $this, 'add_query_filters' ] );
-		add_filter( 'ep_facets_date_script_data', [ $this, 'add_filter_name' ] );
+		add_filter( 'eprobe_facet_query_filters', [ $this, 'add_query_filters' ] );
+		add_filter( 'eprobe_facets_date_script_data', [ $this, 'add_filter_name' ] );
 
 		$this->block = new Block();
 		$this->block->setup();
@@ -46,12 +46,12 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 		/**
 		 * Filter the facet filter name that's added to the URL
 		 *
-		 * @hook ep_facet_date_filter_name
+		 * @hook eprobe_facet_date_filter_name
 		 * @since 5.0.0
 		 * @param   {string} Facet filter name
 		 * @return  {string} New facet filter name
 		 */
-		return apply_filters( 'ep_facet_date_filter_name', 'ep_date_filter' );
+		return apply_filters( 'eprobe_facet_date_filter_name', 'ep_date_filter' );
 	}
 
 	/**
@@ -63,12 +63,12 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 		/**
 		 * Filter the facet filter type. Used by the Facet feature to organize filters.
 		 *
-		 * @hook ep_facet_date_filter_type
+		 * @hook eprobe_facet_date_filter_type
 		 * @since 5.0.0
 		 * @param   {string} Facet filter type
 		 * @return  {string} New facet filter type
 		 */
-		return apply_filters( 'ep_facet_date_filter_type', 'ep_date' );
+		return apply_filters( 'eprobe_facet_date_filter_type', 'ep_date' );
 	}
 
 	/**
@@ -188,7 +188,7 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 		 * Example:
 		 * ```
 		 * add_filter(
-		 *   'ep_facet_date_options',
+		 *   'eprobe_facet_date_options',
 		 *   function( $options ) {
 		 *       $options = [
 		 *            [
@@ -228,7 +228,7 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 		 * @param {array} $options The options for the date facet.
 		 * @return {array} The options for the date facet.
 		 */
-		return apply_filters( 'ep_facet_date_options', $options );
+		return apply_filters( 'eprobe_facet_date_options', $options );
 	}
 
 	/**

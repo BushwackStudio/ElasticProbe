@@ -110,7 +110,7 @@ class TestElasticsearch extends BaseTestCase {
 		$settings   = [ 'test' ];
 
 		add_action(
-			'ep_update_index_settings',
+			'eprobe_update_index_settings',
 			function ( $index_name, $settings ) {
 				$this->assertSame( $index_name, 'lorem-ipsum' );
 				$this->assertSame( $settings, [ 'test' ] );
@@ -121,7 +121,7 @@ class TestElasticsearch extends BaseTestCase {
 
 		ElasticProbe\Elasticsearch::factory()->update_index_settings( $index_name, $settings );
 
-		$this->assertSame( 1, did_action( 'ep_update_index_settings' ) );
+		$this->assertSame( 1, did_action( 'eprobe_update_index_settings' ) );
 
 		$this->markTestIncomplete( 'This test should also test the index settings update.' );
 	}
@@ -135,7 +135,7 @@ class TestElasticsearch extends BaseTestCase {
 	public function test_get_index_settings() {
 		$index_name            = 'test-index';
 		$cache_key             = 'ep_index_settings_' . $index_name;
-		$transient_filter_name = defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ?
+		$transient_filter_name = defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ?
 			'pre_site_transient_' . $cache_key :
 			'pre_transient_' . $cache_key;
 
@@ -290,9 +290,9 @@ class TestElasticsearch extends BaseTestCase {
 		$this->assertNotEmpty( $default_headers['X-ElasticProbe-Request-ID'] );
 
 		/**
-		 * Test the addition of `X-ElasticPress-API-Key` if `EP_API_KEY` is defined
+		 * Test the addition of `X-ElasticPress-API-Key` if `EPROBE_API_KEY` is defined
 		 */
-		define( 'EP_API_KEY', 'custom_key' );
+		define( 'EPROBE_API_KEY', 'custom_key' );
 		$new_headers = ElasticProbe\Elasticsearch::factory()->format_request_headers();
 
 		$this->assertCount( Utils\is_epio() ? 4 : 3, $new_headers );
@@ -314,18 +314,18 @@ class TestElasticsearch extends BaseTestCase {
 		/**
 		 * Test if an empty request ID removes `X-ElasticProbe-Request-ID`
 		 */
-		add_filter( 'ep_request_id', '__return_empty_string' );
+		add_filter( 'eprobe_request_id', '__return_empty_string' );
 		$new_headers = ElasticProbe\Elasticsearch::factory()->format_request_headers();
 		$this->assertArrayNotHasKey( 'X-ElasticProbe-Request-ID', $new_headers );
 
 		/**
-		 * Test the `ep_format_request_headers` filter
+		 * Test the `eprobe_format_request_headers` filter
 		 */
 		$change_headers = function ( $headers ) {
 			$headers['X-Custom'] = 'totally custom';
 			return $headers;
 		};
-		add_filter( 'ep_format_request_headers', $change_headers );
+		add_filter( 'eprobe_format_request_headers', $change_headers );
 		$new_headers = ElasticProbe\Elasticsearch::factory()->format_request_headers();
 
 		$this->assertCount( 4, $new_headers ); // 3 old + 1 new
@@ -390,7 +390,7 @@ class TestElasticsearch extends BaseTestCase {
 	}
 
 	/**
-	 * Test the ep_disable_query_logging filter
+	 * Test the eprobe_disable_query_logging filter
 	 *
 	 * @since 5.1.4
 	 * @group elasticsearch
@@ -406,12 +406,12 @@ class TestElasticsearch extends BaseTestCase {
 
 		$example_query = [ 'example_query' ];
 
-		add_filter( 'ep_disable_query_logging', '__return_true' );
+		add_filter( 'eprobe_disable_query_logging', '__return_true' );
 
 		$method->invokeArgs( $elasticsearch, [ $example_query ] );
 		$this->assertEmpty( $property->getValue( $elasticsearch ) );
 
-		remove_filter( 'ep_disable_query_logging', '__return_true' );
+		remove_filter( 'eprobe_disable_query_logging', '__return_true' );
 
 		$method->invokeArgs( $elasticsearch, [ $example_query ] );
 
@@ -421,7 +421,7 @@ class TestElasticsearch extends BaseTestCase {
 	}
 
 	/**
-	 * Test the `ep_remote_request` action
+	 * Test the `eprobe_remote_request` action
 	 *
 	 * @since 5.2.0
 	 * @group elasticsearch
@@ -430,26 +430,26 @@ class TestElasticsearch extends BaseTestCase {
 		$elasticsearch = new \ElasticProbe\Elasticsearch();
 
 		// Make sure we don't fire any real request
-		add_filter( 'ep_do_intercept_request', '__return_empty_array' );
+		add_filter( 'eprobe_do_intercept_request', '__return_empty_array' );
 
 		$callback = function ( $query, $type ) {
 			$this->assertIsArray( $query );
 			$this->assertSame( 'example_type', $type );
 		};
-		add_action( 'ep_remote_request', $callback, 10, 2 );
+		add_action( 'eprobe_remote_request', $callback, 10, 2 );
 
 		// It starts with 1, likely because of some previous tests.
-		$initial_count = did_action( 'ep_remote_request' );
+		$initial_count = did_action( 'eprobe_remote_request' );
 
 		$elasticsearch->remote_request( '', [], [], 'example_type' );
-		$this->assertSame( $initial_count + 1, did_action( 'ep_remote_request' ) );
+		$this->assertSame( $initial_count + 1, did_action( 'eprobe_remote_request' ) );
 
 		// Make sure we execute the action even on non-blocking requests
 		$callback = function ( $query ) {
 			$this->assertFalse( $query['args']['blocking'] );
 		};
-		add_action( 'ep_remote_request', $callback, 10, 2 );
+		add_action( 'eprobe_remote_request', $callback, 10, 2 );
 		$elasticsearch->remote_request( '', [ 'blocking' => false ], [], 'example_type' );
-		$this->assertSame( $initial_count + 2, did_action( 'ep_remote_request' ) );
+		$this->assertSame( $initial_count + 2, did_action( 'eprobe_remote_request' ) );
 	}
 }

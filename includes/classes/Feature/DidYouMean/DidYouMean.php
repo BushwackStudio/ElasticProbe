@@ -54,11 +54,11 @@ class DidYouMean extends Feature {
 	 * @return void
 	 */
 	public function setup() {
-		add_filter( 'ep_post_mapping', [ $this, 'add_mapping' ] );
-		add_filter( 'ep_post_formatted_args', [ $this, 'add_query_args' ], 10, 3 );
-		add_filter( 'ep_integrate_search_queries', [ $this, 'set_ep_suggestion' ], 10, 2 );
+		add_filter( 'eprobe_post_mapping', [ $this, 'add_mapping' ] );
+		add_filter( 'eprobe_post_formatted_args', [ $this, 'add_query_args' ], 10, 3 );
+		add_filter( 'eprobe_integrate_search_queries', [ $this, 'set_ep_suggestion' ], 10, 2 );
 		add_action( 'template_redirect', [ $this, 'automatically_redirect_user' ] );
-		add_action( 'ep_suggestions', [ $this, 'the_output' ] );
+		add_action( 'eprobe_suggestions', [ $this, 'the_output' ] );
 	}
 
 	/**
@@ -160,13 +160,13 @@ class DidYouMean extends Feature {
 		 * Filter the did you mean suggested HTML.
 		 *
 		 * @since 4.6.0
-		 * @hook ep_suggestion_html
+		 * @hook eprobe_suggestion_html
 		 * @param {string}   $html The HTML output.
 		 * @param {array}    $terms All suggested terms.
 		 * @param {WP_Query} $query The WP_Query object.
 		 * @return {string}  New HTML output
 		 */
-		return apply_filters( 'ep_suggestion_html', $html, $terms, $query );
+		return apply_filters( 'eprobe_suggestion_html', $html, $terms, $query );
 	}
 
 	/**
@@ -193,14 +193,14 @@ class DidYouMean extends Feature {
 		 * Filter the search analyzer use for the did you mean feature.
 		 *
 		 * @since 4.6.0
-		 * @hook ep_search_suggestion_analyzer
+		 * @hook eprobe_search_suggestion_analyzer
 		 * @param {array} $search_analyzer Search analyzer
 		 * @param {array} $formatted_args Formatted Elasticsearch query
 		 * @param {array} $args WP_Query arguments
 		 * @param {WP_Query} $wp_query WP_Query object
 		 * @return {array} New search analyzer
 		 */
-		$search_analyzer = apply_filters( 'ep_search_suggestion_analyzer', $search_analyzer, $formatted_args, $args, $wp_query );
+		$search_analyzer = apply_filters( 'eprobe_search_suggestion_analyzer', $search_analyzer, $formatted_args, $args, $wp_query );
 
 		if ( ! empty( $args['s'] ) ) {
 			$formatted_args['suggest'] = array(
@@ -396,14 +396,14 @@ class DidYouMean extends Feature {
 		 * Filter the HTML output for the original search term.
 		 *
 		 * @since 4.6.0
-		 * @hook ep_suggestion_original_search_term_html
+		 * @hook eprobe_suggestion_original_search_term_html
 		 * @param {string} $html HTML output
 		 * @param {string} $search_term Suggested search term
 		 * @param {string} $original_term Original search term
 		 * @param {WP_Query} $query WP_Query object
 		 * @return {string} New HTML output
 		 */
-		return apply_filters( 'ep_suggestion_original_search_term_html', $html, $query->query_vars['s'], $original_term, $query );
+		return apply_filters( 'eprobe_suggestion_original_search_term_html', $html, $query->query_vars['s'], $original_term, $query );
 	}
 
 	/**

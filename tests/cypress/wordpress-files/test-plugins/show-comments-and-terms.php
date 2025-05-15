@@ -9,7 +9,7 @@
  */
 
 add_filter(
-	'ep_feature_is_visible',
+	'eprobe_feature_is_visible',
 	function ( $is_visible, $feature_slug ) {
 		return in_array( $feature_slug, [ 'comments', 'terms' ], true ) ? true : $is_visible;
 	},

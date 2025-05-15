@@ -100,12 +100,12 @@ class SearchOrdering extends Feature {
 		add_action( 'save_post_' . self::POST_TYPE_NAME, [ $this, 'save_post' ], 10, 2 );
 		add_action( 'posts_results', [ $this, 'posts_results' ], 20, 2 );  // Runs after core ES is done
 		add_action( 'rest_api_init', [ $this, 'rest_api_init' ] );
-		add_filter( 'ep_sync_taxonomies', [ $this, 'filter_sync_taxonomies' ] );
-		add_filter( 'ep_weighting_fields_for_post_type', [ $this, 'weighting_fields_for_post_type' ], 1, 2 );
-		add_filter( 'ep_weighting_configuration_for_search', [ $this, 'filter_weighting_configuration' ], 10, 2 );
-		add_filter( 'ep_weighting_configuration_for_autosuggest', [ $this, 'filter_weighting_configuration' ], 10, 1 );
-		add_filter( 'ep_weighting_configuration_defaults_for_autosuggest', [ $this, 'filter_weighting_configuration' ], 10, 1 );
-		add_filter( 'ep_weighting_default_post_type_weights', [ $this, 'filter_default_post_type_weights' ], 10, 2 );
+		add_filter( 'eprobe_sync_taxonomies', [ $this, 'filter_sync_taxonomies' ] );
+		add_filter( 'eprobe_weighting_fields_for_post_type', [ $this, 'weighting_fields_for_post_type' ], 1, 2 );
+		add_filter( 'eprobe_weighting_configuration_for_search', [ $this, 'filter_weighting_configuration' ], 10, 2 );
+		add_filter( 'eprobe_weighting_configuration_for_autosuggest', [ $this, 'filter_weighting_configuration' ], 10, 1 );
+		add_filter( 'eprobe_weighting_configuration_defaults_for_autosuggest', [ $this, 'filter_weighting_configuration' ], 10, 1 );
+		add_filter( 'eprobe_weighting_default_post_type_weights', [ $this, 'filter_default_post_type_weights' ], 10, 2 );
 		add_filter( 'enter_title_here', [ $this, 'filter_enter_title_here' ] );
 		add_filter( 'manage_' . self::POST_TYPE_NAME . '_posts_columns', [ $this, 'filter_column_names' ] );
 		add_filter( 'post_updated_messages', [ $this, 'filter_updated_messages' ] );
@@ -238,7 +238,7 @@ class SearchOrdering extends Feature {
 	public function parent_file( $parent_file ) {
 		global $current_screen;
 
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 			return $parent_file;
 		}
 
@@ -260,7 +260,7 @@ class SearchOrdering extends Feature {
 	public function submenu_file( $submenu_file ) {
 		global $current_screen;
 
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 			return $submenu_file;
 		}
 
@@ -421,7 +421,7 @@ class SearchOrdering extends Feature {
 		if ( in_array( $pagenow, [ 'post-new.php', 'post.php' ], true ) && $screen instanceof \WP_Screen && self::POST_TYPE_NAME === $screen->post_type ) {
 			wp_enqueue_script(
 				'ep_ordering_scripts',
-				EP_URL . 'dist/js/ordering-script.js',
+				EPROBE_URL . 'dist/js/ordering-script.js',
 				Utils\get_asset_info( 'ordering-script', 'dependencies' ),
 				Utils\get_asset_info( 'ordering-script', 'version' ),
 				true
@@ -431,7 +431,7 @@ class SearchOrdering extends Feature {
 
 			wp_enqueue_style(
 				'ep_ordering_styles',
-				EP_URL . 'dist/css/ordering-styles.css',
+				EPROBE_URL . 'dist/css/ordering-styles.css',
 				Utils\get_asset_info( 'ordering-styles', 'dependencies' ),
 				Utils\get_asset_info( 'ordering-styles', 'version' )
 			);

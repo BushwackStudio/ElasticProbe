@@ -84,18 +84,18 @@ class TestAcfRepeater extends BaseTestCase {
 	}
 
 	/**
-	 * Test the `ep_acf_repeater_should_display_field_setting` filter method
+	 * Test the `eprobe_acf_repeater_should_display_field_setting` filter method
 	 *
 	 * @group acf-repeater
 	 */
-	public function test_ep_acf_repeater_should_display_field_setting_filter() {
+	public function test_eprobe_acf_repeater_should_display_field_setting_filter() {
 		$field = [
 			'name'   => 'test_field',
 			'type'   => 'repeater',
 			'parent' => $this->factory->post->create(),
 		];
 
-		add_filter( 'ep_acf_repeater_should_display_field_setting', '__return_false' );
+		add_filter( 'eprobe_acf_repeater_should_display_field_setting', '__return_false' );
 
 		$this->feature->render_field_settings( $field );
 		$this->assertEquals( 0, \ElasticProbeTest\FunctionsCallCounter::get_instance()->get_counter( 'acf_render_field_setting' ) );
@@ -144,7 +144,7 @@ class TestAcfRepeater extends BaseTestCase {
 	}
 
 	/**
-	 * Test the `ep_acf_repeater_meta_value` filter
+	 * Test the `eprobe_acf_repeater_meta_value` filter
 	 *
 	 * @group acf-repeater
 	 */
@@ -167,7 +167,7 @@ class TestAcfRepeater extends BaseTestCase {
 			$this->assertInstanceOf( '\WP_Post', $post );
 			return $value_encoded . '_filtered';
 		};
-		add_filter( 'ep_acf_repeater_meta_value', $callback, 10, 4 );
+		add_filter( 'eprobe_acf_repeater_meta_value', $callback, 10, 4 );
 
 		$this->assertSame(
 			array_merge(

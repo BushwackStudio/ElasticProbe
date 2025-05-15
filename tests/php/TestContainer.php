@@ -67,7 +67,7 @@ class TestContainer extends BaseTestCase {
 	}
 
 	/**
-	 * Test the `ep_container_set` filter
+	 * Test the `eprobe_container_set` filter
 	 *
 	 * @group container
 	 */
@@ -84,7 +84,7 @@ class TestContainer extends BaseTestCase {
 			$this->assertSame( $instance, $object );
 			return $mock;
 		};
-		add_filter( 'ep_container_set', $change_instance, 10, 2 );
+		add_filter( 'eprobe_container_set', $change_instance, 10, 2 );
 
 		$container->set( 'mock', $object );
 		$this->assertSame( $mock, $container->get( 'mock' ) );

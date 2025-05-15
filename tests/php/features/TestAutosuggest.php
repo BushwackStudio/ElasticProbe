@@ -54,7 +54,7 @@ class TestAutosuggest extends BaseTestCase {
 		set_current_screen();
 
 		// make sure no one attached to this
-		remove_filter( 'ep_sync_terms_allow_hierarchy', array( $this, 'ep_allow_multiple_level_terms_sync' ), 100 );
+		remove_filter( 'eprobe_sync_terms_allow_hierarchy', array( $this, 'ep_allow_multiple_level_terms_sync' ), 100 );
 		$this->fired_actions = array();
 	}
 
@@ -118,7 +118,7 @@ class TestAutosuggest extends BaseTestCase {
 			return '5.2';
 		};
 
-		add_filter( 'ep_elasticsearch_version', $change_es_version );
+		add_filter( 'eprobe_elasticsearch_version', $change_es_version );
 
 		$mock = require __DIR__ . '/../../../includes/mappings/post/5-2.php';
 
@@ -140,7 +140,7 @@ class TestAutosuggest extends BaseTestCase {
 			return '7.0';
 		};
 
-		add_filter( 'ep_elasticsearch_version', $change_es_version );
+		add_filter( 'eprobe_elasticsearch_version', $change_es_version );
 
 		$mock = require __DIR__ . '/../../../includes/mappings/post/7-0.php';
 
@@ -204,8 +204,8 @@ class TestAutosuggest extends BaseTestCase {
 			];
 		};
 
-		add_filter( 'pre_site_option_ep_feature_settings', $filter );
-		add_filter( 'pre_option_ep_feature_settings', $filter );
+		add_filter( 'pre_site_option_eprobe_feature_settings', $filter );
+		add_filter( 'pre_option_eprobe_feature_settings', $filter );
 
 		$this->get_feature()->enqueue_scripts();
 		$this->assertTrue( wp_script_is( 'elasticpress-autosuggest' ) );
@@ -227,49 +227,49 @@ class TestAutosuggest extends BaseTestCase {
 	 */
 	public function testGenerateSearchQueryFilters() {
 		/**
-		 * Test the `ep_autosuggest_query_placeholder` filter.
+		 * Test the `eprobe_autosuggest_query_placeholder` filter.
 		 */
 		$test_placeholder_filter = function () {
 			return 'lorem-ipsum';
 		};
 
-		add_filter( 'ep_autosuggest_query_placeholder', $test_placeholder_filter );
+		add_filter( 'eprobe_autosuggest_query_placeholder', $test_placeholder_filter );
 
 		$query = $this->get_feature()->generate_search_query();
 		$this->assertStringContainsString( 'lorem-ipsum', $query['body'] );
 
 		/**
-		 * Test the `ep_autosuggest_query_placeholder` filter.
+		 * Test the `eprobe_autosuggest_query_placeholder` filter.
 		 */
 		$test_post_type_filter = function () {
 			return [ 'my-custom-post-type' ];
 		};
 
-		add_filter( 'ep_term_suggest_post_type', $test_post_type_filter );
+		add_filter( 'eprobe_term_suggest_post_type', $test_post_type_filter );
 
 		$query = $this->get_feature()->generate_search_query();
 		$this->assertStringContainsString( 'my-custom-post-type', $query['body'] );
 		/**
-		 * Test the `ep_term_suggest_post_status` filter.
+		 * Test the `eprobe_term_suggest_post_status` filter.
 		 */
 		$test_post_status_filter = function () {
 			return [ 'trash' ];
 		};
 
-		add_filter( 'ep_term_suggest_post_status', $test_post_status_filter );
+		add_filter( 'eprobe_term_suggest_post_status', $test_post_status_filter );
 
 		$query = $this->get_feature()->generate_search_query();
 		$this->assertStringContainsString( 'trash', $query['body'] );
 
 		/**
-		 * Test the `ep_term_suggest_post_status` filter.
+		 * Test the `eprobe_term_suggest_post_status` filter.
 		 */
 		$test_args_filter = function ( $args ) {
 			$args['posts_per_page'] = 1234;
 			return $args;
 		};
 
-		add_filter( 'ep_autosuggest_query_args', $test_args_filter );
+		add_filter( 'eprobe_autosuggest_query_args', $test_args_filter );
 
 		$query = $this->get_feature()->generate_search_query();
 		$this->assertStringContainsString( '1234', $query['body'] );
@@ -292,7 +292,7 @@ class TestAutosuggest extends BaseTestCase {
 
 		$this->assertEquals( [], $this->get_feature()->apply_autosuggest_weighting( [] ) );
 
-		add_filter( 'ep_weighting_configuration_for_autosuggest', $filter );
+		add_filter( 'eprobe_weighting_configuration_for_autosuggest', $filter );
 
 		$this->assertArrayHasKey( 'hello', $this->get_feature()->apply_autosuggest_weighting( [] ) );
 		$this->assertContains( 'world', $this->get_feature()->apply_autosuggest_weighting( [] ) );
@@ -333,8 +333,8 @@ class TestAutosuggest extends BaseTestCase {
 	 */
 	public function test_autosuggest_ngram_fields_for_ajax_request() {
 		add_filter( 'wp_doing_ajax', '__return_true' );
-		add_filter( 'ep_ajax_wp_query_integration', '__return_true' );
-		add_filter( 'ep_enable_do_weighting', '__return_true' );
+		add_filter( 'eprobe_ajax_wp_query_integration', '__return_true' );
+		add_filter( 'eprobe_enable_do_weighting', '__return_true' );
 
 		$this->get_feature()->setup();
 
@@ -348,7 +348,7 @@ class TestAutosuggest extends BaseTestCase {
 		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		add_filter(
-			'ep_query_request_path',
+			'eprobe_query_request_path',
 			function ( $path, $index, $type, $query ) {
 				$fields = $query['query']['function_score']['query']['bool']['should'][0]['bool']['must'][0]['bool']['should'][1]['multi_match']['fields'];
 
@@ -372,21 +372,21 @@ class TestAutosuggest extends BaseTestCase {
 	}
 
 	/**
-	 * Test whether autosuggest ngram fields do not apply to the search query when `ep_autosuggest_contexts` is only set to public.
+	 * Test whether autosuggest ngram fields do not apply to the search query when `eprobe_autosuggest_contexts` is only set to public.
 	 *
 	 * @since 5.1.0
 	 * @group autosuggest
 	 */
 	public function test_autosuggest_ngram_fields_for_ajax_request_negative() {
 		add_filter( 'wp_doing_ajax', '__return_true' );
-		add_filter( 'ep_ajax_wp_query_integration', '__return_true' );
-		add_filter( 'ep_enable_do_weighting', '__return_true' );
+		add_filter( 'eprobe_ajax_wp_query_integration', '__return_true' );
+		add_filter( 'eprobe_enable_do_weighting', '__return_true' );
 
 		$autosuggest_context = function () {
 			return [ 'public' ];
 		};
 
-		add_filter( 'ep_autosuggest_contexts', $autosuggest_context );
+		add_filter( 'eprobe_autosuggest_contexts', $autosuggest_context );
 
 		$this->get_feature()->setup();
 
@@ -400,7 +400,7 @@ class TestAutosuggest extends BaseTestCase {
 		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		add_filter(
-			'ep_query_request_path',
+			'eprobe_query_request_path',
 			function ( $path, $index, $type, $query ) {
 				$fields = $query['query']['function_score']['query']['bool']['should'][0]['bool']['must'][0]['bool']['should'][1]['multi_match']['fields'];
 
@@ -431,12 +431,12 @@ class TestAutosuggest extends BaseTestCase {
 	 */
 	public function test_fuziness_with_type_auto_set_for_ajax_call() {
 		add_filter( 'wp_doing_ajax', '__return_true' );
-		add_filter( 'ep_ajax_wp_query_integration', '__return_true' );
+		add_filter( 'eprobe_ajax_wp_query_integration', '__return_true' );
 
 		$algorithm = function () {
 			return 'default';
 		};
-		add_filter( 'ep_search_algorithm_version', $algorithm );
+		add_filter( 'eprobe_search_algorithm_version', $algorithm );
 
 		$this->get_feature()->setup();
 
@@ -450,7 +450,7 @@ class TestAutosuggest extends BaseTestCase {
 		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		add_filter(
-			'ep_query_request_path',
+			'eprobe_query_request_path',
 			function ( $path, $index, $type, $query ) {
 				$this->assertEquals( 'auto', $query['query']['function_score']['query']['bool']['should'][2]['multi_match']['fuzziness'] );
 				return $path;
@@ -470,24 +470,24 @@ class TestAutosuggest extends BaseTestCase {
 	}
 
 	/**
-	 * Test whether fuzziness is not set to `auto` for AJAX calls when `ep_autosuggest_contexts` is only set to public.
+	 * Test whether fuzziness is not set to `auto` for AJAX calls when `eprobe_autosuggest_contexts` is only set to public.
 	 *
 	 * @since 5.1.0
 	 * @group autosuggest
 	 */
 	public function test_fuziness_with_type_auto_set_for_ajax_call_negative() {
 		add_filter( 'wp_doing_ajax', '__return_true' );
-		add_filter( 'ep_ajax_wp_query_integration', '__return_true' );
+		add_filter( 'eprobe_ajax_wp_query_integration', '__return_true' );
 
 		$algorithm = function () {
 			return 'default';
 		};
-		add_filter( 'ep_search_algorithm_version', $algorithm );
+		add_filter( 'eprobe_search_algorithm_version', $algorithm );
 
 		$autosuggest_context = function () {
 			return [ 'public' ];
 		};
-		add_filter( 'ep_autosuggest_contexts', $autosuggest_context );
+		add_filter( 'eprobe_autosuggest_contexts', $autosuggest_context );
 
 		$this->get_feature()->setup();
 
@@ -501,7 +501,7 @@ class TestAutosuggest extends BaseTestCase {
 		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		add_filter(
-			'ep_query_request_path',
+			'eprobe_query_request_path',
 			function ( $path, $index, $type, $query ) {
 				$this->assertNotEquals( 'auto', $query['query']['function_score']['query']['bool']['should'][2]['multi_match']['fuzziness'] );
 				return $path;

@@ -10,7 +10,7 @@
  */
 
 add_filter(
-	'ep_instant_results_args_schema',
+	'eprobe_instant_results_args_schema',
 	function ( $args_schema ) {
 		$args_schema['orderby']['default'] = 'date';
 

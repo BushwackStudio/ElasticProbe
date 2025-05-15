@@ -79,8 +79,8 @@ class AcfRepeater extends Feature {
 	 */
 	public function setup() {
 		add_action( 'acf/render_field_settings', [ $this, 'render_field_settings' ] );
-		add_filter( 'ep_prepare_meta_allowed_protected_keys', [ $this, 'allow_meta_keys' ], 10, 2 );
-		add_filter( 'ep_prepare_meta_data', [ $this, 'add_meta_keys' ], 10, 2 );
+		add_filter( 'eprobe_prepare_meta_allowed_protected_keys', [ $this, 'allow_meta_keys' ], 10, 2 );
+		add_filter( 'eprobe_prepare_meta_data', [ $this, 'add_meta_keys' ], 10, 2 );
 	}
 
 	/**
@@ -104,13 +104,13 @@ class AcfRepeater extends Feature {
 		/**
 		 * Filter whether EP should or not display the field setting in ACF
 		 *
-		 * @hook ep_acf_repeater_should_display_field_setting
+		 * @hook eprobe_acf_repeater_should_display_field_setting
 		 * @since 5.3.0
 		 * @param {bool}  $should_display Whether should or not display the field setting in ACF
 		 * @param {array} $field          The ACF Field array
 		 * @return {bool} New value of $should_display
 		 */
-		if ( ! apply_filters( 'ep_acf_repeater_should_display_field_setting', true, $field ) ) {
+		if ( ! apply_filters( 'eprobe_acf_repeater_should_display_field_setting', true, $field ) ) {
 			return;
 		}
 
@@ -194,7 +194,7 @@ class AcfRepeater extends Feature {
 			/**
 			 * Filter the ACF Repeater field value before it is indexed
 			 *
-			 * @hook ep_acf_repeater_meta_value
+			 * @hook eprobe_acf_repeater_meta_value
 			 * @since 5.3.0
 			 * @param {string}  $value_encoded Repeater field value encoded
 			 * @param {array}   $value_field   Original field value
@@ -202,7 +202,7 @@ class AcfRepeater extends Feature {
 			 * @param {WP_Post} $post          The Post object
 			 * @return {mixed} New value of $value_encoded
 			 */
-			$meta[ $key ] = apply_filters( 'ep_acf_repeater_meta_value', $value_encoded, $value_field, $key, $post );
+			$meta[ $key ] = apply_filters( 'eprobe_acf_repeater_meta_value', $value_encoded, $value_field, $key, $post );
 		}
 
 		return $meta;

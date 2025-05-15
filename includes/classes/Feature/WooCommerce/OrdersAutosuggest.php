@@ -62,7 +62,7 @@ class OrdersAutosuggest {
 	 * @return void
 	 */
 	public function setup() {
-		add_filter( 'ep_woocommerce_settings_schema', [ $this, 'add_settings_schema' ] );
+		add_filter( 'eprobe_woocommerce_settings_schema', [ $this, 'add_settings_schema' ] );
 
 		// Orders Autosuggest feature.
 		if ( ! $this->is_enabled() ) {
@@ -70,16 +70,16 @@ class OrdersAutosuggest {
 		}
 
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
-		add_filter( 'ep_after_update_feature', [ $this, 'after_update_feature' ], 10, 3 );
-		add_filter( 'ep_after_sync_index', [ $this, 'epio_save_search_template' ] );
-		add_filter( 'ep_saved_weighting_configuration', [ $this, 'epio_save_search_template' ] );
-		add_filter( 'ep_indexable_post_status', [ $this, 'post_statuses' ] );
-		add_filter( 'ep_indexable_post_types', [ $this, 'post_types' ] );
+		add_filter( 'eprobe_after_update_feature', [ $this, 'after_update_feature' ], 10, 3 );
+		add_filter( 'eprobe_after_sync_index', [ $this, 'epio_save_search_template' ] );
+		add_filter( 'eprobe_saved_weighting_configuration', [ $this, 'epio_save_search_template' ] );
+		add_filter( 'eprobe_indexable_post_status', [ $this, 'post_statuses' ] );
+		add_filter( 'eprobe_indexable_post_types', [ $this, 'post_types' ] );
 		add_action( 'rest_api_init', [ $this, 'rest_api_init' ] );
-		add_filter( 'ep_post_sync_args', [ $this, 'filter_term_suggest' ], 10 );
-		add_filter( 'ep_post_mapping', [ $this, 'mapping' ] );
-		add_action( 'ep_woocommerce_shop_order_search_fields', [ $this, 'set_search_fields' ], 10, 2 );
-		add_filter( 'ep_index_posts_args', [ $this, 'maybe_query_password_protected_posts' ] );
+		add_filter( 'eprobe_post_sync_args', [ $this, 'filter_term_suggest' ], 10 );
+		add_filter( 'eprobe_post_mapping', [ $this, 'mapping' ] );
+		add_action( 'eprobe_woocommerce_shop_order_search_fields', [ $this, 'set_search_fields' ], 10, 2 );
+		add_filter( 'eprobe_index_posts_args', [ $this, 'maybe_query_password_protected_posts' ] );
 		add_filter( 'posts_where', [ $this, 'maybe_set_posts_where' ], 10, 2 );
 	}
 
@@ -90,16 +90,16 @@ class OrdersAutosuggest {
 	 */
 	public function tear_down() {
 		remove_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
-		remove_filter( 'ep_after_update_feature', [ $this, 'after_update_feature' ] );
-		remove_filter( 'ep_after_sync_index', [ $this, 'epio_save_search_template' ] );
-		remove_filter( 'ep_saved_weighting_configuration', [ $this, 'epio_save_search_template' ] );
-		remove_filter( 'ep_indexable_post_status', [ $this, 'post_statuses' ] );
-		remove_filter( 'ep_indexable_post_types', [ $this, 'post_types' ] );
+		remove_filter( 'eprobe_after_update_feature', [ $this, 'after_update_feature' ] );
+		remove_filter( 'eprobe_after_sync_index', [ $this, 'epio_save_search_template' ] );
+		remove_filter( 'eprobe_saved_weighting_configuration', [ $this, 'epio_save_search_template' ] );
+		remove_filter( 'eprobe_indexable_post_status', [ $this, 'post_statuses' ] );
+		remove_filter( 'eprobe_indexable_post_types', [ $this, 'post_types' ] );
 		remove_action( 'rest_api_init', [ $this, 'rest_api_init' ] );
-		remove_filter( 'ep_post_sync_args', [ $this, 'filter_term_suggest' ] );
-		remove_filter( 'ep_post_mapping', [ $this, 'mapping' ] );
-		remove_action( 'ep_woocommerce_shop_order_search_fields', [ $this, 'set_search_fields' ] );
-		remove_filter( 'ep_index_posts_args', [ $this, 'maybe_query_password_protected_posts' ] );
+		remove_filter( 'eprobe_post_sync_args', [ $this, 'filter_term_suggest' ] );
+		remove_filter( 'eprobe_post_mapping', [ $this, 'mapping' ] );
+		remove_action( 'eprobe_woocommerce_shop_order_search_fields', [ $this, 'set_search_fields' ] );
+		remove_filter( 'eprobe_index_posts_args', [ $this, 'maybe_query_password_protected_posts' ] );
 		remove_filter( 'posts_where', [ $this, 'maybe_set_posts_where' ] );
 	}
 
@@ -113,11 +113,11 @@ class OrdersAutosuggest {
 		 * Filters the WooCommerce Orders search endpoint.
 		 *
 		 * @since 4.5.0
-		 * @hook ep_woocommerce_order_search_endpoint
+		 * @hook eprobe_woocommerce_order_search_endpoint
 		 * @param {string} $endpoint Endpoint path.
 		 * @param {string} $index Elasticsearch index.
 		 */
-		return apply_filters( 'ep_woocommerce_order_search_endpoint', "api/v1/search/orders/{$this->index}", $this->index );
+		return apply_filters( 'eprobe_woocommerce_order_search_endpoint', "api/v1/search/orders/{$this->index}", $this->index );
 	}
 
 	/**
@@ -130,12 +130,12 @@ class OrdersAutosuggest {
 		 * Filters the WooCommerce Orders search template API endpoint.
 		 *
 		 * @since 4.5.0
-		 * @hook ep_woocommerce_order_search_template_endpoint
+		 * @hook eprobe_woocommerce_order_search_template_endpoint
 		 * @param {string} $endpoint Endpoint path.
 		 * @param {string} $index Elasticsearch index.
 		 * @returns {string} Search template API endpoint.
 		 */
-		return apply_filters( 'ep_woocommerce_order_search_template_endpoint', "api/v1/search/orders/{$this->index}/template", $this->index );
+		return apply_filters( 'eprobe_woocommerce_order_search_template_endpoint', "api/v1/search/orders/{$this->index}/template", $this->index );
 	}
 
 	/**
@@ -166,14 +166,14 @@ class OrdersAutosuggest {
 
 		wp_enqueue_style(
 			'elasticpress-woocommerce-order-search',
-			EP_URL . 'dist/css/woocommerce-order-search-styles.css',
+			EPROBE_URL . 'dist/css/woocommerce-order-search-styles.css',
 			Utils\get_asset_info( 'woocommerce-order-search-styles', 'dependencies' ),
 			Utils\get_asset_info( 'woocommerce-order-search-styles', 'version' )
 		);
 
 		wp_enqueue_script(
 			'elasticpress-woocommerce-order-search',
-			EP_URL . 'dist/js/woocommerce-order-search-script.js',
+			EPROBE_URL . 'dist/js/woocommerce-order-search-script.js',
 			Utils\get_asset_info( 'woocommerce-order-search-script', 'dependencies' ),
 			Utils\get_asset_info( 'woocommerce-order-search-script', 'version' ),
 			true
@@ -246,11 +246,11 @@ class OrdersAutosuggest {
 		 * Fires after the request is sent the search template API endpoint.
 		 *
 		 * @since 4.5.0
-		 * @hook ep_woocommerce_order_search_template_saved
+		 * @hook eprobe_woocommerce_order_search_template_saved
 		 * @param {string} $template The search template (JSON).
 		 * @param {string} $index Index name.
 		 */
-		do_action( 'ep_woocommerce_order_search_template_saved', $template, $this->index );
+		do_action( 'eprobe_woocommerce_order_search_template_saved', $template, $this->index );
 	}
 
 	/**
@@ -273,10 +273,10 @@ class OrdersAutosuggest {
 		 * Fires after the request is sent the search template API endpoint.
 		 *
 		 * @since 4.5.0
-		 * @hook ep_woocommerce_order_search_template_deleted
+		 * @hook eprobe_woocommerce_order_search_template_deleted
 		 * @param {string} $index Index name.
 		 */
-		do_action( 'ep_woocommerce_order_search_template_deleted', $this->index );
+		do_action( 'eprobe_woocommerce_order_search_template_deleted', $this->index );
 	}
 
 	/**
@@ -310,10 +310,10 @@ class OrdersAutosuggest {
 	public function get_search_template() {
 		$order_statuses = wc_get_order_statuses();
 
-		add_filter( 'ep_bypass_exclusion_from_search', '__return_true', 10 );
-		add_filter( 'ep_intercept_remote_request', '__return_true' );
-		add_filter( 'ep_do_intercept_request', [ $this, 'intercept_search_request' ], 10, 3 );
-		add_filter( 'ep_is_integrated_request', [ $this, 'is_integrated_request' ], 10, 2 );
+		add_filter( 'eprobe_bypass_exclusion_from_search', '__return_true', 10 );
+		add_filter( 'eprobe_intercept_remote_request', '__return_true' );
+		add_filter( 'eprobe_do_intercept_request', [ $this, 'intercept_search_request' ], 10, 3 );
+		add_filter( 'eprobe_is_integrated_request', [ $this, 'is_integrated_request' ], 10, 2 );
 
 		$query = new \WP_Query(
 			array(
@@ -325,10 +325,10 @@ class OrdersAutosuggest {
 			)
 		);
 
-		remove_filter( 'ep_bypass_exclusion_from_search', '__return_true', 10 );
-		remove_filter( 'ep_intercept_remote_request', '__return_true' );
-		remove_filter( 'ep_do_intercept_request', [ $this, 'intercept_search_request' ], 10 );
-		remove_filter( 'ep_is_integrated_request', [ $this, 'is_integrated_request' ], 10 );
+		remove_filter( 'eprobe_bypass_exclusion_from_search', '__return_true', 10 );
+		remove_filter( 'eprobe_intercept_remote_request', '__return_true' );
+		remove_filter( 'eprobe_do_intercept_request', [ $this, 'intercept_search_request' ], 10 );
+		remove_filter( 'eprobe_is_integrated_request', [ $this, 'is_integrated_request' ], 10 );
 
 		return $this->search_template;
 	}
@@ -579,10 +579,10 @@ class OrdersAutosuggest {
 		 * WPProbe.com customers.
 		 *
 		 * @since 4.5.0
-		 * @hook ep_woocommerce_orders_autosuggest_available
+		 * @hook eprobe_woocommerce_orders_autosuggest_available
 		 * @param {boolean} $available Whether the feature is available.
 		 */
-		return apply_filters( 'ep_woocommerce_orders_autosuggest_available', Utils\is_epio() && $this->is_hpos_compatible() );
+		return apply_filters( 'eprobe_woocommerce_orders_autosuggest_available', Utils\is_epio() && $this->is_hpos_compatible() );
 	}
 
 	/**

@@ -57,13 +57,13 @@ class TestFacet extends BaseTestCase {
 	}
 
 	/**
-	 * Test the ep_facet_enabled_in_editor filter
+	 * Test the eprobe_facet_enabled_in_editor filter
 	 *
 	 * @since 5.1.0
 	 * @group facets
 	 */
 	public function test_setup_ep_facet_enabled_in_editor() {
-		add_filter( 'ep_facet_enabled_in_editor', '__return_true' );
+		add_filter( 'eprobe_facet_enabled_in_editor', '__return_true' );
 
 		$GLOBALS['pagenow'] = 'post-new.php';
 		set_current_screen( 'post-new.php' );
@@ -90,7 +90,7 @@ class TestFacet extends BaseTestCase {
 			return $types;
 		};
 
-		add_filter( 'ep_facet_types', $register_facet_type );
+		add_filter( 'eprobe_facet_types', $register_facet_type );
 
 		$facets = new \ElasticProbe\Feature\Facets\Facets();
 
@@ -223,27 +223,27 @@ class TestFacet extends BaseTestCase {
 		$this->assertEquals( 'test/?ep_filter_category=augue,consectetur&s=dolor', $facet_feature->build_query_url( $filters ) );
 
 		/**
-		 * Test the `ep_facet_query_string` filter.
+		 * Test the `eprobe_facet_query_string` filter.
 		 */
 		$change_facet_query_string = function ( $query_string, $query_params ) {
 			$this->assertIsArray( $query_params );
 			$query_string .= '&foobar';
 			return $query_string;
 		};
-		add_filter( 'ep_facet_query_string', $change_facet_query_string, 10, 2 );
+		add_filter( 'eprobe_facet_query_string', $change_facet_query_string, 10, 2 );
 		$this->assertStringEndsWith( '&foobar', $facet_feature->build_query_url( $filters ) );
-		remove_filter( 'ep_facet_query_string', $change_facet_query_string, 10, 2 );
+		remove_filter( 'eprobe_facet_query_string', $change_facet_query_string, 10, 2 );
 
 		/**
-		 * (Indirectly) test the `ep_facet_filter_name` filter
+		 * (Indirectly) test the `eprobe_facet_filter_name` filter
 		 */
 		$change_ep_facet_filter_name = function ( $original_name ) {
 			$this->assertEquals( 'ep_filter_', $original_name );
 			return 'ep_custom_filter_';
 		};
-		add_filter( 'ep_facet_filter_name', $change_ep_facet_filter_name );
+		add_filter( 'eprobe_facet_filter_name', $change_ep_facet_filter_name );
 		$this->assertEquals( 'test/?ep_custom_filter_category=augue,consectetur&s=dolor', $facet_feature->build_query_url( $filters ) );
-		remove_filter( 'ep_facet_filter_name', $change_ep_facet_filter_name );
+		remove_filter( 'eprobe_facet_filter_name', $change_ep_facet_filter_name );
 	}
 
 	/**
@@ -269,11 +269,11 @@ class TestFacet extends BaseTestCase {
 		$this->assertSame( $args, $facet_feature->set_agg_filters( $args, $query_args, $query ) );
 
 		/**
-		 * Without any function hooked to `ep_facet_agg_filters` we expect
+		 * Without any function hooked to `eprobe_facet_agg_filters` we expect
 		 * aggregation filters to match exactly the filter applied to the main
 		 * query.
 		 */
-		remove_all_filters( 'ep_facet_agg_filters' );
+		remove_all_filters( 'eprobe_facet_agg_filters' );
 		$query_args = [
 			'ep_facet'    => 1,
 			'post_type'   => 'post',
@@ -306,11 +306,11 @@ class TestFacet extends BaseTestCase {
 			$this->assertTrue( $query_args['ep_facet_adding_agg_filters'] );
 			return $query_args;
 		};
-		add_filter( 'ep_facet_agg_filters', $check_flag );
+		add_filter( 'eprobe_facet_agg_filters', $check_flag );
 
-		$previous_filter_count = did_filter( 'ep_facet_agg_filters' );
+		$previous_filter_count = did_filter( 'eprobe_facet_agg_filters' );
 		$facet_feature->set_agg_filters( [], $query_args, new \WP_Query() );
-		$current_filter_count = did_filter( 'ep_facet_agg_filters' );
+		$current_filter_count = did_filter( 'eprobe_facet_agg_filters' );
 
 		$this->assertGreaterThan( $previous_filter_count, $current_filter_count );
 	}
@@ -328,7 +328,7 @@ class TestFacet extends BaseTestCase {
 		$this->assertSame( [], $new_filters );
 
 		/**
-		 * Test the `ep_facet_query_filters` filter
+		 * Test the `eprobe_facet_query_filters` filter
 		 */
 		$add_filter = function ( $filters, $args, $query ) {
 			$filters[] = [
@@ -342,8 +342,8 @@ class TestFacet extends BaseTestCase {
 
 			return $filters;
 		};
-		add_filter( 'ep_facet_query_filters', $add_filter, 10, 3 );
-		add_filter( 'ep_is_facetable', '__return_true' );
+		add_filter( 'eprobe_facet_query_filters', $add_filter, 10, 3 );
+		add_filter( 'eprobe_is_facetable', '__return_true' );
 
 		$new_filters     = $facet_feature->apply_facets_filters( [], [], new \WP_Query( [] ) );
 		$expected_filter = [
@@ -367,7 +367,7 @@ class TestFacet extends BaseTestCase {
 		$change_match_type = function () {
 			return 'any';
 		};
-		add_filter( 'ep_facet_match_type', $change_match_type );
+		add_filter( 'eprobe_facet_match_type', $change_match_type );
 
 		$new_filters     = $facet_feature->apply_facets_filters( [], [], new \WP_Query( [] ) );
 		$expected_filter = [
@@ -415,13 +415,13 @@ class TestFacet extends BaseTestCase {
 		$this->assertEqualsCanonicalizing( $default_allowed_args, $facet_feature->get_allowed_query_args() );
 
 		/**
-		 * Test the `ep_facet_allowed_query_args` filter
+		 * Test the `eprobe_facet_allowed_query_args` filter
 		 */
 		$add_allowed_query_arg = function ( $allowed ) {
 			$allowed[] = 'test';
 			return $allowed;
 		};
-		add_filter( 'ep_facet_allowed_query_args', $add_allowed_query_arg );
+		add_filter( 'eprobe_facet_allowed_query_args', $add_allowed_query_arg );
 
 		$this->assertEqualsCanonicalizing( array_merge( $default_allowed_args, [ 'test' ] ), $facet_feature->get_allowed_query_args() );
 	}
@@ -444,7 +444,7 @@ class TestFacet extends BaseTestCase {
 	}
 
 	/**
-	 * Test ep_facet_selected_filters filter.
+	 * Test eprobe_facet_selected_filters filter.
 	 *
 	 * @since 5.1.4
 	 * @group facets
@@ -463,7 +463,7 @@ class TestFacet extends BaseTestCase {
 			$filters['taxonomies']['taxonomy']['terms'] = $new_terms;
 			return $filters;
 		};
-		add_filter( 'ep_facet_selected_filters', $add_prefix_with_terms );
+		add_filter( 'eprobe_facet_selected_filters', $add_prefix_with_terms );
 
 		$selected = $facet_feature->get_selected();
 		foreach ( $selected['taxonomies']['taxonomy']['terms'] as $key => $value ) {

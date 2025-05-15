@@ -65,20 +65,20 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		add_action( 'deleted_post_meta', array( $this, 'action_queue_meta_sync' ), 10, 4 );
 		add_action( 'wp_initialize_site', array( $this, 'action_create_blog_index' ) );
 
-		add_filter( 'ep_sync_insert_permissions_bypass', array( $this, 'filter_bypass_permission_checks_for_machines' ) );
-		add_filter( 'ep_sync_delete_permissions_bypass', array( $this, 'filter_bypass_permission_checks_for_machines' ) );
+		add_filter( 'eprobe_sync_insert_permissions_bypass', array( $this, 'filter_bypass_permission_checks_for_machines' ) );
+		add_filter( 'eprobe_sync_delete_permissions_bypass', array( $this, 'filter_bypass_permission_checks_for_machines' ) );
 
 		// Conditionally update posts associated with terms
-		add_action( 'ep_admin_notices', [ $this, 'maybe_display_notice_edit_single_term' ] );
-		add_action( 'ep_admin_notices', [ $this, 'maybe_display_notice_term_list_screen' ] );
+		add_action( 'eprobe_admin_notices', [ $this, 'maybe_display_notice_edit_single_term' ] );
+		add_action( 'eprobe_admin_notices', [ $this, 'maybe_display_notice_term_list_screen' ] );
 		add_action( 'set_object_terms', array( $this, 'action_set_object_terms' ), 10, 6 );
 		add_action( 'edited_term', array( $this, 'action_edited_term' ), 10, 3 );
 		add_action( 'deleted_term_relationships', array( $this, 'action_deleted_term_relationships' ), 10, 3 );
 
 		// Clear index settings cache
-		add_action( 'ep_update_index_settings', [ $this, 'clear_index_settings_cache' ] );
-		add_action( 'ep_after_put_mapping', [ $this, 'clear_index_settings_cache' ] );
-		add_action( 'ep_saved_weighting_configuration', [ $this, 'clear_index_settings_cache' ] );
+		add_action( 'eprobe_update_index_settings', [ $this, 'clear_index_settings_cache' ] );
+		add_action( 'eprobe_after_put_mapping', [ $this, 'clear_index_settings_cache' ] );
+		add_action( 'eprobe_saved_weighting_configuration', [ $this, 'clear_index_settings_cache' ] );
 
 		// Clear distinct meta field per post type cache
 		add_action( 'wp_insert_post', [ $this, 'clear_meta_keys_db_per_post_type_cache_by_post_id' ] );
@@ -89,7 +89,7 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		add_action( 'delete_post_metadata', [ $this, 'clear_meta_keys_db_per_post_type_cache_by_meta' ], 10, 2 );
 
 		// Prevents password protected posts from being indexed
-		add_filter( 'ep_post_sync_kill', [ $this, 'kill_sync_for_password_protected' ], 10, 2 );
+		add_filter( 'eprobe_post_sync_kill', [ $this, 'kill_sync_for_password_protected' ], 10, 2 );
 
 		// Display the status of the document in ES in the admin bar
 		add_action( 'admin_bar_menu', [ $this, 'add_admin_bar_status' ], 500 );
@@ -114,14 +114,14 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		remove_filter( 'delete_post_metadata', array( $this, 'maybe_delete_meta_for_all' ) );
 		remove_action( 'deleted_post_meta', array( $this, 'action_queue_meta_sync' ) );
 		remove_action( 'wp_initialize_site', array( $this, 'action_create_blog_index' ) );
-		remove_filter( 'ep_sync_insert_permissions_bypass', array( $this, 'filter_bypass_permission_checks_for_machines' ) );
-		remove_filter( 'ep_sync_delete_permissions_bypass', array( $this, 'filter_bypass_permission_checks_for_machines' ) );
-		remove_filter( 'ep_post_sync_kill', [ $this, 'kill_sync_for_password_protected' ] );
+		remove_filter( 'eprobe_sync_insert_permissions_bypass', array( $this, 'filter_bypass_permission_checks_for_machines' ) );
+		remove_filter( 'eprobe_sync_delete_permissions_bypass', array( $this, 'filter_bypass_permission_checks_for_machines' ) );
+		remove_filter( 'eprobe_post_sync_kill', [ $this, 'kill_sync_for_password_protected' ] );
 
 		// Clear index settings cache
-		remove_action( 'ep_update_index_settings', [ $this, 'clear_index_settings_cache' ] );
-		remove_action( 'ep_after_put_mapping', [ $this, 'clear_index_settings_cache' ] );
-		remove_action( 'ep_saved_weighting_configuration', [ $this, 'clear_index_settings_cache' ] );
+		remove_action( 'eprobe_update_index_settings', [ $this, 'clear_index_settings_cache' ] );
+		remove_action( 'eprobe_after_put_mapping', [ $this, 'clear_index_settings_cache' ] );
+		remove_action( 'eprobe_saved_weighting_configuration', [ $this, 'clear_index_settings_cache' ] );
 
 		remove_action( 'admin_bar_menu', [ $this, 'add_admin_bar_status' ] );
 	}
@@ -182,13 +182,13 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		/**
 		 * Filter to whether skip a sync during autosave, defaults to true
 		 *
-		 * @hook ep_skip_autosave_sync
+		 * @hook eprobe_skip_autosave_sync
 		 * @since 4.3.0
 		 * @param {bool} $skip True means to disable sync for autosaves
 		 * @param {string} $function Function applying filter
 		 * @return {boolean} New value
 		 */
-		if ( apply_filters( 'ep_skip_autosave_sync', true, __FUNCTION__ ) ) {
+		if ( apply_filters( 'eprobe_skip_autosave_sync', true, __FUNCTION__ ) ) {
 			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 				// Bypass saving if doing autosave
 				// @codeCoverageIgnoreStart
@@ -202,7 +202,7 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		/**
 		 * Filter to allow skipping a sync triggered by meta changes
 		 *
-		 * @hook ep_skip_post_meta_sync
+		 * @hook eprobe_skip_post_meta_sync
 		 * @param {bool} $skip True means kill sync for post
 		 * @param {WP_Post} $post The post that's attempting to be synced
 		 * @param {int} $meta_id ID of the meta that triggered the sync
@@ -210,12 +210,12 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		 * @param {string} $meta_value The value of the meta that triggered the sync
 		 * @return {boolean} New value
 		 */
-		if ( apply_filters( 'ep_skip_post_meta_sync', false, $post, $meta_id, $meta_key, $meta_value ) ) {
+		if ( apply_filters( 'eprobe_skip_post_meta_sync', false, $post, $meta_id, $meta_key, $meta_value ) ) {
 			return;
 		}
 
 		if ( empty( $object_id ) && $this->delete_all_meta ) {
-			add_filter( 'ep_is_integrated_request', '__return_true' );
+			add_filter( 'eprobe_is_integrated_request', '__return_true' );
 
 			$query = new \WP_Query(
 				[
@@ -227,13 +227,13 @@ class SyncManager extends \ElasticProbe\SyncManager {
 				]
 			);
 
-			remove_filter( 'ep_is_integrated_request', '__return_true' );
+			remove_filter( 'eprobe_is_integrated_request', '__return_true' );
 
 			if ( $query->have_posts() && $query->elasticsearch_success ) {
 				$posts_to_be_synced = array_filter(
 					$query->posts,
 					function ( $object_id ) {
-						return ! apply_filters( 'ep_post_sync_kill', false, $object_id, $object_id );
+						return ! apply_filters( 'eprobe_post_sync_kill', false, $object_id, $object_id );
 					}
 				);
 				if ( ! empty( $posts_to_be_synced ) ) {
@@ -256,13 +256,13 @@ class SyncManager extends \ElasticProbe\SyncManager {
 					/**
 					 * Filter to kill post sync
 					 *
-					 * @hook ep_post_sync_kill
+					 * @hook eprobe_post_sync_kill
 					 * @param {bool} $skip True meanas kill sync for post
 					 * @param  {int} $object_id ID of post
 					 * @param  {int} $object_id ID of post
 					 * @return {boolean} New value
 					 */
-					if ( apply_filters( 'ep_post_sync_kill', false, $object_id, $object_id ) ) {
+					if ( apply_filters( 'eprobe_post_sync_kill', false, $object_id, $object_id ) ) {
 						return;
 					}
 
@@ -286,12 +286,12 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		/**
 		 * Filter whether to skip the permissions check on deleting a post
 		 *
-		 * @hook ep_sync_delete_permissions_bypass
+		 * @hook eprobe_sync_delete_permissions_bypass
 		 * @param  {bool} $bypass True to bypass
 		 * @param  {int} $post_id ID of post
 		 * @return {boolean} New value
 		 */
-		if ( ! current_user_can( 'edit_post', $post_id ) && ! apply_filters( 'ep_sync_delete_permissions_bypass', false, $post_id ) ) {
+		if ( ! current_user_can( 'edit_post', $post_id ) && ! apply_filters( 'eprobe_sync_delete_permissions_bypass', false, $post_id ) ) {
 			return;
 		}
 
@@ -331,13 +331,13 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		/**
 		 * Filter to whether skip a sync during autosave, defaults to true
 		 *
-		 * @hook ep_skip_autosave_sync
+		 * @hook eprobe_skip_autosave_sync
 		 * @since 4.3.0
 		 * @param {bool} $skip True means to disable sync for autosaves
 		 * @param {string} $function Function applying filter
 		 * @return {boolean} New value
 		 */
-		if ( apply_filters( 'ep_skip_autosave_sync', true, __FUNCTION__ ) ) {
+		if ( apply_filters( 'eprobe_skip_autosave_sync', true, __FUNCTION__ ) ) {
 			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 				// Bypass saving if doing autosave
 				// @codeCoverageIgnoreStart
@@ -349,12 +349,12 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		/**
 		 * Filter whether to skip the permissions check on updating a post
 		 *
-		 * @hook ep_sync_insert_permissions_bypass
+		 * @hook eprobe_sync_insert_permissions_bypass
 		 * @param  {bool} $bypass True to bypass
 		 * @param  {int} $post_id ID of post
 		 * @return {boolean} New value
 		 */
-		if ( ! current_user_can( 'edit_post', $post_id ) && ! apply_filters( 'ep_sync_insert_permissions_bypass', false, $post_id ) ) {
+		if ( ! current_user_can( 'edit_post', $post_id ) && ! apply_filters( 'eprobe_sync_insert_permissions_bypass', false, $post_id ) ) {
 			return;
 		}
 
@@ -372,21 +372,21 @@ class SyncManager extends \ElasticProbe\SyncManager {
 				/**
 				 * Fire before post is queued for syncing
 				 *
-				 * @hook ep_sync_on_transition
+				 * @hook eprobe_sync_on_transition
 				 * @param  {int} $post_id ID of post
 				 */
-				do_action( 'ep_sync_on_transition', $post_id );
+				do_action( 'eprobe_sync_on_transition', $post_id );
 
 				/**
 				 * Filter to kill post sync
 				 *
-				 * @hook ep_post_sync_kill
+				 * @hook eprobe_post_sync_kill
 				 * @param {bool} $skip True means kill sync for post
 				 * @param  {int} $object_id ID of post
 				 * @param  {int} $object_id ID of post
 				 * @return {boolean} New value
 				 */
-				if ( apply_filters( 'ep_post_sync_kill', false, $post_id, $post_id ) ) {
+				if ( apply_filters( 'eprobe_post_sync_kill', false, $post_id, $post_id ) ) {
 					$this->remove_from_queue( $post_id );
 					return;
 				}
@@ -512,13 +512,13 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		/**
 		 * Filter to whether skip a sync during autosave, defaults to true
 		 *
-		 * @hook ep_skip_autosave_sync
+		 * @hook eprobe_skip_autosave_sync
 		 * @since 4.3.0
 		 * @param {bool} $skip True means to disable sync for autosaves
 		 * @param {string} $function Function applying filter
 		 * @return {boolean} New value
 		 */
-		if ( apply_filters( 'ep_skip_autosave_sync', true, __FUNCTION__ ) ) {
+		if ( apply_filters( 'eprobe_skip_autosave_sync', true, __FUNCTION__ ) ) {
 			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 				// Bypass saving if doing autosave
 				// @codeCoverageIgnoreStart
@@ -530,7 +530,7 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		/**
 		 * Filter to allow skipping this action in case of custom handling
 		 *
-		 * @hook ep_skip_action_set_object_terms
+		 * @hook eprobe_skip_action_set_object_terms
 		 * @param {bool}   $skip       True means kill sync for post
 		 * @param {int}    $post_id    ID of post
 		 * @param {array}  $terms      An array of object terms.
@@ -540,7 +540,7 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		 * @param {array}  $old_tt_ids Old array of term taxonomy IDs.
 		 * @return {boolean} New value
 		 */
-		if ( apply_filters( 'ep_skip_action_set_object_terms', false, $post_id, $terms, $tt_ids, $taxonomy, $append, $old_tt_ids ) ) {
+		if ( apply_filters( 'eprobe_skip_action_set_object_terms', false, $post_id, $terms, $tt_ids, $taxonomy, $append, $old_tt_ids ) ) {
 			return;
 		}
 
@@ -552,7 +552,7 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		 * Fire before post is queued for syncing
 		 *
 		 * @since 4.0.0
-		 * @hook ep_sync_on_set_object_terms
+		 * @hook eprobe_sync_on_set_object_terms
 		 * @param {int}    $post_id    ID of post
 		 * @param {array}  $terms      An array of object terms.
 		 * @param {array}  $tt_ids     An array of term taxonomy IDs.
@@ -560,7 +560,7 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		 * @param {bool}   $append     Whether to append new terms to the old terms.
 		 * @param {array}  $old_tt_ids Old array of term taxonomy IDs.
 		 */
-		do_action( 'ep_sync_on_set_object_terms', $post_id, $terms, $tt_ids, $taxonomy, $append, $old_tt_ids );
+		do_action( 'eprobe_sync_on_set_object_terms', $post_id, $terms, $tt_ids, $taxonomy, $append, $old_tt_ids );
 
 		$this->add_to_queue( $post_id );
 	}
@@ -583,13 +583,13 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		/**
 		 * Filter to whether skip a sync during autosave, defaults to true
 		 *
-		 * @hook ep_skip_autosave_sync
+		 * @hook eprobe_skip_autosave_sync
 		 * @since 4.3.0
 		 * @param {bool} $skip True means to disable sync for autosaves
 		 * @param {string} $function Function applying filter
 		 * @return {boolean} New value
 		 */
-		if ( apply_filters( 'ep_skip_autosave_sync', true, __FUNCTION__ ) ) {
+		if ( apply_filters( 'eprobe_skip_autosave_sync', true, __FUNCTION__ ) ) {
 			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 				// Bypass saving if doing autosave
 				// @codeCoverageIgnoreStart
@@ -626,7 +626,7 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		/**
 		 * Filter to allow skipping this action in case of custom handling
 		 *
-		 * @hook ep_skip_action_edited_term
+		 * @hook eprobe_skip_action_edited_term
 		 * @param {bool}   $skip       Current value of whether to skip running action_edited_term or not
 		 * @param {int}    $term_id    Term id.
 		 * @param {int}    $tt_id      Term Taxonomy id.
@@ -634,7 +634,7 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		 * @param {array}  $object_ids IDs of the objects attached to the term id.
 		 * @return {bool}  New value of whether to skip running action_edited_term or not
 		 */
-		if ( apply_filters( 'ep_skip_action_edited_term', $should_skip, $term_id, $tt_id, $taxonomy, $object_ids ) ) {
+		if ( apply_filters( 'eprobe_skip_action_edited_term', $should_skip, $term_id, $tt_id, $taxonomy, $object_ids ) ) {
 			return;
 		}
 
@@ -647,13 +647,13 @@ class SyncManager extends \ElasticProbe\SyncManager {
 			/**
 			 * Fire before post is queued for syncing
 			 *
-			 * @hook ep_sync_on_edited_term
+			 * @hook eprobe_sync_on_edited_term
 			 * @param  {int} $post_id ID of post
 			 * @param  {int} $term_id ID of the term that was edited
 			 * @param  {int} $tt_id Taxonomy Term ID of the term that was edited
 			 * @param  {int} $taxonomy Taxonomy of the term that was edited
 			 */
-			do_action( 'ep_sync_on_edited_term', $post_id, $term_id, $tt_id, $taxonomy );
+			do_action( 'eprobe_sync_on_edited_term', $post_id, $term_id, $tt_id, $taxonomy );
 
 			$this->add_to_queue( $post_id );
 		}
@@ -675,13 +675,13 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		/**
 		 * Filter to whether skip a sync during autosave, defaults to true
 		 *
-		 * @hook ep_skip_autosave_sync
+		 * @hook eprobe_skip_autosave_sync
 		 * @since 4.3.0
 		 * @param {bool} $skip True means to disable sync for autosaves
 		 * @param {string} $function Function applying filter
 		 * @return {boolean} New value
 		 */
-		if ( apply_filters( 'ep_skip_autosave_sync', true, __FUNCTION__ ) ) {
+		if ( apply_filters( 'eprobe_skip_autosave_sync', true, __FUNCTION__ ) ) {
 			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 				// Bypass saving if doing autosave
 				// @codeCoverageIgnoreStart
@@ -693,14 +693,14 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		/**
 		 * Filter to allow skipping this action in case of custom handling
 		 *
-		 * @hook ep_skip_action_deleted_term_relationships
+		 * @hook eprobe_skip_action_deleted_term_relationships
 		 * @param {bool}   $skip       Current value of whether to skip running action_edited_term or not
 		 * @param {int}    $post_id  Post ID.
 		 * @param {array}  $tt_ids   An array of term taxonomy IDs.
 		 * @param {string} $taxonomy Taxonomy slug.
 		 * @return {bool}  New value of whether to skip running action_deleted_term_relationships or not
 		 */
-		if ( apply_filters( 'ep_skip_action_deleted_term_relationships', false, $post_id, $tt_ids, $taxonomy ) ) {
+		if ( apply_filters( 'eprobe_skip_action_deleted_term_relationships', false, $post_id, $tt_ids, $taxonomy ) ) {
 			return;
 		}
 
@@ -711,13 +711,13 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		/**
 		 * Fire before post is queued for syncing
 		 *
-		 * @hook ep_sync_on_deleted_term_relationships
+		 * @hook eprobe_sync_on_deleted_term_relationships
 		 * @since 4.0.0
 		 * @param  {int}    $post_id ID of post
 		 * @param  {array}  $tt_ids   An array of term taxonomy IDs.
 		 * @param  {string} $taxonomy Taxonomy of the term that was edited
 		 */
-		do_action( 'ep_sync_on_deleted_term_relationships', $post_id, $tt_ids, $taxonomy );
+		do_action( 'eprobe_sync_on_deleted_term_relationships', $post_id, $tt_ids, $taxonomy );
 
 		$this->add_to_queue( $post_id );
 	}
@@ -728,7 +728,7 @@ class SyncManager extends \ElasticProbe\SyncManager {
 	 * @param WP_Site $blog New site object.
 	 */
 	public function action_create_blog_index( $blog ) {
-		if ( ! defined( 'EP_IS_NETWORK' ) || ! EP_IS_NETWORK ) {
+		if ( ! defined( 'EPROBE_IS_NETWORK' ) || ! EPROBE_IS_NETWORK ) {
 			// @codeCoverageIgnoreStart
 			return;
 			// @codeCoverageIgnoreEnd
@@ -796,7 +796,7 @@ class SyncManager extends \ElasticProbe\SyncManager {
 	 * @since 4.4.0
 	 */
 	protected function clear_meta_keys_db_cache( $post_type ) {
-		delete_transient( 'ep_meta_field_keys' );
+		delete_transient( 'eprobe_meta_field_keys' );
 		delete_transient( 'ep_meta_field_keys_' . $post_type );
 	}
 
@@ -811,13 +811,13 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		/**
 		 * Filter to kill post sync
 		 *
-		 * @hook ep_post_sync_kill
+		 * @hook eprobe_post_sync_kill
 		 * @param {bool} $skip True meanas kill sync for post
 		 * @param  {int} $object_id ID of post
 		 * @param  {int} $object_id ID of post
 		 * @return {boolean} New value
 		 */
-		if ( apply_filters( 'ep_post_sync_kill', false, $post_id, $post_id ) ) {
+		if ( apply_filters( 'eprobe_post_sync_kill', false, $post_id, $post_id ) ) {
 			return false;
 		}
 
@@ -931,13 +931,13 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		 * Returning a non-null value will effectively short-circuit the function.
 		 *
 		 * @since 4.6.0
-		 * @hook ep_pre_kill_sync_for_password_protected
+		 * @hook eprobe_pre_kill_sync_for_password_protected
 		 * @param {null} $new_skip     Whether should skip or not before checking for a password
 		 * @param {bool} $current_skip Current value
 		 * @param {int}  $object_id    The Post ID
 		 * @return {null|bool} New value of $skip or `null` to keep default behavior.
 		 */
-		$skip_filter = apply_filters( 'ep_pre_kill_sync_for_password_protected', null, $skip, $object_id );
+		$skip_filter = apply_filters( 'eprobe_pre_kill_sync_for_password_protected', null, $skip, $object_id );
 		if ( ! is_null( $skip_filter ) ) {
 			return $skip_filter;
 		}
@@ -1050,12 +1050,12 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		 * Filter the document status array.
 		 *
 		 * @since 5.2.0
-		 * @hook ep_doc_status
+		 * @hook eprobe_doc_status
 		 * @param array $status  The status array containing status, message and explanation
 		 * @param int   $post_id The post ID being checked
 		 * @param array $es_doc  The Elasticsearch document
 		 */
-		return (array) apply_filters( 'ep_doc_status', $status, $post_id, $es_doc );
+		return (array) apply_filters( 'eprobe_doc_status', $status, $post_id, $es_doc );
 	}
 
 	/**
@@ -1079,13 +1079,13 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		 * Filter the formatted document status.
 		 *
 		 * @since 5.2.0
-		 * @hook ep_formatted_doc_status
+		 * @hook eprobe_formatted_doc_status
 		 * @param string $formatted_status The formatted status
 		 * @param array  $document_status  The document status
 		 * @param string $status_indicator The status indicator
 		 * @param string $message          The message
 		 */
-		return (string) apply_filters( 'ep_formatted_doc_status', $status_indicator . $message, $document_status, $status_indicator, $message );
+		return (string) apply_filters( 'eprobe_formatted_doc_status', $status_indicator . $message, $document_status, $status_indicator, $message );
 	}
 
 	/**

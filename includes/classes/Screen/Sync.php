@@ -48,7 +48,7 @@ class Sync {
 
 		wp_enqueue_script(
 			'ep_sync_scripts',
-			EP_URL . 'dist/js/sync-script.js',
+			EPROBE_URL . 'dist/js/sync-script.js',
 			Utils\get_asset_info( 'sync-script', 'dependencies' ),
 			Utils\get_asset_info( 'sync-script', 'version' ),
 			true
@@ -58,7 +58,7 @@ class Sync {
 
 		wp_enqueue_style(
 			'ep_sync_style',
-			EP_URL . 'dist/css/sync-script.css',
+			EPROBE_URL . 'dist/css/sync-script.css',
 			[ 'wp-components', 'wp-edit-post' ],
 			Utils\get_asset_info( 'sync-script', 'version' )
 		);
@@ -75,7 +75,7 @@ class Sync {
 
 		$data = [
 			'apiUrl'      => rest_url( 'elasticpress/v1/sync' ),
-			'autoIndex'   => Utils\isset_do_sync_parameter() && ( ! defined( 'EP_DASHBOARD_SYNC' ) || EP_DASHBOARD_SYNC ),
+			'autoIndex'   => Utils\isset_do_sync_parameter() && ( ! defined( 'EPROBE_DASHBOARD_SYNC' ) || EPROBE_DASHBOARD_SYNC ),
 			'indexMeta'   => Utils\get_indexing_status(),
 			'indexables'  => array_map( fn( $indexable ) => [ $indexable->slug, $indexable->labels['plural'] ], $indexables ),
 			'isEpio'      => Utils\is_epio(),

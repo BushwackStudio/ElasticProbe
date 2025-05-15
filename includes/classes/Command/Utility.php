@@ -45,12 +45,12 @@ class Utility {
 	public static function delete_transient() {
 		\ElasticProbe\IndexHelper::factory()->clear_index_meta();
 
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 			delete_site_transient( 'ep_cli_sync_progress' );
-			delete_site_transient( 'ep_wpcli_sync_interrupted' );
+			delete_site_transient( 'eprobe_wpcli_sync_interrupted' );
 		} else {
 			delete_transient( 'ep_cli_sync_progress' );
-			delete_transient( 'ep_wpcli_sync_interrupted' );
+			delete_transient( 'eprobe_wpcli_sync_interrupted' );
 		}
 	}
 
@@ -79,7 +79,7 @@ class Utility {
 	 * Check if sync should be interrupted
 	 */
 	public static function should_interrupt_sync() {
-		$should_interrupt_sync = get_transient( 'ep_wpcli_sync_interrupted' );
+		$should_interrupt_sync = get_transient( 'eprobe_wpcli_sync_interrupted' );
 
 		if ( $should_interrupt_sync ) {
 			WP_CLI::line( esc_html__( 'Sync was interrupted', 'elasticprobe' ) );
@@ -116,22 +116,22 @@ class Utility {
 	}
 
 	/**
-	 * Ties the `ep_cli_put_mapping` action to `ep_sync_put_mapping`.
+	 * Ties the `eprobe_cli_put_mapping` action to `eprobe_sync_put_mapping`.
 	 *
 	 * @param array     $index_meta Index meta information
 	 * @param Indexable $indexable  Indexable object
 	 * @return void
 	 */
-	public static function call_ep_cli_put_mapping( $index_meta, $indexable ) {
+	public static function call_eprobe_cli_put_mapping( $index_meta, $indexable ) {
 		/**
 		 * Fires after CLI put mapping
 		 *
-		 * @hook ep_cli_put_mapping
+		 * @hook eprobe_cli_put_mapping
 		 * @param  {Indexable} $indexable Indexable involved in mapping
 		 * @param  {array} $args CLI command position args
 		 * @param {array} $assoc_args CLI command associative args
 		 */
-		do_action( 'ep_cli_put_mapping', $indexable, WP_CLI::get_runner()->arguments, WP_CLI::get_runner()->assoc_args );
+		do_action( 'eprobe_cli_put_mapping', $indexable, WP_CLI::get_runner()->arguments, WP_CLI::get_runner()->assoc_args );
 	}
 
 

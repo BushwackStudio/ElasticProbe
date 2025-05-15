@@ -64,7 +64,7 @@ class TestSynonyms extends BaseTestCase {
 	public function testConstructor() {
 		$instance = $this->getFeature();
 
-		$this->assertSame( 'ep_synonyms_filter', $instance->filter_name );
+		$this->assertSame( 'eprobe_synonyms_filter', $instance->filter_name );
 		$this->assertIsArray( $instance->affected_indices );
 		$this->assertContains( 'post', $instance->affected_indices );
 	}

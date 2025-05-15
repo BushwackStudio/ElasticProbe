@@ -92,7 +92,7 @@ class Search extends Feature {
 		Indexables::factory()->activate( 'post' );
 
 		add_action( 'init', [ $this, 'search_setup' ] );
-		add_filter( 'ep_sanitize_feature_settings', [ $this, 'sanitize_highlighting_settings' ] );
+		add_filter( 'eprobe_sanitize_feature_settings', [ $this, 'sanitize_highlighting_settings' ] );
 
 		// Set up weighting sub-module
 		$this->weighting = new Weighting();
@@ -108,22 +108,22 @@ class Search extends Feature {
 	 * @since  3.0
 	 */
 	public function search_setup() {
-		add_filter( 'ep_elasticpress_enabled', [ $this, 'integrate_search_queries' ], 10, 2 );
-		add_filter( 'ep_formatted_args', [ $this, 'weight_recent' ], 11, 2 );
-		add_filter( 'ep_query_post_type', [ $this, 'filter_query_post_type_for_search' ], 10, 2 );
+		add_filter( 'eprobe_elasticpress_enabled', [ $this, 'integrate_search_queries' ], 10, 2 );
+		add_filter( 'eprobe_formatted_args', [ $this, 'weight_recent' ], 11, 2 );
+		add_filter( 'eprobe_query_post_type', [ $this, 'filter_query_post_type_for_search' ], 10, 2 );
 
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
-		add_filter( 'ep_formatted_args', [ $this, 'add_search_highlight_tags' ], 10, 2 );
-		add_filter( 'ep_highlighting_tag', [ $this, 'get_highlighting_tag' ] );
-		add_action( 'ep_highlighting_pre_add_highlight', [ $this, 'allow_excerpt_html' ] );
+		add_filter( 'eprobe_formatted_args', [ $this, 'add_search_highlight_tags' ], 10, 2 );
+		add_filter( 'eprobe_highlighting_tag', [ $this, 'get_highlighting_tag' ] );
+		add_action( 'eprobe_highlighting_pre_add_highlight', [ $this, 'allow_excerpt_html' ] );
 
 		add_action( 'init', [ $this, 'register_meta' ], 20 );
-		add_filter( 'ep_prepare_meta_allowed_keys', [ $this, 'add_exclude_from_search' ] );
+		add_filter( 'eprobe_prepare_meta_allowed_keys', [ $this, 'add_exclude_from_search' ] );
 		add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_block_editor_assets' ] );
-		add_filter( 'ep_post_filters', [ $this, 'exclude_posts_from_search' ], 10, 3 );
+		add_filter( 'eprobe_post_filters', [ $this, 'exclude_posts_from_search' ], 10, 3 );
 		add_action( 'post_submitbox_misc_actions', [ $this, 'output_exclude_from_search_setting' ] );
 		add_action( 'edit_post', [ $this, 'save_exclude_from_search_meta' ] );
-		add_filter( 'ep_skip_query_integration', [ $this, 'skip_query_integration' ], 10, 2 );
+		add_filter( 'eprobe_skip_query_integration', [ $this, 'skip_query_integration' ], 10, 2 );
 
 		add_action( 'attachment_submitbox_misc_actions', [ $this, 'output_exclude_from_search_setting' ], 15 );
 		add_action( 'edit_attachment', [ $this, 'save_exclude_from_search_meta' ] );
@@ -142,7 +142,7 @@ class Search extends Feature {
 
 		wp_enqueue_style(
 			'searchterm-highlighting',
-			EP_URL . 'dist/css/highlighting-styles.css',
+			EPROBE_URL . 'dist/css/highlighting-styles.css',
 			Utils\get_asset_info( 'highlighting-styles', 'dependencies' ),
 			Utils\get_asset_info( 'highlighting-styles', 'version' )
 		);
@@ -152,7 +152,7 @@ class Search extends Feature {
 	 * Set default fields to highlight, and outputs
 	 * the tags on the front end.
 	 *
-	 * @param array $formatted_args ep_formatted_args array
+	 * @param array $formatted_args eprobe_formatted_args array
 	 * @param array $args WP_Query args
 	 * @return array $formatted_args formatted args with search highlight tags
 	 */
@@ -162,11 +162,11 @@ class Search extends Feature {
 		 * Fires before the highlighting clause is added to the Elasticsearch query
 		 *
 		 * @since  3.5.1
-		 * @hook ep_highlighting_pre_add_highlight
-		 * @param  {array} $formatted_args ep_formatted_args array
+		 * @hook eprobe_highlighting_pre_add_highlight
+		 * @param  {array} $formatted_args eprobe_formatted_args array
 		 * @param  {string} $args WP_Query args
 		 */
-		do_action( 'ep_highlighting_pre_add_highlight', $formatted_args, $args );
+		do_action( 'eprobe_highlighting_pre_add_highlight', $formatted_args, $args );
 
 		// get current config
 		$settings = $this->get_settings();
@@ -183,14 +183,14 @@ class Search extends Feature {
 		 * Filter whether to add the `highlight` clause in the query or not.
 		 *
 		 * @since  3.5.6
-		 * @hook ep_highlight_should_add_clause
+		 * @hook eprobe_highlight_should_add_clause
 		 * @param  {bool}  $add_highlight_clause True means the clause should be added.
-		 * @param  {array} $formatted_args  ep_formatted_args array
+		 * @param  {array} $formatted_args  eprobe_formatted_args array
 		 * @param  {array} $args  WP query args
 		 * @return {bool}  New $add_highlight_clause value
 		 */
 		$add_highlight_clause = apply_filters(
-			'ep_highlight_should_add_clause',
+			'eprobe_highlight_should_add_clause',
 			Utils\is_integrated_request( 'highlighting', [ 'public' ] ),
 			$formatted_args,
 			$args
@@ -204,14 +204,14 @@ class Search extends Feature {
 		 * Filter the fields that should be highlighted.
 		 *
 		 * @since 3.5.1
-		 * @hook ep_highlighting_fields
+		 * @hook eprobe_highlighting_fields
 		 * @param  {array} $fields Highlighting fields
 		 * @param  {array} $formatted_args array
 		 * @param  {array} $args WP_Query args
 		 * @return  {array} New Highlighting fields
 		 */
 		$fields_to_highlight = apply_filters(
-			'ep_highlighting_fields',
+			'eprobe_highlighting_fields',
 			[ 'post_title', 'post_content' ],
 			$formatted_args,
 			$args
@@ -224,21 +224,21 @@ class Search extends Feature {
 		 * Filter the tag that wraps the search highlighted term
 		 *
 		 * @since 3.5
-		 * @hook ep_highlighting_tag
+		 * @hook eprobe_highlighting_tag
 		 * @param  {string} $current_tag Highlighting tag
 		 * @return  {string} New highlighting tag
 		 */
-		$highlight_tag = apply_filters( 'ep_highlighting_tag', $current_tag );
+		$highlight_tag = apply_filters( 'eprobe_highlighting_tag', $current_tag );
 
 		/**
 		 * Filter class applied to search highlight tags
 		 *
 		 * @since 3.5
-		 * @hook ep_highlighting_class
+		 * @hook eprobe_highlighting_class
 		 * @param  {string} $class Highlighting class
 		 * @return  {string} New highlighting class
 		 */
-		$highlight_class = apply_filters( 'ep_highlighting_class', 'ep-highlight' );
+		$highlight_class = apply_filters( 'eprobe_highlighting_class', 'ep-highlight' );
 
 		// tags
 		$opening_tag = '<' . $highlight_tag . " class='" . $highlight_class . "'>";
@@ -253,12 +253,12 @@ class Search extends Feature {
 				 * Filter the maximum number of fragments highlighted for a searched field.
 				 *
 				 * @since 4.7.2
-				 * @hook ep_highlight_number_of_fragments
+				 * @hook eprobe_highlight_number_of_fragments
 				 * @param  {int}    $max_fragments Maximum number of fragments for field.
 				 * @param  {string} $field Search field being setup.
 				 * @return {int}    New maximum number of fragments to highlight for the searched field.
 				 */
-				'number_of_fragments' => apply_filters( 'ep_highlight_number_of_fragments', 0, $field ),
+				'number_of_fragments' => apply_filters( 'eprobe_highlight_number_of_fragments', 0, $field ),
 			];
 		}
 
@@ -266,7 +266,7 @@ class Search extends Feature {
 	}
 
 	/**
-	 * Called by ep_highlighting_pre_add_highlight action.
+	 * Called by eprobe_highlighting_pre_add_highlight action.
 	 *
 	 * Replaces the default excerpt with the custom excerpt, allowing
 	 * for the selected tag to be displayed in it.
@@ -281,7 +281,7 @@ class Search extends Feature {
 		if ( ! empty( $settings['highlight_excerpt'] ) && '1' === $settings['highlight_excerpt'] ) {
 			remove_filter( 'get_the_excerpt', 'wp_trim_excerpt' );
 			add_filter( 'get_the_excerpt', [ $this, 'ep_highlight_excerpt' ], 10, 2 );
-			add_filter( 'ep_highlighting_fields', [ $this, 'ep_highlight_add_excerpt_field' ] );
+			add_filter( 'eprobe_highlighting_fields', [ $this, 'ep_highlight_add_excerpt_field' ] );
 		}
 	}
 
@@ -394,11 +394,11 @@ class Search extends Feature {
 		/**
 		 * Filter searchable post types
 		 *
-		 * @hook ep_searchable_post_types
+		 * @hook eprobe_searchable_post_types
 		 * @param  {array} $post_types Post types
 		 * @return  {array} New post types
 		 */
-		return apply_filters( 'ep_searchable_post_types', $post_types );
+		return apply_filters( 'eprobe_searchable_post_types', $post_types );
 	}
 
 	/**
@@ -448,14 +448,14 @@ class Search extends Feature {
 		/**
 		 * Filter to modify decaying
 		 *
-		 * @hook ep_is_decaying_enabled
+		 * @hook eprobe_is_decaying_enabled
 		 * @since 4.6.0
 		 * @param {bool}  $is_decaying_enabled Whether decay by date is enabled or not
 		 * @param {array} $settings            Settings
 		 * @param {array} $args                WP_Query args
 		 * @return {bool} Decaying
 		 */
-		return apply_filters( 'ep_is_decaying_enabled', $is_decaying_enabled, $settings, $args );
+		return apply_filters( 'eprobe_is_decaying_enabled', $is_decaying_enabled, $settings, $args );
 	}
 
 	/**
@@ -619,13 +619,13 @@ class Search extends Feature {
 		/**
 		 * Filter whether to enable integration on search queries or not.
 		 *
-		 * @hook ep_integrate_search_queries
+		 * @hook eprobe_integrate_search_queries
 		 * @since 4.2.0
 		 * @param {bool}     $enabled Original enabled value
 		 * @param {WP_Query} $query   WP_Query
 		 * @return {bool} New $enabled value
 		 */
-		return apply_filters( 'ep_integrate_search_queries', $enabled, $query );
+		return apply_filters( 'eprobe_integrate_search_queries', $enabled, $query );
 	}
 
 	/**
@@ -646,10 +646,10 @@ class Search extends Feature {
 				 * Fires after the default Weight results by date settings
 				 *
 				 * @since  4.6.0
-				 * @hook ep_weight_settings_after_search
+				 * @hook eprobe_weight_settings_after_search
 				 * @param  {array} $settings settings array
 				 */
-				do_action( 'ep_weight_settings_after_search', $settings );
+				do_action( 'eprobe_weight_settings_after_search', $settings );
 				?>
 			</div>
 		</div>
@@ -683,7 +683,7 @@ class Search extends Feature {
 			</div>
 		</div>
 
-		<?php if ( ! defined( 'EP_IS_NETWORK' ) || ! EP_IS_NETWORK ) : ?>
+		<?php if ( ! defined( 'EPROBE_IS_NETWORK' ) || ! EPROBE_IS_NETWORK ) : ?>
 			<br class="clear">
 			<p><a href="<?php echo esc_url( admin_url( 'admin.php?page=elasticprobe-weighting' ) ); ?>"><?php esc_html_e( 'Advanced fields and weighting settings', 'elasticprobe' ); ?></a></p>
 			<p><a href="<?php echo esc_url( admin_url( 'admin.php?page=elasticprobe-synonyms' ) ); ?>"><?php esc_html_e( 'Add synonyms to your post searches', 'elasticprobe' ); ?></a></p>
@@ -735,7 +735,7 @@ class Search extends Feature {
 
 		wp_enqueue_script(
 			'ep-search-editor',
-			EP_URL . 'dist/js/search-editor-script.js',
+			EPROBE_URL . 'dist/js/search-editor-script.js',
 			Utils\get_asset_info( 'search-editor-script', 'dependencies' ),
 			Utils\get_asset_info( 'search-editor-script', 'version' ),
 			true
@@ -758,12 +758,12 @@ class Search extends Feature {
 		 * Filter whether the exclusion from the "exclude from search" checkbox should be applied
 		 *
 		 * @since 4.4.0
-		 * @hook ep_bypass_exclusion_from_search
+		 * @hook eprobe_bypass_exclusion_from_search
 		 * @param  {bool}     $bypass_exclusion_from_search  True means all posts will be returned
 		 * @param  {WP_Query} $query                         WP Query
 		 * @return {bool} New $bypass_exclusion_from_search value
 		 */
-		if ( apply_filters( 'ep_bypass_exclusion_from_search', $bypass_exclusion_from_search, $query ) ) {
+		if ( apply_filters( 'eprobe_bypass_exclusion_from_search', $bypass_exclusion_from_search, $query ) ) {
 			return $filters;
 		}
 
@@ -941,7 +941,7 @@ class Search extends Feature {
 			],
 		];
 
-		if ( ! defined( 'EP_IS_NETWORK' ) || ! EP_IS_NETWORK ) {
+		if ( ! defined( 'EPROBE_IS_NETWORK' ) || ! EPROBE_IS_NETWORK ) {
 			$weighting_url = esc_url( admin_url( 'admin.php?page=elasticprobe-weighting' ) );
 			$synonyms_url  = esc_url( admin_url( 'admin.php?page=elasticprobe-synonyms' ) );
 

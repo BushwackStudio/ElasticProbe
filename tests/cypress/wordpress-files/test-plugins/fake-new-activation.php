@@ -9,5 +9,5 @@
  * @package ElasticPress_Tests_E2e
  */
 
-add_filter( 'pre_option_ep_last_sync', '__return_empty_array' );
+add_filter( 'pre_option_eprobe_last_sync', '__return_empty_array' );
 add_filter( 'option_ep_skip_install', '__return_false' );

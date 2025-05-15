@@ -75,12 +75,12 @@ class RelatedPosts extends Feature {
 					/**
 					 * Filter fields used to determine related posts
 					 *
-					 * @hook ep_related_posts_fields
+					 * @hook eprobe_related_posts_fields
 					 * @param  {array} $fields Related post fields
 					 * @return  {array} New fields
 					 */
 					'fields'          => apply_filters(
-						'ep_related_posts_fields',
+						'eprobe_related_posts_fields',
 						array(
 							'post_title',
 							'post_content',
@@ -90,27 +90,27 @@ class RelatedPosts extends Feature {
 					/**
 					 * Filter related posts minimum term frequency
 					 *
-					 * @hook ep_related_posts_min_term_freq
+					 * @hook eprobe_related_posts_min_term_freq
 					 * @param  {int} $minimum Minimum term frequency
 					 * @return  {array} New value
 					 */
-					'min_term_freq'   => apply_filters( 'ep_related_posts_min_term_freq', 1 ),
+					'min_term_freq'   => apply_filters( 'eprobe_related_posts_min_term_freq', 1 ),
 					/**
 					 * Filter related posts maximum query terms
 					 *
-					 * @hook ep_related_posts_max_query_terms
+					 * @hook eprobe_related_posts_max_query_terms
 					 * @param  {int} $maximum Maximum query terms
 					 * @return  {array} New value
 					 */
-					'max_query_terms' => apply_filters( 'ep_related_posts_max_query_terms', 12 ),
+					'max_query_terms' => apply_filters( 'eprobe_related_posts_max_query_terms', 12 ),
 					/**
 					 * Filter related posts minimum document frequency
 					 *
-					 * @hook ep_related_posts_min_doc_freq
+					 * @hook eprobe_related_posts_min_doc_freq
 					 * @param  {int} $minimum Minimum document frequency
 					 * @return  {array} New value
 					 */
-					'min_doc_freq'    => apply_filters( 'ep_related_posts_min_doc_freq', 1 ),
+					'min_doc_freq'    => apply_filters( 'eprobe_related_posts_min_doc_freq', 1 ),
 				),
 			);
 		}
@@ -137,12 +137,12 @@ class RelatedPosts extends Feature {
 		/**
 		 * Filter WP Query related post arguments
 		 *
-		 * @hook ep_find_related_args
+		 * @hook eprobe_find_related_args
 		 * @param  {array} $args WP Query arguments
 		 * @since  2.1
 		 * @return  {array} New arguments
 		 */
-		return new WP_Query( apply_filters( 'ep_find_related_args', $args ) );
+		return new WP_Query( apply_filters( 'eprobe_find_related_args', $args ) );
 	}
 
 	/**
@@ -173,7 +173,7 @@ class RelatedPosts extends Feature {
 	public function setup() {
 		add_action( 'widgets_init', [ $this, 'register_widget' ] );
 		add_filter( 'widget_types_to_hide_from_legacy_widget_block', [ $this, 'hide_legacy_widget' ] );
-		add_filter( 'ep_formatted_args', [ $this, 'formatted_args' ], 10, 2 );
+		add_filter( 'eprobe_formatted_args', [ $this, 'formatted_args' ], 10, 2 );
 		add_action( 'init', [ $this, 'register_block' ] );
 		add_action( 'rest_api_init', [ $this, 'setup_endpoint' ] );
 	}
@@ -201,7 +201,7 @@ class RelatedPosts extends Feature {
 		 */
 		wp_register_script(
 			'ep-related-posts-block-script',
-			EP_URL . 'dist/js/related-posts-block-script.js',
+			EPROBE_URL . 'dist/js/related-posts-block-script.js',
 			Utils\get_asset_info( 'related-posts-block-script.js', 'dependencies' ),
 			Utils\get_asset_info( 'related-posts-block-script.js', 'version' ),
 			true
@@ -210,7 +210,7 @@ class RelatedPosts extends Feature {
 		wp_set_script_translations( 'ep-related-posts-block-script', 'elasticprobe' );
 
 		register_block_type_from_metadata(
-			EP_PATH . 'assets/js/blocks/related-posts',
+			EPROBE_PATH . 'assets/js/blocks/related-posts',
 			[
 				'render_callback' => [ $this, 'render_block' ],
 			]
