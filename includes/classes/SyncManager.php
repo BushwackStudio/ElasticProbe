@@ -334,7 +334,7 @@ abstract class SyncManager {
 	 */
 	public function clear_index_settings_cache() {
 		$indexable = Indexables::factory()->get( $this->indexable_slug );
-		$cache_key = 'ep_index_settings_' . $indexable->get_index_name();
+		$cache_key = 'eprobe_index_settings_' . $indexable->get_index_name();
 
 		Utils\delete_transient( $cache_key );
 	}

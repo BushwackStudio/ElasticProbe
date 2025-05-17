@@ -2748,7 +2748,7 @@ class Post extends Indexable {
 			return $pre_meta_keys;
 		}
 
-		$cache_key = 'ep_meta_field_keys_' . $post_type;
+		$cache_key = 'eprobe_meta_field_keys_' . $post_type;
 
 		if ( ! $force_refresh ) {
 			$cached = get_transient( $cache_key );

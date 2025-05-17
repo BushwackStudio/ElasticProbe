@@ -44,8 +44,8 @@ function load_plugin() {
 	update_option( 'eprobe_host', $host );
 	update_site_option( 'eprobe_host', $host );
 
-	$shield_id    = getenv( 'EP_SHIELD_ID' );
-	$shield_token = getenv( 'EP_SHIELD_TOKEN' );
+	$shield_id    = getenv( 'EPROBE_SHIELD_ID' );
+	$shield_token = getenv( 'EPROBE_SHIELD_TOKEN' );
 	if ( ! empty( $shield_id ) && ! empty( $shield_token ) ) {
 		$credentials = [
 			'username' => $shield_id,

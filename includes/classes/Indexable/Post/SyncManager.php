@@ -797,7 +797,7 @@ class SyncManager extends \ElasticProbe\SyncManager {
 	 */
 	protected function clear_meta_keys_db_cache( $post_type ) {
 		delete_transient( 'eprobe_meta_field_keys' );
-		delete_transient( 'ep_meta_field_keys_' . $post_type );
+		delete_transient( 'eprobe_meta_field_keys_' . $post_type );
 	}
 
 	/**
@@ -883,7 +883,7 @@ class SyncManager extends \ElasticProbe\SyncManager {
 	 * @return boolean
 	 */
 	protected function is_tax_max_count_bigger_than_items_per_cycle( \WP_Taxonomy $tax ): bool {
-		$transient_name   = "ep_term_max_count_{$tax->name}";
+		$transient_name   = "eprobe_term_max_count_{$tax->name}";
 		$cached_max_count = get_transient( $transient_name );
 
 		if ( is_integer( $cached_max_count ) ) {

@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 
-	const TRANSIENT_PREFIX = 'ep_facet_meta_';
+	const TRANSIENT_PREFIX = 'eprobe_facet_meta_';
 
 	/**
 	 * Block instance.

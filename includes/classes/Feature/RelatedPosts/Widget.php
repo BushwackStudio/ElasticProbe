@@ -46,14 +46,14 @@ class Widget extends \WP_Widget {
 			return;
 		}
 
-		$related_posts = get_transient( 'ep_related_posts_' . get_the_ID() );
+		$related_posts = get_transient( 'eprobe_related_posts_' . get_the_ID() );
 
 		if ( false === $related_posts ) {
 			$related_posts = Features::factory()->get_registered_feature( 'related_posts' )->find_related( get_the_ID(), $instance['num_posts'] );
 
 			if ( empty( $related_posts ) ) {
 				if ( ! defined( 'WP_DEBUG' ) || ! WP_DEBUG ) {
-					set_transient( 'ep_related_posts_' . get_the_ID(), '', HOUR_IN_SECONDS ); // Let's not spam
+					set_transient( 'eprobe_related_posts_' . get_the_ID(), '', HOUR_IN_SECONDS ); // Let's not spam
 				}
 				return;
 			}
@@ -81,7 +81,7 @@ class Widget extends \WP_Widget {
 			$related_posts = ob_get_clean();
 
 			if ( ! defined( 'WP_DEBUG' ) || ! WP_DEBUG ) {
-				set_transient( 'ep_related_posts_' . get_the_ID(), $related_posts, HOUR_IN_SECONDS );
+				set_transient( 'eprobe_related_posts_' . get_the_ID(), $related_posts, HOUR_IN_SECONDS );
 			}
 		}
 

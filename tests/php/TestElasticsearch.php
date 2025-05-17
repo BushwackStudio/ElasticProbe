@@ -134,7 +134,7 @@ class TestElasticsearch extends BaseTestCase {
 	 */
 	public function test_get_index_settings() {
 		$index_name            = 'test-index';
-		$cache_key             = 'ep_index_settings_' . $index_name;
+		$cache_key             = 'eprobe_index_settings_' . $index_name;
 		$transient_filter_name = defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ?
 			'pre_site_transient_' . $cache_key :
 			'pre_transient_' . $cache_key;

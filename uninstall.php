@@ -142,8 +142,8 @@ class EPROBE_Uninstaller {
 			"SELECT option_name
 			FROM {$wpdb->prefix}options
 			WHERE
-				option_name LIKE '_transient_ep_index_settings_%'
-				OR option_name LIKE '_transient_ep_related_posts_%'
+				option_name LIKE '_transient_eprobe_index_settings_%'
+				OR option_name LIKE '_transient_eprobe_related_posts_%'
 			"
 		);
 

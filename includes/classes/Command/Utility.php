@@ -46,10 +46,10 @@ class Utility {
 		\ElasticProbe\IndexHelper::factory()->clear_index_meta();
 
 		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
-			delete_site_transient( 'ep_cli_sync_progress' );
+			delete_site_transient( 'eprobe_cli_sync_progress' );
 			delete_site_transient( 'eprobe_wpcli_sync_interrupted' );
 		} else {
-			delete_transient( 'ep_cli_sync_progress' );
+			delete_transient( 'eprobe_cli_sync_progress' );
 			delete_transient( 'eprobe_wpcli_sync_interrupted' );
 		}
 	}

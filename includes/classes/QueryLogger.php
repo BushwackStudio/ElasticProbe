@@ -21,7 +21,7 @@ class QueryLogger {
 	/**
 	 * String used to get and update the transient.
 	 */
-	const CACHE_KEY = 'ep_query_log';
+	const CACHE_KEY = 'eprobe_query_log';
 
 	/**
 	 * Setup the logging functionality

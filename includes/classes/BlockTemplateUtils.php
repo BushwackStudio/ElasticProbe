@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Block Template Utils class
  */
 class BlockTemplateUtils {
-	const CACHE_KEY = 'ep_blocks';
+	const CACHE_KEY = 'eprobe_blocks';
 
 	/**
 	 * Hook cache cleanup calls

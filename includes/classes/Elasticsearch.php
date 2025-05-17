@@ -992,7 +992,7 @@ class Elasticsearch {
 	 * @return array|WP_Error Raw ES response from the $index/_settings?flat_settings=true endpoint
 	 */
 	public function get_index_settings( string $index, bool $force_refresh = false ) {
-		$transient_key = "ep_index_settings_{$index}";
+		$transient_key = "eprobe_index_settings_{$index}";
 
 		if ( ! $force_refresh ) {
 			$cache = Utils\get_transient( $transient_key );

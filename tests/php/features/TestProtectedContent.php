@@ -478,8 +478,8 @@ class TestProtectedContent extends BaseTestCase {
 			$value['protected_content']['use_default_wp_sort'] = '1';
 			return $value;
 		};
-		add_filter( 'site_option_ep_feature_settings', $filter );
-		add_filter( 'option_ep_feature_settings', $filter );
+		add_filter( 'site_option_eprobe_feature_settings', $filter );
+		add_filter( 'option_eprobe_feature_settings', $filter );
 
 		// With the option enabled, order by date
 		$query = new \WP_Query( [ 's' => 'beautiful' ] );
