@@ -25,7 +25,6 @@ class Comments {
 	 * @return void
 	 */
 	public function register_routes() {
-		// TODO: Change rest route
 		register_rest_route(
 			'elasticprobe/v1',
 			'comments',

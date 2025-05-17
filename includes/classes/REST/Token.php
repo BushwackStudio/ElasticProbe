@@ -24,7 +24,6 @@ class Token {
 	 * @return void
 	 */
 	public function register_routes() {
-		// TODO: Change REST route
 		register_rest_route(
 			'elasticprobe/v1',
 			'token',
