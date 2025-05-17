@@ -27,7 +27,7 @@ class Comments {
 	public function register_routes() {
 		// TODO: Change rest route
 		register_rest_route(
-			'elasticpress/v1',
+			'elasticprobe/v1',
 			'comments',
 			[
 				'args'                => $this->get_args(),

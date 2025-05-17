@@ -331,7 +331,7 @@ class TestFeatureActivation extends BaseTestCase {
 		);
 
 		$controller = new FeaturesRest();
-		$request    = new \WP_REST_Request( 'PUT', '/elasticpress/v1/features' );
+		$request    = new \WP_REST_Request( 'PUT', '/elasticprobe/v1/features' );
 		$request->set_param(
 			'test',
 			[

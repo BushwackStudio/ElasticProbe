@@ -487,7 +487,7 @@ function action_admin_enqueue_dashboard_scripts() {
 
 		$weighting = Features::factory()->get_registered_feature( 'search' )->weighting;
 
-		$api_url                 = esc_url_raw( rest_url( 'elasticpress/v1/weighting' ) );
+		$api_url                 = esc_url_raw( rest_url( 'elasticprobe/v1/weighting' ) );
 		$meta_mode               = $weighting->get_meta_mode();
 		$weightable_fields       = $weighting->get_weightable_fields();
 		$weighting_configuration = $weighting->get_weighting_configuration_with_defaults();

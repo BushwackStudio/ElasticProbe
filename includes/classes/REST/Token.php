@@ -26,7 +26,7 @@ class Token {
 	public function register_routes() {
 		// TODO: Change REST route
 		register_rest_route(
-			'elasticpress/v1',
+			'elasticprobe/v1',
 			'token',
 			[
 				[

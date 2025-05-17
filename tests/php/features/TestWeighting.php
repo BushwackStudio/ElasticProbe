@@ -499,7 +499,7 @@ class TestWeighting extends BaseTestCase {
 	 * @return array
 	 */
 	protected function save_weighting_configuration( $settings ) {
-		$request = new \WP_REST_Request( 'POST', '/elasticpress/v1/update_weighting' );
+		$request = new \WP_REST_Request( 'POST', '/elasticprobe/v1/update_weighting' );
 		$request->set_header( 'Content-Type', 'application/json' );
 		$request->set_body( wp_json_encode( $settings ) );
 		$this->get_weighting_feature()->update_weighting( $request );

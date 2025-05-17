@@ -34,8 +34,8 @@ class MetaKeys {
 			'permission_callback' => [ $this, 'check_permission' ],
 		];
 		// TODO: Change rest route
-		register_rest_route( 'elasticpress/v1', 'meta-keys', $args );
-		register_rest_route( 'elasticpress/v1', 'facets/meta/keys', $args );
+		register_rest_route( 'elasticprobe/v1', 'meta-keys', $args );
+		register_rest_route( 'elasticprobe/v1', 'facets/meta/keys', $args );
 	}
 
 	/**

@@ -139,7 +139,7 @@ describe('Dashboard Sync', () => {
 		cy.visitAdminPage('admin.php?page=elasticprobe-sync');
 
 		// Start sync via dashboard and pause it
-		cy.intercept('POST', '/wp-json/elasticpress/v1/sync*').as('apiRequest');
+		cy.intercept('POST', '/wp-json/elasticprobe/v1/sync*').as('apiRequest');
 		cy.contains('.components-button', 'Start sync').click();
 		cy.wait('@apiRequest').its('response.statusCode').should('eq', 200);
 		cy.contains('.components-button', 'Pause sync').click();

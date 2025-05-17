@@ -414,7 +414,7 @@ class Weighting {
 	 */
 	public function register_rest_routes() {
 		register_rest_route(
-			'elasticpress/v1',
+			'elasticprobe/v1',
 			'weighting',
 			[
 				'callback'            => [ $this, 'update_weighting' ],

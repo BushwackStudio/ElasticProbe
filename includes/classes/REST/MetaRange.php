@@ -34,8 +34,8 @@ class MetaRange {
 			'permission_callback' => [ $this, 'check_permission' ],
 		];
 		// TODO: Change REST route
-		register_rest_route( 'elasticpress/v1', 'meta-range', $args );
-		register_rest_route( 'elasticpress/v1', 'facets/meta-range/block-preview', $args );
+		register_rest_route( 'elasticprobe/v1', 'meta-range', $args );
+		register_rest_route( 'elasticprobe/v1', 'facets/meta-range/block-preview', $args );
 	}
 
 	/**

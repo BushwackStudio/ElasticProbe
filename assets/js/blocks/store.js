@@ -98,16 +98,16 @@ const selectors = {
 
 const controls = {
 	GET_META_KEYS() {
-		return apiFetch({ path: 'elasticpress/v1/meta-keys' });
+		return apiFetch({ path: 'elasticprobe/v1/meta-keys' });
 	},
 	GET_TAXONOMIES() {
-		return apiFetch({ path: 'elasticpress/v1/taxonomies' });
+		return apiFetch({ path: 'elasticprobe/v1/taxonomies' });
 	},
 	GET_META_RANGE({ key }) {
 		const params = new URLSearchParams({ facet: key });
 
 		return apiFetch({
-			path: `/elasticpress/v1/meta-range?${params}`,
+			path: `/elasticprobe/v1/meta-range?${params}`,
 		});
 	},
 };

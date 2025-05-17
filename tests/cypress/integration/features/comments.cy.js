@@ -94,7 +94,7 @@ describe('Comments Feature', { tags: '@slow' }, () => {
 		/**
 		 * Wait for REST responses.
 		 */
-		cy.intercept('/wp-json/elasticpress/v1/comments*').as('commentsRest');
+		cy.intercept('/wp-json/elasticprobe/v1/comments*').as('commentsRest');
 
 		/**
 		 * Verify the all comments block has the expected markup and returns
@@ -195,7 +195,7 @@ describe('Comments Feature', { tags: '@slow' }, () => {
 		 * expected results.
 		 */
 		cy.visit('/');
-		cy.intercept('/wp-json/elasticpress/v1/comments*').as('commentsRest');
+		cy.intercept('/wp-json/elasticprobe/v1/comments*').as('commentsRest');
 		cy.get(`[id^="ep-comments"]`).first().as('widget');
 		cy.get('@widget').find('input[type="hidden"]').should('have.attr', 'value', 'page');
 		cy.get('@widget').find('input[type="search"]').as('input').should('exist');
@@ -250,7 +250,7 @@ describe('Comments Feature', { tags: '@slow' }, () => {
 		cy.maybeDisableFeature('comments');
 
 		cy.visitAdminPage('admin.php?page=elasticprobe');
-		cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
+		cy.intercept('/wp-json/elasticprobe/v1/features*').as('apiRequest');
 
 		cy.contains('button', 'Comments').click();
 		cy.contains('label', 'Enable').click();

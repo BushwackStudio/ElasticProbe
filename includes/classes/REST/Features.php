@@ -27,7 +27,7 @@ class Features {
 	public function register_routes() {
 		// TODO: Change rest route
 		register_rest_route(
-			'elasticpress/v1',
+			'elasticprobe/v1',
 			'features',
 			[
 				'args'                => $this->get_args(),

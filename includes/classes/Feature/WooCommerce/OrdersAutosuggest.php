@@ -192,7 +192,7 @@ class OrdersAutosuggest {
 				'apiEndpoint'       => $api_endpoint,
 				'apiHost'           => ( 0 !== strpos( $api_endpoint, 'http' ) ) ? trailingslashit( esc_url_raw( $api_host ) ) : '',
 				'argsSchema'        => $this->get_args_schema(),
-				'credentialsApiUrl' => rest_url( 'elasticpress/v1/token' ),
+				'credentialsApiUrl' => rest_url( 'elasticprobe/v1/token' ),
 				'credentialsNonce'  => wp_create_nonce( 'wp_rest' ),
 				'dateFormat'        => wc_date_format(),
 				'statusLabels'      => wc_get_order_statuses(),

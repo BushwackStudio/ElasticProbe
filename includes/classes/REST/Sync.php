@@ -27,7 +27,7 @@ class Sync {
 	public function register_routes() {
 		// TODO: Change REST route
 		register_rest_route(
-			'elasticpress/v1',
+			'elasticprobe/v1',
 			'sync',
 			[
 				'args'                => $this->get_args(),
@@ -38,7 +38,7 @@ class Sync {
 		);
 
 		register_rest_route(
-			'elasticpress/v1',
+			'elasticprobe/v1',
 			'sync',
 			[
 				'callback'            => [ $this, 'get_sync_status' ],
@@ -48,7 +48,7 @@ class Sync {
 		);
 
 		register_rest_route(
-			'elasticpress/v1',
+			'elasticprobe/v1',
 			'sync',
 			[
 				'callback'            => [ $this, 'cancel_sync' ],

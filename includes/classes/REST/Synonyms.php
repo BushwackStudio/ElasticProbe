@@ -27,7 +27,7 @@ class Synonyms {
 	public function register_routes() {
 		// Change REST route
 		register_rest_route(
-			'elasticpress/v1',
+			'elasticprobe/v1',
 			'synonyms',
 			[
 				'args'                => $this->get_args(),

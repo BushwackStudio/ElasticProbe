@@ -3,7 +3,7 @@ describe('Post Search Feature - Synonyms Functionality', () => {
 	 * Save synonyms settings.
 	 */
 	function saveSynonyms() {
-		cy.intercept('/wp-json/elasticpress/v1/synonyms*').as('apiRequest');
+		cy.intercept('/wp-json/elasticprobe/v1/synonyms*').as('apiRequest');
 		cy.contains('button', 'Save changes').click();
 		cy.wait('@apiRequest');
 		cy.contains('Synonym settings saved.').should('exist');

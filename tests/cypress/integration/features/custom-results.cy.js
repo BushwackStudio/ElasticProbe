@@ -35,7 +35,7 @@ describe('Custom Results', () => {
 
 		cy.login();
 		cy.visitAdminPage('post-new.php?post_type=ep-pointer');
-		cy.intercept('GET', 'wp-json/elasticpress/v1/pointer_preview*').as('ajaxRequest');
+		cy.intercept('GET', 'wp-json/elasticprobe/v1/pointer_preview*').as('ajaxRequest');
 
 		cy.get('#titlewrap input').type(searchTerm);
 		cy.wait('@ajaxRequest').its('response.statusCode').should('eq', 200);
@@ -76,12 +76,12 @@ describe('Custom Results', () => {
 		});
 
 		cy.visitAdminPage('post-new.php?post_type=ep-pointer');
-		cy.intercept('GET', 'wp-json/elasticpress/v1/pointer_preview*').as('ajaxRequest');
+		cy.intercept('GET', 'wp-json/elasticprobe/v1/pointer_preview*').as('ajaxRequest');
 
 		cy.get('#titlewrap input').type(searchTerm);
 		cy.wait('@ajaxRequest').its('response.statusCode').should('eq', 200);
 
-		cy.intercept('GET', 'wp-json/elasticpress/v1/pointer_search*').as('ajaxRequest');
+		cy.intercept('GET', 'wp-json/elasticprobe/v1/pointer_search*').as('ajaxRequest');
 
 		// search for the post.
 		cy.get('.search-pointers').type(testPost);

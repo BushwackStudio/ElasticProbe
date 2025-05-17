@@ -74,7 +74,7 @@ class Sync {
 		$sync_history = ! $indices_missing ? IndexHelper::factory()->get_sync_history() : [];
 
 		$data = [
-			'apiUrl'      => rest_url( 'elasticpress/v1/sync' ),
+			'apiUrl'      => rest_url( 'elasticprobe/v1/sync' ),
 			'autoIndex'   => Utils\isset_do_sync_parameter() && ( ! defined( 'EPROBE_DASHBOARD_SYNC' ) || EPROBE_DASHBOARD_SYNC ),
 			'indexMeta'   => Utils\get_indexing_status(),
 			'indexables'  => array_map( fn( $indexable ) => [ $indexable->slug, $indexable->labels['plural'] ], $indexables ),

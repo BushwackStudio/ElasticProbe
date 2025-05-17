@@ -443,7 +443,7 @@ class SearchOrdering extends Feature {
 				'epOrdering',
 				array_merge(
 					[
-						'searchEndpoint' => rest_url( 'elasticpress/v1/pointer_search' ),
+						'searchEndpoint' => rest_url( 'elasticprobe/v1/pointer_search' ),
 						'nonce'          => wp_create_nonce( 'save-search-ordering' ),
 						'restApiRoot'    => rest_url( '/' ),
 						'postsPerPage'   => (int) get_option( 'posts_per_page', 10 ),

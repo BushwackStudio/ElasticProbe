@@ -69,7 +69,7 @@ describe('Post Search Feature - Weighting Functionality', () => {
 		/**
 		 * Save weighting settings.
 		 */
-		cy.intercept('/wp-json/elasticpress/v1/weighting*').as('apiRequest');
+		cy.intercept('/wp-json/elasticprobe/v1/weighting*').as('apiRequest');
 		cy.contains('button', 'Save changes').click();
 		cy.wait('@apiRequest');
 
@@ -145,7 +145,7 @@ describe('Post Search Feature - Weighting Functionality', () => {
 		/**
 		 * Save weighting settings.
 		 */
-		cy.intercept('/wp-json/elasticpress/v1/weighting*').as('apiRequest');
+		cy.intercept('/wp-json/elasticprobe/v1/weighting*').as('apiRequest');
 		cy.contains('button', 'Save changes').click();
 		cy.wait('@apiRequest');
 
@@ -238,7 +238,7 @@ describe('Post Search Feature - Weighting Functionality', () => {
 		/**
 		 * Save weighting settings.
 		 */
-		cy.intercept('/wp-json/elasticpress/v1/weighting*').as('apiRequest');
+		cy.intercept('/wp-json/elasticprobe/v1/weighting*').as('apiRequest');
 		cy.contains('button', 'Save changes').click();
 		cy.wait('@apiRequest');
 
@@ -280,7 +280,7 @@ describe('Post Search Feature - Weighting Functionality', () => {
 		/**
 		 * Save weighting settings.
 		 */
-		cy.intercept('/wp-json/elasticpress/v1/weighting*').as('apiRequest');
+		cy.intercept('/wp-json/elasticprobe/v1/weighting*').as('apiRequest');
 		cy.contains('button', 'Save changes').click();
 		cy.wait('@apiRequest');
 

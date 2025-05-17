@@ -33,7 +33,7 @@ export class Pointers extends Component {
 		this.setState({ searchResults });
 
 		apiFetch({
-			path: `/elasticpress/v1/pointer_search?s=${searchTerm}`,
+			path: `/elasticprobe/v1/pointer_search?s=${searchTerm}`,
 		}).then((result) => {
 			searchResults[searchTerm] = result;
 
@@ -90,7 +90,7 @@ export class Pointers extends Component {
 		const { title: searchTerm } = this.state;
 
 		apiFetch({
-			path: `/elasticpress/v1/pointer_preview?s=${searchTerm}`,
+			path: `/elasticprobe/v1/pointer_preview?s=${searchTerm}`,
 		}).then((result) => {
 			const { defaultResults } = this.state;
 

@@ -71,7 +71,7 @@ class Features {
 				admin_url( 'admin.php?page=elasticprobe-sync' );
 
 		$data = [
-			'apiUrl'        => rest_url( 'elasticpress/v1/features' ),
+			'apiUrl'        => rest_url( 'elasticprobe/v1/features' ),
 			'epioLogoUrl'   => esc_url( plugins_url( '/images/logo-wpprobe-com.svg', EPROBE_FILE ) ),
 			'features'      => $features,
 			'indexMeta'     => Utils\get_indexing_status(),

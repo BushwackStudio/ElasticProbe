@@ -102,7 +102,7 @@ describe('WordPress can perform standard ElasticProbe actions', { tags: '@slow' 
 	it('Cannot save settings while a sync is in progress', () => {
 		cy.login();
 		cy.visitAdminPage('admin.php?page=elasticprobe');
-		cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
+		cy.intercept('/wp-json/elasticprobe/v1/features*').as('apiRequest');
 
 		cy.wpCliEval(`update_option( 'eprobe_index_meta', [ 'indexing' => true ] );`).then(() => {
 			cy.contains('button', 'Save changes').click();

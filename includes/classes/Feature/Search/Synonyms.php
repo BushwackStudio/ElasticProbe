@@ -156,7 +156,7 @@ class Synonyms {
 			'all'
 		);
 
-		$api_url  = rest_url( 'elasticpress/v1/synonyms' );
+		$api_url  = rest_url( 'elasticprobe/v1/synonyms' );
 		$sync_url = Utils\get_sync_url();
 
 		wp_localize_script(

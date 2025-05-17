@@ -220,7 +220,7 @@ class Comments extends Feature {
 		$default_script_data = [
 			'noResultsFoundText'    => esc_html__( 'We could not find any results', 'elasticprobe' ),
 			'minimumLengthToSearch' => 2,
-			'restApiEndpoint'       => get_rest_url( null, 'elasticpress/v1/comments' ),
+			'restApiEndpoint'       => get_rest_url( null, 'elasticprobe/v1/comments' ),
 		];
 
 		/**

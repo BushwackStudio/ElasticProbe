@@ -584,15 +584,15 @@ class TestSearchOrdering extends BaseTestCase {
 		do_action( 'rest_api_init', $wp_rest_server );
 
 		$routes = $wp_rest_server->get_routes();
-		$this->assertArrayHasKey( '/elasticpress/v1', $routes );
-		$this->assertArrayHasKey( '/elasticpress/v1/pointer_search', $routes );
-		$this->assertArrayHasKey( '/elasticpress/v1/pointer_preview', $routes );
+		$this->assertArrayHasKey( '/elasticprobe/v1', $routes );
+		$this->assertArrayHasKey( '/elasticprobe/v1/pointer_search', $routes );
+		$this->assertArrayHasKey( '/elasticprobe/v1/pointer_preview', $routes );
 
-		$request  = new \WP_REST_Request( 'GET', '/elasticpress/v1/pointer_search' );
+		$request  = new \WP_REST_Request( 'GET', '/elasticprobe/v1/pointer_search' );
 		$response = $wp_rest_server->dispatch( $request );
 		$this->assertEquals( 400, $response->get_status() );
 
-		$request  = new \WP_REST_Request( 'GET', '/elasticpress/v1/pointer_preview' );
+		$request  = new \WP_REST_Request( 'GET', '/elasticprobe/v1/pointer_preview' );
 		$response = $wp_rest_server->dispatch( $request );
 		$this->assertEquals( 400, $response->get_status() );
 	}
@@ -608,7 +608,7 @@ class TestSearchOrdering extends BaseTestCase {
 		$wp_rest_server = new \WP_REST_Server();
 		do_action( 'rest_api_init', $wp_rest_server );
 
-		$request = new \WP_REST_Request( 'GET', '/elasticpress/v1/pointer_search' );
+		$request = new \WP_REST_Request( 'GET', '/elasticprobe/v1/pointer_search' );
 		$request->set_query_params(
 			array(
 				's' => 'hello-world',
@@ -617,7 +617,7 @@ class TestSearchOrdering extends BaseTestCase {
 		$response = $wp_rest_server->dispatch( $request );
 		$this->assertEquals( 200, $response->get_status() );
 
-		$request = new \WP_REST_Request( 'GET', '/elasticpress/v1/pointer_preview' );
+		$request = new \WP_REST_Request( 'GET', '/elasticprobe/v1/pointer_preview' );
 		$request->set_query_params(
 			array(
 				's' => 'hello-world',
@@ -641,7 +641,7 @@ class TestSearchOrdering extends BaseTestCase {
 		$wp_rest_server = new \WP_REST_Server();
 		do_action( 'rest_api_init', $wp_rest_server );
 
-		$request = new \WP_REST_Request( 'GET', '/elasticpress/v1/pointer_search' );
+		$request = new \WP_REST_Request( 'GET', '/elasticprobe/v1/pointer_search' );
 		$request->set_query_params(
 			array(
 				's' => 'hello-world',
@@ -650,7 +650,7 @@ class TestSearchOrdering extends BaseTestCase {
 		$response = $wp_rest_server->dispatch( $request );
 		$this->assertEquals( 403, $response->get_status() );
 
-		$request = new \WP_REST_Request( 'GET', '/elasticpress/v1/pointer_preview' );
+		$request = new \WP_REST_Request( 'GET', '/elasticprobe/v1/pointer_preview' );
 		$request->set_query_params(
 			array(
 				's' => 'hello-world',
