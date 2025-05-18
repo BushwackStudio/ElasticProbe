@@ -60,7 +60,7 @@ $bulk_setting = Utils\get_option( 'eprobe_bulk_setting', 350 );
 					<tbody>
 						<tr class="ep-host-row">
 							<th scope="row">
-								<label for="eprobe_host">
+								<label for="ep_host">
 									<?php if ( $is_epio ) : ?>
 										<?php esc_html_e( 'WPProbe.com Host URL', 'elasticprobe' ); ?>
 									<?php else : ?>
@@ -81,7 +81,7 @@ $bulk_setting = Utils\get_option( 'eprobe_bulk_setting', 350 );
 								$disabled  = $wpconfig || ! $show_host;
 								$value     = $show_host ? esc_url( $host ) : __( '••••••••••••••••', 'elasticprobe' );
 								?>
-								<input <?php disabled( $disabled, true, true ); ?> placeholder="https://" type="text" value="<?php echo esc_attr( $value ); ?>" name="eprobe_host" id="eprobe_host">
+								<input <?php disabled( $disabled, true, true ); ?> placeholder="https://" type="text" value="<?php echo esc_attr( $value ); ?>" name="ep_host" id="ep_host">
 								<?php if ( $show_host ) : ?>
 									<?php if ( $wpconfig ) : ?>
 										<p class="description ep-host-legend"><?php esc_html_e( 'Host already defined in wp-config.php.', 'elasticprobe' ); ?></p>
