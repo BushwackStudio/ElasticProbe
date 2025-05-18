@@ -40,7 +40,7 @@ class BlockTemplateUtils {
 	/**
 	 * Given a block name, return all its instances across all block templates
 	 *
-	 * @param string $block_name The block name, e.g., `elasticpress/facet-meta`
+	 * @param string $block_name The block name, e.g., `elasticprobe/facet-meta`
 	 * @return array
 	 */
 	public function get_specific_block_in_all_templates( string $block_name ): array {

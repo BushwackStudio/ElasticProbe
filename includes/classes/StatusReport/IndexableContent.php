@@ -163,7 +163,7 @@ class IndexableContent extends AjaxReport {
 					),
 					number_format_i18n( $post_count_limit ),
 					// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralSingle,WordPress.WP.I18n.NonSingularStringLiteralPlural
-					_n( $post_type_obj->labels->singular_name, $post_type_obj->labels->name, $post_count_limit, 'elasticprobe' )
+					_n( $post_type_obj->labels->singular_name, $post_type_obj->labels->name, $post_count_limit )
 				) : '';
 
 			$fields[ $post_type . '_meta_keys' ] = [

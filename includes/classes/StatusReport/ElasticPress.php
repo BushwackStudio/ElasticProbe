@@ -114,7 +114,7 @@ class ElasticPress extends Report {
 				__( 'Default Requests Timeout (default: %s)', 'elasticprobe' ),
 				$default_bulk_request_timeout
 			),
-			'value' => apply_filters( 'bulk_request_timeout', $default_bulk_request_timeout ),
+			'value' => apply_filters( 'eprobe_bulk_request_timeout', $default_bulk_request_timeout ),
 		];
 
 		return [

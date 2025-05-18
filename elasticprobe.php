@@ -284,9 +284,9 @@ function handle_upgrades() {
  * @since  2.2
  */
 function setup_misc() {
-	if ( is_user_logged_in() && ! defined( 'WP_EP_DEBUG' ) ) {
+	if ( is_user_logged_in() && ! defined( 'EPROBE_DEBUG' ) ) {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		define( 'WP_EP_DEBUG', is_plugin_active( 'debug-bar-elasticprobe/debug-bar-elasticprobe.php' ) );
+		define( 'EPROBE_DEBUG', is_plugin_active( 'debug-bar-elasticprobe/debug-bar-elasticprobe.php' ) );
 	}
 }
 add_action( 'plugins_loaded', __NAMESPACE__ . '\setup_misc' );
@@ -316,6 +316,6 @@ register_activation_hook( __FILE__, __NAMESPACE__ . '\setup_roles' );
  * Fires after ElasticProbe plugin is loaded
  *
  * @since  2.0
- * @hook elasticprobe_loaded
+ * @hook eprobe_loaded
  */
-do_action( 'elasticprobe_loaded' );
+do_action( 'eprobe_loaded' );

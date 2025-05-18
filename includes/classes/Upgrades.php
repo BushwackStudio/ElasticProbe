@@ -97,7 +97,7 @@ class Upgrades {
 	 * this method will enable the SKU field.
 	 */
 	public function upgrade_3_5_2() {
-		$weighting_options = get_option( 'elasticpress_weighting', [] );
+		$weighting_options = get_option( 'eprobe_weighting', [] );
 		if ( empty( $weighting_options ) ) {
 			return;
 		}
@@ -120,7 +120,7 @@ class Upgrades {
 			'weight'  => 1,
 		);
 
-		update_option( 'elasticpress_weighting', $weighting_options );
+		update_option( 'eprobe_weighting', $weighting_options );
 	}
 
 	/**

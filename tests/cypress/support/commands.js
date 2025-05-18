@@ -314,7 +314,7 @@ Cypress.Commands.add('updateWeighting', (newWeightingValues = null) => {
 		: JSON.stringify(defaultWeighting);
 
 	cy.wpCliEval(
-		`$weighting = json_decode( '${escapedWeighting}', true ); update_option( 'elasticpress_weighting', $weighting );`,
+		`$weighting = json_decode( '${escapedWeighting}', true ); update_option( 'eprobe_weighting', $weighting );`,
 	);
 });
 

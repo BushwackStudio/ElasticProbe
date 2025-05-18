@@ -192,9 +192,9 @@ class TestAutosuggest extends BaseTestCase {
 	 * Test the `enqueue_scripts` method
 	 */
 	public function testEnqueueScripts() {
-		$this->assertFalse( wp_script_is( 'elasticpress-autosuggest' ) );
+		$this->assertFalse( wp_script_is( 'elasticprobe-autosuggest' ) );
 		$this->get_feature()->enqueue_scripts();
-		$this->assertFalse( wp_script_is( 'elasticpress-autosuggest' ) );
+		$this->assertFalse( wp_script_is( 'elasticprobe-autosuggest' ) );
 
 		$filter = function () {
 			return [
@@ -208,7 +208,7 @@ class TestAutosuggest extends BaseTestCase {
 		add_filter( 'pre_option_eprobe_feature_settings', $filter );
 
 		$this->get_feature()->enqueue_scripts();
-		$this->assertTrue( wp_script_is( 'elasticpress-autosuggest' ) );
+		$this->assertTrue( wp_script_is( 'elasticprobe-autosuggest' ) );
 	}
 
 	/**

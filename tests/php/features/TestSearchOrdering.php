@@ -247,11 +247,11 @@ class TestSearchOrdering extends BaseTestCase {
 	 * Test the `admin_enqueue_scripts` method
 	 */
 	public function testEnqueueScripts() {
-		$this->assertFalse( wp_script_is( 'ep_ordering_scripts' ) );
+		$this->assertFalse( wp_script_is( 'eprobe_ordering_scripts' ) );
 		$GLOBALS['pagenow'] = 'post-new.php';
 		set_current_screen( 'ep-pointer' );
 		$this->get_feature()->admin_enqueue_scripts();
-		$this->assertTrue( wp_script_is( 'ep_ordering_scripts' ) );
+		$this->assertTrue( wp_script_is( 'eprobe_ordering_scripts' ) );
 	}
 
 	/**

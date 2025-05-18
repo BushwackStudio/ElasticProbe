@@ -201,17 +201,17 @@ class Comments extends Feature {
 	 */
 	public function frontend_scripts() {
 		wp_register_script(
-			'elasticpress-comments',
+			'elasticprobe-comments',
 			EPROBE_URL . 'dist/js/comments-script.js',
 			Utils\get_asset_info( 'comments-script', 'dependencies' ),
 			Utils\get_asset_info( 'comments-script', 'version' ),
 			true
 		);
 
-		wp_set_script_translations( 'elasticpress-comments', 'elasticprobe' );
+		wp_set_script_translations( 'elasticprobe-comments', 'elasticprobe' );
 
 		wp_register_style(
-			'elasticpress-comments',
+			'elasticprobe-comments',
 			EPROBE_URL . 'dist/css/comments-styles.css',
 			Utils\get_asset_info( 'comments-styles', 'dependencies' ),
 			Utils\get_asset_info( 'comments-styles', 'version' )
@@ -234,7 +234,7 @@ class Comments extends Feature {
 		$script_data = apply_filters( 'eprobe_comment_search_widget_l10n_data_script', $default_script_data );
 
 		wp_localize_script(
-			'elasticpress-comments',
+			'elasticprobe-comments',
 			'epc',
 			$script_data
 		);
@@ -252,17 +252,17 @@ class Comments extends Feature {
 		 * @see https://core.trac.wordpress.org/ticket/54797#comment:20
 		 */
 		wp_register_script(
-			'elasticpress-comments-editor-script',
+			'elasticprobe-comments-editor-script',
 			EPROBE_URL . 'dist/js/comments-block-script.js',
 			Utils\get_asset_info( 'comments-block-script', 'dependencies' ),
 			Utils\get_asset_info( 'comments-block-script', 'version' ),
 			true
 		);
 
-		wp_set_script_translations( 'elasticpress-comments-editor-script', 'elasticprobe' );
+		wp_set_script_translations( 'elasticprobe-comments-editor-script', 'elasticprobe' );
 
 		wp_localize_script(
-			'elasticpress-comments-editor-script',
+			'elasticprobe-comments-editor-script',
 			'epComments',
 			[
 				'searchablePostTypes' => self::get_searchable_post_types(),

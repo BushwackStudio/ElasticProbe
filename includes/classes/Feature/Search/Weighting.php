@@ -266,7 +266,7 @@ class Weighting {
 		 * @param  {array} $config Current configuration
 		 * @return  {array} New configuration
 		 */
-		return apply_filters( 'eprobe_weighting_configuration', get_option( 'elasticpress_weighting', [] ) );
+		return apply_filters( 'eprobe_weighting_configuration', get_option( 'eprobe_weighting', [] ) );
 	}
 
 	/**
@@ -478,7 +478,7 @@ class Weighting {
 			}
 		}
 
-		update_option( 'elasticpress_weighting', $weighting );
+		update_option( 'eprobe_weighting', $weighting );
 
 		/**
 		 * Fires right after the weighting configuration is saved.

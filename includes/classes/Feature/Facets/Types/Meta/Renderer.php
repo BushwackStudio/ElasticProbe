@@ -175,8 +175,8 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 		<?php
 
 		// Enqueue Script & Styles
-		wp_enqueue_script( 'elasticpress-facets' );
-		wp_enqueue_style( 'elasticpress-facets' );
+		wp_enqueue_script( 'elasticprobe-facets' );
+		wp_enqueue_style( 'elasticprobe-facets' );
 
 		echo wp_kses_post( $args['after_widget'] );
 	}

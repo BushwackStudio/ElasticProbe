@@ -82,7 +82,7 @@ describe('Facets Feature', { tags: '@slow' }, () => {
 		 */
 		cy.get('@firstBlock').click();
 		cy.openBlockSettingsSidebar();
-		cy.intercept('/wp-json/wp/v2/block-renderer/elasticpress/facet*').as('blockPreview');
+		cy.intercept('/wp-json/wp/v2/block-renderer/elasticprobe/facet*').as('blockPreview');
 		cy.get('.block-editor-block-inspector select').first().select('category');
 		cy.wait('@blockPreview');
 
@@ -409,7 +409,7 @@ describe('Facets Feature', { tags: '@slow' }, () => {
 				true,
 			);
 
-			cy.intercept('/wp-json/wp/v2/block-renderer/elasticpress/facet-meta*').as(
+			cy.intercept('/wp-json/wp/v2/block-renderer/elasticprobe/facet-meta*').as(
 				'blockPreview',
 			);
 			cy.get('.block-editor-block-inspector select').first().select('meta_field_1');
@@ -803,7 +803,7 @@ describe('Facets Feature', { tags: '@slow' }, () => {
 				true,
 			);
 
-			cy.intercept('/wp-json/wp/v2/block-renderer/elasticpress/facet-post-type*').as(
+			cy.intercept('/wp-json/wp/v2/block-renderer/elasticprobe/facet-post-type*').as(
 				'blockPreview',
 			);
 
@@ -976,7 +976,7 @@ describe('Facets Feature', { tags: '@slow' }, () => {
 			cy.get('@block').click();
 			cy.openBlockSettingsSidebar();
 			cy.get('.block-editor-block-inspector input[type="checkbox"]').uncheck();
-			cy.intercept('/wp-json/wp/v2/block-renderer/elasticpress/facet-date*').as(
+			cy.intercept('/wp-json/wp/v2/block-renderer/elasticprobe/facet-date*').as(
 				'blockPreview',
 			);
 			cy.wait('@blockPreview');

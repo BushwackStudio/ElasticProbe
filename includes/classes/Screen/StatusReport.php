@@ -46,7 +46,7 @@ class StatusReport {
 		}
 
 		wp_enqueue_script(
-			'ep_admin_status_report_scripts',
+			'eprobe_admin_status_report_scripts',
 			EPROBE_URL . 'dist/js/status-report-script.js',
 			Utils\get_asset_info( 'status-report-script', 'dependencies' ),
 			Utils\get_asset_info( 'status-report-script', 'version' ),
@@ -66,7 +66,7 @@ class StatusReport {
 		$plain_text_report = implode( "\n\n", $plain_text_reports );
 
 		wp_localize_script(
-			'ep_admin_status_report_scripts',
+			'eprobe_admin_status_report_scripts',
 			'epStatusReport',
 			[
 				'plainTextReport' => $plain_text_report,
@@ -76,7 +76,7 @@ class StatusReport {
 		);
 
 		wp_enqueue_style(
-			'ep_status_report_styles',
+			'eprobe_status_report_styles',
 			EPROBE_URL . 'dist/css/status-report-script.css',
 			[ 'wp-components', 'wp-edit-post' ],
 			Utils\get_asset_info( 'status-report-script', 'version' )
@@ -99,7 +99,8 @@ class StatusReport {
 			$this->formatted_reports = $this->get_reports();
 		}
 
-		$post = wp_unslash( $_POST );
+		$post = sanitize_post( $_POST );
+		$post = wp_unslash( $post );
 
 		if ( empty( $this->formatted_reports[ $post['report'] ] ) ) {
 			wp_send_json_error( [ 'message' => __( 'Status report not found.', 'elasticprobe' ) ], 404 );

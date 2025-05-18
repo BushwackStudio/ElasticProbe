@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "elasticpress/facet",
+	"name": "elasticprobe/facet",
 	"title": "Filter by Taxonomy",
-	"category": "elasticpress",
+	"category": "elasticprobe",
 	"description": "Let visitors filter your content by taxonomy terms, such as categories or tags.",
 	"keywords": ["attributes", "facets"],
 	"textdomain": "elasticprobe",
@@ -60,5 +60,5 @@
 		}
 	},
 	"editorScript": "ep-facets-block-script",
-	"style": "elasticpress-facets"
+	"style": "elasticprobe-facets"
 }

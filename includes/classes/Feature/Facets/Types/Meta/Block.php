@@ -49,14 +49,14 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 	 */
 	public function enqueue_editor_assets() {
 		wp_register_script(
-			'ep-facets-meta-block-script',
+			'eprobe-facets-meta-block-script',
 			EPROBE_URL . 'dist/js/facets-meta-block-script.js',
 			Utils\get_asset_info( 'facets-meta-block-script', 'dependencies' ),
 			Utils\get_asset_info( 'facets-meta-block-script', 'version' ),
 			true
 		);
 
-		wp_set_script_translations( 'ep-facets-meta-block-script', 'elasticprobe' );
+		wp_set_script_translations( 'eprobe-facets-meta-block-script', 'elasticprobe' );
 	}
 
 	/**

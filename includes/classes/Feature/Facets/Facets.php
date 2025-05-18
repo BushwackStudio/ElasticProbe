@@ -258,17 +258,17 @@ class Facets extends Feature {
 	 */
 	public function front_scripts() {
 		wp_register_script(
-			'elasticpress-facets',
+			'elasticprobe-facets',
 			EPROBE_URL . 'dist/js/facets-script.js',
 			Utils\get_asset_info( 'facets-script', 'dependencies' ),
 			Utils\get_asset_info( 'facets-script', 'version' ),
 			true
 		);
 
-		wp_set_script_translations( 'elasticpress-facets', 'elasticprobe' );
+		wp_set_script_translations( 'elasticprobe-facets', 'elasticprobe' );
 
 		wp_register_style(
-			'elasticpress-facets',
+			'elasticprobe-facets',
 			EPROBE_URL . 'dist/css/facets-styles.css',
 			Utils\get_asset_info( 'facets-styles', 'dependencies' ),
 			Utils\get_asset_info( 'facets-styles', 'version' )

@@ -69,8 +69,8 @@ class Widget extends \WP_Widget {
 		$search_comments_html = ob_get_clean();
 
 		// Enqueue Script & Styles
-		wp_enqueue_script( 'elasticpress-comments' );
-		wp_enqueue_style( 'elasticpress-comments' );
+		wp_enqueue_script( 'elasticprobe-comments' );
+		wp_enqueue_style( 'elasticprobe-comments' );
 
 		// phpcs:disable
 		/**

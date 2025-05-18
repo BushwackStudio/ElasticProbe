@@ -40,12 +40,12 @@ class TestSettings extends BaseTestCase {
 		$settings = new Settings();
 		$settings->admin_enqueue_scripts();
 
-		$this->assertFalse( wp_script_is( 'ep_settings_scripts' ) );
+		$this->assertFalse( wp_script_is( 'eprobe_settings_scripts' ) );
 
 		Screen::factory()->set_current_screen( 'settings' );
 		$settings->admin_enqueue_scripts();
 
-		$this->assertTrue( wp_script_is( 'ep_settings_scripts' ) );
+		$this->assertTrue( wp_script_is( 'eprobe_settings_scripts' ) );
 	}
 
 	/**

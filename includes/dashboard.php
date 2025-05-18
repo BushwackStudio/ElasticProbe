@@ -433,52 +433,52 @@ function action_admin_enqueue_dashboard_scripts() {
 		wp_enqueue_style( 'wp-components' );
 
 		wp_enqueue_script(
-			'ep_admin_sites_scripts',
+			'eprobe_admin_sites_scripts',
 			EPROBE_URL . 'dist/js/sites-admin-script.js',
 			Utils\get_asset_info( 'sites-admin-script', 'dependencies' ),
 			Utils\get_asset_info( 'sites-admin-script', 'version' ),
 			true
 		);
 
-		wp_set_script_translations( 'ep_admin_sites_scripts', 'elasticprobe' );
+		wp_set_script_translations( 'eprobe_admin_sites_scripts', 'elasticprobe' );
 
 		$data = [
 			'ajax_url' => admin_url( 'admin-ajax.php' ),
 			'nonce'    => wp_create_nonce( 'epsa' ),
 		];
 
-		wp_localize_script( 'ep_admin_sites_scripts', 'epsa', $data );
+		wp_localize_script( 'eprobe_admin_sites_scripts', 'epsa', $data );
 	}
 
 	if ( in_array( Screen::factory()->get_current_screen(), [ 'dashboard', 'settings', 'install', 'health', 'weighting', 'synonyms', 'sync', 'status-report' ], true ) ) {
 		wp_enqueue_style(
-			'ep_admin_styles',
+			'eprobe_admin_styles',
 			EPROBE_URL . 'dist/css/dashboard-styles.css',
 			Utils\get_asset_info( 'dashboard-styles', 'dependencies' ),
 			Utils\get_asset_info( 'dashboard-styles', 'version' )
 		);
 		wp_enqueue_script(
-			'ep_admin_script',
+			'eprobe_admin_script',
 			EPROBE_URL . 'dist/js/admin-script.js',
 			Utils\get_asset_info( 'admin-script', 'dependencies' ),
 			Utils\get_asset_info( 'admin-script', 'version' ),
 			true
 		);
 
-		wp_set_script_translations( 'ep_admin_script', 'elasticprobe' );
+		wp_set_script_translations( 'eprobe_admin_script', 'elasticprobe' );
 	}
 
 	if ( 'weighting' === Screen::factory()->get_current_screen() ) {
 
 		wp_enqueue_style(
-			'ep_weighting_styles',
+			'eprobe_weighting_styles',
 			EPROBE_URL . 'dist/css/weighting-script.css',
 			[ 'wp-components', 'wp-edit-post' ],
 			Utils\get_asset_info( 'weighting-script', 'version' )
 		);
 
 		wp_enqueue_script(
-			'ep_weighting_script',
+			'eprobe_weighting_script',
 			EPROBE_URL . 'dist/js/weighting-script.js',
 			Utils\get_asset_info( 'weighting-script', 'dependencies' ),
 			Utils\get_asset_info( 'weighting-script', 'version' ),
@@ -511,24 +511,24 @@ function action_admin_enqueue_dashboard_scripts() {
 		);
 
 		wp_localize_script(
-			'ep_weighting_script',
+			'eprobe_weighting_script',
 			'epWeighting',
 			$data
 		);
 
-		wp_set_script_translations( 'ep_weighting_script', 'elasticprobe' );
+		wp_set_script_translations( 'eprobe_weighting_script', 'elasticprobe' );
 	}
 
 	if ( in_array( Screen::factory()->get_current_screen(), [ 'dashboard', 'install' ], true ) ) {
 		wp_enqueue_script(
-			'ep_dashboard_scripts',
+			'eprobe_dashboard_scripts',
 			EPROBE_URL . 'dist/js/dashboard-script.js',
 			Utils\get_asset_info( 'dashboard-script', 'dependencies' ),
 			Utils\get_asset_info( 'dashboard-script', 'version' ),
 			true
 		);
 
-		wp_set_script_translations( 'ep_dashboard_scripts', 'elasticprobe' );
+		wp_set_script_translations( 'eprobe_dashboard_scripts', 'elasticprobe' );
 
 		$sync_url = Utils\get_sync_url( true );
 
@@ -548,7 +548,7 @@ function action_admin_enqueue_dashboard_scripts() {
 			'syncUrl' => $sync_url,
 		);
 
-		wp_localize_script( 'ep_dashboard_scripts', 'epDash', $data );
+		wp_localize_script( 'eprobe_dashboard_scripts', 'epDash', $data );
 	}
 
 	if ( in_array( Screen::factory()->get_current_screen(), [ 'health' ], true ) && ! empty( Utils\get_host() ) ) {
@@ -557,30 +557,30 @@ function action_admin_enqueue_dashboard_scripts() {
 		$data = Stats::factory()->get_localized();
 
 		wp_enqueue_script(
-			'ep_stats',
+			'eprobe_stats',
 			EPROBE_URL . 'dist/js/stats-script.js',
 			Utils\get_asset_info( 'stats-script', 'dependencies' ),
 			Utils\get_asset_info( 'stats-script', 'version' ),
 			true
 		);
 
-		wp_set_script_translations( 'ep_stats', 'elasticprobe' );
+		wp_set_script_translations( 'eprobe_stats', 'elasticprobe' );
 
-		wp_localize_script( 'ep_stats', 'epChartData', $data );
+		wp_localize_script( 'eprobe_stats', 'epChartData', $data );
 	}
 
 	wp_register_script(
-		'ep_notice_script',
+		'eprobe_notice_script',
 		EPROBE_URL . 'dist/js/notice-script.js',
 		Utils\get_asset_info( 'notice-script', 'dependencies' ),
 		Utils\get_asset_info( 'notice-script', 'version' ),
 		true
 	);
 
-	wp_set_script_translations( 'ep_notice_script', 'elasticprobe' );
+	wp_set_script_translations( 'eprobe_notice_script', 'elasticprobe' );
 
 	wp_localize_script(
-		'ep_notice_script',
+		'eprobe_notice_script',
 		'epAdmin',
 		array(
 			'nonce' => wp_create_nonce( 'ep_admin_nonce' ),
@@ -588,7 +588,7 @@ function action_admin_enqueue_dashboard_scripts() {
 	);
 
 	wp_enqueue_style(
-		'ep_general_styles',
+		'eprobe_general_styles',
 		EPROBE_URL . 'dist/css/general-styles.css',
 		Utils\get_asset_info( 'general-styles', 'dependencies' ),
 		Utils\get_asset_info( 'general-styles', 'version' )

@@ -44,17 +44,17 @@ class Features {
 		}
 
 		wp_enqueue_script(
-			'ep_features_script',
+			'eprobe_features_script',
 			EPROBE_URL . 'dist/js/features-script.js',
 			Utils\get_asset_info( 'features-script', 'dependencies' ),
 			Utils\get_asset_info( 'features-script', 'version' ),
 			true
 		);
 
-		wp_set_script_translations( 'ep_features_script', 'elasticprobe' );
+		wp_set_script_translations( 'eprobe_features_script', 'elasticprobe' );
 
 		wp_enqueue_style(
-			'ep_features_script',
+			'eprobe_features_script',
 			EPROBE_URL . 'dist/css/features-script.css',
 			[ 'wp-components', 'wp-edit-post' ],
 			Utils\get_asset_info( 'features-script', 'version' )
@@ -81,7 +81,7 @@ class Features {
 			'syncNonce'     => wp_create_nonce( 'ep_sync_nonce' ),
 		];
 
-		wp_localize_script( 'ep_features_script', 'epDashboard', $data );
+		wp_localize_script( 'eprobe_features_script', 'epDashboard', $data );
 	}
 
 	/**

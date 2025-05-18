@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "elasticpress/comments",
+	"name": "elasticprobe/comments",
 	"title": "Search Comments",
-	"category": "elasticpress",
+	"category": "elasticprobe",
 	"description": "Let visitors search your site's comments.",
 	"textdomain": "elasticprobe",
 	"attributes": {
@@ -35,7 +35,7 @@
 			"lineHeight": true
 		}
 	},
-	"editorScript": "elasticpress-comments-editor-script",
-	"script": "elasticpress-comments",
-	"style": "elasticpress-comments"
+	"editorScript": "elasticprobe-comments-editor-script",
+	"script": "elasticprobe-comments",
+	"style": "elasticprobe-comments"
 }

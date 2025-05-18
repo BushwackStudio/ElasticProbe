@@ -420,17 +420,17 @@ class SearchOrdering extends Feature {
 
 		if ( in_array( $pagenow, [ 'post-new.php', 'post.php' ], true ) && $screen instanceof \WP_Screen && self::POST_TYPE_NAME === $screen->post_type ) {
 			wp_enqueue_script(
-				'ep_ordering_scripts',
+				'eprobe_ordering_scripts',
 				EPROBE_URL . 'dist/js/ordering-script.js',
 				Utils\get_asset_info( 'ordering-script', 'dependencies' ),
 				Utils\get_asset_info( 'ordering-script', 'version' ),
 				true
 			);
 
-			wp_set_script_translations( 'ep_ordering_scripts', 'elasticprobe' );
+			wp_set_script_translations( 'eprobe_ordering_scripts', 'elasticprobe' );
 
 			wp_enqueue_style(
-				'ep_ordering_styles',
+				'eprobe_ordering_styles',
 				EPROBE_URL . 'dist/css/ordering-styles.css',
 				Utils\get_asset_info( 'ordering-styles', 'dependencies' ),
 				Utils\get_asset_info( 'ordering-styles', 'version' )
@@ -439,7 +439,7 @@ class SearchOrdering extends Feature {
 			$pointer_data = $this->get_pointer_data_for_localize();
 
 			wp_localize_script(
-				'ep_ordering_scripts',
+				'eprobe_ordering_scripts',
 				'epOrdering',
 				array_merge(
 					[

@@ -5,9 +5,9 @@
 	"description": "Let visitors filter your content by post type.",
 	"textdomain": "elasticprobe",
 	"keywords": ["post type", "facets"],
-	"name": "elasticpress/facet-post-type",
+	"name": "elasticprobe/facet-post-type",
 	"icon": "feedback",
-	"category": "elasticpress",
+	"category": "elasticprobe",
 	"attributes": {
 		"displayCount": {
 			"type": "boolean",
@@ -51,6 +51,6 @@
 			"lineHeight": true
 		}
 	},
-	"editorScript": "ep-facets-post-type-block-script",
-	"style": "elasticpress-facets"
+	"editorScript": "eprobe-facets-post-type-block-script",
+	"style": "elasticprobe-facets"
 }

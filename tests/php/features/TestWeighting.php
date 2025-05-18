@@ -92,7 +92,7 @@ class TestWeighting extends BaseTestCase {
 		parent::tear_down();
 
 		$this->fired_actions = array();
-		update_option( 'elasticpress_weighting', [] );
+		update_option( 'eprobe_weighting', [] );
 	}
 
 	/**
@@ -467,7 +467,7 @@ class TestWeighting extends BaseTestCase {
 	 * @since 4.5.0
 	 */
 	public function testApplyFilterWhenWeightingConfigWasNotSaved() {
-		delete_option( 'elasticpress_weighting' );
+		delete_option( 'eprobe_weighting' );
 
 		$add_post_content_filter = function ( $weight_config ) {
 			$weight_config['new_cpt']['post_content_filtered'] = [

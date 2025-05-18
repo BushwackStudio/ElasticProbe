@@ -1760,7 +1760,7 @@ class Elasticsearch {
 	 */
 	protected function add_query_log( $query ) {
 		$wp_debug    = defined( 'WP_DEBUG' ) && WP_DEBUG;
-		$wp_ep_debug = defined( 'WP_EP_DEBUG' ) && WP_EP_DEBUG;
+		$wp_ep_debug = defined( 'EPROBE_DEBUG' ) && EPROBE_DEBUG;
 
 		/**
 		 * Filter query logging. Don't log anything to the queries property when true.

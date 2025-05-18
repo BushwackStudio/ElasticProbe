@@ -49,14 +49,14 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 	 */
 	public function enqueue_editor_assets() {
 		wp_register_script(
-			'ep-facets-meta-range-block-script',
+			'eprobe-facets-meta-range-block-script',
 			EPROBE_URL . 'dist/js/facets-meta-range-block-script.js',
 			Utils\get_asset_info( 'facets-meta-block-script', 'dependencies' ),
 			Utils\get_asset_info( 'facets-meta-block-script', 'version' ),
 			true
 		);
 
-		wp_set_script_translations( 'ep-facets-meta-range-block-script', 'elasticprobe' );
+		wp_set_script_translations( 'eprobe-facets-meta-range-block-script', 'elasticprobe' );
 	}
 
 	/**
@@ -66,7 +66,7 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 	 */
 	public function enqueue_assets() {
 		wp_register_script(
-			'ep-facets-meta-range-block-view-script',
+			'eprobe-facets-meta-range-block-view-script',
 			EPROBE_URL . 'dist/js/facets-meta-range-block-view-script.js',
 			Utils\get_asset_info( 'facets-meta-range-block-view-script', 'dependencies' ),
 			Utils\get_asset_info( 'facets-meta-range-block-view-script', 'version' ),
@@ -92,7 +92,7 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 		 * @see https://core.trac.wordpress.org/changeset/54367
 		 */
 		if ( version_compare( get_bloginfo( 'version' ), '6.1', '<' ) ) {
-			wp_enqueue_script( 'ep-facets-meta-range-block-view-script' );
+			wp_enqueue_script( 'eprobe-facets-meta-range-block-view-script' );
 		}
 
 		ob_start();

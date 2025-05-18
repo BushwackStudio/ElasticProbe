@@ -216,13 +216,13 @@ abstract class SyncManager {
 			/**
 			 * Allow other code to intercept the sync process
 			 *
-			 * @hook pre_eprobe_index_sync_queue
+			 * @hook eprobe_pre_index_sync_queue
 			 * @param {boolean} $bail True to skip the rest of index_sync_queue(), false to continue normally
 			 * @param {SyncManager} $sync_manager SyncManager instance for the indexable
 			 * @param {string} $indexable_slug Slug of the indexable being synced
 			 * @since 3.5
 			 */
-			if ( apply_filters( 'pre_eprobe_index_sync_queue', false, $this, $this->indexable_slug ) ) {
+			if ( apply_filters( 'eprobe_pre_index_sync_queue', false, $this, $this->indexable_slug ) ) {
 				return;
 			}
 

@@ -37,12 +37,12 @@ class TestBlockTemplateUtils extends BaseTestCase {
 		$block_template_utils = new BlockTemplateUtils();
 
 		$meta_block = [
-			'blockName' => 'elasticpress/facet-meta',
+			'blockName' => 'elasticprobe/facet-meta',
 			'attrs'     => [ 'facet' => '_price' ],
 		];
 
 		$meta_range_block = [
-			'blockName' => 'elasticpress/facet-meta-range',
+			'blockName' => 'elasticprobe/facet-meta-range',
 			'attrs'     => [ 'facet' => '_sale_price' ],
 		];
 
@@ -62,11 +62,11 @@ class TestBlockTemplateUtils extends BaseTestCase {
 
 		$this->assertEqualsCanonicalizing(
 			[ $meta_block ],
-			$block_template_utils->get_specific_block_in_all_templates( 'elasticpress/facet-meta' )
+			$block_template_utils->get_specific_block_in_all_templates( 'elasticprobe/facet-meta' )
 		);
 		$this->assertEqualsCanonicalizing(
 			[ $meta_range_block ],
-			$block_template_utils->get_specific_block_in_all_templates( 'elasticpress/facet-meta-range' )
+			$block_template_utils->get_specific_block_in_all_templates( 'elasticprobe/facet-meta-range' )
 		);
 	}
 

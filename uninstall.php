@@ -44,7 +44,7 @@ class EPROBE_Uninstaller {
 		'eprobe_bulk_setting',
 		'eprobe_sync_history',
 
-		'elasticpress_weighting',
+		'eprobe_weighting',
 
 		// Admin notices options
 		'eprobe_hide_host_error_notice',

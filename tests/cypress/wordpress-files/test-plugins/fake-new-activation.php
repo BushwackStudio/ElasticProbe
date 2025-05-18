@@ -6,7 +6,7 @@
  * Author:      10up Inc.
  * License:     GPLv2 or later
  *
- * @package ElasticPress_Tests_E2e
+ * @package ElasticProbe_Tests_E2e
  */
 
 add_filter( 'pre_option_eprobe_last_sync', '__return_empty_array' );

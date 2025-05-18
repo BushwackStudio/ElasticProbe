@@ -200,14 +200,14 @@ class RelatedPosts extends Feature {
 		 * @see https://core.trac.wordpress.org/ticket/54797#comment:20
 		 */
 		wp_register_script(
-			'ep-related-posts-block-script',
+			'eprobe-related-posts-block-script',
 			EPROBE_URL . 'dist/js/related-posts-block-script.js',
 			Utils\get_asset_info( 'related-posts-block-script.js', 'dependencies' ),
 			Utils\get_asset_info( 'related-posts-block-script.js', 'version' ),
 			true
 		);
 
-		wp_set_script_translations( 'ep-related-posts-block-script', 'elasticprobe' );
+		wp_set_script_translations( 'eprobe-related-posts-block-script', 'elasticprobe' );
 
 		register_block_type_from_metadata(
 			EPROBE_PATH . 'assets/js/blocks/related-posts',

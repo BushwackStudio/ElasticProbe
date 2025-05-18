@@ -368,17 +368,17 @@ class Autosuggest extends Feature {
 		}
 
 		wp_enqueue_script(
-			'elasticpress-autosuggest',
+			'elasticprobe-autosuggest',
 			EPROBE_URL . 'dist/js/autosuggest-script.js',
 			Utils\get_asset_info( 'autosuggest-script', 'dependencies' ),
 			Utils\get_asset_info( 'autosuggest-script', 'version' ),
 			true
 		);
 
-		wp_set_script_translations( 'elasticpress-autosuggest', 'elasticprobe' );
+		wp_set_script_translations( 'elasticprobe-autosuggest', 'elasticprobe' );
 
 		wp_enqueue_style(
-			'elasticpress-autosuggest',
+			'elasticprobe-autosuggest',
 			EPROBE_URL . 'dist/css/autosuggest-styles.css',
 			Utils\get_asset_info( 'autosuggest-styles', 'dependencies' ),
 			Utils\get_asset_info( 'autosuggest-styles', 'version' )
@@ -447,7 +447,7 @@ class Autosuggest extends Feature {
 		 * action: the action to take when selecting an item. Possible values are "search" and "navigate".
 		 */
 		wp_localize_script(
-			'elasticpress-autosuggest',
+			'elasticprobe-autosuggest',
 			'epas',
 			/**
 			 * Filter autosuggest JavaScript options

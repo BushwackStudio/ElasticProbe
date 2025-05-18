@@ -2,7 +2,7 @@
 /**
  * Plugin Name: E2e Tweaks
  *
- * @package ElasticPress_Tests_E2e
+ * @package ElasticProbe_Tests_E2e
  */
 
 add_filter(

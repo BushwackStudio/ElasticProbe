@@ -16,12 +16,12 @@ export default {
 				const { title = null, ...attributes } = instance.raw;
 
 				if (!title) {
-					return createBlock('elasticpress/facet', attributes);
+					return createBlock('elasticprobe/facet', attributes);
 				}
 
 				return [
 					createBlock('core/heading', { content: title }),
-					createBlock('elasticpress/facet', attributes),
+					createBlock('elasticprobe/facet', attributes),
 				];
 			},
 		},

@@ -36,14 +36,14 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 		 * @see https://core.trac.wordpress.org/ticket/54797#comment:20
 		 */
 		wp_register_script(
-			'ep-facets-post-type-block-script',
+			'eprobe-facets-post-type-block-script',
 			EPROBE_URL . 'dist/js/facets-post-type-block-script.js',
 			Utils\get_asset_info( 'facets-post-type-block-script', 'dependencies' ),
 			Utils\get_asset_info( 'facets-post-type-block-script', 'version' ),
 			true
 		);
 
-		wp_set_script_translations( 'ep-facets-post-type-block-script', 'elasticprobe' );
+		wp_set_script_translations( 'eprobe-facets-post-type-block-script', 'elasticprobe' );
 
 		register_block_type_from_metadata(
 			EPROBE_PATH . 'assets/js/blocks/facets/post-type',

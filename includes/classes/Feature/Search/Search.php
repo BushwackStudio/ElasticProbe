@@ -734,14 +734,14 @@ class Search extends Feature {
 		}
 
 		wp_enqueue_script(
-			'ep-search-editor',
+			'eprobe-search-editor',
 			EPROBE_URL . 'dist/js/search-editor-script.js',
 			Utils\get_asset_info( 'search-editor-script', 'dependencies' ),
 			Utils\get_asset_info( 'search-editor-script', 'version' ),
 			true
 		);
 
-		wp_set_script_translations( 'ep-search-editor', 'elasticprobe' );
+		wp_set_script_translations( 'eprobe-search-editor', 'elasticprobe' );
 	}
 
 	/**

@@ -297,21 +297,21 @@ class InstantResults extends Feature {
 		}
 
 		wp_enqueue_style(
-			'elasticpress-instant-results',
+			'elasticprobe-instant-results',
 			EPROBE_URL . 'dist/css/instant-results-styles.css',
 			Utils\get_asset_info( 'instant-results-styles', 'dependencies' ),
 			Utils\get_asset_info( 'instant-results-styles', 'version' )
 		);
 
 		wp_enqueue_script(
-			'elasticpress-instant-results',
+			'elasticprobe-instant-results',
 			EPROBE_URL . 'dist/js/instant-results-script.js',
 			Utils\get_asset_info( 'instant-results-script', 'dependencies' ),
 			Utils\get_asset_info( 'instant-results-script', 'version' ),
 			true
 		);
 
-		wp_set_script_translations( 'elasticpress-instant-results', 'elasticprobe' );
+		wp_set_script_translations( 'elasticprobe-instant-results', 'elasticprobe' );
 
 		/**
 		 * The search API endpoint.
@@ -324,7 +324,7 @@ class InstantResults extends Feature {
 		$api_endpoint = apply_filters( 'eprobe_instant_results_search_endpoint', "api/v1/search/posts/{$this->index}", $this->index );
 
 		wp_localize_script(
-			'elasticpress-instant-results',
+			'elasticprobe-instant-results',
 			'epInstantResults',
 			array(
 				'apiEndpoint'         => $api_endpoint,
@@ -359,17 +359,17 @@ class InstantResults extends Feature {
 		wp_enqueue_style( 'wp-edit-post' );
 
 		wp_enqueue_script(
-			'elasticpress-instant-results-admin',
+			'elasticprobe-instant-results-admin',
 			EPROBE_URL . 'dist/js/instant-results-admin-script.js',
 			Utils\get_asset_info( 'instant-results-admin-script', 'dependencies' ),
 			Utils\get_asset_info( 'instant-results-admin-script', 'version' ),
 			true
 		);
 
-		wp_set_script_translations( 'elasticpress-instant-results-admin', 'elasticprobe' );
+		wp_set_script_translations( 'elasticprobe-instant-results-admin', 'elasticprobe' );
 
 		wp_localize_script(
-			'elasticpress-instant-results-admin',
+			'elasticprobe-instant-results-admin',
 			'epInstantResultsAdmin',
 			array(
 				'facets' => $this->get_facets_for_admin(),

@@ -129,19 +129,19 @@ class Synonyms {
 		}
 
 		wp_enqueue_script(
-			'ep_synonyms_scripts',
+			'eprobe_synonyms_scripts',
 			EPROBE_URL . 'dist/js/synonyms-script.js',
 			Utils\get_asset_info( 'synonyms-script', 'dependencies' ),
 			Utils\get_asset_info( 'synonyms-script', 'version' ),
 			true
 		);
 
-		wp_set_script_translations( 'ep_synonyms_scripts', 'elasticprobe' );
+		wp_set_script_translations( 'eprobe_synonyms_scripts', 'elasticprobe' );
 
 		wp_enqueue_style( 'wp-edit-post' );
 
 		wp_enqueue_style(
-			'ep_synonyms_scripts',
+			'eprobe_synonyms_scripts',
 			EPROBE_URL . 'dist/css/synonyms-script.css',
 			[ 'wp-components', 'wp-edit-post' ],
 			Utils\get_asset_info( 'synonyms-styles', 'version' ),
@@ -149,7 +149,7 @@ class Synonyms {
 		);
 
 		wp_enqueue_style(
-			'ep_synonyms_styles',
+			'eprobe_synonyms_styles',
 			EPROBE_URL . 'dist/css/synonyms-styles.css',
 			Utils\get_asset_info( 'synonyms-styles', 'dependencies' ),
 			Utils\get_asset_info( 'synonyms-styles', 'version' ),
@@ -160,7 +160,7 @@ class Synonyms {
 		$sync_url = Utils\get_sync_url();
 
 		wp_localize_script(
-			'ep_synonyms_scripts',
+			'eprobe_synonyms_scripts',
 			'epSynonyms',
 			[
 				'apiUrl'        => esc_url_raw( $api_url ),

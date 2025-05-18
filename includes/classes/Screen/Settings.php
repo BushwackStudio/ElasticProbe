@@ -62,14 +62,14 @@ class Settings {
 		}
 
 		wp_enqueue_script(
-			'ep_settings_scripts',
+			'eprobe_settings_scripts',
 			EPROBE_URL . 'dist/js/settings-script.js',
 			Utils\get_asset_info( 'settings-script', 'dependencies' ),
 			Utils\get_asset_info( 'settings-script', 'version' ),
 			true
 		);
 
-		wp_set_script_translations( 'ep_settings_scripts', 'elasticprobe' );
+		wp_set_script_translations( 'eprobe_settings_scripts', 'elasticprobe' );
 	}
 
 	/**

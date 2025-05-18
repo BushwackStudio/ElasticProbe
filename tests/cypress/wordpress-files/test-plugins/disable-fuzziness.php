@@ -5,7 +5,7 @@
  * Author:      10up Inc.
  * License:     GPLv2 or later
  *
- * @package ElasticPress_Tests_E2e
+ * @package ElasticProbe_Tests_E2e
  */
 
 add_filter( 'eprobe_post_match_fuzziness', '__return_zero' );

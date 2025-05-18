@@ -165,27 +165,27 @@ class OrdersAutosuggest {
 		}
 
 		wp_enqueue_style(
-			'elasticpress-woocommerce-order-search',
+			'eprobe-woocommerce-order-search',
 			EPROBE_URL . 'dist/css/woocommerce-order-search-styles.css',
 			Utils\get_asset_info( 'woocommerce-order-search-styles', 'dependencies' ),
 			Utils\get_asset_info( 'woocommerce-order-search-styles', 'version' )
 		);
 
 		wp_enqueue_script(
-			'elasticpress-woocommerce-order-search',
+			'eprobe-woocommerce-order-search',
 			EPROBE_URL . 'dist/js/woocommerce-order-search-script.js',
 			Utils\get_asset_info( 'woocommerce-order-search-script', 'dependencies' ),
 			Utils\get_asset_info( 'woocommerce-order-search-script', 'version' ),
 			true
 		);
 
-		wp_set_script_translations( 'elasticpress-woocommerce-order-search', 'elasticprobe' );
+		wp_set_script_translations( 'eprobe-woocommerce-order-search', 'elasticprobe' );
 
 		$api_endpoint = $this->get_search_endpoint();
 		$api_host     = Utils\get_host();
 
 		wp_localize_script(
-			'elasticpress-woocommerce-order-search',
+			'eprobe-woocommerce-order-search',
 			'epWooCommerceOrderSearch',
 			array(
 				'adminUrl'          => admin_url( 'post.php' ),

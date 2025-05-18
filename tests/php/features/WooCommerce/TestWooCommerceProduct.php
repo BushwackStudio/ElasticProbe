@@ -1071,7 +1071,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	}
 
 	/**
-	 * Test the `orderby_meta_mapping` filter
+	 * Test the `eprobe_orderby_meta_mapping` filter
 	 *
 	 * @group woocommerce
 	 * @group woocommerce-products
@@ -1081,7 +1081,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 			$mapping['custom_parameter'] = 'meta.custom_parameter.long';
 			return $mapping;
 		};
-		add_filter( 'orderby_meta_mapping', $add_value );
+		add_filter( 'eprobe_orderby_meta_mapping', $add_value );
 
 		$this->assertSame( $this->products->get_orderby_meta_mapping( 'custom_parameter' ), 'meta.custom_parameter.long' );
 	}

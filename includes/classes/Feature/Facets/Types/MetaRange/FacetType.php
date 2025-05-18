@@ -233,7 +233,7 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 				continue;
 			}
 
-			if ( false === strpos( $instance['content'], 'elasticpress/facet-meta-range' ) ) {
+			if ( false === strpos( $instance['content'], 'elasticprobe/facet-meta-range' ) ) {
 				continue;
 			}
 
@@ -247,7 +247,7 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 		if ( current_theme_supports( 'block-templates' ) ) {
 			$facets_meta_fields = array_merge(
 				$facets_meta_fields,
-				$this->block_template_meta_fields( 'elasticpress/facet-meta-range' )
+				$this->block_template_meta_fields( 'elasticprobe/facet-meta-range' )
 			);
 		}
 
