@@ -793,7 +793,7 @@ function use_language_in_setting( $language = 'english', $context = '' ) {
 	if ( 'site-default' === $eprobe_language ) {
 		$locale           = null;
 		$wp_local_package = null;
-		$eprobe_language      = get_locale();
+		$eprobe_language  = get_locale();
 	}
 
 	require_once ABSPATH . 'wp-admin/includes/translation-install.php';

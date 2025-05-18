@@ -63,10 +63,10 @@ class TestSettings extends BaseTestCase {
 		Utils\update_option( 'eprobe_host', '--' );
 
 		$_POST = [
-			'ep_settings_nonce' => '',
-			'eprobe_language'       => 'test_lang',
-			'eprobe_host'           => $prev_host,
-			'eprobe_bulk_setting'   => 4,
+			'ep_settings_nonce'   => '',
+			'eprobe_language'     => 'test_lang',
+			'eprobe_host'         => $prev_host,
+			'eprobe_bulk_setting' => 4,
 		];
 
 		$settings->action_admin_init();
@@ -97,8 +97,8 @@ class TestSettings extends BaseTestCase {
 
 		$_POST = [
 			'ep_settings_nonce' => wp_create_nonce( 'elasticpress_settings' ),
-			'eprobe_language'       => 'site-default',
-			'eprobe_host'           => 'http://wrong.test/',
+			'eprobe_language'   => 'site-default',
+			'eprobe_host'       => 'http://wrong.test/',
 		];
 
 		$settings->action_admin_init();
