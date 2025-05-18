@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: ElasticProbe 0.2.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wpprobe\n"
+"Project-Id-Version: ElasticProbe 0.3.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/elasticprobe\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-05-10T16:24:22+00:00\n"
+"POT-Creation-Date: 2025-05-18T06:02:00+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: elasticprobe\n"
@@ -142,6 +142,7 @@ msgstr ""
 #: includes/classes/ElasticsearchErrorInterpreter.php:93
 #: includes/classes/StatusReport/ElasticPressIo.php:30
 #: assets/js/sync/index.js:269
+#: dist/js/sync-script.js:1
 msgid "WPProbe.com"
 msgstr ""
 
@@ -149,6 +150,7 @@ msgstr ""
 #: includes/classes/AdminNotices.php:805
 #: includes/classes/ElasticsearchErrorInterpreter.php:93
 #: assets/js/sync/index.js:270
+#: dist/js/sync-script.js:1
 msgid "Elasticsearch"
 msgstr ""
 
@@ -418,6 +420,10 @@ msgstr ""
 msgid "Error while getting the index settings."
 msgstr ""
 
+#: includes/classes/Elasticsearch.php:1421
+msgid "Invalid response from ElasticProbe server. Please contact your administrator."
+msgstr ""
+
 #: includes/classes/Elasticsearch.php:1433
 msgid "Site not indexed. <p>Please run: <code>wp elasticprobe index --setup --network-wide</code> using WP-CLI. Or use the index button on the left of this screen.</p>"
 msgstr ""
@@ -499,6 +505,12 @@ msgstr ""
 #: assets/js/blocks/facets/meta-range/edit.js:89
 #: assets/js/blocks/facets/post-type/edit.js:59
 #: assets/js/blocks/related-posts/Edit.js:76
+#: dist/js/facets-block-script.js:1
+#: dist/js/facets-date-block-script.js:1
+#: dist/js/facets-meta-block-script.js:1
+#: dist/js/facets-meta-range-block-script.js:1
+#: dist/js/facets-post-type-block-script.js:1
+#: dist/js/related-posts-block-script.js:1
 msgid "Settings"
 msgstr ""
 
@@ -648,6 +660,10 @@ msgstr ""
 
 #: includes/classes/Feature/Autosuggest/Autosuggest.php:915
 msgid "A valid URL starting with <code>http://</code> or <code>https://</code>. This address will be exposed to the public."
+msgstr ""
+
+#: includes/classes/Feature/Autosuggest/Autosuggest.php:931
+msgid "This method should not be called anymore, as autosuggest requests are not sent regularly anymore."
 msgstr ""
 
 #: includes/classes/Feature/Comments/Comments.php:53
@@ -868,11 +884,15 @@ msgstr ""
 
 #: includes/classes/Feature/Facets/Types/Date/Renderer.php:137
 #: assets/js/blocks/facets/common/components/range-filter.js:57
+#: dist/js/facets-meta-range-block-script.js:1
+#: dist/js/facets-meta-range-block-view-script.js:1
 msgid "Filter"
 msgstr ""
 
 #: includes/classes/Feature/Facets/Types/Date/Renderer.php:143
 #: assets/js/blocks/facets/common/components/range-filter.js:55
+#: dist/js/facets-meta-range-block-script.js:1
+#: dist/js/facets-meta-range-block-view-script.js:1
 msgid "Clear"
 msgstr ""
 
@@ -893,6 +913,7 @@ msgstr ""
 #: includes/classes/Feature/Facets/Types/PostType/Renderer.php:184
 #: includes/classes/Feature/Facets/Types/Taxonomy/Renderer.php:434
 #: assets/js/instant-results/components/tools/active-constraints.js:35
+#: dist/js/instant-results-script.js:1
 msgid "Remove filter: %s"
 msgstr ""
 
@@ -936,6 +957,7 @@ msgstr ""
 
 #: includes/classes/Feature/Facets/Types/Taxonomy/Widget.php:116
 #: assets/js/sync-ui/components/errors.js:27
+#: dist/js/sync-script.js:1
 msgid "Count"
 msgstr ""
 
@@ -1037,6 +1059,14 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
+#. translators: $1$s: Taxonomy name. %2$s: Taxonomy slug.
+#. translators: %1$s: Facet label. $2$s: Facet post types.
+#: includes/classes/Feature/InstantResults/InstantResults.php:857
+#: assets/js/instant-results/components/facets/taxonomy-terms-facet.js:48
+#: dist/js/instant-results-script.js:1
+msgid "%1$s (%2$s)"
+msgstr ""
+
 #: includes/classes/Feature/InstantResults/InstantResults.php:897
 msgid "Price range"
 msgstr ""
@@ -1097,6 +1127,7 @@ msgstr ""
 
 #: includes/classes/Feature/RelatedPosts/RelatedPosts.php:41
 #: assets/js/blocks/related-posts/Edit.js:86
+#: dist/js/related-posts-block-script.js:1
 msgid "Related Posts"
 msgstr ""
 
@@ -1150,6 +1181,10 @@ msgstr ""
 msgid "Highlighting status"
 msgstr ""
 
+#: includes/classes/Feature/Search/Search.php:661
+msgid "Wrap search terms in HTML tags in results for custom styling. The wrapping HTML tag comes with the \"ep-highlight\" class for easy styling."
+msgstr ""
+
 #: includes/classes/Feature/Search/Search.php:678
 msgid "Excerpt highlighting"
 msgstr ""
@@ -1170,6 +1205,7 @@ msgstr ""
 
 #: includes/classes/Feature/Search/Search.php:798
 #: assets/js/search/editor/plugins/exclude-from-search.js:29
+#: dist/js/search-editor-script.js:1
 msgid "Exclude from search results"
 msgstr ""
 
@@ -1179,6 +1215,7 @@ msgstr ""
 
 #: includes/classes/Feature/Search/Search.php:803
 #: assets/js/search/editor/plugins/exclude-from-search.js:30
+#: dist/js/search-editor-script.js:1
 msgid "Excludes this post from the results of your site's search form while ElasticProbe is active."
 msgstr ""
 
@@ -1188,6 +1225,10 @@ msgstr ""
 
 #: includes/classes/Feature/Search/Search.php:884
 msgid "Don't weight results by date"
+msgstr ""
+
+#: includes/classes/Feature/Search/Search.php:896
+msgid "Enable to wrap search terms in HTML tags in results for custom styling. The wrapping HTML tag comes with the <code>ep-highlight</code> class for easy styling."
 msgstr ""
 
 #: includes/classes/Feature/Search/Search.php:898
@@ -1213,6 +1254,7 @@ msgstr ""
 #: includes/classes/Feature/Search/Synonyms.php:183
 #: includes/classes/StatusReport/Features.php:91
 #: assets/js/synonyms/components/groups/synonyms.js:43
+#: dist/js/synonyms-script.js:1
 msgid "Synonyms"
 msgstr ""
 
@@ -1238,21 +1280,25 @@ msgstr ""
 
 #: includes/classes/Feature/Search/Synonyms.php:679
 #: assets/js/synonyms/utils.js:207
+#: dist/js/synonyms-script.js:1
 msgid "# Defined synonyms."
 msgstr ""
 
 #: includes/classes/Feature/Search/Synonyms.php:682
 #: assets/js/synonyms/utils.js:211
+#: dist/js/synonyms-script.js:1
 msgid "# Defined hyponyms."
 msgstr ""
 
 #: includes/classes/Feature/Search/Synonyms.php:685
 #: assets/js/synonyms/utils.js:215
+#: dist/js/synonyms-script.js:1
 msgid "# Defined replacements."
 msgstr ""
 
 #: includes/classes/Feature/Search/Synonyms.php:704
 #: assets/js/synonyms/index.js:26
+#: dist/js/synonyms-script.js:1
 msgid "Manage Synonyms"
 msgstr ""
 
@@ -1334,6 +1380,7 @@ msgstr ""
 
 #: includes/classes/Feature/Search/Synonyms.php:728
 #: assets/js/weighting/components/field.js:83
+#: dist/js/weighting-script.js:1
 msgid "Remove"
 msgstr ""
 
@@ -1476,6 +1523,7 @@ msgstr ""
 
 #: includes/classes/Feature/SearchOrdering/SearchOrdering.php:292
 #: assets/js/ordering/pointers.js:257
+#: dist/js/ordering-script.js:1
 msgid "No results found."
 msgstr ""
 
@@ -1681,12 +1729,35 @@ msgstr ""
 msgid "sites is deprecated. Use site__in instead."
 msgstr ""
 
+#. translators: Date query invalid date message: 1: invalid value, 2: type of value, 3: minimum valid value, 4: maximum valid value
+#: includes/classes/Indexable/Post/DateQuery.php:498
+msgid "Invalid value %1$s for %2$s. Expected value should be between %3$s and %4$s."
+msgstr ""
+
+#. translators: 1: Year, 2: Month, 3: Day
+#: includes/classes/Indexable/Post/DateQuery.php:529
+msgid "The following values do not describe a valid date: year %1$s, month %2$s, day %3$s."
+msgstr ""
+
+#. translators: 1: month, 2: day of month
+#: includes/classes/Indexable/Post/DateQuery.php:544
+msgid "The following values do not describe a valid date: month %1$s, day %2$s."
+msgstr ""
+
+#: includes/classes/Indexable/Post/Post.php:52
+msgid "Posts"
+msgstr ""
+
 #: includes/classes/Indexable/Post/Post.php:53
 msgid "Post"
 msgstr ""
 
 #: includes/classes/Indexable/Post/Post.php:383
 msgid "Error while fetching the mapping version."
+msgstr ""
+
+#: includes/classes/Indexable/Post/Post.php:2729
+msgid "This method should not be called outside specific pages. Use the `eprobe_post_meta_keys_db_per_post_type_allowed_screen` filter if you need to use it in your custom screen."
 msgstr ""
 
 #. translators: Sync Page URL
@@ -1714,6 +1785,7 @@ msgstr ""
 
 #: includes/classes/Indexable/Post/SyncManager.php:1035
 #: assets/js/features/components/tab.js:32
+#: dist/js/features-script.js:1
 msgid "Sync required"
 msgstr ""
 
@@ -1794,6 +1866,7 @@ msgstr ""
 
 #: includes/classes/IndexHelper.php:969
 #: assets/js/sync-ui/components/progress.js:52
+#: dist/js/sync-script.js:1
 msgid "Sync complete"
 msgstr ""
 
@@ -1849,57 +1922,57 @@ msgstr ""
 msgid "Some ElasticProbe queries failed in the last 24 hours. Please visit the <a href=\"%s\">Status Report page</a> for more details."
 msgstr ""
 
-#: includes/classes/REST/Comments.php:52
+#: includes/classes/REST/Comments.php:51
 msgid "Post type of the posts whose comments to search."
 msgstr ""
 
-#: includes/classes/REST/Comments.php:57
-#: includes/classes/REST/SearchOrdering.php:61
+#: includes/classes/REST/Comments.php:56
+#: includes/classes/REST/SearchOrdering.php:60
 msgid "Search query."
 msgstr ""
 
-#: includes/classes/REST/MetaRange.php:58
+#: includes/classes/REST/MetaRange.php:57
 msgid "Filter to get a value range for."
 msgstr ""
 
-#: includes/classes/REST/RelatedPosts.php:50
+#: includes/classes/REST/RelatedPosts.php:49
 msgid "ID of the post to get related posts for."
 msgstr ""
 
-#: includes/classes/REST/RelatedPosts.php:56
+#: includes/classes/REST/RelatedPosts.php:55
 msgid "Number of related posts to return."
 msgstr ""
 
-#: includes/classes/REST/Sync.php:69
+#: includes/classes/REST/Sync.php:68
 msgid "IDs of objects to sync."
 msgstr ""
 
-#: includes/classes/REST/Sync.php:76
+#: includes/classes/REST/Sync.php:75
 msgid "Indexables to sync"
 msgstr ""
 
-#: includes/classes/REST/Sync.php:84
+#: includes/classes/REST/Sync.php:83
 msgid "Start of object ID range to sync,"
 msgstr ""
 
-#: includes/classes/REST/Sync.php:89
+#: includes/classes/REST/Sync.php:88
 msgid "Number of objects to skip."
 msgstr ""
 
-#: includes/classes/REST/Sync.php:94
+#: includes/classes/REST/Sync.php:93
 msgid "Post type to sync."
 msgstr ""
 
-#: includes/classes/REST/Sync.php:102
+#: includes/classes/REST/Sync.php:101
 msgid "Whether to clear the index and send mapping before syncing."
 msgstr ""
 
-#: includes/classes/REST/Sync.php:111
+#: includes/classes/REST/Sync.php:110
 msgid "End of object ID range to sync."
 msgstr ""
 
 #. translators: 1. Number of objects indexed, 2. Total number of objects, 3. Last object ID.
-#: includes/classes/REST/Sync.php:193
+#: includes/classes/REST/Sync.php:192
 msgid "Processed %1$d/%2$d. Last Object ID: %3$d"
 msgstr ""
 
@@ -1943,20 +2016,20 @@ msgstr ""
 msgid "Nonce is not present."
 msgstr ""
 
-#: includes/classes/Screen/StatusReport.php:105
+#: includes/classes/Screen/StatusReport.php:106
 msgid "Status report not found."
 msgstr ""
 
-#: includes/classes/Screen/StatusReport.php:111
+#: includes/classes/Screen/StatusReport.php:112
 msgid "Report is not an AJAX report."
 msgstr ""
 
-#: includes/classes/Screen/StatusReport.php:257
+#: includes/classes/Screen/StatusReport.php:258
 msgid "Please generate a full report to see the content of this group."
 msgstr ""
 
 #. translators: %d: Number of messages.
-#: includes/classes/Screen/StatusReport.php:278
+#: includes/classes/Screen/StatusReport.php:279
 msgid "%s message from WPProbe.com"
 msgid_plural "%s messages from WPProbe.com"
 msgstr[0] ""
@@ -1993,12 +2066,14 @@ msgstr ""
 #: includes/classes/StatusReport/ElasticPress.php:54
 #: includes/partials/settings-page.php:65
 #: assets/js/settings.js:74
+#: dist/js/settings-script.js:1
 msgid "WPProbe.com Host URL"
 msgstr ""
 
 #: includes/classes/StatusReport/ElasticPress.php:54
 #: includes/partials/settings-page.php:67
 #: assets/js/settings.js:75
+#: dist/js/settings-script.js:1
 msgid "Elasticsearch Host URL"
 msgstr ""
 
@@ -2119,6 +2194,11 @@ msgstr ""
 
 #: includes/classes/StatusReport/IndexableContent.php:28
 msgid "Indexable Content"
+msgstr ""
+
+#. translators: %1%s: Site name. %2$s: Site URL.
+#: includes/classes/StatusReport/IndexableContent.php:78
+msgid "%1$s &mdash; %2$s"
 msgstr ""
 
 #. translators: %1$s: Post count limit (defaults to 80,000). %2$s: Post type name.
@@ -2276,7 +2356,7 @@ msgstr ""
 msgid "%1$sInstant Results%2$s is now available in ElasticProbe, but requires a re-sync before activation. If you would like to use Instant Results, since you are not using WPProbe.com, you will also need to %3$sinstall and configure a PHP proxy%4$s."
 msgstr ""
 
-#: includes/compat.php:98
+#: includes/compat.php:100
 msgid "Feature registration API"
 msgstr ""
 
@@ -2290,6 +2370,7 @@ msgstr ""
 
 #: includes/dashboard.php:643
 #: assets/js/features/index.js:34
+#: dist/js/features-script.js:1
 msgid "Features"
 msgstr ""
 
@@ -2301,6 +2382,8 @@ msgstr ""
 #: includes/dashboard.php:661
 #: assets/js/features/apps/features.js:83
 #: assets/js/synonyms/apps/synonyms-settings.js:61
+#: dist/js/features-script.js:1
+#: dist/js/synonyms-script.js:1
 msgid "Sync"
 msgstr ""
 
@@ -2319,6 +2402,7 @@ msgstr ""
 
 #: includes/dashboard.php:679
 #: assets/js/status-report/index.js:21
+#: dist/js/status-report-script.js:1
 msgid "Status Report"
 msgstr ""
 
@@ -2485,6 +2569,10 @@ msgstr ""
 msgid "Elasticsearch Version"
 msgstr ""
 
+#: includes/partials/settings-page.php:210
+msgid "WPProbe.com Managed Platform"
+msgstr ""
+
 #: includes/partials/settings-page.php:223
 msgid "Content Items per Index Cycle "
 msgstr ""
@@ -2528,144 +2616,203 @@ msgstr ""
 
 #. translators: Error message
 #: assets/js/api-search/index.js:313
+#: dist/js/instant-results-script.js:1
+#: dist/js/woocommerce-order-search-script.js:1
 msgid "ElasticProbe: Unable to fetch results. %s"
 msgstr ""
 
 #. translators: Response status code
 #: assets/js/api-search/src/hooks.js:68
+#: dist/js/instant-results-script.js:1
+#: dist/js/woocommerce-order-search-script.js:1
 msgid "HTTP %d."
 msgstr ""
 
 #: assets/js/blocks/comments/Edit.js:80
+#: dist/js/comments-block-script.js:1
 msgid "Search settings"
 msgstr ""
 
 #: assets/js/blocks/comments/Edit.js:83
+#: dist/js/comments-block-script.js:1
 msgid "Search all comments"
 msgstr ""
 
 #. translators: %s: Post type label, plural.
 #: assets/js/blocks/comments/Edit.js:89
+#: dist/js/comments-block-script.js:1
 msgid "Search comments on %s"
 msgstr ""
 
 #: assets/js/blocks/facets/common/components/empty-response-placeholder.js:21
+#: dist/js/facets-block-script.js:1
+#: dist/js/facets-date-block-script.js:1
+#: dist/js/facets-meta-block-script.js:1
+#: dist/js/facets-post-type-block-script.js:1
 msgid "Preview unavailable. The selected taxonomy has no terms assigned to searchable content."
 msgstr ""
 
 #: assets/js/blocks/facets/common/components/empty-response-placeholder.js:25
+#: dist/js/facets-block-script.js:1
+#: dist/js/facets-date-block-script.js:1
+#: dist/js/facets-meta-block-script.js:1
+#: dist/js/facets-post-type-block-script.js:1
 msgid "Preview unavailable. There is no searchable content available with the selected metadata."
 msgstr ""
 
 #: assets/js/blocks/facets/common/components/facet-display-count-control.js:20
+#: dist/js/facets-block-script.js:1
+#: dist/js/facets-meta-block-script.js:1
+#: dist/js/facets-post-type-block-script.js:1
 msgid "Display count"
 msgstr ""
 
 #: assets/js/blocks/facets/common/components/facet-meta-control.js:29
+#: dist/js/facets-block-script.js:1
+#: dist/js/facets-meta-block-script.js:1
+#: dist/js/facets-meta-range-block-script.js:1
 msgid "Select key"
 msgstr ""
 
 #: assets/js/blocks/facets/common/components/facet-meta-control.js:43
+#: dist/js/facets-block-script.js:1
+#: dist/js/facets-meta-block-script.js:1
+#: dist/js/facets-meta-range-block-script.js:1
 msgid "This is the list of metadata fields indexed in Elasticsearch. If your desired field does not appear in this list please try to <a>sync your content</a>"
 msgstr ""
 
 #: assets/js/blocks/facets/common/components/facet-meta-control.js:49
 #: assets/js/blocks/facets/common/components/facet-taxonomy-control.js:43
+#: dist/js/facets-block-script.js:1
+#: dist/js/facets-meta-block-script.js:1
+#: dist/js/facets-meta-range-block-script.js:1
 msgid "Filter by"
 msgstr ""
 
 #: assets/js/blocks/facets/common/components/facet-order-control.js:28
+#: dist/js/facets-block-script.js:1
+#: dist/js/facets-meta-block-script.js:1
+#: dist/js/facets-post-type-block-script.js:1
 msgctxt "label for ordering posts by title in ascending order"
 msgid "A → Z"
 msgstr ""
 
 #: assets/js/blocks/facets/common/components/facet-order-control.js:36
+#: dist/js/facets-block-script.js:1
+#: dist/js/facets-meta-block-script.js:1
+#: dist/js/facets-post-type-block-script.js:1
 msgctxt "label for ordering posts by title in descending order"
 msgid "Z → A"
 msgstr ""
 
 #: assets/js/blocks/facets/common/components/facet-order-control.js:47
+#: dist/js/facets-block-script.js:1
+#: dist/js/facets-meta-block-script.js:1
+#: dist/js/facets-post-type-block-script.js:1
 msgid "Order by"
 msgstr ""
 
 #: assets/js/blocks/facets/common/components/facet-search-placeholder-control.js:19
+#: dist/js/facets-block-script.js:1
+#: dist/js/facets-meta-block-script.js:1
+#: dist/js/facets-post-type-block-script.js:1
 msgid "Search field placeholder"
 msgstr ""
 
 #: assets/js/blocks/facets/common/components/facet-taxonomy-control.js:29
+#: dist/js/facets-block-script.js:1
+#: dist/js/facets-meta-block-script.js:1
 msgid "Select taxonomy"
 msgstr ""
 
 #: assets/js/blocks/facets/date/edit.js:25
+#: dist/js/facets-date-block-script.js:1
 msgid "Display custom date option"
 msgstr ""
 
 #: assets/js/blocks/facets/meta-range/edit.js:94
+#: dist/js/facets-meta-range-block-script.js:1
 msgid "Value prefix"
 msgstr ""
 
 #: assets/js/blocks/facets/meta-range/edit.js:103
+#: dist/js/facets-meta-range-block-script.js:1
 msgid "Value suffix"
 msgstr ""
 
 #. translators: %s: Field name.
 #: assets/js/blocks/facets/meta-range/edit.js:131
+#: dist/js/facets-meta-range-block-script.js:1
 msgid "Preview unavailable. The \"%s\" field does not appear to contain numeric values. Select a new meta field key or populate the field with numeric values to enable filtering by range."
 msgstr ""
 
 #: assets/js/blocks/related-posts/Edit.js:90
+#: dist/js/related-posts-block-script.js:1
 msgid "No related posts yet."
 msgstr ""
 
 #: assets/js/blocks/related-posts/Edit.js:104
+#: dist/js/related-posts-block-script.js:1
 msgid "(Untitled)"
 msgstr ""
 
 #: assets/js/dashboard.js:60
+#: dist/js/dashboard-script.js:1
 msgid "Enabling this feature will begin re-syncing your content. Do you wish to proceed?"
 msgstr ""
 
 #: assets/js/dashboard.js:180
+#: dist/js/dashboard-script.js:1
 msgid "It looks like you’re trying to use ElasticProbe’s advanced features only. If you’d like to activate basic search, please select Cancel and activate the Post Search Feature. Otherwise, please click Ok to configure advanced features."
 msgstr ""
 
 #: assets/js/features/apps/features.js:55
+#: dist/js/features-script.js:1
 msgid "Could not save feature settings. Please try again."
 msgstr ""
 
 #: assets/js/features/apps/features.js:63
+#: dist/js/features-script.js:1
 msgid "View sync status"
 msgstr ""
 
 #: assets/js/features/apps/features.js:70
+#: dist/js/features-script.js:1
 msgid "Cannot save settings while a sync is in progress."
 msgstr ""
 
 #: assets/js/features/apps/features.js:75
+#: dist/js/features-script.js:1
 msgid "Changes to feature settings discarded."
 msgstr ""
 
 #: assets/js/features/apps/features.js:90
+#: dist/js/features-script.js:1
 msgid "If you choose to sync later some settings changes may not take effect until the sync is performed. Save and sync later?"
 msgstr ""
 
 #: assets/js/features/apps/features.js:98
+#: dist/js/features-script.js:1
 msgid "Saving these settings will begin re-syncing your content. Save and sync now?"
 msgstr ""
 
 #: assets/js/features/apps/features.js:106
+#: dist/js/features-script.js:1
 msgid "Feature settings saved. Starting sync…"
 msgstr ""
 
 #: assets/js/features/apps/features.js:111
+#: dist/js/features-script.js:1
 msgid "Feature settings saved."
 msgstr ""
 
 #: assets/js/features/apps/features.js:143
+#: dist/js/features-script.js:1
 msgid "ElasticProbe: Could not save feature settings."
 msgstr ""
 
 #: assets/js/features/apps/features.js:245
+#: dist/js/features-script.js:1
 msgid "Save and sync now"
 msgstr ""
 
@@ -2673,106 +2820,125 @@ msgstr ""
 #: assets/js/synonyms/apps/synonyms-settings.js:174
 #: assets/js/synonyms/components/common/edit-panel.js:101
 #: assets/js/weighting/apps/weighting.js:59
+#: dist/js/features-script.js:1
+#: dist/js/synonyms-script.js:1
+#: dist/js/weighting-script.js:1
 msgid "Save changes"
 msgstr ""
 
 #: assets/js/features/apps/features.js:258
+#: dist/js/features-script.js:1
 msgid "Save and sync later"
 msgstr ""
 
 #: assets/js/features/apps/features.js:265
+#: dist/js/features-script.js:1
 msgid "Discard changes"
 msgstr ""
 
 #. translators: Feature name
 #: assets/js/features/components/control.js:88
+#: dist/js/features-script.js:1
 msgid "The %s feature must be enabled to use this feature."
 msgstr ""
 
 #. translators: Feature name
 #: assets/js/features/components/control.js:90
+#: dist/js/features-script.js:1
 msgid "The %s feature must be enabled to use the following setting."
 msgstr ""
 
 #: assets/js/features/components/control.js:97
+#: dist/js/features-script.js:1
 msgid "Enabling this feature requires re-syncing your content."
 msgstr ""
 
 #: assets/js/features/components/control.js:98
+#: dist/js/features-script.js:1
 msgid "A change to following setting requires re-syncing your content."
 msgstr ""
 
 #: assets/js/features/components/tab.js:29
+#: dist/js/features-script.js:1
 msgid "Unavailable"
 msgstr ""
 
 #: assets/js/features/index.js:46
+#: dist/js/features-script.js:1
 msgid "ElasticProbe Features add functionality to enhance search and queries on your site. You may choose to activate some or all of these Features depending on your needs. You can learn more about each Feature <a>here</a>."
 msgstr ""
 
 #: assets/js/instant-results/admin/components/facet-selector.js:73
+#: dist/js/instant-results-admin-script.js:1
 msgid "Select filters"
 msgstr ""
 
 #: assets/js/instant-results/apps/modal.js:100
+#: dist/js/instant-results-script.js:1
 msgid "Search results"
 msgstr ""
 
 #: assets/js/instant-results/components/common/checkbox-list.js:231
+#: dist/js/instant-results-script.js:1
 msgid "Show fewer options"
 msgstr ""
 
 #. translators: %d: Number of additional options available.
 #: assets/js/instant-results/components/common/checkbox-list.js:234
+#: dist/js/instant-results-script.js:1
 msgid "Show %d more option"
 msgid_plural "Show %d more options"
 msgstr[0] ""
 msgstr[1] ""
 
 #: assets/js/instant-results/components/common/modal.js:90
+#: dist/js/instant-results-script.js:1
 msgid "Close"
 msgstr ""
 
 #. translators: %1$f Rating. %2$d Max rating.
 #: assets/js/instant-results/components/common/star-rating.js:17
+#: dist/js/instant-results-script.js:1
 msgid "Rated %1$f out of %2$d"
 msgstr ""
 
 #: assets/js/instant-results/components/facets/post-type-facet.js:96
+#: dist/js/instant-results-script.js:1
 msgid "Select content type"
 msgstr ""
 
 #. translators: %1$s: Minimum price. %2$s: Maximum price.
 #: assets/js/instant-results/components/facets/price-range-facet.js:143
+#: dist/js/instant-results-script.js:1
 msgctxt "Price range"
 msgid "%1$s — %2$s"
 msgstr ""
 
 #: assets/js/instant-results/components/facets/search-term-facet.js:65
+#: dist/js/instant-results-script.js:1
 msgid "Search…"
 msgstr ""
 
 #. translators: %s: Search term.
 #: assets/js/instant-results/components/facets/search-term-facet.js:74
+#: dist/js/instant-results-script.js:1
 msgid "“%s”"
 msgstr ""
 
 #: assets/js/instant-results/components/facets/taxonomy-terms-facet.js:43
+#: dist/js/instant-results-script.js:1
 msgid ", "
-msgstr ""
-
-#. translators: %1$s: Facet label. $2$s: Facet post types.
-#: assets/js/instant-results/components/facets/taxonomy-terms-facet.js:48
-msgid "%1$s (%2$s)"
 msgstr ""
 
 #. translators: %s: Taxonomy name.
 #: assets/js/instant-results/components/facets/taxonomy-terms-facet.js:156
+#: dist/js/instant-results-script.js:1
 msgid "Select %s"
 msgstr ""
 
 #. translators: %1$d: results count. %2$s: Search term.
 #: assets/js/instant-results/components/layout/results.js:66
+#: dist/js/instant-results-script.js:1
 msgid "%1$d result for “%2$s“"
 msgid_plural "%1$d results for “%2$s“"
 msgstr[0] ""
@@ -2780,691 +2946,857 @@ msgstr[1] ""
 
 #. translators: %d: results count.
 #: assets/js/instant-results/components/layout/results.js:78
+#: dist/js/instant-results-script.js:1
 msgid "%d result"
 msgid_plural "%d results"
 msgstr[0] ""
 msgstr[1] ""
 
 #: assets/js/instant-results/components/layout/results.js:89
+#: dist/js/instant-results-script.js:1
 msgid "Loading results"
 msgstr ""
 
 #. translators: Search term
 #: assets/js/instant-results/components/results/did-you-mean.js:33
+#: dist/js/instant-results-script.js:1
 msgid "Did you mean: <a>%s</a>"
 msgstr ""
 
 #: assets/js/instant-results/components/results/did-you-mean.js:55
+#: dist/js/instant-results-script.js:1
 msgid "Other suggestions"
 msgstr ""
 
 #: assets/js/instant-results/components/results/pagination.js:48
+#: dist/js/instant-results-script.js:1
 msgid "Previous"
 msgstr ""
 
 #. translators: %1$d: current page. %2$d: total pages.
 #: assets/js/instant-results/components/results/pagination.js:56
+#: dist/js/instant-results-script.js:1
 msgid "Page %1$d of %2$d"
 msgstr ""
 
 #: assets/js/instant-results/components/results/pagination.js:69
+#: dist/js/instant-results-script.js:1
 msgid "Next"
 msgstr ""
 
 #: assets/js/instant-results/components/tools/clear-constraints.js:56
+#: dist/js/instant-results-script.js:1
 msgid "Clear filters"
 msgstr ""
 
 #: assets/js/instant-results/components/tools/sidebar-toggle.js:24
+#: dist/js/instant-results-script.js:1
 msgid "Close filters"
 msgstr ""
 
 #: assets/js/instant-results/components/tools/sidebar-toggle.js:24
+#: dist/js/instant-results-script.js:1
 msgid "All filters"
 msgstr ""
 
 #: assets/js/instant-results/components/tools/sort.js:46
+#: dist/js/instant-results-script.js:1
 msgid "Sort by"
 msgstr ""
 
 #: assets/js/instant-results/config.js:32
+#: dist/js/instant-results-script.js:1
 msgid "Most relevant"
 msgstr ""
 
 #: assets/js/instant-results/config.js:38
+#: dist/js/instant-results-script.js:1
 msgid "Date, newest to oldest"
 msgstr ""
 
 #: assets/js/instant-results/config.js:43
+#: dist/js/instant-results-script.js:1
 msgid "Date, oldest to newest"
 msgstr ""
 
 #: assets/js/instant-results/config.js:54
+#: dist/js/instant-results-script.js:1
 msgid "Price, highest to lowest"
 msgstr ""
 
 #: assets/js/instant-results/config.js:60
+#: dist/js/instant-results-script.js:1
 msgid "Price, lowest to highest"
 msgstr ""
 
 #: assets/js/ordering/pointers.js:180
+#: dist/js/ordering-script.js:1
 msgid "You have added the maximum number of custom results."
 msgstr ""
 
 #: assets/js/ordering/pointers.js:277
+#: dist/js/ordering-script.js:1
 msgid "Add Post"
 msgstr ""
 
 #: assets/js/ordering/pointers.js:304
+#: dist/js/ordering-script.js:1
 msgid "Enter your search query above to preview the results."
 msgstr ""
 
 #: assets/js/ordering/pointers.js:317
+#: dist/js/ordering-script.js:1
 msgid "Loading Result Preview…"
 msgstr ""
 
 #: assets/js/ordering/pointers.js:369
+#: dist/js/ordering-script.js:1
 msgid "Return to original position"
 msgstr ""
 
 #: assets/js/ordering/pointers.js:370
+#: dist/js/ordering-script.js:1
 msgid "Remove custom result from results list"
 msgstr ""
 
 #: assets/js/ordering/pointers.js:393
+#: dist/js/ordering-script.js:1
 msgid "The following posts have been displaced to the next page of search results."
 msgstr ""
 
 #: assets/js/ordering/pointers.js:447
+#: dist/js/ordering-script.js:1
 msgid "Drag post up or down to reposition"
 msgstr ""
 
 #: assets/js/ordering/pointers.js:469
+#: dist/js/ordering-script.js:1
 msgid "Custom Result (manually added to list)"
 msgstr ""
 
 #: assets/js/ordering/pointers.js:475
+#: dist/js/ordering-script.js:1
 msgid "Reordered Default (originally in results, but repositioned)"
 msgstr ""
 
 #: assets/js/ordering/pointers.js:484
+#: dist/js/ordering-script.js:1
 msgid "Add to results"
 msgstr ""
 
 #: assets/js/settings.js:93
+#: dist/js/settings-script.js:1
 msgid "Plug in your WPProbe.com server here!"
 msgstr ""
 
 #: assets/js/settings.js:94
+#: dist/js/settings-script.js:1
 msgid "Plug in your Elasticsearch server here!"
 msgstr ""
 
 #: assets/js/sites-admin.js:58
+#: dist/js/sites-admin-script.js:1
 msgid "On"
 msgstr ""
 
 #: assets/js/sites-admin.js:58
+#: dist/js/sites-admin-script.js:1
 msgid "Off"
 msgstr ""
 
 #: assets/js/status-report/components/reports.js:44
+#: dist/js/status-report-script.js:1
 msgid "Copied status report to clipboard."
 msgstr ""
 
 #: assets/js/status-report/components/reports.js:113
+#: dist/js/status-report-script.js:1
 msgid "Generating full status report ..."
 msgstr ""
 
 #: assets/js/status-report/components/reports.js:156
+#: dist/js/status-report-script.js:1
 msgid "Successfully generated status report."
 msgstr ""
 
 #: assets/js/status-report/components/reports.js:162
+#: dist/js/status-report-script.js:1
 msgid "This screen provides a list of information related to ElasticProbe and synced content that can be helpful during troubleshooting. This list can also be copy/pasted and shared as needed. As the process can be resource-intensive, the report presented here is partial. You must click the \"Generate Full Status Report\" button to generate a full report."
 msgstr ""
 
 #: assets/js/status-report/components/reports.js:176
+#: dist/js/status-report-script.js:1
 msgid "Generate Full Status Report"
 msgstr ""
 
 #: assets/js/sync-ui/apps/sync.js:62
+#: dist/js/sync-script.js:1
 msgid "Sync completed."
 msgstr ""
 
 #: assets/js/sync-ui/apps/sync.js:89
+#: dist/js/sync-script.js:1
 msgid "Starting delete and sync…"
 msgstr ""
 
 #: assets/js/sync-ui/apps/sync.js:108
+#: dist/js/sync-script.js:1
 msgid "Starting sync…"
 msgstr ""
 
 #: assets/js/sync-ui/apps/sync.js:119
+#: dist/js/sync-script.js:1
 msgid "If you are missing data in your search results or have recently added custom content types to your site, you should run a sync to reflect these changes."
 msgstr ""
 
 #. translators: %s: Index type. WPProbe.com or Elasticsearch.
 #: assets/js/sync-ui/apps/sync.js:125
+#: dist/js/sync-script.js:1
 msgid "Run a sync to index your existing content %s. Once syncing finishes, your site is officially supercharged."
 msgstr ""
 
 #: assets/js/sync-ui/apps/sync.js:130
+#: dist/js/sync-script.js:1
 msgid "on WPProbe.com"
 msgstr ""
 
 #: assets/js/sync-ui/apps/sync.js:131
+#: dist/js/sync-script.js:1
 msgid "in Elasticsearch"
 msgstr ""
 
 #: assets/js/sync-ui/apps/sync.js:148
+#: dist/js/sync-script.js:1
 msgid "Advanced options"
 msgstr ""
 
 #: assets/js/sync-ui/apps/sync.js:153
+#: dist/js/sync-script.js:1
 msgid "Sync history"
 msgstr ""
 
 #: assets/js/sync-ui/components/controls.js:31
+#: dist/js/sync-script.js:1
 msgid "Pausing sync…"
 msgstr ""
 
 #: assets/js/sync-ui/components/controls.js:41
+#: dist/js/sync-script.js:1
 msgid "Resuming sync…"
 msgstr ""
 
 #: assets/js/sync-ui/components/controls.js:51
+#: dist/js/sync-script.js:1
 msgid "Sync stopped"
 msgstr ""
 
 #: assets/js/sync-ui/components/controls.js:62
+#: dist/js/sync-script.js:1
 msgid "Stop sync"
 msgstr ""
 
 #: assets/js/sync-ui/components/controls.js:66
+#: dist/js/sync-script.js:1
 msgid "Resume sync"
 msgstr ""
 
 #: assets/js/sync-ui/components/controls.js:70
+#: dist/js/sync-script.js:1
 msgid "Pause sync"
 msgstr ""
 
 #: assets/js/sync-ui/components/controls.js:76
+#: dist/js/sync-script.js:1
 msgid "Start sync"
 msgstr ""
 
 #: assets/js/sync-ui/components/controls.js:84
+#: dist/js/sync-script.js:1
 msgid "Learn more about Sync"
 msgstr ""
 
 #: assets/js/sync-ui/components/errors.js:28
+#: dist/js/sync-script.js:1
 msgid "Error type"
 msgstr ""
 
 #: assets/js/sync-ui/components/errors.js:44
+#: dist/js/sync-script.js:1
 msgid "No errors found in the log."
 msgstr ""
 
 #: assets/js/sync-ui/components/include.js:52
+#: dist/js/sync-script.js:1
 msgid "Object IDs"
 msgstr ""
 
 #: assets/js/sync-ui/components/indexables.js:50
+#: dist/js/sync-script.js:1
 msgid "Content to sync"
 msgstr ""
 
 #: assets/js/sync-ui/components/limits.js:52
+#: dist/js/sync-script.js:1
 msgid "Sync objects with an ID of this number or higher."
 msgstr ""
 
 #: assets/js/sync-ui/components/limits.js:53
+#: dist/js/sync-script.js:1
 msgid "Lower object ID"
 msgstr ""
 
 #: assets/js/sync-ui/components/limits.js:66
+#: dist/js/sync-script.js:1
 msgid "Sync objects with an ID of this number or lower."
 msgstr ""
 
 #: assets/js/sync-ui/components/limits.js:67
+#: dist/js/sync-script.js:1
 msgid "Higher object ID"
 msgstr ""
 
 #: assets/js/sync-ui/components/log.js:60
+#: dist/js/sync-script.js:1
 msgid "Copied log to clipboard."
 msgstr ""
 
 #: assets/js/sync-ui/components/log.js:71
+#: dist/js/sync-script.js:1
 msgid "Log"
 msgstr ""
 
 #. translators: %d: Error message count.
 #: assets/js/sync-ui/components/log.js:77
+#: dist/js/sync-script.js:1
 msgid "Errors (%d)"
 msgstr ""
 
 #: assets/js/sync-ui/components/log.js:104
+#: dist/js/sync-script.js:1
 msgid "Clear log"
 msgstr ""
 
 #: assets/js/sync-ui/components/log.js:109
+#: dist/js/sync-script.js:1
 msgid "Copy log to clipboard"
 msgstr ""
 
 #: assets/js/sync-ui/components/objects.js:63
+#: dist/js/sync-script.js:1
 msgid "Objects to sync"
 msgstr ""
 
 #: assets/js/sync-ui/components/objects.js:71
+#: dist/js/sync-script.js:1
 msgid "Specific IDs"
 msgstr ""
 
 #: assets/js/sync-ui/components/objects.js:75
+#: dist/js/sync-script.js:1
 msgid "A range of IDs"
 msgstr ""
 
 #: assets/js/sync-ui/components/offset.js:27
+#: dist/js/sync-script.js:1
 msgid "Specify the number of objects to skip during syncing."
 msgstr ""
 
 #: assets/js/sync-ui/components/offset.js:28
+#: dist/js/sync-script.js:1
 msgid "Skip objects"
 msgstr ""
 
 #: assets/js/sync-ui/components/post-types.js:45
+#: dist/js/sync-script.js:1
 msgid "Post types to sync"
 msgstr ""
 
 #: assets/js/sync-ui/components/previous-sync.js:43
+#: dist/js/sync-script.js:1
 msgid "Failed."
 msgstr ""
 
 #. translators: number of errors
 #: assets/js/sync-ui/components/previous-sync.js:48
+#: dist/js/sync-script.js:1
 msgid "Completed with %d error."
 msgid_plural "Completed with %d errors."
 msgstr[0] ""
 msgstr[1] ""
 
 #: assets/js/sync-ui/components/previous-sync.js:56
+#: dist/js/sync-script.js:1
 msgid "Completed with errors."
 msgstr ""
 
 #: assets/js/sync-ui/components/previous-sync.js:58
+#: dist/js/sync-script.js:1
 msgid "Stopped."
 msgstr ""
 
 #: assets/js/sync-ui/components/previous-sync.js:60
+#: dist/js/sync-script.js:1
 msgid "Completed successfully."
 msgstr ""
 
 #: assets/js/sync-ui/components/previous-sync.js:62
+#: dist/js/sync-script.js:1
 msgid "Completed."
 msgstr ""
 
 #: assets/js/sync-ui/components/previous-sync.js:71
+#: dist/js/sync-script.js:1
 msgid "Manual sync from WP CLI."
 msgstr ""
 
 #: assets/js/sync-ui/components/previous-sync.js:76
+#: dist/js/sync-script.js:1
 msgid "Automatic sync after settings change."
 msgstr ""
 
 #: assets/js/sync-ui/components/previous-sync.js:78
+#: dist/js/sync-script.js:1
 msgid "Automatic sync after installation."
 msgstr ""
 
 #: assets/js/sync-ui/components/previous-sync.js:80
+#: dist/js/sync-script.js:1
 msgid "Manual sync following an error in synonyms settings."
 msgstr ""
 
 #: assets/js/sync-ui/components/previous-sync.js:82
+#: dist/js/sync-script.js:1
 msgid "Manual sync from Sync Settings."
 msgstr ""
 
 #: assets/js/sync-ui/components/previous-sync.js:84
+#: dist/js/sync-script.js:1
 msgid "Automatic sync after plugin update."
 msgstr ""
 
 #. translators: %1$s Sync date and time. %2%s sync trigger.
 #: assets/js/sync-ui/components/previous-sync.js:115
+#: dist/js/sync-script.js:1
 msgctxt "Sync info"
 msgid "%1$s — %2$s"
 msgstr ""
 
 #: assets/js/sync-ui/components/progress.js:48
 #: assets/js/sync/index.js:238
+#: dist/js/sync-script.js:1
 msgid "Sync failed"
 msgstr ""
 
 #: assets/js/sync-ui/components/progress.js:56
 #: assets/js/sync/index.js:384
 #: assets/js/sync/index.js:560
+#: dist/js/sync-script.js:1
 msgid "Sync paused"
 msgstr ""
 
 #: assets/js/sync-ui/components/progress.js:60
 #: assets/js/sync/index.js:557
+#: dist/js/sync-script.js:1
 msgid "WP CLI sync in progress"
 msgstr ""
 
 #: assets/js/sync-ui/components/progress.js:63
+#: dist/js/sync-script.js:1
 msgid "Sync in progress"
 msgstr ""
 
 #. translators: %1$s Sync start date and time.
 #: assets/js/sync-ui/components/progress.js:73
+#: dist/js/sync-script.js:1
 msgid "Started manually from WP CLI at <time>%s</time>."
 msgstr ""
 
 #. translators: %1$s Sync start date and time.
 #: assets/js/sync-ui/components/progress.js:79
+#: dist/js/sync-script.js:1
 msgid "Started automatically after a change to feature settings at <time>%s</time>."
 msgstr ""
 
 #. translators: %1$s Sync start date and time.
 #: assets/js/sync-ui/components/progress.js:85
+#: dist/js/sync-script.js:1
 msgid "Started automatically after installing the ElasticProbe plugin at <time>%s</time>."
 msgstr ""
 
 #. translators: %1$s Sync start date and time.
 #: assets/js/sync-ui/components/progress.js:91
+#: dist/js/sync-script.js:1
 msgid "Started manually from the Sync page at <time>%s</time>."
 msgstr ""
 
 #. translators: %1$s Sync start date and time.
 #: assets/js/sync-ui/components/progress.js:97
+#: dist/js/sync-script.js:1
 msgid "Started manually from an error on the Synonyms Settings page at <time>%s</time>."
 msgstr ""
 
 #. translators: %1$s Sync start date and time.
 #: assets/js/sync-ui/components/progress.js:103
+#: dist/js/sync-script.js:1
 msgid "Started automatically after updating the ElasticProbe plugin at <time>%s</time>."
 msgstr ""
 
 #. translators: %1$s Sync start date and time.
 #: assets/js/sync-ui/components/progress.js:109
+#: dist/js/sync-script.js:1
 msgid "Started on <time>%s</time>."
 msgstr ""
 
 #: assets/js/sync-ui/components/put-mapping.js:27
+#: dist/js/sync-script.js:1
 msgid "Search results could be out of date or returned in different order while the sync completes."
 msgstr ""
 
 #: assets/js/sync-ui/components/put-mapping.js:37
+#: dist/js/sync-script.js:1
 msgid "All indexed data on ElasticProbe will be deleted without affecting anything on your WordPress website. This may take a few hours depending on the amount of content that needs to be synced and indexed. While this is happening, searches will use the default WordPress results."
 msgstr ""
 
 #: assets/js/sync-ui/components/put-mapping.js:42
+#: dist/js/sync-script.js:1
 msgid "Delete all data and start fresh sync"
 msgstr ""
 
 #: assets/js/sync-ui/index.js:46
+#: dist/js/sync-script.js:1
 msgid "Sync Settings"
 msgstr ""
 
 #. translators: %s: Index type. WPProbe.com or Elasticsearch.
 #: assets/js/sync/index.js:264
+#: dist/js/sync-script.js:1
 msgid "Your indexing process has been stopped by WP-CLI and your %s index could be missing content. To restart indexing, please click the Start button or use WP-CLI commands to perform the reindex. Please note that search results could be incorrect or incomplete until the reindex finishes."
 msgstr ""
 
 #: assets/js/sync/index.js:272
+#: dist/js/sync-script.js:1
 msgid "Sync interrupted by WP-CLI command."
 msgstr ""
 
 #: assets/js/sync/src/hooks.js:34
+#: dist/js/sync-script.js:1
 msgid "ElasticProbe: Unexpected response."
 msgstr ""
 
 #: assets/js/sync/src/hooks.js:50
+#: dist/js/sync-script.js:1
 msgid "Permission denied. Reload the sync page and try again."
 msgstr ""
 
 #: assets/js/sync/src/hooks.js:67
+#: dist/js/sync-script.js:1
 msgid "Something went wrong. Find troubleshooting steps at https://www.elasticpress.io/documentation/article/troubleshooting-guide-elasticpress-something-went-wrong-error/."
 msgstr ""
 
 #: assets/js/sync/src/hooks.js:93
+#: dist/js/sync-script.js:1
 msgid "Unable to parse response. Find troubleshooting steps at https://www.elasticpress.io/documentation/article/troubleshooting-guide-elasticpress-something-went-wrong-error/."
 msgstr ""
 
 #: assets/js/synonyms/apps/synonyms-settings.js:48
+#: dist/js/synonyms-script.js:1
 msgid "Synonym settings saved."
 msgstr ""
 
 #: assets/js/synonyms/apps/synonyms-settings.js:53
+#: dist/js/synonyms-script.js:1
 msgid "Could not update index with synonyms. Make sure your data is synced."
 msgstr ""
 
 #: assets/js/synonyms/apps/synonyms-settings.js:69
 #: assets/js/weighting/apps/weighting.js:36
+#: dist/js/synonyms-script.js:1
+#: dist/js/weighting-script.js:1
 msgid "Something went wrong. Please try again."
 msgstr ""
 
 #. translators: Synonyms count
 #: assets/js/synonyms/apps/synonyms-settings.js:87
+#: dist/js/synonyms-script.js:1
 msgid "Synonyms (%d)"
 msgstr ""
 
 #. translators: Hyponyms count
 #: assets/js/synonyms/apps/synonyms-settings.js:98
+#: dist/js/synonyms-script.js:1
 msgid "Hyponyms (%d)"
 msgstr ""
 
 #. translators: Replacements count
 #: assets/js/synonyms/apps/synonyms-settings.js:109
+#: dist/js/synonyms-script.js:1
 msgid "Replacements (%d)"
 msgstr ""
 
 #: assets/js/synonyms/apps/synonyms-settings.js:121
+#: dist/js/synonyms-script.js:1
 msgid "Switch to visual editor"
 msgstr ""
 
 #: assets/js/synonyms/apps/synonyms-settings.js:122
+#: dist/js/synonyms-script.js:1
 msgid "Switch to advanced text editor"
 msgstr ""
 
 #: assets/js/synonyms/apps/synonyms-settings.js:126
+#: dist/js/synonyms-script.js:1
 msgid "Synonym rules enable a more flexible search experience that returns relevant results even without an exact match. Rules can be defined as synonyms, for terms with similar meanings; hyponyms, for terms with a hierarchical relationship; or replacements, for corrections and substitutions."
 msgstr ""
 
 #: assets/js/synonyms/apps/synonyms-settings.js:154
+#: dist/js/synonyms-script.js:1
 msgid "Advanced Synonyms Editor"
 msgstr ""
 
 #: assets/js/synonyms/apps/synonyms-settings.js:158
+#: dist/js/synonyms-script.js:1
 msgid "ElasticProbe uses the Solr format to define your synonym rules for Elasticsearch. Advanced users can use the field below to edit the synonym rules in this format directly. This can also be used to import a large dictionary of synonyms, or to export your synonyms for use on another site."
 msgstr ""
 
 #: assets/js/synonyms/components/common/edit-panel.js:112
+#: dist/js/synonyms-script.js:1
 msgid "Cancel"
 msgstr ""
 
 #: assets/js/synonyms/components/common/list-table.js:149
+#: dist/js/synonyms-script.js:1
 msgid "Delete selected"
 msgstr ""
 
 #: assets/js/synonyms/components/common/row-actions.js:42
+#: dist/js/synonyms-script.js:1
 msgid "Edit"
 msgstr ""
 
 #: assets/js/synonyms/components/common/row-actions.js:50
+#: dist/js/synonyms-script.js:1
 msgid "Delete"
 msgstr ""
 
 #: assets/js/synonyms/components/editors/solr-editor.js:34
+#: dist/js/synonyms-script.js:1
 msgid "Solr synonyms"
 msgstr ""
 
 #: assets/js/synonyms/components/groups/hyponyms.js:26
+#: dist/js/synonyms-script.js:1
 msgid "<p><strong>Hyponyms</strong> are terms with a more specific meaning than another more generic terms, called a <strong>hypernym</strong>. For example, <em>aqua</em>, <em>azure</em>, and <em>cerulean</em> are all hyponyms of <em>blue</em>, their hypernym.</p>"
 msgstr ""
 
 #: assets/js/synonyms/components/groups/hyponyms.js:32
+#: dist/js/synonyms-script.js:1
 msgid "<p>Use hyponyms when you want search queries for a parent term to return results relevant to itself or any of its child terms, but search queries for a child term to only return results that are relevant to that term. For example, when a search for \"blue\" should return anything blue, whether it be aqua, azure, or cerulean, but a search for \"cerulean\" should return only items that are specifically cerulean blue.</p>"
 msgstr ""
 
 #: assets/js/synonyms/components/groups/hyponyms.js:40
+#: dist/js/synonyms-script.js:1
 msgid "Add hyponyms"
 msgstr ""
 
 #: assets/js/synonyms/components/groups/hyponyms.js:41
+#: dist/js/synonyms-script.js:1
 msgid "Edit Hyponyms"
 msgstr ""
 
 #: assets/js/synonyms/components/groups/hyponyms.js:42
+#: dist/js/synonyms-script.js:1
 msgid "Add Hyponyms"
 msgstr ""
 
 #: assets/js/synonyms/components/groups/hyponyms.js:43
+#: dist/js/synonyms-script.js:1
 msgid "Hypernym"
 msgstr ""
 
 #: assets/js/synonyms/components/groups/hyponyms.js:44
+#: dist/js/synonyms-script.js:1
 msgid "Hyponyms"
 msgstr ""
 
 #: assets/js/synonyms/components/groups/hyponyms.js:47
+#: dist/js/synonyms-script.js:1
 msgid "Added hyponyms."
 msgstr ""
 
 #: assets/js/synonyms/components/groups/hyponyms.js:48
+#: dist/js/synonyms-script.js:1
 msgid "Deleted hyponyms."
 msgstr ""
 
 #: assets/js/synonyms/components/groups/hyponyms.js:49
+#: dist/js/synonyms-script.js:1
 msgid "Hyponym sets require a hypernym and at least one hyponym that is not the hypernym."
 msgstr ""
 
 #: assets/js/synonyms/components/groups/hyponyms.js:53
+#: dist/js/synonyms-script.js:1
 msgid "Updated hyponyms."
 msgstr ""
 
 #: assets/js/synonyms/components/groups/replacements.js:26
+#: dist/js/synonyms-script.js:1
 msgid "<p><strong>Replacements</strong> are terms that replace other incorrect or obsolete terms.</p>"
 msgstr ""
 
 #: assets/js/synonyms/components/groups/replacements.js:32
+#: dist/js/synonyms-script.js:1
 msgid "<p>Use replacements when you want search queries for certain terms to return results that are only relevant to another term, or set of terms. This can be useful for supporting specific typos or incorrect phrasing. For example, when a search for the phrase \"intensive purposes\" should only return results including the phrase \"intents and purposes\".</p>"
 msgstr ""
 
 #: assets/js/synonyms/components/groups/replacements.js:40
+#: dist/js/synonyms-script.js:1
 msgid "You may need to <a>disable fuzziness</a> to have it working properly."
 msgstr ""
 
 #: assets/js/synonyms/components/groups/replacements.js:58
+#: dist/js/synonyms-script.js:1
 msgid "Add replacements"
 msgstr ""
 
 #: assets/js/synonyms/components/groups/replacements.js:59
+#: dist/js/synonyms-script.js:1
 msgid "Edit Replacements"
 msgstr ""
 
 #: assets/js/synonyms/components/groups/replacements.js:60
+#: dist/js/synonyms-script.js:1
 msgid "Add Replacements"
 msgstr ""
 
 #: assets/js/synonyms/components/groups/replacements.js:62
+#: dist/js/synonyms-script.js:1
 msgid "Replacements"
 msgstr ""
 
 #: assets/js/synonyms/components/groups/replacements.js:65
+#: dist/js/synonyms-script.js:1
 msgid "Added replacements."
 msgstr ""
 
 #: assets/js/synonyms/components/groups/replacements.js:66
+#: dist/js/synonyms-script.js:1
 msgid "Deleted replacements."
 msgstr ""
 
 #: assets/js/synonyms/components/groups/replacements.js:67
+#: dist/js/synonyms-script.js:1
 msgid "Replacement sets require at least one term and one replacement."
 msgstr ""
 
 #: assets/js/synonyms/components/groups/replacements.js:71
+#: dist/js/synonyms-script.js:1
 msgid "Updated replacements."
 msgstr ""
 
 #: assets/js/synonyms/components/groups/synonyms.js:26
+#: dist/js/synonyms-script.js:1
 msgid "<p><strong>Synonyms</strong> are terms with similar meanings. For example, <em>sneaker</em>, <em>tennis shoe</em>, <em>trainer</em>, and <em>running shoe</em> could all refer to a particular type of shoe.</p>"
 msgstr ""
 
 #: assets/js/synonyms/components/groups/synonyms.js:32
+#: dist/js/synonyms-script.js:1
 msgid "<p>Use synonyms when you want queries for a specific term to also return results relevant to any of its synonyms. This can be useful for supporting products and services whose names have changed over time or regional variations in terminology. For example, when a search for \"sneaker\" should return sneakers, tennis shoes, trainers and running shoes.</p>"
 msgstr ""
 
 #: assets/js/synonyms/components/groups/synonyms.js:40
+#: dist/js/synonyms-script.js:1
 msgid "Add synonyms"
 msgstr ""
 
 #: assets/js/synonyms/components/groups/synonyms.js:41
+#: dist/js/synonyms-script.js:1
 msgid "Edit Synonyms"
 msgstr ""
 
 #: assets/js/synonyms/components/groups/synonyms.js:42
+#: dist/js/synonyms-script.js:1
 msgid "Add Synonyms"
 msgstr ""
 
 #: assets/js/synonyms/components/groups/synonyms.js:46
+#: dist/js/synonyms-script.js:1
 msgid "Added synonyms."
 msgstr ""
 
 #: assets/js/synonyms/components/groups/synonyms.js:47
+#: dist/js/synonyms-script.js:1
 msgid "Deleted synonyms."
 msgstr ""
 
 #: assets/js/synonyms/components/groups/synonyms.js:48
+#: dist/js/synonyms-script.js:1
 msgid "Synonym sets require at least two synonyms."
 msgstr ""
 
 #: assets/js/synonyms/components/groups/synonyms.js:49
+#: dist/js/synonyms-script.js:1
 msgid "Updated synonyms."
 msgstr ""
 
 #: assets/js/weighting/apps/weighting.js:34
+#: dist/js/weighting-script.js:1
 msgid "Settings saved."
 msgstr ""
 
 #: assets/js/weighting/apps/weighting.js:43
+#: dist/js/weighting-script.js:1
 msgid "This dashboard enables you to select which fields ElasticProbe should sync, whether to use those fields in searches, and how heavily to weight fields in the search algorithm. In general, increasing the Weight of a field will increase the relevancy score of a post that has matching text in that field."
 msgstr ""
 
 #: assets/js/weighting/apps/weighting.js:49
+#: dist/js/weighting-script.js:1
 msgid "For example, adding more weight to the title attribute will cause search matches on the post title to appear more prominently."
 msgstr ""
 
 #: assets/js/weighting/components/field.js:61
+#: dist/js/weighting-script.js:1
 msgid "Searchable"
 msgstr ""
 
 #: assets/js/weighting/components/field.js:69
+#: dist/js/weighting-script.js:1
 msgid "Weight"
 msgstr ""
 
 #. translators: Field name
 #: assets/js/weighting/components/group.js:111
+#: dist/js/weighting-script.js:1
 msgid "%s is already being synced."
 msgstr ""
 
 #: assets/js/weighting/components/group.js:178
+#: dist/js/weighting-script.js:1
 msgid "Make sure to Sync after adding new fields to ensure that the fields are synced for any existing content that uses them."
 msgstr ""
 
 #: assets/js/weighting/components/group.js:182
+#: dist/js/weighting-script.js:1
 msgid "Add field"
 msgstr ""
 
 #: assets/js/weighting/components/group.js:185
+#: dist/js/weighting-script.js:1
 msgid "Metadata key"
 msgstr ""
 
 #: assets/js/weighting/components/group.js:191
+#: dist/js/weighting-script.js:1
 msgid "Add"
 msgstr ""
 
 #: assets/js/weighting/index.js:26
+#: dist/js/weighting-script.js:1
 msgid "Manage Search Fields & Weighting"
 msgstr ""
 
 #. translators: %d: Number of options in the list.
 #: assets/js/woocommerce/admin/orders/app/components/combobox.js:42
+#: dist/js/woocommerce-order-search-script.js:1
 msgid "%d suggestion available, use the up and down keys to browse and the enter key to open"
 msgid_plural "%d suggestions available, use the up and down keys to browse and the enter key to open"
 msgstr[0] ""
@@ -3472,6 +3804,7 @@ msgstr[1] ""
 
 #. translators: %1$d: Order item count. %2$s: Order time.
 #: assets/js/woocommerce/admin/orders/app/components/suggestion.js:59
+#: dist/js/woocommerce-order-search-script.js:1
 msgid "%1$d item @ %2$s"
 msgid_plural "%1$d items @ %2$s"
 msgstr[0] ""

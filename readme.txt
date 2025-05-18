@@ -2,7 +2,7 @@
 Contributors: bushwackstudio, nshayanfar
 Tags:         performance, search, elasticsearch, fuzzy, related posts
 Tested up to: 6.8
-Stable tag:   0.2.1
+Stable tag:   0.3.0
 License:      GPLv2 or later
 License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,29 @@ For sure! Feel free to submit ideas or feedback in general to our [GitHub repo](
 4. Synonyms Dashboard
 
 == Changelog ==
+
+= 0.3.0 - 2024-05-18 =
+
+__Added:__
+
+
+__Changed:__
+
+* Filter and option prefixes to "eprobe"
+* API endpoint path prefix to "elasticprobe"
+* Contributer accounts in readme.txt
+
+__Fixed:__
+
+* Some missing translation domains
+* Some missing sanitizations
+
+
+__Security:__
+
+
+__Developer:__
+
 
 = 0.2.1 - 2024-05-12 =
 
