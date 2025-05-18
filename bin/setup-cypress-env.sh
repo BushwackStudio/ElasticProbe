@@ -4,9 +4,9 @@
 
 ACF_PRO_LICENSE_KEY=""
 DISPLAY_HELP=0
-EP_HOST=""
+EPROBE_HOST=""
 ES_SHIELD=""
-EP_INDEX_PREFIX=""
+EPROBE_INDEX_PREFIX=""
 WP_VERSION=""
 WC_VERSION=""
 
@@ -16,13 +16,13 @@ for opt in "$@"; do
       ACF_PRO_LICENSE_KEY="${opt#*=}"
       ;;
     -H=*|--ep-host=*)
-      EP_HOST="${opt#*=}"
+      EPROBE_HOST="${opt#*=}"
       ;;
     -S=*|--es-shield=*)
       ES_SHIELD="${opt#*=}"
       ;;
     -p=*|--ep-index-prefix=*)
-      EP_INDEX_PREFIX="${opt#*=}"
+      EPROBE_INDEX_PREFIX="${opt#*=}"
       ;;
     -i=*|--probe-sid=*)
       WPP_SID="${opt#*=}"
@@ -47,10 +47,10 @@ if [ $DISPLAY_HELP -eq 1 ]; then
 	echo
 	echo "Optional parameters:"
 	echo "--acf-pro-license=*           ACF Pro License Key."
-	echo "-h=*, --ep-host=*             The remote Elasticsearch Host URL."
+	echo "-h=*, --eprobe-host=*         The remote Elasticsearch Host URL."
 	echo "-s=*, --es-shield=*           The Elasticsearch credentials, used in the ES_SHIELD constant."
-	echo "-u=*, --ep-index-prefix=*     The Elasticsearch credentials, used in the EP_INDEX_PREFIX constant."
-	echo "-i=*, --probe-sid=*           The ElasticProbe subscription id, used in the PROBE_SID constant."
+	echo "-u=*, --ep-index-prefix=*     The Elasticsearch credentials, used in the EPROBE_INDEX_PREFIX constant."
+	echo "-i=*, --probe-sid=*           The ElasticProbe subscription id, used in the EPROBE_SID constant."
 	echo "-W=*, --wp-version=*          WordPress Core version."
 	echo "-w=*, --wc-version=*          WooCommerce version."
 	echo "-h|--help                     Display this help screen"
@@ -75,32 +75,32 @@ if [ ! -z $WP_VERSION ]; then
 	./bin/wp-env-cli tests-wordpress "wp --allow-root core update --version=${WP_VERSION} --force"
 fi
 
-if [ -z $EP_HOST ]; then
+if [ -z $EPROBE_HOST ]; then
 	# Determine what kind of env we're in
 	if [ "$(uname | tr '[:upper:]' '[:lower:]')" = "darwin" ]; then
 		echo "Running tests on $(uname)"
-		EP_HOST="http://host.docker.internal:8890/"
+		EPROBE_HOST="http://host.docker.internal:8890/"
 	elif grep -qi microsoft /proc/version; then
 		echo "Running tests on Windows"
-		EP_HOST="http://host.docker.internal:8890/"
+		EPROBE_HOST="http://host.docker.internal:8890/"
 	else
 		echo "Running tests on $(uname)"
 		# 172.17.0.1 is the IP Address of host when using Linux
-		EP_HOST="http://172.17.0.1:8890/"
+		EPROBE_HOST="http://172.17.0.1:8890/"
 	fi
 fi
-./bin/wp-env-cli tests-wordpress "wp --allow-root config set EP_HOST ${EP_HOST}"
+./bin/wp-env-cli tests-wordpress "wp --allow-root config set EPROBE_HOST ${EPROBE_HOST}"
 
 if [ ! -z $ES_SHIELD ]; then
 	./bin/wp-env-cli tests-wordpress "wp --allow-root config set ES_SHIELD ${ES_SHIELD}"
 fi
 
-if [ ! -z $EP_INDEX_PREFIX ]; then
-	./bin/wp-env-cli tests-wordpress "wp --allow-root config set EP_INDEX_PREFIX ${EP_INDEX_PREFIX}"
+if [ ! -z $EPROBE_INDEX_PREFIX ]; then
+	./bin/wp-env-cli tests-wordpress "wp --allow-root config set EPROBE_INDEX_PREFIX ${EPROBE_INDEX_PREFIX}"
 fi
 
 if [ ! -z $WPP_SID ]; then
-	./bin/wp-env-cli tests-wordpress "wp --allow-root config set PROBE_SID ${WPP_SID}"
+	./bin/wp-env-cli tests-wordpress "wp --allow-root config set EPROBE_SID ${WPP_SID}"
 fi
 
 if [ ! -z $ACF_PRO_LICENSE_KEY ]; then

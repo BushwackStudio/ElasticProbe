@@ -21,8 +21,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return array
  */
 function get_epio_credentials() {
-	if ( defined( 'EP_CREDENTIALS' ) && EP_CREDENTIALS ) {
-		$raw_credentials = explode( ':', EP_CREDENTIALS );
+	if ( defined( 'EPROBE_CREDENTIALS' ) && EPROBE_CREDENTIALS ) {
+		$raw_credentials = explode( ':', EPROBE_CREDENTIALS );
 		if ( is_array( $raw_credentials ) && 2 === count( $raw_credentials ) ) {
 			$credentials = array(
 				'username' => $raw_credentials[0],
@@ -30,10 +30,10 @@ function get_epio_credentials() {
 			);
 		}
 		$credentials = sanitize_credentials( $credentials );
-	} elseif ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK && is_epio() ) {
-		$credentials = sanitize_credentials( get_site_option( 'ep_credentials', false ) );
+	} elseif ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK && is_epio() ) {
+		$credentials = sanitize_credentials( get_site_option( 'eprobe_credentials', false ) );
 	} elseif ( is_epio() ) {
-		$credentials = sanitize_credentials( get_option( 'ep_credentials', false ) );
+		$credentials = sanitize_credentials( get_option( 'eprobe_credentials', false ) );
 	} else {
 		$credentials = [
 			'username' => '',
@@ -65,7 +65,7 @@ function get_capability( string $context = '' ): string {
 	 * Example:
 	 * ```
 	 * add_filter(
-	 *     'ep_capability',
+	 *     'eprobe_capability',
 	 *     function ( $cacapability, $context ) {
 	 *         return ( 'synonyms' === $context ) ?
 	 *            'manage_elasticpress_synonyms' :
@@ -77,12 +77,12 @@ function get_capability( string $context = '' ): string {
 	 * ```
 	 *
 	 * @since 4.5.0, 5.1.0 added $context
-	 * @hook ep_capability
+	 * @hook eprobe_capability
 	 * @param  {string} $capability Capability name. Defaults to `'manage_elasticpress'`
 	 * @param  {string} $context    Additional context
 	 * @return {string} New capability value
 	 */
-	return apply_filters( 'ep_capability', 'manage_elasticpress', $context );
+	return apply_filters( 'eprobe_capability', 'manage_elasticpress', $context );
 }
 
 /**
@@ -97,12 +97,12 @@ function get_network_capability( string $context = '' ): string {
 	 * Filter the WP capability needed to interact with ElasticProbe in the network admin
 	 *
 	 * @since 4.5.0, 5.1.0 added $context
-	 * @hook ep_network_capability
+	 * @hook eprobe_network_capability
 	 * @param  {string} $capability Capability name. Defaults to `'manage_network_elasticpress'`
 	 * @param  {string} $context    Additional context
 	 * @return {string} New capability value
 	 */
-	return apply_filters( 'ep_network_capability', 'manage_network_elasticpress', $context );
+	return apply_filters( 'eprobe_network_capability', 'manage_network_elasticpress', $context );
 }
 
 /**
@@ -145,23 +145,23 @@ function get_shield_credentials() {
 }
 
 /**
- * Retrieve the appropriate index prefix. Will default to EP_INDEX_PREFIX constant if it exists
+ * Retrieve the appropriate index prefix. Will default to EPROBE_INDEX_PREFIX constant if it exists
  * AKA Subscription ID.
  *
  * @since 2.5
  * @return string|bool
  */
 function get_index_prefix() {
-	if ( defined( 'EP_INDEX_PREFIX' ) && \EP_INDEX_PREFIX ) {
+	if ( defined( 'EPROBE_INDEX_PREFIX' ) && \EPROBE_INDEX_PREFIX ) {
 		if ( is_epio() ) {
-			$prefix = get_index_prefix() . \EP_INDEX_PREFIX;
+			$prefix = get_index_prefix() . \EPROBE_INDEX_PREFIX;
 		} else {
-			$prefix = \EP_INDEX_PREFIX;
+			$prefix = \EPROBE_INDEX_PREFIX;
 		}
 	} elseif ( is_epio() ) {
 		$prefix = get_subscription_id();
 		if (
-			( ! defined( 'EP_IS_NETWORK' ) || ! EP_IS_NETWORK ) &&
+			( ! defined( 'EPROBE_IS_NETWORK' ) || ! EPROBE_IS_NETWORK ) &&
 			( '-' !== substr( $prefix, -1 ) )
 		) {
 			$prefix .= '-';
@@ -174,11 +174,11 @@ function get_index_prefix() {
 	 * Filter index prefix. Defaults to nothing
 	 *
 	 * @since  2.5
-	 * @hook ep_index_prefix
+	 * @hook eprobe_index_prefix
 	 * @param  {string} $prefix Current prefix
 	 * @return  {string} New prefix
 	 */
-	return apply_filters( 'ep_index_prefix', $prefix );
+	return apply_filters( 'eprobe_index_prefix', $prefix );
 }
 
 /**
@@ -242,11 +242,11 @@ function is_indexing() {
 	 * Filter whether an index is occurring in dashboard or CLI
 	 *
 	 * @since  3.0
-	 * @hook ep_is_indexing
+	 * @hook eprobe_is_indexing
 	 * @param  {bool} $indexing True for indexing
 	 * @return {bool} New indexing value
 	 */
-	return apply_filters( 'ep_is_indexing', ! empty( IndexHelper::factory()->get_index_meta() ) );
+	return apply_filters( 'eprobe_is_indexing', ! empty( IndexHelper::factory()->get_index_meta() ) );
 }
 
 /**
@@ -262,36 +262,36 @@ function is_indexing_wpcli() {
 	 * Filter whether a CLI sync is occurring
 	 *
 	 * @since  3.0
-	 * @hook ep_is_indexing_wpcli
+	 * @hook eprobe_is_indexing_wpcli
 	 * @param  {bool} $indexing True for indexing
 	 * @return {bool} New indexing value
 	 */
-	return apply_filters( 'ep_is_indexing_wpcli', ( ! empty( $index_meta ) && 'cli' === $index_meta['method'] ) );
+	return apply_filters( 'eprobe_is_indexing_wpcli', ( ! empty( $index_meta ) && 'cli' === $index_meta['method'] ) );
 }
 
 /**
- * Retrieve the appropriate host. Will default to EP_HOST constant if it exists
+ * Retrieve the appropriate host. Will default to EPROBE_HOST constant if it exists
  *
  * @since 2.1
  * @return string|bool
  */
 function get_host() {
 
-	if ( defined( 'EP_HOST' ) && EP_HOST ) {
-		$host = EP_HOST;
+	if ( defined( 'EPROBE_HOST' ) && EPROBE_HOST ) {
+		$host = EPROBE_HOST;
 	} else {
-		$host = get_option( 'ep_host', false );
+		$host = get_option( 'eprobe_host', false );
 	}
 
 	/**
 	 * Filter ElasticProbe host to use
 	 *
 	 * @since  2.1
-	 * @hook ep_host
+	 * @hook eprobe_host
 	 * @param  {string} $host Current EP host
 	 * @return  {string} Host to use
 	 */
-	return apply_filters( 'ep_host', $host );
+	return apply_filters( 'eprobe_host', $host );
 }
 
 /**
@@ -300,12 +300,12 @@ function get_host() {
  * @return string
  */
 function get_subscription_id() {
-	if ( defined( 'PROBE_SID' ) && \PROBE_SID ) {
-		$sid = \PROBE_SID;
+	if ( defined( 'EPROBE_SID' ) && \EPROBE_SID ) {
+		$sid = \EPROBE_SID;
 	} else {
-		$sid = get_option( 'elasticprobe_subscription_id', '' );
+		$sid = get_option( 'eprobe_subscription_id', '' );
 	}
-	return apply_filters( 'elasticprobe_subscription_id', $sid );
+	return apply_filters( 'eprobe_subscription_id', $sid );
 }
 
 /**
@@ -330,7 +330,7 @@ function get_site( $site_id ) {
 }
 
 /**
- * Wrapper function for get_sites - allows us to have one central place for the `ep_indexable_sites` filter
+ * Wrapper function for get_sites - allows us to have one central place for the `eprobe_indexable_sites` filter
  *
  * @param int  $limit          The maximum amount of sites retrieved, Use 0 to return all sites.
  * @param bool $only_indexable Whether should be returned only indexable sites or not.
@@ -374,11 +374,11 @@ function get_sites( $limit = 0, $only_indexable = false ) {
 	 * Filter arguments to use to query for sites on network
 	 *
 	 * @since  2.1
-	 * @hook ep_indexable_sites_args
+	 * @hook eprobe_indexable_sites_args
 	 * @param  {array} $args Array of args to query sites with. See WP_Site_Query
 	 * @return {array} New arguments
 	 */
-	$args = apply_filters( 'ep_indexable_sites_args', $args );
+	$args = apply_filters( 'eprobe_indexable_sites_args', $args );
 
 	$site_objects = \get_sites( $args );
 	$sites        = [];
@@ -391,11 +391,11 @@ function get_sites( $limit = 0, $only_indexable = false ) {
 	 * Filter indexable sites
 	 *
 	 * @since  3.0
-	 * @hook ep_indexable_sites
+	 * @hook eprobe_indexable_sites
 	 * @param  {array} $sites Current sites. Instances of WP_Site
 	 * @return  {array} New array of sites
 	 */
-	return apply_filters( 'ep_indexable_sites', $sites );
+	return apply_filters( 'eprobe_indexable_sites', $sites );
 }
 
 /**
@@ -549,18 +549,18 @@ function get_term_tree( $all_terms, $orderby = 'count', $order = 'desc', $flat =
  * @return string Default EP language.
  */
 function get_language() {
-	$ep_language = get_option( 'ep_language' );
-	$ep_language = ! empty( $ep_language ) ? $ep_language : 'site-default';
+	$eprobe_language = get_option( 'eprobe_language' );
+	$eprobe_language = ! empty( $eprobe_language ) ? $eprobe_language : 'site-default';
 
 	/**
 	 * Filter the default language to use at index time
 	 *
 	 * @since  3.1
 	 * @param {string} The current language.
-	 * @hook ep_default_language
+	 * @hook eprobe_default_language
 	 * @return  {string} New language
 	 */
-	return apply_filters( 'ep_default_language', $ep_language );
+	return apply_filters( 'eprobe_default_language', $eprobe_language );
 }
 
 /**
@@ -602,7 +602,7 @@ function get_indexing_status() {
 
 		if ( ! empty( $index_status['method'] ) && 'web' === $index_status['method'] ) {
 			$should_interrupt_sync = filter_var(
-				get_transient( 'ep_sync_interrupted' ),
+				get_transient( 'eprobe_sync_interrupted' ),
 				FILTER_VALIDATE_BOOLEAN
 			);
 
@@ -623,7 +623,7 @@ function get_indexing_status() {
  * @return bool
  */
 function update_option( $option, $value, $autoload = null ) {
-	if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+	if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 		return \update_site_option( $option, $value );
 	}
 	return \update_option( $option, $value, $autoload );
@@ -638,7 +638,7 @@ function update_option( $option, $value, $autoload = null ) {
  * @return mixed
  */
 function get_option( $option, $default_value = false ) {
-	if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+	if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 		return \get_site_option( $option, $default_value );
 	}
 	return \get_option( $option, $default_value );
@@ -652,7 +652,7 @@ function get_option( $option, $default_value = false ) {
  * @return bool
  */
 function delete_option( $option ) {
-	if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+	if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 		return \delete_site_option( $option );
 	}
 	return \delete_option( $option );
@@ -663,9 +663,9 @@ function delete_option( $option ) {
  * ElasticProbe.
  *
  * Public requests and REST API requests are integrated by default, but admin
- * requests will only be integrated in if the `ep_admin_wp_query_integration`
+ * requests will only be integrated in if the `eprobe_admin_wp_query_integration`
  * filter returns `true`, and and admin-ajax.php requests will only be
- * integrated if the `ep_ajax_wp_query_integration` filter returns `true`.
+ * integrated if the `eprobe_ajax_wp_query_integration` filter returns `true`.
  *
  * If specific types of requests are passed, true will only be returned if the
  * current request also matches one of the passed types.
@@ -674,7 +674,7 @@ function delete_option( $option ) {
  * the current request.
  *
  * @param string   $context Slug of the feature that is performing the check.
- *                          Passed to the `ep_is_integrated_request` filter.
+ *                          Passed to the `eprobe_is_integrated_request` filter.
  * @param string[] $types   Which types of request to check. Any of 'admin',
  *                          'ajax', 'public', and 'rest'. Defaults to all
  *                          types.
@@ -701,11 +701,11 @@ function is_integrated_request( $context, $types = [] ) {
 		/**
 		 * Filter whether to integrate with admin queries.
 		 *
-		 * @hook ep_admin_wp_query_integration
+		 * @hook eprobe_admin_wp_query_integration
 		 * @param bool $integrate True to integrate.
 		 * @return bool New value.
 		 */
-		$is_integrated_admin_request = apply_filters( 'ep_admin_wp_query_integration', false );
+		$is_integrated_admin_request = apply_filters( 'eprobe_admin_wp_query_integration', false );
 	}
 
 	if ( $is_ajax_request && in_array( 'ajax', $types, true ) ) {
@@ -713,11 +713,11 @@ function is_integrated_request( $context, $types = [] ) {
 		/**
 		 * Filter to integrate with admin ajax queries.
 		 *
-		 * @hook ep_ajax_wp_query_integration
+		 * @hook eprobe_ajax_wp_query_integration
 		 * @param bool $integrate True to integrate.
 		 * @return bool New value.
 		 */
-		$is_integrated_ajax_request = apply_filters( 'ep_ajax_wp_query_integration', false );
+		$is_integrated_ajax_request = apply_filters( 'eprobe_ajax_wp_query_integration', false );
 	}
 
 	if ( $is_rest_request && in_array( 'rest', $types, true ) ) {
@@ -741,7 +741,7 @@ function is_integrated_request( $context, $types = [] ) {
 	/**
 	 * Filter whether the queries for the current request should be integrated.
 	 *
-	 * @hook ep_is_integrated_request
+	 * @hook eprobe_is_integrated_request
 	 * @param bool   $is_integrated Whether queries for the request will be
 	 *                              integrated.
 	 * @param string $context       Context for the original check. Usually the
@@ -751,7 +751,7 @@ function is_integrated_request( $context, $types = [] ) {
 	 *
 	 * @since 3.6.2
 	 */
-	return apply_filters( 'ep_is_integrated_request', $is_integrated, $context, $types );
+	return apply_filters( 'eprobe_is_integrated_request', $is_integrated, $context, $types );
 }
 
 /**
@@ -762,10 +762,10 @@ function is_integrated_request( $context, $types = [] ) {
  * @return string|array
  */
 function get_asset_info( $slug, $attribute = null ) {
-	if ( file_exists( EP_PATH . 'dist/js/' . $slug . '.asset.php' ) ) {
-		$asset = require EP_PATH . 'dist/js/' . $slug . '.asset.php';
-	} elseif ( file_exists( EP_PATH . 'dist/css/' . $slug . '.asset.php' ) ) {
-		$asset = require EP_PATH . 'dist/css/' . $slug . '.asset.php';
+	if ( file_exists( EPROBE_PATH . 'dist/js/' . $slug . '.asset.php' ) ) {
+		$asset = require EPROBE_PATH . 'dist/js/' . $slug . '.asset.php';
+	} elseif ( file_exists( EPROBE_PATH . 'dist/css/' . $slug . '.asset.php' ) ) {
+		$asset = require EPROBE_PATH . 'dist/css/' . $slug . '.asset.php';
 	} else {
 		return null;
 	}
@@ -793,7 +793,7 @@ function get_sync_url( $do_sync = false ): string {
 		}
 		$page .= '&ep_sync_nonce=' . wp_create_nonce( 'ep_sync_nonce' );
 	}
-	return ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) ?
+	return ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) ?
 		network_admin_url( $page ) :
 		admin_url( $page );
 }
@@ -820,12 +820,12 @@ function get_request_id_base() {
 	/**
 	 * Filter the base of requests IDs. Uses the return of `get_index_prefix()` by default.
 	 *
-	 * @hook ep_request_id_base
+	 * @hook eprobe_request_id_base
 	 * @since 4.5.0
 	 * @param {string} $request_id_base Request ID base
 	 * @return {string} New Request ID base
 	 */
-	return apply_filters( 'ep_request_id_base', str_replace( '-', '', get_index_prefix() ) );
+	return apply_filters( 'eprobe_request_id_base', str_replace( '-', '', get_index_prefix() ) );
 }
 
 /**
@@ -842,12 +842,12 @@ function generate_request_id(): string {
 	/**
 	 * Filter the ID generated to identify a request.
 	 *
-	 * @hook ep_request_id
+	 * @hook eprobe_request_id
 	 * @since 4.5.0
 	 * @param {string} $request_id Request ID. By default formed by the indices prefix and a random UUID4.
 	 * @return {string} New Request ID
 	 */
-	return apply_filters( 'ep_request_id', get_request_id_base() . $uuid );
+	return apply_filters( 'eprobe_request_id', get_request_id_base() . $uuid );
 }
 
 /**
@@ -900,7 +900,7 @@ function get_elasticsearch_error_reason( $response ): string {
  * @return bool True if the value was set, false otherwise.
  */
 function set_transient( $transient, $value, $expiration = 0 ) {
-	if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+	if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 		return \set_site_transient( $transient, $value, $expiration );
 	}
 	return \set_transient( $transient, $value, $expiration );
@@ -914,7 +914,7 @@ function set_transient( $transient, $value, $expiration = 0 ) {
  * @return mixed Value of transient.
  */
 function get_transient( $transient ) {
-	if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+	if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 		return \get_site_transient( $transient );
 	}
 	return \get_transient( $transient );
@@ -928,7 +928,7 @@ function get_transient( $transient ) {
  * @return bool True if the transient was deleted, false otherwise.
  */
 function delete_transient( $transient ) {
-	if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+	if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 		return \delete_site_transient( $transient );
 	}
 	return \delete_transient( $transient );
@@ -944,6 +944,6 @@ function delete_transient( $transient ) {
  * @return boolean
  */
 function is_top_level_admin_context() {
-	$is_network = defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK;
+	$is_network = defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK;
 	return $is_network ? is_network_admin() : is_admin();
 }

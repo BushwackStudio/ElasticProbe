@@ -16,12 +16,12 @@ export default {
 				const { title = null, num_posts: number } = instance.raw;
 
 				if (!title) {
-					return createBlock('elasticpress/related-posts', { number });
+					return createBlock('elasticprobe/related-posts', { number });
 				}
 
 				return [
 					createBlock('core/heading', { content: title }),
-					createBlock('elasticpress/related-posts', { number }),
+					createBlock('elasticprobe/related-posts', { number }),
 				];
 			},
 		},

@@ -3,7 +3,7 @@ describe('Post Search Feature - Synonyms Functionality', () => {
 	 * Save synonyms settings.
 	 */
 	function saveSynonyms() {
-		cy.intercept('/wp-json/elasticpress/v1/synonyms*').as('apiRequest');
+		cy.intercept('/wp-json/elasticprobe/v1/synonyms*').as('apiRequest');
 		cy.contains('button', 'Save changes').click();
 		cy.wait('@apiRequest');
 		cy.contains('Synonym settings saved.').should('exist');
@@ -63,14 +63,14 @@ describe('Post Search Feature - Synonyms Functionality', () => {
 		cy.login();
 		cy.wpCliEval(
 			`
-			$ep_synonyms = get_posts(
+			$eprobe_synonyms = get_posts(
 				[
 					'post_type'   => 'ep-synonym',
 					'post_status' => 'any',
 					'numberposts' => 999,
 				]
 			);
-			foreach( $ep_synonyms as $synonym ) {
+			foreach( $eprobe_synonyms as $synonym ) {
 				wp_delete_post( $synonym->ID, true );
 			}`,
 		);

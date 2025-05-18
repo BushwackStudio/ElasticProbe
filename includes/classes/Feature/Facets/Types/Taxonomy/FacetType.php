@@ -27,8 +27,8 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 	 */
 	public function setup() {
 		add_action( 'widgets_init', [ $this, 'register_widgets' ] );
-		add_filter( 'ep_facet_query_filters', [ $this, 'add_query_filters' ] );
-		add_filter( 'ep_facet_wp_query_aggs_facet', [ $this, 'set_wp_query_aggs' ] );
+		add_filter( 'eprobe_facet_query_filters', [ $this, 'add_query_filters' ] );
+		add_filter( 'eprobe_facet_wp_query_aggs_facet', [ $this, 'set_wp_query_aggs' ] );
 
 		$this->block = new Block();
 		$this->block->setup();
@@ -66,12 +66,12 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 		/**
 		 * Filter the facet filter name that's added to the URL
 		 *
-		 * @hook ep_facet_filter_name
+		 * @hook eprobe_facet_filter_name
 		 * @since 4.0.0
 		 * @param   {string} Facet filter name
 		 * @return  {string} New facet filter name
 		 */
-		return apply_filters( 'ep_facet_filter_name', 'ep_filter_' );
+		return apply_filters( 'eprobe_facet_filter_name', 'ep_filter_' );
 	}
 
 	/**
@@ -83,12 +83,12 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 		/**
 		 * Filter the facet filter type. Used by the Facet feature to organize filters.
 		 *
-		 * @hook ep_facet_filter_type
+		 * @hook eprobe_facet_filter_type
 		 * @since 4.3.0
 		 * @param   {string} Facet filter type
 		 * @return  {string} New facet filter type
 		 */
-		return apply_filters( 'ep_facet_filter_type', 'taxonomies' );
+		return apply_filters( 'eprobe_facet_filter_type', 'taxonomies' );
 	}
 
 	/**
@@ -101,12 +101,12 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 		/**
 		 * Filter the facet filter sanitize callback.
 		 *
-		 * @hook ep_facet_meta_sanitize_callback
+		 * @hook eprobe_facet_meta_sanitize_callback
 		 * @since 4.4.0
 		 * @param   {string} Facet filter sanitize callback
 		 * @return  {string} New facet filter sanitize callback
 		 */
-		return apply_filters( 'ep_facet_sanitize_callback', 'sanitize_title' );
+		return apply_filters( 'eprobe_facet_sanitize_callback', 'sanitize_title' );
 	}
 
 	/**
@@ -126,11 +126,11 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 		/**
 		 * Filter taxonomies made available for faceting
 		 *
-		 * @hook ep_facet_include_taxonomies
+		 * @hook eprobe_facet_include_taxonomies
 		 * @param  {array} $taxonomies Taxonomies
 		 * @return  {array} New taxonomies
 		 */
-		return apply_filters( 'ep_facet_include_taxonomies', $taxonomies );
+		return apply_filters( 'eprobe_facet_include_taxonomies', $taxonomies );
 	}
 
 	/**
@@ -173,7 +173,7 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 		$tax_query = $query->get( 'tax_query', [] );
 
 		/** This filter is documented below */
-		$special_taxonomies = apply_filters( 'ep_facet_tax_special_slug_taxonomies', [], $selected_filters );
+		$special_taxonomies = apply_filters( 'eprobe_facet_tax_special_slug_taxonomies', [], $selected_filters );
 
 		foreach ( $selected_filters['taxonomies'] as $taxonomy => $filter ) {
 			$tax_query[] = [
@@ -216,12 +216,12 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 		 * Filter for treatment special slugs in taxonomies. This is used in case you need to change the default taxonomy slug.
 		 *
 		 * @since 4.7.0
-		 * @hook ep_facet_tax_special_slug_taxonomies
+		 * @hook eprobe_facet_tax_special_slug_taxonomies
 		 * @param  {array} $special_taxonomies Taxonomies with special slugs.
 		 * @param  {array} $selected_filters Selected filters.
 		 * @return {array} New taxonomies with special slugs.
 		 */
-		$special_taxonomies = apply_filters( 'ep_facet_tax_special_slug_taxonomies', [], $selected_filters );
+		$special_taxonomies = apply_filters( 'eprobe_facet_tax_special_slug_taxonomies', [], $selected_filters );
 
 		$match_type = $feature->get_match_type();
 
@@ -276,16 +276,16 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 			 *  - facet (retrieves a JSON representation of the term object)
 			 *
 			 * @since 3.6.0, 4.3.0 added $taxonomy
-			 * @hook ep_facet_use_field
+			 * @hook eprobe_facet_use_field
 			 * @param  {string}      $field    The term field to use
 			 * @param  {WP_Taxonomy} $taxonomy The taxonomy
 			 * @return  {string} The chosen term field
 			 */
-			$facet_field = apply_filters( 'ep_facet_use_field', 'slug', $taxonomy );
+			$facet_field = apply_filters( 'eprobe_facet_use_field', 'slug', $taxonomy );
 
 			$facet_aggs[ $slug ] = array(
 				'terms' => array(
-					'size'  => apply_filters( 'ep_facet_taxonomies_size', 10000, $taxonomy ),
+					'size'  => apply_filters( 'eprobe_facet_taxonomies_size', 10000, $taxonomy ),
 					'field' => 'terms.' . $slug . '.' . $facet_field,
 				),
 			);

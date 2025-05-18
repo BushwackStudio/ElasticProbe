@@ -8,6 +8,8 @@
  * phpcs:disable Universal.Files.SeparateFunctionsFromOO.Mixed
  */
 
+namespace ElasticProbe;
+
 /**
  * This class was replaced with \ElasticProbe\FeatureRequirementsStatus
  */
@@ -225,7 +227,7 @@ class $class_name extends ElasticProbe\Feature {
 	eval( $code );
 	// phpcs:enable
 
-	ElasticProbe\Features::factory()->register_feature(
+	Features::factory()->register_feature(
 		new $class_name()
 	);
 }

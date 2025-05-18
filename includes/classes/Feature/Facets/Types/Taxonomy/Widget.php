@@ -45,7 +45,7 @@ class Widget extends \WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 		/** This filter is documented in includes/classes/Feature/Facets/Types/Taxonomy/Block.php */
-		$renderer_class = apply_filters( 'ep_facet_renderer_class', __NAMESPACE__ . '\Renderer', 'taxonomy', 'block', $instance );
+		$renderer_class = apply_filters( 'eprobe_facet_renderer_class', __NAMESPACE__ . '\Renderer', 'taxonomy', 'block', $instance );
 		$renderer       = new $renderer_class();
 
 		$renderer->render( $args, $instance );
@@ -64,7 +64,7 @@ class Widget extends \WP_Widget {
 		_deprecated_function( __FUNCTION__, '0.1.0', '$this->renderer->get_facet_term_html()' );
 
 		/** This filter is documented in includes/classes/Feature/Facets/Types/Taxonomy/Block.php */
-		$renderer_class = apply_filters( 'ep_facet_renderer_class', __NAMESPACE__ . '\Renderer', 'taxonomy', 'block', [] );
+		$renderer_class = apply_filters( 'eprobe_facet_renderer_class', __NAMESPACE__ . '\Renderer', 'taxonomy', 'block', [] );
 		$renderer       = new $renderer_class();
 
 		return $renderer->get_facet_item_value_html( $term, $url, $selected );
@@ -79,7 +79,7 @@ class Widget extends \WP_Widget {
 	public function form( $instance ) {
 		$dashboard_url = admin_url( 'admin.php?page=elasticprobe' );
 
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 			$dashboard_url = network_admin_url( 'admin.php?page=elasticprobe' );
 		}
 

@@ -32,7 +32,7 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 	 */
 	public function register_block() {
 		register_block_type_from_metadata(
-			EP_PATH . 'assets/js/blocks/facets/meta',
+			EPROBE_PATH . 'assets/js/blocks/facets/meta',
 			[
 				'render_callback' => [ $this, 'render_block' ],
 			]
@@ -49,14 +49,14 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 	 */
 	public function enqueue_editor_assets() {
 		wp_register_script(
-			'ep-facets-meta-block-script',
-			EP_URL . 'dist/js/facets-meta-block-script.js',
+			'eprobe-facets-meta-block-script',
+			EPROBE_URL . 'dist/js/facets-meta-block-script.js',
 			Utils\get_asset_info( 'facets-meta-block-script', 'dependencies' ),
 			Utils\get_asset_info( 'facets-meta-block-script', 'version' ),
 			true
 		);
 
-		wp_set_script_translations( 'ep-facets-meta-block-script', 'elasticprobe' );
+		wp_set_script_translations( 'eprobe-facets-meta-block-script', 'elasticprobe' );
 	}
 
 	/**
@@ -69,10 +69,10 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 		global $wp_query;
 
 		if ( $attributes['isPreview'] ) {
-			add_filter( 'ep_is_facetable', '__return_true' );
+			add_filter( 'eprobe_is_facetable', '__return_true' );
 
 			add_filter(
-				'ep_facet_meta_fields',
+				'eprobe_facet_meta_fields',
 				function ( $meta_fields ) use ( $attributes ) {
 					$meta_fields = [ $attributes['facet'] ];
 					return $meta_fields;
@@ -90,7 +90,7 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 		}
 
 		/** This filter is documented in includes/classes/Feature/Facets/Types/Taxonomy/Block.php */
-		$renderer_class = apply_filters( 'ep_facet_renderer_class', __NAMESPACE__ . '\Renderer', 'meta', 'block', $attributes );
+		$renderer_class = apply_filters( 'eprobe_facet_renderer_class', __NAMESPACE__ . '\Renderer', 'meta', 'block', $attributes );
 		$renderer       = new $renderer_class();
 
 		ob_start();

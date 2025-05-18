@@ -30,7 +30,7 @@ Open a [new blank issue](https://github.com/BushwackStudio/ElasticProbe/issues/n
 
 - [ ] 1. If the new version requires a reindex, add its number to the `$reindex_versions` array in the `ElasticProbe\Upgrades::check_reindex_needed()` method. If it is the case, remember to add that information to the Changelog listings in `readme.txt` and `CHANGELOG.md`.
 - [ ] 2. Branch: Starting from `dev`, cut a release branch named `release/X.Y.Z` for your changes.
-- [ ] 3. Version bump: Bump the version number in `elasticprobe.php`, `package.json`, `package-lock.json`, `readme.txt`, and any other relevant files if it does not already reflect the version being released. In `elasticprobe.php` update both the plugin "Version:" property and the plugin `EP_VERSION` constant.
+- [ ] 3. Version bump: Bump the version number in `elasticprobe.php`, `package.json`, `package-lock.json`, `readme.txt`, and any other relevant files if it does not already reflect the version being released. In `elasticprobe.php` update both the plugin "Version:" property and the plugin `EPROBE_VERSION` constant.
 - [ ] 4. Changelog: Add/update the changelog in `CHANGELOG.md` and `readme.txt`, ensuring to link the [X.Y.Z] release reference in the footer of `CHANGELOG.md` (e.g., https://github.com/BushwackStudio/ElasticProbe/compare/X.Y.Z-1...X.Y.Z).
 - [ ] 5. Props: Update `CREDITS.md` file with any new contributors, confirm maintainers are accurate.
 - [ ] 6. Readme updates: Make any other readme changes as necessary. `README.md` is geared toward GitHub and `readme.txt` contains WordPress.org-specific content. The two are slightly different.
@@ -56,7 +56,7 @@ Pre-releases are different from normal versions because (1) they are not publish
 
 1. If the new version requires a reindex, add its number to the `$reindex_versions` array in the `ElasticProbe\Upgrades::check_reindex_needed()` method.  If it is the case, remember to add that information to the Changelog listings in `readme.txt` and `CHANGELOG.md`.
 1. Branch: Starting from the next version branch, for example, `4.x.x`, cut a release branch named `release/X.Y.Z` for your changes.
-1. Version bump: Bump the version number in `elasticprobe.php`, `package.json`, `package-lock.json`, `readme.txt`, and any other relevant files if it does not already reflect the version being released.  In `elasticprobe.php` update both the plugin "Version:" property and the plugin `EP_VERSION` constant. The version should follow the `X.Y.Z-beta.A` pattern.
+1. Version bump: Bump the version number in `elasticprobe.php`, `package.json`, `package-lock.json`, `readme.txt`, and any other relevant files if it does not already reflect the version being released.  In `elasticprobe.php` update both the plugin "Version:" property and the plugin `EPROBE_VERSION` constant. The version should follow the `X.Y.Z-beta.A` pattern.
 1. Changelog: Add/update the changelog in `CHANGELOG.md` and `readme.txt`, ensuring to link the [X.Y.Z] release reference in the footer of `CHANGELOG.md` (e.g., https://github.com/BushwackStudio/ElasticProbe/compare/X.Y.Z-1...X.Y.Z).
 1. Props: Update `CREDITS.md` file with any new contributors, confirm maintainers are accurate.
 1. Readme updates: Make any other readme changes as necessary. `README.md` is geared toward GitHub and `readme.txt` contains WordPress.org-specific content.  The two are slightly different.
@@ -76,7 +76,7 @@ There may be cases where we have an urgent/important fix that ideally gets into 
 
 1. If the new version requires a reindex, add its number to the `$reindex_versions` array in the `ElasticProbe\Upgrades::check_reindex_needed()` method.  If it is the case, remember to add that information to the Changelog listings in `readme.txt` and `CHANGELOG.md`.
 1. Branch: Starting from `trunk`, cut a hotfix release branch named `hotfix/X.Y.Z` for your hotfix change(s).
-1. Version bump: Bump the version number in `elasticprobe.php`, `package.json`, `readme.txt`, and any other relevant files if it does not already reflect the version being released.  In `elasticprobe.php` update both the plugin "Version:" property and the plugin `EP_VERSION` constant.
+1. Version bump: Bump the version number in `elasticprobe.php`, `package.json`, `readme.txt`, and any other relevant files if it does not already reflect the version being released.  In `elasticprobe.php` update both the plugin "Version:" property and the plugin `EPROBE_VERSION` constant.
 1. Changelog: Add/update the changelog in `CHANGELOG.md` and `readme.txt`, ensuring to link the [X.Y.Z] release reference in the footer of `CHANGELOG.md` (e.g., https://github.com/BushwackStudio/ElasticProbe/compare/X.Y.Z-1...X.Y.Z).
 1. Props: Update `CREDITS.md` file with any new contributors, confirm maintainers are accurate.
 1. Readme updates: Make any other readme changes as necessary.  `README.md` is geared toward GitHub and `readme.txt` contains WordPress.org-specific content.  The two are slightly different.

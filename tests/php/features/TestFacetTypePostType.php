@@ -43,12 +43,12 @@ class TestFacetTypePostType extends BaseTestCase {
 		$this->assertEquals( 'ep_post_type_filter', $this->facet_type->get_filter_name() );
 
 		/**
-		 * Test the `ep_facet_post_type_filter_name` filter
+		 * Test the `eprobe_facet_post_type_filter_name` filter
 		 */
 		$change_filter_name = function ( $filter_name ) {
 			return $filter_name . '_';
 		};
-		add_filter( 'ep_facet_post_type_filter_name', $change_filter_name );
+		add_filter( 'eprobe_facet_post_type_filter_name', $change_filter_name );
 		$this->assertEquals( 'ep_post_type_filter_', $this->facet_type->get_filter_name() );
 	}
 
@@ -64,12 +64,12 @@ class TestFacetTypePostType extends BaseTestCase {
 		$this->assertEquals( 'ep_post_type', $this->facet_type->get_filter_type() );
 
 		/**
-		 * Test the `ep_facet_post_type_filter_type` filter
+		 * Test the `eprobe_facet_post_type_filter_type` filter
 		 */
 		$change_filter_type = function ( $filter_type ) {
 			return $filter_type . '_';
 		};
-		add_filter( 'ep_facet_post_type_filter_type', $change_filter_type );
+		add_filter( 'eprobe_facet_post_type_filter_type', $change_filter_type );
 		$this->assertEquals( 'ep_post_type_', $this->facet_type->get_filter_type() );
 	}
 
@@ -81,10 +81,10 @@ class TestFacetTypePostType extends BaseTestCase {
 	public function testSetWpQueryAggs() {
 		$initial_aggs = [ 'initial' ];
 
-		add_filter( 'ep_facetable_post_types', '__return_empty_array' );
+		add_filter( 'eprobe_facetable_post_types', '__return_empty_array' );
 		$this->assertSame( $initial_aggs, $this->facet_type->set_wp_query_aggs( $initial_aggs ) );
 
-		remove_filter( 'ep_facetable_post_types', '__return_empty_array' );
+		remove_filter( 'eprobe_facetable_post_types', '__return_empty_array' );
 
 		$new_aggs = $this->facet_type->set_wp_query_aggs( $initial_aggs );
 
@@ -98,14 +98,14 @@ class TestFacetTypePostType extends BaseTestCase {
 		$this->assertSame( $expected_agg, $new_aggs['post_type'] );
 
 		/**
-		 * Test the `ep_facet_post_type_size` filter
+		 * Test the `eprobe_facet_post_type_size` filter
 		 */
 		$change_size = function ( $size, $post_types ) {
 			$searchable_post_types = Features::factory()->get_registered_feature( 'search' )->get_searchable_post_types();
 			$this->assertSame( $searchable_post_types, $post_types );
 			return 5;
 		};
-		add_filter( 'ep_facet_post_type_size', $change_size, 10, 2 );
+		add_filter( 'eprobe_facet_post_type_size', $change_size, 10, 2 );
 
 		$new_aggs = $this->facet_type->set_wp_query_aggs( $initial_aggs );
 		$this->assertSame( 5, $new_aggs['post_type']['terms']['size'] );
@@ -140,13 +140,13 @@ class TestFacetTypePostType extends BaseTestCase {
 		$this->assertSame( $searchable_post_types, $this->facet_type->get_facetable_post_types() );
 
 		/**
-		 * Test the `ep_facetable_post_types` filter
+		 * Test the `eprobe_facetable_post_types` filter
 		 */
 		$change_filter_type = function ( $post_types ) {
 			$post_types['test'] = 'test';
 			return $post_types;
 		};
-		add_filter( 'ep_facetable_post_types', $change_filter_type );
+		add_filter( 'eprobe_facetable_post_types', $change_filter_type );
 		$this->assertArrayHasKey( 'test', $this->facet_type->get_facetable_post_types() );
 	}
 

@@ -27,7 +27,7 @@ class TestFacetTypeMetaRange extends BaseTestCase {
 	 */
 	public function set_up() {
 		/**
-		 * It is too late to use the `ep_facet_types` filter.
+		 * It is too late to use the `eprobe_facet_types` filter.
 		 *
 		 * NOTE: This can be removed after the meta range facet type is made available.
 		 */
@@ -55,12 +55,12 @@ class TestFacetTypeMetaRange extends BaseTestCase {
 		$this->assertEquals( 'ep_meta_range_filter_', $this->facet_type->get_filter_name() );
 
 		/**
-		 * Test the `ep_facet_meta_filter_name` filter
+		 * Test the `eprobe_facet_meta_filter_name` filter
 		 */
 		$change_filter_name = function ( $filter_name ) {
 			return $filter_name . '_';
 		};
-		add_filter( 'ep_facet_meta_range_filter_name', $change_filter_name );
+		add_filter( 'eprobe_facet_meta_range_filter_name', $change_filter_name );
 		$this->assertEquals( 'ep_meta_range_filter__', $this->facet_type->get_filter_name() );
 	}
 
@@ -76,12 +76,12 @@ class TestFacetTypeMetaRange extends BaseTestCase {
 		$this->assertEquals( 'meta-range', $this->facet_type->get_filter_type() );
 
 		/**
-		 * Test the `ep_facet_filter_type` filter
+		 * Test the `eprobe_facet_filter_type` filter
 		 */
 		$change_filter_type = function ( $filter_type ) {
 			return $filter_type . '_';
 		};
-		add_filter( 'ep_facet_meta_range_filter_type', $change_filter_type );
+		add_filter( 'eprobe_facet_meta_range_filter_type', $change_filter_type );
 		$this->assertEquals( 'meta-range_', $this->facet_type->get_filter_type() );
 	}
 
@@ -95,7 +95,7 @@ class TestFacetTypeMetaRange extends BaseTestCase {
 			$fields[] = 'my_custom_field';
 			return $fields;
 		};
-		add_filter( 'ep_facet_meta_range_fields', $allow_field );
+		add_filter( 'eprobe_facet_meta_range_fields', $allow_field );
 
 		parse_str( 'ep_meta_range_filter_my_custom_field_min=5&ep_meta_range_filter_my_custom_field_max=25', $_GET );
 
@@ -131,7 +131,7 @@ class TestFacetTypeMetaRange extends BaseTestCase {
 			$fields[] = 'my_custom_field';
 			return $fields;
 		};
-		add_filter( 'ep_facet_meta_range_fields', $allow_field );
+		add_filter( 'eprobe_facet_meta_range_fields', $allow_field );
 
 		parse_str( 'ep_meta_range_filter_my_custom_field_min=5&ep_meta_range_filter_my_custom_field_max=25&ep_meta_range_filter_not_allowed_min=5&ep_meta_range_filter_not_allowed_max=25', $_GET );
 
@@ -149,7 +149,7 @@ class TestFacetTypeMetaRange extends BaseTestCase {
 		];
 		$this->assertSame( $expected, $new_filters );
 
-		add_filter( 'ep_facet_should_check_if_allowed', '__return_false' );
+		add_filter( 'eprobe_facet_should_check_if_allowed', '__return_false' );
 
 		// As we are not checking, it should have `not_allowed` now
 		$new_filters = $this->facet_type->add_query_filters( [] );
@@ -183,7 +183,7 @@ class TestFacetTypeMetaRange extends BaseTestCase {
 		$set_facet_meta_field = function () {
 			return [ 'new_meta_key_1', 'new_meta_key_2' ];
 		};
-		add_filter( 'ep_facet_meta_range_fields', $set_facet_meta_field );
+		add_filter( 'eprobe_facet_meta_range_fields', $set_facet_meta_field );
 
 		$with_aggs = $this->facet_type->set_wp_query_aggs( [] );
 
@@ -204,13 +204,13 @@ class TestFacetTypeMetaRange extends BaseTestCase {
 		$this->assertSame( $with_aggs['ep_meta_range_filter_new_meta_key_1_max'], $default_max_agg );
 
 		/**
-		 * Test the `ep_facet_meta_use_field` filter
+		 * Test the `eprobe_facet_meta_use_field` filter
 		 */
 		$change_meta_facet_field = function ( $es_field, $meta_field ) {
 			return ( 'new_meta_key_1' === $meta_field ) ? 'long' : $es_field;
 		};
 
-		add_filter( 'ep_facet_meta_use_field', $change_meta_facet_field, 10, 2 );
+		add_filter( 'eprobe_facet_meta_use_field', $change_meta_facet_field, 10, 2 );
 
 		$with_aggs = $this->facet_type->set_wp_query_aggs( [] );
 		$this->assertSame( 'meta.new_meta_key_1.double', $with_aggs['ep_meta_range_filter_new_meta_key_1_min']['min']['field'] );
@@ -218,7 +218,7 @@ class TestFacetTypeMetaRange extends BaseTestCase {
 		$this->assertSame( 'meta.new_meta_key_2.double', $with_aggs['ep_meta_range_filter_new_meta_key_2_min']['min']['field'] );
 		$this->assertSame( 'meta.new_meta_key_2.double', $with_aggs['ep_meta_range_filter_new_meta_key_2_max']['max']['field'] );
 
-		remove_filter( 'ep_facet_meta_use_field', $change_meta_facet_field );
+		remove_filter( 'eprobe_facet_meta_use_field', $change_meta_facet_field );
 	}
 
 	/**

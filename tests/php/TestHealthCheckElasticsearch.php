@@ -59,7 +59,7 @@ class TestHealthCheckElasticsearch extends WP_Ajax_UnitTestCase {
 		$admin_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
 		wp_set_current_user( $admin_id );
 
-		add_filter( 'ep_host', '__return_empty_string' );
+		add_filter( 'eprobe_host', '__return_empty_string' );
 
 		// Make the request.
 		try {
@@ -85,7 +85,7 @@ class TestHealthCheckElasticsearch extends WP_Ajax_UnitTestCase {
 		$admin_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
 		wp_set_current_user( $admin_id );
 
-		add_filter( 'ep_elasticsearch_version', '__return_false' );
+		add_filter( 'eprobe_elasticsearch_version', '__return_false' );
 
 		// Make the request.
 		try {
@@ -115,11 +115,11 @@ class TestHealthCheckElasticsearch extends WP_Ajax_UnitTestCase {
 		$admin_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
 		wp_set_current_user( $admin_id );
 
-		$ep_host = function () {
+		$eprobe_host = function () {
 			return 'wpprobe.com/random-string';
 		};
-		add_filter( 'ep_host', $ep_host );
-		add_filter( 'ep_elasticsearch_version', '__return_false' );
+		add_filter( 'eprobe_host', $eprobe_host );
+		add_filter( 'eprobe_elasticsearch_version', '__return_false' );
 
 		// Make the request.
 		try {
@@ -137,8 +137,8 @@ class TestHealthCheckElasticsearch extends WP_Ajax_UnitTestCase {
 		$this->assertEquals( 'red', $response['data']['badge']['color'] );
 		$this->assertEquals( 'Check if your credentials to WPProbe.com host are correct.', $response['data']['description'] );
 
-		remove_filter( 'ep_host', $ep_host );
-		remove_filter( 'ep_elasticsearch_version', '__return_false' );
+		remove_filter( 'eprobe_host', $eprobe_host );
+		remove_filter( 'eprobe_elasticsearch_version', '__return_false' );
 
 		// refetch the elasticsearch version. This is needed because this test has changed the value.
 		Elasticsearch::factory()->get_elasticsearch_version( true );

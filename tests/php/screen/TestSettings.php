@@ -40,12 +40,12 @@ class TestSettings extends BaseTestCase {
 		$settings = new Settings();
 		$settings->admin_enqueue_scripts();
 
-		$this->assertFalse( wp_script_is( 'ep_settings_scripts' ) );
+		$this->assertFalse( wp_script_is( 'eprobe_settings_scripts' ) );
 
 		Screen::factory()->set_current_screen( 'settings' );
 		$settings->admin_enqueue_scripts();
 
-		$this->assertTrue( wp_script_is( 'ep_settings_scripts' ) );
+		$this->assertTrue( wp_script_is( 'eprobe_settings_scripts' ) );
 	}
 
 	/**
@@ -58,29 +58,29 @@ class TestSettings extends BaseTestCase {
 		global $_POST;
 
 		$settings  = new Settings();
-		$prev_host = Utils\get_option( 'ep_host' );
+		$prev_host = Utils\get_option( 'eprobe_host' );
 
-		Utils\update_option( 'ep_host', '--' );
+		Utils\update_option( 'eprobe_host', '--' );
 
 		$_POST = [
 			'ep_settings_nonce' => '',
-			'ep_language'       => 'test_lang',
-			'ep_host'           => $prev_host,
-			'ep_bulk_setting'   => 4,
+			'eprobe_language'       => 'test_lang',
+			'eprobe_host'           => $prev_host,
+			'eprobe_bulk_setting'   => 4,
 		];
 
 		$settings->action_admin_init();
 
 		// Should not change anything, as the nonce wasn't passed
 		$this->assertSame( 'site-default', Utils\get_language() );
-		$this->assertSame( 350, Utils\get_option( 'ep_bulk_setting', 350 ) );
+		$this->assertSame( 350, Utils\get_option( 'eprobe_bulk_setting', 350 ) );
 
 		$_POST['ep_settings_nonce'] = wp_create_nonce( 'elasticpress_settings' );
 		$settings->action_admin_init();
 
 		// Should have the new values
 		$this->assertSame( 'test_lang', Utils\get_language() );
-		$this->assertSame( 4, Utils\get_option( 'ep_bulk_setting' ) );
+		$this->assertSame( 4, Utils\get_option( 'eprobe_bulk_setting' ) );
 	}
 
 	/**
@@ -93,19 +93,19 @@ class TestSettings extends BaseTestCase {
 		global $_POST;
 
 		$settings  = new Settings();
-		$prev_host = Utils\get_option( 'ep_host' );
+		$prev_host = Utils\get_option( 'eprobe_host' );
 
 		$_POST = [
 			'ep_settings_nonce' => wp_create_nonce( 'elasticpress_settings' ),
-			'ep_language'       => 'site-default',
-			'ep_host'           => 'http://wrong.test/',
+			'eprobe_language'       => 'site-default',
+			'eprobe_host'           => 'http://wrong.test/',
 		];
 
 		$settings->action_admin_init();
 
 		$this->assertSame( $prev_host, Utils\get_host() );
 		$this->assertSame( 10, has_action( 'admin_notices', [ $settings, 'add_validation_notice' ] ) );
-		$this->assertNotContains( 'ep_host', $_POST );
+		$this->assertNotContains( 'eprobe_host', $_POST );
 	}
 
 	/**

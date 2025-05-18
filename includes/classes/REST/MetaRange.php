@@ -33,9 +33,8 @@ class MetaRange {
 			'methods'             => 'GET',
 			'permission_callback' => [ $this, 'check_permission' ],
 		];
-		// TODO: Change REST route
-		register_rest_route( 'elasticpress/v1', 'meta-range', $args );
-		register_rest_route( 'elasticpress/v1', 'facets/meta-range/block-preview', $args );
+		register_rest_route( 'elasticprobe/v1', 'meta-range', $args );
+		register_rest_route( 'elasticprobe/v1', 'facets/meta-range/block-preview', $args );
 	}
 
 	/**
@@ -71,7 +70,7 @@ class MetaRange {
 	public function get_meta_range( \WP_REST_Request $request ) {
 		global $wp_query;
 
-		add_filter( 'ep_is_facetable', '__return_true' );
+		add_filter( 'eprobe_is_facetable', '__return_true' );
 
 		$search = Features::factory()->get_registered_feature( 'search' );
 		$facets = Features::factory()->get_registered_feature( 'facets' );
@@ -79,7 +78,7 @@ class MetaRange {
 		$facet = $request->get_param( 'facet' );
 
 		add_filter(
-			'ep_facet_meta_range_fields',
+			'eprobe_facet_meta_range_fields',
 			function ( $meta_fields ) use ( $facet ) {
 				$meta_fields = [ $facet ];
 

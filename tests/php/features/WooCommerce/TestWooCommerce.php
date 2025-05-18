@@ -161,12 +161,12 @@ class TestWooCommerce extends WooCommerceBaseTestCase {
 		$this->assertSame( $woocommerce_feature->is_orders_autosuggest_available(), \ElasticProbe\Utils\is_epio() );
 
 		/**
-		 * Test the `ep_woocommerce_orders_autosuggest_available` filter
+		 * Test the `eprobe_woocommerce_orders_autosuggest_available` filter
 		 */
-		add_filter( 'ep_woocommerce_orders_autosuggest_available', '__return_true' );
+		add_filter( 'eprobe_woocommerce_orders_autosuggest_available', '__return_true' );
 		$this->assertTrue( $woocommerce_feature->is_orders_autosuggest_available() );
 
-		add_filter( 'ep_woocommerce_orders_autosuggest_available', '__return_false' );
+		add_filter( 'eprobe_woocommerce_orders_autosuggest_available', '__return_false' );
 		$this->assertFalse( $woocommerce_feature->is_orders_autosuggest_available() );
 	}
 
@@ -185,7 +185,7 @@ class TestWooCommerce extends WooCommerceBaseTestCase {
 		/**
 		 * Make it available but it won't be enabled
 		 */
-		add_filter( 'ep_woocommerce_orders_autosuggest_available', '__return_true' );
+		add_filter( 'eprobe_woocommerce_orders_autosuggest_available', '__return_true' );
 		$this->assertFalse( $woocommerce_feature->is_orders_autosuggest_enabled() );
 
 		/**
@@ -198,14 +198,14 @@ class TestWooCommerce extends WooCommerceBaseTestCase {
 				],
 			];
 		};
-		add_filter( 'pre_site_option_ep_feature_settings', $filter );
-		add_filter( 'pre_option_ep_feature_settings', $filter );
+		add_filter( 'pre_site_option_eprobe_feature_settings', $filter );
+		add_filter( 'pre_option_eprobe_feature_settings', $filter );
 		$this->assertTrue( $woocommerce_feature->is_orders_autosuggest_enabled() );
 
 		/**
 		 * Make it unavailable. Even activated, it should not be considered enabled if not available anymore.
 		 */
-		remove_filter( 'ep_woocommerce_orders_autosuggest_available', '__return_true' );
+		remove_filter( 'eprobe_woocommerce_orders_autosuggest_available', '__return_true' );
 		if ( ElasticProbe\Utils\is_epio() ) {
 			$this->assertTrue( $woocommerce_feature->is_orders_autosuggest_enabled() );
 		} else {
@@ -313,7 +313,7 @@ class TestWooCommerce extends WooCommerceBaseTestCase {
 	}
 
 	/**
-	 * Test the ep_woocommerce_admin_products_list_search_fields filter
+	 * Test the eprobe_woocommerce_admin_products_list_search_fields filter
 	 *
 	 * @since 4.2.0
 	 * @group woocommerce
@@ -336,7 +336,7 @@ class TestWooCommerce extends WooCommerceBaseTestCase {
 		$search_fields_function = function () {
 			return [ 'post_title', 'post_content' ];
 		};
-		add_filter( 'ep_woocommerce_admin_products_list_search_fields', $search_fields_function );
+		add_filter( 'eprobe_woocommerce_admin_products_list_search_fields', $search_fields_function );
 
 		$query = new \WP_Query( $query_args );
 		$this->assertEquals(

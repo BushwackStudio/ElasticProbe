@@ -138,9 +138,9 @@ class TestTerm extends BaseTestCase {
 	 */
 	public function testTermSync() {
 		add_action(
-			'ep_sync_term_on_transition',
+			'eprobe_sync_term_on_transition',
 			function () {
-				$this->fired_actions['ep_sync_term_on_transition'] = true;
+				$this->fired_actions['eprobe_sync_term_on_transition'] = true;
 			}
 		);
 
@@ -154,7 +154,7 @@ class TestTerm extends BaseTestCase {
 
 		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
-		$this->assertTrue( ! empty( $this->fired_actions['ep_sync_term_on_transition'] ) );
+		$this->assertTrue( ! empty( $this->fired_actions['eprobe_sync_term_on_transition'] ) );
 
 		$term = ElasticProbe\Indexables::factory()->get( 'term' )->get( $term['term_id'] );
 
@@ -210,14 +210,14 @@ class TestTerm extends BaseTestCase {
 		$created_term_id = $term['term_id'];
 
 		add_action(
-			'ep_sync_term_on_transition',
+			'eprobe_sync_term_on_transition',
 			function () {
-				$this->fired_actions['ep_sync_term_on_transition'] = true;
+				$this->fired_actions['eprobe_sync_term_on_transition'] = true;
 			}
 		);
 
 		add_filter(
-			'ep_term_sync_kill',
+			'eprobe_term_sync_kill',
 			function ( $kill, $term_id ) use ( $created_term_id ) {
 				if ( $created_term_id === $term_id ) {
 					return true;
@@ -231,7 +231,7 @@ class TestTerm extends BaseTestCase {
 
 		ElasticProbe\Indexables::factory()->get( 'term' )->sync_manager->action_sync_on_update( $created_term_id );
 
-		$this->assertTrue( empty( $this->fired_actions['ep_sync_term_on_transition'] ) );
+		$this->assertTrue( empty( $this->fired_actions['eprobe_sync_term_on_transition'] ) );
 	}
 
 	/**
@@ -277,7 +277,7 @@ class TestTerm extends BaseTestCase {
 			return 2;
 		};
 
-		add_filter( 'ep_max_results_window', $return_2 );
+		add_filter( 'eprobe_max_results_window', $return_2 );
 
 		$term_query = new \WP_Term_Query(
 			[
@@ -1406,7 +1406,7 @@ class TestTerm extends BaseTestCase {
 		$term_id = $this->ep_factory->category->create();
 		update_term_meta( $term_id, '_custom_protected_key', 123 );
 
-		add_filter( 'ep_prepare_term_meta_allowed_protected_keys', $callback );
+		add_filter( 'eprobe_prepare_term_meta_allowed_protected_keys', $callback );
 
 		$prepared_meta = $term->prepare_meta( $term_id );
 
@@ -1663,8 +1663,8 @@ class TestTerm extends BaseTestCase {
 	 */
 	public function testPutMapping() {
 
-		// This lets us trigger the ep_fallback_elasticsearch_version filter.
-		add_filter( 'ep_elasticsearch_version', '__return_false' );
+		// This lets us trigger the eprobe_fallback_elasticsearch_version filter.
+		add_filter( 'eprobe_elasticsearch_version', '__return_false' );
 
 		$term = new \ElasticProbe\Indexable\Term\Term();
 
@@ -1687,17 +1687,17 @@ class TestTerm extends BaseTestCase {
 			};
 
 			// Tell EP that we're running a specific ES version.
-			add_filter( 'ep_fallback_elasticsearch_version', $version_callback );
+			add_filter( 'eprobe_fallback_elasticsearch_version', $version_callback );
 
 			// Turn on the test for the mapping file.
-			add_filter( 'ep_term_mapping_file', $assert_callback );
+			add_filter( 'eprobe_term_mapping_file', $assert_callback );
 
 			// Run put_mapping(), which will trigger these filters above
 			// and run the tests.
 			$term->put_mapping();
 
-			remove_filter( 'ep_fallback_elasticsearch_version', $version_callback );
-			remove_filter( 'ep_term_mapping_file', $assert_callback );
+			remove_filter( 'eprobe_fallback_elasticsearch_version', $version_callback );
+			remove_filter( 'eprobe_term_mapping_file', $assert_callback );
 		}
 	}
 
@@ -1890,7 +1890,7 @@ class TestTerm extends BaseTestCase {
 		$change_lang = function ( $lang, $context ) {
 			return 'filter_ep_stop' === $context ? '_arabic_' : $lang;
 		};
-		add_filter( 'ep_analyzer_language', $change_lang, 11, 2 );
+		add_filter( 'eprobe_analyzer_language', $change_lang, 11, 2 );
 
 		ElasticProbe\Elasticsearch::factory()->delete_all_indices();
 		$indexable->put_mapping();

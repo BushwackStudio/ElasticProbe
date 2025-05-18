@@ -3,7 +3,7 @@ describe('Protected Content Feature', () => {
 		cy.login();
 
 		cy.visitAdminPage('admin.php?page=elasticprobe');
-		cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
+		cy.intercept('/wp-json/elasticprobe/v1/features*').as('apiRequest');
 
 		cy.contains('button', 'Protected Content').click();
 		cy.contains('label', 'Enable').click();

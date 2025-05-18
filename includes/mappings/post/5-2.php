@@ -15,54 +15,54 @@ return array(
 		/**
 		 * Filter number of Elasticsearch shards to use in indices
 		 *
-		 * @hook ep_default_index_number_of_shards
+		 * @hook eprobe_default_index_number_of_shards
 		 * @param  {int} $shards Number of shards
 		 * @return {int} New number
 		 */
-		'index.number_of_shards'           => apply_filters( 'ep_default_index_number_of_shards', 5 ),
+		'index.number_of_shards'           => apply_filters( 'eprobe_default_index_number_of_shards', 5 ),
 		/**
 		 * Filter number of Elasticsearch replicas to use in indices
 		 *
-		 * @hook ep_default_index_number_of_replicas
+		 * @hook eprobe_default_index_number_of_replicas
 		 * @param  {int} $replicas Number of replicas
 		 * @return {int} New number
 		 */
-		'index.number_of_replicas'         => apply_filters( 'ep_default_index_number_of_replicas', 1 ),
+		'index.number_of_replicas'         => apply_filters( 'eprobe_default_index_number_of_replicas', 1 ),
 		/**
 		 * Filter Elasticsearch total field limit for posts
 		 *
-		 * @hook ep_total_field_limit
+		 * @hook eprobe_total_field_limit
 		 * @param  {int} $number Number of fields
 		 * @return {int} New number
 		 */
-		'index.mapping.total_fields.limit' => apply_filters( 'ep_total_field_limit', 5000 ),
+		'index.mapping.total_fields.limit' => apply_filters( 'eprobe_total_field_limit', 5000 ),
 		/**
 		 * Filter Elasticsearch max result window for posts
 		 *
-		 * @hook ep_max_result_window
+		 * @hook eprobe_max_result_window
 		 * @param  {int} $number Size of result window
 		 * @return {int} New number
 		 */
-		'index.max_result_window'          => apply_filters( 'ep_max_result_window', 1000000 ),
+		'index.max_result_window'          => apply_filters( 'eprobe_max_result_window', 1000000 ),
 		'analysis'                         => array(
 			'analyzer'   => array(
 				'default'          => array(
 					'tokenizer'   => 'standard',
 					/* This filter is documented in includes/mappings/post/7-0.php */
-					'filter'      => apply_filters( 'ep_default_analyzer_filters', array( 'standard', 'ewp_word_delimiter', 'lowercase', 'ep_stop', 'ewp_snowball' ) ),
+					'filter'      => apply_filters( 'eprobe_default_analyzer_filters', array( 'standard', 'ewp_word_delimiter', 'lowercase', 'ep_stop', 'ewp_snowball' ) ),
 					/* This filter is documented in includes/mappings/post/7-0.php */
-					'char_filter' => apply_filters( 'ep_default_analyzer_char_filters', array( 'html_strip' ) ),
+					'char_filter' => apply_filters( 'eprobe_default_analyzer_char_filters', array( 'html_strip' ) ),
 					/* This filter is documented in includes/mappings/post/7-0.php */
-					'language'    => apply_filters( 'ep_analyzer_language', 'english', 'analyzer_default' ),
+					'language'    => apply_filters( 'eprobe_analyzer_language', 'english', 'analyzer_default' ),
 				),
 				'default_search'   => array(
 					'tokenizer'   => 'standard',
 					/* This filter is documented in includes/mappings/post/7-0.php */
-					'filter'      => apply_filters( 'ep_default_search_analyzer_filters', array( 'standard', 'lowercase', 'ep_stop', 'ewp_snowball' ) ),
+					'filter'      => apply_filters( 'eprobe_default_search_analyzer_filters', array( 'standard', 'lowercase', 'ep_stop', 'ewp_snowball' ) ),
 					/* This filter is documented in includes/mappings/post/7-0.php */
-					'char_filter' => apply_filters( 'ep_default_search_analyzer_char_filters', array( 'html_strip' ) ),
+					'char_filter' => apply_filters( 'eprobe_default_search_analyzer_char_filters', array( 'html_strip' ) ),
 					/* This filter is documented in includes/mappings/post/7-0.php */
-					'language'    => apply_filters( 'ep_analyzer_language', 'english', 'analyzer_default' ),
+					'language'    => apply_filters( 'eprobe_analyzer_language', 'english', 'analyzer_default' ),
 				),
 				'shingle_analyzer' => array(
 					'type'      => 'custom',
@@ -88,7 +88,7 @@ return array(
 				'ewp_snowball'       => array(
 					'type'     => 'snowball',
 					/* This filter is documented in includes/mappings/post/7-0.php */
-					'language' => apply_filters( 'ep_analyzer_language', 'english', 'filter_ewp_snowball' ),
+					'language' => apply_filters( 'eprobe_analyzer_language', 'english', 'filter_ewp_snowball' ),
 				),
 				'edge_ngram'         => array(
 					'side'     => 'front',
@@ -100,7 +100,7 @@ return array(
 					'type'        => 'stop',
 					'ignore_case' => true,
 					/* This filter is documented in includes/mappings/post/7-0.php */
-					'stopwords'   => apply_filters( 'ep_analyzer_language', 'english', 'filter_ep_stop' ),
+					'stopwords'   => apply_filters( 'eprobe_analyzer_language', 'english', 'filter_ep_stop' ),
 				],
 			),
 			'normalizer' => array(

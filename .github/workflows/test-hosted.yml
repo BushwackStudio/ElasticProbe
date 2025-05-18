@@ -62,4 +62,4 @@ jobs:
 
     - name: PHPUnit
       run: |
-         EP_HOST="${{ secrets.WPPROBE_HOST }}" PROBE_SID=${{ secrets.WPPROBE_SID }} EP_SHIELD_ID="${{ secrets.WPPROBE_SHIELD_ID }}" EP_SHIELD_TOKEN="${{ secrets.WPPROBE_SHIELD_TOKEN }}" composer run-script test
+         EPROBE_HOST="${{ secrets.WPPROBE_HOST }}" EPROBE_SID=${{ secrets.WPPROBE_SID }} EPROBE_SHIELD_ID="${{ secrets.WPPROBE_SHIELD_ID }}" EPROBE_SHIELD_TOKEN="${{ secrets.WPPROBE_SHIELD_TOKEN }}" composer run-script test

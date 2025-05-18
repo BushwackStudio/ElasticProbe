@@ -34,7 +34,7 @@ class Upgrades {
 	 * Initialize class
 	 */
 	public function setup() {
-		$this->old_version = Utils\get_option( 'ep_version', false );
+		$this->old_version = Utils\get_option( 'eprobe_version', false );
 
 		/**
 		 * An array with the upgrades routines.
@@ -65,9 +65,9 @@ class Upgrades {
 		 * Note: if a upgrade routine method is hooked to some action,
 		 * this code will be executed *earlier* than the routine method.
 		 */
-		Utils\update_option( 'ep_version', sanitize_text_field( EP_VERSION ) );
+		Utils\update_option( 'eprobe_version', sanitize_text_field( EPROBE_VERSION ) );
 
-		add_filter( 'ep_admin_notices', [ $this, 'resync_notice_4_0_0_instant_results' ] );
+		add_filter( 'eprobe_admin_notices', [ $this, 'resync_notice_4_0_0_instant_results' ] );
 	}
 
 	/**
@@ -97,7 +97,7 @@ class Upgrades {
 	 * this method will enable the SKU field.
 	 */
 	public function upgrade_3_5_2() {
-		$weighting_options = get_option( 'elasticpress_weighting', [] );
+		$weighting_options = get_option( 'eprobe_weighting', [] );
 		if ( empty( $weighting_options ) ) {
 			return;
 		}
@@ -120,7 +120,7 @@ class Upgrades {
 			'weight'  => 1,
 		);
 
-		update_option( 'elasticpress_weighting', $weighting_options );
+		update_option( 'eprobe_weighting', $weighting_options );
 	}
 
 	/**
@@ -179,22 +179,22 @@ class Upgrades {
 	 * @see https://github.com/10up/ElasticPress/issues/2882
 	 */
 	public function upgrade_4_2_2() {
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
-			delete_site_transient( 'ep_es_info' );
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
+			delete_site_transient( 'eprobe_es_info' );
 		} else {
-			delete_transient( 'ep_es_info' );
+			delete_transient( 'eprobe_es_info' );
 		}
 	}
 
 	/**
 	 * Upgrade routine of v4.4.0.
 	 *
-	 * Delete the ep_prefix option, as that is now obtained via ep_credentials
+	 * Delete the eprobe_prefix option, as that is now obtained via eprobe_credentials
 	 *
 	 * @see https://github.com/10up/ElasticPress/issues/2739
 	 */
 	public function upgrade_4_4_0() {
-		Utils\delete_option( 'ep_prefix' );
+		Utils\delete_option( 'eprobe_prefix' );
 	}
 
 	/**
@@ -244,7 +244,7 @@ class Upgrades {
 		if ( function_exists( 'wp_cache_supports' ) && wp_cache_supports( 'flush_group' ) ) {
 			wp_cache_flush_group( 'ep_autosuggest' );
 		}
-		delete_transient( 'ep_autosuggest_query_request_cache' );
+		delete_transient( 'eprobe_autosuggest_query_request_cache' );
 	}
 
 	/**
@@ -274,16 +274,16 @@ class Upgrades {
 					$features_in_settings[ $feature_slug ][ $setting_schema['key'] ] = $value ? '1' : '0';
 				}
 			}
-			Utils\update_option( 'ep_feature_settings', $features_in_settings );
+			Utils\update_option( 'eprobe_feature_settings', $features_in_settings );
 		}
 
 		/**
-		 * Remove the 'ep_last_index' option and store it as an entry of 'ep_sync_history'
+		 * Remove the 'ep_last_index' option and store it as an entry of 'eprobe_sync_history'
 		 */
 		$last_sync = Utils\get_option( 'ep_last_index', [] );
 		if ( ! empty( $last_sync ) ) {
 			Utils\delete_option( 'ep_last_index' );
-			Utils\update_option( 'ep_sync_history', [ $last_sync ] );
+			Utils\update_option( 'eprobe_sync_history', [ $last_sync ] );
 		}
 	}
 
@@ -310,7 +310,7 @@ class Upgrades {
 		$feature_status   = $instant_results->requirements_status();
 		$appended_message = '';
 		if ( 1 >= $feature_status->code ) {
-			if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+			if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 				$features_url = admin_url( 'network/admin.php?page=elasticprobe' );
 			} else {
 				$features_url = admin_url( 'admin.php?page=elasticprobe' );
@@ -352,7 +352,7 @@ class Upgrades {
 			return;
 		}
 
-		$last_sync = Utils\get_option( 'ep_last_sync', 'never' );
+		$last_sync = Utils\get_option( 'eprobe_last_sync', 'never' );
 
 		// No need to upgrade since we've never synced.
 		if ( empty( $last_sync ) || 'never' === $last_sync ) {
@@ -363,7 +363,7 @@ class Upgrades {
 		 * Reindex if we cross a reindex version in the upgrade
 		 */
 		$reindex_versions = apply_filters(
-			'ep_reindex_versions',
+			'eprobe_reindex_versions',
 			array(
 				'0.1.0',
 			)
@@ -374,13 +374,13 @@ class Upgrades {
 		if ( false !== $this->old_version ) {
 			$last_reindex_version = $reindex_versions[ count( $reindex_versions ) - 1 ];
 
-			if ( -1 === version_compare( $this->old_version, $last_reindex_version ) && 0 <= version_compare( EP_VERSION, $last_reindex_version ) ) {
+			if ( -1 === version_compare( $this->old_version, $last_reindex_version ) && 0 <= version_compare( EPROBE_VERSION, $last_reindex_version ) ) {
 				$need_upgrade_sync = true;
 			}
 		}
 
 		if ( $need_upgrade_sync ) {
-			Utils\update_option( 'ep_need_upgrade_sync', true );
+			Utils\update_option( 'eprobe_need_upgrade_sync', true );
 		}
 	}
 

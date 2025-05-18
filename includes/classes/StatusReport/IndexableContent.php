@@ -45,7 +45,7 @@ class IndexableContent extends AjaxReport {
 	protected function get_indexable_content_groups(): array {
 		$groups = [];
 
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 			$sites = Utils\get_sites( 0, true );
 			foreach ( $sites as $site ) {
 				switch_to_blog( $site['blog_id'] );
@@ -75,7 +75,7 @@ class IndexableContent extends AjaxReport {
 		return [
 			'title'  => sprintf(
 				/* translators: %1%s: Site name. %2$s: Site URL. */
-				__( '%1$s &mdash; %2$s', 'ep' ),
+				__( '%1$s &mdash; %2$s', 'elasticprobe' ),
 				get_option( 'blogname' ),
 				site_url()
 			),

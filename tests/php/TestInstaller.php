@@ -41,7 +41,7 @@ class TestInstaller extends BaseTestCase {
 
 		set_current_screen();
 
-		$this->current_host = get_option( 'ep_host' );
+		$this->current_host = get_option( 'eprobe_host' );
 	}
 
 	/**
@@ -52,13 +52,13 @@ class TestInstaller extends BaseTestCase {
 	public function tear_down() {
 		parent::tear_down();
 
-		update_site_option( 'ep_host', $this->current_host );
+		update_site_option( 'eprobe_host', $this->current_host );
 
-		delete_option( 'ep_last_sync' );
+		delete_option( 'eprobe_last_sync' );
 
 		// phpcs:disable
-		if ( isset( $_POST['ep_host'] ) ) {
-			unset( $_POST['ep_host'] );
+		if ( isset( $_POST['eprobe_host'] ) ) {
+			unset( $_POST['eprobe_host'] );
 		}
 		// phpcs:enable
 	}
@@ -70,7 +70,7 @@ class TestInstaller extends BaseTestCase {
 	 * @since  3.0
 	 */
 	public function testCalculateInstallStatusHostAndSync() {
-		update_option( 'ep_last_sync', time() );
+		update_option( 'eprobe_last_sync', time() );
 
 		ElasticProbe\Installer::factory()->calculate_install_status();
 
@@ -100,7 +100,7 @@ class TestInstaller extends BaseTestCase {
 	 * @since  3.0
 	 */
 	public function testCalculateInstallStatusNoHost() {
-		add_filter( 'ep_host', '__return_false' );
+		add_filter( 'eprobe_host', '__return_false' );
 
 		ElasticProbe\Installer::factory()->calculate_install_status();
 
@@ -116,9 +116,9 @@ class TestInstaller extends BaseTestCase {
 	 * @since  3.0
 	 */
 	public function testCalculateInstallStatusNoHostPostHost() {
-		delete_option( 'ep_host' );
+		delete_option( 'eprobe_host' );
 
-		$_POST['ep_host'] = 'test';
+		$_POST['eprobe_host'] = 'test';
 
 		ElasticProbe\Installer::factory()->calculate_install_status();
 

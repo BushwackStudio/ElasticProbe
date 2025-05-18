@@ -16,12 +16,12 @@ export default {
 				const { title = null, post_type: postTypes } = instance.raw;
 
 				if (!title) {
-					return createBlock('elasticpress/comments', { postTypes });
+					return createBlock('elasticprobe/comments', { postTypes });
 				}
 
 				return [
 					createBlock('core/heading', { content: title }),
-					createBlock('elasticpress/comments', { postTypes }),
+					createBlock('elasticprobe/comments', { postTypes }),
 				];
 			},
 		},

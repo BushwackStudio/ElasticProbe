@@ -15,51 +15,51 @@ return array(
 		/**
 		 * Filter number of Elasticsearch shards to use in indices
 		 *
-		 * @hook ep_default_index_number_of_shards
+		 * @hook eprobe_default_index_number_of_shards
 		 * @param  {int} $shards Number of shards
 		 * @return {int} New number
 		 */
-		'index.number_of_shards'           => apply_filters( 'ep_default_index_number_of_shards', 3 ),
+		'index.number_of_shards'           => apply_filters( 'eprobe_default_index_number_of_shards', 3 ),
 		/**
 		 * Filter number of Elasticsearch replicas to use in indices
 		 *
-		 * @hook ep_default_index_number_of_replicas
+		 * @hook eprobe_default_index_number_of_replicas
 		 * @param  {int} $replicas Number of replicas
 		 * @return {int} New number
 		 */
-		'index.number_of_replicas'         => apply_filters( 'ep_default_index_number_of_replicas', 1 ),
+		'index.number_of_replicas'         => apply_filters( 'eprobe_default_index_number_of_replicas', 1 ),
 		/**
 		 * Filter Elasticsearch total field limit for posts
 		 *
-		 * @hook ep_total_field_limit
+		 * @hook eprobe_total_field_limit
 		 * @param  {int} $number Number of fields
 		 * @return {int} New number
 		 */
-		'index.mapping.total_fields.limit' => apply_filters( 'ep_total_field_limit', 5000 ),
+		'index.mapping.total_fields.limit' => apply_filters( 'eprobe_total_field_limit', 5000 ),
 		/**
 		 * Filter whether Elasticsearch ignores malformed fields or not.
 		 *
-		 * @hook ep_ignore_malformed
+		 * @hook eprobe_ignore_malformed
 		 * @param  {bool} $ignore True for ignore
 		 * @return {bool} New value
 		 */
-		'index.mapping.ignore_malformed'   => apply_filters( 'ep_ignore_malformed', true ),
+		'index.mapping.ignore_malformed'   => apply_filters( 'eprobe_ignore_malformed', true ),
 		/**
 		 * Filter Elasticsearch max result window for posts
 		 *
-		 * @hook ep_max_result_window
+		 * @hook eprobe_max_result_window
 		 * @param  {int} $number Size of result window
 		 * @return {int} New number
 		 */
-		'index.max_result_window'          => apply_filters( 'ep_max_result_window', 1000000 ),
+		'index.max_result_window'          => apply_filters( 'eprobe_max_result_window', 1000000 ),
 		/**
 		 * Filter Elasticsearch maximum shingle difference
 		 *
-		 * @hook ep_max_shingle_diff
+		 * @hook eprobe_max_shingle_diff
 		 * @param  {int} $number Max difference
 		 * @return {int} New number
 		 */
-		'index.max_shingle_diff'           => apply_filters( 'ep_max_shingle_diff', 8 ),
+		'index.max_shingle_diff'           => apply_filters( 'eprobe_max_shingle_diff', 8 ),
 		'analysis'                         => array(
 			'analyzer'   => array(
 				'default'          => array(
@@ -68,29 +68,29 @@ return array(
 					 * Filter Elasticsearch default analyzer's filters
 					 *
 					 * @since 3.6.2
-					 * @hook ep_default_analyzer_filters
+					 * @hook eprobe_default_analyzer_filters
 					 * @param  {array<string>} $filters Default filters
 					 * @return {array<string>} New filters
 					 */
-					'filter'      => apply_filters( 'ep_default_analyzer_filters', array( 'lowercase', 'ep_stop', 'ewp_snowball' ) ),
+					'filter'      => apply_filters( 'eprobe_default_analyzer_filters', array( 'lowercase', 'ep_stop', 'ewp_snowball' ) ),
 					/**
 					 * Filter Elasticsearch default analyzer's char_filter
 					 *
 					 * @since 4.2.2
-					 * @hook ep_default_analyzer_char_filters
+					 * @hook eprobe_default_analyzer_char_filters
 					 * @param  {array<string>} $char_filters Default filter
 					 * @return {array<string>} New filters
 					 */
-					'char_filter' => apply_filters( 'ep_default_analyzer_char_filters', array( 'html_strip' ) ),
+					'char_filter' => apply_filters( 'eprobe_default_analyzer_char_filters', array( 'html_strip' ) ),
 					/**
 					 * Filter Elasticsearch default language in mapping
 					 *
-					 * @hook ep_analyzer_language
+					 * @hook eprobe_analyzer_language
 					 * @param  {string} $lang Default language
 					 * @param {string} $lang_context Language context
 					 * @return {string} New language
 					 */
-					'language'    => apply_filters( 'ep_analyzer_language', 'english', 'analyzer_default' ),
+					'language'    => apply_filters( 'eprobe_analyzer_language', 'english', 'analyzer_default' ),
 				),
 				'default_search'   => array(
 					'tokenizer'   => 'standard',
@@ -98,22 +98,22 @@ return array(
 					 * Filter Elasticsearch default analyzer's filters
 					 *
 					 * @since 5.0.0
-					 * @hook ep_default_search_analyzer_filters
+					 * @hook eprobe_default_search_analyzer_filters
 					 * @param  {array<string>} $filters Default filters
 					 * @return {array<string>} New filters
 					 */
-					'filter'      => apply_filters( 'ep_default_search_analyzer_filters', array( 'lowercase', 'ep_stop', 'ewp_snowball' ) ),
+					'filter'      => apply_filters( 'eprobe_default_search_analyzer_filters', array( 'lowercase', 'ep_stop', 'ewp_snowball' ) ),
 					/**
 					 * Filter Elasticsearch default analyzer's char_filter
 					 *
 					 * @since 5.0.0
-					 * @hook ep_default_search_analyzer_char_filters
+					 * @hook eprobe_default_search_analyzer_char_filters
 					 * @param  {array<string>} $char_filters Default filter
 					 * @return {array<string>} New filters
 					 */
-					'char_filter' => apply_filters( 'ep_default_search_analyzer_char_filters', array( 'html_strip' ) ),
+					'char_filter' => apply_filters( 'eprobe_default_search_analyzer_char_filters', array( 'html_strip' ) ),
 					/* This filter is documented above */
-					'language'    => apply_filters( 'ep_analyzer_language', 'english', 'analyzer_default' ),
+					'language'    => apply_filters( 'eprobe_analyzer_language', 'english', 'analyzer_default' ),
 				),
 				'shingle_analyzer' => array(
 					'type'      => 'custom',
@@ -135,7 +135,7 @@ return array(
 				'ewp_snowball'   => array(
 					'type'     => 'snowball',
 					/* This filter is documented in includes/mappings/post/7-0.php */
-					'language' => apply_filters( 'ep_analyzer_language', 'english', 'filter_ewp_snowball' ),
+					'language' => apply_filters( 'eprobe_analyzer_language', 'english', 'filter_ewp_snowball' ),
 				),
 				'edge_ngram'     => array(
 					'side'     => 'front',
@@ -147,7 +147,7 @@ return array(
 					'type'        => 'stop',
 					'ignore_case' => true,
 					/* This filter is documented in includes/mappings/post/7-0.php */
-					'stopwords'   => apply_filters( 'ep_analyzer_language', 'english', 'filter_ep_stop' ),
+					'stopwords'   => apply_filters( 'eprobe_analyzer_language', 'english', 'filter_ep_stop' ),
 				],
 			),
 			'normalizer' => array(

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Block Template Utils class
  */
 class BlockTemplateUtils {
-	const CACHE_KEY = 'ep_blocks';
+	const CACHE_KEY = 'eprobe_blocks';
 
 	/**
 	 * Hook cache cleanup calls
@@ -33,14 +33,14 @@ class BlockTemplateUtils {
 	public function regenerate_cache() {
 		delete_transient( self::CACHE_KEY );
 
-		// Simply calling it will reset the transient (if the `ep_blocks_pre_all_blocks` filter isn't in use.)
+		// Simply calling it will reset the transient (if the `eprobe_blocks_pre_all_blocks` filter isn't in use.)
 		$this->get_all_blocks_in_all_templates();
 	}
 
 	/**
 	 * Given a block name, return all its instances across all block templates
 	 *
-	 * @param string $block_name The block name, e.g., `elasticpress/facet-meta`
+	 * @param string $block_name The block name, e.g., `elasticprobe/facet-meta`
 	 * @return array
 	 */
 	public function get_specific_block_in_all_templates( string $block_name ): array {
@@ -68,11 +68,11 @@ class BlockTemplateUtils {
 		 * Returning a non-null value will effectively short-circuit the function.
 		 *
 		 * @since 4.7.0
-		 * @hook ep_blocks_pre_all_blocks
+		 * @hook eprobe_blocks_pre_all_blocks
 		 * @param {null}   $meta_keys Blocks array
 		 * @return {null|array} Blocks array or `null` to keep default behavior
 		 */
-		$pre_all_blocks = apply_filters( 'ep_blocks_pre_all_blocks', null );
+		$pre_all_blocks = apply_filters( 'eprobe_blocks_pre_all_blocks', null );
 		if ( null !== $pre_all_blocks ) {
 			return (array) $pre_all_blocks;
 		}

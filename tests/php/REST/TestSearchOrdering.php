@@ -35,7 +35,7 @@ class TestSearchOrdering extends \ElasticProbeTest\BaseTestCase {
 
 		Elasticsearch::factory()->refresh_indices();
 
-		$request = new \WP_REST_Request( 'GET', '/elasticpress/v1/pointer_search' );
+		$request = new \WP_REST_Request( 'GET', '/elasticprobe/v1/pointer_search' );
 		$request->set_param( 's', 'findme' );
 
 		$response = $controller->get_posts( $request );

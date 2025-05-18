@@ -91,13 +91,13 @@ abstract class Indexable {
 		/**
 		 * Filter bulk items to sync per batch
 		 *
-		 * @hook ep_bulk_items_per_page
+		 * @hook eprobe_bulk_items_per_page
 		 * @param  {int} $number Number of items per batch
 		 * @param  {Indexable} $indexable Current indexable
 		 * @return  {int} New number of items
 		 * @since  3.0
 		 */
-		return apply_filters( 'ep_bulk_items_per_page', 350, $this );
+		return apply_filters( 'eprobe_bulk_items_per_page', 350, $this );
 	}
 
 	/**
@@ -143,14 +143,14 @@ abstract class Indexable {
 		/**
 		 * Filter index name
 		 *
-		 * @hook ep_index_name
+		 * @hook eprobe_index_name
 		 * @param  {string} $index_name Name of index
 		 * @param  {int} $blog_id Blog ID
 		 * @param  {Indexable} $indexable Current indexable
 		 * @return  {string} Index name
 		 * @since  3.0
 		 */
-		return apply_filters( 'ep_index_name', $index_name, $blog_id, $this );
+		return apply_filters( 'eprobe_index_name', $index_name, $blog_id, $this );
 	}
 
 	/**
@@ -175,11 +175,11 @@ abstract class Indexable {
 		/**
 		 * Filter global/network Elasticsearch alias
 		 *
-		 * @hook ep_global_alias
+		 * @hook eprobe_global_alias
 		 * @param  {string} $number Current alias
 		 * @return  {string} New alias
 		 */
-		return apply_filters( 'ep_global_alias', $alias );
+		return apply_filters( 'eprobe_global_alias', $alias );
 	}
 
 	/**
@@ -215,11 +215,11 @@ abstract class Indexable {
 		/**
 		 * Fires before object deletion
 		 *
-		 * @hook ep_delete_{indexable_slug}
+		 * @hook eprobe_delete_{indexable_slug}
 		 * @param {int} $object_id ID of object being deleted
 		 * @param {string} $indexable_slug The slug of the indexable type that is being deleted
 		 */
-		do_action( 'ep_delete_' . $this->slug, $object_id, $this->slug );
+		do_action( 'eprobe_delete_' . $this->slug, $object_id, $this->slug );
 
 		return Elasticsearch::factory()->delete_document( $this->get_index_name(), $this->slug, $object_id, $blocking );
 	}
@@ -275,37 +275,37 @@ abstract class Indexable {
 		/**
 		 * Conditionally kill indexing on a specific object
 		 *
-		 * @hook ep_{indexable_slug}_index_kill
+		 * @hook eprobe_{indexable_slug}_index_kill
 		 * @param  {bool} $kill True to not index
 		 * @param {int} $object_id Id of object to index
 		 * @since  3.0
 		 * @return {bool}  New kill value
 		 */
-		if ( apply_filters( 'ep_' . $this->slug . '_index_kill', false, $object_id ) ) {
+		if ( apply_filters( 'eprobe_' . $this->slug . '_index_kill', false, $object_id ) ) {
 			return false;
 		}
 
 		/**
 		 * Filter document before index
 		 *
-		 * @hook ep_pre_index_{indexable_slug}
+		 * @hook eprobe_pre_index_{indexable_slug}
 		 * @param  {array} $document Document to index
 		 * @return {array} New document
 		 * @since  3.0
 		 */
-		$document = apply_filters( 'ep_pre_index_' . $this->slug, $document );
+		$document = apply_filters( 'eprobe_pre_index_' . $this->slug, $document );
 
 		$return = Elasticsearch::factory()->index_document( $this->get_index_name(), $this->slug, $document, $blocking );
 
 		/**
 		 * Fires after document is indexed
 		 *
-		 * @hook ep_after_index_{indexable_slug}
+		 * @hook eprobe_after_index_{indexable_slug}
 		 * @param  {array} $document Document to index
 		 * @param  {object|boolean} $return ES response on success, false on failure
 		 * @since  3.0
 		 */
-		do_action( 'ep_after_index_' . $this->slug, $document, $return );
+		do_action( 'eprobe_after_index_' . $this->slug, $document, $return );
 
 		return $return;
 	}
@@ -343,13 +343,13 @@ abstract class Indexable {
 			/**
 			 * Conditionally kill indexing on a specific object
 			 *
-			 * @hook ep_bulk_index_action_args
+			 * @hook eprobe_bulk_index_action_args
 			 * @param  {array} $action_args Bulk action arguments
 			 * @param {array} $document Document to index
 			 * @since  3.0
 			 * @return {array}  New action args
 			 */
-			$body .= wp_json_encode( apply_filters( 'ep_bulk_index_action_args', $action_args, $document ) ) . "\n";
+			$body .= wp_json_encode( apply_filters( 'eprobe_bulk_index_action_args', $action_args, $document ) ) . "\n";
 			$body .= addcslashes( wp_json_encode( $document ), "\n" );
 
 			$body .= "\n\n";
@@ -360,12 +360,12 @@ abstract class Indexable {
 		/**
 		 * Perform actions after a bulk indexing is completed
 		 *
-		 * @hook ep_after_bulk_index
+		 * @hook eprobe_after_bulk_index
 		 * @param {array} $object_ids List of object ids attempted to be indexed
 		 * @param {string} $slug Current indexable slug
 		 * @param {array|bool} $result Result of the Elasticsearch query. False on error.
 		 */
-		do_action( 'ep_after_bulk_index', $object_ids, $this->slug, $result );
+		do_action( 'eprobe_after_bulk_index', $object_ids, $this->slug, $result );
 
 		return $result;
 	}
@@ -396,13 +396,13 @@ abstract class Indexable {
 			/**
 			 * Conditionally kill indexing on a specific object
 			 *
-			 * @hook ep_bulk_index_action_args
+			 * @hook eprobe_bulk_index_action_args
 			 * @param  {array} $action_args Bulk action arguments
 			 * @param {array} $document Document to index
 			 * @since  3.0
 			 * @return {array}  New action args
 			 */
-			$document_str  = wp_json_encode( apply_filters( 'ep_bulk_index_action_args', $action_args, $document ) ) . "\n";
+			$document_str  = wp_json_encode( apply_filters( 'eprobe_bulk_index_action_args', $action_args, $document ) ) . "\n";
 			$document_str .= addcslashes( wp_json_encode( $document ), "\n" );
 			$document_str .= "\n\n";
 
@@ -420,13 +420,13 @@ abstract class Indexable {
 		/**
 		 * Perform actions after a dynamic bulk indexing is completed
 		 *
-		 * @hook ep_after_bulk_index_dynamically
+		 * @hook eprobe_after_bulk_index_dynamically
 		 * @since 4.0.0
 		 * @param {array}      $object_ids List of object ids attempted to be indexed
 		 * @param {string}     $slug Current indexable slug
 		 * @param {array|bool} $result Result of the Elasticsearch query. False on error.
 		 */
-		do_action( 'ep_after_bulk_index_dynamically', $object_ids, $this->slug, $results );
+		do_action( 'eprobe_after_bulk_index_dynamically', $object_ids, $this->slug, $results );
 
 		return $results;
 	}
@@ -444,46 +444,46 @@ abstract class Indexable {
 			/**
 			 * Filter the minimum buffer size for dynamic bulk index requests.
 			 *
-			 * @hook ep_dynamic_bulk_min_buffer_size
+			 * @hook eprobe_dynamic_bulk_min_buffer_size
 			 * @since 4.0.0
 			 * @param {int} $min_buffer_size Min buffer size for dynamic bulk index (in bytes.)
 			 * @return {int} New size.
 			 */
-			$min_buffer_size = apply_filters( 'ep_dynamic_bulk_min_buffer_size', MB_IN_BYTES / 2 );
+			$min_buffer_size = apply_filters( 'eprobe_dynamic_bulk_min_buffer_size', MB_IN_BYTES / 2 );
 		}
 
 		if ( ! $max_buffer_size ) {
 			/**
 			 * Filter the max buffer size for dynamic bulk index requests.
 			 *
-			 * @hook ep_dynamic_bulk_max_buffer_size
+			 * @hook eprobe_dynamic_bulk_max_buffer_size
 			 * @since 4.0.0
 			 * @param {int} $max_buffer_size Max buffer size for dynamic bulk index (in bytes.)
 			 * @return {int} New size.
 			 */
-			$max_buffer_size = apply_filters( 'ep_dynamic_bulk_max_buffer_size', 150 * MB_IN_BYTES );
+			$max_buffer_size = apply_filters( 'eprobe_dynamic_bulk_max_buffer_size', 150 * MB_IN_BYTES );
 		}
 
 		if ( ! $incremental_step ) {
 			/**
 			 * Filter the number of bytes the current buffer size should be incremented in case of success.
 			 *
-			 * @hook ep_dynamic_bulk_incremental_step
+			 * @hook eprobe_dynamic_bulk_incremental_step
 			 * @since 4.0.0
 			 * @param {int} $incremental_step Number of bytes to add to the current buffer size.
 			 * @return {int} New incremental step.
 			 */
-			$incremental_step = apply_filters( 'ep_dynamic_bulk_incremental_step', MB_IN_BYTES / 2 );
+			$incremental_step = apply_filters( 'eprobe_dynamic_bulk_incremental_step', MB_IN_BYTES / 2 );
 		}
 
 		/**
 		 * Perform actions before a new batch of documents is processed.
 		 *
-		 * @hook ep_before_send_dynamic_bulk_requests
+		 * @hook eprobe_before_send_dynamic_bulk_requests
 		 * @since 4.0.0
 		 * @param {array} $documents Array of documents to be sent to Elasticsearch.
 		 */
-		do_action( 'ep_before_send_dynamic_bulk_requests', $documents );
+		do_action( 'eprobe_before_send_dynamic_bulk_requests', $documents );
 
 		if ( ! $current_buffer_size ) {
 			$current_buffer_size = $min_buffer_size;
@@ -513,11 +513,11 @@ abstract class Indexable {
 					/**
 					 * Perform actions when a post is bigger than the max buffer size.
 					 *
-					 * @hook ep_dynamic_bulk_post_too_big
+					 * @hook eprobe_dynamic_bulk_post_too_big
 					 * @since 4.0.0
 					 * @param {string} $document JSON string of the post detected as too big.
 					 */
-					do_action( 'ep_dynamic_bulk_post_too_big', $next_document );
+					do_action( 'eprobe_dynamic_bulk_post_too_big', $next_document );
 					$results[] = new \WP_Error( 'ep_too_big_request_skipped', 'Indexable too big. Request not sent.' );
 					continue;
 				}
@@ -540,7 +540,7 @@ abstract class Indexable {
 			/**
 			 * Perform actions before a new batch of documents is processed.
 			 *
-			 * @hook ep_after_send_dynamic_bulk_request
+			 * @hook eprobe_after_send_dynamic_bulk_request
 			 * @since 4.0.0
 			 * @param {WP_Error|array} $result              Result of the request.
 			 * @param {array}          $body                Array of documents sent to Elasticsearch.
@@ -550,7 +550,7 @@ abstract class Indexable {
 			 * @param {int}            $current_buffer_size Current buffer size for dynamic bulk index (in bytes.)
 			 * @param {int}            $request_time        Total time of the request.
 			 */
-			do_action( 'ep_after_send_dynamic_bulk_request', $result, $body, $documents, $min_buffer_size, $max_buffer_size, $current_buffer_size, $request_time );
+			do_action( 'eprobe_after_send_dynamic_bulk_request', $result, $body, $documents, $min_buffer_size, $max_buffer_size, $current_buffer_size, $request_time );
 
 			// It failed, possibly adjust the buffer size and try again.
 			if ( is_wp_error( $result ) ) {
@@ -602,12 +602,12 @@ abstract class Indexable {
 		/**
 		 * Perform actions after a batch of documents was processed.
 		 *
-		 * @hook ep_after_send_dynamic_bulk_requests
+		 * @hook eprobe_after_send_dynamic_bulk_requests
 		 * @since 4.0.0
 		 * @param {array} $results  Array of results sent.
 		 * @param {int}   $requests Number of all requests sent.
 		 */
-		do_action( 'ep_after_send_dynamic_bulk_requests', $results, $requests );
+		do_action( 'eprobe_after_send_dynamic_bulk_requests', $results, $requests );
 
 		return $results;
 	}
@@ -647,12 +647,12 @@ abstract class Indexable {
 		/**
 		 * Determine if ElasticProbe should integrate with a query
 		 *
-		 * @hook ep_elasticpress_enabled
+		 * @hook eprobe_elasticpress_enabled
 		 * @param  {bool} $enabled Whether to integrate with Elasticsearch or not
 		 * @param {WP_Query} $query WP_Query to evaluate
 		 * @return {bool}  Enabled value
 		 */
-		$enabled = apply_filters( 'ep_elasticpress_enabled', $enabled, $query );
+		$enabled = apply_filters( 'eprobe_elasticpress_enabled', $enabled, $query );
 
 		if ( isset( $query->query_vars['ep_integrate'] ) && ! filter_var( $query->query_vars['ep_integrate'], FILTER_VALIDATE_BOOLEAN ) ) {
 			$enabled = false;
@@ -757,12 +757,12 @@ abstract class Indexable {
 			 *
 			 * @see https://github.com/10up/ElasticPress/issues/2769
 			 *
-			 * @hook ep_max_year_limit
+			 * @hook eprobe_max_year_limit
 			 * @param  {int} $year Maximum year limit.
 			 * @return {int} Maximum year limit.
 			 * @since  4.2.1
 			 */
-			$max_year = apply_filters( 'ep_max_year_limit', 2099 );
+			$max_year = apply_filters( 'eprobe_max_year_limit', 2099 );
 
 			// PHP allows DateTime to build dates with the non-existing year 0000, and this causes
 			// issues when integrating into stricter systems. This is by design:
@@ -1189,7 +1189,7 @@ abstract class Indexable {
 		/**
 		 * Filter the search algorithm to be used
 		 *
-		 * @hook ep_{$indexable_slug}_search_algorithm
+		 * @hook eprobe_{$indexable_slug}_search_algorithm
 		 * @since  4.3.0
 		 * @param  {string} $search_algorithm Slug of the search algorithm used as fallback
 		 * @param  {string} $search_term      Search term
@@ -1197,7 +1197,7 @@ abstract class Indexable {
 		 * @param  {array}  $query_vars       Query variables
 		 * @return {string} New search algorithm slug
 		 */
-		$search_algorithm = apply_filters( "ep_{$this->slug}_search_algorithm", 'basic', $search_text, $search_fields, $query_vars );
+		$search_algorithm = apply_filters( "eprobe_{$this->slug}_search_algorithm", 'basic', $search_text, $search_fields, $query_vars );
 
 		return \ElasticProbe\SearchAlgorithms::factory()->get( $search_algorithm );
 	}
@@ -1250,12 +1250,12 @@ abstract class Indexable {
 						 * Filter the max. number of different distinct values to be returned by Elasticsearch.
 						 *
 						 * @since 4.3.0
-						 * @hook ep_{$indexable_slug}_all_distinct_values
+						 * @hook eprobe_{$indexable_slug}_all_distinct_values
 						 * @param {int}    $size  The number of different values. Default: 10000
 						 * @param {string} $field The meta field
 						 * @return {string} The new number of different values
 						 */
-						'size'  => apply_filters( 'ep_' . $this->slug . '_all_distinct_values', $count, $field ),
+						'size'  => apply_filters( 'eprobe_' . $this->slug . '_all_distinct_values', $count, $field ),
 						'field' => $field,
 					],
 				],

@@ -6,11 +6,11 @@
  * Author:      10up Inc.
  * License:     GPLv2 or later
  *
- * @package ElasticPress_Tests_E2e
+ * @package ElasticProbe_Tests_E2e
  */
 
 add_filter(
-	'ep_meta_mode',
+	'eprobe_meta_mode',
 	function () {
 		return 'auto';
 	}

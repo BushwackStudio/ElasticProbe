@@ -59,29 +59,29 @@ class TestDefaultSearchAlgorithm extends \ElasticProbeTest\BaseTestCase {
 		};
 
 		/**
-		 * Test the `ep_{$indexable_slug}_match_phrase_boost` filter.
+		 * Test the `eprobe_{$indexable_slug}_match_phrase_boost` filter.
 		 */
-		add_filter( 'ep_indexable_match_phrase_boost', $test_filter );
+		add_filter( 'eprobe_indexable_match_phrase_boost', $test_filter );
 
 		$query = $default->get_query( 'indexable', $search_term, $search_fields, [] );
 		$this->assertEquals( 1234, $query['bool']['should'][0]['multi_match']['boost'] );
 
-		remove_filter( 'ep_indexable_match_phrase_boost', $test_filter );
+		remove_filter( 'eprobe_indexable_match_phrase_boost', $test_filter );
 
 		/**
-		 * Test the `ep_{$indexable_slug}_match_boost` filter.
+		 * Test the `eprobe_{$indexable_slug}_match_boost` filter.
 		 */
-		add_filter( 'ep_indexable_match_boost', $test_filter );
+		add_filter( 'eprobe_indexable_match_boost', $test_filter );
 
 		$query = $default->get_query( 'indexable', $search_term, $search_fields, [] );
 		$this->assertEquals( 1234, $query['bool']['should'][1]['multi_match']['boost'] );
 
-		remove_filter( 'ep_indexable_match_boost', $test_filter );
+		remove_filter( 'eprobe_indexable_match_boost', $test_filter );
 
 		/**
-		 * Test the `ep_{$indexable_slug}_fuzziness_arg` filter.
+		 * Test the `eprobe_{$indexable_slug}_fuzziness_arg` filter.
 		 */
-		add_filter( 'ep_indexable_fuzziness_arg', $test_filter );
+		add_filter( 'eprobe_indexable_fuzziness_arg', $test_filter );
 
 		$query = $default->get_query( 'indexable', $search_term, $search_fields, [] );
 		$this->assertEquals( 1234, $query['bool']['should'][2]['multi_match']['fuzziness'] );
@@ -106,29 +106,29 @@ class TestDefaultSearchAlgorithm extends \ElasticProbeTest\BaseTestCase {
 		};
 
 		/**
-		 * Test the `ep_post_match_phrase_boost` filter.
+		 * Test the `eprobe_post_match_phrase_boost` filter.
 		 */
-		add_filter( 'ep_post_match_phrase_boost', $test_filter );
+		add_filter( 'eprobe_post_match_phrase_boost', $test_filter );
 
 		$query = $default->get_query( 'post', $search_term, $search_fields, [] );
 		$this->assertEquals( 1234, $query['bool']['should'][0]['multi_match']['boost'] );
 
-		remove_filter( 'ep_post_match_phrase_boost', $test_filter );
+		remove_filter( 'eprobe_post_match_phrase_boost', $test_filter );
 
 		/**
-		 * Test the `ep_post_match_boost` filter.
+		 * Test the `eprobe_post_match_boost` filter.
 		 */
-		add_filter( 'ep_post_match_boost', $test_filter );
+		add_filter( 'eprobe_post_match_boost', $test_filter );
 
 		$query = $default->get_query( 'post', $search_term, $search_fields, [] );
 		$this->assertEquals( 1234, $query['bool']['should'][1]['multi_match']['boost'] );
 
-		remove_filter( 'ep_post_match_boost', $test_filter );
+		remove_filter( 'eprobe_post_match_boost', $test_filter );
 
 		/**
-		 * Test the `ep_post_fuzziness_arg` filter.
+		 * Test the `eprobe_post_fuzziness_arg` filter.
 		 */
-		add_filter( 'ep_post_fuzziness_arg', $test_filter );
+		add_filter( 'eprobe_post_fuzziness_arg', $test_filter );
 
 		$query = $default->get_query( 'post', $search_term, $search_fields, [] );
 		$this->assertEquals( 1234, $query['bool']['should'][2]['multi_match']['fuzziness'] );
@@ -137,9 +137,9 @@ class TestDefaultSearchAlgorithm extends \ElasticProbeTest\BaseTestCase {
 	/**
 	 * Test deprecated/legacy filters
 	 *
-	 * @expectedDeprecated ep_match_phrase_boost
-	 * @expectedDeprecated ep_match_boost
-	 * @expectedDeprecated ep_fuzziness_arg
+	 * @expectedDeprecated eprobe_match_phrase_boost
+	 * @expectedDeprecated eprobe_match_boost
+	 * @expectedDeprecated eprobe_fuzziness_arg
 	 * @group searchAlgorithms
 	 */
 	public function testLegacyFilters() {
@@ -153,29 +153,29 @@ class TestDefaultSearchAlgorithm extends \ElasticProbeTest\BaseTestCase {
 		};
 
 		/**
-		 * Test the `ep_match_phrase_boost` filter.
+		 * Test the `eprobe_match_phrase_boost` filter.
 		 */
-		add_filter( 'ep_match_phrase_boost', $test_filter );
+		add_filter( 'eprobe_match_phrase_boost', $test_filter );
 
 		$query = $default->get_query( 'post', $search_term, $search_fields, [] );
 		$this->assertEquals( 1234, $query['bool']['should'][0]['multi_match']['boost'] );
 
-		remove_filter( 'ep_match_phrase_boost', $test_filter );
+		remove_filter( 'eprobe_match_phrase_boost', $test_filter );
 
 		/**
-		 * Test the `ep_match_boost` filter.
+		 * Test the `eprobe_match_boost` filter.
 		 */
-		add_filter( 'ep_match_boost', $test_filter );
+		add_filter( 'eprobe_match_boost', $test_filter );
 
 		$query = $default->get_query( 'post', $search_term, $search_fields, [] );
 		$this->assertEquals( 1234, $query['bool']['should'][1]['multi_match']['boost'] );
 
-		remove_filter( 'ep_match_boost', $test_filter );
+		remove_filter( 'eprobe_match_boost', $test_filter );
 
 		/**
-		 * Test the `ep_fuzziness_arg` filter.
+		 * Test the `eprobe_fuzziness_arg` filter.
 		 */
-		add_filter( 'ep_fuzziness_arg', $test_filter );
+		add_filter( 'eprobe_fuzziness_arg', $test_filter );
 
 		$query = $default->get_query( 'post', $search_term, $search_fields, [] );
 		$this->assertEquals( 1234, $query['bool']['should'][2]['multi_match']['fuzziness'] );

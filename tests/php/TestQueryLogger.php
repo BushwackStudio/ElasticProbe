@@ -20,7 +20,7 @@ class TestQueryLogger extends BaseTestCase {
 	 * Setup each test
 	 */
 	public function set_up() {
-		update_site_option( 'ep_last_sync', time() );
+		update_site_option( 'eprobe_last_sync', time() );
 
 		parent::set_up();
 	}
@@ -31,7 +31,7 @@ class TestQueryLogger extends BaseTestCase {
 	public function tear_down() {
 		parent::tear_down();
 
-		delete_site_option( 'ep_last_sync' );
+		delete_site_option( 'eprobe_last_sync' );
 	}
 
 	/**
@@ -44,17 +44,17 @@ class TestQueryLogger extends BaseTestCase {
 			->setMethods( [ 'get_logs' ] )
 			->getMock();
 
-		// Call the log_query method twice but it should call get_logs only in the second call, after setting ep_last_sync
+		// Call the log_query method twice but it should call get_logs only in the second call, after setting eprobe_last_sync
 		$query_logger->expects( $this->exactly( 1 ) )->method( 'get_logs' );
 
 		$query_logger->log_query( [], '' );
 
-		delete_site_option( 'ep_last_sync', time() );
+		delete_site_option( 'eprobe_last_sync', time() );
 		$query_logger->log_query( [], '' );
 	}
 
 	/**
-	 * Test the ep_query_logger_queries_to_keep filter in the log_query method
+	 * Test the eprobe_query_logger_queries_to_keep filter in the log_query method
 	 *
 	 * @group queryLogger
 	 */
@@ -69,10 +69,10 @@ class TestQueryLogger extends BaseTestCase {
 		$query_logger->expects( $this->exactly( 1 ) )->method( 'update_logs' )->willReturn( '{somejson}' );
 
 		$query_logger->log_query( [ 'query' ], 'type' );
-		$this->assertEquals( 0, did_action( 'ep_query_logger_logged_query' ) );
+		$this->assertEquals( 0, did_action( 'eprobe_query_logger_logged_query' ) );
 
 		add_filter(
-			'ep_query_logger_queries_to_keep',
+			'eprobe_query_logger_queries_to_keep',
 			function ( $keep, $query, $type ) {
 				$this->assertSame( 5, $keep );
 				$this->assertSame( [ 'query' ], $query );
@@ -84,12 +84,12 @@ class TestQueryLogger extends BaseTestCase {
 		);
 
 		$query_logger->log_query( [ 'query' ], 'type' );
-		$this->assertGreaterThanOrEqual( 1, did_filter( 'ep_query_logger_queries_to_keep' ) );
-		$this->assertGreaterThanOrEqual( 1, did_action( 'ep_query_logger_logged_query' ) );
+		$this->assertGreaterThanOrEqual( 1, did_filter( 'eprobe_query_logger_queries_to_keep' ) );
+		$this->assertGreaterThanOrEqual( 1, did_action( 'eprobe_query_logger_logged_query' ) );
 	}
 
 	/**
-	 * Test the ep_query_logger_logged_query action in the log_query method
+	 * Test the eprobe_query_logger_logged_query action in the log_query method
 	 *
 	 * @group queryLogger
 	 */
@@ -108,7 +108,7 @@ class TestQueryLogger extends BaseTestCase {
 		$query_logger->method( 'update_logs' )->willReturn( '{somejson}' );
 
 		add_action(
-			'ep_query_logger_logged_query',
+			'eprobe_query_logger_logged_query',
 			function ( $logs_json_str, $query, $type ) {
 				$this->assertSame( '{somejson}', $logs_json_str );
 				$this->assertSame( [ 'query' ], $query );
@@ -119,7 +119,7 @@ class TestQueryLogger extends BaseTestCase {
 		);
 
 		$query_logger->log_query( [ 'query' ], 'type' );
-		$this->assertGreaterThanOrEqual( 1, did_action( 'ep_query_logger_logged_query' ) );
+		$this->assertGreaterThanOrEqual( 1, did_action( 'eprobe_query_logger_logged_query' ) );
 	}
 
 	/**
@@ -135,7 +135,7 @@ class TestQueryLogger extends BaseTestCase {
 		];
 
 		add_filter(
-			defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ? 'pre_site_transient_ep_query_log' : 'pre_transient_ep_query_log',
+			defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ? 'pre_site_transient_eprobe_query_log' : 'pre_transient_eprobe_query_log',
 			function () use ( $test_logs ) {
 				return wp_json_encode( $test_logs );
 			}
@@ -147,28 +147,28 @@ class TestQueryLogger extends BaseTestCase {
 		$this->assertCount( 2, $query_logger->get_logs( false ) );
 
 		/**
-		 * Test the ep_query_logger_time_to_keep filter
+		 * Test the eprobe_query_logger_time_to_keep filter
 		 */
 		$change_time_limit = function ( $limit ) {
 			$this->assertSame( $limit, DAY_IN_SECONDS );
 			return 25 * HOUR_IN_SECONDS;
 		};
-		add_filter( 'ep_query_logger_time_to_keep', $change_time_limit );
+		add_filter( 'eprobe_query_logger_time_to_keep', $change_time_limit );
 
 		$this->assertCount( 2, $query_logger->get_logs() );
-		$this->assertGreaterThanOrEqual( 1, did_filter( 'ep_query_logger_time_to_keep' ) );
+		$this->assertGreaterThanOrEqual( 1, did_filter( 'eprobe_query_logger_time_to_keep' ) );
 
 		/**
-		 * Test the ep_query_logger_logs filter
+		 * Test the eprobe_query_logger_logs filter
 		 */
 		$change_logs = function ( $logs ) use ( $test_logs ) {
 			$this->assertSame( $logs, $test_logs );
 			return [ 'custom-logs' ];
 		};
-		add_filter( 'ep_query_logger_logs', $change_logs );
+		add_filter( 'eprobe_query_logger_logs', $change_logs );
 
 		$this->assertSame( [ 'custom-logs' ], $query_logger->get_logs() );
-		$this->assertGreaterThanOrEqual( 1, did_filter( 'ep_query_logger_logs' ) );
+		$this->assertGreaterThanOrEqual( 1, did_filter( 'eprobe_query_logger_logs' ) );
 	}
 
 	/**
@@ -180,10 +180,10 @@ class TestQueryLogger extends BaseTestCase {
 		$query_logger = new QueryLogger();
 
 		/**
-		 * Test the ep_query_logger_max_cache_size filter
+		 * Test the eprobe_query_logger_max_cache_size filter
 		 */
 		add_filter(
-			'ep_query_logger_max_cache_size',
+			'eprobe_query_logger_max_cache_size',
 			function ( $size ) {
 				$this->assertSame( MB_IN_BYTES, $size );
 				return $size;
@@ -191,7 +191,7 @@ class TestQueryLogger extends BaseTestCase {
 		);
 
 		$updated_logs = $query_logger->update_logs( [ 'test' ] );
-		$this->assertGreaterThanOrEqual( 1, did_filter( 'ep_query_logger_max_cache_size' ) );
+		$this->assertGreaterThanOrEqual( 1, did_filter( 'eprobe_query_logger_max_cache_size' ) );
 		$this->assertSame( wp_json_encode( [ 'test' ] ), $updated_logs );
 
 		$this->markTestIncomplete( 'This test should also test the removal of data based on the cache size.' );
@@ -205,7 +205,7 @@ class TestQueryLogger extends BaseTestCase {
 	public function testClearLogs() {
 		$query_logger = new QueryLogger();
 		$query_logger->clear_logs();
-		$this->assertEquals( 1, did_action( 'ep_query_logger_cleared_logs' ) );
+		$this->assertEquals( 1, did_action( 'eprobe_query_logger_cleared_logs' ) );
 	}
 
 	/**
@@ -226,7 +226,7 @@ class TestQueryLogger extends BaseTestCase {
 		$add_fake_log = function () {
 			return [ 'fake-log' ];
 		};
-		add_filter( 'ep_query_logger_logs', $add_fake_log );
+		add_filter( 'eprobe_query_logger_logs', $add_fake_log );
 
 		\ElasticProbe\Screen::factory()->set_current_screen( 'features' );
 
@@ -254,10 +254,10 @@ class TestQueryLogger extends BaseTestCase {
 		/**
 		 * No message when no failed queries
 		 */
-		remove_filter( 'ep_query_logger_logs', $add_fake_log );
+		remove_filter( 'eprobe_query_logger_logs', $add_fake_log );
 		$notices = $query_logger->maybe_add_notice( [] );
 		$this->assertEmpty( $notices );
-		add_filter( 'ep_query_logger_logs', $add_fake_log );
+		add_filter( 'eprobe_query_logger_logs', $add_fake_log );
 
 		$notices = $query_logger->maybe_add_notice( [] );
 		$this->assertArrayHasKey( 'has_failed_queries', $notices );
@@ -265,12 +265,12 @@ class TestQueryLogger extends BaseTestCase {
 		/**
 		 * No messages when dismissed
 		 */
-		add_filter( 'pre_site_option_ep_hide_has_failed_queries_notice', '__return_true' );
-		add_filter( 'pre_option_ep_hide_has_failed_queries_notice', '__return_true' );
+		add_filter( 'pre_site_option_eprobe_hide_has_failed_queries_notice', '__return_true' );
+		add_filter( 'pre_option_eprobe_hide_has_failed_queries_notice', '__return_true' );
 		$notices = $query_logger->maybe_add_notice( [] );
 		$this->assertEmpty( $notices );
-		remove_filter( 'pre_site_option_ep_hide_has_failed_queries_notice', '__return_true' );
-		remove_filter( 'pre_option_ep_hide_has_failed_queries_notice', '__return_true' );
+		remove_filter( 'pre_site_option_eprobe_hide_has_failed_queries_notice', '__return_true' );
+		remove_filter( 'pre_option_eprobe_hide_has_failed_queries_notice', '__return_true' );
 
 		$notices = $query_logger->maybe_add_notice( [] );
 		$this->assertArrayHasKey( 'has_failed_queries', $notices );
@@ -335,7 +335,7 @@ class TestQueryLogger extends BaseTestCase {
 		$this->assertSame( 1000, $formatted_log['query_time'] );
 		$this->assertSame( [ 'post_type' => 'test' ], $formatted_log['wp_args'] );
 		$this->assertSame( 'request body plain text', $formatted_log['body'] );
-		$this->assertGreaterThanOrEqual( 1, did_filter( 'ep_query_logger_formatted_query' ) );
+		$this->assertGreaterThanOrEqual( 1, did_filter( 'eprobe_query_logger_formatted_query' ) );
 
 		$this->markTestIncomplete( 'This test still needs to test different bodies and result status code and body' );
 	}
@@ -389,10 +389,10 @@ class TestQueryLogger extends BaseTestCase {
 		$method->setAccessible( true );
 
 		/**
-		 * Test the `ep_query_logger_allowed_log_types` filter
+		 * Test the `eprobe_query_logger_allowed_log_types` filter
 		 */
 		add_filter(
-			'ep_query_logger_allowed_log_types',
+			'eprobe_query_logger_allowed_log_types',
 			function ( $callable_map, $query, $type ) {
 				$this->assertSame(
 					[ 'put_mapping', 'delete_network_alias', 'create_network_alias', 'bulk_index', 'delete_index', 'create_pipeline', 'get_pipeline', 'query' ],
@@ -412,12 +412,12 @@ class TestQueryLogger extends BaseTestCase {
 		$this->assertFalse( $method->invokeArgs( $query_logger, [ [], 'type-should-not-log' ] ) );
 
 		/**
-		 * Test the `ep_query_logger_should_log_query` filter
+		 * Test the `eprobe_query_logger_should_log_query` filter
 		 *
 		 * Even though the `type-should-not-log` type should NOT log, this will return true
 		 */
 		add_filter(
-			'ep_query_logger_should_log_query',
+			'eprobe_query_logger_should_log_query',
 			function ( $should_log, $query, $type ) {
 				$this->assertSame( [], $query );
 				$this->assertSame( $type, 'type-should-not-log' );

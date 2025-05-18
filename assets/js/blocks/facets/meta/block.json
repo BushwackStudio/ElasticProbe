@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "elasticpress/facet-meta",
+	"name": "elasticprobe/facet-meta",
 	"title": "Filter by Metadata",
-	"category": "elasticpress",
+	"category": "elasticprobe",
 	"description": "Let visitors filter your content by metadata values.",
 	"keywords": ["custom fields", "facets"],
 	"textdomain": "elasticprobe",
@@ -58,6 +58,6 @@
 			"lineHeight": true
 		}
 	},
-	"editorScript": "ep-facets-meta-block-script",
-	"style": "elasticpress-facets"
+	"editorScript": "eprobe-facets-meta-block-script",
+	"style": "elasticprobe-facets"
 }

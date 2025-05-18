@@ -5,11 +5,11 @@
  * Author:      10up Inc.
  * License:     GPLv2 or later
  *
- * @package ElasticPress_Tests_E2e
+ * @package ElasticProbe_Tests_E2e
  */
 
 add_filter(
-	'ep_feature_is_visible',
+	'eprobe_feature_is_visible',
 	function ( $is_visible, $feature_slug ) {
 		return in_array( $feature_slug, [ 'comments', 'terms' ], true ) ? true : $is_visible;
 	},

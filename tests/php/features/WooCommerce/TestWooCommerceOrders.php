@@ -245,13 +245,13 @@ class TestWooCommerceOrders extends WooCommerceBaseTestCase {
 		$this->assertSame( $default_post_types, [ 'shop_order' ] );
 
 		/**
-		 * Test the `ep_woocommerce_admin_searchable_post_types` filter
+		 * Test the `eprobe_woocommerce_admin_searchable_post_types` filter
 		 */
 		$add_post_type = function ( $post_types ) {
 			$post_types[] = 'shop_order_custom';
 			return $post_types;
 		};
-		add_filter( 'ep_woocommerce_admin_searchable_post_types', $add_post_type );
+		add_filter( 'eprobe_woocommerce_admin_searchable_post_types', $add_post_type );
 
 		$new_post_types = $this->orders->get_admin_searchable_post_types();
 		$this->assertSame( $new_post_types, [ 'shop_order', 'shop_order_custom' ] );
@@ -275,13 +275,13 @@ class TestWooCommerceOrders extends WooCommerceBaseTestCase {
 		$this->assertSame( $default_supported, [ 'shop_order', 'shop_order_refund' ] );
 
 		/**
-		 * Test the `ep_woocommerce_orders_supported_post_types` filter
+		 * Test the `eprobe_woocommerce_orders_supported_post_types` filter
 		 */
 		$add_post_type = function ( $post_types ) {
 			$post_types[] = 'shop_order_custom';
 			return $post_types;
 		};
-		add_filter( 'ep_woocommerce_orders_supported_post_types', $add_post_type );
+		add_filter( 'eprobe_woocommerce_orders_supported_post_types', $add_post_type );
 
 		$custom_supported = $this->orders->get_supported_post_types();
 		$this->assertSame( $custom_supported, [ 'shop_order', 'shop_order_refund' ] );
@@ -364,8 +364,8 @@ class TestWooCommerceOrders extends WooCommerceBaseTestCase {
 		$change_hide_option = function () {
 			return 1;
 		};
-		add_filter( 'pre_option_ep_hide_wc_orders_incompatible_notice', $change_hide_option );
-		add_filter( 'pre_site_option_ep_hide_wc_orders_incompatible_notice', $change_hide_option );
+		add_filter( 'pre_option_eprobe_hide_wc_orders_incompatible_notice', $change_hide_option );
+		add_filter( 'pre_site_option_eprobe_hide_wc_orders_incompatible_notice', $change_hide_option );
 		$new_notices = $this->orders->hpos_compatibility_notice( $notices );
 		$this->assertCount( 1, $new_notices );
 		$this->assertArrayNotHasKey( 'wc_orders_incompatible', $new_notices );

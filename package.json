@@ -1,6 +1,6 @@
 {
   "name": "elasticprobe",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "license": "GPL-2.0-or-later",
   "description": "Supercharge your wordPress search with ElasticSearch® precision.",
   "dependencies": {

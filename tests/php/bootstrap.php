@@ -35,43 +35,43 @@ function test_shard_number() {
 function load_plugin() {
 	global $wp_version;
 
-	$host = getenv( 'EP_HOST' );
+	$host = getenv( 'EPROBE_HOST' );
 
 	if ( empty( $host ) ) {
 		$host = 'http://127.0.0.1:8890';
 	}
 
-	update_option( 'ep_host', $host );
-	update_site_option( 'ep_host', $host );
+	update_option( 'eprobe_host', $host );
+	update_site_option( 'eprobe_host', $host );
 
-	$shield_id    = getenv( 'EP_SHIELD_ID' );
-	$shield_token = getenv( 'EP_SHIELD_TOKEN' );
+	$shield_id    = getenv( 'EPROBE_SHIELD_ID' );
+	$shield_token = getenv( 'EPROBE_SHIELD_TOKEN' );
 	if ( ! empty( $shield_id ) && ! empty( $shield_token ) ) {
 		$credentials = [
 			'username' => $shield_id,
 			'token'    => $shield_token,
 		];
-		update_option( 'ep_credentials', $credentials );
-		update_site_option( 'ep_credentials', $credentials );
+		update_option( 'eprobe_credentials', $credentials );
+		update_site_option( 'eprobe_credentials', $credentials );
 	}
 
-	$probe_sid = getenv( 'PROBE_SID' );
+	$probe_sid = getenv( 'EPROBE_SID' );
 	if ( ! empty( $probe_sid ) ) {
-		update_option( 'elasticprobe_subscription_id', $probe_sid );
-		update_site_option( 'elasticprobe_subscription_id', $probe_sid );
+		update_option( 'eprobe_subscription_id', $probe_sid );
+		update_site_option( 'eprobe_subscription_id', $probe_sid );
 	}
 
-	define( 'EP_UNIT_TESTS', true );
+	define( 'EPROBE_UNIT_TESTS', true );
 
 	if ( defined( 'WP_TESTS_MULTISITE' ) && '1' === WP_TESTS_MULTISITE ) {
-		define( 'EP_IS_NETWORK', true );
+		define( 'EPROBE_IS_NETWORK', true );
 		define( 'WP_NETWORK_ADMIN', true );
 	}
 
 	include_once __DIR__ . '/../../vendor/woocommerce/woocommerce.php';
 	require_once __DIR__ . '/../../elasticprobe.php';
 
-	add_filter( 'ep_default_index_number_of_shards', __NAMESPACE__ . '\test_shard_number' );
+	add_filter( 'eprobe_default_index_number_of_shards', __NAMESPACE__ . '\test_shard_number' );
 
 	require_once __DIR__ . '/includes/functions.php';
 

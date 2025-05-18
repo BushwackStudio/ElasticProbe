@@ -109,7 +109,7 @@ describe('Post Search Feature', { tags: '@slow' }, () => {
 		cy.login();
 
 		cy.visitAdminPage('admin.php?page=elasticprobe');
-		cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
+		cy.intercept('/wp-json/elasticprobe/v1/features*').as('apiRequest');
 
 		cy.contains('button', 'Post Search').click();
 		cy.contains('label', 'Weight results by date').click();

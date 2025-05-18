@@ -143,22 +143,22 @@ class TestSearch extends BaseTestCase {
 
 		$this->assertTrue( ElasticProbe\Features::factory()->get_registered_feature( 'search' )->is_decaying_enabled() );
 
-		add_filter( 'ep_formatted_args', array( $this, 'catch_ep_formatted_args' ), 20 );
+		add_filter( 'eprobe_formatted_args', array( $this, 'catch_ep_formatted_args' ), 20 );
 		$query = new \WP_Query(
 			array(
 				's' => 'test',
 			)
 		);
 
-		$this->assertTrue( isset( $this->fired_actions['ep_formatted_args'] ) );
-		$this->assertDecayEnabled( $this->fired_actions['ep_formatted_args']['query'] );
+		$this->assertTrue( isset( $this->fired_actions['eprobe_formatted_args'] ) );
+		$this->assertDecayEnabled( $this->fired_actions['eprobe_formatted_args']['query'] );
 
 		/**
-		 * Test the `ep_is_decaying_enabled` filter
+		 * Test the `eprobe_is_decaying_enabled` filter
 		 */
-		add_filter( 'ep_is_decaying_enabled', '__return_true' );
+		add_filter( 'eprobe_is_decaying_enabled', '__return_true' );
 		$this->assertTrue( ElasticProbe\Features::factory()->get_registered_feature( 'search' )->is_decaying_enabled() );
-		add_filter( 'ep_is_decaying_enabled', '__return_false' );
+		add_filter( 'eprobe_is_decaying_enabled', '__return_false' );
 		$this->assertFalse( ElasticProbe\Features::factory()->get_registered_feature( 'search' )->is_decaying_enabled() );
 	}
 
@@ -194,7 +194,7 @@ class TestSearch extends BaseTestCase {
 		);
 		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
-		add_filter( 'ep_formatted_args', array( $this, 'catch_ep_formatted_args' ) );
+		add_filter( 'eprobe_formatted_args', array( $this, 'catch_ep_formatted_args' ) );
 
 		$query = new \WP_Query(
 			array(
@@ -202,12 +202,12 @@ class TestSearch extends BaseTestCase {
 			)
 		);
 
-		$this->assertTrue( isset( $this->fired_actions['ep_formatted_args'] ) );
-		$this->assertDecayDisabled( $this->fired_actions['ep_formatted_args']['query'] );
+		$this->assertTrue( isset( $this->fired_actions['eprobe_formatted_args'] ) );
+		$this->assertDecayDisabled( $this->fired_actions['eprobe_formatted_args']['query'] );
 		$this->assertTrue(
 			isset(
-				$this->fired_actions['ep_formatted_args']['query']['bool'],
-				$this->fired_actions['ep_formatted_args']['query']['bool']['should']
+				$this->fired_actions['eprobe_formatted_args']['query']['bool'],
+				$this->fired_actions['eprobe_formatted_args']['query']['bool']['should']
 			)
 		);
 	}
@@ -280,7 +280,7 @@ class TestSearch extends BaseTestCase {
 	/**
 	 * Testing setting a tag that's not allowed
 	 *
-	 * Leverages the ep_highlighting_tag filter used when updating settings.
+	 * Leverages the eprobe_highlighting_tag filter used when updating settings.
 	 * Should return 'mark' as the tag.
 	 *
 	 * @group search
@@ -303,7 +303,7 @@ class TestSearch extends BaseTestCase {
 		);
 
 		$settings = ElasticProbe\Features::factory()->get_registered_feature( 'search' )->get_settings();
-		$tag      = apply_filters( 'ep_highlighting_tag', $settings['highlight_tag'] );
+		$tag      = apply_filters( 'eprobe_highlighting_tag', $settings['highlight_tag'] );
 
 		$this->assertTrue( 'mark' === $tag );
 	}

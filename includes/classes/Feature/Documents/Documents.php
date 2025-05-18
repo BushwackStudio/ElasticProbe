@@ -50,26 +50,26 @@ class Documents extends Feature {
 	 * @since  2.3
 	 */
 	public function setup() {
-		add_filter( 'ep_search_fields', [ $this, 'search_fields' ] );
-		add_filter( 'ep_index_request_path', [ $this, 'index_request_path' ], 999, 3 );
-		add_filter( 'ep_post_sync_args', [ $this, 'post_sync_args' ], 999, 2 );
-		add_filter( 'ep_indexable_post_status', [ $this, 'indexable_post_status' ], 999, 1 );
-		add_filter( 'ep_bulk_index_request_path', [ $this, 'bulk_index_request_path' ], 999, 3 );
+		add_filter( 'eprobe_search_fields', [ $this, 'search_fields' ] );
+		add_filter( 'eprobe_index_request_path', [ $this, 'index_request_path' ], 999, 3 );
+		add_filter( 'eprobe_post_sync_args', [ $this, 'post_sync_args' ], 999, 2 );
+		add_filter( 'eprobe_indexable_post_status', [ $this, 'indexable_post_status' ], 999, 1 );
+		add_filter( 'eprobe_bulk_index_request_path', [ $this, 'bulk_index_request_path' ], 999, 3 );
 		add_filter( 'pre_get_posts', [ $this, 'setup_document_search' ] );
-		add_filter( 'ep_post_mapping', [ $this, 'attachments_mapping' ] );
-		add_action( 'ep_cli_put_mapping', [ $this, 'create_pipeline' ] );
-		add_action( 'ep_dashboard_put_mapping', [ $this, 'create_pipeline' ] );
-		add_filter( 'ep_indexable_post_types', [ $this, 'index_attachment_post_type' ] );
-		add_filter( 'ep_searchable_post_types', [ $this, 'search_attachment_post_type' ] );
+		add_filter( 'eprobe_post_mapping', [ $this, 'attachments_mapping' ] );
+		add_action( 'eprobe_cli_put_mapping', [ $this, 'create_pipeline' ] );
+		add_action( 'eprobe_dashboard_put_mapping', [ $this, 'create_pipeline' ] );
+		add_filter( 'eprobe_indexable_post_types', [ $this, 'index_attachment_post_type' ] );
+		add_filter( 'eprobe_searchable_post_types', [ $this, 'search_attachment_post_type' ] );
 
 		// Autosuggest Compatibility
-		add_filter( 'ep_autosuggest_options', [ $this, 'filter_autosuggest_options' ] );
-		add_filter( 'ep_term_suggest_post_status', [ $this, 'filter_autosuggest_post_status' ] );
+		add_filter( 'eprobe_autosuggest_options', [ $this, 'filter_autosuggest_options' ] );
+		add_filter( 'eprobe_term_suggest_post_status', [ $this, 'filter_autosuggest_post_status' ] );
 
-		add_filter( 'ep_weighting_fields_for_post_type', [ $this, 'filter_weightable_fields_for_post_type' ], 10, 2 );
-		add_filter( 'ep_weighting_default_post_type_weights', [ $this, 'filter_attachment_post_type_weights' ], 10, 2 );
+		add_filter( 'eprobe_weighting_fields_for_post_type', [ $this, 'filter_weightable_fields_for_post_type' ], 10, 2 );
+		add_filter( 'eprobe_weighting_default_post_type_weights', [ $this, 'filter_attachment_post_type_weights' ], 10, 2 );
 
-		add_filter( 'ep_ajax_wp_query_integration', [ $this, 'maybe_enable_ajax_wp_query_integration' ] );
+		add_filter( 'eprobe_ajax_wp_query_integration', [ $this, 'maybe_enable_ajax_wp_query_integration' ] );
 	}
 
 	/**
@@ -174,11 +174,11 @@ class Documents extends Feature {
 		/**
 		 * Filter documents pipeline ID
 		 *
-		 * @hook ep_documents_pipeline_id
+		 * @hook eprobe_documents_pipeline_id
 		 * @param  {string} $id Pipeline ID
 		 * @return  {string} new ID
 		 */
-		$pipeline_id = apply_filters( 'ep_documents_pipeline_id', Indexables::factory()->get( 'post' )->get_index_name() . '-attachment' );
+		$pipeline_id = apply_filters( 'eprobe_documents_pipeline_id', Indexables::factory()->get( 'post' )->get_index_name() . '-attachment' );
 
 		if ( version_compare( (string) Elasticsearch::factory()->get_elasticsearch_version(), '7.0', '<' ) ) {
 			$path = trailingslashit( $index ) . 'post/' . $post['ID'] . '?pipeline=' . $pipeline_id;
@@ -207,11 +207,11 @@ class Documents extends Feature {
 		/**
 		 * Filters the arguments passed to WP_Filesystem()
 		 *
-		 * @hook ep_filesystem_args
+		 * @hook eprobe_filesystem_args
 		 * @param  {boolean} False (default value)
 		 * @return {array|false} Array of args, or false if none
 		 */
-		$filesystem_args = apply_filters( 'ep_filesystem_args', false );
+		$filesystem_args = apply_filters( 'eprobe_filesystem_args', false );
 
 		if ( ! WP_Filesystem( $filesystem_args ) ) {
 			return $post_args;
@@ -285,11 +285,11 @@ class Documents extends Feature {
 				/**
 				 * Filter documents pipeline ID
 				 *
-				 * @hook ep_documents_pipeline_id
+				 * @hook eprobe_documents_pipeline_id
 				 * @param  {string} $id Pipeline ID
 				 * @return  {string} new ID
 				 */
-				'pipeline' => apply_filters( 'ep_documents_pipeline_id', Indexables::factory()->get( 'post' )->get_index_name() . '-attachment' ),
+				'pipeline' => apply_filters( 'eprobe_documents_pipeline_id', Indexables::factory()->get( 'post' )->get_index_name() . '-attachment' ),
 			),
 			$path
 		);
@@ -382,11 +382,11 @@ class Documents extends Feature {
 		/**
 		 * Filter documents pipeline ID
 		 *
-		 * @hook ep_documents_pipeline_id
+		 * @hook eprobe_documents_pipeline_id
 		 * @param  {string} $id Pipeline ID
 		 * @return  {string} new ID
 		 */
-		Elasticsearch::factory()->create_pipeline( apply_filters( 'ep_documents_pipeline_id', Indexables::factory()->get( 'post' )->get_index_name() . '-attachment' ), $args );
+		Elasticsearch::factory()->create_pipeline( apply_filters( 'eprobe_documents_pipeline_id', Indexables::factory()->get( 'post' )->get_index_name() . '-attachment' ), $args );
 	}
 
 	/**
@@ -399,12 +399,12 @@ class Documents extends Feature {
 		/**
 		 * Filter allowed mime types for documents
 		 *
-		 * @hook ep_allowed_documents_ingest_mime_types
+		 * @hook eprobe_allowed_documents_ingest_mime_types
 		 * @param  {array} $mime_types Allowed mime types
 		 * @return  {array} New types
 		 */
 		return apply_filters(
-			'ep_allowed_documents_ingest_mime_types',
+			'eprobe_allowed_documents_ingest_mime_types',
 			array(
 				'pdf'  => 'application/pdf',
 				'ppt'  => 'application/vnd.ms-powerpoint',
@@ -556,12 +556,12 @@ class Documents extends Feature {
 		 * Filter whether mime type restriction should be applied to the current WP Query
 		 *
 		 * @since 5.1.0
-		 * @hook ep_documents_wp_query_set_mime_types
+		 * @hook eprobe_documents_wp_query_set_mime_types
 		 * @param {bool}     $should_set Whether to restrict this query with mime types or not
 		 * @param {WP_Query} $query      WP Query object
 		 * @return {bool} New value
 		 */
-		$should_set_mime_types = apply_filters( 'ep_documents_wp_query_set_mime_types', $should_set_mime_types, $query );
+		$should_set_mime_types = apply_filters( 'eprobe_documents_wp_query_set_mime_types', $should_set_mime_types, $query );
 
 		if ( ! $should_set_mime_types ) {
 			return;
@@ -592,11 +592,11 @@ class Documents extends Feature {
 		 * Filter whether the feature should work on the Media Library admin ajax request
 		 *
 		 * @since 5.1.0
-		 * @hook ep_documents_media_library_ajax_enabled
+		 * @hook eprobe_documents_media_library_ajax_enabled
 		 * @param {bool} $enabled Whether to integrate or not
 		 * @return {bool} New value
 		 */
-		return apply_filters( 'ep_documents_media_library_ajax_enabled', $protected_content->is_active() );
+		return apply_filters( 'eprobe_documents_media_library_ajax_enabled', $protected_content->is_active() );
 	}
 
 	/**

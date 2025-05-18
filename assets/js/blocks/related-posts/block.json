@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "elasticpress/related-posts",
+	"name": "elasticprobe/related-posts",
 	"title": "Related Posts",
-	"category": "elasticpress",
+	"category": "elasticprobe",
 	"description": "Display a continuously updated list of related posts.",
 	"textdomain": "elasticprobe",
 	"attributes": {
@@ -37,6 +37,6 @@
 			"lineHeight": true
 		}
 	},
-	"editorScript": "ep-related-posts-block-script",
+	"editorScript": "eprobe-related-posts-block-script",
 	"style": "file:/../../../../dist/css/related-posts-block-styles.css"
 }

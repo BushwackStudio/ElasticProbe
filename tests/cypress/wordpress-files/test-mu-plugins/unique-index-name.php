@@ -2,11 +2,11 @@
 /**
  * Plugin Name: E2e Tweaks
  *
- * @package ElasticPress_Tests_E2e
+ * @package ElasticProbe_Tests_E2e
  */
 
 add_filter(
-	'ep_index_name',
+	'eprobe_index_name',
 	function ( $index_name ) {
 		$docker_cid = get_docker_cid();
 
@@ -45,7 +45,7 @@ function get_docker_cid() {
 	return $docker_cid;
 }
 
-add_filter( 'ep_es_info_cache_expiration', '__return_zero' );
+add_filter( 'eprobe_es_info_cache_expiration', '__return_zero' );
 
 /**
  * From this point, only WP-CLI context should be executed.

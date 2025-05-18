@@ -92,7 +92,7 @@ class AdminNotices {
 			return false;
 		}
 
-		$last_sync = Utils\get_option( 'ep_last_sync', false );
+		$last_sync = Utils\get_option( 'eprobe_last_sync', false );
 
 		if ( empty( $last_sync ) ) {
 			return false;
@@ -104,7 +104,7 @@ class AdminNotices {
 			return false;
 		}
 
-		$dismiss = Utils\get_option( 'ep_hide_using_autosuggest_defaults_notice', false );
+		$dismiss = Utils\get_option( 'eprobe_hide_using_autosuggest_defaults_notice', false );
 
 		if ( $dismiss ) {
 			return false;
@@ -134,20 +134,20 @@ class AdminNotices {
 	 * @return array|bool
 	 */
 	protected function process_auto_activate_sync_notice() {
-		$need_upgrade_sync = Utils\get_option( 'ep_need_upgrade_sync', false );
+		$need_upgrade_sync = Utils\get_option( 'eprobe_need_upgrade_sync', false );
 
 		// need_upgrade_sync takes priority over this notice
 		if ( $need_upgrade_sync ) {
 			return false;
 		}
 
-		$auto_activate_sync = Utils\get_option( 'ep_feature_auto_activated_sync', false );
+		$auto_activate_sync = Utils\get_option( 'eprobe_feature_auto_activated_sync', false );
 
 		if ( ! $auto_activate_sync ) {
 			return false;
 		}
 
-		$last_sync = Utils\get_option( 'ep_last_sync', false );
+		$last_sync = Utils\get_option( 'eprobe_last_sync', false );
 
 		if ( empty( $last_sync ) ) {
 			return false;
@@ -159,7 +159,7 @@ class AdminNotices {
 			return false;
 		}
 
-		$dismiss = Utils\get_option( 'ep_hide_auto_activate_sync_notice', false );
+		$dismiss = Utils\get_option( 'eprobe_hide_auto_activate_sync_notice', false );
 
 		$screen = Screen::factory()->get_current_screen();
 
@@ -179,7 +179,7 @@ class AdminNotices {
 
 		$feature = Features::factory()->get_registered_feature( $auto_activate_sync );
 
-		if ( defined( 'EP_DASHBOARD_SYNC' ) && ! EP_DASHBOARD_SYNC ) {
+		if ( defined( 'EPROBE_DASHBOARD_SYNC' ) && ! EPROBE_DASHBOARD_SYNC ) {
 			$html = sprintf(
 				/* translators: Feature name */
 				esc_html__( 'Dashboard sync is disabled. The ElasticProbe %s feature has been auto-activated! You will need to reindex using WP-CLI for it to work.', 'elasticprobe' ),
@@ -212,13 +212,13 @@ class AdminNotices {
 	 * @return array|bool
 	 */
 	protected function process_upgrade_sync_notice() {
-		$need_upgrade_sync = Utils\get_option( 'ep_need_upgrade_sync', false );
+		$need_upgrade_sync = Utils\get_option( 'eprobe_need_upgrade_sync', false );
 
 		if ( ! $need_upgrade_sync ) {
 			return false;
 		}
 
-		$last_sync = Utils\get_option( 'ep_last_sync', false );
+		$last_sync = Utils\get_option( 'eprobe_last_sync', false );
 
 		if ( empty( $last_sync ) ) {
 			return false;
@@ -230,7 +230,7 @@ class AdminNotices {
 			return false;
 		}
 
-		$dismiss = Utils\get_option( 'ep_hide_upgrade_sync_notice', false );
+		$dismiss = Utils\get_option( 'eprobe_hide_upgrade_sync_notice', false );
 
 		$screen = Screen::factory()->get_current_screen();
 
@@ -248,7 +248,7 @@ class AdminNotices {
 
 		$url = Utils\get_sync_url( 'upgrade' );
 
-		if ( defined( 'EP_DASHBOARD_SYNC' ) && ! EP_DASHBOARD_SYNC ) {
+		if ( defined( 'EPROBE_DASHBOARD_SYNC' ) && ! EPROBE_DASHBOARD_SYNC ) {
 			$html = esc_html__( 'Dashboard sync is disabled. The new version of ElasticProbe requires that you delete all data and start a fresh sync using WP-CLI.', 'elasticprobe' );
 		} else {
 			$html = sprintf(
@@ -278,7 +278,7 @@ class AdminNotices {
 	 * @return array|bool
 	 */
 	protected function process_no_sync_notice() {
-		$last_sync = Utils\get_option( 'ep_last_sync', false );
+		$last_sync = Utils\get_option( 'eprobe_last_sync', false );
 
 		if ( ! empty( $last_sync ) ) {
 			return false;
@@ -290,7 +290,7 @@ class AdminNotices {
 			return false;
 		}
 
-		$dismiss = Utils\get_option( 'ep_hide_no_sync_notice', false );
+		$dismiss = Utils\get_option( 'eprobe_hide_no_sync_notice', false );
 
 		$screen = Screen::factory()->get_current_screen();
 
@@ -306,13 +306,13 @@ class AdminNotices {
 			return false;
 		}
 
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 			$url = admin_url( 'network/admin.php?page=elasticprobe-sync' );
 		} else {
 			$url = admin_url( 'admin.php?page=elasticprobe-sync' );
 		}
 
-		if ( defined( 'EP_DASHBOARD_SYNC' ) && ! EP_DASHBOARD_SYNC ) {
+		if ( defined( 'EPROBE_DASHBOARD_SYNC' ) && ! EPROBE_DASHBOARD_SYNC ) {
 			$html = esc_html__( 'Dashboard sync is disabled, but ElasticProbe is almost ready to go. Trigger a sync from WP-CLI.', 'elasticprobe' );
 		} else {
 			$html = sprintf(
@@ -346,7 +346,7 @@ class AdminNotices {
 			return false;
 		}
 
-		$dismiss = Utils\get_option( 'ep_hide_need_setup_notice', false );
+		$dismiss = Utils\get_option( 'eprobe_hide_need_setup_notice', false );
 
 		$screen = Screen::factory()->get_current_screen();
 
@@ -358,7 +358,7 @@ class AdminNotices {
 			return false;
 		}
 
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 			$url = admin_url( 'network/admin.php?page=elasticprobe-settings' );
 		} else {
 			$url = admin_url( 'admin.php?page=elasticprobe-settings' );
@@ -402,7 +402,7 @@ class AdminNotices {
 			return false;
 		}
 
-		$dismiss = Utils\get_option( 'ep_hide_es_below_compat_notice', false );
+		$dismiss = Utils\get_option( 'eprobe_hide_es_below_compat_notice', false );
 
 		if ( $dismiss ) {
 			return false;
@@ -420,7 +420,7 @@ class AdminNotices {
 
 		$major_es_version = implode( '.', $parts );
 
-		if ( 1 === version_compare( EP_ES_VERSION_MIN, $major_es_version ) ) {
+		if ( 1 === version_compare( EPROBE_ES_VERSION_MIN, $major_es_version ) ) {
 			return [
 				'type'    => 'error',
 				'dismiss' => true,
@@ -428,7 +428,7 @@ class AdminNotices {
 					/* translators: 1. Current Elasticsearch version; 2. Minimum required ES version */
 					__( 'Your Elasticsearch version %1$s is below the minimum required Elasticsearch version %2$s. ElasticProbe may or may not work properly.', 'elasticprobe' ),
 					esc_html( $es_version ),
-					esc_html( EP_ES_VERSION_MIN )
+					esc_html( EPROBE_ES_VERSION_MIN )
 				),
 			];
 		}
@@ -463,7 +463,7 @@ class AdminNotices {
 			return false;
 		}
 
-		$dismiss = Utils\get_option( 'ep_hide_es_above_compat_notice', false );
+		$dismiss = Utils\get_option( 'eprobe_hide_es_above_compat_notice', false );
 
 		if ( $dismiss ) {
 			return false;
@@ -472,7 +472,7 @@ class AdminNotices {
 		// First reduce version to major version i.e. 7.10 not 7.10.1.
 		$major_es_version = preg_replace( '#^([0-9]+\.[0-9]+).*#', '$1', $es_version );
 
-		if ( -1 === version_compare( EP_ES_VERSION_MAX, $major_es_version ) ) {
+		if ( -1 === version_compare( EPROBE_ES_VERSION_MAX, $major_es_version ) ) {
 			return [
 				'type'    => 'warning',
 				'dismiss' => true,
@@ -480,7 +480,7 @@ class AdminNotices {
 					/* translators: 1. Current Elasticsearch version; 2. Maximum supported ES version */
 					__( 'Your Elasticsearch version %1$s is above the maximum required Elasticsearch version %2$s. ElasticProbe may or may not work properly.', 'elasticprobe' ),
 					esc_html( $es_version ),
-					esc_html( EP_ES_VERSION_MAX )
+					esc_html( EPROBE_ES_VERSION_MAX )
 				),
 			];
 		}
@@ -513,7 +513,7 @@ class AdminNotices {
 			return false;
 		}
 
-		$dismiss = Utils\get_option( 'ep_hide_different_server_type_notice', false );
+		$dismiss = Utils\get_option( 'eprobe_hide_different_server_type_notice', false );
 
 		if ( $dismiss ) {
 			return false;
@@ -564,21 +564,21 @@ class AdminNotices {
 
 		// Only dismissable on non-EP screens
 		if ( ! in_array( $screen, [ 'settings', 'dashboard' ], true ) ) {
-			$dismiss = Utils\get_option( 'ep_hide_host_error_notice', false );
+			$dismiss = Utils\get_option( 'eprobe_hide_host_error_notice', false );
 
 			if ( $dismiss ) {
 				return false;
 			}
 		}
 
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 			$url            = admin_url( 'network/admin.php?page=elasticprobe-settings' );
-			$response_code  = get_site_transient( 'ep_es_info_response_code' );
-			$response_error = get_site_transient( 'ep_es_info_response_error' );
+			$response_code  = get_site_transient( 'eprobe_es_info_response_code' );
+			$response_error = get_site_transient( 'eprobe_es_info_response_error' );
 		} else {
 			$url            = admin_url( 'admin.php?page=elasticprobe-settings' );
-			$response_code  = get_transient( 'ep_es_info_response_code' );
-			$response_error = get_transient( 'ep_es_info_response_error' );
+			$response_code  = get_transient( 'eprobe_es_info_response_code' );
+			$response_error = get_transient( 'eprobe_es_info_response_error' );
 		}
 
 		$retry_url = add_query_arg(
@@ -632,7 +632,7 @@ class AdminNotices {
 		}
 
 		// we might have this dismissed
-		$dismiss = Utils\get_option( 'ep_hide_maybe_wrong_mapping_notice', false );
+		$dismiss = Utils\get_option( 'eprobe_hide_maybe_wrong_mapping_notice', false );
 
 		// we need a host
 		$host = Utils\get_host();
@@ -648,7 +648,7 @@ class AdminNotices {
 		}
 
 		// we also likely need a sync to have a mapping
-		$last_sync = Utils\get_option( 'ep_last_sync', false );
+		$last_sync = Utils\get_option( 'eprobe_last_sync', false );
 
 		if ( empty( $last_sync ) ) {
 			return false;
@@ -701,13 +701,13 @@ class AdminNotices {
 			return false;
 		}
 
-		$last_sync = Utils\get_option( 'ep_last_sync', false );
+		$last_sync = Utils\get_option( 'eprobe_last_sync', false );
 
 		if ( empty( $last_sync ) ) {
 			return false;
 		}
 
-		$dismiss = Utils\get_option( 'ep_hide_yellow_health_notice', false );
+		$dismiss = Utils\get_option( 'eprobe_hide_yellow_health_notice', false );
 
 		$screen = Screen::factory()->get_current_screen();
 
@@ -718,7 +718,7 @@ class AdminNotices {
 		$nodes = Stats::factory()->get_nodes();
 
 		if ( false !== $nodes && $nodes < 2 && $nodes > 0 ) {
-			if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+			if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 				$url = network_admin_url( 'admin.php?page=elasticprobe-health' );
 			} else {
 				$url = admin_url( 'admin.php?page=elasticprobe-health' );
@@ -753,7 +753,7 @@ class AdminNotices {
 			return false;
 		}
 
-		$dismiss = Utils\get_option( 'ep_hide_too_many_fields_notice', false );
+		$dismiss = Utils\get_option( 'eprobe_hide_too_many_fields_notice', false );
 
 		$screen = Screen::factory()->get_current_screen();
 
@@ -764,7 +764,7 @@ class AdminNotices {
 		$has_error   = false;
 		$has_warning = false;
 
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 			$sites = Utils\get_sites( 0, true );
 			foreach ( $sites as $site ) {
 				switch_to_blog( $site['blog_id'] );
@@ -827,14 +827,14 @@ class AdminNotices {
 		/**
 		 * Filter admin notices
 		 *
-		 * @hook ep_admin_notices
+		 * @hook eprobe_admin_notices
 		 * @param  {array} $notices Admin notices
 		 * @return {array} New notices
 		 */
-		$notices = apply_filters( 'ep_admin_notices', $this->notices );
+		$notices = apply_filters( 'eprobe_admin_notices', $this->notices );
 
 		// If the plugin is network-activated and not in the network admin, return the notices whose scope is site.
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK && ! is_network_admin() ) {
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK && ! is_network_admin() ) {
 			$notices = array_filter(
 				$notices,
 				function ( $notice ) {
@@ -859,7 +859,7 @@ class AdminNotices {
 			$value = Elasticsearch::factory()->get_elasticsearch_version( false );
 		}
 
-		Utils\update_option( 'ep_hide_' . $notice . '_notice', $value );
+		Utils\update_option( 'eprobe_hide_' . $notice . '_notice', $value );
 	}
 
 	/**
@@ -898,7 +898,7 @@ class AdminNotices {
 
 		$index_name     = $post_indexable->get_index_name();
 		$es_field_limit = Elasticsearch::factory()->get_index_total_fields_limit( $index_name );
-		$es_field_limit = $es_field_limit ?? apply_filters( 'ep_total_field_limit', 5000 );
+		$es_field_limit = $es_field_limit ?? apply_filters( 'eprobe_total_field_limit', 5000 );
 
 		$predicted_es_field_count = $count_fields_db * 8;
 

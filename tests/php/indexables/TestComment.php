@@ -132,9 +132,9 @@ class TestComment extends BaseTestCase {
 	 */
 	public function testCommentSync() {
 		add_action(
-			'ep_sync_comment_on_transition',
+			'eprobe_sync_comment_on_transition',
 			function () {
-				$this->fired_actions['ep_sync_comment_on_transition'] = true;
+				$this->fired_actions['eprobe_sync_comment_on_transition'] = true;
 			}
 		);
 
@@ -153,9 +153,9 @@ class TestComment extends BaseTestCase {
 
 		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
-		$this->assertArrayHasKey( 'ep_sync_comment_on_transition', $this->fired_actions );
+		$this->assertArrayHasKey( 'eprobe_sync_comment_on_transition', $this->fired_actions );
 
-		$this->assertTrue( ! empty( $this->fired_actions['ep_sync_comment_on_transition'] ) );
+		$this->assertTrue( ! empty( $this->fired_actions['eprobe_sync_comment_on_transition'] ) );
 
 		$comment = ElasticProbe\Indexables::factory()->get( 'comment' )->get( $comment_id );
 
@@ -228,7 +228,7 @@ class TestComment extends BaseTestCase {
 		);
 
 		add_filter(
-			'ep_comment_sync_kill',
+			'eprobe_comment_sync_kill',
 			function ( $kill, $comment_id ) use ( $created_comment_id ) {
 				if ( $created_comment_id === $comment_id ) {
 					return true;
@@ -242,7 +242,7 @@ class TestComment extends BaseTestCase {
 
 		ElasticProbe\Indexables::factory()->get( 'comment' )->sync_manager->action_sync_on_update( $created_comment_id );
 
-		$this->assertArrayNotHasKey( 'ep_sync_comment_on_transition', $this->fired_actions );
+		$this->assertArrayNotHasKey( 'eprobe_sync_comment_on_transition', $this->fired_actions );
 	}
 
 	/**
@@ -283,7 +283,7 @@ class TestComment extends BaseTestCase {
 			return 2;
 		};
 
-		add_filter( 'ep_max_results_window', $return_2 );
+		add_filter( 'eprobe_max_results_window', $return_2 );
 
 		// Now try with Elasticsearch.
 		$comments_query = new \WP_Comment_Query(
@@ -605,9 +605,9 @@ class TestComment extends BaseTestCase {
 	 */
 	public function testCommentDelete() {
 		add_action(
-			'ep_sync_comment_on_transition',
+			'eprobe_sync_comment_on_transition',
 			function () {
-				$this->fired_actions['ep_sync_comment_on_transition'] = true;
+				$this->fired_actions['eprobe_sync_comment_on_transition'] = true;
 			}
 		);
 
@@ -633,9 +633,9 @@ class TestComment extends BaseTestCase {
 
 		ElasticProbe\Indexables::factory()->get( 'comment' )->index( $comment_id );
 
-		$this->assertArrayHasKey( 'ep_sync_comment_on_transition', $this->fired_actions );
+		$this->assertArrayHasKey( 'eprobe_sync_comment_on_transition', $this->fired_actions );
 
-		$this->assertNotEmpty( $this->fired_actions['ep_sync_comment_on_transition'] );
+		$this->assertNotEmpty( $this->fired_actions['eprobe_sync_comment_on_transition'] );
 
 		$comment = ElasticProbe\Indexables::factory()->get( 'comment' )->get( $comment_id );
 
@@ -2640,7 +2640,7 @@ class TestComment extends BaseTestCase {
 		$change_lang = function ( $lang, $context ) {
 			return 'filter_ep_stop' === $context ? '_arabic_' : $lang;
 		};
-		add_filter( 'ep_analyzer_language', $change_lang, 11, 2 );
+		add_filter( 'eprobe_analyzer_language', $change_lang, 11, 2 );
 
 		ElasticProbe\Elasticsearch::factory()->delete_all_indices();
 		$indexable->put_mapping();

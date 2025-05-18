@@ -25,9 +25,8 @@ class Comments {
 	 * @return void
 	 */
 	public function register_routes() {
-		// TODO: Change rest route
 		register_rest_route(
-			'elasticpress/v1',
+			'elasticprobe/v1',
 			'comments',
 			[
 				'args'                => $this->get_args(),
@@ -90,34 +89,34 @@ class Comments {
 		/**
 		 * Filter to args used in WP_Comment_Query in Widget Search Comment
 		 *
-		 * @hook ep_comment_search_widget_args
+		 * @hook eprobe_comment_search_widget_args
 		 * @since 3.6.0
 		 * @param  {array} $default_args Defaults args
 		 * @return {array} New value
 		 */
-		$args = apply_filters( 'ep_comment_search_widget_args', $default_args );
+		$args = apply_filters( 'eprobe_comment_search_widget_args', $default_args );
 
 		/**
 		 * Fires before the comment query is executed.
 		 *
-		 * @hook ep_comment_pre_search_widget
+		 * @hook eprobe_comment_pre_search_widget
 		 * @since 3.6.0
 		 * @param {array}           $args Args passed to `WP_Comment_Query`.
 		 * @param {WP_REST_Request} $request Rest request.
 		 */
-		do_action( 'ep_comment_pre_search_widget', $args, $request );
+		do_action( 'eprobe_comment_pre_search_widget', $args, $request );
 
 		$comment_query = new \WP_Comment_Query( $args );
 
 		/**
 		 * Fires after the comment query is executed.
 		 *
-		 * @hook ep_comment_after_search_widget
+		 * @hook eprobe_comment_after_search_widget
 		 * @since 3.6.0
 		 * @param {WP_Comment_Query} $comment_query WP_Comment_Query object.
 		 * @param {WP_REST_Request}  $request Rest request.
 		 */
-		do_action( 'ep_comment_after_search_widget', $comment_query, $request );
+		do_action( 'eprobe_comment_after_search_widget', $comment_query, $request );
 
 		$return = [];
 		foreach ( $comment_query->comments as $comment ) {
@@ -131,12 +130,12 @@ class Comments {
 		/**
 		 * Filters the comments response
 		 *
-		 * @hook ep_comment_search_widget_response
+		 * @hook eprobe_comment_search_widget_response
 		 * @since 3.6.0
 		 * @param  {array} $return The result of fetched comments.
 		 * @return {array} New value
 		 */
-		return apply_filters( 'ep_comment_search_widget_response', $return );
+		return apply_filters( 'eprobe_comment_search_widget_response', $return );
 	}
 
 	/**

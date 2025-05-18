@@ -119,7 +119,7 @@ class ElasticPressIo extends Report {
 		$title  = __( 'Instant Results Template', 'elasticprobe' );
 		$fields = [];
 
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 			$sites = Utils\get_sites( 0, true );
 
 			foreach ( $sites as $site ) {
@@ -160,7 +160,7 @@ class ElasticPressIo extends Report {
 		$title  = __( 'Orders Search Template', 'elasticprobe' );
 		$fields = [];
 
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 			$sites = Utils\get_sites( 0, true );
 
 			foreach ( $sites as $site ) {

@@ -108,7 +108,7 @@ class TestScreen extends BaseTestCase {
 			return true;
 		};
 
-		add_filter( 'ep_install_status', $set_install_status );
+		add_filter( 'eprobe_install_status', $set_install_status );
 
 		$_GET['page'] = 'elasticprobe-settings';
 
@@ -129,7 +129,7 @@ class TestScreen extends BaseTestCase {
 			return 1;
 		};
 
-		add_filter( 'ep_install_status', $set_install_status );
+		add_filter( 'eprobe_install_status', $set_install_status );
 
 		$_GET['page'] = 'elasticprobe-settings';
 
@@ -150,7 +150,7 @@ class TestScreen extends BaseTestCase {
 			return 2;
 		};
 
-		add_filter( 'ep_install_status', $set_install_status );
+		add_filter( 'eprobe_install_status', $set_install_status );
 
 		$_GET['page'] = 'elasticprobe-settings';
 
@@ -171,7 +171,7 @@ class TestScreen extends BaseTestCase {
 			return true;
 		};
 
-		add_filter( 'ep_install_status', $set_install_status );
+		add_filter( 'eprobe_install_status', $set_install_status );
 
 		$_GET['page'] = 'elasticprobe';
 
@@ -192,7 +192,7 @@ class TestScreen extends BaseTestCase {
 			return 1;
 		};
 
-		add_filter( 'ep_install_status', $set_install_status );
+		add_filter( 'eprobe_install_status', $set_install_status );
 
 		$_GET['page'] = 'elasticprobe';
 
@@ -213,7 +213,7 @@ class TestScreen extends BaseTestCase {
 			return 1;
 		};
 
-		add_filter( 'ep_install_status', $set_install_status );
+		add_filter( 'eprobe_install_status', $set_install_status );
 
 		$_GET['page'] = 'elasticprobe';
 
@@ -234,7 +234,7 @@ class TestScreen extends BaseTestCase {
 			return true;
 		};
 
-		add_filter( 'ep_install_status', $set_install_status );
+		add_filter( 'eprobe_install_status', $set_install_status );
 
 		$_GET['page']             = 'elasticprobe';
 		$_GET['install_complete'] = 1;
@@ -256,7 +256,7 @@ class TestScreen extends BaseTestCase {
 			return 3;
 		};
 
-		add_filter( 'ep_install_status', $set_install_status );
+		add_filter( 'eprobe_install_status', $set_install_status );
 
 		$_GET['page']          = 'elasticprobe';
 		$_GET['do_sync']       = 1;

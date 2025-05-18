@@ -61,7 +61,7 @@ class Facets extends Feature {
 		 *
 		 * ```
 		 * add_filter(
-		 *     'ep_facet_types',
+		 *     'eprobe_facet_types',
 		 *     function ( $types ) {
 		 *         $types['post_type'] = '\MyPlugin\PostType';
 		 *         return $types;
@@ -70,11 +70,11 @@ class Facets extends Feature {
 		 * ```
 		 *
 		 * @since 4.3.0
-		 * @hook ep_facet_types
+		 * @hook eprobe_facet_types
 		 * @param {array} $types Array of types available. Keys are slugs, values are class names.
 		 * @return {array} New array of types available
 		 */
-		$types = apply_filters( 'ep_facet_types', $types );
+		$types = apply_filters( 'eprobe_facet_types', $types );
 
 		foreach ( $types as $type => $class ) {
 			if ( is_a( $class, __NAMESPACE__ . '\FacetType', true ) ) {
@@ -124,12 +124,12 @@ class Facets extends Feature {
 		/**
 		 * Filter if facet should be enabled in the editor. Default: false
 		 *
-		 * @hook  ep_facet_enabled_in_editor
+		 * @hook  eprobe_facet_enabled_in_editor
 		 * @since 5.1.0
 		 * @param {bool}  $enabled
 		 * @return {bool} If enabled or not
 		 */
-		if ( $in_editor && ! apply_filters( 'ep_facet_enabled_in_editor', false ) ) {
+		if ( $in_editor && ! apply_filters( 'eprobe_facet_enabled_in_editor', false ) ) {
 			return;
 		}
 
@@ -138,13 +138,13 @@ class Facets extends Feature {
 		}
 
 		add_filter( 'widget_types_to_hide_from_legacy_widget_block', [ $this, 'hide_legacy_widget' ] );
-		add_action( 'ep_valid_response', [ $this, 'get_aggs' ], 10, 4 );
+		add_action( 'eprobe_valid_response', [ $this, 'get_aggs' ], 10, 4 );
 		add_action( 'wp_enqueue_scripts', [ $this, 'front_scripts' ] );
 		add_action( 'enqueue_block_editor_assets', [ $this, 'front_scripts' ] );
-		add_action( 'ep_feature_box_settings_facets', [ $this, 'settings' ], 10, 1 );
-		add_filter( 'ep_post_formatted_args', [ $this, 'set_agg_filters' ], 10, 3 );
+		add_action( 'eprobe_feature_box_settings_facets', [ $this, 'settings' ], 10, 1 );
+		add_filter( 'eprobe_post_formatted_args', [ $this, 'set_agg_filters' ], 10, 3 );
 		add_action( 'pre_get_posts', [ $this, 'facet_query' ] );
-		add_filter( 'ep_post_filters', [ $this, 'apply_facets_filters' ], 10, 3 );
+		add_filter( 'eprobe_post_filters', [ $this, 'apply_facets_filters' ], 10, 3 );
 		add_action( 'rest_api_init', [ $this, 'setup_endpoints' ] );
 	}
 
@@ -155,13 +155,13 @@ class Facets extends Feature {
 	 */
 	public function tear_down() {
 		remove_filter( 'widget_types_to_hide_from_legacy_widget_block', [ $this, 'hide_legacy_widget' ] );
-		remove_action( 'ep_valid_response', [ $this, 'get_aggs' ] );
+		remove_action( 'eprobe_valid_response', [ $this, 'get_aggs' ] );
 		remove_action( 'wp_enqueue_scripts', [ $this, 'front_scripts' ] );
 		remove_action( 'enqueue_block_editor_assets', [ $this, 'front_scripts' ] );
-		remove_action( 'ep_feature_box_settings_facets', [ $this, 'settings' ] );
-		remove_filter( 'ep_post_formatted_args', [ $this, 'set_agg_filters' ] );
+		remove_action( 'eprobe_feature_box_settings_facets', [ $this, 'settings' ] );
+		remove_filter( 'eprobe_post_formatted_args', [ $this, 'set_agg_filters' ] );
 		remove_action( 'pre_get_posts', [ $this, 'facet_query' ] );
-		remove_filter( 'ep_post_filters', [ $this, 'apply_facets_filters' ] );
+		remove_filter( 'eprobe_post_filters', [ $this, 'apply_facets_filters' ] );
 		remove_action( 'rest_api_init', [ $this, 'setup_endpoints' ] );
 	}
 
@@ -203,7 +203,7 @@ class Facets extends Feature {
 		}
 
 		if ( 'any' === $this->get_match_type() ) {
-			add_filter( 'ep_post_filters', [ $this, 'remove_facets_filter' ], 11 );
+			add_filter( 'eprobe_post_filters', [ $this, 'remove_facets_filter' ], 11 );
 		}
 
 		/**
@@ -217,20 +217,20 @@ class Facets extends Feature {
 		 * The returned `$query_args` will be used to build the aggregations filter passing
 		 * it through `Indexable\Post\Post::format_args()`.
 		 *
-		 * @hook ep_facet_agg_filters
+		 * @hook eprobe_facet_agg_filters
 		 * @since 4.3.0
 		 * @param {array} $query_args Query arguments
 		 * @param {array} $args       ES arguments
 		 * @param {array} $query      WP Query instance
 		 * @return {array} New facets aggregations
 		 */
-		$query_args = apply_filters( 'ep_facet_agg_filters', $query_args, $args, $query );
+		$query_args = apply_filters( 'eprobe_facet_agg_filters', $query_args, $args, $query );
 
-		remove_filter( 'ep_post_formatted_args', [ $this, 'set_agg_filters' ], 10, 3 );
+		remove_filter( 'eprobe_post_formatted_args', [ $this, 'set_agg_filters' ], 10, 3 );
 		$facet_formatted_args = Indexables::factory()->get( 'post' )->format_args( $query_args, $query );
-		add_filter( 'ep_post_formatted_args', [ $this, 'set_agg_filters' ], 10, 3 );
+		add_filter( 'eprobe_post_formatted_args', [ $this, 'set_agg_filters' ], 10, 3 );
 
-		remove_filter( 'ep_post_filters', [ $this, 'remove_facets_filter' ], 11 );
+		remove_filter( 'eprobe_post_filters', [ $this, 'remove_facets_filter' ], 11 );
 
 		$args['aggs']['terms']['filter'] = $facet_formatted_args['post_filter'];
 
@@ -258,18 +258,18 @@ class Facets extends Feature {
 	 */
 	public function front_scripts() {
 		wp_register_script(
-			'elasticpress-facets',
-			EP_URL . 'dist/js/facets-script.js',
+			'elasticprobe-facets',
+			EPROBE_URL . 'dist/js/facets-script.js',
 			Utils\get_asset_info( 'facets-script', 'dependencies' ),
 			Utils\get_asset_info( 'facets-script', 'version' ),
 			true
 		);
 
-		wp_set_script_translations( 'elasticpress-facets', 'elasticprobe' );
+		wp_set_script_translations( 'elasticprobe-facets', 'elasticprobe' );
 
 		wp_register_style(
-			'elasticpress-facets',
-			EP_URL . 'dist/css/facets-styles.css',
+			'elasticprobe-facets',
+			EPROBE_URL . 'dist/css/facets-styles.css',
 			Utils\get_asset_info( 'facets-styles', 'dependencies' ),
 			Utils\get_asset_info( 'facets-styles', 'version' )
 		);
@@ -287,12 +287,12 @@ class Facets extends Feature {
 		/**
 		 * Bypass the standard checks and set a query to be facetable
 		 *
-		 * @hook ep_is_facetable
+		 * @hook eprobe_is_facetable
 		 * @param  {bool}     $bypass Defaults to false.
 		 * @param  {WP_Query} $query  The current WP_Query.
 		 * @return {bool}     true to bypass, false to ignore
 		 */
-		if ( \apply_filters( 'ep_is_facetable', false, $query ) ) {
+		if ( \apply_filters( 'eprobe_is_facetable', false, $query ) ) {
 			return true;
 		}
 
@@ -352,12 +352,12 @@ class Facets extends Feature {
 		 * This is used by facet types to add their own aggregations to the
 		 * general facet.
 		 *
-		 * @hook ep_facet_wp_query_aggs_facet
+		 * @hook eprobe_facet_wp_query_aggs_facet
 		 * @since 4.3.0
 		 * @param {array} $facets Facets aggregations
 		 * @return {array} New facets aggregations
 		 */
-		$facets = apply_filters( 'ep_facet_wp_query_aggs_facet', [] );
+		$facets = apply_filters( 'eprobe_facet_wp_query_aggs_facet', [] );
 
 		if ( empty( $facets ) ) {
 			return;
@@ -456,12 +456,12 @@ class Facets extends Feature {
 		/**
 		 * Filter selected filters.
 		 *
-		 * @hook ep_facet_selected_filters
+		 * @hook eprobe_facet_selected_filters
 		 * @since 5.1.4
 		 * @param  {array} $filters Current filters
 		 * @return {array} New filters
 		 */
-		return apply_filters( 'ep_facet_selected_filters', $filters );
+		return apply_filters( 'eprobe_facet_selected_filters', $filters );
 	}
 
 	/**
@@ -497,12 +497,12 @@ class Facets extends Feature {
 		/**
 		 * Filter facet query string
 		 *
-		 * @hook ep_facet_query_string
+		 * @hook eprobe_facet_query_string
 		 * @param  {string} $query_string Current query string
 		 * @param  {array}  $query_params Query parameters
 		 * @return  {string} New query string
 		 */
-		$query_string = apply_filters( 'ep_facet_query_string', $query_string, $query_params );
+		$query_string = apply_filters( 'eprobe_facet_query_string', $query_string, $query_params );
 
 		$url        = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 		$pagination = strpos( $url, '/page' );
@@ -595,12 +595,12 @@ class Facets extends Feature {
 		/**
 		 * Filter allowed query args
 		 *
-		 * @hook    ep_facet_allowed_query_args
+		 * @hook    eprobe_facet_allowed_query_args
 		 * @since 3.6.0
 		 * @param   {array} $args Post types
 		 * @return  {array} New post types
 		 */
-		return apply_filters( 'ep_facet_allowed_query_args', $args );
+		return apply_filters( 'eprobe_facet_allowed_query_args', $args );
 	}
 
 	/**
@@ -643,14 +643,14 @@ class Facets extends Feature {
 		/**
 		 * Filter facet selection filters to be applied to the ES query
 		 *
-		 * @hook  ep_facet_query_filters
+		 * @hook  eprobe_facet_query_filters
 		 * @since 4.4.0
 		 * @param  {array}    $filters Current filters
 		 * @param  {array}    $args    WP Query args
 		 * @param  {WP_Query} $query   WP Query object
 		 * @return {array} New filters
 		 */
-		$facets_filters = apply_filters( 'ep_facet_query_filters', [], $args, $query );
+		$facets_filters = apply_filters( 'eprobe_facet_query_filters', [], $args, $query );
 
 		if ( empty( $facets_filters ) ) {
 			return $filters;
@@ -679,12 +679,12 @@ class Facets extends Feature {
 		/**
 		 * Filter the match type of all facets. Can be 'all' or 'any'.
 		 *
-		 * @hook  ep_facet_match_type
+		 * @hook  eprobe_facet_match_type
 		 * @since 4.4.0
 		 * @param  {string} $match_type Current selection
 		 * @return {string} New selection
 		 */
-		return apply_filters( 'ep_facet_match_type', $settings['match_type'] );
+		return apply_filters( 'eprobe_facet_match_type', $settings['match_type'] );
 	}
 
 	/**

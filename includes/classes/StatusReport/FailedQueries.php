@@ -138,7 +138,7 @@ class FailedQueries extends Report {
 
 		$this->query_logger->clear_logs();
 
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 			$redirect_url = network_admin_url( 'admin.php?page=elasticprobe-status-report' );
 		} else {
 			$redirect_url = admin_url( 'admin.php?page=elasticprobe-status-report' );

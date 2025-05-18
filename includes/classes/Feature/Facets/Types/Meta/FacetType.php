@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 
-	const TRANSIENT_PREFIX = 'ep_facet_meta_';
+	const TRANSIENT_PREFIX = 'eprobe_facet_meta_';
 
 	/**
 	 * Block instance.
@@ -32,12 +32,12 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 	 * Setup hooks and filters for feature
 	 */
 	public function setup() {
-		add_filter( 'ep_facet_query_filters', [ $this, 'add_query_filters' ] );
-		add_filter( 'ep_facet_wp_query_aggs_facet', [ $this, 'set_wp_query_aggs' ] );
+		add_filter( 'eprobe_facet_query_filters', [ $this, 'add_query_filters' ] );
+		add_filter( 'eprobe_facet_wp_query_aggs_facet', [ $this, 'set_wp_query_aggs' ] );
 
-		add_action( 'ep_delete_post', [ $this, 'invalidate_meta_values_cache' ] );
-		add_action( 'ep_after_index_post', [ $this, 'invalidate_meta_values_cache' ] );
-		add_action( 'ep_after_bulk_index', [ $this, 'invalidate_meta_values_cache_after_bulk' ], 10, 2 );
+		add_action( 'eprobe_delete_post', [ $this, 'invalidate_meta_values_cache' ] );
+		add_action( 'eprobe_after_index_post', [ $this, 'invalidate_meta_values_cache' ] );
+		add_action( 'eprobe_after_bulk_index', [ $this, 'invalidate_meta_values_cache_after_bulk' ], 10, 2 );
 
 		$this->block = new Block();
 		$this->block->setup();
@@ -70,12 +70,12 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 		/**
 		 * Filter the facet filter name that's added to the URL
 		 *
-		 * @hook ep_facet_meta_filter_name
+		 * @hook eprobe_facet_meta_filter_name
 		 * @since 4.3.0
 		 * @param   {string} Facet filter name
 		 * @return  {string} New facet filter name
 		 */
-		return apply_filters( 'ep_facet_meta_filter_name', 'ep_meta_filter_' );
+		return apply_filters( 'eprobe_facet_meta_filter_name', 'ep_meta_filter_' );
 	}
 
 	/**
@@ -87,12 +87,12 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 		/**
 		 * Filter the facet filter type. Used by the Facet feature to organize filters.
 		 *
-		 * @hook ep_facet_filter_type
+		 * @hook eprobe_facet_filter_type
 		 * @since 4.3.0
 		 * @param   {string} Facet filter type
 		 * @return  {string} New facet filter type
 		 */
-		return apply_filters( 'ep_facet_meta_filter_type', 'meta' );
+		return apply_filters( 'eprobe_facet_meta_filter_type', 'meta' );
 	}
 
 	/**
@@ -120,12 +120,12 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 			 * `meta.<field>.value` is *not* available, as that throws a `Fielddata is disabled on text fields by default` error.
 			 *
 			 * @since 4.3.0
-			 * @hook ep_facet_meta_use_field
+			 * @hook eprobe_facet_meta_use_field
 			 * @param {string} $es_field   The Elasticsearch field to use for this meta field
 			 * @param {string} $meta_field The meta field key
 			 * @return {string} The chosen ES field
 			 */
-			$facet_field = apply_filters( 'ep_facet_meta_use_field', 'raw', $meta_field );
+			$facet_field = apply_filters( 'eprobe_facet_meta_use_field', 'raw', $meta_field );
 
 			$facet_aggs[ $this->get_filter_name() . $meta_field ] = array(
 				'terms' => array(
@@ -133,12 +133,12 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 					 * Filter the number of different values (and their count) for the meta field returned by Elasticsearch.
 					 *
 					 * @since 4.3.0
-					 * @hook ep_facet_meta_size
+					 * @hook eprobe_facet_meta_size
 					 * @param {int}    $size  The number of different values. Default: 10000
 					 * @param {string} $field The meta field
 					 * @return {string} The new number of different values
 					 */
-					'size'  => apply_filters( 'ep_facet_meta_size', 10000, $meta_field ),
+					'size'  => apply_filters( 'eprobe_facet_meta_size', 10000, $meta_field ),
 					'field' => 'meta.' . $meta_field . '.' . $facet_field,
 				),
 			);
@@ -218,11 +218,11 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 		 * Filter if EP should only filter by fields selected in facets. Defaults to true.
 		 *
 		 * @since 4.5.1
-		 * @hook ep_facet_should_check_if_allowed
+		 * @hook eprobe_facet_should_check_if_allowed
 		 * @param {bool} $should_check Whether it should or not check fields
 		 * @return {string} New value
 		 */
-		$should_check_if_allowed = apply_filters( 'ep_facet_should_check_if_allowed', true );
+		$should_check_if_allowed = apply_filters( 'eprobe_facet_should_check_if_allowed', true );
 		if ( $should_check_if_allowed ) {
 			$allowed_meta_fields = $this->get_facets_meta_fields();
 
@@ -275,8 +275,8 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 			}
 
 			if (
-				false !== strpos( $instance['content'], 'elasticpress/facet-meta-range' )
-				|| false === strpos( $instance['content'], 'elasticpress/facet-meta' )
+				false !== strpos( $instance['content'], 'elasticprobe/facet-meta-range' )
+				|| false === strpos( $instance['content'], 'elasticprobe/facet-meta' )
 			) {
 				continue;
 			}
@@ -291,7 +291,7 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 		if ( current_theme_supports( 'block-templates' ) ) {
 			$facets_meta_fields = array_merge(
 				$facets_meta_fields,
-				$this->block_template_meta_fields( 'elasticpress/facet-meta' )
+				$this->block_template_meta_fields( 'elasticprobe/facet-meta' )
 			);
 		}
 
@@ -299,11 +299,11 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 		 * Filter meta fields to be used in aggregations.
 		 *
 		 * @since 4.3.0
-		 * @hook ep_facet_meta_fields
+		 * @hook eprobe_facet_meta_fields
 		 * @param {string} $facets_meta_fields Array of meta field keys
 		 * @return {string} The array of meta field keys
 		 */
-		return apply_filters( 'ep_facet_meta_fields', $facets_meta_fields );
+		return apply_filters( 'eprobe_facet_meta_fields', $facets_meta_fields );
 	}
 
 	/**
@@ -319,12 +319,12 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 		 * Returning a non-null value will effectively short-circuit the function.
 		 *
 		 * @since 4.3.0
-		 * @hook ep_facet_meta_custom_meta_values
+		 * @hook eprobe_facet_meta_custom_meta_values
 		 * @param {null}   $meta_values Distinct meta values array
 		 * @param {array}  $meta_key    Key of the field.
 		 * @return {null|array} Distinct meta values array or `null` to keep default behavior.
 		 */
-		$custom_meta_values = apply_filters( 'ep_facet_meta_custom_meta_values', null, $meta_key );
+		$custom_meta_values = apply_filters( 'eprobe_facet_meta_custom_meta_values', null, $meta_key );
 		if ( null !== $custom_meta_values ) {
 			return $custom_meta_values;
 		}
@@ -339,7 +339,7 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 			 * To set it to only display 3 characters of each value when the meta_key is `my_key`:
 			 * ```
 			 * add_filter(
-			 *     'ep_facet_meta_value_max_strlen',
+			 *     'eprobe_facet_meta_value_max_strlen',
 			 *     function( $length, $meta_key ) {
 			 *         if ( 'my_key' !== $meta_key ) {
 			 *             return $length;
@@ -355,12 +355,12 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 			 * to clear WordPress's cache or save a post.
 			 *
 			 * @since 4.3.0
-			 * @hook ep_facet_meta_value_max_strlen
+			 * @hook eprobe_facet_meta_value_max_strlen
 			 * @param {int}    $length   Length of each value. Defaults to 100.
 			 * @param {string} $meta_key Key of the field.
 			 * @return {int} New length.
 			 */
-			$max_value_length = apply_filters( 'ep_facet_meta_value_max_strlen', 100, $meta_key );
+			$max_value_length = apply_filters( 'eprobe_facet_meta_value_max_strlen', 100, $meta_key );
 
 			$meta_values = array_map(
 				function ( $value ) use ( $max_value_length ) {

@@ -3,7 +3,7 @@ import { debounce } from './utils/helpers';
 /**
  * Filters the facets to match the input search term when
  * the number of terms exceeds the threshold determined
- * by the ep_facet_search_threshold filter
+ * by the eprobe_facet_search_threshold filter
  *
  * @param {event} event      - keyup
  * @param {Node}  facetTerms - terms node

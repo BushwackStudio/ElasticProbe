@@ -66,12 +66,12 @@ final class Container implements ContainerInterface {
 		 * Filter an instance before it is added to the container
 		 *
 		 * @since 4.7.0
-		 * @hook ep_container_set
+		 * @hook eprobe_container_set
 		 * @param {object} $instance Object instance
 		 * @param {string} $id       Id
 		 * @return {object} New object
 		 */
-		$instance = apply_filters( 'ep_container_set', $instance, $id );
+		$instance = apply_filters( 'eprobe_container_set', $instance, $id );
 
 		$this->instances[ $id ] = $instance;
 

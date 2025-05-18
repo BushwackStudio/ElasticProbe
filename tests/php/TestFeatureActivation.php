@@ -62,8 +62,8 @@ class TestFeatureActivation extends BaseTestCase {
 	 * @since  2.2
 	 */
 	public function testNoActiveFeatures() {
-		delete_site_option( 'ep_feature_requirement_statuses' );
-		delete_site_option( 'ep_feature_settings' );
+		delete_site_option( 'eprobe_feature_requirement_statuses' );
+		delete_site_option( 'eprobe_feature_settings' );
 
 		ElasticProbe\Features::factory()->setup_features();
 
@@ -79,8 +79,8 @@ class TestFeatureActivation extends BaseTestCase {
 	 * @since  2.2
 	 */
 	public function testAutoActivated() {
-		delete_site_option( 'ep_feature_requirement_statuses' );
-		delete_site_option( 'ep_feature_settings' );
+		delete_site_option( 'eprobe_feature_requirement_statuses' );
+		delete_site_option( 'eprobe_feature_settings' );
 
 		$this->handle_feature_activation();
 		ElasticProbe\Features::factory()->setup_features();
@@ -105,13 +105,13 @@ class TestFeatureActivation extends BaseTestCase {
 	 * @since  2.2
 	 */
 	public function testRequirementStatuses() {
-		delete_site_option( 'ep_feature_requirement_statuses' );
-		delete_site_option( 'ep_feature_settings' );
+		delete_site_option( 'eprobe_feature_requirement_statuses' );
+		delete_site_option( 'eprobe_feature_settings' );
 
 		$this->handle_feature_activation();
 		ElasticProbe\Features::factory()->setup_features();
 
-		$requirements_statuses = get_site_option( 'ep_feature_requirement_statuses' );
+		$requirements_statuses = get_site_option( 'eprobe_feature_requirement_statuses' );
 
 		$this->assertEquals( 0, $requirements_statuses['search'] );
 		$this->assertEquals( 1, $requirements_statuses['protected_content'] );
@@ -126,8 +126,8 @@ class TestFeatureActivation extends BaseTestCase {
 	 * @since  2.2
 	 */
 	public function testAutoActivateWithSimpleFeature() {
-		delete_site_option( 'ep_feature_requirement_statuses' );
-		delete_site_option( 'ep_feature_settings' );
+		delete_site_option( 'eprobe_feature_requirement_statuses' );
+		delete_site_option( 'eprobe_feature_settings' );
 
 		ElasticProbe\Features::factory()->register_feature(
 			new FeatureTest()
@@ -148,8 +148,8 @@ class TestFeatureActivation extends BaseTestCase {
 	 * @since  2.2
 	 */
 	public function testAutoDeactivateWithFeature() {
-		delete_site_option( 'ep_feature_requirement_statuses' );
-		delete_site_option( 'ep_feature_settings' );
+		delete_site_option( 'eprobe_feature_requirement_statuses' );
+		delete_site_option( 'eprobe_feature_settings' );
 
 		ElasticProbe\Features::factory()->register_feature(
 			new FeatureTest()
@@ -158,7 +158,7 @@ class TestFeatureActivation extends BaseTestCase {
 		$this->handle_feature_activation();
 		ElasticProbe\Features::factory()->setup_features();
 
-		$requirements_statuses = get_site_option( 'ep_feature_requirement_statuses' );
+		$requirements_statuses = get_site_option( 'eprobe_feature_requirement_statuses' );
 
 		$this->assertEquals( true, ElasticProbe\Features::factory()->registered_features['test']->is_active() );
 		$this->assertEquals( 0, ElasticProbe\Features::factory()->registered_features['test']->requirements_status()->code );
@@ -168,7 +168,7 @@ class TestFeatureActivation extends BaseTestCase {
 
 		$this->handle_feature_activation();
 
-		$requirements_statuses = get_site_option( 'ep_feature_requirement_statuses' );
+		$requirements_statuses = get_site_option( 'eprobe_feature_requirement_statuses' );
 
 		$this->assertEquals( false, ElasticProbe\Features::factory()->registered_features['test']->is_active() );
 		$this->assertEquals( 2, ElasticProbe\Features::factory()->registered_features['test']->requirements_status()->code );
@@ -183,8 +183,8 @@ class TestFeatureActivation extends BaseTestCase {
 	 * @since 5.0.0
 	 */
 	public function test_auto_activate_with_feature() {
-		delete_site_option( 'ep_feature_requirement_statuses' );
-		delete_site_option( 'ep_feature_settings' );
+		delete_site_option( 'eprobe_feature_requirement_statuses' );
+		delete_site_option( 'eprobe_feature_settings' );
 
 		$feature = new FeatureTest();
 
@@ -197,7 +197,7 @@ class TestFeatureActivation extends BaseTestCase {
 		$this->handle_feature_activation();
 		ElasticProbe\Features::factory()->setup_features();
 
-		$requirements_statuses = get_site_option( 'ep_feature_requirement_statuses' );
+		$requirements_statuses = get_site_option( 'eprobe_feature_requirement_statuses' );
 
 		$this->assertEquals( false, ElasticProbe\Features::factory()->registered_features['test']->is_active() );
 		$this->assertEquals( 2, ElasticProbe\Features::factory()->registered_features['test']->requirements_status()->code );
@@ -207,7 +207,7 @@ class TestFeatureActivation extends BaseTestCase {
 
 		$this->handle_feature_activation();
 
-		$requirements_statuses = get_site_option( 'ep_feature_requirement_statuses' );
+		$requirements_statuses = get_site_option( 'eprobe_feature_requirement_statuses' );
 
 		$this->assertEquals( true, ElasticProbe\Features::factory()->registered_features['test']->is_active() );
 		$this->assertEquals( 0, ElasticProbe\Features::factory()->registered_features['test']->requirements_status()->code );
@@ -222,8 +222,8 @@ class TestFeatureActivation extends BaseTestCase {
 	 * @since  2.2
 	 */
 	public function testReqChangeNothingWithFeature() {
-		delete_site_option( 'ep_feature_requirement_statuses' );
-		delete_site_option( 'ep_feature_settings' );
+		delete_site_option( 'eprobe_feature_requirement_statuses' );
+		delete_site_option( 'eprobe_feature_settings' );
 
 		ElasticProbe\Features::factory()->register_feature(
 			new FeatureTest()
@@ -234,7 +234,7 @@ class TestFeatureActivation extends BaseTestCase {
 		$this->handle_feature_activation();
 		ElasticProbe\Features::factory()->setup_features();
 
-		$requirements_statuses = get_site_option( 'ep_feature_requirement_statuses' );
+		$requirements_statuses = get_site_option( 'eprobe_feature_requirement_statuses' );
 
 		$this->assertEquals( true, ElasticProbe\Features::factory()->registered_features['test']->is_active() );
 		$this->assertEquals( 0, ElasticProbe\Features::factory()->registered_features['test']->requirements_status()->code );
@@ -244,7 +244,7 @@ class TestFeatureActivation extends BaseTestCase {
 
 		$this->handle_feature_activation();
 
-		$requirements_statuses = get_site_option( 'ep_feature_requirement_statuses' );
+		$requirements_statuses = get_site_option( 'eprobe_feature_requirement_statuses' );
 
 		$this->assertEquals( true, ElasticProbe\Features::factory()->registered_features['test']->is_active() );
 		$this->assertEquals( 1, ElasticProbe\Features::factory()->registered_features['test']->requirements_status()->code );
@@ -279,8 +279,8 @@ class TestFeatureActivation extends BaseTestCase {
 				'test' => $new_values,
 			];
 		};
-		add_filter( 'pre_site_option_ep_feature_settings', $filter );
-		add_filter( 'pre_option_ep_feature_settings', $filter );
+		add_filter( 'pre_site_option_eprobe_feature_settings', $filter );
+		add_filter( 'pre_option_eprobe_feature_settings', $filter );
 
 		$this->assertEquals( $new_values, $feature->get_settings() );
 	}
@@ -310,8 +310,8 @@ class TestFeatureActivation extends BaseTestCase {
 				],
 			];
 		};
-		add_filter( 'pre_site_option_ep_feature_settings', $filter );
-		add_filter( 'pre_option_ep_feature_settings', $filter );
+		add_filter( 'pre_site_option_eprobe_feature_settings', $filter );
+		add_filter( 'pre_option_eprobe_feature_settings', $filter );
 
 		$this->assertEquals( 456, $feature->get_setting( 'setting_1' ) );
 		$this->assertFalse( $feature->get_setting( 'setting_2' ) );
@@ -331,7 +331,7 @@ class TestFeatureActivation extends BaseTestCase {
 		);
 
 		$controller = new FeaturesRest();
-		$request    = new \WP_REST_Request( 'PUT', '/elasticpress/v1/features' );
+		$request    = new \WP_REST_Request( 'PUT', '/elasticprobe/v1/features' );
 		$request->set_param(
 			'test',
 			[
@@ -423,7 +423,7 @@ class TestFeatureActivation extends BaseTestCase {
 	/**
 	 * Wrapper for Features::handle_feature_activation() calls in admin context.
 	 *
-	 * To avoid unnecessary updates on the `ep_feature_requirement_statuses` option,
+	 * To avoid unnecessary updates on the `eprobe_feature_requirement_statuses` option,
 	 * the `Features::handle_feature_activation()` only changes the option value when called in admin or WP-CLI contexts.
 	 */
 	protected function handle_feature_activation() {

@@ -37,12 +37,12 @@ class TestBlockTemplateUtils extends BaseTestCase {
 		$block_template_utils = new BlockTemplateUtils();
 
 		$meta_block = [
-			'blockName' => 'elasticpress/facet-meta',
+			'blockName' => 'elasticprobe/facet-meta',
 			'attrs'     => [ 'facet' => '_price' ],
 		];
 
 		$meta_range_block = [
-			'blockName' => 'elasticpress/facet-meta-range',
+			'blockName' => 'elasticprobe/facet-meta-range',
 			'attrs'     => [ 'facet' => '_sale_price' ],
 		];
 
@@ -58,15 +58,15 @@ class TestBlockTemplateUtils extends BaseTestCase {
 		$set_blocks = function () use ( $blocks ) {
 			return $blocks;
 		};
-		add_filter( 'ep_blocks_pre_all_blocks', $set_blocks );
+		add_filter( 'eprobe_blocks_pre_all_blocks', $set_blocks );
 
 		$this->assertEqualsCanonicalizing(
 			[ $meta_block ],
-			$block_template_utils->get_specific_block_in_all_templates( 'elasticpress/facet-meta' )
+			$block_template_utils->get_specific_block_in_all_templates( 'elasticprobe/facet-meta' )
 		);
 		$this->assertEqualsCanonicalizing(
 			[ $meta_range_block ],
-			$block_template_utils->get_specific_block_in_all_templates( 'elasticpress/facet-meta-range' )
+			$block_template_utils->get_specific_block_in_all_templates( 'elasticprobe/facet-meta-range' )
 		);
 	}
 
@@ -80,7 +80,7 @@ class TestBlockTemplateUtils extends BaseTestCase {
 	}
 
 	/**
-	 * Test the `ep_blocks_pre_all_blocks` filter
+	 * Test the `eprobe_blocks_pre_all_blocks` filter
 	 *
 	 * @group block_template_utils
 	 */
@@ -93,7 +93,7 @@ class TestBlockTemplateUtils extends BaseTestCase {
 			$this->assertNull( $pre_all_blocks );
 			return [ 'test' ];
 		};
-		add_filter( 'ep_blocks_pre_all_blocks', $set_blocks );
+		add_filter( 'eprobe_blocks_pre_all_blocks', $set_blocks );
 
 		$this->assertSame( [ 'test' ], $block_template_utils->get_all_blocks_in_all_templates() );
 

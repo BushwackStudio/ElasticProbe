@@ -13,9 +13,9 @@ namespace ElasticProbeTest;
  */
 class TestUninstall extends BaseTestCase {
 	/**
-	 * Holds the EP_Uninstaller class instance.
+	 * Holds the EPROBE_Uninstaller class instance.
 	 *
-	 * @var EP_Uninstaller
+	 * @var EPROBE_Uninstaller
 	 */
 	protected $uninstaller;
 
@@ -25,7 +25,7 @@ class TestUninstall extends BaseTestCase {
 	public function set_up() {
 		require_once __DIR__ . '/../../uninstall.php';
 
-		$this->uninstaller = new \EP_Uninstaller();
+		$this->uninstaller = new \EPROBE_Uninstaller();
 
 		parent::set_up();
 	}
@@ -36,18 +36,18 @@ class TestUninstall extends BaseTestCase {
 	 * @group uninstall
 	 */
 	public function test_delete_transients_by_option_name() {
-		set_transient( 'ep_index_settings_test', 'test' );
-		set_transient( 'ep_index_settings_test_2', 'test' );
-		set_transient( 'ep_related_posts_test', 'test' );
-		set_transient( 'ep_related_posts_test_2', 'test' );
+		set_transient( 'eprobe_index_settings_test', 'test' );
+		set_transient( 'eprobe_index_settings_test_2', 'test' );
+		set_transient( 'eprobe_related_posts_test', 'test' );
+		set_transient( 'eprobe_related_posts_test_2', 'test' );
 
 		$method = $this->get_protected_method( 'delete_transients_by_option_name' );
 		$method->invoke( $this->uninstaller );
 
-		$this->assertFalse( get_transient( 'ep_index_settings_test' ) );
-		$this->assertFalse( get_transient( 'ep_index_settings_test_2' ) );
-		$this->assertFalse( get_transient( 'ep_related_posts_test' ) );
-		$this->assertFalse( get_transient( 'ep_related_posts_test_2' ) );
+		$this->assertFalse( get_transient( 'eprobe_index_settings_test' ) );
+		$this->assertFalse( get_transient( 'eprobe_index_settings_test_2' ) );
+		$this->assertFalse( get_transient( 'eprobe_related_posts_test' ) );
+		$this->assertFalse( get_transient( 'eprobe_related_posts_test_2' ) );
 	}
 
 	/**
@@ -94,7 +94,7 @@ class TestUninstall extends BaseTestCase {
 	 * @return \ReflectionMethod
 	 */
 	protected function get_protected_method( string $method_name ): \ReflectionMethod {
-		$reflection = new \ReflectionClass( '\EP_Uninstaller' );
+		$reflection = new \ReflectionClass( '\EPROBE_Uninstaller' );
 		$method     = $reflection->getMethod( $method_name );
 		$method->setAccessible( true );
 

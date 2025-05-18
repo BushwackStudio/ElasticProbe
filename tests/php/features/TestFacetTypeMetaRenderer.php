@@ -66,12 +66,12 @@ class TestFacetTypeMetaRenderer extends BaseTestCase {
 		$this->assertEquals( $html, $renderer->get_facet_item_value_html( $value, $url, $value['is_selected'] ) );
 
 		/**
-		 * Test the `ep_facet_meta_value_label` filter
+		 * Test the `eprobe_facet_meta_value_label` filter
 		 */
 		$change_label = function ( $label, $value ) {
 			return ( 'my_meta_value' === $value['value'] ) ? 'Different Label' : $label;
 		};
-		add_filter( 'ep_facet_meta_value_label', $change_label, 10, 2 );
+		add_filter( 'eprobe_facet_meta_value_label', $change_label, 10, 2 );
 
 		$accessible_label = 'Apply filter: Different Label';
 		$link             = '<a aria-label="' . $accessible_label . '" aria-role="link" aria-disabled="true" rel="nofollow"><div class="ep-checkbox " role="presentation"></div>Different Label</a>';
@@ -79,15 +79,15 @@ class TestFacetTypeMetaRenderer extends BaseTestCase {
 
 		$this->assertEquals( $html, $renderer->get_facet_item_value_html( $value, $url, $value['is_selected'] ) );
 
-		remove_filter( 'ep_facet_meta_value_label', $change_label );
+		remove_filter( 'eprobe_facet_meta_value_label', $change_label );
 
 		/**
-		 * Test the `ep_facet_meta_value_accessible_label` filter
+		 * Test the `eprobe_facet_meta_value_accessible_label` filter
 		 */
 		$change_accessible_label = function ( $label, $value ) {
 			return ( 'my_meta_value' === $value['value'] ) ? 'Apply filter!' : $label;
 		};
-		add_filter( 'ep_facet_meta_value_accessible_label', $change_accessible_label, 10, 2 );
+		add_filter( 'eprobe_facet_meta_value_accessible_label', $change_accessible_label, 10, 2 );
 
 		$accessible_label = 'Apply filter!';
 		$link             = '<a aria-label="' . $accessible_label . '" aria-role="link" aria-disabled="true" rel="nofollow"><div class="ep-checkbox " role="presentation"></div>' . $value['name'] . '</a>';
@@ -95,15 +95,15 @@ class TestFacetTypeMetaRenderer extends BaseTestCase {
 
 		$this->assertEquals( $html, $renderer->get_facet_item_value_html( $value, $url, $value['is_selected'] ) );
 
-		remove_filter( 'ep_facet_meta_value_accessible_label', $change_label );
+		remove_filter( 'eprobe_facet_meta_value_accessible_label', $change_label );
 
 		/**
-		 * Test the `ep_facet_meta_value_html` filter
+		 * Test the `eprobe_facet_meta_value_html` filter
 		 */
 		$change_html = function ( $html, $value, $url ) {
 			return ( 'https://example.com' === $url ) ? '<p>Completely custom made element</p>' : $html;
 		};
-		add_filter( 'ep_facet_meta_value_html', $change_html, 10, 3 );
+		add_filter( 'eprobe_facet_meta_value_html', $change_html, 10, 3 );
 
 		$this->assertEquals( '<p>Completely custom made element</p>', $renderer->get_facet_item_value_html( $value, $url, $value['is_selected'] ) );
 	}

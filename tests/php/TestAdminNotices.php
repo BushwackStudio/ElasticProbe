@@ -35,9 +35,9 @@ class TestAdminNotices extends BaseTestCase {
 		$this->real_es_version = ElasticProbe\Elasticsearch::factory()->get_elasticsearch_version( true );
 
 		add_filter(
-			'ep_elasticsearch_version',
+			'eprobe_elasticsearch_version',
 			function () {
-				return (int) EP_ES_VERSION_MAX - 1;
+				return (int) EPROBE_ES_VERSION_MAX - 1;
 			}
 		);
 
@@ -48,11 +48,11 @@ class TestAdminNotices extends BaseTestCase {
 
 		$this->setup_test_post_type();
 
-		$this->current_host = get_option( 'ep_host' );
+		$this->current_host = get_option( 'eprobe_host' );
 
 		// always ensure mappings line up to avoid false positive notices,
 		// even if the ES version changes.
-		add_filter( 'ep_post_mapping_version_determined', [ $this, 'ep_post_mapping_version_determined' ] );
+		add_filter( 'eprobe_post_mapping_version_determined', [ $this, 'eprobe_post_mapping_version_determined' ] );
 
 		global $hook_suffix;
 		$hook_suffix = 'sites.php';
@@ -68,7 +68,7 @@ class TestAdminNotices extends BaseTestCase {
 		parent::tear_down();
 
 		// Update since we are deleting to test notifications
-		update_site_option( 'ep_host', $this->current_host );
+		update_site_option( 'eprobe_host', $this->current_host );
 
 		ElasticProbe\Screen::factory()->set_current_screen( null );
 	}
@@ -90,10 +90,10 @@ class TestAdminNotices extends BaseTestCase {
 	 * @since 3.0
 	 */
 	public function testNoNoticesOnInstall() {
-		delete_site_option( 'ep_host' );
-		delete_site_option( 'ep_last_sync' );
-		delete_site_option( 'ep_need_upgrade_sync', true );
-		delete_site_option( 'ep_feature_auto_activated_sync' );
+		delete_site_option( 'eprobe_host' );
+		delete_site_option( 'eprobe_last_sync' );
+		delete_site_option( 'eprobe_need_upgrade_sync', true );
+		delete_site_option( 'eprobe_feature_auto_activated_sync' );
 
 		ElasticProbe\Screen::factory()->set_current_screen( 'install' );
 
@@ -121,10 +121,10 @@ class TestAdminNotices extends BaseTestCase {
 	 * @since 3.0
 	 */
 	public function testNeedSetupNoticeInAdmin() {
-		delete_site_option( 'ep_host' );
-		delete_site_option( 'ep_last_sync' );
-		delete_site_option( 'ep_need_upgrade_sync', true );
-		delete_site_option( 'ep_feature_auto_activated_sync' );
+		delete_site_option( 'eprobe_host' );
+		delete_site_option( 'eprobe_last_sync' );
+		delete_site_option( 'eprobe_need_upgrade_sync', true );
+		delete_site_option( 'eprobe_feature_auto_activated_sync' );
 
 		ElasticProbe\Screen::factory()->set_current_screen( null );
 
@@ -153,9 +153,9 @@ class TestAdminNotices extends BaseTestCase {
 	 * @since 3.0
 	 */
 	public function testNoSyncNoticeInAdmin() {
-		delete_site_option( 'ep_last_sync' );
-		delete_site_option( 'ep_need_upgrade_sync', true );
-		delete_site_option( 'ep_feature_auto_activated_sync' );
+		delete_site_option( 'eprobe_last_sync' );
+		delete_site_option( 'eprobe_need_upgrade_sync', true );
+		delete_site_option( 'eprobe_feature_auto_activated_sync' );
 
 		ElasticProbe\Screen::factory()->set_current_screen( null );
 
@@ -184,9 +184,9 @@ class TestAdminNotices extends BaseTestCase {
 	 * @since 3.0
 	 */
 	public function testNoSyncNoticeInInstall() {
-		delete_site_option( 'ep_last_sync' );
-		delete_site_option( 'ep_need_upgrade_sync', true );
-		delete_site_option( 'ep_feature_auto_activated_sync' );
+		delete_site_option( 'eprobe_last_sync' );
+		delete_site_option( 'eprobe_need_upgrade_sync', true );
+		delete_site_option( 'eprobe_feature_auto_activated_sync' );
 
 		ElasticProbe\Screen::factory()->set_current_screen( 'install' );
 
@@ -214,16 +214,16 @@ class TestAdminNotices extends BaseTestCase {
 	 * @since 3.0
 	 */
 	public function testHostErrorNoticeInAdmin() {
-		update_site_option( 'ep_host', 'badhost' );
-		update_site_option( 'ep_last_sync', time() );
-		delete_site_option( 'ep_need_upgrade_sync', true );
-		delete_site_option( 'ep_feature_auto_activated_sync' );
+		update_site_option( 'eprobe_host', 'badhost' );
+		update_site_option( 'eprobe_last_sync', time() );
+		delete_site_option( 'eprobe_need_upgrade_sync', true );
+		delete_site_option( 'eprobe_feature_auto_activated_sync' );
 
-		remove_all_filters( 'ep_elasticsearch_version' );
+		remove_all_filters( 'eprobe_elasticsearch_version' );
 
 		// As we know the call will fail, let's fail faster.
 		add_filter(
-			'ep_pre_request_args',
+			'eprobe_pre_request_args',
 			function ( $args ) {
 				$args['timeout'] = 1;
 				return $args;
@@ -259,14 +259,14 @@ class TestAdminNotices extends BaseTestCase {
 	 * @since 3.0
 	 */
 	public function testHostErrorNoticeInInstall() {
-		update_site_option( 'ep_host', 'badhost' );
-		update_site_option( 'ep_last_sync', time() );
-		delete_site_option( 'ep_need_upgrade_sync', true );
-		delete_site_option( 'ep_feature_auto_activated_sync' );
+		update_site_option( 'eprobe_host', 'badhost' );
+		update_site_option( 'eprobe_last_sync', time() );
+		delete_site_option( 'eprobe_need_upgrade_sync', true );
+		delete_site_option( 'eprobe_feature_auto_activated_sync' );
 
 		// As we know the call will fail, let's fail faster.
 		add_filter(
-			'ep_pre_request_args',
+			'eprobe_pre_request_args',
 			function ( $args ) {
 				$args['timeout'] = 1;
 				return $args;
@@ -283,7 +283,7 @@ class TestAdminNotices extends BaseTestCase {
 
 		$this->assertEquals( 0, count( $notices ) );
 
-		update_site_option( 'ep_host', $this->current_host );
+		update_site_option( 'eprobe_host', $this->current_host );
 		ElasticProbe\Elasticsearch::factory()->get_elasticsearch_version( true );
 	}
 
@@ -304,15 +304,15 @@ class TestAdminNotices extends BaseTestCase {
 	 * @since 3.0
 	 */
 	public function testEsAboveCompatNoticeInAdmin() {
-		update_site_option( 'ep_last_sync', time() );
-		delete_site_option( 'ep_need_upgrade_sync', true );
-		delete_site_option( 'ep_feature_auto_activated_sync' );
+		update_site_option( 'eprobe_last_sync', time() );
+		delete_site_option( 'eprobe_need_upgrade_sync', true );
+		delete_site_option( 'eprobe_feature_auto_activated_sync' );
 
 		$es_version = function () {
 			return '100';
 		};
 
-		add_filter( 'ep_elasticsearch_version', $es_version );
+		add_filter( 'eprobe_elasticsearch_version', $es_version );
 
 		ElasticProbe\Screen::factory()->set_current_screen( null );
 
@@ -345,15 +345,15 @@ class TestAdminNotices extends BaseTestCase {
 	 * @since 3.0
 	 */
 	public function testEsBelowCompatNoticeInAdmin() {
-		update_site_option( 'ep_last_sync', time() );
-		delete_site_option( 'ep_need_upgrade_sync', true );
-		delete_site_option( 'ep_feature_auto_activated_sync' );
+		update_site_option( 'eprobe_last_sync', time() );
+		delete_site_option( 'eprobe_need_upgrade_sync', true );
+		delete_site_option( 'eprobe_feature_auto_activated_sync' );
 
 		$es_version = function () {
 			return '1';
 		};
 
-		add_filter( 'ep_elasticsearch_version', $es_version );
+		add_filter( 'eprobe_elasticsearch_version', $es_version );
 
 		ElasticProbe\Screen::factory()->set_current_screen( null );
 
@@ -386,9 +386,9 @@ class TestAdminNotices extends BaseTestCase {
 	 * @since 3.0
 	 */
 	public function testUpgradeSyncNoticeInAdmin() {
-		update_site_option( 'ep_last_sync', time() );
-		update_site_option( 'ep_need_upgrade_sync', true );
-		delete_site_option( 'ep_feature_auto_activated_sync' );
+		update_site_option( 'eprobe_last_sync', time() );
+		update_site_option( 'eprobe_need_upgrade_sync', true );
+		delete_site_option( 'eprobe_feature_auto_activated_sync' );
 
 		ElasticProbe\Screen::factory()->set_current_screen( null );
 
@@ -417,10 +417,10 @@ class TestAdminNotices extends BaseTestCase {
 	public function testUpgradeSyncNoticeAndInstantResultsInAdmin() {
 		$this->markTestSkipped( 'Requires Instant results' );
 
-		update_site_option( 'ep_last_sync', time() );
-		update_site_option( 'ep_need_upgrade_sync', true );
-		update_site_option( 'ep_version', '3.6.6' );
-		delete_site_option( 'ep_feature_auto_activated_sync' );
+		update_site_option( 'eprobe_last_sync', time() );
+		update_site_option( 'eprobe_need_upgrade_sync', true );
+		update_site_option( 'eprobe_version', '3.6.6' );
+		delete_site_option( 'eprobe_feature_auto_activated_sync' );
 
 		ElasticProbe\Screen::factory()->set_current_screen( null );
 
@@ -432,7 +432,7 @@ class TestAdminNotices extends BaseTestCase {
 		$this->assertStringContainsString( $not_available_full_text, $notices['upgrade_sync']['html'] );
 
 		// Instant Results available.
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 			$features_url = admin_url( 'network/admin.php?page=elasticprobe' );
 		} else {
 			$features_url = admin_url( 'admin.php?page=elasticprobe' );
@@ -440,15 +440,15 @@ class TestAdminNotices extends BaseTestCase {
 		$available_full_text = '<a href="https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#instant-results">Instant Results</a> is now available in ElasticProbe, but requires a re-sync before activation. If you would like to use Instant Results, click <a href="' . $features_url . '">here</a> to activate the feature and start your sync.';
 
 		// Instant Results available via custom proxy.
-		add_filter( 'ep_instant_results_available', '__return_true' );
+		add_filter( 'eprobe_instant_results_available', '__return_true' );
 		ElasticProbe\AdminNotices::factory()->process_notices();
 		$notices = ElasticProbe\AdminNotices::factory()->get_notices();
 		$this->assertTrue( ! empty( $notices['upgrade_sync'] ) );
 		$this->assertStringContainsString( $available_full_text, $notices['upgrade_sync']['html'] );
-		remove_filter( 'ep_instant_results_available', '__return_true' );
+		remove_filter( 'eprobe_instant_results_available', '__return_true' );
 
 		// Instant Results available via EP.io.
-		update_site_option( 'ep_host', 'https://gateway.wpprobe.com/' );
+		update_site_option( 'eprobe_host', 'https://gateway.wpprobe.com/' );
 		ElasticProbe\AdminNotices::factory()->process_notices();
 		$notices = ElasticProbe\AdminNotices::factory()->get_notices();
 		$this->assertTrue( ! empty( $notices['upgrade_sync'] ) );
@@ -472,9 +472,9 @@ class TestAdminNotices extends BaseTestCase {
 	 * @since 3.0
 	 */
 	public function testFeatureSyncNoticeInAdmin() {
-		update_site_option( 'ep_last_sync', time() );
-		delete_site_option( 'ep_need_upgrade_sync' );
-		update_site_option( 'ep_feature_auto_activated_sync', true );
+		update_site_option( 'eprobe_last_sync', time() );
+		delete_site_option( 'eprobe_need_upgrade_sync' );
+		update_site_option( 'eprobe_feature_auto_activated_sync', true );
 
 		ElasticProbe\Screen::factory()->set_current_screen( null );
 
@@ -505,15 +505,15 @@ class TestAdminNotices extends BaseTestCase {
 	 * @since 3.6.2
 	 */
 	public function testValidMappingNoticeInAdmin() {
-		update_site_option( 'ep_last_sync', time() );
-		delete_site_option( 'ep_need_upgrade_sync' );
-		update_site_option( 'ep_feature_auto_activated_sync', false );
+		update_site_option( 'eprobe_last_sync', time() );
+		delete_site_option( 'eprobe_need_upgrade_sync' );
+		update_site_option( 'eprobe_feature_auto_activated_sync', false );
 
 		// We need to do a proper sync with real version to ensure the index is in place
 		// and we do not get a 404 when requesting the mapping version.
 		$es_version = $this->real_es_version;
 		add_filter(
-			'ep_elasticsearch_version',
+			'eprobe_elasticsearch_version',
 			function () use ( $es_version ) {
 				return $es_version;
 			}
@@ -549,15 +549,15 @@ class TestAdminNotices extends BaseTestCase {
 	 * @since 3.6.2
 	 */
 	public function testInvalidMappingNoticeInAdmin() {
-		update_site_option( 'ep_last_sync', time() );
-		delete_site_option( 'ep_need_upgrade_sync' );
-		update_site_option( 'ep_feature_auto_activated_sync', false );
+		update_site_option( 'eprobe_last_sync', time() );
+		delete_site_option( 'eprobe_need_upgrade_sync' );
+		update_site_option( 'eprobe_feature_auto_activated_sync', false );
 
 		// We need to do a proper sync with real version to ensure the index is in place
 		// and we do not get a 404 when requesting the mapping version.
 		$es_version = $this->real_es_version;
 		add_filter(
-			'ep_elasticsearch_version',
+			'eprobe_elasticsearch_version',
 			function () use ( $es_version ) {
 				return $es_version;
 			}
@@ -570,7 +570,7 @@ class TestAdminNotices extends BaseTestCase {
 		$mapping = function () {
 			return 'idonotmatch';
 		};
-		add_filter( 'ep_post_mapping_version_determined', $mapping );
+		add_filter( 'eprobe_post_mapping_version_determined', $mapping );
 
 		ElasticProbe\Screen::factory()->set_current_screen( null );
 
@@ -593,21 +593,21 @@ class TestAdminNotices extends BaseTestCase {
 	 */
 	public function testTooManyFieldsNoticeInAdmin() {
 		add_filter(
-			'ep_meta_mode',
+			'eprobe_meta_mode',
 			function () {
 				return 'auto';
 			}
 		);
 
 		add_filter(
-			'ep_prepare_meta_allowed_keys',
+			'eprobe_prepare_meta_allowed_keys',
 			function ( $allowed_metakeys ) {
 				return array_merge( $allowed_metakeys, [ 'meta_key_1', 'meta_key_2', 'meta_key_3', 'meta_key_4' ] );
 			}
 		);
 
 		add_filter(
-			'ep_total_field_limit',
+			'eprobe_total_field_limit',
 			function () {
 				return 24;
 			}
@@ -615,7 +615,7 @@ class TestAdminNotices extends BaseTestCase {
 		ElasticProbe\Screen::factory()->set_current_screen( 'install' );
 
 		add_filter(
-			'ep_post_pre_meta_keys_db',
+			'eprobe_post_pre_meta_keys_db',
 			function () {
 				return [ 'meta_key_1', 'meta_key_2' ];
 			}
@@ -627,7 +627,7 @@ class TestAdminNotices extends BaseTestCase {
 		$this->assertCount( 0, $notices );
 
 		add_filter(
-			'ep_post_pre_meta_keys_db',
+			'eprobe_post_pre_meta_keys_db',
 			function ( $values ) {
 				$values[] = 'meta_key_3';
 				return $values;
@@ -642,7 +642,7 @@ class TestAdminNotices extends BaseTestCase {
 		$this->assertSame( 'warning', $notices['too_many_fields']['type'] );
 
 		add_filter(
-			'ep_post_pre_meta_keys_db',
+			'eprobe_post_pre_meta_keys_db',
 			function ( $values ) {
 				$values[] = 'meta_key_4';
 				return $values;
@@ -714,7 +714,7 @@ class TestAdminNotices extends BaseTestCase {
 		);
 
 		add_action(
-			'ep_admin_notices',
+			'eprobe_admin_notices',
 			function ( $notices ) {
 				$notices['test_notice'] = [
 					'type'    => 'error',
@@ -760,7 +760,7 @@ class TestAdminNotices extends BaseTestCase {
 		);
 
 		add_action(
-			'ep_admin_notices',
+			'eprobe_admin_notices',
 			function ( $notices ) {
 				$notices['test_notice'] = [
 					'type'    => 'error',
@@ -778,12 +778,12 @@ class TestAdminNotices extends BaseTestCase {
 	}
 
 	/**
-	 * Utilitary function to set `ep_post_mapping_version_determined`
+	 * Utilitary function to set `eprobe_post_mapping_version_determined`
 	 * as the wanted Mapping version.
 	 *
 	 * @return string
 	 */
-	public function ep_post_mapping_version_determined() {
+	public function eprobe_post_mapping_version_determined() {
 		return ElasticProbe\Indexables::factory()->get( 'post' )->get_mapping_name();
 	}
 }

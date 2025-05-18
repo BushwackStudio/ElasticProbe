@@ -41,7 +41,7 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 	}
 
 	/**
-	 * Test the `ep_status_report_reports` filter in the get_reports method
+	 * Test the `eprobe_status_report_reports` filter in the get_reports method
 	 *
 	 * @group statusReport
 	 */
@@ -52,7 +52,7 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 			$reports['custom'] = new \stdClass();
 			return $reports;
 		};
-		add_filter( 'ep_status_report_reports', $add_filter );
+		add_filter( 'eprobe_status_report_reports', $add_filter );
 
 		$reports = $status_report->get_reports();
 		if ( Utils\is_epio() ) {
@@ -182,7 +182,7 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 		$last_index['total_time']      = microtime( true ) - $start_time;
 		$last_index['method']          = 'cli';
 		$last_index['is_full_sync']    = 'Yes';
-		Utils\update_option( 'ep_sync_history', [ $last_index ] );
+		Utils\update_option( 'eprobe_sync_history', [ $last_index ] );
 
 		$expected_result = array(
 			array(
@@ -215,7 +215,7 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 		$this->assertSame( $expected_result, $report->get_groups() );
 		$this->assertEquals( 'Last Sync', $report->get_title() );
 
-		Utils\delete_option( 'ep_sync_history' );
+		Utils\delete_option( 'eprobe_sync_history' );
 	}
 
 	/**
@@ -248,7 +248,7 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 	 */
 	public function testIndexableContentReport() {
 		// set screen to status report
-		add_filter( 'ep_install_status', '__return_true' );
+		add_filter( 'eprobe_install_status', '__return_true' );
 		$_GET['page'] = 'elasticprobe-status-report';
 		\ElasticProbe\Screen::factory()->determine_screen();
 
@@ -266,7 +266,7 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 			}
 			return $keys;
 		};
-		add_filter( 'ep_prepare_meta_allowed_keys', $allow_metakeys );
+		add_filter( 'eprobe_prepare_meta_allowed_keys', $allow_metakeys );
 
 		foreach ( $post_types as $post_type ) {
 			$this->factory->post->create_many(
@@ -326,7 +326,7 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 	 */
 	public function testFeatureReport() {
 		// deactivate all feature.
-		Utils\delete_option( 'ep_feature_settings' );
+		Utils\delete_option( 'eprobe_feature_settings' );
 
 		// activate search feature.
 		\ElasticProbe\Features::factory()->activate_feature( 'search' );
@@ -350,7 +350,7 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 		$random_no  = wp_rand( 1, 100 );
 
 		add_filter(
-			'ep_query_logger_logs',
+			'eprobe_query_logger_logs',
 			function ( $logs ) use ( $time_stamp, $random_no ) {
 				$logs = array(
 					[
@@ -498,7 +498,7 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 					),
 					'network_active' => array(
 						'label' => 'Network Active',
-						'value' => is_multisite() && defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK,
+						'value' => is_multisite() && defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK,
 					),
 				),
 			),

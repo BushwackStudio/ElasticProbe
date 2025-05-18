@@ -47,18 +47,18 @@ class Sync {
 		}
 
 		wp_enqueue_script(
-			'ep_sync_scripts',
-			EP_URL . 'dist/js/sync-script.js',
+			'eprobe_sync_scripts',
+			EPROBE_URL . 'dist/js/sync-script.js',
 			Utils\get_asset_info( 'sync-script', 'dependencies' ),
 			Utils\get_asset_info( 'sync-script', 'version' ),
 			true
 		);
 
-		wp_set_script_translations( 'ep_sync_scripts', 'elasticprobe' );
+		wp_set_script_translations( 'eprobe_sync_scripts', 'elasticprobe' );
 
 		wp_enqueue_style(
-			'ep_sync_style',
-			EP_URL . 'dist/css/sync-script.css',
+			'eprobe_sync_style',
+			EPROBE_URL . 'dist/css/sync-script.css',
 			[ 'wp-components', 'wp-edit-post' ],
 			Utils\get_asset_info( 'sync-script', 'version' )
 		);
@@ -74,8 +74,8 @@ class Sync {
 		$sync_history = ! $indices_missing ? IndexHelper::factory()->get_sync_history() : [];
 
 		$data = [
-			'apiUrl'      => rest_url( 'elasticpress/v1/sync' ),
-			'autoIndex'   => Utils\isset_do_sync_parameter() && ( ! defined( 'EP_DASHBOARD_SYNC' ) || EP_DASHBOARD_SYNC ),
+			'apiUrl'      => rest_url( 'elasticprobe/v1/sync' ),
+			'autoIndex'   => Utils\isset_do_sync_parameter() && ( ! defined( 'EPROBE_DASHBOARD_SYNC' ) || EPROBE_DASHBOARD_SYNC ),
 			'indexMeta'   => Utils\get_indexing_status(),
 			'indexables'  => array_map( fn( $indexable ) => [ $indexable->slug, $indexable->labels['plural'] ], $indexables ),
 			'isEpio'      => Utils\is_epio(),
@@ -85,7 +85,7 @@ class Sync {
 			'syncTrigger' => Utils\isset_do_sync_parameter() ? sanitize_text_field( wp_unslash( $_GET['do_sync'] ) ) : null, // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		];
 
-		wp_localize_script( 'ep_sync_scripts', 'epDash', $data );
+		wp_localize_script( 'eprobe_sync_scripts', 'epDash', $data );
 	}
 
 	/**

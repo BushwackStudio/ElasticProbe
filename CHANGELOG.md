@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased]
 
+
 <!--
 ### Added
 ### Changed
@@ -13,6 +14,18 @@ All notable changes to this project will be documented in this file, per [the Ke
 ### Security
 ### Developer
 -->
+
+## [0.3.0] - 2025-05-18
+
+### Changed
+* Filter and option prefixes to "eprobe"
+* API endpoint path prefix to "elasticprobe"
+* Contributer accounts in readme.txt
+
+### Fixed
+* Some missing translation domains
+* Some missing sanitizations
+
 
 ## [0.2.1] - 2025-05-12
 
@@ -50,6 +63,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 
 [Unreleased]: https://github.com/BushwackStudio/ElasticProbe/compare/trunk...dev
+[0.3.0]: https://github.com/BushwackStudio/ElasticProbe/compare/0.3.0...0.2.1
 [0.2.1]: https://github.com/BushwackStudio/ElasticProbe/compare/0.2.1...0.2.0
 [0.2.0]: https://github.com/BushwackStudio/ElasticProbe/compare/0.2.0...0.1.1
 [0.1.1]: https://github.com/BushwackStudio/ElasticProbe/releases/tag/0.1.1

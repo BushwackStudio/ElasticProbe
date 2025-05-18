@@ -261,10 +261,10 @@ Cypress.Commands.add('updateFeatures', (featureName, newValues) => {
 
 	cy.wpCliEval(
 		`
-		$feature_settings = get_option( 'ep_feature_settings', [] );
+		$feature_settings = get_option( 'eprobe_feature_settings', [] );
 
 		$feature_settings['${featureName}'] = json_decode( '${escapedNewValues}', true );
-		update_option( 'ep_feature_settings', $feature_settings );
+		update_option( 'eprobe_feature_settings', $feature_settings );
 		`,
 	);
 });
@@ -314,7 +314,7 @@ Cypress.Commands.add('updateWeighting', (newWeightingValues = null) => {
 		: JSON.stringify(defaultWeighting);
 
 	cy.wpCliEval(
-		`$weighting = json_decode( '${escapedWeighting}', true ); update_option( 'elasticpress_weighting', $weighting );`,
+		`$weighting = json_decode( '${escapedWeighting}', true ); update_option( 'eprobe_weighting', $weighting );`,
 	);
 });
 
@@ -553,7 +553,7 @@ Cypress.Commands.add('createUser', (userData) => {
 });
 
 Cypress.Commands.add('setPerIndexCycle', (number = 350) => {
-	cy.wpCli(`option set ep_bulk_setting ${number}`);
+	cy.wpCli(`option set eprobe_bulk_setting ${number}`);
 });
 
 Cypress.Commands.add('refreshIndex', (indexable) => {

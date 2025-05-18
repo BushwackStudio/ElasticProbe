@@ -33,8 +33,7 @@ class RelatedPosts {
 			'methods'             => 'GET',
 			'permission_callback' => '__return_true',
 		];
-		// TODO: Change REST route
-		register_rest_route( 'elasticpress/v1', 'related-posts/(?P<id>[0-9]+)', $args );
+		register_rest_route( 'elasticprobe/v1', 'related-posts/(?P<id>[0-9]+)', $args );
 		register_rest_route( 'wp/v2', 'posts/(?P<id>[0-9]+)/related', $args );
 	}
 

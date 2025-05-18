@@ -102,13 +102,13 @@ describe('WordPress can perform standard ElasticProbe actions', { tags: '@slow' 
 	it('Cannot save settings while a sync is in progress', () => {
 		cy.login();
 		cy.visitAdminPage('admin.php?page=elasticprobe');
-		cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
+		cy.intercept('/wp-json/elasticprobe/v1/features*').as('apiRequest');
 
-		cy.wpCliEval(`update_option( 'ep_index_meta', [ 'indexing' => true ] );`).then(() => {
+		cy.wpCliEval(`update_option( 'eprobe_index_meta', [ 'indexing' => true ] );`).then(() => {
 			cy.contains('button', 'Save changes').click();
 			cy.wait('@apiRequest');
 			cy.contains('.components-snackbar', 'Cannot save settings').should('be.visible');
-			cy.wpCliEval(`delete_option( 'ep_index_meta' );`);
+			cy.wpCliEval(`delete_option( 'eprobe_index_meta' );`);
 		});
 	});
 

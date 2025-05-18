@@ -92,7 +92,7 @@ class TestWeighting extends BaseTestCase {
 		parent::tear_down();
 
 		$this->fired_actions = array();
-		update_option( 'elasticpress_weighting', [] );
+		update_option( 'eprobe_weighting', [] );
 	}
 
 	/**
@@ -180,7 +180,7 @@ class TestWeighting extends BaseTestCase {
 	}
 
 	/**
-	 * Test the `ep_weighting_default_enabled_taxonomies` filter.
+	 * Test the `eprobe_weighting_default_enabled_taxonomies` filter.
 	 *
 	 * This filter should affect the weighting dashboard only if it was not saved yet.
 	 *
@@ -195,7 +195,7 @@ class TestWeighting extends BaseTestCase {
 		$this->assertTrue( $post_default_config['terms.post_tag.name']['enabled'] );
 
 		add_filter(
-			'ep_weighting_default_enabled_taxonomies',
+			'eprobe_weighting_default_enabled_taxonomies',
 			function ( $taxs, $post_type ) {
 				if ( 'post' === $post_type ) {
 					$taxs[] = 'post_format';
@@ -274,7 +274,7 @@ class TestWeighting extends BaseTestCase {
 	 */
 	public function testSaveWeightingConfigurationInvalidPostType() {
 		add_filter(
-			'ep_meta_mode',
+			'eprobe_meta_mode',
 			function () {
 				return 'auto';
 			}
@@ -290,14 +290,14 @@ class TestWeighting extends BaseTestCase {
 		];
 
 		add_filter(
-			'ep_searchable_post_types',
+			'eprobe_searchable_post_types',
 			function ( $config ) {
 				return array_merge( $config, [ 'invalid_post_type' ] );
 			}
 		);
 
 		add_filter(
-			'ep_weighting_configuration',
+			'eprobe_weighting_configuration',
 			function ( $config ) {
 				return array_merge( $config, [ 'invalid_post_type' ] );
 			}
@@ -344,7 +344,7 @@ class TestWeighting extends BaseTestCase {
 	}
 
 	/**
-	 * Check if `post_type_has_fields()` behaves correctly when using the `ep_weighting_configuration_for_search` filter.
+	 * Check if `post_type_has_fields()` behaves correctly when using the `eprobe_weighting_configuration_for_search` filter.
 	 *
 	 * @since 4.1.0
 	 */
@@ -372,7 +372,7 @@ class TestWeighting extends BaseTestCase {
 				],
 			];
 		};
-		add_filter( 'ep_weighting_configuration_for_search', $function );
+		add_filter( 'eprobe_weighting_configuration_for_search', $function );
 
 		$this->assertTrue( $this->get_weighting_feature()->post_type_has_fields( 'post' ) );
 		$this->assertFalse( $this->get_weighting_feature()->post_type_has_fields( 'page' ) );
@@ -439,7 +439,7 @@ class TestWeighting extends BaseTestCase {
 		$query      = new \WP_Query( [ 's' => 'blog' ] );
 		$query_vars = $query->query_vars;
 
-		$query_vars['post_type'] = apply_filters( 'ep_query_post_type', $query_vars['post_type'], $query );
+		$query_vars['post_type'] = apply_filters( 'eprobe_query_post_type', $query_vars['post_type'], $query );
 
 		if ( 'any' === $query_vars['post_type'] ) {
 			unset( $query_vars['post_type'] );
@@ -462,12 +462,12 @@ class TestWeighting extends BaseTestCase {
 	}
 
 	/**
-	 * Test if ep_weighting_configuration_for_search is applied even when the config was not saved yet.
+	 * Test if eprobe_weighting_configuration_for_search is applied even when the config was not saved yet.
 	 *
 	 * @since 4.5.0
 	 */
 	public function testApplyFilterWhenWeightingConfigWasNotSaved() {
-		delete_option( 'elasticpress_weighting' );
+		delete_option( 'eprobe_weighting' );
 
 		$add_post_content_filter = function ( $weight_config ) {
 			$weight_config['new_cpt']['post_content_filtered'] = [
@@ -480,8 +480,8 @@ class TestWeighting extends BaseTestCase {
 			return 'new_cpt';
 		};
 
-		add_filter( 'ep_weighting_configuration_for_search', $add_post_content_filter );
-		add_filter( 'ep_query_post_type', $set_query_post_type );
+		add_filter( 'eprobe_weighting_configuration_for_search', $add_post_content_filter );
+		add_filter( 'eprobe_query_post_type', $set_query_post_type );
 
 		$new_formatted_args = $this->get_weighting_feature()->do_weighting( ...$this->getArgs() );
 
@@ -499,7 +499,7 @@ class TestWeighting extends BaseTestCase {
 	 * @return array
 	 */
 	protected function save_weighting_configuration( $settings ) {
-		$request = new \WP_REST_Request( 'POST', '/elasticpress/v1/update_weighting' );
+		$request = new \WP_REST_Request( 'POST', '/elasticprobe/v1/update_weighting' );
 		$request->set_header( 'Content-Type', 'application/json' );
 		$request->set_body( wp_json_encode( $settings ) );
 		$this->get_weighting_feature()->update_weighting( $request );

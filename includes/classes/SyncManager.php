@@ -40,12 +40,12 @@ abstract class SyncManager {
 	public function __construct( $indexable_slug ) {
 		$this->indexable_slug = $indexable_slug;
 
-		if ( defined( 'EP_SYNC_CHUNK_LIMIT' ) && is_numeric( EP_SYNC_CHUNK_LIMIT ) ) {
+		if ( defined( 'EPROBE_SYNC_CHUNK_LIMIT' ) && is_numeric( EPROBE_SYNC_CHUNK_LIMIT ) ) {
 			/**
 			 * We also sync when we exceed Chunk limit set.
 			 * This is sometimes useful when posts are generated programmatically.
 			 */
-			add_action( 'ep_after_add_to_queue', [ $this, 'index_sync_on_chunk_limit' ] );
+			add_action( 'eprobe_after_add_to_queue', [ $this, 'index_sync_on_chunk_limit' ] );
 		}
 		/**
 		 * We do all syncing on shutdown or redirect
@@ -108,12 +108,12 @@ abstract class SyncManager {
 		/**
 		 * Fires after item is added to sync queue
 		 *
-		 * @hook ep_after_add_to_queue
+		 * @hook eprobe_after_add_to_queue
 		 * @param  {int} $object_id ID of object
 		 * @param  {array} $sync_queue Current sync queue
 		 * @since  3.1.2
 		 */
-		do_action( 'ep_after_add_to_queue', $object_id, $this->get_sync_queue() );
+		do_action( 'eprobe_after_add_to_queue', $object_id, $this->get_sync_queue() );
 
 		return true;
 	}
@@ -141,12 +141,12 @@ abstract class SyncManager {
 		/**
 		 * Fires after item is removed from sync queue
 		 *
-		 * @hook ep_after_remove_from_queue
+		 * @hook eprobe_after_remove_from_queue
 		 * @param  {int} $object_id ID of object
 		 * @param  {array} $sync_queue Current sync queue
 		 * @since  3.5
 		 */
-		do_action( 'ep_after_remove_from_queue', $object_id, $this->get_sync_queue() );
+		do_action( 'eprobe_after_remove_from_queue', $object_id, $this->get_sync_queue() );
 
 		return true;
 	}
@@ -166,14 +166,14 @@ abstract class SyncManager {
 	}
 
 	/**
-	 * Sync queued objects if the EP_SYNC_CHUNK_LIMIT is reached.
+	 * Sync queued objects if the EPROBE_SYNC_CHUNK_LIMIT is reached.
 	 *
 	 * @since 3.1.2
 	 * @return boolean
 	 */
 	public function index_sync_on_chunk_limit() {
-		if ( defined( 'EP_SYNC_CHUNK_LIMIT' ) && is_numeric( EP_SYNC_CHUNK_LIMIT ) &&
-			is_array( $this->get_sync_queue() ) && count( $this->get_sync_queue() ) > EP_SYNC_CHUNK_LIMIT ) {
+		if ( defined( 'EPROBE_SYNC_CHUNK_LIMIT' ) && is_numeric( EPROBE_SYNC_CHUNK_LIMIT ) &&
+			is_array( $this->get_sync_queue() ) && count( $this->get_sync_queue() ) > EPROBE_SYNC_CHUNK_LIMIT ) {
 			$this->index_sync_queue();
 		}
 		return true;
@@ -216,13 +216,13 @@ abstract class SyncManager {
 			/**
 			 * Allow other code to intercept the sync process
 			 *
-			 * @hook pre_ep_index_sync_queue
+			 * @hook eprobe_pre_index_sync_queue
 			 * @param {boolean} $bail True to skip the rest of index_sync_queue(), false to continue normally
 			 * @param {SyncManager} $sync_manager SyncManager instance for the indexable
 			 * @param {string} $indexable_slug Slug of the indexable being synced
 			 * @since 3.5
 			 */
-			if ( apply_filters( 'pre_ep_index_sync_queue', false, $this, $this->indexable_slug ) ) {
+			if ( apply_filters( 'eprobe_pre_index_sync_queue', false, $this, $this->indexable_slug ) ) {
 				return;
 			}
 
@@ -233,10 +233,10 @@ abstract class SyncManager {
 				/**
 				 * Fires when object in queue are synced
 				 *
-				 * @hook ep_sync_on_meta_update_queue
+				 * @hook eprobe_sync_on_meta_update_queue
 				 * @param  {int} $object_id ID of object
 				 */
-				do_action( 'ep_sync_on_meta_update', $object_id );
+				do_action( 'eprobe_sync_on_meta_update', $object_id );
 			}
 
 			// Bulk sync them all.
@@ -261,7 +261,7 @@ abstract class SyncManager {
 	 * @return boolean
 	 */
 	public function can_index_site() {
-		if ( ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) && ! Utils\is_site_indexable() ) {
+		if ( ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) && ! Utils\is_site_indexable() ) {
 			$this->tear_down();
 			return false;
 		}
@@ -273,7 +273,7 @@ abstract class SyncManager {
 	 * Determine whether syncing an indexable should take place.
 	 *
 	 * Returns true or false depending on the value of the WP_IMPORTING global.
-	 * Contains the 'ep_sync_indexable_kill' filter that enables overriding the default behavior.
+	 * Contains the 'eprobe_sync_indexable_kill' filter that enables overriding the default behavior.
 	 *
 	 * @since 3.4.2
 	 * @return bool
@@ -286,11 +286,11 @@ abstract class SyncManager {
 		 * Filter whether to bypass sync.
 		 *
 		 * @since 3.4.2
-		 * @hook  ep_sync_indexable_kill
+		 * @hook  eprobe_sync_indexable_kill
 		 * @param {boolean} $kill True if WP_IMPORTING is defined and true, else false.
 		 * @param {array} $indexable_slug Indexable slug.
 		 */
-		return apply_filters( 'ep_sync_indexable_kill', $is_importing, $this->indexable_slug );
+		return apply_filters( 'eprobe_sync_indexable_kill', $is_importing, $this->indexable_slug );
 	}
 
 	/**
@@ -313,7 +313,7 @@ abstract class SyncManager {
 		/**
 		 * Filter to whether to keep index on site deletion
 		 *
-		 * @hook ep_keep_index
+		 * @hook eprobe_keep_index
 		 * @since 3.0
 		 * @since 3.6.2 Moved from Post\SyncManager to the main SyncManager class
 		 * @since 3.6.5 Added `$blog_id` and `$indexable_slug`
@@ -322,7 +322,7 @@ abstract class SyncManager {
 		 * @param {string} $indexable_slug Indexable slug
 		 * @return {bool} New value
 		 */
-		if ( $indexable->index_exists( $blog_id ) && ! apply_filters( 'ep_keep_index', false, $blog_id, $this->indexable_slug ) ) {
+		if ( $indexable->index_exists( $blog_id ) && ! apply_filters( 'eprobe_keep_index', false, $blog_id, $this->indexable_slug ) ) {
 			$indexable->delete_index( $blog_id );
 		}
 	}
@@ -334,7 +334,7 @@ abstract class SyncManager {
 	 */
 	public function clear_index_settings_cache() {
 		$indexable = Indexables::factory()->get( $this->indexable_slug );
-		$cache_key = 'ep_index_settings_' . $indexable->get_index_name();
+		$cache_key = 'eprobe_index_settings_' . $indexable->get_index_name();
 
 		Utils\delete_transient( $cache_key );
 	}

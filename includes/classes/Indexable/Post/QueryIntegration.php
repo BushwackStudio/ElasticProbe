@@ -43,13 +43,13 @@ class QueryIntegration {
 		 * Filter whether to enable query integration during indexing
 		 *
 		 * @since 4.5.2
-		 * @hook ep_enable_query_integration_during_indexing
+		 * @hook eprobe_enable_query_integration_during_indexing
 		 *
 		 * @param {bool} $enable To allow query integration during indexing
 		 * @param {string} $indexable_slug Indexable slug
 		 * @return {bool} New value
 		 */
-		$allow_query_integration_during_indexing = apply_filters( 'ep_enable_query_integration_during_indexing', false, $indexable_slug );
+		$allow_query_integration_during_indexing = apply_filters( 'eprobe_enable_query_integration_during_indexing', false, $indexable_slug );
 
 		// Ensure that we are currently allowing ElasticProbe to override the normal WP_Query
 		// Indexable->is_full_reindexing() is not available at this point yet, so using the IndexHelper version of it.
@@ -85,12 +85,12 @@ class QueryIntegration {
 		/**
 		 * Filter to skip WP Query integration
 		 *
-		 * @hook ep_skip_query_integration
+		 * @hook eprobe_skip_query_integration
 		 * @param  {bool} $skip True to skip
 		 * @param  {WP_Query} $query WP Query to evaluate
 		 * @return  {bool} New skip value
 		 */
-		if ( ( isset( $query->elasticsearch_success ) && false === $query->elasticsearch_success ) || ( ! Indexables::factory()->get( 'post' )->elasticpress_enabled( $query ) || apply_filters( 'ep_skip_query_integration', false, $query ) ) ) {
+		if ( ( isset( $query->elasticsearch_success ) && false === $query->elasticsearch_success ) || ( ! Indexables::factory()->get( 'post' )->elasticpress_enabled( $query ) || apply_filters( 'eprobe_skip_query_integration', false, $query ) ) ) {
 			return $found_posts;
 		}
 
@@ -107,12 +107,12 @@ class QueryIntegration {
 		/**
 		 * Filter to skip WP Query integration
 		 *
-		 * @hook ep_skip_query_integration
+		 * @hook eprobe_skip_query_integration
 		 * @param  {bool} $skip True to skip
 		 * @param  {WP_Query} $query WP Query to evaluate
 		 * @return  {bool} New skip value
 		 */
-		if ( ! Indexables::factory()->get( 'post' )->elasticpress_enabled( $query ) || apply_filters( 'ep_skip_query_integration', false, $query ) ) {
+		if ( ! Indexables::factory()->get( 'post' )->elasticpress_enabled( $query ) || apply_filters( 'eprobe_skip_query_integration', false, $query ) ) {
 			return;
 		}
 
@@ -226,12 +226,12 @@ class QueryIntegration {
 		/**
 		 * Filter to skip WP Query integration
 		 *
-		 * @hook ep_skip_query_integration
+		 * @hook eprobe_skip_query_integration
 		 * @param  {bool} $skip True to skip
 		 * @param  {WP_Query} $query WP Query to evaluate
 		 * @return  {bool} New skip value
 		 */
-		if ( ! Indexables::factory()->get( 'post' )->elasticpress_enabled( $query ) || apply_filters( 'ep_skip_query_integration', false, $query ) ) {
+		if ( ! Indexables::factory()->get( 'post' )->elasticpress_enabled( $query ) || apply_filters( 'eprobe_skip_query_integration', false, $query ) ) {
 			return $posts;
 		}
 
@@ -241,12 +241,12 @@ class QueryIntegration {
 		 * Filter post type query variables before WP Query
 		 *
 		 * @since  2.1
-		 * @hook ep_query_post_type
+		 * @hook eprobe_query_post_type
 		 * @param  {string|array} $post_types Post types
 		 * @param  {WP_Query} $query WP Query object
 		 * @return  {string|array} New post types
 		 */
-		$query_vars['post_type'] = apply_filters( 'ep_query_post_type', $query_vars['post_type'] ?? '', $query );
+		$query_vars['post_type'] = apply_filters( 'eprobe_query_post_type', $query_vars['post_type'] ?? '', $query );
 
 		if ( 'any' === $query_vars['post_type'] ) {
 			unset( $query_vars['post_type'] );
@@ -275,12 +275,12 @@ class QueryIntegration {
 		/**
 		 * Filter cached posts pre-post query
 		 *
-		 * @hook ep_wp_query_cached_posts
+		 * @hook eprobe_wp_query_cached_posts
 		 * @param  {array} $posts Array of posts
 		 * @param  {WP_Query} $query WP Query object
 		 * @return  {array} New cached posts
 		 */
-		$new_posts = apply_filters( 'ep_wp_query_cached_posts', [], $query );
+		$new_posts = apply_filters( 'eprobe_wp_query_cached_posts', [], $query );
 
 		$ep_query = null;
 
@@ -314,14 +314,14 @@ class QueryIntegration {
 			/**
 			 * Filter post query scope
 			 *
-			 * @hook ep_search_scope
+			 * @hook eprobe_search_scope
 			 * @param  {string} $scope Current scope
 			 * @return  {string} New scope
 			 * @since  2.1
 			 */
-			$scope = apply_filters( 'ep_search_scope', $scope );
+			$scope = apply_filters( 'eprobe_search_scope', $scope );
 
-			if ( ! defined( 'EP_IS_NETWORK' ) || ! EP_IS_NETWORK ) {
+			if ( ! defined( 'EPROBE_IS_NETWORK' ) || ! EPROBE_IS_NETWORK ) {
 				// @codeCoverageIgnoreStart
 				$scope = 'current';
 				// @codeCoverageIgnoreEnd
@@ -394,35 +394,35 @@ class QueryIntegration {
 			/**
 			 * Fires after non cached post query
 			 *
-			 * @hook ep_wp_query_non_cached_search
+			 * @hook eprobe_wp_query_non_cached_search
 			 * @param {array} $new_posts Array of posts from query
 			 * @param  {array} $ep_query Raw Elasticsearch query
 			 * @param  {WP_Query} $query WordPress query
 			 */
-			do_action( 'ep_wp_query_non_cached_search', $new_posts, $ep_query, $query );
+			do_action( 'eprobe_wp_query_non_cached_search', $new_posts, $ep_query, $query );
 		}
 
 		/**
 		 * Fires before returning posts from query
 		 *
-		 * @hook ep_wp_query
+		 * @hook eprobe_wp_query
 		 * @param {array} $new_posts Array of posts from query
 		 * @param  {array} $ep_query Raw Elasticsearch query
 		 * @param  {WP_Query} $query WordPress query
 		 */
-		do_action( 'ep_wp_query', $new_posts, $ep_query, $query );
+		do_action( 'eprobe_wp_query', $new_posts, $ep_query, $query );
 
 		/**
 		 * Fires before returning posts from query
 		 *
 		 * Pre-3.0 backwards compat
 		 *
-		 * @hook ep_wp_query_search
+		 * @hook eprobe_wp_query_search
 		 * @param {array} $new_posts Array of posts from query
 		 * @param  {array} $ep_query Raw Elasticsearch query
 		 * @param  {WP_Query} $query WordPress query
 		 */
-		do_action( 'ep_wp_query_search', $new_posts, $ep_query, $query );
+		do_action( 'eprobe_wp_query_search', $new_posts, $ep_query, $query );
 
 		return $new_posts;
 	}
@@ -450,12 +450,12 @@ class QueryIntegration {
 			/**
 			 * Filter post object properties set after query
 			 *
-			 * @hook ep_search_post_return_args
+			 * @hook eprobe_search_post_return_args
 			 * @param  {array} $properties Post properties
 			 * @return  {array} New properties
 			 */
 			$post_return_args = apply_filters(
-				'ep_search_post_return_args',
+				'eprobe_search_post_return_args',
 				array(
 					'post_type',
 					'post_author',
@@ -494,7 +494,7 @@ class QueryIntegration {
 			 *
 			 * $post_array['highlight'] is set from $hit['highlight'] in Elasticsearch.php
 			 * when going through the returned results, and that is defined by
-			 * the Highlighting Feature on setup, calling ep_formatted_args to
+			 * the Highlighting Feature on setup, calling eprobe_formatted_args to
 			 * define the highlight array of fields.
 			 */
 			if ( isset( $post_array['highlight'] ) ) {
@@ -584,7 +584,7 @@ class QueryIntegration {
 		 * @param float $min_score The minimum score allowed.
 		 * @return float
 		 */
-		$min_score = (float) apply_filters( 'ep_suggestion_minimum_score', 0.0001 );
+		$min_score = (float) apply_filters( 'eprobe_suggestion_minimum_score', 0.0001 );
 
 		$suggestion['options'] = array_filter(
 			$suggestion['options'],

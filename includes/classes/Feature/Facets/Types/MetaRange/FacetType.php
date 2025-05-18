@@ -30,8 +30,8 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 	 * Setup hooks and filters for feature
 	 */
 	public function setup() {
-		add_filter( 'ep_facet_query_filters', [ $this, 'add_query_filters' ], 10, 2 );
-		add_filter( 'ep_facet_wp_query_aggs_facet', [ $this, 'set_wp_query_aggs' ] );
+		add_filter( 'eprobe_facet_query_filters', [ $this, 'add_query_filters' ], 10, 2 );
+		add_filter( 'eprobe_facet_wp_query_aggs_facet', [ $this, 'set_wp_query_aggs' ] );
 
 		$this->block = new Block();
 		$this->block->setup();
@@ -46,12 +46,12 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 		/**
 		 * Filter the facet filter name that's added to the URL
 		 *
-		 * @hook ep_facet_meta_range_filter_name
+		 * @hook eprobe_facet_meta_range_filter_name
 		 * @since 4.5.0
 		 * @param   {string} Facet filter name
 		 * @return  {string} New facet filter name
 		 */
-		return apply_filters( 'ep_facet_meta_range_filter_name', 'ep_meta_range_filter_' );
+		return apply_filters( 'eprobe_facet_meta_range_filter_name', 'ep_meta_range_filter_' );
 	}
 
 	/**
@@ -63,12 +63,12 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 		/**
 		 * Filter the facet filter type. Used by the Facet feature to organize filters.
 		 *
-		 * @hook ep_facet_meta_range_filter_type
+		 * @hook eprobe_facet_meta_range_filter_type
 		 * @since 4.5.0
 		 * @param   {string} Facet filter type
 		 * @return  {string} New facet filter type
 		 */
-		return apply_filters( 'ep_facet_meta_range_filter_type', 'meta-range' );
+		return apply_filters( 'eprobe_facet_meta_range_filter_type', 'meta-range' );
 	}
 
 	/**
@@ -100,11 +100,11 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 		 * Filter if EP should only filter by fields selected in facets. Defaults to true.
 		 *
 		 * @since 4.5.1
-		 * @hook ep_facet_should_check_if_allowed
+		 * @hook eprobe_facet_should_check_if_allowed
 		 * @param {bool} $should_check Whether it should or not check fields
 		 * @return {string} New value
 		 */
-		$should_check_if_allowed = apply_filters( 'ep_facet_should_check_if_allowed', true );
+		$should_check_if_allowed = apply_filters( 'eprobe_facet_should_check_if_allowed', true );
 		if ( $should_check_if_allowed ) {
 			$allowed_meta_fields = $this->get_facets_meta_fields();
 
@@ -156,12 +156,12 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 			 * `meta.<field>.value` is *not* available, as that throws a `Fielddata is disabled on text fields by default` error.
 			 *
 			 * @since 4.5.0
-			 * @hook ep_facet_meta_range_use_field
+			 * @hook eprobe_facet_meta_range_use_field
 			 * @param {string} $es_field   The Elasticsearch field to use for this meta field
 			 * @param {string} $meta_field The meta field key
 			 * @return {string} The chosen ES field
 			 */
-			$facet_field = apply_filters( 'ep_facet_meta_range_use_field', 'double', $meta_field );
+			$facet_field = apply_filters( 'eprobe_facet_meta_range_use_field', 'double', $meta_field );
 
 			$facet_aggs[ $this->get_filter_name() . $meta_field . '_min' ] = array(
 				'min' => array(
@@ -233,7 +233,7 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 				continue;
 			}
 
-			if ( false === strpos( $instance['content'], 'elasticpress/facet-meta-range' ) ) {
+			if ( false === strpos( $instance['content'], 'elasticprobe/facet-meta-range' ) ) {
 				continue;
 			}
 
@@ -247,7 +247,7 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 		if ( current_theme_supports( 'block-templates' ) ) {
 			$facets_meta_fields = array_merge(
 				$facets_meta_fields,
-				$this->block_template_meta_fields( 'elasticpress/facet-meta-range' )
+				$this->block_template_meta_fields( 'elasticprobe/facet-meta-range' )
 			);
 		}
 
@@ -255,10 +255,10 @@ class FacetType extends \ElasticProbe\Feature\Facets\FacetType {
 		 * Filter meta fields to be used in aggregations related to meta range blocks.
 		 *
 		 * @since 4.5.0
-		 * @hook ep_facet_meta_range_fields
+		 * @hook eprobe_facet_meta_range_fields
 		 * @param {string} $facets_meta_fields Array of meta field keys
 		 * @return {string} The array of meta field keys
 		 */
-		return apply_filters( 'ep_facet_meta_range_fields', $facets_meta_fields );
+		return apply_filters( 'eprobe_facet_meta_range_fields', $facets_meta_fields );
 	}
 }

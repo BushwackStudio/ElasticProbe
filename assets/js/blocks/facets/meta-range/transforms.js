@@ -10,9 +10,9 @@ export default {
 	from: [
 		{
 			type: 'block',
-			blocks: ['elasticpress/facet-meta'],
+			blocks: ['elasticprobe/facet-meta'],
 			transform: (props) => {
-				return createBlock('elasticpress/facet-meta-range', props);
+				return createBlock('elasticprobe/facet-meta-range', props);
 			},
 		},
 	],

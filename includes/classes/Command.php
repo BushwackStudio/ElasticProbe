@@ -74,7 +74,7 @@ class Command extends WP_CLI_Command {
 	 * @since  3.5.2
 	 */
 	public function __construct() {
-		add_filter( 'pre_transient_ep_wpcli_sync_interrupted', [ Utility::class, 'custom_get_transient' ], 10, 2 );
+		add_filter( 'pre_transient_eprobe_wpcli_sync_interrupted', [ Utility::class, 'custom_get_transient' ], 10, 2 );
 	}
 
 	/**
@@ -250,7 +250,7 @@ class Command extends WP_CLI_Command {
 		$non_global_indexable_objects = Indexables::factory()->get_all( false );
 		$global_indexable_objects     = Indexables::factory()->get_all( true );
 
-		if ( isset( $assoc_args['network-wide'] ) && defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+		if ( isset( $assoc_args['network-wide'] ) && defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 			if ( ! is_numeric( $assoc_args['network-wide'] ) ) {
 				$assoc_args['network-wide'] = 0;
 			}
@@ -277,12 +277,12 @@ class Command extends WP_CLI_Command {
 					/**
 					 * Fires after CLI put mapping
 					 *
-					 * @hook ep_cli_put_mapping
+					 * @hook eprobe_cli_put_mapping
 					 * @param  {Indexable} $indexable Indexable involved in mapping
 					 * @param  {array} $args CLI command position args
 					 * @param {array} $assoc_args CLI command associative args
 					 */
-					do_action( 'ep_cli_put_mapping', $indexable, $args, $assoc_args );
+					do_action( 'eprobe_cli_put_mapping', $indexable, $args, $assoc_args );
 
 					if ( ! is_wp_error( $result ) ) {
 						WP_CLI::success( esc_html__( 'Mapping sent', 'elasticprobe' ) );
@@ -317,12 +317,12 @@ class Command extends WP_CLI_Command {
 				/**
 				 * Fires after CLI put mapping
 				 *
-				 * @hook ep_cli_put_mapping
+				 * @hook eprobe_cli_put_mapping
 				 * @param  {Indexable} $indexable Indexable involved in mapping
 				 * @param  {array} $args CLI command position args
 				 * @param {array} $assoc_args CLI command associative args
 				 */
-				do_action( 'ep_cli_put_mapping', $indexable, $args, $assoc_args );
+				do_action( 'eprobe_cli_put_mapping', $indexable, $args, $assoc_args );
 
 				if ( ! is_wp_error( $result ) ) {
 					WP_CLI::success( esc_html__( 'Mapping sent', 'elasticprobe' ) );
@@ -358,12 +358,12 @@ class Command extends WP_CLI_Command {
 			/**
 			 * Fires after CLI put mapping
 			 *
-			 * @hook ep_cli_put_mapping
+			 * @hook eprobe_cli_put_mapping
 			 * @param  {Indexable} $indexable Indexable involved in mapping
 			 * @param  {array} $args CLI command position args
 			 * @param {array} $assoc_args CLI command associative args
 			 */
-			do_action( 'ep_cli_put_mapping', $indexable, $args, $assoc_args );
+			do_action( 'eprobe_cli_put_mapping', $indexable, $args, $assoc_args );
 
 			if ( ! is_wp_error( $result ) ) {
 				WP_CLI::success( esc_html__( 'Mapping sent', 'elasticprobe' ) );
@@ -510,7 +510,7 @@ class Command extends WP_CLI_Command {
 		$non_global_indexable_objects = Indexables::factory()->get_all( false );
 		$global_indexable_objects     = Indexables::factory()->get_all( true );
 
-		if ( isset( $assoc_args['network-wide'] ) && defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+		if ( isset( $assoc_args['network-wide'] ) && defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 			if ( ! is_numeric( $assoc_args['network-wide'] ) ) {
 				$assoc_args['network-wide'] = 0;
 			}
@@ -577,7 +577,7 @@ class Command extends WP_CLI_Command {
 		$this->connect_check();
 		$this->index_occurring();
 
-		if ( ! defined( 'EP_IS_NETWORK' ) || ! EP_IS_NETWORK ) {
+		if ( ! defined( 'EPROBE_IS_NETWORK' ) || ! EPROBE_IS_NETWORK ) {
 			WP_CLI::error( esc_html__( 'ElasticProbe is not network activated.', 'elasticprobe' ) );
 		}
 
@@ -614,9 +614,9 @@ class Command extends WP_CLI_Command {
 			WP_CLI::error( esc_html__( 'Autosuggest is not enabled.', 'elasticprobe' ) );
 		}
 
-		add_action( 'ep_epio_wp_cli_set_autosuggest', [ $autosuggest_feature, 'epio_send_autosuggest_public_request' ] );
+		add_action( 'eprobe_epio_wp_cli_set_autosuggest', [ $autosuggest_feature, 'epio_send_autosuggest_public_request' ] );
 
-		do_action( 'ep_epio_wp_cli_set_autosuggest', $args, $assoc_args );
+		do_action( 'eprobe_epio_wp_cli_set_autosuggest', $args, $assoc_args );
 
 		WP_CLI::success( esc_html__( 'Done.', 'elasticprobe' ) );
 	}
@@ -772,17 +772,17 @@ class Command extends WP_CLI_Command {
 		/**
 		 * Fires before starting a CLI index
 		 *
-		 * @hook ep_wp_cli_pre_index
+		 * @hook eprobe_wp_cli_pre_index
 		 * @param  {array} $args CLI command position args
 		 * @param {array} $assoc_args CLI command associative args
 		 */
-		do_action( 'ep_wp_cli_pre_index', $args, $assoc_args );
+		do_action( 'eprobe_wp_cli_pre_index', $args, $assoc_args );
 
 		Utility::timer_start();
 
-		add_action( 'ep_sync_put_mapping', [ Utility::class, 'stop_on_failed_mapping' ], 10, 3 );
-		add_action( 'ep_sync_put_mapping', [ Utility::class, 'call_ep_cli_put_mapping' ], 10, 2 );
-		add_action( 'ep_index_batch_new_attempt', [ Utility::class, 'should_interrupt_sync' ] );
+		add_action( 'eprobe_sync_put_mapping', [ Utility::class, 'stop_on_failed_mapping' ], 10, 3 );
+		add_action( 'eprobe_sync_put_mapping', [ Utility::class, 'call_eprobe_cli_put_mapping' ], 10, 2 );
+		add_action( 'eprobe_index_batch_new_attempt', [ Utility::class, 'should_interrupt_sync' ] );
 
 		$no_bulk      = ! empty( $assoc_args['nobulk'] );
 		$static_bulk  = \WP_CLI\Utils\get_flag_value( $assoc_args, 'static-bulk', null );
@@ -842,22 +842,22 @@ class Command extends WP_CLI_Command {
 
 		\ElasticProbe\IndexHelper::factory()->full_index( $index_args );
 
-		remove_action( 'ep_sync_put_mapping', [ Utility::class, 'stop_on_failed_mapping' ] );
-		remove_action( 'ep_sync_put_mapping', [ Utility::class, 'call_ep_cli_put_mapping' ], 10, 2 );
-		remove_action( 'ep_index_batch_new_attempt', [ Utility::class, 'should_interrupt_sync' ] );
+		remove_action( 'eprobe_sync_put_mapping', [ Utility::class, 'stop_on_failed_mapping' ] );
+		remove_action( 'eprobe_sync_put_mapping', [ Utility::class, 'call_eprobe_cli_put_mapping' ], 10, 2 );
+		remove_action( 'eprobe_index_batch_new_attempt', [ Utility::class, 'should_interrupt_sync' ] );
 
 		$sync_time_in_ms = Utility::timer_stop();
 
 		/**
 		 * Fires after executing a CLI index
 		 *
-		 * @hook ep_wp_cli_after_index
+		 * @hook eprobe_wp_cli_after_index
 		 * @param  {array} $args CLI command position args
 		 * @param {array} $assoc_args CLI command associative args
 		 *
 		 * @since 3.5.5
 		 */
-		do_action( 'ep_wp_cli_after_index', $args, $assoc_args );
+		do_action( 'eprobe_wp_cli_after_index', $args, $assoc_args );
 
 		WP_CLI::log( WP_CLI::colorize( '%Y' . esc_html__( 'Total time elapsed: ', 'elasticprobe' ) . '%N' . Utility::timer_format( $sync_time_in_ms ) ) );
 
@@ -999,22 +999,22 @@ class Command extends WP_CLI_Command {
 		/**
 		 * Fires before the CLI `clear-sync` command is executed.
 		 *
-		 * @hook ep_cli_before_clear_index
+		 * @hook eprobe_cli_before_clear_index
 		 *
 		 * @since 3.5.5
 		 */
-		do_action( 'ep_cli_before_clear_index' );
+		do_action( 'eprobe_cli_before_clear_index' );
 
 		Utility::delete_transient();
 
 		/**
 		 * Fires after the CLI `clear-sync` command is executed.
 		 *
-		 * @hook ep_cli_after_clear_index
+		 * @hook eprobe_cli_after_clear_index
 		 *
 		 * @since 3.5.5
 		 */
-		do_action( 'ep_cli_after_clear_index' );
+		do_action( 'eprobe_cli_after_clear_index' );
 
 		WP_CLI::log( esc_html__( 'Sync cleared.', 'elasticprobe' ) );
 	}
@@ -1081,7 +1081,7 @@ class Command extends WP_CLI_Command {
 	 * ## OPTIONS
 	 *
 	 * [--clear]
-	 * : Clear the `ep_last_cli_index` option.
+	 * : Clear the `eprobe_last_cli_index` option.
 	 *
 	 * [--pretty]
 	 * : Use this flag to render a pretty-printed version of the JSON response.
@@ -1093,10 +1093,10 @@ class Command extends WP_CLI_Command {
 	 */
 	public function get_last_cli_sync( $args, $assoc_args ) {
 		$pretty    = \WP_CLI\Utils\get_flag_value( $assoc_args, 'pretty' );
-		$last_sync = Utils\get_option( 'ep_last_cli_index', array() );
+		$last_sync = Utils\get_option( 'eprobe_last_cli_index', array() );
 
 		if ( isset( $assoc_args['clear'] ) ) {
-			Utils\delete_option( 'ep_last_cli_index' );
+			Utils\delete_option( 'eprobe_last_cli_index' );
 		}
 
 		$this->pretty_json_encode( $last_sync, $pretty );
@@ -1113,7 +1113,7 @@ class Command extends WP_CLI_Command {
 	private function maybe_change_host( $assoc_args ) {
 		if ( isset( $assoc_args['ep-host'] ) ) {
 			add_filter(
-				'ep_host',
+				'eprobe_host',
 				function () use ( $assoc_args ) {
 					return $assoc_args['ep-host'];
 				}
@@ -1131,7 +1131,7 @@ class Command extends WP_CLI_Command {
 	private function maybe_change_index_prefix( $assoc_args ) {
 		if ( isset( $assoc_args['ep-prefix'] ) ) {
 			add_filter(
-				'ep_index_prefix',
+				'eprobe_index_prefix',
 				function ( $prefix ) use ( $assoc_args ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 					return $assoc_args['ep-prefix'];
 				}
@@ -1166,9 +1166,9 @@ class Command extends WP_CLI_Command {
 			WP_CLI::line( esc_html__( 'Stopping indexing…', 'elasticprobe' ) );
 
 			if ( isset( $indexing_status['method'] ) && 'cli' === $indexing_status['method'] ) {
-				set_transient( 'ep_wpcli_sync_interrupted', true, MINUTE_IN_SECONDS );
+				set_transient( 'eprobe_wpcli_sync_interrupted', true, MINUTE_IN_SECONDS );
 			} else {
-				set_transient( 'ep_sync_interrupted', true, MINUTE_IN_SECONDS );
+				set_transient( 'eprobe_sync_interrupted', true, MINUTE_IN_SECONDS );
 			}
 
 			WP_CLI::success( esc_html__( 'Done.', 'elasticprobe' ) );
@@ -1178,7 +1178,7 @@ class Command extends WP_CLI_Command {
 	/**
 	 * Set the algorithm version.
 	 *
-	 * Set the algorithm version through the `ep_search_algorithm_version` option,
+	 * Set the algorithm version through the `eprobe_search_algorithm_version` option,
 	 * that will be used by the filter with same name.
 	 * Delete the option if `--default` is passed.
 	 *
@@ -1200,34 +1200,34 @@ class Command extends WP_CLI_Command {
 		/**
 		 * Fires before the algorithm version is changed via WP-CLI.
 		 *
-		 * @hook ep_cli_before_set_search_algorithm_version
+		 * @hook eprobe_cli_before_set_search_algorithm_version
 		 * @param  {array} $args CLI command position args
 		 * @param {array} $assoc_args CLI command associative args
 		 *
 		 * @since 3.5.5
 		 */
-		do_action( 'ep_cli_before_set_search_algorithm_version', $args, $assoc_args );
+		do_action( 'eprobe_cli_before_set_search_algorithm_version', $args, $assoc_args );
 
 		if ( empty( $assoc_args['version'] ) && ! isset( $assoc_args['default'] ) ) {
 			WP_CLI::error( esc_html__( 'This command expects a version number or the --default flag.', 'elasticprobe' ) );
 		}
 
 		if ( ! empty( $assoc_args['default'] ) ) {
-			Utils\delete_option( 'ep_search_algorithm_version' );
+			Utils\delete_option( 'eprobe_search_algorithm_version' );
 		} else {
-			Utils\update_option( 'ep_search_algorithm_version', $assoc_args['version'] );
+			Utils\update_option( 'eprobe_search_algorithm_version', $assoc_args['version'] );
 		}
 
 		/**
 		 * Fires after the algorithm version is changed via WP-CLI.
 		 *
-		 * @hook ep_cli_after_set_search_algorithm_version
+		 * @hook eprobe_cli_after_set_search_algorithm_version
 		 * @param  {array} $args CLI command position args
 		 * @param {array} $assoc_args CLI command associative args
 		 *
 		 * @since 3.5.5
 		 */
-		do_action( 'ep_cli_after_set_search_algorithm_version', $args, $assoc_args );
+		do_action( 'eprobe_cli_after_set_search_algorithm_version', $args, $assoc_args );
 
 		WP_CLI::success( esc_html__( 'Done.', 'elasticprobe' ) );
 	}
@@ -1235,7 +1235,7 @@ class Command extends WP_CLI_Command {
 	/**
 	 * Get the algorithm version.
 	 *
-	 * Get the value of the `ep_search_algorithm_version` option, or
+	 * Get the value of the `eprobe_search_algorithm_version` option, or
 	 * `default` if empty.
 	 *
 	 * @subcommand get-algorithm-version
@@ -1245,7 +1245,7 @@ class Command extends WP_CLI_Command {
 	 * @param array $assoc_args Associative CLI args.
 	 */
 	public function get_search_algorithm_version( $args, $assoc_args ) {
-		$value = Utils\get_option( 'ep_search_algorithm_version', '' );
+		$value = Utils\get_option( 'eprobe_search_algorithm_version', '' );
 
 		if ( empty( $value ) ) {
 			WP_CLI::line( 'default' );
@@ -1356,7 +1356,7 @@ class Command extends WP_CLI_Command {
 	}
 
 	/**
-	 * Ties the `ep_cli_put_mapping` action to `ep_sync_put_mapping`.
+	 * Ties the `eprobe_cli_put_mapping` action to `eprobe_sync_put_mapping`.
 	 *
 	 * @since 4.0.0
 	 *
@@ -1364,9 +1364,9 @@ class Command extends WP_CLI_Command {
 	 * @param Indexable $indexable  Indexable object
 	 * @return void
 	 */
-	public function call_ep_cli_put_mapping( $index_meta, $indexable ) {
-		_deprecated_function( __METHOD__, '0.1.0', '\ElasticProbe\Command\Utility::call_ep_cli_put_mapping' );
-		Utility::call_ep_cli_put_mapping( $index_meta, $indexable );
+	public function call_eprobe_cli_put_mapping( $index_meta, $indexable ) {
+		_deprecated_function( __METHOD__, '0.1.0', '\ElasticProbe\Command\Utility::call_eprobe_cli_put_mapping' );
+		Utility::call_eprobe_cli_put_mapping( $index_meta, $indexable );
 	}
 
 	/**
@@ -1438,8 +1438,8 @@ class Command extends WP_CLI_Command {
 	public function settings_reset( $args, $assoc_args ) {
 		WP_CLI::confirm( esc_html__( 'Are you sure you want to delete all ElasticProbe settings?', 'elasticprobe' ), $assoc_args );
 
-		define( 'EP_MANUAL_SETTINGS_RESET', true );
-		include EP_PATH . '/uninstall.php';
+		define( 'EPROBE_MANUAL_SETTINGS_RESET', true );
+		include EPROBE_PATH . '/uninstall.php';
 
 		WP_CLI::line( esc_html__( 'Settings deleted.', 'elasticprobe' ) );
 	}

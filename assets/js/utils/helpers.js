@@ -87,7 +87,7 @@ export const pluck = (array, key) => {
 
 /**
  * Formats object like a url query string, which is how ajax methods
- * in PHP expect to receive the data, e.g. action_wp_ajax_ep_save_feature
+ * in PHP expect to receive the data, e.g. action_wp_ajax_eprobe_save_feature
  * from dashboard.php
  *
  * @param {object} obj - js object

@@ -44,9 +44,9 @@ class TestSearchAlgorithm extends BaseTestCase {
 		};
 
 		/**
-		 * Test the `ep_{$indexable_slug}_formatted_args_query` filter.
+		 * Test the `eprobe_{$indexable_slug}_formatted_args_query` filter.
 		 */
-		add_filter( 'ep_indexable_formatted_args_query', $test_filter );
+		add_filter( 'eprobe_indexable_formatted_args_query', $test_filter );
 
 		$query = $this->stub->get_query( 'indexable', '', [], [] );
 		$this->assertEquals( [ 'changed' ], $query );
@@ -55,7 +55,7 @@ class TestSearchAlgorithm extends BaseTestCase {
 	/**
 	 * Test deprecated/legacy filters
 	 *
-	 * @expectedDeprecated ep_formatted_args_query
+	 * @expectedDeprecated eprobe_formatted_args_query
 	 * @group searchAlgorithms
 	 */
 	public function testLegacyFilters() {
@@ -64,9 +64,9 @@ class TestSearchAlgorithm extends BaseTestCase {
 		};
 
 		/**
-		 * Test the `ep_formatted_args_query` filter.
+		 * Test the `eprobe_formatted_args_query` filter.
 		 */
-		add_filter( 'ep_formatted_args_query', $test_filter );
+		add_filter( 'eprobe_formatted_args_query', $test_filter );
 
 		$query = $this->stub->get_query( 'post', '', [], [] );
 		$this->assertEquals( [ 'changed' ], $query );

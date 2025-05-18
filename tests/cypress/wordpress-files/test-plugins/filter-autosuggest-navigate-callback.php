@@ -6,13 +6,13 @@
  * Author:      10up Inc.
  * License:     GPLv2 or later
  *
- * @package ElasticPress_Tests_E2e
+ * @package ElasticProbe_Tests_E2e
  */
 
 add_action(
 	'wp_enqueue_scripts',
 	function () {
-		wp_register_script( 'filter-autosuggest-navigate-callback', '', [], EP_VERSION, true );
+		wp_register_script( 'filter-autosuggest-navigate-callback', '', [], EPROBE_VERSION, true );
 		wp_enqueue_script( 'filter-autosuggest-navigate-callback' );
 		wp_add_inline_script(
 			'filter-autosuggest-navigate-callback',

@@ -58,7 +58,7 @@ class Synonyms {
 	 * @since  3.4
 	 */
 	public function __construct() {
-		$this->filter_name      = 'ep_synonyms_filter';
+		$this->filter_name      = 'eprobe_synonyms_filter';
 		$this->affected_indices = [ 'post' ];
 	}
 
@@ -110,7 +110,7 @@ class Synonyms {
 		add_action( 'admin_enqueue_scripts', [ $this, 'scripts' ] );
 
 		// Add the synonyms to the elasticsearch query.
-		add_filter( 'ep_config_mapping', [ $this, 'add_search_synonyms' ], 20, 2 );
+		add_filter( 'eprobe_config_mapping', [ $this, 'add_search_synonyms' ], 20, 2 );
 
 		// Register REST routes.
 		add_action( 'rest_api_init', [ $this, 'setup_endpoint' ] );
@@ -129,38 +129,38 @@ class Synonyms {
 		}
 
 		wp_enqueue_script(
-			'ep_synonyms_scripts',
-			EP_URL . 'dist/js/synonyms-script.js',
+			'eprobe_synonyms_scripts',
+			EPROBE_URL . 'dist/js/synonyms-script.js',
 			Utils\get_asset_info( 'synonyms-script', 'dependencies' ),
 			Utils\get_asset_info( 'synonyms-script', 'version' ),
 			true
 		);
 
-		wp_set_script_translations( 'ep_synonyms_scripts', 'elasticprobe' );
+		wp_set_script_translations( 'eprobe_synonyms_scripts', 'elasticprobe' );
 
 		wp_enqueue_style( 'wp-edit-post' );
 
 		wp_enqueue_style(
-			'ep_synonyms_scripts',
-			EP_URL . 'dist/css/synonyms-script.css',
+			'eprobe_synonyms_scripts',
+			EPROBE_URL . 'dist/css/synonyms-script.css',
 			[ 'wp-components', 'wp-edit-post' ],
 			Utils\get_asset_info( 'synonyms-styles', 'version' ),
 			'all'
 		);
 
 		wp_enqueue_style(
-			'ep_synonyms_styles',
-			EP_URL . 'dist/css/synonyms-styles.css',
+			'eprobe_synonyms_styles',
+			EPROBE_URL . 'dist/css/synonyms-styles.css',
 			Utils\get_asset_info( 'synonyms-styles', 'dependencies' ),
 			Utils\get_asset_info( 'synonyms-styles', 'version' ),
 			'all'
 		);
 
-		$api_url  = rest_url( 'elasticpress/v1/synonyms' );
+		$api_url  = rest_url( 'elasticprobe/v1/synonyms' );
 		$sync_url = Utils\get_sync_url();
 
 		wp_localize_script(
-			'ep_synonyms_scripts',
+			'eprobe_synonyms_scripts',
 			'epSynonyms',
 			[
 				'apiUrl'        => esc_url_raw( $api_url ),
@@ -193,7 +193,7 @@ class Synonyms {
 	 * @return void
 	 */
 	public function admin_page() {
-		include EP_PATH . '/includes/partials/header.php';
+		include EPROBE_PATH . '/includes/partials/header.php';
 
 		?>
 		<div class="wrap">
@@ -326,10 +326,10 @@ class Synonyms {
 		/**
 		 * Filter array of synonyms to add to a custom synonym filter.
 		 *
-		 * @hook ep_synonyms
+		 * @hook eprobe_synonyms
 		 * @return  {array} The new array of search synonyms.
 		 */
-		return apply_filters( 'ep_synonyms', $synonyms );
+		return apply_filters( 'eprobe_synonyms', $synonyms );
 	}
 
 	/**
@@ -495,7 +495,7 @@ class Synonyms {
 				}
 
 				// Construct the synonym filter.
-				$setting['index']['analysis']['filter']['ep_synonyms_filter'] = $filter;
+				$setting['index']['analysis']['filter']['eprobe_synonyms_filter'] = $filter;
 
 				// Add the analyzer.
 				$setting['index']['analysis']['analyzer']['default_search']['filter'] = $this->maybe_change_filter_position(
@@ -528,7 +528,7 @@ class Synonyms {
 		 *
 		 * @return array Array of index names.
 		 */
-		$indices = apply_filters( 'ep_synonyms_affected_indices', $this->affected_indices );
+		$indices = apply_filters( 'eprobe_synonyms_affected_indices', $this->affected_indices );
 
 		return array_filter(
 			array_map(
@@ -550,10 +550,10 @@ class Synonyms {
 		/**
 		 * Filter name of the synonym filter set in elasticsearch.
 		 *
-		 * @hook ep_synonyms_filter_name
+		 * @hook eprobe_synonyms_filter_name
 		 * @return  {string} The name of the synonyms filter.
 		 */
-		return apply_filters( 'ep_synonyms_filter_name', $this->filter_name );
+		return apply_filters( 'eprobe_synonyms_filter_name', $this->filter_name );
 	}
 
 	/**
@@ -565,11 +565,11 @@ class Synonyms {
 		/**
 		 * Filter the synonym filter set in elasticsearch.
 		 *
-		 * @hook ep_synonyms_filter
+		 * @hook eprobe_synonyms_filter
 		 * @return  {array} The synonym search filter.
 		 */
 		return apply_filters(
-			'ep_synonyms_filter',
+			'eprobe_synonyms_filter',
 			[
 				'type'     => 'synonym_graph',
 				'lenient'  => true,
@@ -639,7 +639,7 @@ class Synonyms {
 	public function get_synonym_field() {
 		_deprecated_function( 'ElasticProbe\Feature\Search\Synonyms::get_synonym_field', '0.1.0', );
 
-		return 'ep_synonyms';
+		return 'eprobe_synonyms';
 	}
 
 	/**
@@ -809,10 +809,10 @@ class Synonyms {
 		/**
 		 * Filter the default synonyms editor mode.
 		 *
-		 * @hook ep_synonyms_editor_mode
+		 * @hook eprobe_synonyms_editor_mode
 		 * @return  {string} One of 'simple' or 'advanced'.
 		 */
-		$filtered = apply_filters( 'ep_synonyms_editor_mode', $mode );
+		$filtered = apply_filters( 'eprobe_synonyms_editor_mode', $mode );
 
 		return in_array( $filtered, [ 'simple', 'advanced' ], true ) ? $filtered : 'simple';
 	}

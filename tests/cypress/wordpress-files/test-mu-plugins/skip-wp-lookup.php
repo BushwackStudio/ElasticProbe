@@ -5,10 +5,10 @@
  * Author:      10up Inc.
  * License:     GPLv2 or later
  *
- * @package ElasticPress_Tests_E2e
+ * @package ElasticProbe_Tests_E2e
  */
 
-namespace ElasticPress_Tests_E2e;
+namespace ElasticProbe_Tests_E2e;
 
 /**
  * Completely skip looking up translations

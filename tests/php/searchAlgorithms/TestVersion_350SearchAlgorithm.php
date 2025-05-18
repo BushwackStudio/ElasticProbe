@@ -59,9 +59,9 @@ class TestVersion_350SearchAlgorithm extends \ElasticProbeTest\BaseTestCase {
 		};
 
 		/**
-		 * Test the `ep_{$indexable_slug}_match_phrase_boost` filter.
+		 * Test the `eprobe_{$indexable_slug}_match_phrase_boost` filter.
 		 */
-		add_filter( 'ep_indexable_match_phrase_boost', $test_filter );
+		add_filter( 'eprobe_indexable_match_phrase_boost', $test_filter );
 
 		$query = $basic->get_query( 'indexable', $search_term, $search_fields, [] );
 		$this->assertEquals( 1234, $query['bool']['should'][0]['multi_match']['boost'] );
@@ -86,9 +86,9 @@ class TestVersion_350SearchAlgorithm extends \ElasticProbeTest\BaseTestCase {
 		};
 
 		/**
-		 * Test the `ep_post_match_phrase_boost` filter.
+		 * Test the `eprobe_post_match_phrase_boost` filter.
 		 */
-		add_filter( 'ep_post_match_phrase_boost', $test_filter );
+		add_filter( 'eprobe_post_match_phrase_boost', $test_filter );
 
 		$query = $basic->get_query( 'post', $search_term, $search_fields, [] );
 		$this->assertEquals( 1234, $query['bool']['should'][0]['multi_match']['boost'] );
@@ -97,7 +97,7 @@ class TestVersion_350SearchAlgorithm extends \ElasticProbeTest\BaseTestCase {
 	/**
 	 * Test deprecated/legacy filters
 	 *
-	 * @expectedDeprecated ep_match_phrase_boost
+	 * @expectedDeprecated eprobe_match_phrase_boost
 	 * @group searchAlgorithms
 	 */
 	public function testLegacyFilters() {
@@ -111,9 +111,9 @@ class TestVersion_350SearchAlgorithm extends \ElasticProbeTest\BaseTestCase {
 		};
 
 		/**
-		 * Test the `ep_match_phrase_boost` filter.
+		 * Test the `eprobe_match_phrase_boost` filter.
 		 */
-		add_filter( 'ep_match_phrase_boost', $test_filter );
+		add_filter( 'eprobe_match_phrase_boost', $test_filter );
 
 		$query = $basic->get_query( 'post', $search_term, $search_fields, [] );
 		$this->assertEquals( 1234, $query['bool']['should'][0]['multi_match']['boost'] );

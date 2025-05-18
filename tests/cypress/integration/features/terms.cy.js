@@ -23,7 +23,7 @@ describe('Terms Feature', { tags: '@slow' }, () => {
 		cy.maybeDisableFeature('terms');
 
 		cy.visitAdminPage('admin.php?page=elasticprobe');
-		cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
+		cy.intercept('/wp-json/elasticprobe/v1/features*').as('apiRequest');
 
 		cy.contains('button', 'Terms').click();
 		cy.contains('label', 'Enable').click();

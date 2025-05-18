@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-$base_url     = ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) ? admin_url( 'network/admin.php?page=' ) : admin_url( 'admin.php?page=' );
+$base_url     = ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) ? admin_url( 'network/admin.php?page=' ) : admin_url( 'admin.php?page=' );
 $is_sync_page = 'sync' === Screen::factory()->get_current_screen();
 ?>
 
@@ -29,7 +29,7 @@ $is_sync_page = 'sync' === Screen::factory()->get_current_screen();
 				<a class="dashicons resume-sync dashicons-controls-play" title ="<?php esc_attr_e( 'Resume Sync', 'elasticprobe' ); ?>" aria-label="<?php esc_attr_e( 'Resume Sync', 'elasticprobe' ); ?>"></a>
 				<a class="dashicons cancel-sync dashicons-no" title="<?php esc_attr_e( 'Cancel Sync', 'elasticprobe' ); ?>" aria-label="<?php esc_attr_e( 'Cancel Sync', 'elasticprobe' ); ?>"></a>
 			<?php endif; ?>
-			<?php if ( Elasticsearch::factory()->get_elasticsearch_version() && defined( 'EP_DASHBOARD_SYNC' ) && EP_DASHBOARD_SYNC && ! $is_sync_page ) : ?>
+			<?php if ( Elasticsearch::factory()->get_elasticsearch_version() && defined( 'EPROBE_DASHBOARD_SYNC' ) && EPROBE_DASHBOARD_SYNC && ! $is_sync_page ) : ?>
 				<a
 					class="dashicons start-sync dashicons-update"
 					title="<?php esc_attr_e( 'Sync Page', 'elasticprobe' ); ?>"

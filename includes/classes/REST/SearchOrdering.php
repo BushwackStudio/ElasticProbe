@@ -25,9 +25,8 @@ class SearchOrdering {
 	 * @return void
 	 */
 	public function register_routes() {
-		// TODO: Change REST route
 		register_rest_route(
-			'elasticpress/v1',
+			'elasticprobe/v1',
 			'pointer_search',
 			[
 				'args'                => $this->get_args(),
@@ -38,7 +37,7 @@ class SearchOrdering {
 		);
 
 		register_rest_route(
-			'elasticpress/v1',
+			'elasticprobe/v1',
 			'pointer_preview',
 			[
 				'args'                => $this->get_args(),

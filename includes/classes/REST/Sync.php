@@ -25,9 +25,8 @@ class Sync {
 	 * @return void
 	 */
 	public function register_routes() {
-		// TODO: Change REST route
 		register_rest_route(
-			'elasticpress/v1',
+			'elasticprobe/v1',
 			'sync',
 			[
 				'args'                => $this->get_args(),
@@ -38,7 +37,7 @@ class Sync {
 		);
 
 		register_rest_route(
-			'elasticpress/v1',
+			'elasticprobe/v1',
 			'sync',
 			[
 				'callback'            => [ $this, 'get_sync_status' ],
@@ -48,7 +47,7 @@ class Sync {
 		);
 
 		register_rest_route(
-			'elasticpress/v1',
+			'elasticprobe/v1',
 			'sync',
 			[
 				'callback'            => [ $this, 'cancel_sync' ],
@@ -219,7 +218,7 @@ class Sync {
 		$index_meta = Utils\get_indexing_status();
 
 		if ( isset( $index_meta['method'] ) && 'cli' === $index_meta['method'] ) {
-			set_transient( 'ep_wpcli_sync_interrupted', true, MINUTE_IN_SECONDS );
+			set_transient( 'eprobe_wpcli_sync_interrupted', true, MINUTE_IN_SECONDS );
 			wp_send_json_success();
 			exit;
 		}

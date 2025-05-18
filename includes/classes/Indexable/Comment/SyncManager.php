@@ -53,9 +53,9 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		add_action( 'updated_comment_meta', [ $this, 'action_queue_meta_sync' ], 10, 2 );
 
 		// Clear index settings cache
-		add_action( 'ep_update_index_settings', [ $this, 'clear_index_settings_cache' ] );
-		add_action( 'ep_after_put_mapping', [ $this, 'clear_index_settings_cache' ] );
-		add_action( 'ep_saved_weighting_configuration', [ $this, 'clear_index_settings_cache' ] );
+		add_action( 'eprobe_update_index_settings', [ $this, 'clear_index_settings_cache' ] );
+		add_action( 'eprobe_after_put_mapping', [ $this, 'clear_index_settings_cache' ] );
+		add_action( 'eprobe_saved_weighting_configuration', [ $this, 'clear_index_settings_cache' ] );
 	}
 
 	/**
@@ -74,9 +74,9 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		remove_action( 'updated_comment_meta', [ $this, 'action_queue_meta_sync' ] );
 
 		// Clear index settings cache
-		remove_action( 'ep_update_index_settings', [ $this, 'clear_index_settings_cache' ] );
-		remove_action( 'ep_after_put_mapping', [ $this, 'clear_index_settings_cache' ] );
-		remove_action( 'ep_saved_weighting_configuration', [ $this, 'clear_index_settings_cache' ] );
+		remove_action( 'eprobe_update_index_settings', [ $this, 'clear_index_settings_cache' ] );
+		remove_action( 'eprobe_after_put_mapping', [ $this, 'clear_index_settings_cache' ] );
+		remove_action( 'eprobe_saved_weighting_configuration', [ $this, 'clear_index_settings_cache' ] );
 	}
 
 	/**
@@ -203,22 +203,22 @@ class SyncManager extends \ElasticProbe\SyncManager {
 					/**
 					 * Fire before comment is queued for syncing
 					 *
-					 * @hook ep_sync_comment_on_transition
+					 * @hook eprobe_sync_comment_on_transition
 					 * @since 3.6.0
 					 * @param  {int} $comment_id Comment ID
 					 */
-					do_action( 'ep_sync_comment_on_transition', $comment_id );
+					do_action( 'eprobe_sync_comment_on_transition', $comment_id );
 
 					/**
 					 * Filter to kill comment sync
 					 *
-					 * @hook ep_comment_sync_kill
+					 * @hook eprobe_comment_sync_kill
 					 * @since 3.6.0
 					 * @param {bool} $skip True means kill sync for comment
 					 * @param  {int} $comment_id Comment ID
 					 * @return {boolean} New value
 					 */
-					if ( apply_filters( 'ep_comment_sync_kill', false, $comment_id ) ) {
+					if ( apply_filters( 'eprobe_comment_sync_kill', false, $comment_id ) ) {
 						return;
 					}
 

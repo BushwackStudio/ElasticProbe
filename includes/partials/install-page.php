@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 	$setup_url     = admin_url( 'network/admin.php?page=elasticprobe-settings' );
 	$dashboard_url = admin_url( 'network/admin.php?page=elasticprobe' );
 } else {

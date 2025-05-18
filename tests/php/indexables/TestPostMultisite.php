@@ -67,7 +67,7 @@ class TestPostMultisite extends BaseTestCase {
 
 		// Allow some meta fields to be indexed.
 		add_filter(
-			'ep_prepare_meta_allowed_keys',
+			'eprobe_prepare_meta_allowed_keys',
 			function ( $allowed_metakeys ) {
 				return array_merge(
 					$allowed_metakeys,
@@ -161,13 +161,13 @@ class TestPostMultisite extends BaseTestCase {
 		foreach ( $sites as $site ) {
 			switch_to_blog( $site['blog_id'] );
 
-			add_action( 'ep_sync_on_transition', array( $this, 'action_sync_on_transition' ), 10, 0 );
+			add_action( 'eprobe_sync_on_transition', array( $this, 'action_sync_on_transition' ), 10, 0 );
 
 			$post_id = $this->ep_factory->post->create();
 
 			ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
-			$this->assertTrue( ! empty( $this->fired_actions['ep_sync_on_transition'] ) );
+			$this->assertTrue( ! empty( $this->fired_actions['eprobe_sync_on_transition'] ) );
 
 			$post = ElasticProbe\Indexables::factory()->get( 'post' )->get( $post_id );
 			$this->assertTrue( ! empty( $post ) );
@@ -1074,7 +1074,7 @@ class TestPostMultisite extends BaseTestCase {
 	 */
 	public function testSearchTaxQuery() {
 
-		add_filter( 'ep_search_algorithm_version', array( $this, 'set_algorithm_34' ) );
+		add_filter( 'eprobe_search_algorithm_version', array( $this, 'set_algorithm_34' ) );
 
 		$sites = ElasticProbe\Utils\get_sites();
 
@@ -1134,7 +1134,7 @@ class TestPostMultisite extends BaseTestCase {
 	 */
 	public function testSearchAuthorQuery() {
 
-		add_filter( 'ep_search_algorithm_version', array( $this, 'set_algorithm_34' ) );
+		add_filter( 'eprobe_search_algorithm_version', array( $this, 'set_algorithm_34' ) );
 
 		$sites = ElasticProbe\Utils\get_sites();
 
@@ -1590,7 +1590,7 @@ class TestPostMultisite extends BaseTestCase {
 			++$i;
 		}
 
-		add_filter( 'ep_skip_query_integration', '__return_true' );
+		add_filter( 'eprobe_skip_query_integration', '__return_true' );
 
 		$args = array(
 			's'     => 'notfirstblog',

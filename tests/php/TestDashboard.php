@@ -43,13 +43,13 @@ class TestDashboard extends BaseTestCase {
 		$existing_lang = function () {
 			return 'ar';
 		};
-		add_filter( 'ep_default_language', $existing_lang );
+		add_filter( 'eprobe_default_language', $existing_lang );
 		$this->assertSame( 'arabic', Dashboard\use_language_in_setting() );
 
 		$existing_lang = function () {
 			return 'non-existent';
 		};
-		add_filter( 'ep_default_language', $existing_lang );
+		add_filter( 'eprobe_default_language', $existing_lang );
 		$this->assertSame( 'english', Dashboard\use_language_in_setting() );
 	}
 
@@ -64,13 +64,13 @@ class TestDashboard extends BaseTestCase {
 		$existing_lang = function () {
 			return 'hy';
 		};
-		add_filter( 'ep_default_language', $existing_lang );
+		add_filter( 'eprobe_default_language', $existing_lang );
 		$this->assertSame( 'Armenian', Dashboard\use_language_in_setting( '', 'filter_ewp_snowball' ) );
 
 		$existing_lang = function () {
 			return 'non-existent';
 		};
-		add_filter( 'ep_default_language', $existing_lang );
+		add_filter( 'eprobe_default_language', $existing_lang );
 		$this->assertSame( 'English', Dashboard\use_language_in_setting( '', 'filter_ewp_snowball' ) );
 
 		/**
@@ -79,7 +79,7 @@ class TestDashboard extends BaseTestCase {
 		$existing_lang = function () {
 			return 'pt_BR';
 		};
-		add_filter( 'ep_default_language', $existing_lang );
+		add_filter( 'eprobe_default_language', $existing_lang );
 		$this->assertSame( 'Portuguese', Dashboard\use_language_in_setting( '', 'filter_ewp_snowball' ) );
 	}
 
@@ -94,13 +94,13 @@ class TestDashboard extends BaseTestCase {
 		$existing_lang = function () {
 			return 'ar';
 		};
-		add_filter( 'ep_default_language', $existing_lang );
+		add_filter( 'eprobe_default_language', $existing_lang );
 		$this->assertSame( '_arabic_', Dashboard\use_language_in_setting( '', 'filter_ep_stop' ) );
 
 		$existing_lang = function () {
 			return 'non-existent';
 		};
-		add_filter( 'ep_default_language', $existing_lang );
+		add_filter( 'eprobe_default_language', $existing_lang );
 		$this->assertSame( '_english_', Dashboard\use_language_in_setting( '', 'filter_ep_stop' ) );
 	}
 
@@ -164,7 +164,7 @@ class TestDashboard extends BaseTestCase {
 	}
 
 	/**
-	 * Test the `ep_available_languages` filter
+	 * Test the `eprobe_available_languages` filter
 	 *
 	 * @group dashboard
 	 */
@@ -173,7 +173,7 @@ class TestDashboard extends BaseTestCase {
 			$languages['custom'] = [ 'cu_ST', 'om' ];
 			return $languages;
 		};
-		add_filter( 'ep_available_languages', $add_language );
+		add_filter( 'eprobe_available_languages', $add_language );
 
 		$languages = Dashboard\get_available_languages();
 		$this->assertSame( [ 'cu_ST', 'om' ], $languages['custom'] );

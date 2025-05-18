@@ -37,7 +37,7 @@ class TestUtils extends BaseTestCase {
 
 		$this->setup_test_post_type();
 
-		$this->current_host = get_option( 'ep_host' );
+		$this->current_host = get_option( 'eprobe_host' );
 
 		global $hook_suffix;
 		$hook_suffix = 'sites.php';
@@ -53,7 +53,7 @@ class TestUtils extends BaseTestCase {
 		parent::tear_down();
 
 		// Update since we are deleting to test notifications
-		update_site_option( 'ep_host', $this->current_host );
+		update_site_option( 'eprobe_host', $this->current_host );
 
 		ElasticProbe\Screen::factory()->set_current_screen( null );
 	}
@@ -168,17 +168,17 @@ class TestUtils extends BaseTestCase {
 	public function testIsIndexing() {
 
 		if ( is_multisite() ) {
-			update_site_option( 'ep_index_meta', [ 'method' => 'test' ] );
+			update_site_option( 'eprobe_index_meta', [ 'method' => 'test' ] );
 		} else {
-			update_option( 'ep_index_meta', [ 'method' => 'test' ] );
+			update_option( 'eprobe_index_meta', [ 'method' => 'test' ] );
 		}
 
 		$this->assertTrue( ElasticProbe\Utils\is_indexing() );
 
 		if ( is_multisite() ) {
-			delete_site_option( 'ep_index_meta' );
+			delete_site_option( 'eprobe_index_meta' );
 		} else {
-			delete_option( 'ep_index_meta' );
+			delete_option( 'eprobe_index_meta' );
 		}
 
 		$this->assertFalse( ElasticProbe\Utils\is_indexing() );
@@ -195,7 +195,7 @@ class TestUtils extends BaseTestCase {
 		 */
 		$sync_url = ElasticProbe\Utils\get_sync_url();
 		$this->assertStringNotContainsString( '&do_sync', $sync_url );
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 			$this->assertStringContainsString( 'wp-admin/network/admin.php?page=elasticprobe-sync', $sync_url );
 		} else {
 			$this->assertStringContainsString( 'wp-admin/admin.php?page=elasticprobe-sync', $sync_url );
@@ -205,7 +205,7 @@ class TestUtils extends BaseTestCase {
 		 * Test with the $do_sync parameter
 		 */
 		$sync_url = ElasticProbe\Utils\get_sync_url( true );
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 			$this->assertStringContainsString( 'wp-admin/network/admin.php?page=elasticprobe-sync&do_sync&ep_sync_nonce=', $sync_url );
 		} else {
 			$this->assertStringContainsString( 'wp-admin/admin.php?page=elasticprobe-sync&do_sync&ep_sync_nonce=', $sync_url );
@@ -219,21 +219,21 @@ class TestUtils extends BaseTestCase {
 	 */
 	public function testGetRequestIdBase() {
 		/**
-		 * Use the `ep_index_prefix` filter so `get_index_prefix()` can return something.
+		 * Use the `eprobe_index_prefix` filter so `get_index_prefix()` can return something.
 		 */
 		$custom_index_prefix = function () {
 			return 'custom-prefix';
 		};
-		add_filter( 'ep_index_prefix', $custom_index_prefix );
+		add_filter( 'eprobe_index_prefix', $custom_index_prefix );
 		$this->assertEquals( 'customprefix', Utils\get_request_id_base() ); // `-` are removed
 
 		/**
-		 * Test the `ep_request_id_base` filter
+		 * Test the `eprobe_request_id_base` filter
 		 */
 		$custom_request_id_base = function ( $base ) {
 			return $base . '-plus';
 		};
-		add_filter( 'ep_request_id_base', $custom_request_id_base );
+		add_filter( 'eprobe_request_id_base', $custom_request_id_base );
 		$this->assertEquals( 'customprefix-plus', Utils\get_request_id_base() );
 	}
 
@@ -246,22 +246,22 @@ class TestUtils extends BaseTestCase {
 		$this->assertMatchesRegularExpression( '/[0-9a-f]{32}/', Utils\generate_request_id() );
 
 		/**
-		 * Use the `ep_request_id_base` filter so `get_request_id_base()` can return something.
+		 * Use the `eprobe_request_id_base` filter so `get_request_id_base()` can return something.
 		 */
 		$custom_request_id_base = function () {
 			return 'indexprefix';
 		};
-		add_filter( 'ep_request_id_base', $custom_request_id_base );
+		add_filter( 'eprobe_request_id_base', $custom_request_id_base );
 		$this->assertMatchesRegularExpression( '/indexprefix[0-9a-f]{32}/', Utils\generate_request_id() );
 
 		/**
-		 * Test the `ep_request_id` filter
+		 * Test the `eprobe_request_id` filter
 		 */
 		$custom_request_id = function ( $request_id ) {
 			$this->assertMatchesRegularExpression( '/indexprefix[0-9a-f]{32}/', $request_id );
 			return 'totally-new-request-id';
 		};
-		add_filter( 'ep_request_id', $custom_request_id );
+		add_filter( 'eprobe_request_id', $custom_request_id );
 		$this->assertEquals( 'totally-new-request-id', Utils\generate_request_id() );
 	}
 
@@ -274,14 +274,14 @@ class TestUtils extends BaseTestCase {
 		$this->assertSame( 'manage_elasticpress', Utils\get_capability() );
 
 		/**
-		 * Test the `ep_capability` filter.
+		 * Test the `eprobe_capability` filter.
 		 */
 		$change_cap_name = function ( $cap, $context ) {
 			$this->assertSame( 'manage_elasticpress', $cap );
 			$this->assertSame( 'context', $context );
 			return 'custom_manage_ep';
 		};
-		add_filter( 'ep_capability', $change_cap_name, 10, 2 );
+		add_filter( 'eprobe_capability', $change_cap_name, 10, 2 );
 
 		$this->assertSame( 'custom_manage_ep', Utils\get_capability( 'context' ) );
 	}
@@ -295,14 +295,14 @@ class TestUtils extends BaseTestCase {
 		$this->assertSame( 'manage_network_elasticpress', Utils\get_network_capability() );
 
 		/**
-		 * Test the `ep_network_capability` filter.
+		 * Test the `eprobe_network_capability` filter.
 		 */
 		$change_cap_name = function ( $cap, $context ) {
 			$this->assertSame( 'manage_network_elasticpress', $cap );
 			$this->assertSame( 'context', $context );
 			return 'custom_manage_network_ep';
 		};
-		add_filter( 'ep_network_capability', $change_cap_name, 10, 2 );
+		add_filter( 'eprobe_network_capability', $change_cap_name, 10, 2 );
 
 		$this->assertSame( 'custom_manage_network_ep', Utils\get_network_capability( 'context' ) );
 	}
@@ -337,7 +337,7 @@ class TestUtils extends BaseTestCase {
 			$this->assertSame( 'context', $context );
 			return 'custom_manage_ep';
 		};
-		add_filter( 'ep_capability', $change_cap_name, 10, 2 );
+		add_filter( 'eprobe_capability', $change_cap_name, 10, 2 );
 
 		$expected = [
 			'edit_post'          => 'custom_manage_ep',
@@ -479,21 +479,21 @@ class TestUtils extends BaseTestCase {
 			return 'custom_via_option';
 		};
 		if ( is_multisite() ) {
-			add_filter( 'pre_site_option_ep_language', $set_lang_via_option );
+			add_filter( 'pre_site_option_eprobe_language', $set_lang_via_option );
 		} else {
-			add_filter( 'pre_option_ep_language', $set_lang_via_option );
+			add_filter( 'pre_option_eprobe_language', $set_lang_via_option );
 		}
 
 		$this->assertSame( 'custom_via_option', Utils\get_language() );
 
 		/**
-		 * Test the `ep_default_language` filter
+		 * Test the `eprobe_default_language` filter
 		 */
-		$set_lang_via_filter = function ( $ep_language ) {
-			$this->assertSame( 'custom_via_option', $ep_language );
+		$set_lang_via_filter = function ( $eprobe_language ) {
+			$this->assertSame( 'custom_via_option', $eprobe_language );
 			return 'custom_via_filter';
 		};
-		add_filter( 'ep_default_language', $set_lang_via_filter );
+		add_filter( 'eprobe_default_language', $set_lang_via_filter );
 
 		$this->assertSame( 'custom_via_filter', Utils\get_language() );
 	}
@@ -569,7 +569,7 @@ class TestUtils extends BaseTestCase {
 	}
 
 	/**
-	 * Test the `ep_indexable_sites_args` filter in the `get_sites()` method
+	 * Test the `eprobe_indexable_sites_args` filter in the `get_sites()` method
 	 *
 	 * @since 4.7.0
 	 * @group utils
@@ -580,14 +580,14 @@ class TestUtils extends BaseTestCase {
 			$this->assertSame( 3, $args['number'] );
 			return $args;
 		};
-		add_filter( 'ep_indexable_sites_args', $add_args );
+		add_filter( 'eprobe_indexable_sites_args', $add_args );
 
 		Utils\get_sites( 3 );
-		$this->assertGreaterThanOrEqual( 1, did_filter( 'ep_indexable_sites_args' ) );
+		$this->assertGreaterThanOrEqual( 1, did_filter( 'eprobe_indexable_sites_args' ) );
 	}
 
 	/**
-	 * Test the `ep_indexable_sites` filter in the `get_sites()` method
+	 * Test the `eprobe_indexable_sites` filter in the `get_sites()` method
 	 *
 	 * @since 4.7.0
 	 * @group utils
@@ -599,10 +599,10 @@ class TestUtils extends BaseTestCase {
 			$sites['test'] = true;
 			return $sites;
 		};
-		add_filter( 'ep_indexable_sites', $add_site );
+		add_filter( 'eprobe_indexable_sites', $add_site );
 
 		$sites = Utils\get_sites();
-		$this->assertGreaterThanOrEqual( 1, did_filter( 'ep_indexable_sites' ) );
+		$this->assertGreaterThanOrEqual( 1, did_filter( 'eprobe_indexable_sites' ) );
 		$this->assertTrue( $sites['test'] );
 	}
 

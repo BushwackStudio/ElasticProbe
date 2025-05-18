@@ -34,7 +34,7 @@ ElasticProbe e2e tests use [Cypress](https://www.cypress.io/), [wp-env](https://
 
 #### `Error: Could not connect to Elasticsearch`
 
-Run `./bin/wp-env-cli tests-wordpress "wp --allow-root config set EP_HOST http://host.docker.internal:8890/"`
+Run `./bin/wp-env-cli tests-wordpress "wp --allow-root config set EPROBE_HOST http://host.docker.internal:8890/"`
 
 #### `Error while loading shared libraries: ...`
 

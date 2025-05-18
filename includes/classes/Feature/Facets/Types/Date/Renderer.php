@@ -89,8 +89,8 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 		<?php
 
 		// Enqueue Script & Styles
-		wp_enqueue_script( 'elasticpress-facets' );
-		wp_enqueue_style( 'elasticpress-facets' );
+		wp_enqueue_script( 'elasticprobe-facets' );
+		wp_enqueue_style( 'elasticprobe-facets' );
 	}
 
 	/**
@@ -116,12 +116,12 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 		 * Filter the HTML for an individual facet value.
 		 *
 		 * @since 5.0.0
-		 * @hook ep_facet_date_value_html
+		 * @hook eprobe_facet_date_value_html
 		 * @param {string} $html  Facet value HTML.
 		 * @param {array}  $item Value array. It contains `value`, `label` and `is_selected`.
 		 * @return {string} Individual facet value HTML.
 		 */
-		return apply_filters( 'ep_facet_date_value_html', $html, $item );
+		return apply_filters( 'eprobe_facet_date_value_html', $html, $item );
 	}
 
 	/**
@@ -153,12 +153,12 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 		 * Filter the HTML for the facet action.
 		 *
 		 * @since 5.0.0
-		 * @hook ep_facet_date_action_html
+		 * @hook eprobe_facet_date_action_html
 		 * @param {string} $html  Facet action item HTML.
 		 * @param {array}  $selected_terms Selected terms.
 		 * @return {string} Individual facet action item HTML.
 		 */
-		return apply_filters( 'ep_facet_date_action_html', $html, $applied_dates );
+		return apply_filters( 'eprobe_facet_date_action_html', $html, $applied_dates );
 	}
 
 	/**
@@ -201,13 +201,13 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 		 * Filter the HTML for the facet custom date.
 		 *
 		 * @since 5.0.0
-		 * @hook ep_facet_date_custom_date_html
+		 * @hook eprobe_facet_date_custom_date_html
 		 * @param {string} $html  Facet custom date item HTML.
 		 * @param {bool}  $is_custom_date Whether the selected date filter is custom.
 		 * @param {array}  $applied_dates Applied dates.
 		 * @return {string} Individual facet custom date item HTML.
 		 */
-		return apply_filters( 'ep_facet_date_custom_date_html', $html, $is_custom_date, $applied_dates );
+		return apply_filters( 'eprobe_facet_date_custom_date_html', $html, $is_custom_date, $applied_dates );
 	}
 
 	/**

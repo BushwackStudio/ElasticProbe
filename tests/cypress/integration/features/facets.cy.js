@@ -24,7 +24,7 @@ describe('Facets Feature', { tags: '@slow' }, () => {
 
 		cy.visitAdminPage('admin.php?page=elasticprobe-weighting');
 
-		cy.intercept('/wp-json/elasticpress/v1/weighting*').as('apiRequest');
+		cy.intercept('/wp-json/elasticprobe/v1/weighting*').as('apiRequest');
 		cy.contains('h2', 'Posts').closest('.components-panel').as('postsPanel');
 
 		cy.get('@postsPanel').contains('button', 'Metadata').click();
@@ -82,7 +82,7 @@ describe('Facets Feature', { tags: '@slow' }, () => {
 		 */
 		cy.get('@firstBlock').click();
 		cy.openBlockSettingsSidebar();
-		cy.intercept('/wp-json/wp/v2/block-renderer/elasticpress/facet*').as('blockPreview');
+		cy.intercept('/wp-json/wp/v2/block-renderer/elasticprobe/facet*').as('blockPreview');
 		cy.get('.block-editor-block-inspector select').first().select('category');
 		cy.wait('@blockPreview');
 
@@ -409,7 +409,7 @@ describe('Facets Feature', { tags: '@slow' }, () => {
 				true,
 			);
 
-			cy.intercept('/wp-json/wp/v2/block-renderer/elasticpress/facet-meta*').as(
+			cy.intercept('/wp-json/wp/v2/block-renderer/elasticprobe/facet-meta*').as(
 				'blockPreview',
 			);
 			cy.get('.block-editor-block-inspector select').first().select('meta_field_1');
@@ -581,7 +581,7 @@ describe('Facets Feature', { tags: '@slow' }, () => {
 			 * When Match Type is "any", all options need to be clickable
 			 */
 			cy.visitAdminPage('admin.php?page=elasticprobe');
-			cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
+			cy.intercept('/wp-json/elasticprobe/v1/features*').as('apiRequest');
 
 			cy.contains('button', 'Filters').click();
 			cy.contains('label', 'Show results that match any selected filter').click();
@@ -638,8 +638,8 @@ describe('Facets Feature', { tags: '@slow' }, () => {
 		 * Test that the Filter by Metadata Range block is functional.
 		 */
 		it('Can insert, configure, and use the Filter by Metadata Range block', () => {
-			cy.intercept('/wp-json/elasticpress/v1/meta-keys*').as('keysApiRequest');
-			cy.intercept('/wp-json/elasticpress/v1/meta-range*').as('previewApiRequest');
+			cy.intercept('/wp-json/elasticprobe/v1/meta-keys*').as('keysApiRequest');
+			cy.intercept('/wp-json/elasticprobe/v1/meta-range*').as('previewApiRequest');
 
 			/**
 			 * Insert a Filter by Metadata Range block.
@@ -803,7 +803,7 @@ describe('Facets Feature', { tags: '@slow' }, () => {
 				true,
 			);
 
-			cy.intercept('/wp-json/wp/v2/block-renderer/elasticpress/facet-post-type*').as(
+			cy.intercept('/wp-json/wp/v2/block-renderer/elasticprobe/facet-post-type*').as(
 				'blockPreview',
 			);
 
@@ -976,7 +976,7 @@ describe('Facets Feature', { tags: '@slow' }, () => {
 			cy.get('@block').click();
 			cy.openBlockSettingsSidebar();
 			cy.get('.block-editor-block-inspector input[type="checkbox"]').uncheck();
-			cy.intercept('/wp-json/wp/v2/block-renderer/elasticpress/facet-date*').as(
+			cy.intercept('/wp-json/wp/v2/block-renderer/elasticprobe/facet-date*').as(
 				'blockPreview',
 			);
 			cy.wait('@blockPreview');

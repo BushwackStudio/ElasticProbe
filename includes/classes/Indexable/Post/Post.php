@@ -49,7 +49,7 @@ class Post extends Indexable {
 	 */
 	public function setup() {
 		$this->labels = [
-			'plural'   => esc_html__( 'Posts', 'wppelasticproberobe' ),
+			'plural'   => esc_html__( 'Posts', 'elasticprobe' ),
 			'singular' => esc_html__( 'Post', 'elasticprobe' ),
 		];
 
@@ -93,11 +93,11 @@ class Post extends Indexable {
 		/**
 		 * Filter arguments used to query posts from database
 		 *
-		 * @hook ep_post_query_db_args
+		 * @hook eprobe_post_query_db_args
 		 * @param  {array} $args Database arguments
 		 * @return  {array} New arguments
 		 */
-		$args = apply_filters( 'ep_index_posts_args', apply_filters( 'ep_post_query_db_args', wp_parse_args( $args, $defaults ) ) );
+		$args = apply_filters( 'eprobe_index_posts_args', apply_filters( 'eprobe_post_query_db_args', wp_parse_args( $args, $defaults ) ) );
 
 		if ( isset( $args['post__in'] ) || 0 < $args['offset'] ) {
 			// Disable advanced pagination. Not useful if only indexing specific IDs.
@@ -280,11 +280,11 @@ class Post extends Indexable {
 		/**
 		 * Filter indexable post types
 		 *
-		 * @hook ep_indexable_post_types
+		 * @hook eprobe_indexable_post_types
 		 * @param  {array} $post_types Indexable post types
 		 * @return  {array} New post types
 		 */
-		return apply_filters( 'ep_indexable_post_types', $post_types );
+		return apply_filters( 'eprobe_indexable_post_types', $post_types );
 	}
 
 	/**
@@ -297,11 +297,11 @@ class Post extends Indexable {
 		/**
 		 * Filter indexable post statuses
 		 *
-		 * @hook ep_indexable_post_status
+		 * @hook eprobe_indexable_post_status
 		 * @param  {array} $post_statuses Indexable post statuses
 		 * @return  {array} New post statuses
 		 */
-		return apply_filters( 'ep_indexable_post_status', array( 'publish' ) );
+		return apply_filters( 'eprobe_indexable_post_status', array( 'publish' ) );
 	}
 
 	/**
@@ -317,11 +317,11 @@ class Post extends Indexable {
 			/**
 			 * Filter fallback Elasticsearch version
 			 *
-			 * @hook ep_fallback_elasticsearch_version
+			 * @hook eprobe_fallback_elasticsearch_version
 			 * @param {string} $version Fall back Elasticsearch version
 			 * @return  {string} New version
 			 */
-			$es_version = apply_filters( 'ep_fallback_elasticsearch_version', '2.0' );
+			$es_version = apply_filters( 'eprobe_fallback_elasticsearch_version', '2.0' );
 		}
 		$es_version = (string) $es_version;
 
@@ -331,7 +331,7 @@ class Post extends Indexable {
 			$mapping_file = '5-2.php';
 		}
 
-		return apply_filters( 'ep_post_mapping_version', $mapping_file );
+		return apply_filters( 'eprobe_post_mapping_version', $mapping_file );
 	}
 
 	/**
@@ -346,22 +346,22 @@ class Post extends Indexable {
 		/**
 		 * Filter post indexable mapping file
 		 *
-		 * @hook ep_post_mapping_file
+		 * @hook eprobe_post_mapping_file
 		 * @param {string} $file Path to file
 		 * @return  {string} New file path
 		 */
-		$mapping = require apply_filters( 'ep_post_mapping_file', __DIR__ . '/../../../mappings/post/' . $mapping_file );
+		$mapping = require apply_filters( 'eprobe_post_mapping_file', __DIR__ . '/../../../mappings/post/' . $mapping_file );
 
 		/**
 		 * Filter post indexable mapping
 		 *
-		 * @hook ep_post_mapping
+		 * @hook eprobe_post_mapping
 		 * @param {array} $mapping Mapping
 		 * @return  {array} New mapping
 		 */
-		$mapping = apply_filters( 'ep_post_mapping', $mapping );
+		$mapping = apply_filters( 'eprobe_post_mapping', $mapping );
 
-		delete_transient( 'ep_post_mapping_version' );
+		delete_transient( 'eprobe_post_mapping_version' );
 
 		return $mapping;
 	}
@@ -373,7 +373,7 @@ class Post extends Indexable {
 	 * @return string|WP_Error|false $version
 	 */
 	public function determine_mapping_version() {
-		$version = get_transient( 'ep_post_mapping_version' );
+		$version = get_transient( 'eprobe_post_mapping_version' );
 
 		if ( empty( $version ) ) {
 			$index   = $this->get_index_name();
@@ -390,29 +390,29 @@ class Post extends Indexable {
 			$version = $this->determine_mapping_version_based_on_existing( $mapping, $index );
 
 			set_transient(
-				'ep_post_mapping_version',
+				'eprobe_post_mapping_version',
 				$version,
 				/**
 				 * Filter the post mapping version cache expiration.
 				 *
-				 * @hook ep_post_mapping_version_cache_expiration
+				 * @hook eprobe_post_mapping_version_cache_expiration
 				 * @since 3.6.5
 				 * @param  {int} $version Time in seconds for the transient expiration
 				 * @return {int} New time
 				 */
-				apply_filters( 'ep_post_mapping_version_cache_expiration', DAY_IN_SECONDS )
+				apply_filters( 'eprobe_post_mapping_version_cache_expiration', DAY_IN_SECONDS )
 			);
 		}
 
 		/**
 		 * Filter the mapping version for posts.
 		 *
-		 * @hook ep_post_mapping_version_determined
+		 * @hook eprobe_post_mapping_version_determined
 		 * @since 3.6.2
 		 * @param {string} $version Determined version string
 		 * @return  {string} New version string
 		 */
-		return apply_filters( 'ep_post_mapping_version_determined', $version );
+		return apply_filters( 'eprobe_post_mapping_version_determined', $version );
 	}
 
 	/**
@@ -461,13 +461,13 @@ class Post extends Indexable {
 		/**
 		 * Filter to ignore invalid dates
 		 *
-		 * @hook ep_ignore_invalid_dates
+		 * @hook eprobe_ignore_invalid_dates
 		 * @param  {bool} $ignore True to ignore
 		 * @param {int} $post_id Post ID
 		 * @param  {WP_Post} $post Post object
 		 * @return  {bool} New ignore value
 		 */
-		if ( apply_filters( 'ep_ignore_invalid_dates', true, $post_id, $post ) ) {
+		if ( apply_filters( 'eprobe_ignore_invalid_dates', true, $post_id, $post ) ) {
 			if ( ! strtotime( $post_date ) || '0000-00-00 00:00:00' === $post_date ) {
 				$post_date = null;
 			}
@@ -491,11 +491,11 @@ class Post extends Indexable {
 		/**
 		 * Filter to allow indexing of filtered post content
 		 *
-		 * @hook ep_allow_post_content_filtered_index
+		 * @hook eprobe_allow_post_content_filtered_index
 		 * @param  {bool} $ignore True to allow
 		 * @return  {bool} New value
 		 */
-		$post_content_filtered_allowed = apply_filters( 'ep_allow_post_content_filtered_index', true );
+		$post_content_filtered_allowed = apply_filters( 'eprobe_allow_post_content_filtered_index', true );
 
 		$post_args = array(
 			'post_id'               => $post_id,
@@ -529,22 +529,22 @@ class Post extends Indexable {
 		/**
 		 * Filter sync arguments for a post. For backwards compatibility.
 		 *
-		 * @hook ep_post_sync_args
+		 * @hook eprobe_post_sync_args
 		 * @param  {array} $post_args Post arguments
 		 * @param  {int} $post_id Post ID
 		 * @return  {array} New arguments
 		 */
-		$post_args = apply_filters( 'ep_post_sync_args', $post_args, $post_id );
+		$post_args = apply_filters( 'eprobe_post_sync_args', $post_args, $post_id );
 
 		/**
 		 * Filter sync arguments for a post after meta preparation.
 		 *
-		 * @hook ep_post_sync_args_post_prepare_meta
+		 * @hook eprobe_post_sync_args_post_prepare_meta
 		 * @param  {array} $post_args Post arguments
 		 * @param  {int} $post_id Post ID
 		 * @return  {array} New arguments
 		 */
-		$post_args = apply_filters( 'ep_post_sync_args_post_prepare_meta', $post_args, $post_id );
+		$post_args = apply_filters( 'eprobe_post_sync_args_post_prepare_meta', $post_args, $post_id );
 
 		// Turn back on updated_postmeta hook
 		add_action( 'updated_postmeta', [ $this->sync_manager, 'action_queue_meta_sync' ], 10, 4 );
@@ -571,7 +571,7 @@ class Post extends Indexable {
 		 * Defaults to the `woocommerce_thumbnail` size if WooCommerce is in
 		 * use. Otherwise the `thumbnail` size is used.
 		 *
-		 * @hook ep_thumbnail_image_size
+		 * @hook eprobe_thumbnail_image_size
 		 * @since 4.0.0
 		 * @param {string|int[]} $image_size Image size. Can be any registered
 		 *                                 image size name, or an array of
@@ -581,7 +581,7 @@ class Post extends Indexable {
 		 * @return {array} Image size to pass to wp_get_attachment_image_src().
 		 */
 		$image_size = apply_filters(
-			'ep_post_thumbnail_image_size',
+			'eprobe_post_thumbnail_image_size',
 			function_exists( 'WC' ) ? 'woocommerce_thumbnail' : 'thumbnail',
 			$post
 		);
@@ -658,12 +658,12 @@ class Post extends Indexable {
 		/**
 		 * Filter taxonomies to be synced with post
 		 *
-		 * @hook ep_sync_taxonomies
+		 * @hook eprobe_sync_taxonomies
 		 * @param  {array} $selected_taxonomies Selected taxonomies
 		 * @param  {WP_Post} Post object
 		 * @return  {array} New taxonomies
 		 */
-		$selected_taxonomies = (array) apply_filters( 'ep_sync_taxonomies', $selected_taxonomies, $post );
+		$selected_taxonomies = (array) apply_filters( 'eprobe_sync_taxonomies', $selected_taxonomies, $post );
 
 		// Important we validate here to ensure there are no invalid taxonomy values returned from the filter, as just one would cause wp_get_object_terms() to fail.
 		$validated_taxonomies = [];
@@ -703,11 +703,11 @@ class Post extends Indexable {
 		/**
 		 * Filter to allow child terms to be indexed
 		 *
-		 * @hook ep_sync_terms_allow_hierarchy
+		 * @hook eprobe_sync_terms_allow_hierarchy
 		 * @param  {bool} $allow True means allow
 		 * @return  {bool} New value
 		 */
-		$allow_hierarchy = apply_filters( 'ep_sync_terms_allow_hierarchy', true );
+		$allow_hierarchy = apply_filters( 'eprobe_sync_terms_allow_hierarchy', true );
 
 		foreach ( $selected_taxonomies as $taxonomy ) {
 			$object_terms = get_the_terms( $post->ID, $taxonomy->name );
@@ -870,24 +870,24 @@ class Post extends Indexable {
 		/**
 		 * Filter pre-prepare meta for a post
 		 *
-		 * @hook ep_prepare_meta_data
+		 * @hook eprobe_prepare_meta_data
 		 * @param  {array} $meta Meta data
 		 * @param  {WP_Post} $post Post object
 		 * @return  {array} New meta
 		 */
-		$meta = apply_filters( 'ep_prepare_meta_data', (array) get_post_meta( $post->ID ), $post );
+		$meta = apply_filters( 'eprobe_prepare_meta_data', (array) get_post_meta( $post->ID ), $post );
 
 		if ( empty( $meta ) ) {
 			/**
 			 * Filter final list of prepared meta.
 			 *
-			 * @hook ep_prepared_post_meta
+			 * @hook eprobe_prepared_post_meta
 			 * @param  {array} $prepared_meta Prepared meta
 			 * @param  {WP_Post} $post Post object
 			 * @since  3.4
 			 * @return  {array} Prepared meta
 			 */
-			return apply_filters( 'ep_prepared_post_meta', [], $post );
+			return apply_filters( 'eprobe_prepared_post_meta', [], $post );
 		}
 
 		$filtered_metas = $this->filter_allowed_metas( $meta, $post );
@@ -902,13 +902,13 @@ class Post extends Indexable {
 		/**
 		 * Filter final list of prepared meta.
 		 *
-		 * @hook ep_prepared_post_meta
+		 * @hook eprobe_prepared_post_meta
 		 * @param  {array} $prepared_meta Prepared meta
 		 * @param  {WP_Post} $post Post object
 		 * @since  3.4
 		 * @return  {array} Prepared meta
 		 */
-		return apply_filters( 'ep_prepared_post_meta', $prepared_meta, $post );
+		return apply_filters( 'eprobe_prepared_post_meta', $prepared_meta, $post );
 	}
 
 	/**
@@ -942,24 +942,24 @@ class Post extends Indexable {
 		/**
 		 * Filter formatted Elasticsearch query (entire query)
 		 *
-		 * @hook ep_formatted_args
+		 * @hook eprobe_formatted_args
 		 * @param {array} $formatted_args Formatted Elasticsearch query
 		 * @param {array} $args WP_Query variables
 		 * @param {object} $wp_query WP_Query object
 		 * @return {array} New query
 		 */
-		$formatted_args = apply_filters( 'ep_formatted_args', $formatted_args, $args, $wp_query );
+		$formatted_args = apply_filters( 'eprobe_formatted_args', $formatted_args, $args, $wp_query );
 
 		/**
 		 * Filter formatted Elasticsearch post query (entire query)
 		 *
-		 * @hook ep_post_formatted_args
+		 * @hook eprobe_post_formatted_args
 		 * @param {array} $formatted_args Formatted Elasticsearch query
 		 * @param {array} $args WP_Query variables
 		 * @param {object} $wp_query WP_Query object
 		 * @return {array} New query
 		 */
-		$formatted_args = apply_filters( 'ep_post_formatted_args', $formatted_args, $args, $wp_query );
+		$formatted_args = apply_filters( 'eprobe_post_formatted_args', $formatted_args, $args, $wp_query );
 
 		return $formatted_args;
 	}
@@ -1363,7 +1363,7 @@ class Post extends Indexable {
 		 * As this field is present in all our mappings, if this field is not present in
 		 * the mapping, this is a custom mapping.
 		 *
-		 * To have this code working with custom mappings, use the `ep_post_mapping_version_determined` filter.
+		 * To have this code working with custom mappings, use the `eprobe_post_mapping_version_determined` filter.
 		 */
 		if ( ! isset( $post_mapping['properties']['post_title']['fields']['sortable'] ) ) {
 			return 'unknown';
@@ -1425,22 +1425,22 @@ class Post extends Indexable {
 	 * @return SearchAlgorithm Instance of search algorithm to be used
 	 */
 	public function get_search_algorithm( string $search_text, array $search_fields, array $query_vars ): \ElasticProbe\SearchAlgorithm {
-		$search_algorithm_version_option = \ElasticProbe\Utils\get_option( 'ep_search_algorithm_version', '4.0' );
+		$search_algorithm_version_option = \ElasticProbe\Utils\get_option( 'eprobe_search_algorithm_version', '4.0' );
 
 		/**
 		 * Filter the algorithm version to be used.
 		 *
 		 * @since  3.5
-		 * @hook ep_search_algorithm_version
+		 * @hook eprobe_search_algorithm_version
 		 * @param  {string} $search_algorithm_version Algorithm version.
 		 * @return  {string} New algorithm version
 		 */
-		$search_algorithm = apply_filters( 'ep_search_algorithm_version', $search_algorithm_version_option );
+		$search_algorithm = apply_filters( 'eprobe_search_algorithm_version', $search_algorithm_version_option );
 
 		/**
 		 * Filter the search algorithm to be used
 		 *
-		 * @hook ep_{$indexable_slug}_search_algorithm
+		 * @hook eprobe_{$indexable_slug}_search_algorithm
 		 * @since  4.3.0
 		 * @param  {string} $search_algorithm Slug of the search algorithm used as fallback
 		 * @param  {string} $search_term      Search term
@@ -1448,7 +1448,7 @@ class Post extends Indexable {
 		 * @param  {array}  $query_vars       Query variables
 		 * @return {string} New search algorithm slug
 		 */
-		$search_algorithm = apply_filters( "ep_{$this->slug}_search_algorithm", $search_algorithm, $search_text, $search_fields, $query_vars );
+		$search_algorithm = apply_filters( "eprobe_{$this->slug}_search_algorithm", $search_algorithm, $search_text, $search_fields, $query_vars );
 
 		return \ElasticProbe\SearchAlgorithms::factory()->get( $search_algorithm );
 	}
@@ -1491,13 +1491,13 @@ class Post extends Indexable {
 		 * Although each index of the `$filters` array contains the related WP Query argument,
 		 * it will be removed before applied to the ES query.
 		 *
-		 * @hook ep_post_filters
+		 * @hook eprobe_post_filters
 		 * @param  {array}    Current filters
 		 * @param  {array}    WP Query args
 		 * @param  {WP_Query} WP Query object
 		 * @return {array} New filters
 		 */
-		$filters = apply_filters( 'ep_post_filters', $filters, $args, $query );
+		$filters = apply_filters( 'eprobe_post_filters', $filters, $args, $query );
 
 		$filters = array_values( array_filter( $filters ) );
 
@@ -1602,11 +1602,11 @@ class Post extends Indexable {
 			 * request is larger than the [index.max_result_window] parameter in ES.
 			 * See the scroll api for a more efficient way to request large data sets.
 			 *
-			 * @hook ep_max_results_window
+			 * @hook eprobe_max_results_window
 			 * @param  {int} Max result window
 			 * @return {int} New window
 			 */
-			$posts_per_page = apply_filters( 'ep_max_results_window', 10000 );
+			$posts_per_page = apply_filters( 'eprobe_max_results_window', 10000 );
 		}
 
 		return $posts_per_page;
@@ -1641,12 +1641,12 @@ class Post extends Indexable {
 			/**
 			 * Filter default post query order by
 			 *
-			 * @hook ep_set_default_sort
+			 * @hook eprobe_set_default_sort
 			 * @param  {string} $sort Default sort
 			 * @param  {string $order Order direction
 			 * @return  {string} New default
 			 */
-			$args['orderby'] = apply_filters( 'ep_set_default_sort', 'date', $order );
+			$args['orderby'] = apply_filters( 'eprobe_set_default_sort', 'date', $order );
 		}
 
 		// Set sort type.
@@ -1676,13 +1676,13 @@ class Post extends Indexable {
 			 *        ),
 			 *    );
 			 *
-			 * @hook ep_set_sort
+			 * @hook eprobe_set_sort
 			 * @since 3.6.3
 			 * @param  {array}  $sort  Default sort.
 			 * @param  {string} $order Order direction
 			 * @return {array}  New default
 			 */
-			$default_sort = apply_filters( 'ep_set_sort', $default_sort, $order );
+			$default_sort = apply_filters( 'eprobe_set_sort', $default_sort, $order );
 
 			$formatted_args['sort'] = $default_sort;
 		}
@@ -2303,14 +2303,14 @@ class Post extends Indexable {
 		 * Filter default post search fields
 		 *
 		 * If you are using the weighting engine, this filter should not be used.
-		 * Instead, you should use the ep_weighting_configuration_for_search filter.
+		 * Instead, you should use the eprobe_weighting_configuration_for_search filter.
 		 *
-		 * @hook ep_search_fields
+		 * @hook eprobe_search_fields
 		 * @param  {array} $search_fields Default search fields
 		 * @param  {array} $args WP Query arguments
 		 * @return  {array} New defaults
 		 */
-		$search_fields = apply_filters( 'ep_search_fields', $search_fields, $args );
+		$search_fields = apply_filters( 'eprobe_search_fields', $search_fields, $args );
 
 		$search_text = ( ! empty( $args['s'] ) ) ? $args['s'] : '';
 
@@ -2322,7 +2322,7 @@ class Post extends Indexable {
 		 */
 
 		if ( ! empty( $search_text ) ) {
-			add_filter( 'ep_post_formatted_args_query', [ $this, 'adjust_query_fuzziness' ], 100, 4 );
+			add_filter( 'eprobe_post_formatted_args_query', [ $this, 'adjust_query_fuzziness' ], 100, 4 );
 
 			$search_algorithm        = $this->get_search_algorithm( $search_text, $search_fields, $args );
 			$formatted_args['query'] = $search_algorithm->get_query( 'post', $search_text, $search_fields, $args );
@@ -2355,7 +2355,7 @@ class Post extends Indexable {
 		/**
 		 * Filter whether to enable sticky posts for this request
 		 *
-		 * @hook ep_enable_sticky_posts
+		 * @hook eprobe_enable_sticky_posts
 		 *
 		 * @param {bool}  $allow          Allow sticky posts for this request
 		 * @param {array} $args           Query variables
@@ -2363,7 +2363,7 @@ class Post extends Indexable {
 		 *
 		 * @return  {bool} $allow
 		 */
-		$enable_sticky_posts = apply_filters( 'ep_enable_sticky_posts', is_home(), $args, $formatted_args );
+		$enable_sticky_posts = apply_filters( 'eprobe_enable_sticky_posts', is_home(), $args, $formatted_args );
 
 		if ( false !== $sticky_posts
 			&& $enable_sticky_posts
@@ -2488,7 +2488,7 @@ class Post extends Indexable {
 	 *
 	 * This function is used when manual management of metadata fields is
 	 * enabled. This is the default behaviour as of 5.0.0 and controlled by the
-	 * `ep_meta_mode` filter.
+	 * `eprobe_meta_mode` filter.
 	 *
 	 * @param array   $metas Key => value pairs of post meta
 	 * @param WP_Post $post Post object
@@ -2510,7 +2510,7 @@ class Post extends Indexable {
 		}
 
 		/** This filter is documented in includes/classes/Indexable/Post/Post.php */
-		$allowed_protected_keys = apply_filters( 'ep_prepare_meta_allowed_protected_keys', [], $post );
+		$allowed_protected_keys = apply_filters( 'eprobe_prepare_meta_allowed_protected_keys', [], $post );
 
 		$selected_keys = [];
 		if ( ! empty( $weighting[ $post->post_type ] ) ) {
@@ -2530,13 +2530,13 @@ class Post extends Indexable {
 		/**
 		 * Filter indexable meta keys for posts
 		 *
-		 * @hook ep_prepare_meta_allowed_keys
+		 * @hook eprobe_prepare_meta_allowed_keys
 		 * @param {array} $keys Allowed keys
 		 * @param {WP_Post} $post Post object
 		 * @since 5.0.0
 		 * @return {array} New keys
 		 */
-		$allowed_keys = apply_filters( 'ep_prepare_meta_allowed_keys', array_merge( $allowed_protected_keys, $selected_keys ), $post );
+		$allowed_keys = apply_filters( 'eprobe_prepare_meta_allowed_keys', array_merge( $allowed_protected_keys, $selected_keys ), $post );
 
 		foreach ( $metas as $key => $value ) {
 			if ( ! in_array( $key, $allowed_keys, true ) ) {
@@ -2555,7 +2555,7 @@ class Post extends Indexable {
 	 *
 	 * This function is used to filter meta keys when ElasticProbe is in
 	 * network mode or when the meta mode is set to `auto` via the
-	 * `ep_meta_mode` hook. This was the default behaviour prior to 5.0.0.
+	 * `eprobe_meta_mode` hook. This was the default behaviour prior to 5.0.0.
 	 *
 	 * @param array   $metas Key => value pairs of post meta
 	 * @param WP_Post $post Post object
@@ -2568,24 +2568,24 @@ class Post extends Indexable {
 		/**
 		 * Filter indexable protected meta keys for posts
 		 *
-		 * @hook ep_prepare_meta_allowed_protected_keys
+		 * @hook eprobe_prepare_meta_allowed_protected_keys
 		 * @param  {array} $keys Allowed protected keys
 		 * @param  {WP_Post} $post Post object
 		 * @since  1.7
 		 * @return  {array} New keys
 		 */
-		$allowed_protected_keys = apply_filters( 'ep_prepare_meta_allowed_protected_keys', [], $post );
+		$allowed_protected_keys = apply_filters( 'eprobe_prepare_meta_allowed_protected_keys', [], $post );
 
 		/**
 		 * Filter public keys to exclude from indexed post
 		 *
-		 * @hook ep_prepare_meta_excluded_public_keys
+		 * @hook eprobe_prepare_meta_excluded_public_keys
 		 * @param  {array} $keys Excluded protected keys
 		 * @param  {WP_Post} $post Post object
 		 * @since  1.7
 		 * @return  {array} New keys
 		 */
-		$excluded_public_keys = apply_filters( 'ep_prepare_meta_excluded_public_keys', [], $post );
+		$excluded_public_keys = apply_filters( 'eprobe_prepare_meta_excluded_public_keys', [], $post );
 
 		foreach ( $metas as $key => $value ) {
 
@@ -2604,13 +2604,13 @@ class Post extends Indexable {
 			/**
 			 * Filter force whitelisting a meta key
 			 *
-			 * @hook ep_prepare_meta_whitelist_key
+			 * @hook eprobe_prepare_meta_whitelist_key
 			 * @param  {bool} $whitelist True to whitelist key
 			 * @param  {string} $key Meta key
 			 * @param  {WP_Post} $post Post object
 			 * @return  {bool} New whitelist value
 			 */
-			if ( true === $allow_index || apply_filters( 'ep_prepare_meta_whitelist_key', false, $key, $post ) ) {
+			if ( true === $allow_index || apply_filters( 'eprobe_prepare_meta_whitelist_key', false, $key, $post ) ) {
 				$filtered_metas[ $key ] = $value;
 			}
 		}
@@ -2633,32 +2633,32 @@ class Post extends Indexable {
 		 * Returning a non-null value will effectively short-circuit the function.
 		 *
 		 * @since 4.4.0
-		 * @hook ep_post_pre_meta_keys_db
+		 * @hook eprobe_post_pre_meta_keys_db
 		 * @param {null} $meta_keys Distinct meta keys array
 		 * @return {null|array} Distinct meta keys array or `null` to keep default behavior
 		 */
-		$pre_meta_keys = apply_filters( 'ep_post_pre_meta_keys_db', null );
+		$pre_meta_keys = apply_filters( 'eprobe_post_pre_meta_keys_db', null );
 		if ( null !== $pre_meta_keys ) {
 			return $pre_meta_keys;
 		}
 
-		$cache_key = 'ep_meta_field_keys';
+		$cache_key = 'eprobe_meta_field_keys';
 
 		if ( ! $force_refresh ) {
 			$cached = get_transient( $cache_key );
 			if ( false !== $cached ) {
 				$cached = (array) json_decode( (string) $cached );
 				/* this filter is documented below */
-				return (array) apply_filters( 'ep_post_meta_keys_db', $cached );
+				return (array) apply_filters( 'eprobe_post_meta_keys_db', $cached );
 			}
 		}
 
 		/**
 		 * To avoid running a too expensive SQL query, we run a query getting all public keys
-		 * and only the private keys allowed by the `ep_prepare_meta_allowed_protected_keys` filter.
+		 * and only the private keys allowed by the `eprobe_prepare_meta_allowed_protected_keys` filter.
 		 * This query does not order by on purpose, as that also brings a performance penalty.
 		 */
-		$allowed_protected_keys     = apply_filters( 'ep_prepare_meta_allowed_protected_keys', [], new \WP_Post( (object) [] ) );
+		$allowed_protected_keys     = apply_filters( 'eprobe_prepare_meta_allowed_protected_keys', [], new \WP_Post( (object) [] ) );
 		$allowed_protected_keys_sql = '';
 		if ( ! empty( $allowed_protected_keys ) ) {
 			$placeholders               = implode( ',', array_fill( 0, count( $allowed_protected_keys ), '%s' ) );
@@ -2695,11 +2695,11 @@ class Post extends Indexable {
 		 * Filter the distinct meta keys fetched from the database.
 		 *
 		 * @since 4.4.0
-		 * @hook ep_post_meta_keys_db
+		 * @hook eprobe_post_meta_keys_db
 		 * @param {array} $meta_keys Distinct meta keys array
 		 * @return {array} New distinct meta keys array
 		 */
-		return (array) apply_filters( 'ep_post_meta_keys_db', $meta_keys );
+		return (array) apply_filters( 'eprobe_post_meta_keys_db', $meta_keys );
 	}
 
 	/**
@@ -2719,14 +2719,14 @@ class Post extends Indexable {
 		 * This method can be too resource intensive, use it with caution.
 		 *
 		 * @since 4.4.0
-		 * @hook ep_post_meta_keys_db_per_post_type_allowed_screen
+		 * @hook eprobe_post_meta_keys_db_per_post_type_allowed_screen
 		 * @param {bool} $allowed_screen Whether this is an allowed screen or not.
 		 * @return {bool} New value of $allowed_screen
 		 */
-		if ( ! apply_filters( 'ep_post_meta_keys_db_per_post_type_allowed_screen', $allowed_screen ) ) {
+		if ( ! apply_filters( 'eprobe_post_meta_keys_db_per_post_type_allowed_screen', $allowed_screen ) ) {
 			_doing_it_wrong(
 				__METHOD__,
-				esc_html__( 'This method should not be called outside specific pages. Use the `ep_post_meta_keys_db_per_post_type_allowed_screen` filter if you need to use it in your custom screen.' ),
+				esc_html__( 'This method should not be called outside specific pages. Use the `eprobe_post_meta_keys_db_per_post_type_allowed_screen` filter if you need to use it in your custom screen.', 'elasticprobe' ),
 				'ElasticProbe 0.1.0'
 			);
 			return [];
@@ -2738,24 +2738,24 @@ class Post extends Indexable {
 		 * Returning a non-null value will effectively short-circuit the function.
 		 *
 		 * @since 4.4.0
-		 * @hook ep_post_pre_meta_keys_db_per_post_type
+		 * @hook eprobe_post_pre_meta_keys_db_per_post_type
 		 * @param {null}   $meta_keys Distinct meta keys array
 		 * @param {string} $post_type Post type slug
 		 * @return {null|array} Distinct meta keys array or `null` to keep default behavior
 		 */
-		$pre_meta_keys = apply_filters( 'ep_post_pre_meta_keys_db_per_post_type', null, $post_type );
+		$pre_meta_keys = apply_filters( 'eprobe_post_pre_meta_keys_db_per_post_type', null, $post_type );
 		if ( null !== $pre_meta_keys ) {
 			return $pre_meta_keys;
 		}
 
-		$cache_key = 'ep_meta_field_keys_' . $post_type;
+		$cache_key = 'eprobe_meta_field_keys_' . $post_type;
 
 		if ( ! $force_refresh ) {
 			$cached = get_transient( $cache_key );
 			if ( false !== $cached ) {
 				$cached = (array) json_decode( (string) $cached );
 				/* this filter is documented below */
-				return (array) apply_filters( 'ep_post_meta_keys_db_per_post_type', $cached, $post_type );
+				return (array) apply_filters( 'eprobe_post_meta_keys_db_per_post_type', $cached, $post_type );
 			}
 		}
 
@@ -2782,12 +2782,12 @@ class Post extends Indexable {
 		 * Filter the distinct meta keys fetched from the database per post type.
 		 *
 		 * @since 4.4.0
-		 * @hook ep_post_meta_keys_db_per_post_type
+		 * @hook eprobe_post_meta_keys_db_per_post_type
 		 * @param {array}  $meta_keys Distinct meta keys array
 		 * @param {string} $post_type Post type slug
 		 * @return {array} New distinct meta keys array
 		 */
-		return (array) apply_filters( 'ep_post_meta_keys_db_per_post_type', $meta_keys, $post_type );
+		return (array) apply_filters( 'eprobe_post_meta_keys_db_per_post_type', $meta_keys, $post_type );
 	}
 
 	/**
@@ -2803,7 +2803,7 @@ class Post extends Indexable {
 		$meta_keys = $this->get_distinct_meta_field_keys_db_per_post_type( $post_type, $force_refresh );
 
 		$fake_meta_values = array_combine( $meta_keys, array_fill( 0, count( $meta_keys ), 'test-value' ) );
-		$filtered_meta    = apply_filters( 'ep_prepare_meta_data', $fake_meta_values, $mock_post );
+		$filtered_meta    = apply_filters( 'eprobe_prepare_meta_data', $fake_meta_values, $mock_post );
 
 		return array_filter(
 			array_keys( $filtered_meta ),
@@ -2817,9 +2817,9 @@ class Post extends Indexable {
 	 * Return the meta keys that will (possibly) be indexed.
 	 *
 	 * This function gets all the meta keys in the database, creates a fake post without a type and with all the meta fields,
-	 * runs the `ep_prepare_meta_data` filter against it and checks if meta keys are allowed or not.
+	 * runs the `eprobe_prepare_meta_data` filter against it and checks if meta keys are allowed or not.
 	 * Although it provides a good indicator, it is not 100% correct as developers could create code using the
-	 * `ep_prepare_meta_data` filter that would depend on "real" data.
+	 * `eprobe_prepare_meta_data` filter that would depend on "real" data.
 	 *
 	 * @since 4.4.0
 	 * @param bool $force_refresh Whether to use or not a cached value. Default false, use cached.
@@ -2833,7 +2833,7 @@ class Post extends Indexable {
 			$meta_keys,
 			array_fill( 0, count( $meta_keys ), $this->get_test_meta_value() )
 		);
-		$filtered_meta    = apply_filters( 'ep_prepare_meta_data', $fake_meta_values, $empty_post );
+		$filtered_meta    = apply_filters( 'eprobe_prepare_meta_data', $fake_meta_values, $empty_post );
 
 		$all_keys = array_filter(
 			array_keys( $filtered_meta ),
@@ -2857,12 +2857,12 @@ class Post extends Indexable {
 		/**
 		 * Filter the value used to fill meta fields while predicting indexable content.
 		 *
-		 * @hook ep_post_test_meta_value
+		 * @hook eprobe_post_test_meta_value
 		 * @since 5.1.0
 		 * @param {string} $test_meta_value The test meta value. Default: test-value
 		 * @return {string} New test meta value
 		 */
-		return (string) apply_filters( 'ep_post_test_meta_value', 'test-value' );
+		return (string) apply_filters( 'eprobe_post_test_meta_value', 'test-value' );
 	}
 
 	/**
@@ -2892,27 +2892,27 @@ class Post extends Indexable {
 		/**
 		 * Filter the number of IDs to be fetched per page to discover distinct meta fields per post type.
 		 *
-		 * @hook ep_post_meta_by_type_ids_per_page
+		 * @hook eprobe_post_meta_by_type_ids_per_page
 		 * @since 4.4.0
 		 * @param {int}    $per_page  Number of IDs
 		 * @param {string} $post_type The post type slug
 		 * @return  {string} New number of IDs
 		 */
-		$per_page = apply_filters( 'ep_post_meta_by_type_ids_per_page', 11000, $post_type );
+		$per_page = apply_filters( 'eprobe_post_meta_by_type_ids_per_page', 11000, $post_type );
 
 		$pages = min( ceil( $total / $per_page ), 8 );
 
 		/**
 		 * Filter the number of times EP will fetch IDs from the database
 		 *
-		 * @hook ep_post_meta_by_type_number_of_pages
+		 * @hook eprobe_post_meta_by_type_number_of_pages
 		 * @since 4.4.0
 		 * @param {int}    $pages     Number of "pages" (not WP post type)
 		 * @param {int}    $per_page  Number of IDs per page
 		 * @param {string} $post_type The post type slug
 		 * @return  {string} New number of pages
 		 */
-		$pages = apply_filters( 'ep_post_meta_by_type_number_of_pages', $pages, $per_page, $post_type );
+		$pages = apply_filters( 'eprobe_post_meta_by_type_number_of_pages', $pages, $per_page, $post_type );
 
 		for ( $page = 0; $page < $pages; $page++ ) {
 			$start = $per_page * $page;
@@ -2996,7 +2996,7 @@ class Post extends Indexable {
 		$all_allowed_metas = [];
 		foreach ( $post_types as $post_type ) {
 			$fake_post->post_type   = $post_type;
-			$allowed_protected_keys = apply_filters( 'ep_prepare_meta_allowed_protected_keys', [], $fake_post );
+			$allowed_protected_keys = apply_filters( 'eprobe_prepare_meta_allowed_protected_keys', [], $fake_post );
 
 			$selected_keys = [];
 			if ( ! empty( $weighting[ $post_type ] ) ) {
@@ -3013,7 +3013,7 @@ class Post extends Indexable {
 				$selected_keys = array_filter( $selected_keys );
 			}
 
-			$allowed_keys = apply_filters( 'ep_prepare_meta_allowed_keys', array_merge( $allowed_protected_keys, $selected_keys ), $fake_post );
+			$allowed_keys = apply_filters( 'eprobe_prepare_meta_allowed_keys', array_merge( $allowed_protected_keys, $selected_keys ), $fake_post );
 
 			$all_allowed_metas = array_merge( $all_allowed_metas, $allowed_keys );
 		}

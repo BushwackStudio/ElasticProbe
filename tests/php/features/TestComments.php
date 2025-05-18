@@ -177,7 +177,7 @@ class TestComments extends BaseTestCase {
 			$this->assertInstanceOf( '\ElasticProbe\Feature\Comments\Comments', $feature );
 			return true;
 		};
-		add_filter( 'ep_feature_is_visible', $change_visibility, 10, 3 );
+		add_filter( 'eprobe_feature_is_visible', $change_visibility, 10, 3 );
 
 		$this->assertTrue( $this->get_feature()->is_visible() );
 	}
@@ -197,7 +197,7 @@ class TestComments extends BaseTestCase {
 			$this->assertInstanceOf( '\ElasticProbe\Feature\Comments\Comments', $feature );
 			return true;
 		};
-		add_filter( 'ep_feature_is_available', $change_availability, 10, 3 );
+		add_filter( 'eprobe_feature_is_available', $change_availability, 10, 3 );
 
 		$this->assertTrue( $this->get_feature()->is_available() );
 	}

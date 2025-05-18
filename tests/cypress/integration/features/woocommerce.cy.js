@@ -36,7 +36,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 		cy.maybeDisableFeature('woocommerce');
 
 		cy.visitAdminPage('admin.php?page=elasticprobe');
-		cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
+		cy.intercept('/wp-json/elasticprobe/v1/features*').as('apiRequest');
 
 		cy.contains('button', 'WooCommerce').click();
 		cy.contains('label', 'Enable').click();
@@ -349,7 +349,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 
 		it('Will require a sync when enabling Orders Autosuggest', () => {
 			cy.visitAdminPage('admin.php?page=elasticprobe');
-			cy.intercept('/wp-json/elasticpress/v1/features*').as('apiRequest');
+			cy.intercept('/wp-json/elasticprobe/v1/features*').as('apiRequest');
 
 			cy.contains('button', 'WooCommerce').click();
 

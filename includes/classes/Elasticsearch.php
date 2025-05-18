@@ -88,7 +88,7 @@ class Elasticsearch {
 		/**
 		 * Filter Elasticsearch index document request path
 		 *
-		 * @hook ep_index_{document_type}_request_path
+		 * @hook eprobe_index_{document_type}_request_path
 		 * @param {string} $path Path to index document
 		 * @param  {int} $document_id Document ID
 		 * @param  {array} $document Document to index
@@ -97,14 +97,14 @@ class Elasticsearch {
 		 * @since  3.0
 		 */
 		if ( is_epio() ) {
-			$path = apply_filters( 'ep_index_' . $type . '_request_path', 'v1/' . $index . '/' . $document['ID'], $document, $type );
+			$path = apply_filters( 'eprobe_index_' . $type . '_request_path', 'v1/' . $index . '/' . $document['ID'], $document, $type );
 		} elseif ( version_compare( (string) $this->get_elasticsearch_version(), '7.0', '<' ) ) {
-			$path = apply_filters( 'ep_index_' . $type . '_request_path', $index . '/' . $type . '/' . $document['ID'], $document, $type );
+			$path = apply_filters( 'eprobe_index_' . $type . '_request_path', $index . '/' . $type . '/' . $document['ID'], $document, $type );
 		} else {
-				$path = apply_filters( 'ep_index_' . $type . '_request_path', $index . '/_doc/' . $document['ID'], $document, $type );
+				$path = apply_filters( 'eprobe_index_' . $type . '_request_path', $index . '/_doc/' . $document['ID'], $document, $type );
 		}
 
-		$path = apply_filters( 'ep_index_request_path', $path, $document, $type );
+		$path = apply_filters( 'eprobe_index_request_path', $path, $document, $type );
 
 		if ( function_exists( 'wp_json_encode' ) ) {
 			$encoded_document = wp_json_encode( $document );
@@ -117,7 +117,7 @@ class Elasticsearch {
 		$request_args = array(
 			'body'     => $encoded_document,
 			'method'   => 'POST',
-			'timeout'  => apply_filters( 'ep_index_document_timeout', 15 ),
+			'timeout'  => apply_filters( 'eprobe_index_document_timeout', 15 ),
 			'blocking' => $blocking,
 		);
 
@@ -130,22 +130,22 @@ class Elasticsearch {
 		/**
 		 * Fires after indexing document
 		 *
-		 * @hook ep_index_post_retrieve_raw_response
+		 * @hook eprobe_index_post_retrieve_raw_response
 		 * @param  {array} $request Remote request response
 		 * @param {array} $document Current document
 		 * @param  {string} $path Elasticsearch request path
 		 */
-		do_action( 'ep_index_post_retrieve_raw_response', $request, $document, $path );
+		do_action( 'eprobe_index_post_retrieve_raw_response', $request, $document, $path );
 
 		/**
 		 * Fires after indexing document
 		 *
-		 * @hook ep_index_retrieve_raw_response
+		 * @hook eprobe_index_retrieve_raw_response
 		 * @param  {array} $request Remote request response
 		 * @param {array} $document Current document
 		 * @param  {string} $path Elasticsearch request path
 		 */
-		do_action( 'ep_index_retrieve_raw_response', $request, $document, $path );
+		do_action( 'eprobe_index_retrieve_raw_response', $request, $document, $path );
 
 		if ( ! is_wp_error( $request ) ) {
 			$response_body = wp_remote_retrieve_body( $request );
@@ -162,20 +162,20 @@ class Elasticsearch {
 		/**
 		 * Fires after indexing document and body decoding
 		 *
-		 * @hook ep_index_index_post
+		 * @hook eprobe_index_index_post
 		 * @param {array} $document Current document
 		 * @param  {array|boolean} $return Elasticsearch response. False on error.
 		 */
-		do_action( 'ep_after_index_post', $document, $return );
+		do_action( 'eprobe_after_index_post', $document, $return );
 
 		/**
 		 * Fires after indexing document and body decoding
 		 *
-		 * @hook ep_index_index
+		 * @hook eprobe_index_index
 		 * @param {array} $document Current document
 		 * @param  {array|boolean} $return Elasticsearch response. False on error.
 		 */
-		do_action( 'ep_after_index', $document, $return );
+		do_action( 'eprobe_after_index', $document, $return );
 
 		return $return;
 	}
@@ -231,12 +231,12 @@ class Elasticsearch {
 		/**
 		 * Filter Elasticsearch version
 		 *
-		 * @hook ep_elasticsearch_version
+		 * @hook eprobe_elasticsearch_version
 		 * @param {string} $version Version
 		 * @return  {string} New version
 		 * @since  2.1.2
 		 */
-		return apply_filters( 'ep_elasticsearch_version', $info['version'] );
+		return apply_filters( 'eprobe_elasticsearch_version', $info['version'] );
 	}
 
 	/**
@@ -253,12 +253,12 @@ class Elasticsearch {
 		/**
 		 * Filter server type
 		 *
-		 * @hook ep_server_type
+		 * @hook eprobe_server_type
 		 * @param  {string} $type Type (elasticsearch, opensearch, others)
 		 * @return {string} New type
 		 * @since  4.2.1
 		 */
-		return apply_filters( 'ep_server_type', $info['server_type'] );
+		return apply_filters( 'eprobe_server_type', $info['server_type'] );
 	}
 
 	/**
@@ -275,12 +275,12 @@ class Elasticsearch {
 		/**
 		 * Filter Elasticsearch plugins
 		 *
-		 * @hook ep_elasticsearch_plugins
+		 * @hook eprobe_elasticsearch_plugins
 		 * @param {array} $plugins Elasticsearch plugins
 		 * @return  {array} New plugins
 		 * @since  2.2
 		 */
-		return apply_filters( 'ep_elasticsearch_plugins', $info['plugins'] );
+		return apply_filters( 'eprobe_elasticsearch_plugins', $info['plugins'] );
 	}
 
 	/**
@@ -307,7 +307,7 @@ class Elasticsearch {
 		/**
 		 * Filter Elasticsearch query request path
 		 *
-		 * @hook ep_search_request_path
+		 * @hook eprobe_search_request_path
 		 * @param {string} $path Request path
 		 * @param  {string} $index Index name
 		 * @param  {string} $type Index type
@@ -316,12 +316,12 @@ class Elasticsearch {
 		 * @param  {mixed} $query_object Could be WP_Query, WP_User_Query, etc.
 		 * @return  {string} New path
 		 */
-		$path = apply_filters( 'ep_search_request_path', $path, $index, $type, $query, $query_args, $query_object );
+		$path = apply_filters( 'eprobe_search_request_path', $path, $index, $type, $query, $query_args, $query_object );
 
 		/**
 		 * Filter Elasticsearch query request path
 		 *
-		 * @hook ep_query_request_path
+		 * @hook eprobe_query_request_path
 		 * @param {string} $path Request path
 		 * @param  {string} $index Index name
 		 * @param  {string} $type Index type
@@ -330,7 +330,7 @@ class Elasticsearch {
 		 * @param  {mixed} $query_object Could be WP_Query, WP_User_Query, etc.
 		 * @return  {string} New path
 		 */
-		$path = apply_filters( 'ep_query_request_path', $path, $index, $type, $query, $query_args, $query_object );
+		$path = apply_filters( 'eprobe_query_request_path', $path, $index, $type, $query, $query_args, $query_object );
 
 		$request_args = array(
 			'body'    => wp_json_encode( $query ),
@@ -346,13 +346,13 @@ class Elasticsearch {
 		 * @todo Evaluate if we should remove tests for is_admin() and empty post types.
 		 *
 		 * @since  3.5.2
-		 * @hook ep_query_send_ep_search_term_header
+		 * @hook eprobe_query_send_ep_search_term_header
 		 * @param  {bool}  $send_header True means send the EP-Search-Term header
 		 * @param  {array} $query_args  WP query args
 		 * @return {bool}  New $send_header value
 		 */
 		$send_ep_search_term_header = apply_filters(
-			'ep_query_send_ep_search_term_header',
+			'eprobe_query_send_ep_search_term_header',
 			(
 				Utils\is_epio() &&
 				! empty( $query_args['s'] ) &&
@@ -370,7 +370,7 @@ class Elasticsearch {
 		/**
 		 * Filter Elasticsearch query request arguments
 		 *
-		 * @hook ep_query_request_args
+		 * @hook eprobe_query_request_args
 		 * @since 3.6.4
 		 * @param {array}  $request_args Request arguments
 		 * @param {string} $path         Request path
@@ -381,7 +381,7 @@ class Elasticsearch {
 		 * @param {mixed}  $query_object Could be WP_Query, WP_User_Query, etc.
 		 * @return {array} New request arguments
 		 */
-		$request_args = apply_filters( 'ep_query_request_args', $request_args, $path, $index, $type, $query, $query_args, $query_object );
+		$request_args = apply_filters( 'eprobe_query_request_args', $request_args, $path, $index, $type, $query, $query_args, $query_object );
 
 		$request = $this->remote_request( $path, $request_args, $query_args, 'query' );
 
@@ -392,12 +392,12 @@ class Elasticsearch {
 		/**
 		 * Filter whether Elasticsearch remote request response code is valid
 		 *
-		 * @hook ep_remote_request_is_valid_res
+		 * @hook eprobe_remote_request_is_valid_res
 		 * @param {boolean} $is_valid_res Whether response code is valid or not
 		 * @param  {array} $request Remote request response
 		 * @return  {string} New value
 		 */
-		if ( ! is_wp_error( $request ) && apply_filters( 'ep_remote_request_is_valid_res', $is_valid_res, $request ) ) {
+		if ( ! is_wp_error( $request ) && apply_filters( 'eprobe_remote_request_is_valid_res', $is_valid_res, $request ) ) {
 
 			$response_body = wp_remote_retrieve_body( $request );
 
@@ -410,13 +410,13 @@ class Elasticsearch {
 				/**
 				 * Deprecated way to retrieve aggregations.
 				 *
-				 * @hook ep_retrieve_aggregations
+				 * @hook eprobe_retrieve_aggregations
 				 * @param {array} $aggregations Elasticsearch aggregations
 				 * @param  {array} $query Prepared Elasticsearch query
 				 * @param {string} $scope Backwards compat for scope parameter.
 				 * @param  {array} $query_args Current WP Query arguments
 				 */
-				do_action( 'ep_retrieve_aggregations', $response['aggregations'], $query, '', $query_args );
+				do_action( 'eprobe_retrieve_aggregations', $response['aggregations'], $query, '', $query_args );
 
 				if ( is_object( $query_object ) ) {
 					if ( method_exists( $query_object, 'set' ) ) {
@@ -430,25 +430,25 @@ class Elasticsearch {
 			/**
 			 * Fires after valid Elasticsearch query
 			 *
-			 * @hook ep_valid_response
+			 * @hook eprobe_valid_response
 			 * @param {array} $response Elasticsearch decoded response
 			 * @param  {array} $query Prepared Elasticsearch query
 			 * @param  {array} $query_args Current WP Query arguments
 			 * @param  {mixed} $query_object Could be WP_Query, WP_User_Query, etc.
 			 */
-			do_action( 'ep_valid_response', $response, $query, $query_args, $query_object );
+			do_action( 'eprobe_valid_response', $response, $query, $query_args, $query_object );
 
 			// Backwards compat
 			/**
 			 * Fires after valid Elasticsearch query
 			 *
-			 * @hook ep_retrieve_raw_response
+			 * @hook eprobe_retrieve_raw_response
 			 * @param {array} $response Elasticsearch request
 			 * @param  {array} $query Prepared Elasticsearch query
 			 * @param  {array} $query_args Current WP Query arguments
 			 * @param  {mixed} $query_object Could be WP_Query, WP_User_Query, etc.
 			 */
-			do_action( 'ep_retrieve_raw_response', $request, $query, $query_args, $query_object );
+			do_action( 'eprobe_retrieve_raw_response', $request, $query, $query_args, $query_object );
 
 			$documents = [];
 
@@ -463,19 +463,19 @@ class Elasticsearch {
 				/**
 				 * Filter Elasticsearch retrieved document
 				 *
-				 * @hook ep_retrieve_the_{index_type}
+				 * @hook eprobe_retrieve_the_{index_type}
 				 * @param  {array} $document Document retrieved from Elasticsearch
 				 * @param  {array} $hit Raw Elasticsearch hit
 				 * @param  {string} $index Index name
 				 * @return  {array} New document
 				 */
-				$documents[] = apply_filters( 'ep_retrieve_the_' . $type, $document, $hit, $index );
+				$documents[] = apply_filters( 'eprobe_retrieve_the_' . $type, $document, $hit, $index );
 			}
 
 			/**
 			 * Filter Elasticsearch query results
 			 *
-			 * @hook ep_es_query_results
+			 * @hook eprobe_es_query_results
 			 * @param {array} $results Results from Elasticsearch
 			 *      @param {int}   $results.found_documents Total number of documents.
 			 *      @param {array} $results.documents       Array of documents.
@@ -488,7 +488,7 @@ class Elasticsearch {
 			 * @return {array} New results
 			 */
 			return apply_filters(
-				'ep_es_query_results',
+				'eprobe_es_query_results',
 				[
 					'found_documents' => $total_hits,
 					'documents'       => $documents,
@@ -505,13 +505,13 @@ class Elasticsearch {
 		/**
 		 * Fires after invalid Elasticsearch query
 		 *
-		 * @hook ep_invalid_response
+		 * @hook eprobe_invalid_response
 		 * @param  {array} $request Remote request response
 		 * @param  {array} $query Prepared Elasticsearch query
 		 * @param  {array} $query_args Current WP Query arguments
 		 * @param  {mixed} $query_object Could be WP_Query, WP_User_Query, etc.
 		 */
-		do_action( 'ep_invalid_response', $request, $query, $query_args, $query_object );
+		do_action( 'eprobe_invalid_response', $request, $query, $query_args, $query_object );
 
 		return false;
 	}
@@ -550,12 +550,12 @@ class Elasticsearch {
 		 *
 		 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics-top-hits-aggregation.html
 		 *
-		 * @hook ep_get_hits_from_query
+		 * @hook eprobe_get_hits_from_query
 		 * @param {array} $hits from Elasticsearch
 		 * @param {response} $response Raw response from Elasticsearch
 		 * @return {array} hits
 		 */
-		return apply_filters( 'ep_get_hits_from_query', $response['hits']['hits'], $response );
+		return apply_filters( 'eprobe_get_hits_from_query', $response['hits']['hits'], $response );
 	}
 
 	/**
@@ -636,8 +636,8 @@ class Elasticsearch {
 		);
 
 		// Check for ElasticProbe API key and add to header if needed.
-		if ( defined( 'EP_API_KEY' ) && EP_API_KEY ) {
-			$headers['X-ElasticPress-API-Key'] = EP_API_KEY;
+		if ( defined( 'EPROBE_API_KEY' ) && EPROBE_API_KEY ) {
+			$headers['X-ElasticPress-API-Key'] = EPROBE_API_KEY;
 		}
 
 		/**
@@ -665,11 +665,11 @@ class Elasticsearch {
 		/**
 		 * Filter Elasticsearch request headers
 		 *
-		 * @hook ep_format_request_headers
+		 * @hook eprobe_format_request_headers
 		 * @param {array} $headers Current headers
 		 * @return  {array} New headers
 		 */
-		$headers = apply_filters( 'ep_format_request_headers', $headers );
+		$headers = apply_filters( 'eprobe_format_request_headers', $headers );
 
 		return $headers;
 	}
@@ -743,9 +743,9 @@ class Elasticsearch {
 	 */
 	public function get_documents( $index, $type, $document_ids ) {
 		if ( version_compare( (string) $this->get_elasticsearch_version(), '7.0', '<' ) ) {
-			$path = apply_filters( 'ep_index_' . $type . '_request_path', $index . '/' . $type . '/_mget', $document_ids, $type );
+			$path = apply_filters( 'eprobe_index_' . $type . '_request_path', $index . '/' . $type . '/_mget', $document_ids, $type );
 		} else {
-			$path = apply_filters( 'ep_index_' . $type . '_request_path', $index . '/_mget', $document_ids, $type );
+			$path = apply_filters( 'eprobe_index_' . $type . '_request_path', $index . '/_mget', $document_ids, $type );
 		}
 
 		$request_args = [
@@ -780,7 +780,7 @@ class Elasticsearch {
 		/**
 		 * Filter documents found by Elasticsearch through the /_mget endpoint.
 		 *
-		 * @hook ep_get_documents
+		 * @hook eprobe_get_documents
 		 * @since 3.6.0
 		 * @param {array} $docs Documents found indexed by ID
 		 * @param  {string} $index Index name
@@ -788,7 +788,7 @@ class Elasticsearch {
 		 * @param  {array} $document_ids Array of document ids
 		 * @return  {array} Documents to be returned
 		 */
-		$docs = apply_filters( 'ep_get_documents', $docs, $index, $type, $document_ids );
+		$docs = apply_filters( 'eprobe_get_documents', $docs, $index, $type, $document_ids );
 
 		return $docs;
 	}
@@ -852,12 +852,12 @@ class Elasticsearch {
 		/**
 		 * Filter Elasticsearch mapping before put mapping
 		 *
-		 * @hook ep_config_mapping
+		 * @hook eprobe_config_mapping
 		 * @param {array} $mapping Elasticsearch mapping
 		 * @param  {string} $index Index name
 		 * @return  {array} New mapping
 		 */
-		$mapping = apply_filters( 'ep_config_mapping', $mapping, $index );
+		$mapping = apply_filters( 'eprobe_config_mapping', $mapping, $index );
 
 		$request_args = [
 			'body'    => wp_json_encode( $mapping ),
@@ -870,25 +870,25 @@ class Elasticsearch {
 		/**
 		 * Filter Elasticsearch put mapping response
 		 *
-		 * @hook ep_config_mapping_request
+		 * @hook eprobe_config_mapping_request
 		 * @param {array} $request Elasticsearch response
 		 * @param  {string} $index Elasticsearch index name
 		 * @param  {array} $mapping Mapping sent to Elasticsearch
 		 * @return  {array} New response
 		 */
-		$request = apply_filters( 'ep_config_mapping_request', $request, $index, $mapping );
+		$request = apply_filters( 'eprobe_config_mapping_request', $request, $index, $mapping );
 
 		$response_code = wp_remote_retrieve_response_code( $request );
 
 		/**
 		 * Fires after sending a put mapping request
 		 *
-		 * @hook ep_after_put_mapping
+		 * @hook eprobe_after_put_mapping
 		 * @since 4.7.0
 		 * @param {string}         $index   Index name
 		 * @param {WP_Error|array} $request The response or WP_Error on failure.
 		 */
-		do_action( 'ep_after_put_mapping', $index, $request );
+		do_action( 'eprobe_after_put_mapping', $index, $request );
 
 		// If WP_Error or not 200, return false or error message depends on attribute.
 		if ( is_wp_error( $request ) || 200 !== $response_code ) {
@@ -992,7 +992,7 @@ class Elasticsearch {
 	 * @return array|WP_Error Raw ES response from the $index/_settings?flat_settings=true endpoint
 	 */
 	public function get_index_settings( string $index, bool $force_refresh = false ) {
-		$transient_key = "ep_index_settings_{$index}";
+		$transient_key = "eprobe_index_settings_{$index}";
 
 		if ( ! $force_refresh ) {
 			$cache = Utils\get_transient( $transient_key );
@@ -1012,7 +1012,7 @@ class Elasticsearch {
 		if ( wp_remote_retrieve_response_code( $request ) !== 200 ) {
 			Utils\set_transient( $transient_key, $request, MINUTE_IN_SECONDS );
 			return new \WP_Error(
-				'ep_get_index_settings_failed',
+				'eprobe_get_index_settings_failed',
 				esc_html__( 'Error while getting the index settings.', 'elasticprobe' ),
 				$request
 			);
@@ -1086,12 +1086,12 @@ class Elasticsearch {
 		/**
 		 * Fires after updating an index settings
 		 *
-		 * @hook ep_update_index_settings
+		 * @hook eprobe_update_index_settings
 		 * @since 4.4.0
 		 * @param {string} $index    Index name
 		 * @param {array}  $settings Setting update array
 		 */
-		do_action( 'ep_update_index_settings', $index, $settings );
+		do_action( 'eprobe_update_index_settings', $index, $settings );
 
 		if ( $close_first ) {
 			$opened = $this->open_index( $index );
@@ -1192,24 +1192,24 @@ class Elasticsearch {
 		/**
 		 * Filter Elasticsearch bulk index request path
 		 *
-		 * @hook ep_bulk_index_request_path
+		 * @hook eprobe_bulk_index_request_path
 		 * @param {string} Request path
 		 * @param  {string} $body Bulk index request body
 		 * @param  {string} $type Index type
 		 * @return  {string} New path
 		 */
 		if ( is_epio() ) {
-			$path = apply_filters( 'ep_bulk_index_request_path', 'v1/' . $index . '/_bulk', $body, $type );
+			$path = apply_filters( 'eprobe_bulk_index_request_path', 'v1/' . $index . '/_bulk', $body, $type );
 		} elseif ( version_compare( (string) $this->get_elasticsearch_version(), '7.0', '<' ) ) {
-			$path = apply_filters( 'ep_bulk_index_request_path', $index . '/' . $type . '/_bulk', $body, $type );
+			$path = apply_filters( 'eprobe_bulk_index_request_path', $index . '/' . $type . '/_bulk', $body, $type );
 		} else {
-			$path = apply_filters( 'ep_bulk_index_request_path', $index . '/_bulk', $body, $type );
+			$path = apply_filters( 'eprobe_bulk_index_request_path', $index . '/_bulk', $body, $type );
 		}
 
 		$request_args = array(
 			'method'  => 'POST',
 			'body'    => $body,
-			'timeout' => apply_filters( 'ep_bulk_index_timeout', 30 ),
+			'timeout' => apply_filters( 'eprobe_bulk_index_timeout', 30 ),
 		);
 
 		$request = $this->remote_request( $path, $request_args, [], 'bulk_index' );
@@ -1269,7 +1269,7 @@ class Elasticsearch {
 		/**
 		 * Filter Elasticsearch args prior to remote request
 		 *
-		 * @hook ep_pre_request_args
+		 * @hook eprobe_pre_request_args
 		 * @since 3.6.4
 		 * @param {array}       $args       Request args
 		 * @param {string}      $path       Site URL to retrieve
@@ -1277,7 +1277,7 @@ class Elasticsearch {
 		 * @param {string|null} $type       Type of request, used for debugging.
 		 * @return {array} New request args
 		 */
-		$args = apply_filters( 'ep_pre_request_args', $args, $path, $query_args, $type );
+		$args = apply_filters( 'eprobe_pre_request_args', $args, $path, $query_args, $type );
 
 		$query = array(
 			'time_start'   => microtime( true ),
@@ -1300,19 +1300,19 @@ class Elasticsearch {
 			/**
 			 * Filter Elasticsearch host prior to remote request
 			 *
-			 * @hook ep_pre_request_host
+			 * @hook eprobe_pre_request_host
 			 * @param {string} Request host
 			 * @param  {int} $failures Number of current failures
 			 * @param  {string} $path Request path
 			 * @param  {array} $args Request arguments
 			 * @return {string} New host
 			 */
-			$query['host'] = apply_filters( 'ep_pre_request_host', $query['host'], $failures, $path, $args );
+			$query['host'] = apply_filters( 'eprobe_pre_request_host', $query['host'], $failures, $path, $args );
 
 			/**
 			 * Filter Elasticsearch url prior to remote request
 			 *
-			 * @hook ep_pre_request_url
+			 * @hook eprobe_pre_request_url
 			 * @param {string} Request url
 			 * @param  {int} $failures Number of current failures
 			 * @param  {string} $host Request host
@@ -1320,20 +1320,20 @@ class Elasticsearch {
 			 * @param  {array} $args Request arguments
 			 * @return {string} New url
 			 */
-			$query['url'] = apply_filters( 'ep_pre_request_url', esc_url( trailingslashit( $query['host'] ) . $path ), $failures, $query['host'], $path, $args );
+			$query['url'] = apply_filters( 'eprobe_pre_request_url', esc_url( trailingslashit( $query['host'] ) . $path ), $failures, $query['host'], $path, $args );
 
 			/**
 			 * Filter whether remote request should be intercepted
 			 *
-			 * @hook ep_intercept_remote_request
+			 * @hook eprobe_intercept_remote_request
 			 * @param {boolean} $intercept True to intercept
 			 * @return {boolean} New value
 			 */
-			if ( true === apply_filters( 'ep_intercept_remote_request', false ) ) {
+			if ( true === apply_filters( 'eprobe_intercept_remote_request', false ) ) {
 				/**
 				 * Filter intercepted request
 				 *
-				 * @hook ep_do_intercept_request
+				 * @hook eprobe_do_intercept_request
 				 * @since 3.2.2
 				 * @since 3.6.5 added $type
 				 * @param {array} $request New remote request response
@@ -1343,7 +1343,7 @@ class Elasticsearch {
 				 * @param  {string} $type Type of request
 				 * @return {array} New request
 				 */
-				$request = apply_filters( 'ep_do_intercept_request', new WP_Error( 400, 'No Request defined' ), $query, $args, $failures, $type );
+				$request = apply_filters( 'eprobe_do_intercept_request', new WP_Error( 400, 'No Request defined' ), $query, $args, $failures, $type );
 			} else {
 				$request = wp_remote_request( $query['url'], $args ); // try the existing host to avoid unnecessary calls.
 			}
@@ -1359,13 +1359,13 @@ class Elasticsearch {
 				/**
 				 * Filter max number of times to attempt remote requests
 				 *
-				 * @hook ep_max_remote_request_tries
+				 * @hook eprobe_max_remote_request_tries
 				 * @param {int} $tries Number of times to try
 				 * @param  {path} $path Request path
 				 * @param  {args} $args Request arguments
 				 * @return {int} New number of tries
 				 */
-				if ( $failures >= apply_filters( 'ep_max_remote_request_tries', 1, $path, $args ) ) {
+				if ( $failures >= apply_filters( 'eprobe_max_remote_request_tries', 1, $path, $args ) ) {
 					break;
 				}
 			} else {
@@ -1384,11 +1384,11 @@ class Elasticsearch {
 			/**
 			 * Fires after Elasticsearch remote request
 			 *
-			 * @hook ep_remote_request
+			 * @hook eprobe_remote_request
 			 * @param {array}  $query Remote request arguments
 			 * @param {string} $type  Request type
 			 */
-			do_action( 'ep_remote_request', $query, $type );
+			do_action( 'eprobe_remote_request', $query, $type );
 
 			return $request;
 		}
@@ -1398,7 +1398,7 @@ class Elasticsearch {
 		$this->add_query_log( $query );
 
 		// This action is documented above
-		do_action( 'ep_remote_request', $query, $type );
+		do_action( 'eprobe_remote_request', $query, $type );
 
 		return $request;
 	}
@@ -1418,7 +1418,7 @@ class Elasticsearch {
 
 			return array(
 				'status' => false,
-				'msg'    => esc_html__( 'Invalid response from ElasticProbe server. Please contact your administrator.' ),
+				'msg'    => esc_html__( 'Invalid response from ElasticProbe server. Please contact your administrator.', 'elasticprobe' ),
 			);
 		} elseif (
 			isset( $response->error ) &&
@@ -1466,10 +1466,10 @@ class Elasticsearch {
 
 		// Get ES info from cache if available. If we are forcing, then skip cache check.
 		if ( ! $force ) {
-			if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
-				$es_info = get_site_transient( 'ep_es_info' );
+			if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
+				$es_info = get_site_transient( 'eprobe_es_info' );
 			} else {
-				$es_info = get_transient( 'ep_es_info' );
+				$es_info = get_transient( 'eprobe_es_info' );
 			}
 			if ( ! empty( $es_info ) ) {
 				$this->elasticsearch_version = $es_info['version'];
@@ -1575,29 +1575,29 @@ class Elasticsearch {
 		/**
 		 * Filter elasticsearch info cache expiration
 		 *
-		 * @hook ep_es_info_cache_expiration
+		 * @hook eprobe_es_info_cache_expiration
 		 * @param {int} $time Cache time in seconds
 		 * @return {int} New cache time
 		 */
-		if ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) {
+		if ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) {
 			set_site_transient(
-				'ep_es_info',
+				'eprobe_es_info',
 				array(
 					'version'     => $this->elasticsearch_version,
 					'plugins'     => $this->elasticsearch_plugins,
 					'server_type' => $this->server_type,
 				),
-				apply_filters( 'ep_es_info_cache_expiration', ( 5 * MINUTE_IN_SECONDS ) )
+				apply_filters( 'eprobe_es_info_cache_expiration', ( 5 * MINUTE_IN_SECONDS ) )
 			);
 		} else {
 			set_transient(
-				'ep_es_info',
+				'eprobe_es_info',
 				array(
 					'version'     => $this->elasticsearch_version,
 					'plugins'     => $this->elasticsearch_plugins,
 					'server_type' => $this->server_type,
 				),
-				apply_filters( 'ep_es_info_cache_expiration', ( 5 * MINUTE_IN_SECONDS ) )
+				apply_filters( 'eprobe_es_info_cache_expiration', ( 5 * MINUTE_IN_SECONDS ) )
 			);
 		}
 	}
@@ -1653,11 +1653,11 @@ class Elasticsearch {
 		/**
 		 * Filter get pipeline request arguments
 		 *
-		 * @hook ep_get_pipeline_args
+		 * @hook eprobe_get_pipeline_args
 		 * @param  {array} $request_args Request arguments
 		 * @return {array} New arguments
 		 */
-		$request = $this->remote_request( $path, apply_filters( 'ep_get_pipeline_args', $request_args ), [], 'get_pipeline' );
+		$request = $this->remote_request( $path, apply_filters( 'eprobe_get_pipeline_args', $request_args ), [], 'get_pipeline' );
 
 		if ( is_wp_error( $request ) ) {
 			return $request;
@@ -1698,11 +1698,11 @@ class Elasticsearch {
 		/**
 		 * Filter create pipeline request arguments
 		 *
-		 * @hook ep_create_pipeline_args
+		 * @hook eprobe_create_pipeline_args
 		 * @param  {array} $request_args Request arguments
 		 * @return {array} New arguments
 		 */
-		$request = $this->remote_request( $path, apply_filters( 'ep_create_pipeline_args', $request_args ), [], 'create_pipeline' );
+		$request = $this->remote_request( $path, apply_filters( 'eprobe_create_pipeline_args', $request_args ), [], 'create_pipeline' );
 
 		if ( is_wp_error( $request ) ) {
 			return $request;
@@ -1734,16 +1734,16 @@ class Elasticsearch {
 		/**
 		 * Filter the User Agent header when submitting requests to Elasticsearch.
 		 *
-		 * @hook ep_remote_request_add_ep_user_agent
+		 * @hook eprobe_remote_request_add_ep_user_agent
 		 * @param  {bool} $should_add_ep_version Whether the ElasticProbe version should be added to the User Agent string.
 		 * @return {bool} New value
 		 * @since  3.6.1
 		 */
-		if ( apply_filters( 'ep_remote_request_add_ep_user_agent', Utils\is_epio() ) ) {
+		if ( apply_filters( 'eprobe_remote_request_add_ep_user_agent', Utils\is_epio() ) ) {
 			$end_part   = '; ' . get_bloginfo( 'url' );
 			$user_agent = str_replace(
 				$end_part,
-				' (ElasticProbe/' . EP_VERSION . ')' . $end_part,
+				' (ElasticProbe/' . EPROBE_VERSION . ')' . $end_part,
 				$user_agent
 			);
 		}
@@ -1752,7 +1752,7 @@ class Elasticsearch {
 
 	/**
 	 * Query logging. Don't log anything to the queries property when
-	 * WP_DEBUG is not enabled. Calls action 'ep_add_query_log' if you
+	 * WP_DEBUG is not enabled. Calls action 'eprobe_add_query_log' if you
 	 * want to access the query outside of the ElasticProbe plugin. This
 	 * runs regardless of debug settings.
 	 *
@@ -1760,17 +1760,17 @@ class Elasticsearch {
 	 */
 	protected function add_query_log( $query ) {
 		$wp_debug    = defined( 'WP_DEBUG' ) && WP_DEBUG;
-		$wp_ep_debug = defined( 'WP_EP_DEBUG' ) && WP_EP_DEBUG;
+		$wp_ep_debug = defined( 'EPROBE_DEBUG' ) && EPROBE_DEBUG;
 
 		/**
 		 * Filter query logging. Don't log anything to the queries property when true.
 		 *
-		 * @hook ep_disable_query_logging
+		 * @hook eprobe_disable_query_logging
 		 * @param  {bool} Whether to log to the queries property. Defaults to false.
 		 * @return {bool} New value
 		 * @since  5.1.4
 		 */
-		$disable_query_logging = apply_filters( 'ep_disable_query_logging', false );
+		$disable_query_logging = apply_filters( 'eprobe_disable_query_logging', false );
 
 		if ( ! $disable_query_logging && ( $wp_debug || $wp_ep_debug ) ) {
 			$this->queries[] = $query;
@@ -1779,10 +1779,10 @@ class Elasticsearch {
 		/**
 		 * Fires after item is added to the query log
 		 *
-		 * @hook ep_add_query_log
+		 * @hook eprobe_add_query_log
 		 * @param {array} $query Query to log
 		 */
-		do_action( 'ep_add_query_log', $query );
+		do_action( 'eprobe_add_query_log', $query );
 	}
 
 	/**
@@ -1793,7 +1793,7 @@ class Elasticsearch {
 	 * @return array
 	 */
 	public function get_index_names( $status = 'active' ) {
-		$sites = ( defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK ) ?
+		$sites = ( defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ) ?
 			Utils\get_sites( 0, true ) :
 			array( array( 'blog_id' => get_current_blog_id() ) );
 

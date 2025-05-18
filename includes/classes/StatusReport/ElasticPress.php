@@ -72,7 +72,7 @@ class ElasticPress extends Report {
 
 		$fields['network_active'] = [
 			'label' => __( 'Network Active', 'elasticprobe' ),
-			'value' => is_multisite() && defined( 'EP_IS_NETWORK' ) && EP_IS_NETWORK,
+			'value' => is_multisite() && defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK,
 		];
 
 		return [
@@ -104,7 +104,7 @@ class ElasticPress extends Report {
 				__( 'Index Document Request Timeout (default: %s)', 'elasticprobe' ),
 				$default_index_document_timeout
 			),
-			'value' => apply_filters( 'ep_index_document_timeout', $default_index_document_timeout ),
+			'value' => apply_filters( 'eprobe_index_document_timeout', $default_index_document_timeout ),
 		];
 
 		$default_bulk_request_timeout   = 30;
@@ -114,7 +114,7 @@ class ElasticPress extends Report {
 				__( 'Default Requests Timeout (default: %s)', 'elasticprobe' ),
 				$default_bulk_request_timeout
 			),
-			'value' => apply_filters( 'bulk_request_timeout', $default_bulk_request_timeout ),
+			'value' => apply_filters( 'eprobe_bulk_request_timeout', $default_bulk_request_timeout ),
 		];
 
 		return [
