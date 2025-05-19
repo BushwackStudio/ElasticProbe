@@ -15,6 +15,15 @@ All notable changes to this project will be documented in this file, per [the Ke
 ### Developer
 -->
 
+## [0.3.1] - 2025-05-19
+
+### Changed
+* Plugin logo and icon
+
+### Fixed
+* A sanitization issue
+
+
 ## [0.3.0] - 2025-05-18
 
 ### Changed
@@ -63,6 +72,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 
 [Unreleased]: https://github.com/BushwackStudio/ElasticProbe/compare/trunk...dev
+[0.3.1]: https://github.com/BushwackStudio/ElasticProbe/compare/0.3.1...0.3.0
 [0.3.0]: https://github.com/BushwackStudio/ElasticProbe/compare/0.3.0...0.2.1
 [0.2.1]: https://github.com/BushwackStudio/ElasticProbe/compare/0.2.1...0.2.0
 [0.2.0]: https://github.com/BushwackStudio/ElasticProbe/compare/0.2.0...0.1.1
