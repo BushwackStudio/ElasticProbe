@@ -46,6 +46,13 @@ class Settings {
 	protected $prev_ep_bulk_setting = 350;
 
 	/**
+	 * Previous subscription ID
+	 *
+	 * @var string
+	 */
+	protected $prev_ep_sid = '';
+
+	/**
 	 * Initialize class
 	 */
 	public function setup() {
@@ -88,12 +95,13 @@ class Settings {
 		$this->prev_ep_host         = Utils\get_host();
 		$this->prev_ep_credentials  = Utils\get_epio_credentials();
 		$this->prev_ep_bulk_setting = Utils\get_option( 'eprobe_bulk_setting', 350 );
+		$this->prev_ep_sid          = Utils\get_subscription_id();
 
 		$language = sanitize_text_field( $post['eprobe_language'] );
 		Utils\update_option( 'eprobe_language', $language );
 
-		if ( isset( $post['eprobe_host'] ) ) {
-			$host = esc_url_raw( trim( $post['eprobe_host'] ) );
+		if ( isset( $post['ep_host'] ) ) {
+			$host = esc_url_raw( trim( $post['ep_host'] ) );
 			Utils\update_option( 'eprobe_host', $host );
 		}
 
@@ -119,7 +127,7 @@ class Settings {
 		if ( empty( $es_info['version'] ) ) {
 			add_action( 'admin_notices', [ $this, 'add_validation_notice' ] );
 
-			unset( $_POST['eprobe_host'] ); // Needed to prevent going to the next installation step
+			unset( $_POST['ep_host'] ); // Needed to prevent going to the next installation step
 			$this->reset_settings();
 		}
 	}
@@ -175,6 +183,7 @@ class Settings {
 		Utils\update_option( 'eprobe_host', $this->prev_ep_host );
 		Utils\update_option( 'eprobe_credentials', $this->prev_ep_credentials );
 		Utils\update_option( 'eprobe_bulk_setting', $this->prev_ep_bulk_setting );
+		Utils\update_option( 'eprobe_subscription_id', $this->prev_ep_sid );
 
 		\ElasticProbe\Elasticsearch::factory()->get_elasticsearch_info( true );
 	}

@@ -43,6 +43,7 @@ class EPROBE_Uninstaller {
 		'eprobe_language',
 		'eprobe_bulk_setting',
 		'eprobe_sync_history',
+		'eprobe_subscription_id',
 
 		'eprobe_weighting',
 
