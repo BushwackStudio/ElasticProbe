@@ -425,7 +425,7 @@ class Synonyms {
 		$update  = false;
 
 		if ( wp_verify_nonce( $nonce, $this->get_nonce_action() ) ) {
-			$synonyms = filter_input( INPUT_POST, $this->get_synonym_field(), FILTER_CALLBACK, [ 'options' => 'wp_strip_all_tags' ] );
+			$synonyms = filter_input( INPUT_POST, $this->get_synonym_field(), FILTER_SANITIZE_SPECIAL_CHARS | FILTER_FLAG_STRIP_BACKTICK );
 			$mode     = filter_input( INPUT_POST, 'synonyms_editor_mode', FILTER_SANITIZE_SPECIAL_CHARS );
 			$content  = trim( sanitize_textarea_field( $synonyms ) );
 
