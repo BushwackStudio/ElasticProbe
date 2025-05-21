@@ -312,8 +312,11 @@ class QueryLogger {
 			$result = json_decode( wp_remote_retrieve_body( $query['request'] ), true );
 		}
 
+		// phpcs:ignore WordPress.Security.NonceVerification
+		$qargs = array_map( 'sanitize_text_field', $_GET ?? [] );
+
 		$formatted_log = [
-			'wp_url'      => home_url( add_query_arg( [ $_GET ], $wp->request ) ), // phpcs:ignore WordPress.Security.NonceVerification
+			'wp_url'      => home_url( add_query_arg( [ $qargs ], $wp->request ) ),
 			'es_req'      => $query['args']['method'] . ' ' . $query['url'],
 			'request_id'  => $request_id ?? '',
 			'timestamp'   => current_time( 'timestamp' ),
