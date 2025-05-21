@@ -468,7 +468,8 @@ class Facets extends Feature {
 		}
 
 		foreach ( $_GET as $key => $value ) { // phpcs:ignore WordPress.Security.NonceVerification
-			$key = sanitize_key( $key );
+			$key   = sanitize_key( $key );
+			$value = sanitize_text_field( $value );
 
 			foreach ( $filter_names as $filter_name => $type_obj ) {
 				if ( 0 === strpos( $key, $filter_name ) ) {
