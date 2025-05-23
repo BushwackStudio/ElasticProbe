@@ -22,7 +22,7 @@
     <ini name="error_reporting" value="24575"/>
   </php>
   <testsuites>
-    <testsuite name="elasticpress">
+    <testsuite name="elasticprobe">
       <directory prefix="Test" suffix=".php">./tests/php/</directory>
     </testsuite>
   </testsuites>

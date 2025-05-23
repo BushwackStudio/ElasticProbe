@@ -49,7 +49,7 @@ class ProtectedContent extends Feature {
 		$this->summary = '<p>' . __( 'Syncs unpublished content — including private, draft, and scheduled posts — improving load times in places like the administrative dashboard where WordPress needs to include protected content in a query.', 'elasticprobe' ) . '</p>' .
 		'<p><em>' . __( 'We recommend using a secured Elasticsearch setup, such as WPProbe.com, to prevent potential exposure of content not intended for the public.', 'elasticprobe' ) . '</em></p>';
 
-		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#protected-content', 'elasticprobe' );
+		$this->docs_url = __( 'https://wpprobe.com/resources/protected-content/', 'elasticprobe' );
 	}
 
 	/**

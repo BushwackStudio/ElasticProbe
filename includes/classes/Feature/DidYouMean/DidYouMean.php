@@ -43,9 +43,9 @@ class DidYouMean extends Feature {
 	public function set_i18n_strings(): void {
 		$this->title = esc_html__( 'Did You Mean', 'elasticprobe' );
 
-		$this->summary = '<p>' . __( '"Did You Mean" search feature provides alternative suggestions for misspelled or ambiguous search queries, enhancing search accuracy and user experience. To display suggestions in your theme, please follow <a href="https://www.elasticpress.io/documentation/article/did-you-mean/">this tutorial</a>.', 'elasticprobe' ) . '</p>';
+		$this->summary = '<p>' . __( '"Did You Mean" search feature provides alternative suggestions for misspelled or ambiguous search queries, enhancing search accuracy and user experience. To display suggestions in your theme, please follow <a href="https://wpprobe.com/resources/did-you-mean/">this tutorial</a>.', 'elasticprobe' ) . '</p>';
 
-		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/did-you-mean/', 'elasticprobe' );
+		$this->docs_url = __( 'https://wpprobe.com/resources/did-you-mean/', 'elasticprobe' );
 	}
 
 	/**
@@ -74,7 +74,7 @@ class DidYouMean extends Feature {
 				sprintf(
 					/* translators: Tutorial URL */
 					__( '"Did You Mean" search feature provides alternative suggestions for misspelled or ambiguous search queries, enhancing search accuracy and user experience. To display suggestions in your theme, please follow <a href="%s">this tutorial</a>.', 'elasticprobe' ),
-					'https://www.elasticpress.io/documentation/article/did-you-mean/'
+					'https://wpprobe.com/resources/did-you-mean/'
 				)
 			);
 			?>

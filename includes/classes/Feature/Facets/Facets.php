@@ -108,7 +108,7 @@ class Facets extends Feature {
 			)
 		) . '</p>';
 
-		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#filters', 'elasticprobe' );
+		$this->docs_url = __( 'https://wpprobe.com/uncategorized/search-filter/', 'elasticprobe' );
 	}
 
 	/**
