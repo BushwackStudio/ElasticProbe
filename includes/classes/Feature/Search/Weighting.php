@@ -364,7 +364,7 @@ class Weighting {
 
 	/**
 	 * Handles processing the new weighting values and saving them
-	 * to the WPProbe.com service.
+	 * to the ElasticProbe.com service.
 	 *
 	 * @deprecated
 	 */

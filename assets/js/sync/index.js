@@ -42,7 +42,7 @@ const Context = createContext();
  * @param {Array} props.defaultSyncHistory Sync history.
  * @param {Array} props.defaultSyncTrigger Sync trigger.
  * @param {object|null} props.indexMeta Details of a sync in progress.
- * @param {boolean} props.isEpio Whether WPProbe.com is in use.
+ * @param {boolean} props.isEpio Whether ElasticProbe.com is in use.
  * @param {string} props.nonce WordPress nonce.
  * @returns {WPElement} App component.
  */
@@ -260,13 +260,13 @@ export const SyncProvider = ({
 
 			const message = isDeleting
 				? sprintf(
-						/* translators: %s: Index type. WPProbe.com or Elasticsearch. */
+						/* translators: %s: Index type. ElasticProbe.com or Elasticsearch. */
 						__(
 							'Your indexing process has been stopped by WP-CLI and your %s index could be missing content. To restart indexing, please click the Start button or use WP-CLI commands to perform the reindex. Please note that search results could be incorrect or incomplete until the reindex finishes.',
 							'elasticprobe',
 						),
 						isEpio
-							? __('WPProbe.com', 'elasticprobe')
+							? __('ElasticProbe.com', 'elasticprobe')
 							: __('Elasticsearch', 'elasticprobe'),
 					)
 				: __('Sync interrupted by WP-CLI command.', 'elasticprobe');

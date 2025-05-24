@@ -1,1 +1,0 @@
-This content was moved and is currently available at [https://www.elasticpress.io/getting-started/](https://www.elasticpress.io/getting-started/).

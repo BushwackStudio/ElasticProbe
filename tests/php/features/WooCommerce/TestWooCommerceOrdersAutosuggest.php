@@ -436,7 +436,7 @@ class TestWooCommerceOrdersAutosuggest extends BaseTestCase {
 	 */
 	public function test_get_setting_help_message_feature_not_available() {
 		if ( ElasticProbe\Utils\is_epio() ) {
-			$this->markTestSkipped( 'This test is not applicable for WPProbe.com' );
+			$this->markTestSkipped( 'This test is not applicable for ElasticProbe.com' );
 		}
 
 		$new_settings_schema = $this->orders_autosuggest->add_settings_schema( [] );

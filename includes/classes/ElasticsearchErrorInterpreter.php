@@ -88,9 +88,9 @@ class ElasticsearchErrorInterpreter {
 			return [
 				'error'    => 'Limit of total fields [???] in index [???] has been exceeded',
 				'solution' => sprintf(
-					/* translators: Elasticsearch or WPProbe.com; 2. Link to article; 3. Link to article */
+					/* translators: Elasticsearch or ElasticProbe.com; 2. Link to article; 3. Link to article */
 					__( 'Your website content has more public custom fields than %1$s is able to store. Check our articles about <a href="%2$s">Elasticsearch field limitations</a> and <a href="%3$s">how to index just the custom fields you need</a> and sync again.', 'elasticprobe' ),
-					Utils\is_epio() ? __( 'WPProbe.com', 'elasticprobe' ) : __( 'Elasticsearch', 'elasticprobe' ),
+					Utils\is_epio() ? __( 'ElasticProbe.com', 'elasticprobe' ) : __( 'Elasticsearch', 'elasticprobe' ),
 					'https://www.elasticpress.io/documentation/article/i-get-the-error-limit-of-total-fields-in-index-has-been-exceeded/',
 					'https://www.elasticpress.io/documentation/article/how-to-exclude-metadata-from-indexing/'
 				),
@@ -109,7 +109,7 @@ class ElasticsearchErrorInterpreter {
 				return [
 					'error'    => $error,
 					'solution' => sprintf(
-						/* translators: WPProbe.com Article URL */
+						/* translators: ElasticProbe.com Article URL */
 						__( 'Please refer to <a href="%s">this article</a> outlining how to address this issue.', 'elasticprobe' ),
 						'https://www.elasticpress.io/documentation/article/how-to-fix-the-you-have-reached-the-limit-of-indices-of-your-plan-and-it-was-not-possible-to-create-a-new-index-error/'
 					),
@@ -118,7 +118,7 @@ class ElasticsearchErrorInterpreter {
 			return [
 				'error'    => $error,
 				'solution' => sprintf(
-					/* translators: WPProbe.com My Account URL */
+					/* translators: ElasticProbe.com My Account URL */
 					__( 'We did not recognize this error. Please consider opening a <a href="%s">GitHub Issue</a> so we can add it to our list of supported errors and troubleshoot further.', 'elasticprobe' ),
 					'https://github.com/BushwackStudio/ElasticProbe/issues/new/choose'
 				),

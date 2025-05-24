@@ -74,7 +74,7 @@ class HealthCheckElasticsearch extends HealthCheck {
 			);
 
 			if ( Utils\is_epio() ) {
-				$result['description'] = esc_html__( 'Check if your credentials to WPProbe.com host are correct.', 'elasticprobe' );
+				$result['description'] = esc_html__( 'Check if your credentials to ElasticProbe.com host are correct.', 'elasticprobe' );
 			} else {
 				$result['description'] = esc_html__( 'Check if your Elasticsearch host URL is correct and you have the right access to the host.', 'elasticprobe' );
 			}

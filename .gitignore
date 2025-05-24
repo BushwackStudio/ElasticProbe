@@ -12,7 +12,5 @@ screenshots
 .DS_Store
 *.code-workspace
 
-elasticpress.zip
-wpprobe.zip
 elasticprobe.zip
 php_test_results.htm

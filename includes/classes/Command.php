@@ -729,9 +729,9 @@ class Command extends WP_CLI_Command {
 
 		if ( $setup_option ) {
 			$message = sprintf(
-				/* translators: WPProbe.com or Elasticsearch */
+				/* translators: ElasticProbe.com or Elasticsearch */
 				esc_html__( 'Syncing with the --setup option will delete your existing index in %s. Are you sure you want to delete your Elasticsearch index', 'elasticprobe' ),
-				Utils\is_epio() ? 'WPProbe.com' : 'Elasticsearch'
+				Utils\is_epio() ? 'ElasticProbe.com' : 'Elasticsearch'
 			);
 			WP_CLI::confirm( $message, $assoc_args );
 		}

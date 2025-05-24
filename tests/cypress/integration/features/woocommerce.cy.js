@@ -389,7 +389,7 @@ describe('WooCommerce Feature', { tags: '@slow' }, () => {
 			cy.visitAdminPage('edit.php?post_type=shop_order');
 
 			/**
-			 * The combobox will not render if not using WPProbe.com.
+			 * The combobox will not render if not using ElasticProbe.com.
 			 */
 			if (!isEpIo) {
 				cy.get('#posts-filter .ep-combobox__input').should('not.exist');

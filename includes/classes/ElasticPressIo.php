@@ -1,6 +1,6 @@
 <?php
 /**
- * Class for interacting with WPProbe.com
+ * Class for interacting with ElasticProbe.com
  *
  * @since 4.5.0
  * @package elasticprobe
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class ElasticPressIo {
 	/**
-	 * Name of the transient that stores WPProbe.com messages
+	 * Name of the transient that stores ElasticProbe.com messages
 	 */
 	const MESSAGES_TRANSIENT_NAME = 'eprobe_elasticpress_io_messages';
 
@@ -39,10 +39,10 @@ class ElasticPressIo {
 	}
 
 	/**
-	 * Get messages from WPProbe.com.
+	 * Get messages from ElasticProbe.com.
 	 *
 	 * @param bool $skip_cache Whether to fetch the API or use the cached messages. Defaults to false, i.e., use cache.
-	 * @return array WPProbe.com messages.
+	 * @return array ElasticProbe.com messages.
 	 */
 	public function get_endpoint_messages( $skip_cache = false ): array {
 		if ( ! Utils\is_epio() ) {

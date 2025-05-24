@@ -632,7 +632,7 @@ class Autosuggest extends Feature {
 
 		if ( ! Utils\is_epio() ) {
 			$status->code      = 1;
-			$status->message[] = wp_kses_post( __( "You aren't using <a href='https://wpprobe.com'>WPProbe.com</a> so we can't be sure your host is properly secured. Autosuggest requires a publicly accessible endpoint, which can expose private content and allow data modification if improperly configured.", 'elasticprobe' ) );
+			$status->message[] = wp_kses_post( __( "You aren't using <a href='https://elasticprobe.com'>ElasticProbe.com</a> so we can't be sure your host is properly secured. Autosuggest requires a publicly accessible endpoint, which can expose private content and allow data modification if improperly configured.", 'elasticprobe' ) );
 		}
 
 		return $status;
@@ -687,7 +687,7 @@ class Autosuggest extends Feature {
 	}
 
 	/**
-	 * Send the allowed parameters for autosuggest to WPProbe.com.
+	 * Send the allowed parameters for autosuggest to ElasticProbe.com.
 	 */
 	public function epio_send_autosuggest_allowed() {
 		if ( empty( $_REQUEST['ep_epio_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_REQUEST['ep_epio_nonce'] ), 'ep-epio-set-autosuggest' ) ) {
@@ -762,7 +762,7 @@ class Autosuggest extends Feature {
 	}
 
 	/**
-	 * Retrieve the allowed parameters for autosuggest from WPProbe.com.
+	 * Retrieve the allowed parameters for autosuggest from ElasticProbe.com.
 	 *
 	 * @return array
 	 */
@@ -776,7 +776,7 @@ class Autosuggest extends Feature {
 	}
 
 	/**
-	 * Output the current allowed parameters for autosuggest stored in WPProbe.com.
+	 * Output the current allowed parameters for autosuggest stored in ElasticProbe.com.
 	 */
 	public function epio_allowed_parameters() {
 		global $wp_version;
@@ -790,13 +790,13 @@ class Autosuggest extends Feature {
 			<div class="field-name status"><?php esc_html_e( 'Connection', 'elasticprobe' ); ?></div>
 			<div class="input-wrap">
 			<?php
-			$epio_link                = 'https://wpprobe.com';
+			$epio_link                = 'https://elasticprobe.com';
 			$epio_autosuggest_kb_link = 'https://www.elasticpress.io/documentation/article/elasticpress-io-autosuggest/';
 			$status_report_link       = defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ? network_admin_url( 'admin.php?page=elasticprobe-status-report' ) : admin_url( 'admin.php?page=elasticprobe-status-report' );
 
 			printf(
-				/* translators: 1: <a> tag (WPProbe.com); 2. </a>; 3: <a> tag (KB article); 4. </a>; 5: <a> tag (Site Health Debug Section); 6. </a>; */
-				esc_html__( 'You are directly connected to %1$sWPProbe.com%2$s, ensuring the most performant Autosuggest experience. %3$sLearn more about what this means%4$s or %5$sclick here for debug information%6$s.', 'elasticprobe' ),
+				/* translators: 1: <a> tag (ElasticProbe.com); 2. </a>; 3: <a> tag (KB article); 4. </a>; 5: <a> tag (Site Health Debug Section); 6. </a>; */
+				esc_html__( 'You are directly connected to %1$sElasticProbe.com%2$s, ensuring the most performant Autosuggest experience. %3$sLearn more about what this means%4$s or %5$sclick here for debug information%6$s.', 'elasticprobe' ),
 				'<a href="' . esc_url( $epio_link ) . '">',
 				'</a>',
 				'<a href="' . esc_url( $epio_autosuggest_kb_link ) . '">',
@@ -863,15 +863,15 @@ class Autosuggest extends Feature {
 			return;
 		}
 
-		$epio_link                = 'https://wpprobe.com';
+		$epio_link                = 'https://elasticprobe.com';
 		$epio_autosuggest_kb_link = 'https://www.elasticpress.io/documentation/article/elasticpress-io-autosuggest/';
 		$status_report_link       = defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ? network_admin_url( 'admin.php?page=elasticprobe-status-report' ) : admin_url( 'admin.php?page=elasticprobe-status-report' );
 
 		$this->settings_schema[] = [
 			'key'   => 'epio',
 			'label' => sprintf(
-				/* translators: 1: <a> tag (WPProbe.com); 2. </a>; 3: <a> tag (KB article); 4. </a>; 5: <a> tag (Site Health Debug Section); 6. </a>; */
-				__( 'You are directly connected to %1$sWPProbe.com%2$s, ensuring the most performant Autosuggest experience. %3$sLearn more about what this means%4$s or %5$sclick here for debug information%6$s.', 'elasticprobe' ),
+				/* translators: 1: <a> tag (ElasticProbe.com); 2. </a>; 3: <a> tag (KB article); 4. </a>; 5: <a> tag (Site Health Debug Section); 6. </a>; */
+				__( 'You are directly connected to %1$sElasticProbe.com%2$s, ensuring the most performant Autosuggest experience. %3$sLearn more about what this means%4$s or %5$sclick here for debug information%6$s.', 'elasticprobe' ),
 				'<a href="' . esc_url( $epio_link ) . '">',
 				'</a>',
 				'<a href="' . esc_url( $epio_autosuggest_kb_link ) . '">',

@@ -242,15 +242,15 @@ describe('WP-CLI Commands', { tags: '@slow' }, () => {
 
 	context('multisite parameters', () => {
 		before(() => {
-			cy.activatePlugin('elasticpress', 'wpCli', 'network');
+			cy.activatePlugin('elasticprobe', 'wpCli', 'network');
 			cy.wpCli('elasticprobe get-indices').then((wpCliResponse) => {
 				indexAllSitesNames = JSON.parse(wpCliResponse.stdout);
 			});
 		});
 
 		after(() => {
-			cy.deactivatePlugin('elasticpress', 'wpCli', 'network');
-			cy.activatePlugin('elasticpress', 'wpCli');
+			cy.deactivatePlugin('elasticprobe', 'wpCli', 'network');
+			cy.activatePlugin('elasticprobe', 'wpCli');
 		});
 
 		it('Can index all blogs in network if user specifies --network-wide argument', () => {

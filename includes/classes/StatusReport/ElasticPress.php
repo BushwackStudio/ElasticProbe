@@ -51,7 +51,7 @@ class ElasticPress extends Report {
 		$fields = [];
 
 		$fields['host'] = [
-			'label' => $is_epio ? __( 'WPProbe.com Host URL', 'elasticprobe' ) : __( 'Elasticsearch Host URL', 'elasticprobe' ),
+			'label' => $is_epio ? __( 'ElasticProbe.com Host URL', 'elasticprobe' ) : __( 'Elasticsearch Host URL', 'elasticprobe' ),
 			'value' => Utils\get_host(),
 		];
 

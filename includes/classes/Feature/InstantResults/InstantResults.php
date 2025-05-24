@@ -105,7 +105,7 @@ class InstantResults extends Feature {
 		$this->short_title = esc_html__( 'Instant Results', 'elasticprobe' );
 
 		$this->summary = '<p>' . __( 'WordPress search forms will display results instantly. When the search query is submitted, a modal will open that populates results by querying ElasticProbe directly, bypassing WordPress. As the user refines their search, results are refreshed.', 'elasticprobe' ) . '</p>' .
-		'<p>' . __( 'Requires an <a href="https://www.wpprobe.com/" target="_blank">WPProbe.com plan</a> or a custom proxy to function.', 'elasticprobe' ) . '</p>';
+		'<p>' . __( 'Requires an <a href="https://www.elasticprobe.com/" target="_blank">ElasticProbe.com plan</a> or a custom proxy to function.', 'elasticprobe' ) . '</p>';
 
 		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#instant-results', 'elasticprobe' );
 	}
@@ -120,12 +120,12 @@ class InstantResults extends Feature {
 		<p>
 			<?php
 			printf(
-				/* translators: %s: WPProbe.com link. */
+				/* translators: %s: ElasticProbe.com link. */
 				esc_html__( 'WordPress search forms will display results instantly. When the search query is submitted, a modal will open that populates results by querying ElasticProbe directly, bypassing WordPress. As the user refines their search, results are refreshed. Requires an %s or a custom proxy to function.', 'elasticprobe' ),
 				sprintf(
 					'<a href="%1$s" target="_blank">%2$s</a>',
-					'https://www.wpprobe.com/',
-					esc_html__( 'WPProbe.com plan', 'elasticprobe' )
+					'https://www.elasticprobe.com/',
+					esc_html__( 'ElasticProbe.com plan', 'elasticprobe' )
 				)
 			);
 			?>
@@ -227,7 +227,7 @@ class InstantResults extends Feature {
 			$status->code = 1;
 
 			/**
-			 * Whether the feature is available for non WPProbe.com customers.
+			 * Whether the feature is available for non ElasticProbe.com customers.
 			 *
 			 * Installations using self-hosted Elasticsearch will need to implement an API for
 			 * handling search requests before making the feature available.
@@ -240,7 +240,7 @@ class InstantResults extends Feature {
 			$status->code      = 1;
 			$status->message[] = esc_html__( 'You are using a custom proxy. Make sure you implement all security measures needed.', 'elasticprobe' );
 		} else {
-			$status->message[] = wp_kses_post( __( "To use this feature you need to be an <a href='https://wpprobe.com'>WPProbe.com</a> customer or implement a <a href='https://github.com/10up/elasticpress-proxy'>custom proxy</a>.", 'elasticprobe' ) );
+			$status->message[] = wp_kses_post( __( "To use this feature you need to be an <a href='https://elasticprobe.com'>ElasticProbe.com</a> customer or implement a <a href='https://github.com/10up/elasticpress-proxy'>custom proxy</a>.", 'elasticprobe' ) );
 		}
 
 		/**
@@ -378,7 +378,7 @@ class InstantResults extends Feature {
 	}
 
 	/**
-	 * Save or delete the search template on WPProbe.com based on whether
+	 * Save or delete the search template on ElasticProbe.com based on whether
 	 * the Instant Results feature is being activated or deactivated.
 	 *
 	 * @param string $feature  Feature slug
@@ -420,7 +420,7 @@ class InstantResults extends Feature {
 	}
 
 	/**
-	 * Save the search template to WPProbe.com.
+	 * Save the search template to ElasticProbe.com.
 	 *
 	 * @return void
 	 */
@@ -449,7 +449,7 @@ class InstantResults extends Feature {
 	}
 
 	/**
-	 * Delete the search template from WPProbe.com.
+	 * Delete the search template from ElasticProbe.com.
 	 *
 	 * @return void
 	 *
@@ -477,7 +477,7 @@ class InstantResults extends Feature {
 	}
 
 	/**
-	 * Get the saved search template from WPProbe.com.
+	 * Get the saved search template from ElasticProbe.com.
 	 *
 	 * @return string|WP_Error Search template if found, WP_Error on error.
 	 *
@@ -500,7 +500,7 @@ class InstantResults extends Feature {
 	 * Generate a search template.
 	 *
 	 * A search template is the JSON for an Elasticsearch query with a
-	 * placeholder search term. The template is sent to WPProbe.com where
+	 * placeholder search term. The template is sent to ElasticProbe.com where
 	 * it's used to make Elasticsearch queries using search terms sent from
 	 * the front end.
 	 *

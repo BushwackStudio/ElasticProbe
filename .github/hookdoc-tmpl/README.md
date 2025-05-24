@@ -11,8 +11,8 @@ ElasticProbe, a fast and flexible search and query engine for WordPress, enables
 
 **Upgrade Notice:** For the full list of versions that need re-syncing, check the `check_reindex_needed()` method in the [ElasticProbe\Upgrades](https://github.com/BushwackStudio/ElasticProbe/blob/dev/includes/classes/Upgrades.php) class.
 
-For more information about the ElasticProbe plugin and WPProbe.com service, please visit the [website](https://wpprobe.com).
+For more information about the ElasticProbe plugin and ElasticProbe.com service, please visit the [website](https://elasticprobe.com).
 
 To report an issue with ElasticProbe or contribute back to the project, please visit the [GitHub repository](https://github.com/BushwackStudio/ElasticProbe/).
 
-<a href="https://wpprobe.com/contact/" class="banner">Contact us</a>
+<a href="https://elasticprobe.com/contact/" class="banner">Contact us</a>

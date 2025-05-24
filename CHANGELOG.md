@@ -15,6 +15,11 @@ All notable changes to this project will be documented in this file, per [the Ke
 ### Developer
 -->
 
+## [1.0.0] - 2025-05-24
+
+### Changed
+* Domain name to elasticprobe.com
+
 ## [0.3.2] - 2025-05-21
 
 ### Fixed
@@ -78,6 +83,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 
 [Unreleased]: https://github.com/BushwackStudio/ElasticProbe/compare/trunk...dev
+[1.0.0]: https://github.com/BushwackStudio/ElasticProbe/compare/1.0.0...0.3.2
 [0.3.2]: https://github.com/BushwackStudio/ElasticProbe/compare/0.3.2...0.3.1
 [0.3.1]: https://github.com/BushwackStudio/ElasticProbe/compare/0.3.1...0.3.0
 [0.3.0]: https://github.com/BushwackStudio/ElasticProbe/compare/0.3.0...0.2.1

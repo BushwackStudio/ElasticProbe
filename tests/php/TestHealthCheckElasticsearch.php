@@ -102,21 +102,21 @@ class TestHealthCheckElasticsearch extends WP_Ajax_UnitTestCase {
 		$this->assertEquals( 'ElasticProbe', $response['data']['badge']['label'] );
 		$this->assertEquals( 'red', $response['data']['badge']['color'] );
 		if ( is_epio() ) {
-			$this->assertEquals( 'Check if your credentials to WPProbe.com host are correct.', $response['data']['description'] );
+			$this->assertEquals( 'Check if your credentials to ElasticProbe.com host are correct.', $response['data']['description'] );
 		} else {
 			$this->assertEquals( 'Check if your Elasticsearch host URL is correct and you have the right access to the host.', $response['data']['description'] );
 		}
 	}
 
 	/**
-	 * Test ajax output when wpprobe.com host is not valid.
+	 * Test ajax output when ElasticProbe.com host is not valid.
 	 */
 	public function testAjaxOutPutWhenEpioHostIsNotValid() {
 		$admin_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
 		wp_set_current_user( $admin_id );
 
 		$eprobe_host = function () {
-			return 'wpprobe.com/random-string';
+			return 'elasticprobe.com/random-string';
 		};
 		add_filter( 'eprobe_host', $eprobe_host );
 		add_filter( 'eprobe_elasticsearch_version', '__return_false' );
@@ -135,7 +135,7 @@ class TestHealthCheckElasticsearch extends WP_Ajax_UnitTestCase {
 		$this->assertEquals( 'critical', $response['data']['status'] );
 		$this->assertEquals( 'ElasticProbe', $response['data']['badge']['label'] );
 		$this->assertEquals( 'red', $response['data']['badge']['color'] );
-		$this->assertEquals( 'Check if your credentials to WPProbe.com host are correct.', $response['data']['description'] );
+		$this->assertEquals( 'Check if your credentials to ElasticProbe.com host are correct.', $response['data']['description'] );
 
 		remove_filter( 'eprobe_host', $eprobe_host );
 		remove_filter( 'eprobe_elasticsearch_version', '__return_false' );

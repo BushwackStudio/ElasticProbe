@@ -51,8 +51,8 @@ describe('WordPress can perform standard ElasticProbe actions', { tags: '@slow' 
 		cy.login();
 
 		cy.wpCli('eval "echo ElasticProbe\\Utils\\get_host();"').then((epHost) => {
-			// Nothing needs to be done if WPProbe.com.
-			if (epHost.stdout.match(/wpprobe\.com/)) {
+			// Nothing needs to be done if ElasticProbe.com.
+			if (epHost.stdout.match(/elasticprobe\.com/)) {
 				return;
 			}
 
@@ -74,8 +74,8 @@ describe('WordPress can perform standard ElasticProbe actions', { tags: '@slow' 
 		cy.login();
 
 		cy.wpCli('eval "echo ElasticProbe\\Utils\\get_host();"').then((epHost) => {
-			// Nothing needs to be done if WPProbe.com.
-			if (epHost.stdout.match(/wpprobe\.com/)) {
+			// Nothing needs to be done if ElasticProbe.com.
+			if (epHost.stdout.match(/elasticprobe\.com/)) {
 				return;
 			}
 

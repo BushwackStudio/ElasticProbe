@@ -109,7 +109,7 @@ jobs:
         ./bin/wp-env-cli tests-wordpress "wp --allow-root plugin uninstall ep-delete"
 
   cypress_elasticprobe:
-    name: WPProbe.com - ${{ matrix.core.name }} (${{ matrix.testGroup }})
+    name: ElasticProbe.com - ${{ matrix.core.name }} (${{ matrix.testGroup }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false

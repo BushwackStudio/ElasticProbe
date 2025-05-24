@@ -19,9 +19,9 @@ const init = () => {
 	let activeTab = document.querySelector('.nav-tab-active');
 
 	/**
-	 * Is the current tab the WPProbe.com tab?
+	 * Is the current tab the ElasticProbe.com tab?
 	 *
-	 * @returns {boolean} Whether the current tab is for WPProbe.com.
+	 * @returns {boolean} Whether the current tab is for ElasticProbe.com.
 	 */
 	const isEpio = () => {
 		return activeTab && 'epio' in activeTab.dataset;
@@ -71,7 +71,7 @@ const init = () => {
 		 * Update field label.
 		 */
 		hostLabel.innerText = isEpio()
-			? __('WPProbe.com Host URL', 'elasticprobe')
+			? __('ElasticProbe.com Host URL', 'elasticprobe')
 			: __('Elasticsearch Host URL', 'elasticprobe');
 
 		/**
@@ -90,7 +90,7 @@ const init = () => {
 		 * Update host field description.
 		 */
 		hostDescription.innerText = isEpio()
-			? __('Plug in your WPProbe.com server here!', 'elasticprobe')
+			? __('Plug in your ElasticProbe.com server here!', 'elasticprobe')
 			: __('Plug in your Elasticsearch server here!', 'elasticprobe');
 	};
 

@@ -70,7 +70,7 @@ class SearchOrdering extends Feature {
 
 		$this->summary = '<p>' . __( 'Selected posts will be inserted into search results in the specified position.', 'elasticprobe' ) . '</p>';
 
-		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#custom-search-results', 'elasticprobe' );
+		$this->docs_url = __( 'https://elasticprobe.com/resources/custom-search-results/', 'elasticprobe' );
 	}
 
 	/**
