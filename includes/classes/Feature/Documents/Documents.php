@@ -315,7 +315,7 @@ class Documents extends Feature {
 		// Ingest attachment plugin is required for this feature.
 		if ( empty( $plugins ) || empty( $plugins['ingest-attachment'] ) ) {
 			$status->code      = 2;
-			$status->message[] = __( 'The <a href="https://www.elastic.co/guide/en/elasticsearch/plugins/master/ingest-attachment.html">Ingest Attachment plugin</a> for Elasticsearch is not installed. To get the most out of ElasticProbe, without the hassle of Elasticsearch management, check out <a href="https://wpprobe.com">WPProbe.com</a> hosting.', 'elasticprobe' );
+			$status->message[] = __( 'The <a href="https://www.elastic.co/guide/en/elasticsearch/plugins/master/ingest-attachment.html">Ingest Attachment plugin</a> for Elasticsearch is not installed. To get the most out of ElasticProbe, without the hassle of Elasticsearch management, check out <a href="https://elasticprobe.com">ElasticProbe.com</a> hosting.', 'elasticprobe' );
 		} else {
 			$status->code      = 1;
 			$status->message[] = __( 'This feature modifies the default user experience for your visitors by adding popular document file types to search results. All supported documents (PDFs and Microsoft Office) uploaded to your media library will appear in search results.', 'elasticprobe' );

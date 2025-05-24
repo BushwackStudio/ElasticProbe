@@ -41,8 +41,8 @@ $bulk_setting = Utils\get_option( 'eprobe_bulk_setting', 350 );
 			<?php if ( ! $wpconfig ) : ?>
 				<h2 class="nav-tab-wrapper ep-credentials-tabs">
 					<button class="nav-tab ep-credentials-tab <?php if ( ! $host || $is_epio ) { ?>nav-tab-active initial<?php } ?>" data-epio type="button">
-						<img src="<?php echo esc_url( plugins_url( '/images/logo-icon.svg', dirname( __DIR__ ) ) ); ?>" width="16" height="16" alt="WPProbe.com" />
-						<span>WPProbe.com</span>
+						<img src="<?php echo esc_url( plugins_url( '/images/logo-icon.svg', dirname( __DIR__ ) ) ); ?>" width="16" height="16" alt="ElasticProbe.com" />
+						<span>ElasticProbe.com</span>
 					</button>
 					<button class="nav-tab ep-credentials-tab <?php if ( $host && ! $is_epio ) { ?>nav-tab-active initial<?php } ?>" type="button">
 						<span>Third-Party/Self-Hosted</span>
@@ -53,7 +53,7 @@ $bulk_setting = Utils\get_option( 'eprobe_bulk_setting', 350 );
 			<fieldset class="<?php if ( $wpconfig ) { ?>predefined<?php } ?>">
 				<?php if ( $is_epio || ! $wpconfig ) : ?>
 					<p class="ep-legend ep-additional-fields <?php if ( $host && ! $is_epio ) { ?>hidden<?php } ?>" aria-hidden="<?php if ( $host && ! $is_epio ) { ?>true<?php } else { ?>false<?php } ?>">
-						<a href="https://wpprobe.com/" target="_blank" rel="noreferrer noopener">WPProbe.com</a> is a hosted Elasticsearch service built for ElasticProbe.
+						<a href="https://elasticprobe.com/" target="_blank" rel="noreferrer noopener">ElasticProbe.com</a> is a hosted Elasticsearch service built for ElasticProbe.
 					</p>
 				<?php endif; ?>
 				<table class="form-table">
@@ -62,7 +62,7 @@ $bulk_setting = Utils\get_option( 'eprobe_bulk_setting', 350 );
 							<th scope="row">
 								<label for="ep_host">
 									<?php if ( $is_epio ) : ?>
-										<?php esc_html_e( 'WPProbe.com Host URL', 'elasticprobe' ); ?>
+										<?php esc_html_e( 'ElasticProbe.com Host URL', 'elasticprobe' ); ?>
 									<?php else : ?>
 										<?php esc_html_e( 'Elasticsearch Host URL', 'elasticprobe' ); ?>
 									<?php endif; ?>
@@ -86,7 +86,7 @@ $bulk_setting = Utils\get_option( 'eprobe_bulk_setting', 350 );
 									<?php if ( $wpconfig ) : ?>
 										<p class="description ep-host-legend"><?php esc_html_e( 'Host already defined in wp-config.php.', 'elasticprobe' ); ?></p>
 									<?php elseif ( $is_epio ) : ?>
-										<p class="description ep-host-legend"><?php esc_html_e( 'Plug in your WPProbe.com server here.', 'elasticprobe' ); ?></p>
+										<p class="description ep-host-legend"><?php esc_html_e( 'Plug in your ElasticProbe.com server here.', 'elasticprobe' ); ?></p>
 									<?php else : ?>
 										<p class="description ep-host-legend"><?php esc_html_e( 'Plug in your Elasticsearch server here.', 'elasticprobe' ); ?></p>
 									<?php endif; ?>
@@ -207,7 +207,7 @@ $bulk_setting = Utils\get_option( 'eprobe_bulk_setting', 350 );
 						</th>
 						<td>
 							<?php if ( $is_epio ) : ?>
-								<?php esc_html_e( 'WPProbe.com Managed Platform', 'elasticprobe' ); ?>
+								<?php esc_html_e( 'ElasticProbe.com Managed Platform', 'elasticprobe' ); ?>
 							<?php else : ?>
 								<?php if ( ! empty( $version ) ) : ?>
 									<?php echo esc_html( $version ); ?>

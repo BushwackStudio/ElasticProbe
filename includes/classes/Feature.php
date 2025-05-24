@@ -135,7 +135,7 @@ abstract class Feature {
 	protected $requires_feature = false;
 
 	/**
-	 * Whether the feature is using WPProbe.com.
+	 * Whether the feature is using ElasticProbe.com.
 	 *
 	 * @since 5.0.0
 	 * @var boolean
@@ -428,13 +428,13 @@ abstract class Feature {
 	}
 
 	/**
-	 * Returns the WPProbe.com logo.
+	 * Returns the ElasticProbe.com logo.
 	 *
 	 * @since 4.4.1
 	 * @return string
 	 */
 	public function get_epio_logo(): string {
-		return sprintf( '<img class="feature-epio-logo" alt="WPProbe.com logo" src="%s" width="110" height="20">', esc_url( plugins_url( '/images/logo-wpprobe-com.svg', EPROBE_FILE ) ) );
+		return sprintf( '<img class="feature-epio-logo" alt="ElasticProbe.com logo" src="%s" width="110" height="20">', esc_url( plugins_url( '/images/logo-wpprobe-com.svg', EPROBE_FILE ) ) );
 	}
 
 	/**

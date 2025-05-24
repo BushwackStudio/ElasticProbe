@@ -225,6 +225,6 @@ class BaseTestCase extends WP_UnitTestCase {
 	 * @since 5.1.0
 	 */
 	protected function force_epio() {
-		update_site_option( 'eprobe_host', 'https://gateway.wpprobe.com/' );
+		update_site_option( 'eprobe_host', 'https://gateway.elasticprobe.com/' );
 	}
 }

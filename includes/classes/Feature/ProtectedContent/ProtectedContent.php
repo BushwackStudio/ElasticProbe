@@ -47,9 +47,9 @@ class ProtectedContent extends Feature {
 		$this->title = esc_html__( 'Protected Content', 'elasticprobe' );
 
 		$this->summary = '<p>' . __( 'Syncs unpublished content — including private, draft, and scheduled posts — improving load times in places like the administrative dashboard where WordPress needs to include protected content in a query.', 'elasticprobe' ) . '</p>' .
-		'<p><em>' . __( 'We recommend using a secured Elasticsearch setup, such as WPProbe.com, to prevent potential exposure of content not intended for the public.', 'elasticprobe' ) . '</em></p>';
+		'<p><em>' . __( 'We recommend using a secured Elasticsearch setup, such as ElasticProbe.com, to prevent potential exposure of content not intended for the public.', 'elasticprobe' ) . '</em></p>';
 
-		$this->docs_url = __( 'https://wpprobe.com/resources/protected-content/', 'elasticprobe' );
+		$this->docs_url = __( 'https://elasticprobe.com/resources/protected-content/', 'elasticprobe' );
 	}
 
 	/**
@@ -374,7 +374,7 @@ class ProtectedContent extends Feature {
 	 */
 	public function output_feature_box_long() {
 		?>
-		<p><?php echo wp_kses_post( __( 'Securely indexes unpublished content—including private, draft, and scheduled posts —improving load times in places like the administrative dashboard where WordPress needs to include protected content in a query. <em>We recommend using a secured Elasticsearch setup, such as WPProbe.com, to prevent potential exposure of content not intended for the public.</em>', 'elasticprobe' ) ); ?></p>
+		<p><?php echo wp_kses_post( __( 'Securely indexes unpublished content—including private, draft, and scheduled posts —improving load times in places like the administrative dashboard where WordPress needs to include protected content in a query. <em>We recommend using a secured Elasticsearch setup, such as ElasticProbe.com, to prevent potential exposure of content not intended for the public.</em>', 'elasticprobe' ) ); ?></p>
 		<?php
 	}
 
@@ -414,7 +414,7 @@ class ProtectedContent extends Feature {
 		$status = new FeatureRequirementsStatus( 1 );
 
 		if ( ! Utils\is_epio() ) {
-			$status->message = __( "You aren't using <a href='https://wpprobe.com'>WPProbe.com</a> so we can't be sure your Elasticsearch instance is secure.", 'elasticprobe' );
+			$status->message = __( "You aren't using <a href='https://elasticprobe.com'>ElasticProbe.com</a> so we can't be sure your Elasticsearch instance is secure.", 'elasticprobe' );
 		}
 
 		return $status;

@@ -445,7 +445,7 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 	}
 
 	/**
-	 * Tests WPProbe.com report.
+	 * Tests ElasticProbe.com report.
 	 *
 	 * @group statusReport
 	 * @since 4.5.1
@@ -463,7 +463,7 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 		$this->assertEquals( 'Allowed Autosuggest Parameters', $groups[0]['title'] );
 		$this->assertEquals( 'Instant Results Template', $groups[1]['title'] );
 		$this->assertEquals( 'Orders Search Template', $groups[2]['title'] );
-		$this->assertEquals( 'WPProbe.com', $report->get_title() );
+		$this->assertEquals( 'ElasticProbe.com', $report->get_title() );
 	}
 
 	/**
@@ -481,7 +481,7 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 				'title'  => 'Settings',
 				'fields' => array(
 					'host'           => array(
-						'label' => Utils\is_epio() ? 'WPProbe.com Host URL' : 'Elasticsearch Host URL',
+						'label' => Utils\is_epio() ? 'ElasticProbe.com Host URL' : 'Elasticsearch Host URL',
 						'value' => Utils\get_host(),
 					),
 					'index_prefix'   => array(

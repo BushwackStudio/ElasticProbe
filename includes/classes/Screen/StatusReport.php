@@ -260,7 +260,7 @@ class StatusReport {
 
 	/**
 	 * Display a badge in the admin menu if there's admin notices from
-	 * WPProbe.com.
+	 * ElasticProbe.com.
 	 *
 	 * @return void
 	 */
@@ -276,7 +276,7 @@ class StatusReport {
 		$count = count( $messages );
 		$title = sprintf(
 			/* translators: %d: Number of messages. */
-			_n( '%s message from WPProbe.com', '%s messages from WPProbe.com', $count, 'elasticprobe' ),
+			_n( '%s message from ElasticProbe.com', '%s messages from ElasticProbe.com', $count, 'elasticprobe' ),
 			$count
 		);
 

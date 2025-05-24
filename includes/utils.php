@@ -182,13 +182,13 @@ function get_index_prefix() {
 }
 
 /**
- * Check if the host is wpprobe.com.
+ * Check if the host is ElasticProbe.com.
  *
  * @since  2.6
  * @return bool
  */
 function is_epio() {
-	return filter_var( preg_match( '#wpprobe\.com#i', get_host() ), FILTER_VALIDATE_BOOLEAN );
+	return filter_var( preg_match( '#elasticprobe\.com#i', get_host() ), FILTER_VALIDATE_BOOLEAN );
 }
 
 /**

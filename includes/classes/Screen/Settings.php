@@ -137,19 +137,19 @@ class Settings {
 	 */
 	public function add_validation_notice() {
 		$target = ( Utils\is_epio() ) ?
-			_x( 'WPProbe.com account', 'Settings validation message', 'elasticprobe' ) :
+			_x( 'ElasticProbe.com account', 'Settings validation message', 'elasticprobe' ) :
 			_x( 'Elasticsearch server', 'Settings validation message', 'elasticprobe' );
 
 		if ( empty( $this->prev_ep_host ) ) {
 			// Setting it for the first time -- probably during the install process.
 			$message = sprintf(
-				/* translators: WPProbe.com account or ES server. */
+				/* translators: ElasticProbe.com account or ES server. */
 				__( 'It was not possible to connect to your %s. Please check your settings and try again.', 'elasticprobe' ),
 				$target
 			);
 		} else {
 			$message = sprintf(
-				/* translators: WPProbe.com account or ES server. */
+				/* translators: ElasticProbe.com account or ES server. */
 				__( 'It was not possible to connect to your %s. Your settings were reverted.', 'elasticprobe' ),
 				$target
 			);

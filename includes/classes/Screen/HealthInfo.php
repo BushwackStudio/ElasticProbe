@@ -66,7 +66,7 @@ class HealthInfo {
 		$first_group = reset( $groups );
 
 		$debug_info['epio-autosuggest'] = [
-			'label'  => esc_html__( 'WPProbe.com - Autosuggest', 'elasticprobe' ),
+			'label'  => esc_html__( 'ElasticProbe.com - Autosuggest', 'elasticprobe' ),
 			'fields' => $first_group['fields'],
 		];
 

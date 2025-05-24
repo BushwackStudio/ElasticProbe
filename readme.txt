@@ -29,7 +29,7 @@ __Comments__: Indexes your comments and provides a widget with type-ahead search
 
 = How does ElasticProbe work? =
 
-The ElasticProbe plugin enables you to connect your WordPress site to the WPProbe.com service, a SaaS solution that provides an enhanced search experience while reducing load on your WordPress site. Check out our [privacy policy](https://wpprobe.com/privacy-policy/) and [terms of use](https://wpprobe.com/terms-and-conditions) for the hosted WPProbe.com.
+The ElasticProbe plugin enables you to connect your WordPress site to the ElasticProbe.com service, a SaaS solution that provides an enhanced search experience while reducing load on your WordPress site. Check out our [privacy policy](https://elasticprobe.com/privacy-policy/) and [terms of use](https://elasticprobe.com/terms-and-conditions) for the hosted ElasticProbe.com.
 
 = Where can I find ElasticProbe documentation and user guides? =
 

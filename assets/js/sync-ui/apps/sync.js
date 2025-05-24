@@ -121,13 +121,13 @@ export default () => {
 							'elasticprobe',
 						)
 					: sprintf(
-							/* translators: %s: Index type. WPProbe.com or Elasticsearch. */
+							/* translators: %s: Index type. ElasticProbe.com or Elasticsearch. */
 							__(
 								'Run a sync to index your existing content %s. Once syncing finishes, your site is officially supercharged.',
 								'elasticprobe',
 							),
 							isEpio
-								? __('on WPProbe.com', 'elasticprobe')
+								? __('on ElasticProbe.com', 'elasticprobe')
 								: __('in Elasticsearch', 'elasticprobe'),
 						)}
 			</p>

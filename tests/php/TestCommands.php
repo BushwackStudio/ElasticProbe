@@ -632,7 +632,7 @@ class TestCommands extends BaseTestCase {
 	 * Test sync command can ask for confirmation when setup flag is set
 	 */
 	public function testSyncAskForConfirmationWhenSetupIsPassed() {
-		$this->expectExceptionMessage( Utils\is_epio() ? 'Syncing with the --setup option will delete your existing index in WPProbe.com. Are you sure you want to delete your Elasticsearch index' : 'Syncing with the --setup option will delete your existing index in Elasticsearch. Are you sure you want to delete your Elasticsearch index' );
+		$this->expectExceptionMessage( Utils\is_epio() ? 'Syncing with the --setup option will delete your existing index in ElasticProbe.com. Are you sure you want to delete your Elasticsearch index' : 'Syncing with the --setup option will delete your existing index in Elasticsearch. Are you sure you want to delete your Elasticsearch index' );
 
 		$this->command->sync( [], [ 'setup' => true ] );
 	}

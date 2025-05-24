@@ -31,7 +31,12 @@ export default ({ feature }) => {
 			<h3 className="ep-dashboard-heading">
 				<RawHTML>{safeHTML(title)}</RawHTML>
 				{isPoweredByEpio ? (
-					<img alt={__('WPProbe.com logo')} height="20" src={epioLogoUrl} width="110" />
+					<img
+						alt={__('ElasticProbe.com logo')}
+						height="20"
+						src={epioLogoUrl}
+						width="110"
+					/>
 				) : null}
 			</h3>
 			{/* eslint-disable-next-line react/no-danger */}

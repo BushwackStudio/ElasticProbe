@@ -64,7 +64,7 @@ $skip_index_url = remove_query_arg( 'ep-skip-features', $skip_install_url );
 					</div>
 					<h2><?php esc_html_e( 'Set up Elasticsearch hosting', 'elasticprobe' ); ?></h2>
 					<p class="ep-copy-text">
-						<?php echo wp_kses_post( __( 'The next step is to make sure you have a working Elasticsearch server. We recommend creating an <a href="https://wpprobe.com" target="_blank">WPProbe.com</a> account or if you want you can set up your own hosting.', 'elasticprobe' ) ); ?>
+						<?php echo wp_kses_post( __( 'The next step is to make sure you have a working Elasticsearch server. We recommend creating an <a href="https://elasticprobe.com" target="_blank">ElasticProbe.com</a> account or if you want you can set up your own hosting.', 'elasticprobe' ) ); ?>
 					</p>
 					<?php if ( 2 === $install_status ) : ?>
 						<div class="setup-message">

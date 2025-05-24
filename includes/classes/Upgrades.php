@@ -330,7 +330,7 @@ class Upgrades {
 			$appended_message = wp_kses_post(
 				sprintf(
 					/* translators: 1: <a> tag (Support article about Instant Results); 2. </a>; 3: <a> tag (Support article about self hosted Elasticsearch setups); 4. </a>; */
-					__( '%1$sInstant Results%2$s is now available in ElasticProbe, but requires a re-sync before activation. If you would like to use Instant Results, since you are not using WPProbe.com, you will also need to %3$sinstall and configure a PHP proxy%4$s.', 'elasticprobe' ),
+					__( '%1$sInstant Results%2$s is now available in ElasticProbe, but requires a re-sync before activation. If you would like to use Instant Results, since you are not using ElasticProbe.com, you will also need to %3$sinstall and configure a PHP proxy%4$s.', 'elasticprobe' ),
 					'<a href="https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#instant-results">',
 					'</a>',
 					'<a href="https://www.elasticpress.io/documentation/article/considerations-for-self-hosted-elasticsearch-setups/">',

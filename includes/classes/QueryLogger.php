@@ -240,7 +240,7 @@ class QueryLogger {
 			$message = sprintf(
 				/* translators: %s: Sync page link. */
 				esc_html__( 'Your site\'s content is not synced with your %1$s. Please %2$s.', 'elasticprobe' ),
-				Utils\is_epio() ? __( 'WPProbe.com account', 'elasticprobe' ) : __( 'Elasticsearch server', 'elasticprobe' ),
+				Utils\is_epio() ? __( 'ElasticProbe.com account', 'elasticprobe' ) : __( 'Elasticsearch server', 'elasticprobe' ),
 				sprintf(
 					'<a href="%1$s">%2$s</a>',
 					esc_url( Utils\get_sync_url( true ) ),

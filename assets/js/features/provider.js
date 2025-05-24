@@ -27,7 +27,7 @@ const Context = createContext();
  * @param {string} props.apiUrl API URL.
  * @param {Function} props.children Component children
  * @param {object} props.defaultSettings Default settings values.
- * @param {string} props.epioLogoUrl WPProbe.com logo URL.
+ * @param {string} props.epioLogoUrl ElasticProbe.com logo URL.
  * @param {object} props.features Features data.
  * @param {object} props.indexMeta Index meta.
  * @param {object} props.syncedSettings Settings at last sync.

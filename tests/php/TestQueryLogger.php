@@ -238,7 +238,7 @@ class TestQueryLogger extends BaseTestCase {
 		$this->assertArrayHasKey( 'has_failed_queries', $notices );
 		$this->assertStringStartsWith( 'Your site&#039;s content is not synced with your', $notices['has_failed_queries']['html'] );
 		if ( \ElasticProbe\Utils\is_epio() ) {
-			$this->assertStringContainsString( 'WPProbe.com account', $notices['has_failed_queries']['html'] );
+			$this->assertStringContainsString( 'ElasticProbe.com account', $notices['has_failed_queries']['html'] );
 		} else {
 			$this->assertStringContainsString( 'Elasticsearch server', $notices['has_failed_queries']['html'] );
 		}

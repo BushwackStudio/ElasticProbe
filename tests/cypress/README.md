@@ -60,6 +60,6 @@ docker compose down
 docker compose up -d --build --force-recreate
 ```
 
-### Running tests with WPProbe.com
+### Running tests with ElasticProbe.com
 
-To run tests locally using an WPProbe.com endpoint, in place of running `npm run cypress:setup` during setup, run: `./bin/setup-cypress-env.sh --ep-host="https://" --es-shield="username:password" --ep-index-prefix="username" --probe-sid=subscription_id`, with the arguments populated with the details for your WPProbe.com endpoint.
+To run tests locally using an ElasticProbe.com endpoint, in place of running `npm run cypress:setup` during setup, run: `./bin/setup-cypress-env.sh --ep-host="https://" --es-shield="username:password" --ep-index-prefix="username" --probe-sid=subscription_id`, with the arguments populated with the details for your ElasticProbe.com endpoint.

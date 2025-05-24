@@ -784,9 +784,9 @@ class AdminNotices {
 
 		if ( $has_error ) {
 			$message = sprintf(
-				/* translators: Elasticsearch or WPProbe.com; 2. Link to article; 3. Link to article */
+				/* translators: Elasticsearch or ElasticProbe.com; 2. Link to article; 3. Link to article */
 				__( 'Your website content has more public custom fields than %1$s is able to store. Check our articles about <a href="%2$s">Elasticsearch field limitations</a> and <a href="%3$s">how to index just the custom fields you need</a> before trying to sync.', 'elasticprobe' ),
-				Utils\is_epio() ? __( 'WPProbe.com', 'elasticprobe' ) : __( 'Elasticsearch', 'elasticprobe' ),
+				Utils\is_epio() ? __( 'ElasticProbe.com', 'elasticprobe' ) : __( 'Elasticsearch', 'elasticprobe' ),
 				'https://www.elasticpress.io/documentation/article/i-get-the-error-limit-of-total-fields-in-index-has-been-exceeded/',
 				'https://www.elasticpress.io/documentation/article/how-to-exclude-metadata-from-indexing/'
 			);
@@ -800,9 +800,9 @@ class AdminNotices {
 
 		if ( $has_warning ) {
 			$message = sprintf(
-				/* translators: Elasticsearch or WPProbe.com; 2. Link to article; 3. Link to article */
+				/* translators: Elasticsearch or ElasticProbe.com; 2. Link to article; 3. Link to article */
 				__( 'Your website content seems to have more public custom fields than %1$s is able to store. Check our articles about <a href="%2$s">Elasticsearch field limitations</a> and <a href="%3$s">how to index just the custom fields you need</a> if you receive any errors while syncing.', 'elasticprobe' ),
-				Utils\is_epio() ? __( 'WPProbe.com', 'elasticprobe' ) : __( 'Elasticsearch', 'elasticprobe' ),
+				Utils\is_epio() ? __( 'ElasticProbe.com', 'elasticprobe' ) : __( 'Elasticsearch', 'elasticprobe' ),
 				'https://www.elasticpress.io/documentation/article/i-get-the-error-limit-of-total-fields-in-index-has-been-exceeded/',
 				'https://www.elasticpress.io/documentation/article/how-to-exclude-metadata-from-indexing/'
 			);

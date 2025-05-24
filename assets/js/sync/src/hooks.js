@@ -65,7 +65,7 @@ export const useIndex = (apiUrl, nonce) => {
 					 */
 					throw new Error(
 						__(
-							'Something went wrong. Find troubleshooting steps at https://wpprobe.com/resources/something-went-wrong-error-when-syncing-elasticprobe/.',
+							'Something went wrong. Find troubleshooting steps at https://elasticprobe.com/resources/something-went-wrong-error-when-syncing-elasticprobe/.',
 							'elasticprobe',
 						),
 					);
@@ -91,7 +91,7 @@ export const useIndex = (apiUrl, nonce) => {
 				 */
 				throw new Error(
 					__(
-						'Unable to parse response. Find troubleshooting steps at https://wpprobe.com/resources/something-went-wrong-error-when-syncing-elasticprobe/.',
+						'Unable to parse response. Find troubleshooting steps at https://elasticprobe.com/resources/something-went-wrong-error-when-syncing-elasticprobe/.',
 						'elasticprobe',
 					),
 				);

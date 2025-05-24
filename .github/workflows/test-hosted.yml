@@ -1,4 +1,4 @@
-name: WPProbe.com Unit Tests
+name: ElasticProbe.com Unit Tests
 
 env:
   COMPOSER_VERSION: "2"
@@ -23,7 +23,7 @@ concurrency:
 
 jobs:
   phpunit:
-    name: WPProbe.com
+    name: ElasticProbe.com
     runs-on: ubuntu-latest
 
     steps:
