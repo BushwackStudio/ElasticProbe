@@ -12,7 +12,7 @@ ElasticProbe, a fast and flexible search and query engine for WordPress, enables
 
 ## Documentation
 
-* [Security Policy ☞](https://github.com/BushwackStudio/ElasticProbe/blob/dev/SECURITY.md)
+* [Security policy and vulnerability reporting☞](https://github.com/BushwackStudio/ElasticProbe/blob/dev/SECURITY.md)
 
 ## Requirements and Compatibility
 

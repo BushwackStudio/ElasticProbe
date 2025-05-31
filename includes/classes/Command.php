@@ -938,7 +938,11 @@ class Command extends WP_CLI_Command {
 		$index_names_imploded = implode( ',', $index_names );
 
 		Elasticsearch::factory()->refresh_indices();
-		$request = Elasticsearch::factory()->remote_request( $index_names_imploded . '/_stats/' );
+		if ( empty( $index_names_imploded ) ) {
+			$request = Elasticsearch::factory()->remote_request( '_stats/' );
+		} else {
+			$request = Elasticsearch::factory()->remote_request( $index_names_imploded . '/_stats/' );
+		}
 
 		if ( is_wp_error( $request ) ) {
 			WP_CLI::error( implode( "\n", $request->get_error_messages() ) );
