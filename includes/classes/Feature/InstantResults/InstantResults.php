@@ -352,7 +352,7 @@ class InstantResults extends Feature {
 	 * @param string $hook_suffix The current admin page.
 	 */
 	public function enqueue_admin_assets( $hook_suffix ) {
-		if ( 'toplevel_page_elasticpress' !== $hook_suffix ) {
+		if ( 'toplevel_page_elasticprobe' !== $hook_suffix ) {
 			return;
 		}
 
