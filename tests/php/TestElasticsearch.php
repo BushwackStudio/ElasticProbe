@@ -290,13 +290,13 @@ class TestElasticsearch extends BaseTestCase {
 		$this->assertNotEmpty( $default_headers['X-ElasticProbe-Request-ID'] );
 
 		/**
-		 * Test the addition of `X-ElasticPress-API-Key` if `EPROBE_API_KEY` is defined
+		 * Test the addition of `X-ElasticProbe-API-Key` if `EPROBE_API_KEY` is defined
 		 */
 		define( 'EPROBE_API_KEY', 'custom_key' );
 		$new_headers = ElasticProbe\Elasticsearch::factory()->format_request_headers();
 
 		$this->assertCount( Utils\is_epio() ? 4 : 3, $new_headers );
-		$this->assertSame( 'custom_key', $new_headers['X-ElasticPress-API-Key'] );
+		$this->assertSame( 'custom_key', $new_headers['X-ElasticProbe-API-Key'] );
 
 		/**
 		 * Test the addition of `Authorization` if `ES_SHIELD` is defined

@@ -155,10 +155,9 @@ function register_indexable_posts() {
 		new Feature\Search\Search()
 	);
 
-	// TODO: work out the custom endpoints and enable this
-	// Features::factory()->register_feature(
-	// new Feature\InstantResults\InstantResults()
-	// );
+	Features::factory()->register_feature(
+		new Feature\InstantResults\InstantResults()
+	);
 
 	// TODO: work out the custom endpoints and enable this
 	// Features::factory()->register_feature(

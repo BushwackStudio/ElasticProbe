@@ -321,7 +321,7 @@ class InstantResults extends Feature {
 		 * @param {string} $endpoint Endpoint path.
 		 * @param {string} $index Elasticsearch index.
 		 */
-		$api_endpoint = apply_filters( 'eprobe_instant_results_search_endpoint', "api/v1/search/posts/{$this->index}", $this->index );
+		$api_endpoint = apply_filters( 'eprobe_instant_results_search_endpoint', "v1/ir/{$this->index}/search", $this->index );
 
 		wp_localize_script(
 			'elasticprobe-instant-results',
@@ -416,7 +416,7 @@ class InstantResults extends Feature {
 		 * @param {string} $index Elasticsearch index.
 		 * @returns {string} Search template API endpoint.
 		 */
-		return apply_filters( 'eprobe_instant_results_template_endpoint', "api/v1/search/posts/{$this->index}/template/", $this->index );
+		return apply_filters( 'eprobe_instant_results_template_endpoint', "v1/ir/{$this->index}/template/", $this->index );
 	}
 
 	/**
@@ -431,9 +431,8 @@ class InstantResults extends Feature {
 		Elasticsearch::factory()->remote_request(
 			$endpoint,
 			[
-				'blocking' => false,
-				'body'     => $template,
-				'method'   => 'PUT',
+				'body'   => $template,
+				'method' => 'PUT',
 			]
 		);
 
@@ -461,8 +460,7 @@ class InstantResults extends Feature {
 		Elasticsearch::factory()->remote_request(
 			$endpoint,
 			[
-				'blocking' => false,
-				'method'   => 'DELETE',
+				'method' => 'DELETE',
 			]
 		);
 
