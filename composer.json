@@ -1,6 +1,6 @@
 {
   "name": "bushwack/elasticprobe",
-  "description": "Supercharge your wordPress search with ElasticSearch® precision.",
+  "description": "Supercharge your WordPress search with ElasticSearch® precision.",
   "type": "wordpress-plugin",
   "keywords": ["wordpress", "plugin", "elasticsearch", "elasticprobe", "search"],
   "license": ["GPL-2.0-only"],
