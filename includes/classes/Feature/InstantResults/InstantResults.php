@@ -105,9 +105,9 @@ class InstantResults extends Feature {
 		$this->short_title = esc_html__( 'Instant Results', 'elasticprobe' );
 
 		$this->summary = '<p>' . __( 'WordPress search forms will display results instantly. When the search query is submitted, a modal will open that populates results by querying ElasticProbe directly, bypassing WordPress. As the user refines their search, results are refreshed.', 'elasticprobe' ) . '</p>' .
-		'<p>' . __( 'Requires an <a href="https://www.elasticprobe.com/" target="_blank">ElasticProbe.com plan</a> or a custom proxy to function.', 'elasticprobe' ) . '</p>';
+		'<p>' . __( 'Requires an <a href="https://www.elasticprobe.com/" target="_blank">ElasticProbe.com plan</a>.', 'elasticprobe' ) . '</p>';
 
-		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#instant-results', 'elasticprobe' );
+		$this->docs_url = __( 'https://elasticprobe.com/resources/instant-results/', 'elasticprobe' );
 	}
 
 	/**
@@ -121,7 +121,7 @@ class InstantResults extends Feature {
 			<?php
 			printf(
 				/* translators: %s: ElasticProbe.com link. */
-				esc_html__( 'WordPress search forms will display results instantly. When the search query is submitted, a modal will open that populates results by querying ElasticProbe directly, bypassing WordPress. As the user refines their search, results are refreshed. Requires an %s or a custom proxy to function.', 'elasticprobe' ),
+				esc_html__( 'WordPress search forms will display results instantly. When the search query is submitted, a modal will open that populates results by querying ElasticProbe directly, bypassing WordPress. As the user refines their search, results are refreshed. Requires an %s.', 'elasticprobe' ),
 				sprintf(
 					'<a href="%1$s" target="_blank">%2$s</a>',
 					'https://www.elasticprobe.com/',
@@ -321,7 +321,7 @@ class InstantResults extends Feature {
 		 * @param {string} $endpoint Endpoint path.
 		 * @param {string} $index Elasticsearch index.
 		 */
-		$api_endpoint = apply_filters( 'eprobe_instant_results_search_endpoint', "api/v1/search/posts/{$this->index}", $this->index );
+		$api_endpoint = apply_filters( 'eprobe_instant_results_search_endpoint', "v1/ir/{$this->index}/search", $this->index );
 
 		wp_localize_script(
 			'elasticprobe-instant-results',
@@ -352,7 +352,7 @@ class InstantResults extends Feature {
 	 * @param string $hook_suffix The current admin page.
 	 */
 	public function enqueue_admin_assets( $hook_suffix ) {
-		if ( 'toplevel_page_elasticpress' !== $hook_suffix ) {
+		if ( 'toplevel_page_elasticprobe' !== $hook_suffix ) {
 			return;
 		}
 
@@ -416,7 +416,7 @@ class InstantResults extends Feature {
 		 * @param {string} $index Elasticsearch index.
 		 * @returns {string} Search template API endpoint.
 		 */
-		return apply_filters( 'eprobe_instant_results_template_endpoint', "api/v1/search/posts/{$this->index}/template/", $this->index );
+		return apply_filters( 'eprobe_instant_results_template_endpoint', "v1/ir/{$this->index}/template/", $this->index );
 	}
 
 	/**
@@ -431,9 +431,8 @@ class InstantResults extends Feature {
 		Elasticsearch::factory()->remote_request(
 			$endpoint,
 			[
-				'blocking' => false,
-				'body'     => $template,
-				'method'   => 'PUT',
+				'body'   => $template,
+				'method' => 'PUT',
 			]
 		);
 
@@ -461,8 +460,7 @@ class InstantResults extends Feature {
 		Elasticsearch::factory()->remote_request(
 			$endpoint,
 			[
-				'blocking' => false,
-				'method'   => 'DELETE',
+				'method' => 'DELETE',
 			]
 		);
 

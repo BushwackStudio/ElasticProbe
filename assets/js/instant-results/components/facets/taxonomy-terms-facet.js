@@ -86,7 +86,7 @@ export default ({ defaultIsOpen, label, postTypes, name }) => {
 		/**
 		 * Filter the taxonomy filter terms.
 		 *
-		 * @filter ep.InstantResults.filter.taxonomy.terms
+		 * @filter eprobe.InstantResults.filter.taxonomy.terms
 		 * @since 5.2.0
 		 *
 		 * @param {object[]} terms Taxonomy terms.
@@ -95,7 +95,7 @@ export default ({ defaultIsOpen, label, postTypes, name }) => {
 		 * @returns {object[]} Filtered taxonomy terms.
 		 */
 		return applyFilters(
-			'ep.InstantResults.filter.taxonomy.terms',
+			'eprobe.InstantResults.filter.taxonomy.terms',
 			buckets.reduce(reduceOptions, []),
 			name,
 			postTypes,

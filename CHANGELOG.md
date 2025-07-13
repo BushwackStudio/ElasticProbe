@@ -15,6 +15,14 @@ All notable changes to this project will be documented in this file, per [the Ke
 ### Developer
 -->
 
+## [1.1.0] - 2025-05-24
+
+### Added
+* Instant result feature
+
+### Changed
+* Some HTTP header names
+
 ## [1.0.0] - 2025-05-24
 
 ### Changed
@@ -83,6 +91,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 
 [Unreleased]: https://github.com/BushwackStudio/ElasticProbe/compare/trunk...dev
+[1.1.0]: https://github.com/BushwackStudio/ElasticProbe/compare/1.1.0...1.0.0
 [1.0.0]: https://github.com/BushwackStudio/ElasticProbe/compare/1.0.0...0.3.2
 [0.3.2]: https://github.com/BushwackStudio/ElasticProbe/compare/0.3.2...0.3.1
 [0.3.1]: https://github.com/BushwackStudio/ElasticProbe/compare/0.3.1...0.3.0

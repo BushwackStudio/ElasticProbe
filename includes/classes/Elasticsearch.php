@@ -637,7 +637,7 @@ class Elasticsearch {
 
 		// Check for ElasticProbe API key and add to header if needed.
 		if ( defined( 'EPROBE_API_KEY' ) && EPROBE_API_KEY ) {
-			$headers['X-ElasticPress-API-Key'] = EPROBE_API_KEY;
+			$headers['X-ElasticProbe-API-Key'] = EPROBE_API_KEY;
 		}
 
 		/**

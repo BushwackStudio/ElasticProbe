@@ -5,7 +5,7 @@ describe('WordPress can perform standard ElasticProbe actions', { tags: '@slow' 
 
 		cy.activatePlugin('elasticprobe', 'dashboard');
 
-		cy.get('.toplevel_page_elasticpress .wp-menu-name').should('contain.text', 'ElasticProbe');
+		cy.get('.toplevel_page_elasticprobe .wp-menu-name').should('contain.text', 'ElasticProbe');
 	});
 
 	it('Can see quick setup message after enabling the plugin for the first time', () => {

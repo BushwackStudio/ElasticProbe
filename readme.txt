@@ -2,7 +2,7 @@
 Contributors: bushwackstudio, nshayanfar
 Tags:         performance, search, elasticsearch, fuzzy, related posts
 Tested up to: 6.8
-Stable tag:   1.0.0
+Stable tag:   1.1.0
 License:      GPLv2 or later
 License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,10 @@ ElasticProbe requirements can be found in the [Requirements section](https://git
 
 For sure! Feel free to submit ideas or feedback in general to our [GitHub repo](https://github.com/BushwackStudio/ElasticProbe).
 
+= How can I report security bugs? =
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.]( https://patchstack.com/database/vdp/e2c7eaef-a0f5-4aed-861e-fbfc826bb10c )
+
 == Installation ==
 1. First, you will need to properly [install and configure](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup.html) Elasticsearch.
 2. Activate the plugin in WordPress.
@@ -61,6 +65,15 @@ For sure! Feel free to submit ideas or feedback in general to our [GitHub repo](
 4. Synonyms Dashboard
 
 == Changelog ==
+
+= 1.1.0 - 2024-07-08 =
+
+__Added:__
+* Instant result feature
+* ElasticProbe is now a member of Patchstack vulnerability disclosure program.
+
+__Developer:__
+* Renamed some HTTP headers
 
 = 1.0.0 - 2024-05-24 =
 

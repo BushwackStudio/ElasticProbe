@@ -34,7 +34,7 @@ add_action(
 					date
 				);
 			};
-			wp.hooks.addFilter('ep.InstantResults.Result', 'myTheme/customResult', () => CustomResult);",
+			wp.hooks.addFilter('eprobe.InstantResults.Result', 'myTheme/customResult', () => CustomResult);",
 			'before'
 		);
 	},

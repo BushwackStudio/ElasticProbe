@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: ElasticProbe 1.0.0\n"
+"Project-Id-Version: ElasticProbe 1.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/elasticprobe\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-05-24T09:06:03+00:00\n"
+"POT-Creation-Date: 2025-07-13T08:33:53+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: elasticprobe\n"
@@ -271,10 +271,10 @@ msgstr ""
 
 #: includes/classes/Command.php:595
 #: includes/classes/Command.php:621
-#: includes/classes/Command.php:1174
-#: includes/classes/Command.php:1232
-#: includes/classes/Command.php:1514
-#: includes/classes/Command.php:1526
+#: includes/classes/Command.php:1178
+#: includes/classes/Command.php:1236
+#: includes/classes/Command.php:1518
+#: includes/classes/Command.php:1530
 msgid "Done."
 msgstr ""
 
@@ -315,81 +315,81 @@ msgstr ""
 msgid "Failed to return stats."
 msgstr ""
 
-#: includes/classes/Command.php:962
+#: includes/classes/Command.php:966
 msgid "Elasticsearch host is not set."
 msgstr ""
 
-#: includes/classes/Command.php:964
+#: includes/classes/Command.php:968
 msgid "Could not connect to Elasticsearch."
 msgstr ""
 
-#: includes/classes/Command.php:975
+#: includes/classes/Command.php:979
 msgid "An index is already occurring. Try again later."
 msgstr ""
 
-#: includes/classes/Command.php:1019
+#: includes/classes/Command.php:1023
 msgid "Sync cleared."
 msgstr ""
 
-#: includes/classes/Command.php:1164
+#: includes/classes/Command.php:1168
 msgid "There is no indexing operation running."
 msgstr ""
 
-#: includes/classes/Command.php:1166
+#: includes/classes/Command.php:1170
 msgid "Stopping indexing…"
 msgstr ""
 
-#: includes/classes/Command.php:1212
+#: includes/classes/Command.php:1216
 msgid "This command expects a version number or the --default flag."
 msgstr ""
 
-#: includes/classes/Command.php:1335
+#: includes/classes/Command.php:1339
 msgid "Time elapsed: "
 msgstr ""
 
-#: includes/classes/Command.php:1341
+#: includes/classes/Command.php:1345
 msgid "Memory Usage: "
 msgstr ""
 
-#: includes/classes/Command.php:1439
+#: includes/classes/Command.php:1443
 msgid "Are you sure you want to delete all ElasticProbe settings?"
 msgstr ""
 
-#: includes/classes/Command.php:1444
+#: includes/classes/Command.php:1448
 msgid "Settings deleted."
 msgstr ""
 
 #. translators: list of active indexables slugs
-#: includes/classes/Command.php:1583
+#: includes/classes/Command.php:1587
 msgid "Indexable not found or inactive. Active indexables are: %l"
 msgstr ""
 
-#: includes/classes/Command.php:1593
+#: includes/classes/Command.php:1597
 msgid "Not found"
 msgstr ""
 
 #. translators: URL of the request
-#: includes/classes/Command.php:1618
+#: includes/classes/Command.php:1622
 msgid "URL: %s"
 msgstr ""
 
 #. translators: Request arguments (outputted with print_r())
-#: includes/classes/Command.php:1625
+#: includes/classes/Command.php:1629
 msgid "Request Args: %s"
 msgstr ""
 
 #. translators: HTTP transport used
-#: includes/classes/Command.php:1632
+#: includes/classes/Command.php:1636
 msgid "Transport: %s"
 msgstr ""
 
 #. translators: Context under which the http_api_debug hook is fired
-#: includes/classes/Command.php:1639
+#: includes/classes/Command.php:1643
 msgid "Context: %s"
 msgstr ""
 
 #. translators: HTTP response (outputted with print_r())
-#: includes/classes/Command.php:1646
+#: includes/classes/Command.php:1650
 msgid "Response: %s"
 msgstr ""
 
@@ -729,21 +729,21 @@ msgstr ""
 #: includes/classes/Feature/DidYouMean/DidYouMean.php:247
 #: includes/classes/Feature/DidYouMean/DidYouMean.php:432
 #: includes/classes/Feature/InstantResults/InstantResults.php:206
-#: includes/classes/Feature/InstantResults/InstantResults.php:1131
+#: includes/classes/Feature/InstantResults/InstantResults.php:1129
 msgid "Search behavior when no result is found"
 msgstr ""
 
 #: includes/classes/Feature/DidYouMean/DidYouMean.php:249
 #: includes/classes/Feature/DidYouMean/DidYouMean.php:435
 #: includes/classes/Feature/InstantResults/InstantResults.php:208
-#: includes/classes/Feature/InstantResults/InstantResults.php:1134
+#: includes/classes/Feature/InstantResults/InstantResults.php:1132
 msgid "Display the top suggestion"
 msgstr ""
 
 #: includes/classes/Feature/DidYouMean/DidYouMean.php:250
 #: includes/classes/Feature/DidYouMean/DidYouMean.php:439
 #: includes/classes/Feature/InstantResults/InstantResults.php:209
-#: includes/classes/Feature/InstantResults/InstantResults.php:1138
+#: includes/classes/Feature/InstantResults/InstantResults.php:1136
 msgid "Display all the suggestions"
 msgstr ""
 
@@ -803,7 +803,7 @@ msgstr ""
 
 #: includes/classes/Feature/Facets/Facets.php:95
 #: includes/classes/Feature/InstantResults/InstantResults.php:169
-#: includes/classes/Feature/InstantResults/InstantResults.php:1096
+#: includes/classes/Feature/InstantResults/InstantResults.php:1094
 msgid "Filters"
 msgstr ""
 
@@ -856,17 +856,17 @@ msgid "Adds <a href='%s'>filter blocks</a> that administrators can add to the we
 msgstr ""
 
 #: includes/classes/Feature/Facets/Facets.php:713
-#: includes/classes/Feature/InstantResults/InstantResults.php:1103
+#: includes/classes/Feature/InstantResults/InstantResults.php:1101
 msgid "Filter matching"
 msgstr ""
 
 #: includes/classes/Feature/Facets/Facets.php:716
-#: includes/classes/Feature/InstantResults/InstantResults.php:1106
+#: includes/classes/Feature/InstantResults/InstantResults.php:1104
 msgid "Show results that match <strong>all</strong> selected filters"
 msgstr ""
 
 #: includes/classes/Feature/Facets/Facets.php:720
-#: includes/classes/Feature/InstantResults/InstantResults.php:1110
+#: includes/classes/Feature/InstantResults/InstantResults.php:1108
 msgid "Show results that match <strong>any</strong> selected filter"
 msgstr ""
 
@@ -1000,16 +1000,16 @@ msgid "WordPress search forms will display results instantly. When the search qu
 msgstr ""
 
 #: includes/classes/Feature/InstantResults/InstantResults.php:108
-msgid "Requires an <a href=\"https://www.elasticprobe.com/\" target=\"_blank\">ElasticProbe.com plan</a> or a custom proxy to function."
+msgid "Requires an <a href=\"https://www.elasticprobe.com/\" target=\"_blank\">ElasticProbe.com plan</a>."
 msgstr ""
 
 #: includes/classes/Feature/InstantResults/InstantResults.php:110
-msgid "https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#instant-results"
+msgid "https://elasticprobe.com/resources/instant-results/"
 msgstr ""
 
 #. translators: %s: ElasticProbe.com link.
 #: includes/classes/Feature/InstantResults/InstantResults.php:124
-msgid "WordPress search forms will display results instantly. When the search query is submitted, a modal will open that populates results by querying ElasticProbe directly, bypassing WordPress. As the user refines their search, results are refreshed. Requires an %s or a custom proxy to function."
+msgid "WordPress search forms will display results instantly. When the search query is submitted, a modal will open that populates results by querying ElasticProbe directly, bypassing WordPress. As the user refines their search, results are refreshed. Requires an %s."
 msgstr ""
 
 #: includes/classes/Feature/InstantResults/InstantResults.php:128
@@ -1022,7 +1022,7 @@ msgid "Highlight tag "
 msgstr ""
 
 #: includes/classes/Feature/InstantResults/InstantResults.php:153
-#: includes/classes/Feature/InstantResults/InstantResults.php:1067
+#: includes/classes/Feature/InstantResults/InstantResults.php:1065
 msgid "None"
 msgstr ""
 
@@ -1051,45 +1051,45 @@ msgstr ""
 msgid "ElasticProbe is network activated. Additional steps are required to ensure Instant Results works for all sites on the network. See our article on <a href=\"%s\" target=\"_blank\">running ElasticProbe in network mode</a> for more details."
 msgstr ""
 
-#: includes/classes/Feature/InstantResults/InstantResults.php:825
+#: includes/classes/Feature/InstantResults/InstantResults.php:823
 msgid "Post type"
 msgstr ""
 
-#: includes/classes/Feature/InstantResults/InstantResults.php:826
+#: includes/classes/Feature/InstantResults/InstantResults.php:824
 msgid "Type"
 msgstr ""
 
 #. translators: $1$s: Taxonomy name. %2$s: Taxonomy slug.
 #. translators: %1$s: Facet label. $2$s: Facet post types.
-#: includes/classes/Feature/InstantResults/InstantResults.php:857
+#: includes/classes/Feature/InstantResults/InstantResults.php:855
 #: assets/js/instant-results/components/facets/taxonomy-terms-facet.js:48
 #: dist/js/instant-results-script.js:1
 msgid "%1$s (%2$s)"
 msgstr ""
 
-#: includes/classes/Feature/InstantResults/InstantResults.php:897
+#: includes/classes/Feature/InstantResults/InstantResults.php:895
 msgid "Price range"
 msgstr ""
 
-#: includes/classes/Feature/InstantResults/InstantResults.php:898
+#: includes/classes/Feature/InstantResults/InstantResults.php:896
 msgid "Price"
 msgstr ""
 
-#: includes/classes/Feature/InstantResults/InstantResults.php:1062
+#: includes/classes/Feature/InstantResults/InstantResults.php:1060
 #: includes/classes/Feature/Search/Search.php:910
 msgid "Select the HTML tag used to highlight search terms."
 msgstr ""
 
-#: includes/classes/Feature/InstantResults/InstantResults.php:1064
+#: includes/classes/Feature/InstantResults/InstantResults.php:1062
 #: includes/classes/Feature/Search/Search.php:912
 msgid "Highlight tag"
 msgstr ""
 
-#: includes/classes/Feature/InstantResults/InstantResults.php:1118
+#: includes/classes/Feature/InstantResults/InstantResults.php:1116
 msgid "Enable to show the number of matching results next to filter options."
 msgstr ""
 
-#: includes/classes/Feature/InstantResults/InstantResults.php:1120
+#: includes/classes/Feature/InstantResults/InstantResults.php:1118
 msgid "Show filter counts"
 msgstr ""
 

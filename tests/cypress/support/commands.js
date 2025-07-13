@@ -97,7 +97,9 @@ Cypress.Commands.add('clearThenType', { prevSubject: true }, (subject, text, for
 
 Cypress.Commands.add('wpCli', (command, ignoreFailures) => {
 	const escapedCommand = command.replace(/"/g, '\\"').replace(/^wp /, '');
-	const options = {};
+	const options = {
+		timeout: Cypress.config('elasticPressIndexTimeout'),
+	};
 	if (ignoreFailures) {
 		options.failOnNonZeroExit = false;
 	}
