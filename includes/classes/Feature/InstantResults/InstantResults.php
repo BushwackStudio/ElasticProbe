@@ -105,9 +105,9 @@ class InstantResults extends Feature {
 		$this->short_title = esc_html__( 'Instant Results', 'elasticprobe' );
 
 		$this->summary = '<p>' . __( 'WordPress search forms will display results instantly. When the search query is submitted, a modal will open that populates results by querying ElasticProbe directly, bypassing WordPress. As the user refines their search, results are refreshed.', 'elasticprobe' ) . '</p>' .
-		'<p>' . __( 'Requires an <a href="https://www.elasticprobe.com/" target="_blank">ElasticProbe.com plan</a> or a custom proxy to function.', 'elasticprobe' ) . '</p>';
+		'<p>' . __( 'Requires an <a href="https://www.elasticprobe.com/" target="_blank">ElasticProbe.com plan</a>.', 'elasticprobe' ) . '</p>';
 
-		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#instant-results', 'elasticprobe' );
+		$this->docs_url = __( 'https://elasticprobe.com/resources/instant-results/', 'elasticprobe' );
 	}
 
 	/**
@@ -121,7 +121,7 @@ class InstantResults extends Feature {
 			<?php
 			printf(
 				/* translators: %s: ElasticProbe.com link. */
-				esc_html__( 'WordPress search forms will display results instantly. When the search query is submitted, a modal will open that populates results by querying ElasticProbe directly, bypassing WordPress. As the user refines their search, results are refreshed. Requires an %s or a custom proxy to function.', 'elasticprobe' ),
+				esc_html__( 'WordPress search forms will display results instantly. When the search query is submitted, a modal will open that populates results by querying ElasticProbe directly, bypassing WordPress. As the user refines their search, results are refreshed. Requires an %s.', 'elasticprobe' ),
 				sprintf(
 					'<a href="%1$s" target="_blank">%2$s</a>',
 					'https://www.elasticprobe.com/',

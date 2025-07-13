@@ -29,7 +29,7 @@ add_action(
 					return filteredTerms;
 				}
 
-				wp.hooks.addFilter('ep.InstantResults.filter.taxonomy.terms', 'ep-test', filterCategoryTerms);
+				wp.hooks.addFilter('eprobe.InstantResults.filter.taxonomy.terms', 'ep-test', filterCategoryTerms);
 			});
 		</script>
 		<?php

@@ -77,10 +77,10 @@ const Result = ({ averageRating = 0, date, excerpt, priceHtml, thumbnail, title,
 /**
  * Filter the Result component.
  *
- * @filter ep.InstantResults.Result
+ * @filter eprobe.InstantResults.Result
  * @since 4.4.0
  *
  * @param {Component|FunctionComponent} Result Result component.
  * @returns {Component|FunctionComponent} Result component.
  */
-export default applyFilters('ep.InstantResults.Result', Result);
+export default applyFilters('eprobe.InstantResults.Result', Result);
