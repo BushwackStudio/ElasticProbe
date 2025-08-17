@@ -6,7 +6,7 @@ Stable tag:   1.2.0
 License:      GPLv2 or later
 License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 
-A fast and flexible search and query engine for WordPress.
+A lightning fast and flexible search and query engine for WordPress.
 
 == Description ==
 ElasticProbe, a fast and flexible search and query engine for WordPress, enables WordPress to find or “query” relevant content extremely fast through a variety of highly customizable features. WordPress out-of-the-box struggles to analyze content relevancy and can be very slow. ElasticProbe supercharges your WordPress website making for more sales, happier users and administrators. The plugin even contains many features.
