@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-07-13T08:33:53+00:00\n"
+"POT-Creation-Date: 2025-08-17T05:56:14+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: elasticprobe\n"
@@ -588,7 +588,7 @@ msgid "Input fields of type \"search\" or with the CSS class \"search-field\" or
 msgstr ""
 
 #: includes/classes/Feature/Autosuggest/Autosuggest.php:71
-msgid "https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#autosuggest"
+msgid "https://elasticprobe.com/resources/elasticprobe-com-autosuggestion/"
 msgstr ""
 
 #: includes/classes/Feature/Autosuggest/Autosuggest.php:110
