@@ -68,7 +68,7 @@ class Autosuggest extends Feature {
 
 		$this->summary = '<p>' . __( 'Input fields of type "search" or with the CSS class "search-field" or "ep-autosuggest" will be enhanced with autosuggest functionality. As text is entered into the search field, suggested content will appear below it, based on top search results for the text. Suggestions link directly to the content.', 'elasticprobe' ) . '</p>';
 
-		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#autosuggest', 'elasticprobe' );
+		$this->docs_url = __( 'https://elasticprobe.com/resources/elasticprobe-com-autosuggestion/', 'elasticprobe' );
 	}
 
 	/**
@@ -791,7 +791,7 @@ class Autosuggest extends Feature {
 			<div class="input-wrap">
 			<?php
 			$epio_link                = 'https://elasticprobe.com';
-			$epio_autosuggest_kb_link = 'https://www.elasticpress.io/documentation/article/elasticpress-io-autosuggest/';
+			$epio_autosuggest_kb_link = 'https://elasticprobe.com/resources/elasticprobe-com-autosuggestion/';
 			$status_report_link       = defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ? network_admin_url( 'admin.php?page=elasticprobe-status-report' ) : admin_url( 'admin.php?page=elasticprobe-status-report' );
 
 			printf(
@@ -864,7 +864,7 @@ class Autosuggest extends Feature {
 		}
 
 		$epio_link                = 'https://elasticprobe.com';
-		$epio_autosuggest_kb_link = 'https://www.elasticpress.io/documentation/article/elasticpress-io-autosuggest/';
+		$epio_autosuggest_kb_link = 'https://elasticprobe.com/resources/elasticprobe-com-autosuggestion/';
 		$status_report_link       = defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ? network_admin_url( 'admin.php?page=elasticprobe-status-report' ) : admin_url( 'admin.php?page=elasticprobe-status-report' );
 
 		$this->settings_schema[] = [

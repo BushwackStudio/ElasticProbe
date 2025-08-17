@@ -2,24 +2,28 @@
 Contributors: bushwackstudio, nshayanfar
 Tags:         performance, search, elasticsearch, fuzzy, related posts
 Tested up to: 6.8
-Stable tag:   1.1.0
+Stable tag:   1.2.0
 License:      GPLv2 or later
 License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 
 A fast and flexible search and query engine for WordPress.
 
 == Description ==
-ElasticProbe, a fast and flexible search and query engine for WordPress, enables WordPress to find or “query” relevant content extremely fast through a variety of highly customizable features. WordPress out-of-the-box struggles to analyze content relevancy and can be very slow. ElasticProbe supercharges your WordPress website making for happier users and administrators. The plugin even contains features for popular plugins.
+ElasticProbe, a fast and flexible search and query engine for WordPress, enables WordPress to find or “query” relevant content extremely fast through a variety of highly customizable features. WordPress out-of-the-box struggles to analyze content relevancy and can be very slow. ElasticProbe supercharges your WordPress website making for more sales, happier users and administrators. The plugin even contains many features.
 
 Here is a list of the amazing ElasticProbe features included in the plugin:
 
 __Search__: Instantly find the content you’re looking for. Even when you misspell.
+
+__Instant Results__: A built for WordPress search experience that bypasses WordPress for optimal performance. Instant Results routes search queries through a dedicated API, separate from WordPress which results in lightning fast search experience.
 
 __WooCommerce__: With ElasticProbe, filtering WooCommerce product results is fast and easy. Your customers can find and buy exactly what they're looking for, even if you have a large or complex product catalog.
 
 __Related Posts__: ElasticProbe understands data in real time, so it can instantly deliver engaging and precise related content with no impact on site performance.
 
 __Protected Content__: Optionally index all of your content, including private and unpublished content, to speed up searches and queries in places like the administrative dashboard.
+
+__Autosuggest__: Make suggestion while user is typing in the search input.
 
 __Filters__: Add controls to your website to filter content by one or more taxonomies.
 
@@ -29,17 +33,17 @@ __Comments__: Indexes your comments and provides a widget with type-ahead search
 
 = How does ElasticProbe work? =
 
-The ElasticProbe plugin enables you to connect your WordPress site to the ElasticProbe.com service, a SaaS solution that provides an enhanced search experience while reducing load on your WordPress site. Check out our [privacy policy](https://elasticprobe.com/privacy-policy/) and [terms of use](https://elasticprobe.com/terms-and-conditions) for the hosted ElasticProbe.com.
+The ElasticProbe plugin enables you to connect your WordPress site to the ElasticProbe.com service, a SaaS solution that provides an enhanced search experience while reducing load on your WordPress site. Check out our [privacy policy](https://elasticprobe.com/privacy-policy/) and [terms of use](https://elasticprobe.com/terms-and-conditions/) for the hosted ElasticProbe.com.
 
 = Where can I find ElasticProbe documentation and user guides? =
 
-Please refer to [GitHub](https://github.com/BushwackStudio/ElasticProbe) for detailed usage instructions and documentation.
+Please refer to [GitHub](https://github.com/BushwackStudio/ElasticProbe) for detailed usage instructions and documentation. FAQs and tutorials can be also found on our [support site](https://elasticprobe.com/resources/).
 
 = I have a problem with the plugin. Where can I get help? =
 
 If you have identified a bug or would like to suggest an enhancement, please refer to our [GitHub repo](https://github.com/BushwackStudio/ElasticProbe). We do not provide support here at WordPress.org forums.
 
-= Is ElasticProbe compatible with OpenSearch or Elasticsearch X.Y? =
+= Is ElasticProbe compatible with Elasticsearch X.Y? =
 
 ElasticProbe requirements can be found in the [Requirements section](https://github.com/BushwackStudio/ElasticProbe#requirements) of our GitHub repository.
 
@@ -65,6 +69,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 4. Synonyms Dashboard
 
 == Changelog ==
+
+= 1.2.0 - 2024-08-17 =
+
+__Added:__
+* Autosuggestion feature
 
 = 1.1.0 - 2024-07-08 =
 
