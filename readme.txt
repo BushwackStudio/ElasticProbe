@@ -2,7 +2,7 @@
 Contributors: bushwackstudio, nshayanfar
 Tags:         performance, search, elasticsearch, fuzzy, related posts
 Tested up to: 6.8
-Stable tag:   1.2.0
+Stable tag:   1.3.0
 License:      GPLv2 or later
 License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,7 +23,9 @@ __Related Posts__: ElasticProbe understands data in real time, so it can instant
 
 __Protected Content__: Optionally index all of your content, including private and unpublished content, to speed up searches and queries in places like the administrative dashboard.
 
-__Autosuggest__: Make suggestion while user is typing in the search input.
+__Autosuggest__: Make (post, page or custom type) suggestion while user is typing in the search input.
+
+__Autocomplete__: Complete the search query term while the user is typing.
 
 __Filters__: Add controls to your website to filter content by one or more taxonomies.
 
@@ -69,6 +71,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 4. Synonyms Dashboard
 
 == Changelog ==
+
+= 1.3.0 - 2024-08-30 =
+
+__Added:__
+* Autocomplete feature
 
 = 1.2.0 - 2024-08-17 =
 
