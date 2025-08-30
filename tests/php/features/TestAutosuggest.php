@@ -108,6 +108,7 @@ class TestAutosuggest extends BaseTestCase {
 
 		$this->assertStringContainsString( 'Autosuggest Selector', $output );
 		$this->assertStringContainsString( 'Google Analytics Events', $output );
+		$this->assertStringContainsString( 'Autocomplete', $output );
 	}
 
 	/**

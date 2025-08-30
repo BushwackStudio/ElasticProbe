@@ -20,6 +20,8 @@ import {
 
 const { epas } = window;
 
+const autocompleteEnabled = epas?.autocompleteEnabled ?? true;
+
 // Ensure we have an endpoint URL, or
 // else this shouldn't happen
 if (epas.endpointUrl && epas.endpointUrl !== '') {
@@ -684,6 +686,22 @@ function init() {
 				hideAutosuggestBox();
 			}
 
+			if (
+				autocompleteEnabled &&
+				response &&
+				response._shards &&
+				response._shards.successful > 0
+			) {
+				const suggestions = response.suggest?.ep_suggestion[0]?.options.length || 0;
+				if (!forceDisableAutocomplete) {
+					if (suggestions > 0) {
+						autocomplete(response.suggest.ep_suggestion[0].options, input);
+					}
+				} else {
+					forceDisableAutocomplete = false;
+				}
+			}
+
 			setFormIsLoading(false, input);
 		} else if (searchText.length === 0) {
 			cachedAutosuggestResults = false;
@@ -702,6 +720,32 @@ function init() {
 			hideAutosuggestBox();
 		} else {
 			updateAutosuggestBox(hits, input);
+		}
+	};
+
+	let forceDisableAutocomplete = false;
+
+	let currentSuggestion = '';
+	const autocomplete = (options, input) => {
+		const userText = input.value;
+		if (!userText) return;
+
+		try {
+			// Since scores are descending, first valid match is best
+			const best = options.find((opt) =>
+				opt.text.toLowerCase().startsWith(userText.toLowerCase()),
+			);
+
+			if (best && best.text !== userText) {
+				requestAnimationFrame(() => {
+					input.value = best.text;
+					input.setSelectionRange(userText.length, best.text.length);
+				});
+			} else {
+				currentSuggestion = '';
+			}
+		} catch (err) {
+			console.error('Error fetching suggestions:', err);
 		}
 	};
 
@@ -729,6 +773,17 @@ function init() {
 
 		if (keyCodes.includes(keyCode) && target.value !== '') {
 			handleUpDown(event);
+			return;
+		}
+
+		if (
+			autocompleteEnabled &&
+			(key === 'Backspace' ||
+				key === 'Delete' ||
+				key === 'Tab' ||
+				keyCode === 8 ||
+				keyCode === 46)
+		) {
 			return;
 		}
 
@@ -852,6 +907,27 @@ function init() {
 		input.addEventListener('blur', function () {
 			window.setTimeout(hideAutosuggestBox, 300);
 		});
+		if (autocompleteEnabled) {
+			input.addEventListener('keydown', (e) => {
+				// Accept suggestion on Tab or Right Arrow
+				if ((e.key === 'Tab' || e.key === 'ArrowRight') && currentSuggestion) {
+					e.preventDefault(); // prevent losing focus on Tab
+					input.value = currentSuggestion;
+					input.setSelectionRange(input.value.length, input.value.length); // move cursor to end
+					currentSuggestion = '';
+				}
+				if ((e.key === 'Backspace' || e.key === 'Delete') && currentSuggestion) {
+					e.preventDefault();
+					const { selectionStart } = input;
+					// remove the last typed character
+					const newText = currentSuggestion.slice(0, selectionStart - 1);
+					input.value = newText;
+					input.setSelectionRange(newText.length, newText.length);
+					currentSuggestion = '';
+					forceDisableAutocomplete = true;
+				}
+			});
+		}
 	};
 
 	/**

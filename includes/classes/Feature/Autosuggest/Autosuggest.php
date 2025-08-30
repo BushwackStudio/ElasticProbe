@@ -46,6 +46,7 @@ class Autosuggest extends Feature {
 			'endpoint_url'         => '',
 			'autosuggest_selector' => '',
 			'trigger_ga_event'     => '0',
+			'autocomplete_enabled' => '0',
 		];
 
 		$this->available_during_installation = true;
@@ -122,6 +123,16 @@ class Autosuggest extends Feature {
 				<p class="field-description"><?php esc_html_e( 'When enabled, a gtag tracking event is fired when an autosuggest result is clicked.', 'elasticprobe' ); ?></p>
 			</div>
 		</div>
+
+		<div class="field">
+			<div class="field-name status"><?php esc_html_e( 'Autocomplete', 'elasticprobe' ); ?></div>
+			<div class="input-wrap">
+				<label><input name="settings[autocomplete_enabled]" <?php checked( (bool) $settings['autocomplete_enabled'] ); ?> type="radio" value="1"><?php esc_html_e( 'Enabled', 'elasticprobe' ); ?></label><br>
+				<label><input name="settings[autocomplete_enabled]" <?php checked( ! (bool) $settings['autocomplete_enabled'] ); ?> type="radio" value="0"><?php esc_html_e( 'Disabled', 'elasticprobe' ); ?></label>
+				<p class="field-description"><?php esc_html_e( 'When enabled, query terms are autocompleted.', 'elasticprobe' ); ?></p>
+			</div>
+		</div>
+
 		<?php
 
 		if ( Utils\is_epio() ) {
@@ -367,6 +378,14 @@ class Autosuggest extends Feature {
 			return;
 		}
 
+		if ( defined( 'EPROBE_AUTOCOMPLETE_ENABLED' ) && EPROBE_AUTOCOMPLETE_ENABLED ) {
+			$autocomplete_enabled = EPROBE_AUTOCOMPLETE_ENABLED;
+		} elseif ( $settings['autocomplete_enabled'] ) {
+			$autocomplete_enabled = true;
+		} else {
+			$autocomplete_enabled = false;
+		}
+
 		wp_enqueue_script(
 			'elasticprobe-autosuggest',
 			EPROBE_URL . 'dist/js/autosuggest-script.js',
@@ -419,6 +438,7 @@ class Autosuggest extends Feature {
 			'triggerAnalytics'    => ! empty( $settings['trigger_ga_event'] ),
 			'addSearchTermHeader' => false,
 			'requestIdBase'       => Utils\get_request_id_base(),
+			'autocompleteEnabled' => $autocomplete_enabled,
 		];
 
 		if ( Utils\is_epio() ) {
@@ -902,6 +922,13 @@ class Autosuggest extends Feature {
 				'key'     => 'trigger_ga_event',
 				'help'    => __( 'Enable to fire a gtag tracking event when an autosuggest result is clicked.', 'elasticprobe' ),
 				'label'   => __( 'Trigger Google Analytics events', 'elasticprobe' ),
+				'type'    => 'checkbox',
+			],
+			[
+				'default' => '0',
+				'key'     => 'autocomplete_enabled',
+				'help'    => __( 'Enable to automatically complete search queries.', 'elasticprobe' ),
+				'label'   => __( 'Autocomplete search queries', 'elasticprobe' ),
 				'type'    => 'checkbox',
 			],
 		];
