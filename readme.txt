@@ -2,7 +2,7 @@
 Contributors: bushwackstudio, nshayanfar
 Tags:         performance, search, elasticsearch, fuzzy, related posts
 Tested up to: 6.8
-Stable tag:   1.3.0
+Stable tag:   1.4.0
 License:      GPLv2 or later
 License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,6 +22,8 @@ __WooCommerce__: With ElasticProbe, filtering WooCommerce product results is fas
 __Related Posts__: ElasticProbe understands data in real time, so it can instantly deliver engaging and precise related content with no impact on site performance.
 
 __Protected Content__: Optionally index all of your content, including private and unpublished content, to speed up searches and queries in places like the administrative dashboard.
+
+__Documents__: Indexes text inside of popular file types, and adds those files types to search results.
 
 __Autosuggest__: Make (post, page or custom type) suggestion while user is typing in the search input.
 
@@ -71,6 +73,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 4. Synonyms Dashboard
 
 == Changelog ==
+
+= 1.4.0 - 2024-10-19 =
+
+__Added:__
+* Documents feature
 
 = 1.3.0 - 2024-08-30 =
 

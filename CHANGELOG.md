@@ -15,6 +15,11 @@ All notable changes to this project will be documented in this file, per [the Ke
 ### Developer
 -->
 
+## [1.4.0] - 2025-10-19
+
+### Added
+* Document feature
+
 ## [1.3.0] - 2025-08-30
 
 ### Added
@@ -101,6 +106,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 
 [Unreleased]: https://github.com/BushwackStudio/ElasticProbe/compare/trunk...dev
+[1.4.0]: https://github.com/BushwackStudio/ElasticProbe/compare/1.4.0...1.3.0
 [1.3.0]: https://github.com/BushwackStudio/ElasticProbe/compare/1.3.0...1.2.0
 [1.2.0]: https://github.com/BushwackStudio/ElasticProbe/compare/1.2.0...1.1.0
 [1.1.0]: https://github.com/BushwackStudio/ElasticProbe/compare/1.1.0...1.0.0
