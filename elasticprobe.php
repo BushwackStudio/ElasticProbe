@@ -189,9 +189,9 @@ function register_indexable_posts() {
 	);
 
 	// TODO: Pipelines should be worked out
-	// Features::factory()->register_feature(
-	// new Feature\Documents\Documents()
-	// );
+	Features::factory()->register_feature(
+		new Feature\Documents\Documents()
+	);
 
 	Features::factory()->register_feature(
 		new Feature\AcfRepeater\AcfRepeater()
