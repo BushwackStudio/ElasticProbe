@@ -24,7 +24,7 @@ class TestDocuments extends BaseTestCase {
 		parent::set_up();
 		$wpdb->suppress_errors();
 
-		$this->markTestSkipped( 'Needs Document feature' );
+		// $this->markTestSkipped( 'Needs Document feature' );
 
 		$admin_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
 
@@ -63,7 +63,7 @@ class TestDocuments extends BaseTestCase {
 	 * @group documents
 	 */
 	public function testSearchAllowedMimeType() {
-		$this->markTestSkipped( 'Needs Document feature' );
+		// $this->markTestSkipped( 'Needs Document feature' );
 
 		ElasticProbe\Features::factory()->activate_feature( 'search' );
 		ElasticProbe\Features::factory()->activate_feature( 'documents' );
