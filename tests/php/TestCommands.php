@@ -98,7 +98,6 @@ class TestCommands extends BaseTestCase {
 	 * Test activate-feature command throws error when requirement is not met.
 	 */
 	public function testActivateFeatureWhenRequirementIsNotMet() {
-		// $this->markTestSkipped( 'Requires instant results' );
 
 		$this->expectExceptionMessage( 'Feature requirements are not met' );
 
@@ -121,7 +120,6 @@ class TestCommands extends BaseTestCase {
 	 * Test deactivate-feature command throws error when feature is already deactivated.
 	 */
 	public function testDeactivateFeatureWhenFeatureIsAlreadyDeactivated() {
-		// $this->markTestSkipped( 'Requires instant results' );
 
 		$this->expectExceptionMessage( 'Feature is not active' );
 
