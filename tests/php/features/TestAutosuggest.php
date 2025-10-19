@@ -321,7 +321,7 @@ class TestAutosuggest extends BaseTestCase {
 		$settings_keys = wp_list_pluck( $settings_schema, 'key' );
 
 		$this->assertSame(
-			[ 'active', 'autosuggest_selector', 'trigger_ga_event', 'endpoint_url' ],
+			[ 'active', 'autosuggest_selector', 'trigger_ga_event', 'autocomplete_enabled', 'endpoint_url' ],
 			$settings_keys
 		);
 	}
