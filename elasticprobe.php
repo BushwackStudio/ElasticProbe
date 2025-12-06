@@ -159,7 +159,6 @@ function register_indexable_posts() {
 		new Feature\InstantResults\InstantResults()
 	);
 
-	// TODO: work out the custom endpoints and enable this
 	Features::factory()->register_feature(
 		new Feature\Autosuggest\Autosuggest()
 	);
@@ -188,7 +187,6 @@ function register_indexable_posts() {
 		new Feature\ProtectedContent\ProtectedContent()
 	);
 
-	// TODO: Pipelines should be worked out
 	Features::factory()->register_feature(
 		new Feature\Documents\Documents()
 	);
