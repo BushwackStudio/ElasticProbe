@@ -40,6 +40,8 @@ class RelatedPosts extends Feature {
 	public function set_i18n_strings(): void {
 		$this->title = esc_html__( 'Related Posts', 'elasticprobe' );
 
+		$this->group = esc_html__( 'Core Search', 'elasticprobe' );
+
 		$this->summary = '<p>' . __( 'Instantly deliver engaging and precise related content with no impact on site performance. Output related content using our block or directly in your theme using our <a href="https://elasticprobe.com/resources/related-posts/#api">API functions</a>.', 'elasticprobe' ) . '</p>';
 
 		$this->docs_url = __( 'https://elasticprobe.com/resources/related-posts/', 'elasticprobe' );

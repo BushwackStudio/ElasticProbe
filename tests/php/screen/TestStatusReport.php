@@ -17,7 +17,6 @@ use ElasticProbe\Utils;
  */
 class TestStatusReport extends WP_Ajax_UnitTestCase {
 
-
 	/**
 	 * Test the default behavior of the get_reports method
 	 *

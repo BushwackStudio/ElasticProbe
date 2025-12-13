@@ -68,6 +68,8 @@ class SearchOrdering extends Feature {
 	public function set_i18n_strings(): void {
 		$this->title = esc_html__( 'Custom Search Results', 'elasticprobe' );
 
+		$this->group = esc_html__( 'Core Search', 'elasticprobe' );
+
 		$this->summary = '<p>' . __( 'Selected posts will be inserted into search results in the specified position.', 'elasticprobe' ) . '</p>';
 
 		$this->docs_url = __( 'https://elasticprobe.com/resources/custom-search-results/', 'elasticprobe' );
@@ -243,6 +245,7 @@ class SearchOrdering extends Feature {
 		}
 
 		// Set correct active/current menu and submenu in the WordPress Admin menu for the "pointer" CPT Add-New/Edit/List
+		// TODO: Check
 		if ( self::POST_TYPE_NAME === $current_screen->post_type ) {
 			$parent_file = 'elasticpress';
 		}

@@ -5,6 +5,7 @@ describe('Protected Content Feature', () => {
 		cy.visitAdminPage('admin.php?page=elasticprobe');
 		cy.intercept('/wp-json/elasticprobe/v1/features*').as('apiRequest');
 
+		cy.contains('button', 'Indexing Options').click();
 		cy.contains('button', 'Protected Content').click();
 		cy.contains('label', 'Enable').click();
 		cy.contains('button', 'Save and sync now').click();

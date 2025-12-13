@@ -39,6 +39,8 @@ class Documents extends Feature {
 	public function set_i18n_strings(): void {
 		$this->title = esc_html__( 'Documents', 'elasticprobe' );
 
+		$this->group = esc_html__( 'Indexing Options', 'elasticprobe' );
+
 		$this->summary = '<p>' . __( 'Website search results will include popular document file types, using file names as well as their content. Supported file types include: ppt, pptx, doc, docx, xls, xlsx, pdf, csv, txt.', 'elasticprobe' ) . '</p>';
 
 		$this->docs_url = __( 'https://www.elasticpress.io/documentation/article/configuring-elasticpress-via-the-plugin-dashboard/#documents', 'elasticprobe' );

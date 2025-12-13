@@ -252,6 +252,7 @@ describe('Comments Feature', { tags: '@slow' }, () => {
 		cy.visitAdminPage('admin.php?page=elasticprobe');
 		cy.intercept('/wp-json/elasticprobe/v1/features*').as('apiRequest');
 
+		cy.contains('button', 'Other').click();
 		cy.contains('button', 'Comments').click();
 		cy.contains('label', 'Enable').click();
 		cy.contains('button', 'Save and sync now').click();

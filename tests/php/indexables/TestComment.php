@@ -2372,6 +2372,7 @@ class TestComment extends BaseTestCase {
 			}
 		);
 
+		// Test only comments are returned.
 		$results = $comment_indexable->query_db( [] );
 
 		$this->assertSame( 3, $results['total_objects'] );

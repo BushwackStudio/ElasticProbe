@@ -111,6 +111,14 @@ if [ ! -z $ACF_PRO_LICENSE_KEY ]; then
 	./bin/wp-env-cli tests-wordpress "wp --allow-root config set ACF_PRO_LICENSE ${ACF_PRO_LICENSE_KEY}"
 fi
 
+if [ ! -z $ACF_PRO_LICENSE_KEY ]; then
+	./bin/wp-env-cli tests-wordpress "composer --working-dir=./wp-content config http-basic.connect.advancedcustomfields.com ${ACF_PRO_LICENSE_KEY} https://elasticpress.test"
+	./bin/wp-env-cli tests-wordpress "composer --working-dir=./wp-content install"
+	./bin/wp-env-cli tests-wordpress "rm wp-content/auth.json"
+	./bin/wp-env-cli tests-wordpress "wp --allow-root plugin activate advanced-custom-fields-pro"
+	./bin/wp-env-cli tests-wordpress "wp --allow-root config set ACF_PRO_LICENSE ${ACF_PRO_LICENSE_KEY}"
+fi
+
 ./bin/wp-env-cli tests-wordpress "wp --allow-root core multisite-convert"
 
 SITES_COUNT=$(./bin/wp-env-cli tests-wordpress "wp --allow-root site list --format=count")
@@ -135,6 +143,7 @@ fi
 
 ./bin/wp-env-cli tests-wordpress "wp --allow-root option set posts_per_page 5"
 ./bin/wp-env-cli tests-wordpress "wp --allow-root user meta update admin edit_post_per_page 5"
+./bin/wp-env-cli tests-wordpress "wp --allow-root user update admin --user_pass=password"
 
 # Generate a SQL file that can be imported later to make things faster
 # SQL_FILENAME=./bin/$(date +'%F-%H-%M').sql

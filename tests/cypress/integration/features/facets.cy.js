@@ -583,6 +583,7 @@ describe('Facets Feature', { tags: '@slow' }, () => {
 			cy.visitAdminPage('admin.php?page=elasticprobe');
 			cy.intercept('/wp-json/elasticprobe/v1/features*').as('apiRequest');
 
+			cy.contains('button', 'Core Search').click();
 			cy.contains('button', 'Filters').click();
 			cy.contains('label', 'Show results that match any selected filter').click();
 			cy.contains('button', 'Save changes').click();

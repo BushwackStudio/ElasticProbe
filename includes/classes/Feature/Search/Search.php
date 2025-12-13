@@ -76,6 +76,8 @@ class Search extends Feature {
 	public function set_i18n_strings(): void {
 		$this->title = esc_html__( 'Post Search', 'elasticprobe' );
 
+		$this->group = esc_html__( 'Core Search', 'elasticprobe' );
+
 		$this->summary = '<p>' . __( 'Instantly find the content you’re looking for. The first time.', 'elasticprobe' ) . '</p>' .
 		'<p>' . __( 'Overcome higher-end performance and functional limits posed by the traditional WordPress structured (SQL) database to deliver superior keyword search, instantly. ElasticProbe indexes custom fields, tags, and other metadata to improve search results. Fuzzy matching accounts for misspellings and verb tenses.', 'elasticprobe' ) . '</p>';
 

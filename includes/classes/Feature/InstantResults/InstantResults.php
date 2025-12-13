@@ -102,6 +102,8 @@ class InstantResults extends Feature {
 	public function set_i18n_strings(): void {
 		$this->title = esc_html__( 'Instant Results', 'elasticprobe' );
 
+		$this->group = esc_html__( 'Live Search', 'elasticprobe' );
+
 		$this->short_title = esc_html__( 'Instant Results', 'elasticprobe' );
 
 		$this->summary = '<p>' . __( 'WordPress search forms will display results instantly. When the search query is submitted, a modal will open that populates results by querying ElasticProbe directly, bypassing WordPress. As the user refines their search, results are refreshed.', 'elasticprobe' ) . '</p>' .
