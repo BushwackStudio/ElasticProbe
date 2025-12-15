@@ -1149,7 +1149,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	}
 
 	/**
-	 * Test that array values in orderby_meta_mapping filter are applied correctly on query level.
+	 * Test that array values in eprobe_orderby_meta_mapping filter are applied correctly on query level.
 	 *
 	 * @group woocommerce
 	 * @group woocommerce-products
@@ -1163,7 +1163,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 		ElasticProbe\Features::factory()->setup_features();
 
 		add_filter(
-			'orderby_meta_mapping',
+			'eprobe_orderby_meta_mapping',
 			function ( $mapping ) {
 				$mapping['custom_order'] = [
 					'meta._price.double' => 'desc',
