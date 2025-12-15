@@ -1039,12 +1039,12 @@ class Products {
 		/**
 		 * Filter WooCommerce to Elasticsearch meta mapping
 		 *
-		 * @hook eprobe_orderby_meta_mapping
+		 * @hook orderby_meta_mapping
 		 * @param  {array} $mapping Meta mapping
 		 * @return  {array} New mapping
 		 */
 		$mapping = apply_filters(
-			'eprobe_orderby_meta_mapping',
+			'orderby_meta_mapping',
 			array(
 				'ID'                 => 'ID',
 				'title'              => 'title date',

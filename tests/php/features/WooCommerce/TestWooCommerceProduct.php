@@ -1073,7 +1073,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	}
 
 	/**
-	 * Test the `eprobe_orderby_meta_mapping` filter
+	 * Test the `orderby_meta_mapping` filter
 	 *
 	 * @group woocommerce
 	 * @group woocommerce-products
@@ -1083,7 +1083,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 			$mapping['custom_parameter'] = 'meta.custom_parameter.long';
 			return $mapping;
 		};
-		add_filter( 'eprobe_orderby_meta_mapping', $add_value );
+		add_filter( 'orderby_meta_mapping', $add_value );
 
 		$this->assertSame( $this->products->get_orderby_meta_mapping( 'custom_parameter' ), 'meta.custom_parameter.long' );
 	}
@@ -1149,7 +1149,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	}
 
 	/**
-	 * Test that array values in eprobe_orderby_meta_mapping filter are applied correctly on query level.
+	 * Test that array values in orderby_meta_mapping filter are applied correctly on query level.
 	 *
 	 * @group woocommerce
 	 * @group woocommerce-products
@@ -1163,7 +1163,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 		ElasticProbe\Features::factory()->setup_features();
 
 		add_filter(
-			'eprobe_orderby_meta_mapping',
+			'orderby_meta_mapping',
 			function ( $mapping ) {
 				$mapping['custom_order'] = [
 					'meta._price.double' => 'desc',
