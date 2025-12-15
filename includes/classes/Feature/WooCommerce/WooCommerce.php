@@ -10,8 +10,6 @@ namespace ElasticProbe\Feature\WooCommerce;
 
 use ElasticProbe\Feature;
 use ElasticProbe\FeatureRequirementsStatus;
-use ElasticProbe\Indexables;
-use ElasticProbe\IndexHelper;
 use ElasticProbe\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -54,6 +52,8 @@ class WooCommerce extends Feature {
 	public function __construct() {
 		$this->slug = 'woocommerce';
 
+		$this->group = 'woocommerce';
+
 		$this->requires_install_reindex = true;
 
 		$this->setting_requires_install_reindex = 'orders';
@@ -79,8 +79,6 @@ class WooCommerce extends Feature {
 	 */
 	public function set_i18n_strings(): void {
 		$this->title = esc_html__( 'WooCommerce', 'elasticprobe' );
-
-		$this->group = esc_html__( 'WooCommerce', 'elasticprobe' );
 
 		$this->summary = '<p>' . __( 'Most caching and performance tools can’t keep up with the nearly infinite ways your visitors might filter or navigate your products. No matter how many products, filters, or customers you have, ElasticProbe will keep your online store performing quickly. If used in combination with the Protected Content feature, ElasticProbe will also accelerate order searches and back end product management.', 'elasticprobe' ) . '</p>';
 
@@ -169,17 +167,6 @@ class WooCommerce extends Feature {
 		}
 
 		return $enabled;
-	}
-
-	/**
-	 * Output feature box long
-	 *
-	 * @since 2.1
-	 */
-	public function output_feature_box_long() {
-		?>
-		<p><?php esc_html_e( 'Most caching and performance tools can’t keep up with the nearly infinite ways your visitors might filter or navigate your products. No matter how many products, filters, or customers you have, ElasticProbe will keep your online store performing quickly. If used in combination with the Protected Content feature, ElasticProbe will also accelerate order searches and back end product management.', 'elasticprobe' ); ?></p>
-		<?php
 	}
 
 	/**
@@ -277,20 +264,6 @@ class WooCommerce extends Feature {
 		 * @return {array} $settings_schema
 		 */
 		$this->settings_schema = apply_filters( 'eprobe_woocommerce_settings_schema', $this->settings_schema );
-	}
-
-	/**
-	 * DEPRECATED. Dashboard WooCommerce settings
-	 *
-	 * @since 4.5.0
-	 * @deprecated 5.1.0
-	 */
-	public function output_feature_box_settings() {
-		_doing_it_wrong(
-			__METHOD__,
-			esc_html__( 'Settings are now generated via the set_settings_schema() method.', 'elasticprobe' ),
-			'5.0.0'
-		);
 	}
 
 	/**

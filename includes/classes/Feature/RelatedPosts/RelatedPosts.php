@@ -26,6 +26,8 @@ class RelatedPosts extends Feature {
 	public function __construct() {
 		$this->slug = 'related_posts';
 
+		$this->group = 'core-search';
+
 		$this->requires_install_reindex = false;
 
 		parent::__construct();
@@ -39,8 +41,6 @@ class RelatedPosts extends Feature {
 	 */
 	public function set_i18n_strings(): void {
 		$this->title = esc_html__( 'Related Posts', 'elasticprobe' );
-
-		$this->group = esc_html__( 'Core Search', 'elasticprobe' );
 
 		$this->summary = '<p>' . __( 'Instantly deliver engaging and precise related content with no impact on site performance. Output related content using our block or directly in your theme using our <a href="https://elasticprobe.com/resources/related-posts/#api">API functions</a>.', 'elasticprobe' ) . '</p>';
 
@@ -284,16 +284,5 @@ class RelatedPosts extends Feature {
 		$widgets[] = 'ep-related-posts';
 
 		return $widgets;
-	}
-
-	/**
-	 * Output feature box long
-	 *
-	 * @since 2.1
-	 */
-	public function output_feature_box_long() {
-		?>
-		<p><?php echo wp_kses_post( __( 'Output related content using our Widget or directly in your theme using our <a href="https://elasticprobe.com/resources/related-posts/#api">API functions.</a>', 'elasticprobe' ) ); ?></p>
-		<?php
 	}
 }

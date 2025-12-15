@@ -21,6 +21,8 @@ class DidYouMean extends Feature {
 	public function __construct() {
 		$this->slug = 'did-you-mean';
 
+		$this->group = 'core-search';
+
 		$this->requires_install_reindex = true;
 
 		$this->available_during_installation = true;
@@ -43,8 +45,6 @@ class DidYouMean extends Feature {
 	public function set_i18n_strings(): void {
 		$this->title = esc_html__( 'Did You Mean', 'elasticprobe' );
 
-		$this->group = esc_html__( 'Core Search', 'elasticprobe' );
-
 		$this->summary = '<p>' . __( '"Did You Mean" search feature provides alternative suggestions for misspelled or ambiguous search queries, enhancing search accuracy and user experience. To display suggestions in your theme, please follow <a href="https://elasticprobe.com/resources/did-you-mean/">this tutorial</a>.', 'elasticprobe' ) . '</p>';
 
 		$this->docs_url = __( 'https://elasticprobe.com/resources/did-you-mean/', 'elasticprobe' );
@@ -61,27 +61,6 @@ class DidYouMean extends Feature {
 		add_filter( 'eprobe_integrate_search_queries', [ $this, 'set_ep_suggestion' ], 10, 2 );
 		add_action( 'template_redirect', [ $this, 'automatically_redirect_user' ] );
 		add_action( 'eprobe_suggestions', [ $this, 'the_output' ] );
-	}
-
-	/**
-	 * Output feature box long.
-	 *
-	 * @return void
-	 */
-	public function output_feature_box_long() {
-		?>
-		<p>
-			<?php
-			echo wp_kses_post(
-				sprintf(
-					/* translators: Tutorial URL */
-					__( '"Did You Mean" search feature provides alternative suggestions for misspelled or ambiguous search queries, enhancing search accuracy and user experience. To display suggestions in your theme, please follow <a href="%s">this tutorial</a>.', 'elasticprobe' ),
-					'https://elasticprobe.com/resources/did-you-mean/'
-				)
-			);
-			?>
-		</p>
-		<?php
 	}
 
 	/**
@@ -235,25 +214,6 @@ class DidYouMean extends Feature {
 	 */
 	public function requirements_status(): FeatureRequirementsStatus {
 		return new FeatureRequirementsStatus( 1 );
-	}
-
-	/**
-	 * Display feature settings.
-	 *
-	 * @return void
-	 */
-	public function output_feature_box_settings() {
-		$settings = $this->get_settings();
-		?>
-		<div class="field">
-			<div class="field-name status"><?php esc_html_e( 'Search behavior when no result is found', 'elasticprobe' ); ?></div>
-			<div class="input-wrap">
-				<label><input name="settings[search_behavior]" type="radio" <?php checked( ! (bool) $settings['search_behavior'] ); ?> value="0"><?php esc_html_e( 'Display the top suggestion', 'elasticprobe' ); ?></label><br>
-				<label><input name="settings[search_behavior]" type="radio" <?php checked( $settings['search_behavior'], 'list' ); ?> value="list"><?php esc_html_e( 'Display all the suggestions', 'elasticprobe' ); ?></label><br>
-				<label><input name="settings[search_behavior]" type="radio" <?php checked( $settings['search_behavior'], 'redirect' ); ?> value="redirect"><?php esc_html_e( 'Automatically redirect the user to the top suggestion', 'elasticprobe' ); ?></label><br>
-			</div>
-		</div>
-		<?php
 	}
 
 	/**

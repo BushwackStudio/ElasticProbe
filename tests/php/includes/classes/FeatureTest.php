@@ -14,6 +14,13 @@ use ElasticProbe;
  */
 class FeatureTest extends ElasticProbe\Feature {
 	/**
+	 * Track if setup was called
+	 *
+	 * @var bool
+	 */
+	public $setup_called = false;
+
+	/**
 	 * Create feature test class
 	 */
 	public function __construct() {
@@ -30,7 +37,7 @@ class FeatureTest extends ElasticProbe\Feature {
 	 * @return ElasticProbe\FeatureRequirementsStatus
 	 */
 	public function requirements_status() {
-		$on = get_site_option( 'ep_test_feature_on', 0 );
+		$on = get_site_option( 'eprobe_test_feature_on', 0 );
 
 		$status = new ElasticProbe\FeatureRequirementsStatus( $on );
 
@@ -40,17 +47,9 @@ class FeatureTest extends ElasticProbe\Feature {
 	/**
 	 * Do nothing
 	 */
-	public function output_feature_box_long() { }
-
-	/**
-	 * Do nothing
-	 */
-	public function output_feature_box_summary() { }
-
-	/**
-	 * Do nothing
-	 */
-	public function setup() { }
+	public function setup() {
+		$this->setup_called = true;
+	}
 
 	/**
 	 * Set settings schema

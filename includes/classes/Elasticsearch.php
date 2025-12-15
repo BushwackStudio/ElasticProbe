@@ -1234,7 +1234,15 @@ class Elasticsearch {
 	 * @return array
 	 */
 	public function get_query_log() {
-		return $this->queries;
+		/**
+		 * Filter the query log
+		 *
+		 * @hook ep_get_query_log
+		 * @since 5.3.0
+		 * @param {array} $queries The query log
+		 * @return {array} The query log
+		 */
+		return apply_filters( 'ep_get_query_log', $this->queries );
 	}
 
 	/**
@@ -1329,7 +1337,7 @@ class Elasticsearch {
 			 * @param {boolean} $intercept True to intercept
 			 * @return {boolean} New value
 			 */
-			if ( true === apply_filters( 'eprobe_intercept_remote_request', false ) ) {
+			if ( true === apply_filters( 'eprobe_intercept_remote_request', false ) || ! empty( $query_args['ep_intercept_request'] ) ) {
 				/**
 				 * Filter intercepted request
 				 *

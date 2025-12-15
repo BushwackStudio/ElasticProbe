@@ -92,7 +92,7 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		add_filter( 'eprobe_post_sync_kill', [ $this, 'kill_sync_for_password_protected' ], 10, 2 );
 
 		// Display the status of the document in ES in the admin bar
-		add_action( 'admin_bar_menu', [ $this, 'add_admin_bar_status' ], 500 );
+		add_filter( 'eprobe_admin_bar_status_and_summary', [ $this, 'maybe_add_doc_status_to_admin_bar_status' ] );
 
 		// Delete a post from the index if a password was added
 		add_action( 'post_updated', [ $this, 'delete_post_with_new_password' ], 10, 3 );
@@ -123,7 +123,7 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		remove_action( 'eprobe_after_put_mapping', [ $this, 'clear_index_settings_cache' ] );
 		remove_action( 'eprobe_saved_weighting_configuration', [ $this, 'clear_index_settings_cache' ] );
 
-		remove_action( 'admin_bar_menu', [ $this, 'add_admin_bar_status' ] );
+		remove_filter( 'eprobe_admin_bar_status_and_summary', [ $this, 'maybe_add_doc_status_to_admin_bar_status' ] );
 	}
 
 	/**
@@ -972,45 +972,48 @@ class SyncManager extends \ElasticProbe\SyncManager {
 	 * Add the document status to the admin bar.
 	 *
 	 * @since 5.2.0
+	 * @deprecated 5.3.0
 	 * @param \WP_Admin_Bar $admin_bar WP Admin Bar instance
 	 * @return void
 	 */
 	public function add_admin_bar_status( \WP_Admin_Bar $admin_bar ) {
+		_deprecated_function( __METHOD__, 'ElasticProbe 1.5.0' );
+	}
+
+	/**
+	 * Add the document status to the admin bar status and summary.
+	 *
+	 * @since 5.3.0
+	 * @param array $status_and_summary The status and summary.
+	 * @return array The status and summary.
+	 */
+	public function maybe_add_doc_status_to_admin_bar_status( $status_and_summary ): array {
 		global $pagenow;
 
 		if ( ! is_admin() || 'post.php' !== $pagenow ) {
-			return;
+			return $status_and_summary;
 		}
 
 		$post_id = get_the_ID();
 		if ( ! $this->is_post_indexable( $post_id ) ) {
-			return;
+			return $status_and_summary;
 		}
 
 		$document_status = $this->get_doc_status( $post_id );
 		if ( empty( $document_status['status'] ) ) {
-			return;
+			return $status_and_summary;
 		}
 
-		$admin_bar->add_menu(
-			[
-				'id'    => 'ep-doc-status',
-				'title' => $this->format_doc_status( $document_status ),
-				'meta'  => [
-					'class' => 'ep-embeddings-status',
-				],
-			]
+		if ( 'success' === $status_and_summary['status'] || in_array( $document_status['status'], [ 'error', 'warning' ], true ) ) {
+			$status_and_summary['status'] = $document_status['status'];
+		}
+
+		$status_and_summary['summary'] = array_merge(
+			[ 'doc_status' => "{$document_status['message']}: {$document_status['explanation']}" ],
+			$status_and_summary['summary'],
 		);
 
-		if ( ! empty( $document_status['explanation'] ) ) {
-			$admin_bar->add_menu(
-				[
-					'parent' => 'ep-doc-status',
-					'id'     => 'ep-doc-status-explanation',
-					'title'  => $document_status['explanation'],
-				]
-			);
-		}
+		return $status_and_summary;
 	}
 
 	/**
@@ -1062,6 +1065,7 @@ class SyncManager extends \ElasticProbe\SyncManager {
 	 * Format the document status for the admin bar.
 	 *
 	 * @since 5.2.0
+	 * @deprecated 5.3.0
 	 * @param array $document_status Document status
 	 * @return string
 	 */
@@ -1079,13 +1083,19 @@ class SyncManager extends \ElasticProbe\SyncManager {
 		 * Filter the formatted document status.
 		 *
 		 * @since 5.2.0
+		 * @deprecated 5.3.0
 		 * @hook eprobe_formatted_doc_status
 		 * @param string $formatted_status The formatted status
 		 * @param array  $document_status  The document status
 		 * @param string $status_indicator The status indicator
 		 * @param string $message          The message
 		 */
-		return (string) apply_filters( 'eprobe_formatted_doc_status', $status_indicator . $message, $document_status, $status_indicator, $message );
+		return (string) apply_filters_deprecated(
+			'eprobe_formatted_doc_status',
+			[ $status_indicator . $message, $document_status, $status_indicator, $message ],
+			'ElasticProbe 1.5.0',
+			'eprobe_admin_bar_status_and_summary'
+		);
 	}
 
 	/**

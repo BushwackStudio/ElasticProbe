@@ -164,35 +164,34 @@ export default ({ plainTextReport, reports }) => {
 					'elasticprobe',
 				)}
 			</p>
-			<p>
-				<Flex justify="start">
-					<FlexItem>
-						<Button
-							id="generate-full-report"
-							disabled={generatedReport}
-							onClick={handleReportLoading}
-							variant="primary"
-						>
-							{__('Generate Full Status Report', 'elasticprobe')}
-						</Button>
-					</FlexItem>
-					<FlexItem>
-						<Button
-							id="download-report"
-							download="elasticprobe-report.txt"
-							href={downloadUrl}
-							variant="primary"
-						>
-							{downloadButtontext}
-						</Button>
-					</FlexItem>
-					<FlexItem>
-						<Button id="copy-report" ref={ref} variant="secondary">
-							{copyButtontext}
-						</Button>
-					</FlexItem>
-				</Flex>
-			</p>
+
+			<Flex justify="start" className="ep-status-report-actions">
+				<FlexItem>
+					<Button
+						id="generate-full-report"
+						disabled={generatedReport}
+						onClick={handleReportLoading}
+						variant="primary"
+					>
+						{__('Generate Full Status Report', 'elasticprobe')}
+					</Button>
+				</FlexItem>
+				<FlexItem>
+					<Button
+						id="download-report"
+						download="elasticprobe-report.txt"
+						href={downloadUrl}
+						variant="primary"
+					>
+						{downloadButtontext}
+					</Button>
+				</FlexItem>
+				<FlexItem>
+					<Button id="copy-report" ref={ref} variant="secondary">
+						{copyButtontext}
+					</Button>
+				</FlexItem>
+			</Flex>
 
 			{Object.entries(updatedReports).map(
 				([key, { actions, groups, messages, title, isAjaxReport }]) => (
