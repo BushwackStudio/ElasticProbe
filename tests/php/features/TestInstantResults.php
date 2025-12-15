@@ -92,7 +92,7 @@ class TestInstantResults extends BaseTestCase {
 		// Check if Instant Results is not available.
 		$status = \ElasticProbe\Features::factory()->get_registered_feature( 'instant-results' )->requirements_status();
 		$this->assertSame( 2, $status->code );
-		$this->assertSame( "To use this feature you need to be an <a href='https://elasticpress.io'>ElasticPress.io</a> customer or implement a <a href='https://github.com/10up/elasticpress-proxy'>custom proxy</a>.", $status->message[0] );
+		$this->assertSame( "To use this feature you need to be an <a href='https://elasticprobe.com'>ElasticProbe.com</a> customer or implement a <a href='https://github.com/10up/elasticpress-proxy'>custom proxy</a>.", $status->message[0] );
 	}
 
 	/**
@@ -125,7 +125,7 @@ class TestInstantResults extends BaseTestCase {
 	 */
 	public function test_template_endpoint() {
 		$feature = \ElasticProbe\Features::factory()->get_registered_feature( 'instant-results' );
-		$this->assertSame( 'api/v1/search/posts/exampleorg-post-1/template/', $feature->get_template_endpoint() );
+		$this->assertSame( 'v1/ir/exampleorg-post-1/template/', $feature->get_template_endpoint() );
 	}
 
 	/**

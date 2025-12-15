@@ -8586,7 +8586,7 @@ class TestPost extends BaseTestCase {
 	/**
 	 * Tests the `eprobe_bypass_exclusion_from_search` filter
 	 *
-	 * @expectedDeprecated ep_bypass_exclusion_from_search
+	 * @expectedDeprecated eprobe_bypass_exclusion_from_search
 	 */
 	public function testExcludeFromSearchQueryBypassFilter() {
 		$this->ep_factory->post->create_many(
@@ -9907,7 +9907,7 @@ class TestPost extends BaseTestCase {
 	 *
 	 * @since 5.2.0
 	 * @group post
-	 * @expectedDeprecated ep_formatted_doc_status
+	 * @expectedDeprecated eprobe_formatted_doc_status
 	 */
 	public function test_format_doc_status() {
 		$indexable    = ElasticProbe\Indexables::factory()->get( 'post' );
