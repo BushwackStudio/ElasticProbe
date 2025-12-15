@@ -221,10 +221,10 @@ function register_indexable_posts() {
 	$query_logger = apply_filters( 'eprobe_query_logger', new \ElasticProbe\QueryLogger() );
 	get_container()->set( '\ElasticProbe\QueryLogger', $query_logger, true );
 
-	get_container()->set( '\ElasticPress\AdminBar', new \ElasticProbe\AdminBar(), true );
-	get_container()->set( '\ElasticPress\BlockTemplateUtils', new \ElasticProbe\BlockTemplateUtils(), true );
-	get_container()->set( '\ElasticPress\ElasticPressIo', new \ElasticProbe\ElasticPressIo() );
-	get_container()->set( '\ElasticPress\ElementorUtils', new \ElasticProbe\ElementorUtils(), true );
+	get_container()->set( '\ElasticProbe\AdminBar', new \ElasticProbe\AdminBar(), true );
+	get_container()->set( '\ElasticProbe\BlockTemplateUtils', new \ElasticProbe\BlockTemplateUtils(), true );
+	get_container()->set( '\ElasticProbe\ElasticPressIo', new \ElasticProbe\ElasticPressIo() );
+	get_container()->set( '\ElasticProbe\ElementorUtils', new \ElasticProbe\ElementorUtils(), true );
 }
 add_action( 'plugins_loaded', __NAMESPACE__ . '\register_indexable_posts' );
 

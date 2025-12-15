@@ -45,11 +45,11 @@ abstract class Block {
 		/**
 		 * Filter if facet should be enabled in the editor. Default: false
 		 *
-		 * @hook  ep_facet_enabled_in_editor
+		 * @hook  eprobe_facet_enabled_in_editor
 		 * @since 5.1.0
 		 * @param {bool}  $enabled
 		 * @return {bool} If enabled or not
 		 */
-		return ! ( $in_editor && ! apply_filters( 'ep_facet_enabled_in_editor', false ) );
+		return ! ( $in_editor && ! apply_filters( 'eprobe_facet_enabled_in_editor', false ) );
 	}
 }

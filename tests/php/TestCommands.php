@@ -1239,7 +1239,7 @@ class TestCommands extends BaseTestCase {
 			}
 			return $args;
 		};
-		add_filter( 'ep_post_sync_args_post_prepare_meta', $throw_exception );
+		add_filter( 'eprobe_post_sync_args_post_prepare_meta', $throw_exception );
 
 		$this->command->sync( [], [ 'show-errors' => true ] );
 
@@ -1254,7 +1254,7 @@ class TestCommands extends BaseTestCase {
 			$this->assertStringContainsString( 'Number of posts indexed: 1', $output );
 		}
 
-		remove_filter( 'ep_post_sync_args_post_prepare_meta', $throw_exception );
+		remove_filter( 'eprobe_post_sync_args_post_prepare_meta', $throw_exception );
 	}
 
 	/**

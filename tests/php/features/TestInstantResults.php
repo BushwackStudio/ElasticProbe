@@ -74,20 +74,20 @@ class TestInstantResults extends BaseTestCase {
 		// Check if status is one for the elasticpress.io
 		$this->assertSame( 1, $status->code );
 
-		remove_filter( 'ep_host', $host_url );
+		remove_filter( 'eprobe_host', $host_url );
 
 		// check status for proxy.
 		$proxy_status = function () {
 			return true;
 		};
-		add_filter( 'ep_instant_results_available', $proxy_status );
+		add_filter( 'eprobe_instant_results_available', $proxy_status );
 
 		$status = \ElasticProbe\Features::factory()->get_registered_feature( 'instant-results' )->requirements_status();
 
 		$this->assertSame( 1, $status->code );
 		$this->assertSame( 'You are using a custom proxy. Make sure you implement all security measures needed.', $status->message[0] );
 
-		remove_filter( 'ep_instant_results_available', $proxy_status );
+		remove_filter( 'eprobe_instant_results_available', $proxy_status );
 
 		// Check if Instant Results is not available.
 		$status = \ElasticProbe\Features::factory()->get_registered_feature( 'instant-results' )->requirements_status();
@@ -152,7 +152,7 @@ class TestInstantResults extends BaseTestCase {
 		$feature = \ElasticProbe\Features::factory()->get_registered_feature( 'instant-results' );
 
 		add_action(
-			'ep_instant_results_template_saved',
+			'eprobe_instant_results_template_saved',
 			function () {
 				$this->assertTrue( true );
 			}
@@ -181,7 +181,7 @@ class TestInstantResults extends BaseTestCase {
 
 		// Assert that the template is deleted
 		add_action(
-			'ep_instant_results_template_deleted',
+			'eprobe_instant_results_template_deleted',
 			function () {
 				$this->assertTrue( true );
 			}
@@ -204,7 +204,7 @@ class TestInstantResults extends BaseTestCase {
 		$feature = \ElasticProbe\Features::factory()->get_registered_feature( 'instant-results' );
 
 		add_action(
-			'ep_instant_results_template_saved',
+			'eprobe_instant_results_template_saved',
 			function () {
 				$this->assertTrue( true );
 			}
@@ -212,7 +212,7 @@ class TestInstantResults extends BaseTestCase {
 		$feature->after_update_feature( 'instant-results', [], [ 'active' => true ] );
 
 		add_action(
-			'ep_instant_results_template_deleted',
+			'eprobe_instant_results_template_deleted',
 			function () {
 				$this->assertTrue( true );
 			}

@@ -164,7 +164,7 @@ class TestFeatureActivation extends BaseTestCase {
 		$this->assertEquals( 0, ElasticProbe\Features::factory()->registered_features['test']->requirements_status()->code );
 		$this->assertEquals( 0, $requirements_statuses['test'] );
 
-		update_site_option( 'ep_test_feature_on', 2 );
+		update_site_option( 'eprobe_test_feature_on', 2 );
 
 		$this->handle_feature_activation();
 
@@ -192,7 +192,7 @@ class TestFeatureActivation extends BaseTestCase {
 
 		ElasticProbe\Features::factory()->register_feature( $feature );
 
-		update_site_option( 'ep_test_feature_on', 2 );
+		update_site_option( 'eprobe_test_feature_on', 2 );
 
 		$this->handle_feature_activation();
 		ElasticProbe\Features::factory()->setup_features();
@@ -203,7 +203,7 @@ class TestFeatureActivation extends BaseTestCase {
 		$this->assertEquals( 2, ElasticProbe\Features::factory()->registered_features['test']->requirements_status()->code );
 		$this->assertEquals( 2, $requirements_statuses['test'] );
 
-		update_site_option( 'ep_test_feature_on', 0 );
+		update_site_option( 'eprobe_test_feature_on', 0 );
 
 		$this->handle_feature_activation();
 
@@ -229,7 +229,7 @@ class TestFeatureActivation extends BaseTestCase {
 			new FeatureTest()
 		);
 
-		update_site_option( 'ep_test_feature_on', 0 );
+		update_site_option( 'eprobe_test_feature_on', 0 );
 
 		$this->handle_feature_activation();
 		ElasticProbe\Features::factory()->setup_features();
@@ -240,7 +240,7 @@ class TestFeatureActivation extends BaseTestCase {
 		$this->assertEquals( 0, ElasticProbe\Features::factory()->registered_features['test']->requirements_status()->code );
 		$this->assertEquals( 0, $requirements_statuses['test'] );
 
-		update_site_option( 'ep_test_feature_on', 1 );
+		update_site_option( 'eprobe_test_feature_on', 1 );
 
 		$this->handle_feature_activation();
 

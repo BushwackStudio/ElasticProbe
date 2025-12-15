@@ -1237,12 +1237,12 @@ class Elasticsearch {
 		/**
 		 * Filter the query log
 		 *
-		 * @hook ep_get_query_log
+		 * @hook eprobe_get_query_log
 		 * @since 5.3.0
 		 * @param {array} $queries The query log
 		 * @return {array} The query log
 		 */
-		return apply_filters( 'ep_get_query_log', $this->queries );
+		return apply_filters( 'eprobe_get_query_log', $this->queries );
 	}
 
 	/**
