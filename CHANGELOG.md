@@ -15,6 +15,14 @@ All notable changes to this project will be documented in this file, per [the Ke
 ### Developer
 -->
 
+## [1.5.0] - 2025-x-x
+
+### Added
+* Support for WordPress 9.3
+
+### Changed
+* Updated upstream to ElasticPress 5.3.2
+
 ## [1.4.0] - 2025-10-19
 
 ### Added

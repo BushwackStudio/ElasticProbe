@@ -82,7 +82,7 @@ class TestFeature extends BaseTestCase {
 		$stub->order            = 1;
 
 		add_filter(
-			'ep_feature_requirements_status',
+			'eprobe_feature_requirements_status',
 			function () {
 				return new \ElasticProbe\FeatureRequirementsStatus( 2, 'Testing' );
 			}

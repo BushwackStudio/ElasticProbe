@@ -8,7 +8,7 @@
 namespace ElasticProbe\Feature\InstantResults;
 
 use ElasticProbe\Elasticsearch;
-use ElasticProbe\ElasticPressIoTemplateManager;
+use ElasticProbe\ElasticProbeComTemplateManager;
 use ElasticProbe\Feature;
 use ElasticProbe\FeatureRequirementsStatus;
 use ElasticProbe\Features;
@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class InstantResults extends Feature {
 
-	use ElasticPressIoTemplateManager;
+	use ElasticProbeComTemplateManager;
 
 	/**
 	 * Elasticsearch index name.

@@ -2,7 +2,7 @@
 Contributors: bushwackstudio, nshayanfar
 Tags:         performance, search, elasticsearch, fuzzy, related posts
 Tested up to: 6.8
-Stable tag:   1.4.0
+Stable tag:   1.5.0
 License:      GPLv2 or later
 License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,14 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 4. Synonyms Dashboard
 
 == Changelog ==
+
+= 1.5.0 - 2024-x-x =
+
+__Changed:__
+* Updated the upstream
+
+__Added:__
+* Support for WordPress 9.3
 
 = 1.4.0 - 2024-10-19 =
 

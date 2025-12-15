@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 5.3.0
  */
-trait ElasticPressIoTemplateManager {
+trait ElasticProbeComTemplateManager {
 
 	/**
 	 * Get the endpoint for the search template.

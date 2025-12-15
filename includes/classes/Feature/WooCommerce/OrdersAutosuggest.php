@@ -8,7 +8,7 @@
 
 namespace ElasticProbe\Feature\WooCommerce;
 
-use ElasticProbe\ElasticPressIoTemplateManager;
+use ElasticProbe\ElasticProbeComTemplateManager;
 use ElasticProbe\Features;
 use ElasticProbe\Indexables;
 use ElasticProbe\REST;
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class OrdersAutosuggest {
 
-	use ElasticPressIoTemplateManager;
+	use ElasticProbeComTemplateManager;
 
 	/**
 	 * The name of the index.

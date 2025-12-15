@@ -891,6 +891,13 @@ class Autosuggest extends Feature {
 				'label'   => __( 'Trigger Google Analytics events', 'elasticprobe' ),
 				'type'    => 'checkbox',
 			],
+			[
+				'default' => '0',
+				'key'     => 'autocomplete_enabled',
+				'help'    => __( 'Enable to automatically complete search queries.', 'elasticprobe' ),
+				'label'   => __( 'Autocomplete search queries', 'elasticprobe' ),
+				'type'    => 'checkbox',
+			],
 		];
 
 		$this->maybe_add_epio_settings_schema();
