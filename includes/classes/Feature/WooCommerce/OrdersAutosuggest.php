@@ -206,7 +206,7 @@ class OrdersAutosuggest {
 	}
 
 	/**
-	 * Get the feature slug for ElasticPress.io template management.
+	 * Get the feature slug for ElasticProbe.com template management.
 	 *
 	 * @return string Feature slug.
 	 */
@@ -215,7 +215,7 @@ class OrdersAutosuggest {
 	}
 
 	/**
-	 * Get the hook prefix for ElasticPress.io template management.
+	 * Get the hook prefix for ElasticProbe.com template management.
 	 *
 	 * @return string Hook prefix.
 	 */

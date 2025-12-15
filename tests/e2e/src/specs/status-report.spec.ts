@@ -56,7 +56,7 @@ test.describe('Status Report', { tag: '@group1' }, () => {
 		// Until we expose the available services, we simply check the endpoint returned data
 		await expect(
 			loggedInPage
-				.locator('.ep-query-url', { hasText: 'elasticpress.io/endpoint-status' })
+				.locator('.ep-query-url', { hasText: 'gateway.elasticprobe.com/endpoint-status' })
 				.locator('..')
 				.locator('.ep-query-result'),
 		).toContainText(

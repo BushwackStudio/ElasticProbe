@@ -498,8 +498,8 @@ class TestProtectedContent extends BaseTestCase {
 		set_current_screen( 'edit.php' );
 		$this->assertTrue( is_admin() );
 
-		ElasticPress\Features::factory()->activate_feature( 'protected_content' );
-		ElasticPress\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$author_1_id = $this->factory->user->create();
 		$author_2_id = $this->factory->user->create();
@@ -537,7 +537,7 @@ class TestProtectedContent extends BaseTestCase {
 			]
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		wp_set_current_user( $author_1_id );
 
@@ -608,10 +608,10 @@ class TestProtectedContent extends BaseTestCase {
 		set_current_screen( 'edit.php' );
 		$this->assertTrue( is_admin() );
 
-		ElasticPress\Features::factory()->activate_feature( 'protected_content' );
-		ElasticPress\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
+		ElasticProbe\Features::factory()->setup_features();
 
-		$post = new \ElasticPress\Indexable\Post\Post();
+		$post = new \ElasticProbe\Indexable\Post\Post();
 
 		// This will include statuses besides publish.
 		$args     = $post->format_args( [ 'post_type' => [ 'post' ] ], new \WP_Query() );
@@ -634,8 +634,8 @@ class TestProtectedContent extends BaseTestCase {
 		set_current_screen( 'edit.php' );
 		$this->assertTrue( is_admin() );
 
-		ElasticPress\Features::factory()->activate_feature( 'protected_content' );
-		ElasticPress\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'protected_content' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		$post_1_id = $this->ep_factory->post->create(
 			[
@@ -653,7 +653,7 @@ class TestProtectedContent extends BaseTestCase {
 			]
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$query = new \WP_Query(
 			[

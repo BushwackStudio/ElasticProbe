@@ -1159,8 +1159,8 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 	public function test_custom_orderby_is_applied() {
 		global $wp_the_query, $wp_query;
 
-		ElasticPress\Features::factory()->activate_feature( 'woocommerce' );
-		ElasticPress\Features::factory()->setup_features();
+		ElasticProbe\Features::factory()->activate_feature( 'woocommerce' );
+		ElasticProbe\Features::factory()->setup_features();
 
 		add_filter(
 			'orderby_meta_mapping',
@@ -1177,7 +1177,7 @@ class TestWooCommerceProduct extends WooCommerceBaseTestCase {
 
 		$this->ep_factory->product->create();
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$args = array(
 			'post_type'    => 'product',

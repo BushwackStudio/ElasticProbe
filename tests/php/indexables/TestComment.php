@@ -2674,7 +2674,7 @@ class TestComment extends BaseTestCase {
 			]
 		);
 
-		ElasticPress\Elasticsearch::factory()->refresh_indices();
+		ElasticProbe\Elasticsearch::factory()->refresh_indices();
 
 		$comments_query = new \WP_Comment_Query(
 			[

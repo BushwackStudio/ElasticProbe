@@ -130,7 +130,7 @@ abstract class FacetType {
 	 * @return array
 	 */
 	protected function elementor_template_meta_fields( string $widget_name ): array {
-		$elementor_utils = \ElasticPress\get_container()->get( '\ElasticPress\ElementorUtils' );
+		$elementor_utils = \ElasticProbe\get_container()->get( '\ElasticProbe\ElementorUtils' );
 		$ep_widgets      = $elementor_utils->get_specific_widget_in_all_templates( $widget_name );
 
 		// Early return if no widgets found
