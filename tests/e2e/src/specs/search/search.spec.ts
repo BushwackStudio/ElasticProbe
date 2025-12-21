@@ -11,7 +11,7 @@ test.describe('Post Search Feature', { tag: '@group1' }, () => {
 	test('Can use Elasticsearch for the default WP search', async ({ loggedInPage }) => {
 		await loggedInPage.goto('/?s=test');
 		const debugText = await loggedInPage
-			.locator('#debug-menu-target-EP_Debug_Bar_ElasticPress')
+			.locator('#debug-menu-target-EP_Debug_Bar_ElasticProbe')
 			.textContent();
 		expect(debugText).toContain('Query Response Code: HTTP 200');
 		expect(debugText).not.toContain('Query Response Code: HTTP 4');
@@ -20,14 +20,14 @@ test.describe('Post Search Feature', { tag: '@group1' }, () => {
 
 	test('Can see exact matches showing higher', async ({ loggedInPage }) => {
 		const postsData = [
-			{ title: 'Higher', content: '10up loves elasticpress' },
-			{ title: 'Lower', content: 'elasticpress loves 10up' },
+			{ title: 'Higher', content: 'Bushwack loves elasticprobe' },
+			{ title: 'Lower', content: 'elasticprobe loves Bushwack' },
 		];
 		for await (const postData of postsData) {
 			await publishPost(loggedInPage, postData);
 		}
 		await loggedInPage.waitForTimeout(2000);
-		await loggedInPage.goto('/?s=10up+loves+elasticpress');
+		await loggedInPage.goto('/?s=Bushwack+loves+elasticprobe');
 		await expect(loggedInPage.locator('.site-content article:nth-of-type(1) h2')).toHaveText(
 			'Higher',
 		);

@@ -69,7 +69,7 @@ test.describe('Terms Feature', { tag: '@group2' }, () => {
 
 		await expect(
 			loggedInPage
-				.locator('#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-query-debug')
+				.locator('#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-query-debug')
 				.filter({ hasText: 'term' })
 				.first(),
 		).toContainText(searchTerm);
@@ -84,7 +84,7 @@ test.describe('Terms Feature', { tag: '@group2' }, () => {
 		await expect(tbody).toContainText('No tags found');
 		await expect(
 			loggedInPage
-				.locator('#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-query-debug')
+				.locator('#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-query-debug')
 				.filter({ hasText: 'term' })
 				.first(),
 		).toContainText('Query Response Code: HTTP 200');
@@ -108,7 +108,7 @@ test.describe('Terms Feature', { tag: '@group2' }, () => {
 
 		const debugResult = loggedInPage
 			.locator(
-				'#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-query-debug .ep-query-result',
+				'#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-query-debug .ep-query-result',
 			)
 			.first();
 		await expect(debugResult).toContainText('The Most Fun Thing');

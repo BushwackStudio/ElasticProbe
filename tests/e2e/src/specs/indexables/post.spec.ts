@@ -80,7 +80,7 @@ test.describe('Post Indexable', { tag: '@group1' }, () => {
 		expect(count).toBeGreaterThanOrEqual(1);
 		await expect(
 			loggedInPage
-				.locator('#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-query-debug')
+				.locator('#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-query-debug')
 				.filter({ hasText: 'Main query' }),
 		).toBeAttached();
 
@@ -108,7 +108,7 @@ test.describe('Post Indexable', { tag: '@group1' }, () => {
 		);
 
 		await loggedInPage
-			.locator('#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-retrieve-es-document')
+			.locator('#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-retrieve-es-document')
 			.dispatchEvent('click');
 		await expect(
 			loggedInPage.locator('.ep-query-debug').filter({
@@ -122,7 +122,7 @@ test.describe('Post Indexable', { tag: '@group1' }, () => {
 		await setPostPassword(loggedInPage, '', true, true);
 
 		await loggedInPage
-			.locator('#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-retrieve-es-document')
+			.locator('#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-retrieve-es-document')
 			.dispatchEvent('click');
 		await expect(
 			loggedInPage.locator('.ep-query-debug').filter({
@@ -136,7 +136,7 @@ test.describe('Post Indexable', { tag: '@group1' }, () => {
 		await setPostPassword(loggedInPage, 'password', true, true);
 
 		await loggedInPage
-			.locator('#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-retrieve-es-document')
+			.locator('#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-retrieve-es-document')
 			.dispatchEvent('click');
 		await expect(
 			loggedInPage.locator('.ep-query-debug').filter({

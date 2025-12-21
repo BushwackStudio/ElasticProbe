@@ -162,6 +162,7 @@ test.describe('WooCommerce Feature', { tag: '@group2' }, () => {
 		test('Can not display other users orders on the My Account Order page', async ({
 			loggedInPage,
 		}) => {
+			test.slow();
 			await activatePlugin(loggedInPage, 'enable-debug-bar');
 
 			// Enable payment gateway
@@ -349,7 +350,7 @@ test.describe('WooCommerce Feature', { tag: '@group2' }, () => {
 			await loggedInPage.reload();
 			await expect(
 				loggedInPage.locator(
-					'#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-query-debug',
+					'#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-query-debug',
 				),
 			).toContainText('Query Response Code: HTTP 200');
 			await expect(loggedInPage.locator('#the-list tr').first()).toHaveAttribute(
@@ -386,7 +387,7 @@ test.describe('WooCommerce Feature', { tag: '@group2' }, () => {
 			await loggedInPage.reload();
 			await expect(
 				loggedInPage.locator(
-					'#debug-menu-target-EP_Debug_Bar_ElasticPress .ep-query-debug',
+					'#debug-menu-target-EP_Debug_Bar_ElasticProbe .ep-query-debug',
 				),
 			).toContainText('Query Response Code: HTTP 200');
 			await expect(loggedInPage.locator('#the-list tr').first()).not.toHaveAttribute(

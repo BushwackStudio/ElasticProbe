@@ -47,7 +47,7 @@ test.describe('Protected Content Feature', { tag: '@group1' }, () => {
 		await maybeEnableFeature('protected_content');
 		await goToAdminPage(loggedInPage, 'edit.php');
 		await expect(
-			loggedInPage.locator('#debug-menu-target-EP_Debug_Bar_ElasticPress'),
+			loggedInPage.locator('#debug-menu-target-EP_Debug_Bar_ElasticProbe'),
 		).toContainText('Time Taken');
 	});
 
@@ -73,7 +73,7 @@ test.describe('Protected Content Feature', { tag: '@group1' }, () => {
 		await maybeEnableFeature('protected_content');
 		await goToAdminPage(loggedInPage, 'upload.php?mode=list');
 		await expect(
-			loggedInPage.locator('#debug-menu-target-EP_Debug_Bar_ElasticPress'),
+			loggedInPage.locator('#debug-menu-target-EP_Debug_Bar_ElasticProbe'),
 		).toContainText('Time Taken');
 
 		// Check there are some rows in the list

@@ -105,14 +105,14 @@ test.describe('ACF Repeater Field Compatibility Feature', { tag: '@paidPlugins' 
 
 		// Check debug bar for ElasticProbe data
 		await loggedInPage.locator('#wpadminbar li#wp-admin-bar-debug-bar').click();
-		await loggedInPage.locator('#debug-menu-link-EP_Debug_Bar_ElasticPress').click();
+		await loggedInPage.locator('#debug-menu-link-EP_Debug_Bar_ElasticProbe').click();
 		await loggedInPage
 			.locator('a')
 			.filter({ hasText: 'Reload and retrieve raw ES document' })
 			.click();
 
 		await loggedInPage.locator('#wpadminbar li#wp-admin-bar-debug-bar').click();
-		await loggedInPage.locator('#debug-menu-link-EP_Debug_Bar_ElasticPress').click();
+		await loggedInPage.locator('#debug-menu-link-EP_Debug_Bar_ElasticProbe').click();
 
 		// Verify the indexed data contains the expected repeater field content
 		await expect(loggedInPage.locator('.query-results').first()).toContainText(

@@ -25,3 +25,10 @@ sample_instant_result_template2.json
 /tests/e2e/playwright-report/
 /tests/e2e/blob-report/
 /tests/e2e/playwright/.cache/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/

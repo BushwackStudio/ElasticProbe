@@ -3,7 +3,7 @@ name: Publish elasticpress-playwright-utils
 on:
   push:
     branches:
-      - develop
+      - dev
       - trunk
       - chore/e2e-playwright
 

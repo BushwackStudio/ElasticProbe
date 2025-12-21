@@ -13,7 +13,7 @@ test.describe('WordPress can perform standard ElasticProbe actions', { tag: '@gr
 		await activatePlugin(loggedInPage, 'elasticprobe');
 
 		await expect(
-			loggedInPage.locator('.toplevel_page_elasticpress .wp-menu-name'),
+			loggedInPage.locator('.toplevel_page_elasticprobe .wp-menu-name'),
 		).toContainText('ElasticProbe');
 	});
 

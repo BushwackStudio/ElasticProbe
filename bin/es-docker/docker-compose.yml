@@ -4,12 +4,12 @@ services:
       dockerfile: Dockerfile
       context: .
       args:
-        ES_VERSION: ${ES_VERSION-8.16.1}
+        ES_VERSION: ${ES_VERSION-8.17.3}
     ports:
       - 8890:9200
-    mem_limit: 1024M
-    mem_reservation: 1024M
+    mem_limit: 4096M
+    mem_reservation: 4096M
     volumes:
       - './elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:cached'
     environment:
-      ES_JAVA_OPTS: '-Xms450m -Xmx450m'
+      ES_JAVA_OPTS: '-Xms2000m -Xmx2000m'
