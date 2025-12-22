@@ -26,7 +26,7 @@ class Widget extends \WP_Widget {
 		$options = array(
 			'description'           => esc_html__( 'Let visitors filter your content by a range of metadata values.', 'elasticprobe' ),
 			'show_instance_in_rest' => true,
-			'classname'             => 'wp-widget-elasticpress-facet widget_ep-facet-meta-range',
+			'classname'             => 'wp-widget-elasticprobe-facet widget_ep-facet-meta-range',
 		);
 
 		parent::__construct( 'ep-facet-meta-range', esc_html__( 'ElasticProbe - Filter by Metadata Range - Beta', 'elasticprobe' ), $options );

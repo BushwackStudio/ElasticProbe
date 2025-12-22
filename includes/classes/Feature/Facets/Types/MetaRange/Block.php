@@ -101,7 +101,7 @@ class Block extends \ElasticProbe\Feature\Facets\Block {
 
 		ob_start();
 
-		$wrapper_attributes = get_block_wrapper_attributes( [ 'class' => 'wp-block-elasticpress-facet' ] );
+		$wrapper_attributes = get_block_wrapper_attributes( [ 'class' => 'wp-block-elasticprobe-facet' ] );
 		?>
 		<div <?php echo wp_kses_data( $wrapper_attributes ); ?>>
 			<?php $renderer->render( [], $attributes ); ?>

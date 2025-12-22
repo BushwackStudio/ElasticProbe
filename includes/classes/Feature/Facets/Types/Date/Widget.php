@@ -24,7 +24,7 @@ class Widget extends \WP_Widget {
 		$options = array(
 			'description'           => esc_html__( 'Let visitors filter your content by post date.', 'elasticprobe' ),
 			'show_instance_in_rest' => true,
-			'classname'             => 'wp-widget-elasticpress-facet widget_ep-facet-date',
+			'classname'             => 'wp-widget-elasticprobe-facet widget_ep-facet-date',
 		);
 
 		parent::__construct( 'ep-facet-date', esc_html__( 'ElasticProbe - Filter by Post Date', 'elasticprobe' ), $options );

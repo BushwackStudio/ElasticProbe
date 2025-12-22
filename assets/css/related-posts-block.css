@@ -1,9 +1,9 @@
-.editor-styles-wrapper .wp-block-elasticpress-related-posts ul,
-.wp-block-elasticpress-related-posts ul {
+.editor-styles-wrapper .wp-block-elasticprobe-related-posts ul,
+.wp-block-elasticprobe-related-posts ul {
 	list-style-type: none;
 	padding: 0;
 }
 
-.editor-styles-wrapper .wp-block-elasticpress-related-posts ul li a > div {
+.editor-styles-wrapper .wp-block-elasticprobe-related-posts ul li a > div {
 	display: inline;
 }

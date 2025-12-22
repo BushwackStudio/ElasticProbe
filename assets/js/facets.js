@@ -29,7 +29,7 @@ const handleFacetSearch = (event, facetTerms) => {
  * Filter facet choices to match the search field term
  */
 const facets = document.querySelectorAll(
-	'.widget_ep-facet, .wp-block-elasticpress-facet, .elementor-widget-wp-widget-ep-facet',
+	'.widget_ep-facet, .wp-block-elasticprobe-facet, .elementor-widget-wp-widget-ep-facet',
 );
 
 facets.forEach((facet) => {

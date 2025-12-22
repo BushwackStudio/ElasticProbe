@@ -30,7 +30,7 @@ class Widget extends \WP_Widget {
 			[
 				'description'           => esc_html__( 'Add a meta facet filter to your sidebar or widget area.', 'elasticprobe' ),
 				'show_instance_in_rest' => true,
-				'classname'             => 'wp-widget-elasticpress-facet widget_ep-facet-meta',
+				'classname'             => 'wp-widget-elasticprobe-facet widget_ep-facet-meta',
 			]
 		);
 	}

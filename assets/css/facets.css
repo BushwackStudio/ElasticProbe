@@ -9,8 +9,8 @@
 }
 
 .widget_ep-facet,
-.wp-block-elasticpress-facet,
-.wp-widget-elasticpress-facet,
+.wp-block-elasticprobe-facet,
+.wp-widget-elasticprobe-facet,
 [class*="elementor-widget-wp-widget-ep-facet"] {
 
 	& input[type="search"] {

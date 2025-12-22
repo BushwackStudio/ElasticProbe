@@ -65,7 +65,7 @@ test.describe('Related Posts Feature', { tag: '@group2' }, () => {
 		await closeBlockInserter(loggedInPage);
 
 		// Verify block is inserted and contains expected content
-		const block = editorFrame.locator('.wp-block.wp-block-elasticpress-related-posts').first();
+		const block = editorFrame.locator('.wp-block.wp-block-elasticprobe-related-posts').first();
 		const listItems = block.locator('li');
 		await expect(listItems).toHaveCount(5);
 		await expect(listItems.first()).toContainText('Test related posts block #');
@@ -110,7 +110,7 @@ test.describe('Related Posts Feature', { tag: '@group2' }, () => {
 		await loggedInPage.goto(postHref);
 
 		// Verify block on front end
-		const frontEndBlock = loggedInPage.locator('.wp-block-elasticpress-related-posts').first();
+		const frontEndBlock = loggedInPage.locator('.wp-block-elasticprobe-related-posts').first();
 		const frontEndItems = frontEndBlock.locator('li');
 		await expect(frontEndItems).toHaveCount(2);
 		await expect(frontEndItems.first()).toContainText('Test related posts block #');
@@ -180,14 +180,14 @@ test.describe('Related Posts Feature', { tag: '@group2' }, () => {
 		await legacyWidget.click();
 		await loggedInPage.click('.block-editor-block-switcher button');
 		await loggedInPage.click(
-			'.block-editor-block-switcher__popover .editor-block-list-item-elasticpress-related-posts',
+			'.block-editor-block-switcher__popover .editor-block-list-item-elasticprobe-related-posts',
 		);
 
 		// Verify transformation
 		await expect(loggedInPage.locator('.wp-block-heading')).toContainText(
 			'My related posts widget',
 		);
-		const block = loggedInPage.locator('.wp-block-elasticpress-related-posts').first();
+		const block = loggedInPage.locator('.wp-block-elasticprobe-related-posts').first();
 		await expect(block).toBeVisible();
 
 		// Verify block settings match widget settings

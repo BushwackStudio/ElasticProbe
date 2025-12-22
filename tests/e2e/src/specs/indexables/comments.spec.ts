@@ -52,7 +52,7 @@ test.describe('Comments Indexable', { tag: '@group2' }, () => {
 	test('Can insert, configure, and use the Search Comments block', async ({ loggedInPage }) => {
 		const setTitle = async (title: string) => {
 			await loggedInPage
-				.locator('.wp-block-elasticpress-comments')
+				.locator('.wp-block-elasticprobe-comments')
 				.last()
 				.locator('.rich-text')
 				.fill(title);
@@ -84,7 +84,7 @@ test.describe('Comments Indexable', { tag: '@group2' }, () => {
 		await loggedInPage.locator('.components-checkbox-control__input').nth(2).click();
 
 		// Test block style support
-		const block = editorFrame.locator('.wp-block-elasticpress-comments').last();
+		const block = editorFrame.locator('.wp-block-elasticprobe-comments').last();
 		await maybeOpenSettingsTab(loggedInPage, 'Block');
 		await supportsBlockColors(loggedInPage, block, true);
 		await supportsBlockTypography(loggedInPage, block, true);
@@ -133,7 +133,7 @@ test.describe('Comments Indexable', { tag: '@group2' }, () => {
 
 		let i = 0;
 		for await (const blockData of blocks) {
-			const block = loggedInPage.locator('.wp-block-elasticpress-comments').nth(i++);
+			const block = loggedInPage.locator('.wp-block-elasticprobe-comments').nth(i++);
 			await expect(block.locator('label')).toContainText(blockData.title);
 			await expect(block.locator('input[type="hidden"]')).toHaveCount(
 				blockData.hidden ? 1 : 0,
@@ -175,7 +175,7 @@ test.describe('Comments Indexable', { tag: '@group2' }, () => {
 			}
 		}
 
-		const frontEndBlock = loggedInPage.locator('.wp-block-elasticpress-comments').last();
+		const frontEndBlock = loggedInPage.locator('.wp-block-elasticprobe-comments').last();
 		await supportsBlockColors(loggedInPage, frontEndBlock);
 		await supportsBlockTypography(loggedInPage, frontEndBlock);
 		await supportsBlockDimensions(loggedInPage, frontEndBlock);
@@ -248,7 +248,7 @@ test.describe('Comments Indexable', { tag: '@group2' }, () => {
 		await loggedInPage.locator('.block-editor-block-switcher button').click();
 		await loggedInPage
 			.locator(
-				'.block-editor-block-switcher__popover .editor-block-list-item-elasticpress-comments',
+				'.block-editor-block-switcher__popover .editor-block-list-item-elasticprobe-comments',
 			)
 			.click();
 
@@ -257,7 +257,7 @@ test.describe('Comments Indexable', { tag: '@group2' }, () => {
 		 */
 		await expect(loggedInPage.locator('.wp-block-heading')).toContainText('My comments widget');
 
-		const block = loggedInPage.locator('.wp-block-elasticpress-comments').first();
+		const block = loggedInPage.locator('.wp-block-elasticprobe-comments').first();
 		await expect(block).toBeVisible();
 
 		// Verify block settings match widget settings

@@ -86,8 +86,8 @@ test.describe('Facets Feature', { tag: '@group2' }, () => {
 		await insertBlock(loggedInPage, 'Filter by Taxonomy');
 		await insertBlock(loggedInPage, 'Filter by Taxonomy');
 
-		const firstBlock = loggedInPage.locator('.wp-block.wp-block-elasticpress-facet').first();
-		const secondBlock = loggedInPage.locator('.wp-block.wp-block-elasticpress-facet').last();
+		const firstBlock = loggedInPage.locator('.wp-block.wp-block-elasticprobe-facet').first();
+		const secondBlock = loggedInPage.locator('.wp-block.wp-block-elasticprobe-facet').last();
 
 		// Verify that the blocks are inserted into the editor, and contain the expected content
 		await expect(firstBlock.locator('select')).toContainText('Select taxonomy');
@@ -154,8 +154,8 @@ test.describe('Facets Feature', { tag: '@group2' }, () => {
 		await loggedInPage.goto('/');
 
 		// Verify the blocks have the expected output on the front-end based on their settings
-		const firstBlockFrontend = loggedInPage.locator('.wp-block-elasticpress-facet').first();
-		const secondBlockFrontend = loggedInPage.locator('.wp-block-elasticpress-facet').last();
+		const firstBlockFrontend = loggedInPage.locator('.wp-block-elasticprobe-facet').first();
+		const secondBlockFrontend = loggedInPage.locator('.wp-block-elasticprobe-facet').last();
 		await expect(firstBlockFrontend.locator('input')).toHaveAttribute(
 			'placeholder',
 			'Search Categories',
@@ -293,13 +293,13 @@ test.describe('Facets Feature', { tag: '@group2' }, () => {
 		await loggedInPage.locator('.block-editor-block-switcher button').click();
 		await loggedInPage
 			.locator(
-				'.block-editor-block-switcher__popover .editor-block-list-item-elasticpress-facet',
+				'.block-editor-block-switcher__popover .editor-block-list-item-elasticprobe-facet',
 			)
 			.click();
 
 		// Check that the widget has been transformed into the correct blocks
 		await expect(loggedInPage.locator('.wp-block-heading:has-text("My facet")')).toBeVisible();
-		const block = loggedInPage.locator('.wp-block-elasticpress-facet').first();
+		const block = loggedInPage.locator('.wp-block-elasticprobe-facet').first();
 		await expect(block).toBeVisible();
 
 		// Check that the block's settings match the widget's
@@ -405,7 +405,7 @@ test.describe('Facets Feature', { tag: '@group2' }, () => {
 			await expect(await getBlocksList(loggedInPage)).toContainText('Filter by Metadata');
 			await insertBlock(loggedInPage, 'Filter by Metadata');
 			const firstBlock = loggedInPage
-				.locator('.wp-block.wp-block-elasticpress-facet-meta')
+				.locator('.wp-block.wp-block-elasticprobe-facet-meta')
 				.last();
 
 			// Configure the block
@@ -449,7 +449,7 @@ test.describe('Facets Feature', { tag: '@group2' }, () => {
 			await expect(await getBlocksList(loggedInPage)).toContainText('Filter by Metadata');
 			await insertBlock(loggedInPage, 'Filter by Metadata');
 			const secondBlock = loggedInPage
-				.locator('.wp-block.wp-block-elasticpress-facet-meta')
+				.locator('.wp-block.wp-block-elasticprobe-facet-meta')
 				.last();
 
 			// Configure the block
@@ -491,8 +491,8 @@ test.describe('Facets Feature', { tag: '@group2' }, () => {
 			await loggedInPage.goto('/');
 
 			// Verify the blocks have the expected output on the front-end based on their settings
-			const firstBlockFrontend = loggedInPage.locator('.wp-block-elasticpress-facet').first();
-			const secondBlockFrontend = loggedInPage.locator('.wp-block-elasticpress-facet').last();
+			const firstBlockFrontend = loggedInPage.locator('.wp-block-elasticprobe-facet').first();
+			const secondBlockFrontend = loggedInPage.locator('.wp-block-elasticprobe-facet').last();
 			await expect(firstBlockFrontend.locator('input')).toHaveAttribute(
 				'placeholder',
 				'Search Meta 1',
@@ -599,7 +599,7 @@ test.describe('Facets Feature', { tag: '@group2' }, () => {
 				.locator('.term', { hasText: /^Meta Value \(2\) - 1$/ })
 				.click();
 			await expect(
-				loggedInPage.locator('.wp-block-elasticpress-facet a[aria-disabled="true"]'),
+				loggedInPage.locator('.wp-block-elasticprobe-facet a[aria-disabled="true"]'),
 			).not.toBeVisible();
 			await expect(
 				loggedInPage.locator('.site-content article h2:has-text("Facet By Meta Post 20")'),
@@ -664,7 +664,7 @@ test.describe('Facets Feature', { tag: '@group2' }, () => {
 			);
 			await insertBlock(loggedInPage, 'Filter by Metadata Range - Beta');
 			const block = loggedInPage
-				.locator('.wp-block.wp-block-elasticpress-facet-meta-range')
+				.locator('.wp-block.wp-block-elasticprobe-facet-meta-range')
 				.last();
 
 			// The block should prompt to select a field
@@ -718,7 +718,7 @@ test.describe('Facets Feature', { tag: '@group2' }, () => {
 			await openBlockInserter(loggedInPage);
 			await expect(await getBlocksList(loggedInPage)).toContainText('Filter by Metadata');
 			await insertBlock(loggedInPage, 'Filter by Metadata');
-			await loggedInPage.locator('.wp-block-elasticpress-facet-meta').last().click();
+			await loggedInPage.locator('.wp-block-elasticprobe-facet-meta').last().click();
 			await openBlockSettingsSidebar(loggedInPage);
 			await loggedInPage
 				.locator('.block-editor-block-inspector select')
@@ -734,7 +734,7 @@ test.describe('Facets Feature', { tag: '@group2' }, () => {
 			await loggedInPage.goto('/');
 
 			// The block should be rendered on the front end and display the prefix and suffix
-			const blockFrontend = loggedInPage.locator('.wp-block-elasticpress-facet').first();
+			const blockFrontend = loggedInPage.locator('.wp-block-elasticprobe-facet').first();
 			await expect(blockFrontend.locator('.ep-range-facet')).toBeVisible();
 			await expect(await blockFrontend.locator('.ep-range-slider__thumb').count()).toBe(2);
 			await expect(blockFrontend).toContainText('$1/day — $20/day');
@@ -784,7 +784,7 @@ test.describe('Facets Feature', { tag: '@group2' }, () => {
 			).toBeVisible();
 
 			// Clicking clear should clear the range parameters but not any other facet parameters
-			await loggedInPage.locator('.wp-block-elasticpress-facet .term a').first().click();
+			await loggedInPage.locator('.wp-block-elasticprobe-facet .term a').first().click();
 			await expect(loggedInPage).toHaveURL(/ep_meta_range_filter_numeric_meta_field_min=7/);
 			await expect(loggedInPage).toHaveURL(/ep_meta_range_filter_numeric_meta_field_max=14/);
 			await expect(loggedInPage).toHaveURL(
@@ -813,7 +813,7 @@ test.describe('Facets Feature', { tag: '@group2' }, () => {
 			await expect(await getBlocksList(loggedInPage)).toContainText('Filter by Post Type');
 			await insertBlock(loggedInPage, 'Filter by Post Type');
 			const block = loggedInPage
-				.locator('.wp-block.wp-block-elasticpress-facet-post-type')
+				.locator('.wp-block.wp-block-elasticprobe-facet-post-type')
 				.last();
 
 			// Configure the block
@@ -857,7 +857,7 @@ test.describe('Facets Feature', { tag: '@group2' }, () => {
 			await loggedInPage.goto('/');
 
 			// Verify the blocks have the expected output on the front-end based on their settings
-			const firstBlockFrontend = loggedInPage.locator('.wp-block-elasticpress-facet').first();
+			const firstBlockFrontend = loggedInPage.locator('.wp-block-elasticprobe-facet').first();
 			const termsCount = await firstBlockFrontend.locator('.term').count();
 			const termsCounterCount = await firstBlockFrontend
 				.locator('.term', { hasText: /\(\d+\)$/ })
@@ -890,7 +890,7 @@ test.describe('Facets Feature', { tag: '@group2' }, () => {
 			await openBlockInserter(loggedInPage);
 			await expect(await getBlocksList(loggedInPage)).toContainText('Filter by Post Date');
 			await insertBlock(loggedInPage, 'Filter by Post Date');
-			const block = loggedInPage.locator('.wp-block.wp-block-elasticpress-facet-date').last();
+			const block = loggedInPage.locator('.wp-block.wp-block-elasticprobe-facet-date').last();
 
 			// Verify that there are 4 options
 			await expect(block.locator('.ep-facet-date-form .ep-facet-date-option')).toHaveCount(4);
@@ -912,7 +912,7 @@ test.describe('Facets Feature', { tag: '@group2' }, () => {
 			await loggedInPage.goto('/');
 
 			// Verify the blocks have the expected output on the front-end
-			const blockFrontend = loggedInPage.locator('.wp-block-elasticpress-facet-date').first();
+			const blockFrontend = loggedInPage.locator('.wp-block-elasticprobe-facet-date').first();
 
 			await expect(
 				blockFrontend.locator('.ep-facet-date-form .ep-facet-date-option'),
