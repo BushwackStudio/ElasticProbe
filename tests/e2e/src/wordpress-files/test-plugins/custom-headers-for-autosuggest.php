@@ -13,7 +13,7 @@ add_action(
 	'wp_enqueue_scripts',
 	function () {
 		wp_add_inline_script(
-			'eprobe-autosuggest',
+			'elasticprobe-autosuggest',
 			"const epAutosuggestFetchOptions = (fetchOptions) => {
 				fetchOptions.headers['X-ElasticProbe-Request-ID'] = 'CustomRequestId123';
 				return fetchOptions;

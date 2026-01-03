@@ -610,10 +610,9 @@ class Autosuggest extends Feature {
 				continue;
 			}
 
-			$sanitized_name = sanitize_text_field( $name );
 			$cookies[]      = new \WP_Http_Cookie(
 				[
-					'name'  => $sanitized_name,
+					'name'  => $name,
 					'value' => $value,
 				]
 			);
