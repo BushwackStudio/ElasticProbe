@@ -26,6 +26,7 @@ class TestAcfRepeater extends BaseTestCase {
 	 * Setup each test.
 	 */
 	public function set_up() {
+		$this->markTestSkipped( 'Requires ACF plugin' );
 		$this->feature = Features::factory()->get_registered_feature( 'acf_repeater' );
 		\ElasticProbeTest\FunctionsCallCounter::get_instance()->reset_all_counters();
 

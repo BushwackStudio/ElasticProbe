@@ -1060,8 +1060,6 @@ class TestCommands extends BaseTestCase {
 	 * Test epio-set-autosuggest command.
 	 */
 	public function testEPioSetAutosuggest() {
-		$this->markTestSkipped( 'Requires autosuggest' );
-
 		ElasticProbe\Features::factory()->activate_feature( 'autosuggest' );
 
 		$this->command->epio_set_autosuggest( [], [] );
@@ -1074,8 +1072,6 @@ class TestCommands extends BaseTestCase {
 	 * Test epio-set-autosuggest command throws an error if autosuggest is not enabled.
 	 */
 	public function testEPioSetAutosuggestThrowsError() {
-		$this->markTestSkipped( 'Requires autosuggest' );
-
 		$this->expectExceptionMessage( 'Autosuggest is not enabled.' );
 
 		$this->command->epio_set_autosuggest( [], [] );

@@ -450,8 +450,6 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 	 * @since 4.5.1
 	 */
 	public function testElasticPressIoReport() {
-		$this->markTestSkipped( 'Needs autosuggest and instant result' );
-
 		\ElasticProbe\Features::factory()->activate_feature( 'autosuggest' );
 		\ElasticProbe\Features::factory()->activate_feature( 'instant-results' );
 

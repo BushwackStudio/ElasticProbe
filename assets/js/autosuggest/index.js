@@ -743,6 +743,7 @@ function init() {
 				currentSuggestion = '';
 			}
 		} catch (err) {
+			// eslint-disable-next-line no-console
 			console.error('Error fetching suggestions:', err);
 		}
 	};
