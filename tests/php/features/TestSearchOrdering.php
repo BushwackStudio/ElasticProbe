@@ -576,11 +576,11 @@ class TestSearchOrdering extends BaseTestCase {
 	}
 
 	/**
-	 * Test API endpoints are accessible for users with `manage_elasticpress` capability.
+	 * Test API endpoints are accessible for users with `manage_elasticprobe` capability.
 	 *
 	 * @since 4.4.0
 	 */
-	public function testUserWithManageElasticPressCapabilityCanAccessAPI() {
+	public function testUserWithManageElasticProbeCapabilityCanAccessAPI() {
 		global $wp_rest_server;
 
 		$wp_rest_server = new \WP_REST_Server();
@@ -606,14 +606,14 @@ class TestSearchOrdering extends BaseTestCase {
 	}
 
 	/**
-	 * Test API endpoints are not accessible for users without `manage_elasticpress` capability.
+	 * Test API endpoints are not accessible for users without `manage_elasticprobe` capability.
 	 *
 	 * @since 4.4.0
 	 */
-	public function testUserWithOutManageElasticPressCapabilityCanNotAccessAPI() {
+	public function testUserWithOutManageElasticProbeCapabilityCanNotAccessAPI() {
 		global $wp_rest_server;
 
-		// Set current user without `manage_elasticpress` capability.
+		// Set current user without `manage_elasticprobe` capability.
 		wp_set_current_user( $this->factory()->user->create( array( 'role' => 'editor' ) ) );
 
 		$wp_rest_server = new \WP_REST_Server();

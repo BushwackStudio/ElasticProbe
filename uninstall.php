@@ -110,7 +110,7 @@ class EPROBE_Uninstaller {
 		// Uninstall ElasticProbe.
 		$this->clean_options_and_transients();
 		$this->clean_site_meta();
-		$this->remove_elasticpress_capability();
+		$this->remove_elasticprobe_capability();
 	}
 
 	/**
@@ -224,7 +224,7 @@ class EPROBE_Uninstaller {
 	 *
 	 * @since 4.5.0
 	 */
-	protected function remove_elasticpress_capability() {
+	protected function remove_elasticprobe_capability() {
 		$role = get_role( 'administrator' );
 		$role->remove_cap( Utils\get_capability() );
 	}

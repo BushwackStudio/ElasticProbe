@@ -224,7 +224,7 @@ function register_indexable_posts() {
 
 	get_container()->set( '\ElasticProbe\AdminBar', new \ElasticProbe\AdminBar(), true );
 	get_container()->set( '\ElasticProbe\BlockTemplateUtils', new \ElasticProbe\BlockTemplateUtils(), true );
-	get_container()->set( '\ElasticProbe\ElasticPressIo', new \ElasticProbe\ElasticPressIo() );
+	get_container()->set( '\ElasticProbe\ElasticProbeCom', new \ElasticProbe\ElasticProbeCom() );
 	get_container()->set( '\ElasticProbe\ElementorUtils', new \ElasticProbe\ElementorUtils(), true );
 }
 add_action( 'plugins_loaded', __NAMESPACE__ . '\register_indexable_posts' );

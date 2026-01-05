@@ -90,7 +90,7 @@ class QueryIntegration {
 		 * @param  {WP_Query} $query WP Query to evaluate
 		 * @return  {bool} New skip value
 		 */
-		if ( ( isset( $query->elasticsearch_success ) && false === $query->elasticsearch_success ) || ( ! Indexables::factory()->get( 'post' )->elasticpress_enabled( $query ) || apply_filters( 'eprobe_skip_query_integration', false, $query ) ) ) {
+		if ( ( isset( $query->elasticsearch_success ) && false === $query->elasticsearch_success ) || ( ! Indexables::factory()->get( 'post' )->elasticprobe_enabled( $query ) || apply_filters( 'eprobe_skip_query_integration', false, $query ) ) ) {
 			return $found_posts;
 		}
 
@@ -112,7 +112,7 @@ class QueryIntegration {
 		 * @param  {WP_Query} $query WP Query to evaluate
 		 * @return  {bool} New skip value
 		 */
-		if ( ! Indexables::factory()->get( 'post' )->elasticpress_enabled( $query ) || apply_filters( 'eprobe_skip_query_integration', false, $query ) ) {
+		if ( ! Indexables::factory()->get( 'post' )->elasticprobe_enabled( $query ) || apply_filters( 'eprobe_skip_query_integration', false, $query ) ) {
 			return;
 		}
 
@@ -231,7 +231,7 @@ class QueryIntegration {
 		 * @param  {WP_Query} $query WP Query to evaluate
 		 * @return  {bool} New skip value
 		 */
-		if ( ! Indexables::factory()->get( 'post' )->elasticpress_enabled( $query ) || apply_filters( 'eprobe_skip_query_integration', false, $query ) ) {
+		if ( ! Indexables::factory()->get( 'post' )->elasticprobe_enabled( $query ) || apply_filters( 'eprobe_skip_query_integration', false, $query ) ) {
 			return $posts;
 		}
 

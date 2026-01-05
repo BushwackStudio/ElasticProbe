@@ -6291,19 +6291,19 @@ class TestPost extends BaseTestCase {
 	}
 
 	/**
-	 * Check if elasticpress_enabled() properly handles an object without the is_search() method.
+	 * Check if elasticprobe_enabled() properly handles an object without the is_search() method.
 	 *
 	 * @group post
 	 * @link https://github.com/10up/ElasticPress/issues/285
 	 */
 	public function testQueryWithoutIsSearch() {
 		$query = new \stdClass();
-		$check = ElasticProbe\Indexables::factory()->get( 'post' )->elasticpress_enabled( $query );
+		$check = ElasticProbe\Indexables::factory()->get( 'post' )->elasticprobe_enabled( $query );
 		$this->assertFalse( $check );
 	}
 
 	/**
-	 * Check if elasticpress_enabled() properly handles an object with the is_search() method.
+	 * Check if elasticprobe_enabled() properly handles an object with the is_search() method.
 	 *
 	 * @group post
 	 * @link https://github.com/10up/ElasticPress/issues/285
@@ -6316,7 +6316,7 @@ class TestPost extends BaseTestCase {
 
 		$this->assertTrue( $query->elasticsearch_success );
 
-		$check = ElasticProbe\Indexables::factory()->get( 'post' )->elasticpress_enabled( $query );
+		$check = ElasticProbe\Indexables::factory()->get( 'post' )->elasticprobe_enabled( $query );
 		$this->assertTrue( $check );
 	}
 

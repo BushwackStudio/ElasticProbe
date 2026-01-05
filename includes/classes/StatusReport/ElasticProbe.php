@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package ElasticProbe
  */
-class ElasticPress extends Report {
+class ElasticProbe extends Report {
 
 	/**
 	 * Return the report title

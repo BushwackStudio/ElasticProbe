@@ -100,7 +100,7 @@ class Comments extends Feature {
 			return;
 		}
 
-		add_filter( 'eprobe_elasticpress_enabled', [ $this, 'integrate_search_queries' ], 10, 2 );
+		add_filter( 'eprobe_elasticprobe_enabled', [ $this, 'integrate_search_queries' ], 10, 2 );
 	}
 
 	/**

@@ -271,13 +271,13 @@ class TestUtils extends BaseTestCase {
 	 * @since 4.5.0
 	 */
 	public function testGetCapability() {
-		$this->assertSame( 'manage_elasticpress', Utils\get_capability() );
+		$this->assertSame( 'manage_elasticprobe', Utils\get_capability() );
 
 		/**
 		 * Test the `eprobe_capability` filter.
 		 */
 		$change_cap_name = function ( $cap, $context ) {
-			$this->assertSame( 'manage_elasticpress', $cap );
+			$this->assertSame( 'manage_elasticprobe', $cap );
 			$this->assertSame( 'context', $context );
 			return 'custom_manage_ep';
 		};
@@ -292,13 +292,13 @@ class TestUtils extends BaseTestCase {
 	 * @since 4.5.0
 	 */
 	public function testGetNetworkCapability() {
-		$this->assertSame( 'manage_network_elasticpress', Utils\get_network_capability() );
+		$this->assertSame( 'manage_network_elasticprobe', Utils\get_network_capability() );
 
 		/**
 		 * Test the `eprobe_network_capability` filter.
 		 */
 		$change_cap_name = function ( $cap, $context ) {
-			$this->assertSame( 'manage_network_elasticpress', $cap );
+			$this->assertSame( 'manage_network_elasticprobe', $cap );
 			$this->assertSame( 'context', $context );
 			return 'custom_manage_network_ep';
 		};
@@ -314,13 +314,13 @@ class TestUtils extends BaseTestCase {
 	 */
 	public function testGetPostMapCapabilities() {
 		$expected = [
-			'edit_post'          => 'manage_elasticpress',
-			'edit_posts'         => 'manage_elasticpress',
-			'edit_others_posts'  => 'manage_elasticpress',
-			'publish_posts'      => 'manage_elasticpress',
-			'read_post'          => 'manage_elasticpress',
-			'read_private_posts' => 'manage_elasticpress',
-			'delete_post'        => 'manage_elasticpress',
+			'edit_post'          => 'manage_elasticprobe',
+			'edit_posts'         => 'manage_elasticprobe',
+			'edit_others_posts'  => 'manage_elasticprobe',
+			'publish_posts'      => 'manage_elasticprobe',
+			'read_post'          => 'manage_elasticprobe',
+			'read_private_posts' => 'manage_elasticprobe',
+			'delete_post'        => 'manage_elasticprobe',
 		];
 
 		$this->assertSame( $expected, Utils\get_post_map_capabilities() );
@@ -333,7 +333,7 @@ class TestUtils extends BaseTestCase {
 	 */
 	public function test_get_post_map_capabilities_with_context() {
 		$change_cap_name = function ( $cap, $context ) {
-			$this->assertSame( 'manage_elasticpress', $cap );
+			$this->assertSame( 'manage_elasticprobe', $cap );
 			$this->assertSame( 'context', $context );
 			return 'custom_manage_ep';
 		};

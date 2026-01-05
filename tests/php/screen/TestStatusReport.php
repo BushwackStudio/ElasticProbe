@@ -449,11 +449,11 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 	 * @group statusReport
 	 * @since 4.5.1
 	 */
-	public function testElasticPressIoReport() {
+	public function testElasticProbeComReport() {
 		\ElasticProbe\Features::factory()->activate_feature( 'autosuggest' );
 		\ElasticProbe\Features::factory()->activate_feature( 'instant-results' );
 
-		$report = new \ElasticProbe\StatusReport\ElasticPressIo();
+		$report = new \ElasticProbe\StatusReport\ElasticProbeCom();
 		$groups = $report->get_groups();
 
 		$this->assertEquals( 3, count( $groups ) );
@@ -469,8 +469,8 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 	 * @group statusReport
 	 * @since 4.5.1
 	 */
-	public function testElasticPressReport() {
-		$report = new \ElasticProbe\StatusReport\ElasticPress();
+	public function testElasticProbeReport() {
+		$report = new \ElasticProbe\StatusReport\ElasticProbe();
 		$groups = $report->get_groups();
 
 		$expected_result = array(

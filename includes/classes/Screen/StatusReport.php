@@ -136,12 +136,12 @@ class StatusReport {
 		}
 
 		if ( Utils\is_epio() ) {
-			$reports['autosuggest'] = new \ElasticProbe\StatusReport\ElasticPressIo();
+			$reports['autosuggest'] = new \ElasticProbe\StatusReport\ElasticProbeCom();
 		}
 
 		$reports['wordpress']    = new \ElasticProbe\StatusReport\WordPress();
 		$reports['indexable']    = new \ElasticProbe\StatusReport\IndexableContent();
-		$reports['elasticpress'] = new \ElasticProbe\StatusReport\ElasticPress();
+		$reports['elasticpress'] = new \ElasticProbe\StatusReport\ElasticProbe();
 		$reports['indices']      = new \ElasticProbe\StatusReport\Indices();
 		$reports['last-sync']    = new \ElasticProbe\StatusReport\LastSync();
 		$reports['features']     = new \ElasticProbe\StatusReport\Features();
@@ -267,7 +267,7 @@ class StatusReport {
 	public function admin_menu_count() {
 		global $menu, $submenu;
 
-		$messages = \ElasticProbe\get_container()->get( '\ElasticProbe\ElasticPressIo' )->get_endpoint_messages();
+		$messages = \ElasticProbe\get_container()->get( '\ElasticProbe\ElasticProbeCom' )->get_endpoint_messages();
 
 		if ( empty( $messages ) ) {
 			return;

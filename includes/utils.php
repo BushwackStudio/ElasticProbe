@@ -68,7 +68,7 @@ function get_capability( string $context = '' ): string {
 	 *     'eprobe_capability',
 	 *     function ( $cacapability, $context ) {
 	 *         return ( 'synonyms' === $context ) ?
-	 *            'manage_elasticpress_synonyms' :
+	 *            'manage_elasticprobe_synonyms' :
 	 *            $cacapability;
 	 *     },
 	 *     10,
@@ -78,11 +78,11 @@ function get_capability( string $context = '' ): string {
 	 *
 	 * @since 4.5.0, 5.1.0 added $context
 	 * @hook eprobe_capability
-	 * @param  {string} $capability Capability name. Defaults to `'manage_elasticpress'`
+	 * @param  {string} $capability Capability name. Defaults to `'manage_elasticprobe'`
 	 * @param  {string} $context    Additional context
 	 * @return {string} New capability value
 	 */
-	return apply_filters( 'eprobe_capability', 'manage_elasticpress', $context );
+	return apply_filters( 'eprobe_capability', 'manage_elasticprobe', $context );
 }
 
 /**
@@ -98,11 +98,11 @@ function get_network_capability( string $context = '' ): string {
 	 *
 	 * @since 4.5.0, 5.1.0 added $context
 	 * @hook eprobe_network_capability
-	 * @param  {string} $capability Capability name. Defaults to `'manage_network_elasticpress'`
+	 * @param  {string} $capability Capability name. Defaults to `'manage_network_elasticprobe'`
 	 * @param  {string} $context    Additional context
 	 * @return {string} New capability value
 	 */
-	return apply_filters( 'eprobe_network_capability', 'manage_network_elasticpress', $context );
+	return apply_filters( 'eprobe_network_capability', 'manage_network_elasticprobe', $context );
 }
 
 /**

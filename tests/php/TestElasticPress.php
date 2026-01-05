@@ -9,13 +9,13 @@
 namespace ElasticProbeTest;
 
 /**
- * TestElasticPress test class
+ * TestElasticProbe test class
  */
-class TestElasticPress extends BaseTestCase {
+class TestElasticProbe extends BaseTestCase {
 	/**
 	 * Test the `get_container` function
 	 *
-	 * @group elasticpress
+	 * @group elasticprobe
 	 */
 	public function test_get_container() {
 		$container = \ElasticProbe\get_container();

@@ -1301,7 +1301,7 @@ class Elasticsearch {
 		$request  = false;
 		$failures = 0;
 
-		add_filter( 'http_headers_useragent', [ $this, 'add_elasticpress_version_to_user_agent' ] );
+		add_filter( 'http_headers_useragent', [ $this, 'add_elasticprobe_version_to_user_agent' ] );
 
 		// Optionally let us try back up hosts and account for failures.
 		while ( true ) {
@@ -1381,7 +1381,7 @@ class Elasticsearch {
 			}
 		}
 
-		remove_filter( 'http_headers_useragent', [ $this, 'add_elasticpress_version_to_user_agent' ] );
+		remove_filter( 'http_headers_useragent', [ $this, 'add_elasticprobe_version_to_user_agent' ] );
 
 		// Return now if we're not blocking, since we won't have a response yet.
 		if ( isset( $args['blocking'] ) && false === $args['blocking'] ) {
@@ -1738,7 +1738,7 @@ class Elasticsearch {
 	 * @param string $user_agent Original User Agent.
 	 * @return string
 	 */
-	public function add_elasticpress_version_to_user_agent( $user_agent ) {
+	public function add_elasticprobe_version_to_user_agent( $user_agent ) {
 		/**
 		 * Filter the User Agent header when submitting requests to Elasticsearch.
 		 *

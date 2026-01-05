@@ -11,7 +11,7 @@ namespace ElasticProbeTest;
 use ElasticProbe\Container;
 
 /**
- * TestElasticPress test class
+ * TestElasticProbe test class
  */
 class TestContainer extends BaseTestCase {
 	/**

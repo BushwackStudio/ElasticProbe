@@ -115,7 +115,7 @@ class Search extends Feature {
 	 * @since  3.0
 	 */
 	public function search_setup() {
-		add_filter( 'eprobe_elasticpress_enabled', [ $this, 'integrate_search_queries' ], 10, 2 );
+		add_filter( 'eprobe_elasticprobe_enabled', [ $this, 'integrate_search_queries' ], 10, 2 );
 		add_filter( 'eprobe_formatted_args', [ $this, 'weight_recent' ], 11, 2 );
 		add_filter( 'eprobe_query_post_type', [ $this, 'filter_query_post_type_for_search' ], 10, 2 );
 

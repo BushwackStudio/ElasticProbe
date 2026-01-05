@@ -13,11 +13,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * ElasticPressIo class
+ * ElasticProbeCom class
  *
  * @package elasticprobe
  */
-class ElasticPressIo {
+class ElasticProbeCom {
 	/**
 	 * Name of the transient that stores ElasticProbe.com messages
 	 */
@@ -31,7 +31,7 @@ class ElasticPressIo {
 	public static function factory() {
 		_doing_it_wrong(
 			__METHOD__,
-			esc_html__( 'ElasticPressIo::factory() is deprecated. Use \ElasticProbe\get_container()->get( \ElasticProbe\ElasticPressIo::class ) instead.', 'elasticprobe' ),
+			esc_html__( 'ElasticProbeCom::factory() is deprecated. Use \ElasticProbe\get_container()->get( \ElasticProbe\ElasticProbeCom::class ) instead.', 'elasticprobe' ),
 			'ElasticProbe 1.5.0'
 		);
 

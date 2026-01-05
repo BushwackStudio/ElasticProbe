@@ -84,7 +84,7 @@ class QueryIntegration {
 		 * @param  {WP_Comment_Query} $query WP_Comment_Query to evaluate
 		 * @return {bool} New skip value
 		 */
-		if ( ! Indexables::factory()->get( 'comment' )->elasticpress_enabled( $query ) || apply_filters( 'eprobe_skip_comment_query_integration', false, $query ) ) {
+		if ( ! Indexables::factory()->get( 'comment' )->elasticprobe_enabled( $query ) || apply_filters( 'eprobe_skip_comment_query_integration', false, $query ) ) {
 			return;
 		}
 
@@ -108,7 +108,7 @@ class QueryIntegration {
 	public function maybe_filter_query( $results, WP_Comment_Query $query ) {
 		$this->indexable = Indexables::factory()->get( 'comment' );
 
-		if ( ! $this->indexable->elasticpress_enabled( $query ) || apply_filters( 'eprobe_skip_comment_query_integration', false, $query ) ) {
+		if ( ! $this->indexable->elasticprobe_enabled( $query ) || apply_filters( 'eprobe_skip_comment_query_integration', false, $query ) ) {
 			return $results;
 		}
 

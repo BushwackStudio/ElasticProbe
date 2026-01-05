@@ -695,7 +695,7 @@ abstract class Indexable {
 	 * @return bool
 	 * @since 3.0
 	 */
-	public function elasticpress_enabled( $query ) {
+	public function elasticprobe_enabled( $query ) {
 		$enabled = false;
 
 		if ( ! empty( $query->query_vars['ep_integrate'] ) ) {
@@ -705,12 +705,12 @@ abstract class Indexable {
 		/**
 		 * Determine if ElasticProbe should integrate with a query
 		 *
-		 * @hook eprobe_elasticpress_enabled
+		 * @hook eprobe_elasticprobe_enabled
 		 * @param  {bool} $enabled Whether to integrate with Elasticsearch or not
 		 * @param {WP_Query} $query WP_Query to evaluate
 		 * @return {bool}  Enabled value
 		 */
-		$enabled = apply_filters( 'eprobe_elasticpress_enabled', $enabled, $query );
+		$enabled = apply_filters( 'eprobe_elasticprobe_enabled', $enabled, $query );
 
 		if ( isset( $query->query_vars['ep_integrate'] ) && ! filter_var( $query->query_vars['ep_integrate'], FILTER_VALIDATE_BOOLEAN ) ) {
 			$enabled = false;

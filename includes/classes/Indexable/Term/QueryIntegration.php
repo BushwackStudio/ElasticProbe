@@ -65,7 +65,7 @@ class QueryIntegration {
 	 * @return void
 	 */
 	public function action_pre_get_terms( WP_Term_Query $query ) {
-		if ( ! Indexables::factory()->get( 'term' )->elasticpress_enabled( $query ) || apply_filters( 'eprobe_skip_term_query_integration', false, $query ) ) {
+		if ( ! Indexables::factory()->get( 'term' )->elasticprobe_enabled( $query ) || apply_filters( 'eprobe_skip_term_query_integration', false, $query ) ) {
 			return;
 		}
 
@@ -89,7 +89,7 @@ class QueryIntegration {
 	public function maybe_filter_query( $results, WP_Term_Query $query ) {
 		$indexable = Indexables::factory()->get( 'term' );
 
-		if ( ! $indexable->elasticpress_enabled( $query ) || apply_filters( 'eprobe_skip_term_query_integration', false, $query ) ) {
+		if ( ! $indexable->elasticprobe_enabled( $query ) || apply_filters( 'eprobe_skip_term_query_integration', false, $query ) ) {
 			return $results;
 		}
 

@@ -15,11 +15,11 @@ use ElasticProbe\Utils;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * ElasticPressIo report class
+ * ElasticProbeCom report class
  *
  * @package ElasticProbe
  */
-class ElasticPressIo extends Report {
+class ElasticProbeCom extends Report {
 
 	/**
 	 * Return the report title
@@ -236,7 +236,7 @@ class ElasticPressIo extends Report {
 	 * @since 4.5.0
 	 */
 	public function get_messages(): array {
-		$messages = \ElasticProbe\get_container()->get( '\ElasticProbe\ElasticPressIo' )->get_endpoint_messages( true );
+		$messages = \ElasticProbe\get_container()->get( '\ElasticProbe\ElasticProbeCom' )->get_endpoint_messages( true );
 		$messages = array_values( $messages );
 
 		return $messages;

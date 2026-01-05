@@ -71,7 +71,7 @@ class TestInstantResults extends BaseTestCase {
 		add_filter( 'eprobe_host', $host_url );
 
 		$status = \ElasticProbe\Features::factory()->get_registered_feature( 'instant-results' )->requirements_status();
-		// Check if status is one for the elasticpress.io
+		// Check if status is one for the elasticprobe.com
 		$this->assertSame( 1, $status->code );
 
 		remove_filter( 'eprobe_host', $host_url );

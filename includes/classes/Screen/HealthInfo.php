@@ -61,7 +61,7 @@ class HealthInfo {
 			return $debug_info;
 		}
 
-		$epio_report = new \ElasticProbe\StatusReport\ElasticPressIo();
+		$epio_report = new \ElasticProbe\StatusReport\ElasticProbeCom();
 		$groups      = $epio_report->get_groups();
 		$first_group = reset( $groups );
 

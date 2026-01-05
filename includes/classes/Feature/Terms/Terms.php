@@ -71,7 +71,7 @@ class Terms extends Feature {
 	 * @since 3.1
 	 */
 	public function search_setup() {
-		add_filter( 'eprobe_elasticpress_enabled', [ $this, 'integrate_search_queries' ], 10, 2 );
+		add_filter( 'eprobe_elasticprobe_enabled', [ $this, 'integrate_search_queries' ], 10, 2 );
 		add_filter( 'eprobe_term_fuzziness_arg', [ $this, 'set_admin_terms_search_fuzziness' ] );
 	}
 
