@@ -602,7 +602,7 @@ export async function createUser(
  * @param number Number of items per index cycle
  */
 export async function setPerIndexCycle(number = 350) {
-	await wpCli(`option set ep_bulk_setting ${number}`);
+	await wpCli(`option set eprobe_bulk_setting ${number}`);
 }
 
 /**

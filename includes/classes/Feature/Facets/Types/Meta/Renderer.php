@@ -116,7 +116,7 @@ class Renderer extends \ElasticProbe\Feature\Facets\Renderer {
 		 * );
 		 * ```
 		 *
-		 * @hook ep_facet_meta_values_with_count
+		 * @hook eprobe_facet_meta_values_with_count
 		 * @since 4.3.0
 		 * @param {array}  $values     Values with names and counts
 		 * @param {string} $meta_field Meta field
