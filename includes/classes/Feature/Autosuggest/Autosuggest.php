@@ -610,7 +610,7 @@ class Autosuggest extends Feature {
 				continue;
 			}
 
-			$cookies[]      = new \WP_Http_Cookie(
+			$cookies[] = new \WP_Http_Cookie(
 				[
 					'name'  => $name,
 					'value' => $value,

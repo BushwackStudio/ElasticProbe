@@ -9433,7 +9433,7 @@ class TestPost extends BaseTestCase {
 		$this->assertEquals( $thumbnail_id, get_post_meta( $post_id, '_thumbnail_id', true ) );
 
 		add_filter(
-			'ep_post_mapping',
+			'eprobe_post_mapping',
 			function ( $mapping ) {
 				unset( $mapping['mappings']['properties']['thumbnail']['properties']['srcset'] );
 				return $mapping;
@@ -9441,7 +9441,7 @@ class TestPost extends BaseTestCase {
 		);
 
 		add_filter(
-			'ep_post_mapping',
+			'eprobe_post_mapping',
 			function ( $mapping ) {
 				$this->assertArrayNotHasKey( 'srcset', $mapping['mappings']['properties']['thumbnail']['properties'] );
 				return $mapping;
