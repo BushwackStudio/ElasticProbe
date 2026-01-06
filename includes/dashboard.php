@@ -339,7 +339,7 @@ function maybe_notice( $force = false ) {
 		<?php
 	}
 
-	wp_enqueue_script( 'ep_notice_script' );
+	wp_enqueue_script( 'eprobe_notice_script' );
 
 	return $notices;
 }

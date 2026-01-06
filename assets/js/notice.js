@@ -39,7 +39,7 @@ const init = () => {
 		 */
 		const formData = new FormData();
 
-		formData.append('action', 'ep_notice_dismiss');
+		formData.append('action', 'eprobe_notice_dismiss');
 		formData.append('notice', event.currentTarget.dataset.epNotice);
 		formData.append('nonce', epAdmin.nonce);
 

@@ -1598,7 +1598,7 @@ class Elasticsearch {
 				apply_filters( 'eprobe_es_info_cache_expiration', ( 5 * MINUTE_IN_SECONDS ) )
 			);
 		} else {
-			set_transient(
+			$result = set_transient(
 				'eprobe_es_info',
 				array(
 					'version'     => $this->elasticsearch_version,

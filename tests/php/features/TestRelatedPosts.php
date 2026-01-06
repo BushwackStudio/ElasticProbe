@@ -54,7 +54,7 @@ class TestRelatedPosts extends BaseTestCase {
 	 * @since  2.1
 	 */
 	public function action_ep_related_html_attached() {
-		$this->fired_actions['ep_related_html_attached'] = true;
+		$this->fired_actions['eprobe_related_html_attached'] = true;
 	}
 
 	/**
