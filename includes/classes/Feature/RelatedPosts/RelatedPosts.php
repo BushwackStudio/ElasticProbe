@@ -233,7 +233,7 @@ class RelatedPosts extends Feature {
 			return '';
 		}
 
-		$class = 'wp-block-elasticpress-related-posts';
+		$class = 'wp-block-elasticprobe-related-posts';
 
 		if ( ! empty( $attributes['align'] ) ) {
 			$class .= ' align' . $attributes['align'];
