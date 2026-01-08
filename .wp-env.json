@@ -14,7 +14,7 @@
         "https://downloads.wordpress.org/plugin/classic-widgets.zip",
         "https://downloads.wordpress.org/plugin/debug-bar.zip",
         "https://downloads.wordpress.org/plugin/wordpress-importer.zip",
-        "10up/elasticpress-proxy#develop"
+        "BushwackStudio/elasticprobe-proxy#develop"
       ],
       "mappings": {
         ".htaccess": "./tests/e2e/src/wordpress-files/.htaccess",

@@ -143,7 +143,7 @@ class InstantResults extends Feature {
 			$status->code      = 1;
 			$status->message[] = esc_html__( 'You are using a custom proxy. Make sure you implement all security measures needed.', 'elasticprobe' );
 		} else {
-			$status->message[] = wp_kses_post( __( "To use this feature you need to be an <a href='https://elasticprobe.com'>ElasticProbe.com</a> customer or implement a <a href='https://github.com/10up/elasticpress-proxy'>custom proxy</a>.", 'elasticprobe' ) );
+			$status->message[] = wp_kses_post( __( "To use this feature you need to be an <a href='https://elasticprobe.com'>ElasticProbe.com</a> customer or implement a <a href='https://github.com/BushwackStudio/elasticprobe-proxy'>custom proxy</a>.", 'elasticprobe' ) );
 		}
 
 		/**

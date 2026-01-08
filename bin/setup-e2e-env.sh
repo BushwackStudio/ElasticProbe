@@ -132,7 +132,7 @@ fi
 
 ./bin/wp-env-cli tests-wordpress "wp --allow-root import /var/www/html/wp-content/uploads/content-example.xml --authors=create"
 
-./bin/wp-env-cli tests-wordpress "wp --allow-root plugin deactivate woocommerce elasticpress-proxy"
+./bin/wp-env-cli tests-wordpress "wp --allow-root plugin deactivate woocommerce elasticprobe-proxy"
 
 ./bin/wp-env-cli tests-wordpress "wp --allow-root plugin activate debug-bar debug-bar-elasticprobe wordpress-importer --network"
 

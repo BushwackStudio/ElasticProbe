@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-01-05T09:23:36+00:00\n"
+"POT-Creation-Date: 2026-01-08T05:43:18+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: elasticprobe\n"
@@ -17,7 +17,7 @@ msgstr ""
 #. Plugin Name of the plugin
 #: elasticprobe.php
 #: includes/classes/HealthCheck/HealthCheckElasticsearch.php:44
-#: includes/classes/StatusReport/ElasticPress.php:28
+#: includes/classes/StatusReport/ElasticProbe.php:28
 msgid "ElasticProbe"
 msgstr ""
 
@@ -1037,7 +1037,7 @@ msgid "You are using a custom proxy. Make sure you implement all security measur
 msgstr ""
 
 #: includes/classes/Feature/InstantResults/InstantResults.php:146
-msgid "To use this feature you need to be an <a href='https://elasticprobe.com'>ElasticProbe.com</a> customer or implement a <a href='https://github.com/10up/elasticpress-proxy'>custom proxy</a>."
+msgid "To use this feature you need to be an <a href='https://elasticprobe.com'>ElasticProbe.com</a> customer or implement a <a href='https://github.com/BushwackStudio/elasticprobe-proxy'>custom proxy</a>."
 msgstr ""
 
 #. translators: Article URL
@@ -2047,38 +2047,38 @@ msgstr ""
 msgid "To see this report, please generate a full report first by clicking the \"Generate Full Status Report\" button."
 msgstr ""
 
-#: includes/classes/StatusReport/ElasticPress.php:54
+#: includes/classes/StatusReport/ElasticProbe.php:54
 #: includes/partials/settings-page.php:65
 #: assets/js/settings.js:74
 #: dist/js/settings-script.js:1
 msgid "ElasticProbe.com Host URL"
 msgstr ""
 
-#: includes/classes/StatusReport/ElasticPress.php:54
+#: includes/classes/StatusReport/ElasticProbe.php:54
 #: includes/partials/settings-page.php:67
 #: assets/js/settings.js:75
 #: dist/js/settings-script.js:1
 msgid "Elasticsearch Host URL"
 msgstr ""
 
-#: includes/classes/StatusReport/ElasticPress.php:59
+#: includes/classes/StatusReport/ElasticProbe.php:59
 msgid "Index Prefix"
 msgstr ""
 
-#: includes/classes/StatusReport/ElasticPress.php:64
+#: includes/classes/StatusReport/ElasticProbe.php:64
 #: includes/partials/settings-page.php:183
 msgid "Elasticsearch Language"
 msgstr ""
 
-#: includes/classes/StatusReport/ElasticPress.php:69
+#: includes/classes/StatusReport/ElasticProbe.php:69
 msgid "Content Items per Index Cycle"
 msgstr ""
 
-#: includes/classes/StatusReport/ElasticPress.php:74
+#: includes/classes/StatusReport/ElasticProbe.php:74
 msgid "Network Active"
 msgstr ""
 
-#: includes/classes/StatusReport/ElasticPress.php:79
+#: includes/classes/StatusReport/ElasticProbe.php:79
 #: includes/dashboard.php:651
 #: includes/partials/settings-page.php:35
 #: assets/js/blocks/facets/common/edit.js:87
@@ -2096,17 +2096,17 @@ msgid "Settings"
 msgstr ""
 
 #. translators: default time
-#: includes/classes/StatusReport/ElasticPress.php:94
-#: includes/classes/StatusReport/ElasticPress.php:114
+#: includes/classes/StatusReport/ElasticProbe.php:94
+#: includes/classes/StatusReport/ElasticProbe.php:114
 msgid "Default Requests Timeout (default: %s)"
 msgstr ""
 
 #. translators: default time
-#: includes/classes/StatusReport/ElasticPress.php:104
+#: includes/classes/StatusReport/ElasticProbe.php:104
 msgid "Index Document Request Timeout (default: %s)"
 msgstr ""
 
-#: includes/classes/StatusReport/ElasticPress.php:121
+#: includes/classes/StatusReport/ElasticProbe.php:121
 msgid "Timeouts"
 msgstr ""
 
@@ -2338,16 +2338,6 @@ msgstr ""
 
 #: includes/classes/StatusReport/WordPress.php:140
 msgid "Server Environment"
-msgstr ""
-
-#. translators: 1: <a> tag (Support article); 2. </a>; 3: <a> tag (link to Features screen); 4. </a>;
-#: includes/classes/Upgrades.php:322
-msgid "%1$sInstant Results%2$s is now available in ElasticProbe, but requires a re-sync before activation. If you would like to use Instant Results, click %3$shere%4$s to activate the feature and start your sync."
-msgstr ""
-
-#. translators: 1: <a> tag (Support article about Instant Results); 2. </a>; 3: <a> tag (Support article about self hosted Elasticsearch setups); 4. </a>;
-#: includes/classes/Upgrades.php:333
-msgid "%1$sInstant Results%2$s is now available in ElasticProbe, but requires a re-sync before activation. If you would like to use Instant Results, since you are not using ElasticProbe.com, you will also need to %3$sinstall and configure a PHP proxy%4$s."
 msgstr ""
 
 #: includes/compat.php:100

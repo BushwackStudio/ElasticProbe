@@ -134,7 +134,7 @@ test.describe('Instant Results Feature', { tag: '@group1' }, () => {
 		}
 
 		// Make sure the proxy is deactivated.
-		await deactivatePlugin(loggedInPage, 'elasticpress-proxy', 'wpCli');
+		await deactivatePlugin(loggedInPage, 'elasticprobe-proxy', 'wpCli');
 
 		await goToAdminPage(loggedInPage, 'admin.php?page=elasticprobe');
 
@@ -151,7 +151,7 @@ test.describe('Instant Results Feature', { tag: '@group1' }, () => {
 			await wpCli('plugin activate woocommerce', true);
 
 			if (!isEpIo()) {
-				await wpCli('plugin activate elasticpress-proxy', true);
+				await wpCli('plugin activate elasticprobe-proxy', true);
 			}
 		});
 
