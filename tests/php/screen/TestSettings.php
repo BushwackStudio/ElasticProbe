@@ -75,7 +75,7 @@ class TestSettings extends BaseTestCase {
 		$this->assertSame( 'site-default', Utils\get_language() );
 		$this->assertSame( 350, Utils\get_option( 'eprobe_bulk_setting', 350 ) );
 
-		$_POST['ep_settings_nonce'] = wp_create_nonce( 'elasticpress_settings' );
+		$_POST['ep_settings_nonce'] = wp_create_nonce( 'elasticprobe_settings' );
 		$settings->action_admin_init();
 
 		// Should have the new values
@@ -96,7 +96,7 @@ class TestSettings extends BaseTestCase {
 		$prev_host = Utils\get_option( 'eprobe_host' );
 
 		$_POST = [
-			'ep_settings_nonce' => wp_create_nonce( 'elasticpress_settings' ),
+			'ep_settings_nonce' => wp_create_nonce( 'elasticprobe_settings' ),
 			'eprobe_language'   => 'site-default',
 			'ep_host'           => 'http://wrong.test/',
 		];

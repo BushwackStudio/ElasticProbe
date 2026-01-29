@@ -877,7 +877,7 @@ function init() {
 		/**
 		 * Dispatch an event announcing the input has moved.
 		 */
-		const event = new CustomEvent('elasticpress.input.moved');
+		const event = new CustomEvent('elasticprobe.input.moved');
 
 		input.dispatchEvent(event);
 

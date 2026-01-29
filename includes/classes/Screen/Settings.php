@@ -87,7 +87,7 @@ class Settings {
 	public function action_admin_init() {
 		$post = wp_unslash( $_POST );
 
-		if ( empty( $post['ep_settings_nonce'] ) || ! wp_verify_nonce( $post['ep_settings_nonce'], 'elasticpress_settings' ) ) {
+		if ( empty( $post['ep_settings_nonce'] ) || ! wp_verify_nonce( $post['ep_settings_nonce'], 'elasticprobe_settings' ) ) {
 			return;
 		}
 

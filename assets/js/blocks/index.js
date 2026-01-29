@@ -12,9 +12,9 @@ import options from './store';
  * Register data store.
  */
 if (typeof createReduxStore === 'function') {
-	const store = createReduxStore('elasticpress', options);
+	const store = createReduxStore('elasticprobe', options);
 
 	register(store);
 } else {
-	registerStore('elasticpress', options);
+	registerStore('elasticprobe', options);
 }

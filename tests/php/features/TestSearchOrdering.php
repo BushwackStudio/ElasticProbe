@@ -128,7 +128,7 @@ class TestSearchOrdering extends BaseTestCase {
 
 		if ( ! $this->is_network_activate() ) {
 			set_current_screen( 'ep-pointer' );
-			$this->assertSame( 'elasticpress', $this->get_feature()->parent_file( 'test_parent_file' ) );
+			$this->assertSame( 'elasticprobe', $this->get_feature()->parent_file( 'test_parent_file' ) );
 		}
 	}
 

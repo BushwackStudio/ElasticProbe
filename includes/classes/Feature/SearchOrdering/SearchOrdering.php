@@ -238,7 +238,7 @@ class SearchOrdering extends Feature {
 		// Set correct active/current menu and submenu in the WordPress Admin menu for the "pointer" CPT Add-New/Edit/List
 		// TODO: Check
 		if ( self::POST_TYPE_NAME === $current_screen->post_type ) {
-			$parent_file = 'elasticpress';
+			$parent_file = 'elasticprobe';
 		}
 
 		return $parent_file;

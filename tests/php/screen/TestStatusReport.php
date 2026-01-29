@@ -28,12 +28,12 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 		$reports = $status_report->get_reports();
 		if ( Utils\is_epio() ) {
 			$this->assertSame(
-				[ 'failed-queries', 'autosuggest', 'wordpress', 'indexable', 'elasticpress', 'indices', 'last-sync', 'features' ],
+				[ 'failed-queries', 'autosuggest', 'wordpress', 'indexable', 'elasticprobe', 'indices', 'last-sync', 'features' ],
 				array_keys( $reports )
 			);
 		} else {
 			$this->assertSame(
-				[ 'failed-queries', 'wordpress', 'indexable', 'elasticpress', 'indices', 'last-sync', 'features' ],
+				[ 'failed-queries', 'wordpress', 'indexable', 'elasticprobe', 'indices', 'last-sync', 'features' ],
 				array_keys( $reports )
 			);
 		}
@@ -56,12 +56,12 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 		$reports = $status_report->get_reports();
 		if ( Utils\is_epio() ) {
 			$this->assertSame(
-				[ 'failed-queries', 'autosuggest', 'wordpress', 'indexable', 'elasticpress', 'indices', 'last-sync', 'features', 'custom' ],
+				[ 'failed-queries', 'autosuggest', 'wordpress', 'indexable', 'elasticprobe', 'indices', 'last-sync', 'features', 'custom' ],
 				array_keys( $reports )
 			);
 		} else {
 			$this->assertSame(
-				[ 'failed-queries', 'wordpress', 'indexable', 'elasticpress', 'indices', 'last-sync', 'features', 'custom' ],
+				[ 'failed-queries', 'wordpress', 'indexable', 'elasticprobe', 'indices', 'last-sync', 'features', 'custom' ],
 				array_keys( $reports )
 			);
 		}
@@ -80,12 +80,12 @@ class TestStatusReport extends WP_Ajax_UnitTestCase {
 		$reports = $status_report->get_reports();
 		if ( Utils\is_epio() ) {
 			$this->assertSame(
-				[ 'failed-queries', 'autosuggest', 'elasticpress', 'indices', 'last-sync', 'features' ],
+				[ 'failed-queries', 'autosuggest', 'elasticprobe', 'indices', 'last-sync', 'features' ],
 				array_keys( $reports )
 			);
 		} else {
 			$this->assertSame(
-				[ 'failed-queries', 'elasticpress', 'indices', 'last-sync', 'features' ],
+				[ 'failed-queries', 'elasticprobe', 'indices', 'last-sync', 'features' ],
 				array_keys( $reports )
 			);
 		}

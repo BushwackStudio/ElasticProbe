@@ -35,7 +35,7 @@ $bulk_setting = Utils\get_option( 'eprobe_bulk_setting', 350 );
 	<h1><?php esc_html_e( 'Settings', 'elasticprobe' ); ?></h1>
 
 	<form action="" method="post" class="ep-settings">
-		<?php wp_nonce_field( 'elasticpress_settings', 'ep_settings_nonce' ); ?>
+		<?php wp_nonce_field( 'elasticprobe_settings', 'ep_settings_nonce' ); ?>
 
 		<div class="ep-credentials">
 			<?php if ( ! $wpconfig ) : ?>

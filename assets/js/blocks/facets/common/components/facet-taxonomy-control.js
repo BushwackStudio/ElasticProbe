@@ -18,7 +18,7 @@ export default ({ onChange, value }) => {
 	/**
 	 * Filterable meta keys from ElasticProbe data store.
 	 */
-	const taxonomies = useSelect((select) => select('elasticpress').getTaxonomies());
+	const taxonomies = useSelect((select) => select('elasticprobe').getTaxonomies());
 
 	/**
 	 * Key options.

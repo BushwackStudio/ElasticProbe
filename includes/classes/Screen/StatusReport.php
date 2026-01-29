@@ -141,7 +141,7 @@ class StatusReport {
 
 		$reports['wordpress']    = new \ElasticProbe\StatusReport\WordPress();
 		$reports['indexable']    = new \ElasticProbe\StatusReport\IndexableContent();
-		$reports['elasticpress'] = new \ElasticProbe\StatusReport\ElasticProbe();
+		$reports['elasticprobe'] = new \ElasticProbe\StatusReport\ElasticProbe();
 		$reports['indices']      = new \ElasticProbe\StatusReport\Indices();
 		$reports['last-sync']    = new \ElasticProbe\StatusReport\LastSync();
 		$reports['features']     = new \ElasticProbe\StatusReport\Features();

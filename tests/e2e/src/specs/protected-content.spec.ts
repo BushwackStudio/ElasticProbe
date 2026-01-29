@@ -58,7 +58,7 @@ test.describe('Protected Content Feature', { tag: '@group1' }, () => {
 		await deleteOldDraftsAndSync();
 
 		await publishPost(loggedInPage, {
-			title: 'Test ElasticPress Draft',
+			title: 'Test ElasticProbe Draft',
 			status: 'draft',
 		});
 

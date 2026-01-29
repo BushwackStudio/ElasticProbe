@@ -46,7 +46,7 @@ export default ({ attributes, name, setAttributes }) => {
 		isLoading = false,
 	} = useSelect(
 		(select) => {
-			const range = select('elasticpress').getMetaRange(facet) || { isLoading: true };
+			const range = select('elasticprobe').getMetaRange(facet) || { isLoading: true };
 
 			return range;
 		},

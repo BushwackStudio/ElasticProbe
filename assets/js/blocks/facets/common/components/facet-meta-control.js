@@ -18,7 +18,7 @@ export default ({ onChange, value }) => {
 	/**
 	 * Filterable meta keys from ElasticProbe data store.
 	 */
-	const metaKeys = useSelect((select) => select('elasticpress').getMetaKeys());
+	const metaKeys = useSelect((select) => select('elasticprobe').getMetaKeys());
 
 	/**
 	 * Key options.

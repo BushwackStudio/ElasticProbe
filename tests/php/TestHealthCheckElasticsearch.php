@@ -26,7 +26,7 @@ class TestHealthCheckElasticsearch extends WP_Ajax_UnitTestCase {
 	public function testIsRegistered() {
 		$tests = WP_Site_Health::get_tests();
 
-		$this->assertArrayHasKey( 'elasticpress-health-check-elasticsearch', $tests['async'] );
+		$this->assertArrayHasKey( 'elasticprobe-health-check-elasticsearch', $tests['async'] );
 	}
 
 	/**
@@ -38,7 +38,7 @@ class TestHealthCheckElasticsearch extends WP_Ajax_UnitTestCase {
 
 		// Make the request.
 		try {
-			$this->_handleAjax( 'health-check-elasticpress-health-check-elasticsearch' );
+			$this->_handleAjax( 'health-check-elasticprobe-health-check-elasticsearch' );
 		} catch ( WPAjaxDieContinueException $e ) {
 			unset( $e );
 		}
@@ -63,7 +63,7 @@ class TestHealthCheckElasticsearch extends WP_Ajax_UnitTestCase {
 
 		// Make the request.
 		try {
-			$this->_handleAjax( 'health-check-elasticpress-health-check-elasticsearch' );
+			$this->_handleAjax( 'health-check-elasticprobe-health-check-elasticsearch' );
 		} catch ( WPAjaxDieContinueException $e ) {
 			unset( $e );
 		}
@@ -89,7 +89,7 @@ class TestHealthCheckElasticsearch extends WP_Ajax_UnitTestCase {
 
 		// Make the request.
 		try {
-			$this->_handleAjax( 'health-check-elasticpress-health-check-elasticsearch' );
+			$this->_handleAjax( 'health-check-elasticprobe-health-check-elasticsearch' );
 		} catch ( WPAjaxDieContinueException $e ) {
 			unset( $e );
 		}
@@ -123,7 +123,7 @@ class TestHealthCheckElasticsearch extends WP_Ajax_UnitTestCase {
 
 		// Make the request.
 		try {
-			$this->_handleAjax( 'health-check-elasticpress-health-check-elasticsearch' );
+			$this->_handleAjax( 'health-check-elasticprobe-health-check-elasticsearch' );
 		} catch ( WPAjaxDieContinueException $e ) {
 			unset( $e );
 		}

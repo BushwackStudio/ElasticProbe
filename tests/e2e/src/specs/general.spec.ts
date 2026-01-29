@@ -44,7 +44,7 @@ test.describe('WordPress can perform standard ElasticProbe actions', { tag: '@gr
 	test('Can sync post data and meta details in Elasticsearch if user creates/updates a published post', async ({
 		loggedInPage,
 	}) => {
-		const postTitle = 'Test ElasticPress 1';
+		const postTitle = 'Test ElasticProbe 1';
 
 		await publishPost(loggedInPage, {
 			title: postTitle,
@@ -56,7 +56,7 @@ test.describe('WordPress can perform standard ElasticProbe actions', { tag: '@gr
 			'Content in sync',
 		);
 
-		await loggedInPage.goto('/?s=Test+ElasticPress+1');
+		await loggedInPage.goto('/?s=Test+ElasticProbe+1');
 		await expect(
 			loggedInPage.locator('.site-content article h2').filter({ hasText: postTitle }).first(),
 		).toBeVisible();

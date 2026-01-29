@@ -27,7 +27,7 @@ class HealthCheckElasticsearch extends HealthCheck {
 	 * Create Elasticsearch health check.
 	 */
 	public function __construct() {
-		$this->test_name = 'elasticpress-health-check-elasticsearch';
+		$this->test_name = 'elasticprobe-health-check-elasticsearch';
 		$this->async     = true;
 	}
 
@@ -51,7 +51,7 @@ class HealthCheckElasticsearch extends HealthCheck {
 
 		$host = Utils\get_host();
 
-		$elasticpress_settings_url = defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ? admin_url( 'network/admin.php?page=elasticprobe-settings' ) : admin_url( 'admin.php?page=elasticprobe-settings' );
+		$elasticprobe_settings_url = defined( 'EPROBE_IS_NETWORK' ) && EPROBE_IS_NETWORK ? admin_url( 'network/admin.php?page=elasticprobe-settings' ) : admin_url( 'admin.php?page=elasticprobe-settings' );
 
 		if ( empty( $host ) ) {
 			$result['label']          = esc_html__( 'Your site could not connect to Elasticsearch', 'elasticprobe' );
@@ -60,7 +60,7 @@ class HealthCheckElasticsearch extends HealthCheck {
 			$result['description']    = esc_html__( 'The Elasticsearch host is not set.', 'elasticprobe' );
 			$result['actions']        = sprintf(
 				'<p><a href="%s">%s</a></p>',
-				esc_url( $elasticpress_settings_url ),
+				esc_url( $elasticprobe_settings_url ),
 				esc_html__( 'Add a host', 'elasticprobe' )
 			);
 		} elseif ( ! Elasticsearch::factory()->get_elasticsearch_version( true ) ) {
@@ -69,7 +69,7 @@ class HealthCheckElasticsearch extends HealthCheck {
 			$result['badge']['color'] = 'red';
 			$result['actions']        = sprintf(
 				'<p><a href="%s">%s</a></p>',
-				esc_url( $elasticpress_settings_url ),
+				esc_url( $elasticprobe_settings_url ),
 				esc_html__( 'Update your settings', 'elasticprobe' )
 			);
 

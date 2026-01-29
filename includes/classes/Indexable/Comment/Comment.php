@@ -850,7 +850,7 @@ class Comment extends Indexable {
 
 			// It's important to pass a custom cache domain. By default, WordPress caches results based on the default query arguments and doesn't account for custom arguments. @see \WP_Comment_Query::get_comments()
 			$cache_key            = md5( get_current_blog_id() . wp_json_encode( $args ) );
-			$args['cache_domain'] = 'elasticpress-comment-indexable-' . $cache_key;
+			$args['cache_domain'] = 'elasticprobe-comment-indexable-' . $cache_key;
 
 			add_filter( 'comments_clauses', array( $this, 'bulk_indexing_filter_comments_where' ), 9999, 2 );
 
@@ -940,7 +940,7 @@ class Comment extends Indexable {
 
 		$cache_key = md5( get_current_blog_id() . wp_json_encode( $normalized_query_args ) );
 
-		$normalized_query_args['cache_domain'] = 'elasticpress-comment-indexable-' . $cache_key;
+		$normalized_query_args['cache_domain'] = 'elasticprobe-comment-indexable-' . $cache_key;
 
 		return ( new WP_Comment_Query( $normalized_query_args ) )->found_comments;
 	}
